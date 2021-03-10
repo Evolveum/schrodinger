@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010-2021 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>schrodinger</artifactId>
+        <groupId>com.evolveum.midpoint</groupId>
+        <version>4.3-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>schrodinger-tests</artifactId>
+
+    <name>midPoint Schrodinger tests</name>
+
+    <properties>
+        <!--
+        TODO: consider ${maven.multiModuleProjectDirectory}
+        How do we run this anyway? From midpoint root with -pl? From this directory? Or GUI?
+        -->
+        <project.starter.module>../../gui/admin-gui</project.starter.module>
+        <project.app.package.name>com.evolveum.midpoint.web.boot.MidPointSpringApplication</project.app.package.name>
+        <server.port>8080</server.port>
+        <midpoint.host>0.0.0.0</midpoint.host>
+        <midpoint.home></midpoint.home>
+        <schrodinger.properties></schrodinger.properties>
+        <javax.net.ssl.trustStore></javax.net.ssl.trustStore>
+        <javax.net.ssl.trustStoreType></javax.net.ssl.trustStoreType>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint</groupId>
+            <artifactId>schrodinger-framework</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint.infra</groupId>
+            <artifactId>schema</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.jasperreports</groupId>
+                    <artifactId>jasperreports</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint.tools</groupId>
+            <artifactId>test-ng</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint.gui</groupId>
+            <artifactId>admin-gui</artifactId>
+            <version>${project.version}</version>
+            <classifier>classes</classifier>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-exec</artifactId>
+                </exclusion>
+                <!--                <exclusion>-->
+                <!--                    <groupId>org.hibernate</groupId>-->
+                <!--                    <artifactId>hibernate-core</artifactId>-->
+                <!--                </exclusion>-->
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint.repo</groupId>
+            <artifactId>task-api</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint.client</groupId>
+            <artifactId>midpoint-client-api</artifactId>
+            <version>4.3-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.midpoint.client</groupId>
+            <artifactId>midpoint-client-impl-prism</artifactId>
+            <version>4.3-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.evolveum.midpoint.repo</groupId>-->
+        <!--            <artifactId>repo-sql-impl</artifactId>-->
+        <!--            <version>${project.version}</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>junit</groupId>-->
+        <!--            <artifactId>junit</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.google.guava</groupId>-->
+        <!--            <artifactId>guava</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- Doesn't have any unit tests, only integration. -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <!--                            <ignoredDependencies>-->
+                            <!--                                <ignoredDependency>org.hibernate:hibernate-core</ignoredDependency>-->
+                            <!--                            </ignoredDependencies>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.version}</version>
+                    <executions>
+                        <execution>
+                            <id>default-test</id> <!-- unit tests -->
+                            <phase>test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <parallel>false</parallel>
+                        <forkCount>1</forkCount>
+                        <reuseForks>true</reuseForks>
+                        <redirectTestOutputToFile>${redirectTestOutputToFile}</redirectTestOutputToFile>
+                        <trimStackTrace>false</trimStackTrace>
+                        <!-- See https://issues.apache.org/jira/browse/SUREFIRE-1588 -->
+                        <useSystemClassLoader>false</useSystemClassLoader>
+                        <systemPropertyVariables>
+                            <javax.net.ssl.trustStore>src/test/resources/truststore.jks</javax.net.ssl.trustStore>
+                            <midpoint.home>target/midpoint-home</midpoint.home>
+                            <java.util.logging.config.file>${project.build.directory}/test-classes/logging.properties
+                            </java.util.logging.config.file>
+                        </systemPropertyVariables>
+                        <argLine>${surefire.args}</argLine>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>testng-unit.xml</suiteXmlFile>
+                        </suiteXmlFiles>
+                        <properties>
+                            <property>
+                                <name>suitename</name>
+                                <value>Unit</value>
+                            </property>
+                            <property>
+                                <name>listener</name>
+                                <value>
+                                    com.evolveum.midpoint.tools.testng.TestListener,com.evolveum.midpoint.tools.testng.RetryListener
+                                </value>
+                            </property>
+                        </properties>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-testng</artifactId>
+                            <version>${surefire.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+    </build>
+</project>

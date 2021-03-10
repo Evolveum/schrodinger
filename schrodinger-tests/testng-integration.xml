@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2015-2020 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="integration" parallel="false" verbose="1">
+    <test name="Schrodinger.scenarios.UserPhotoTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="UserPhotoTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.OrganizationStructureTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="OrganizationStructureTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.UserAccountTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="UserAccountTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.OrgMembersTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="OrgMembersTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.PolyStringTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="PolyStringTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.PostAuthenticationTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="PostAuthenticationTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.SynchronizationTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="SynchronizationTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.ObjectListArchetypeTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="ObjectListArchetypeTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.CaseTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="CaseTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.UserTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="UserTest"/>
+            <class name="PreviewPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.UsersTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="UsersTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.QueryPlaygroundPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="QueryPlaygroundPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.InternalsConfigurationPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="InternalsConfigurationPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.LoginPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="LoginPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.LoginPageWithAuthenticationConfigTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="LoginPageWithAuthenticationConfigTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.AboutPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="AboutPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.BulkActionsTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="BulkActionsTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.ImportTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="ImportTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.HomePageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="HomePageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.TaskPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="TaskPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.component.FilterConfigPanelTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="FilterConfigPanelTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.component.SearchPanelTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="SearchPanelTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.component.AssignmentPanelTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="AssignmentPanelTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.page.CredentialsPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="CredentialsPageTest"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.ReportTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="ReportTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.scenarios.ObjectTemplateTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="ObjectTemplateTests"/>
+        </classes>
+    </test>
+    <test name="Schrodinger.mid-101.labs" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="M3ResourcesAttributesAndMappingsTest"/>
+            <class name="M4ProvisioningToResources"/>
+            <class name="M5AccountsAssignmentsAndRoles"/>
+            <class name="M6ConfiguringMultipleAccountTypes"/>
+            <class name="M7SynchronizationFlavours"/>
+            <class name="M8ExtendingMidPointXMLSchema"/>
+            <class name="M9OrganizationalStructure"/>
+            <class name="M10ObjectTemplate"/>
+            <class name="M11SystemConfiguration"/>
+        </classes>
+    </test>
+</suite>

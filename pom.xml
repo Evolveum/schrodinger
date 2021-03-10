@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010-2021 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.4.3</version>
+        <!-- This parent also declares dependencies listed here:
+        https://docs.spring.io/spring-boot/docs/2.4.3/reference/html/appendix-dependency-versions.html
+        Or for current version of Spring Boot:
+        https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-dependency-versions.html
+        -->
+    </parent>
+
+    <groupId>com.evolveum.midpoint</groupId>
+    <artifactId>schrodinger</artifactId>
+    <packaging>pom</packaging>
+    <version>4.3-SNAPSHOT</version>
+
+    <name>midPoint Schrodinger</name>
+
+    <modules>
+        <module>schrodinger-framework</module>
+        <module>schrodinger-tests</module>
+    </modules>
+
+    <properties>
+        <selenium.version>3.141.59</selenium.version>
+        <testng.version>7.3.0</testng.version>
+        <project.source.version>11</project.source.version>
+        <commons.io.version>2.6</commons.io.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <surefire.version>3.0.0-M3</surefire.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.codeborne</groupId>
+                <artifactId>selenide</artifactId>
+                <version>5.3.1</version>
+                <exclusions>
+                    <!-- Excluding to exclude commons-logging lower -->
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+                <exclusions>
+                    <!-- replaced by org.slf4j:jcl-over-slf4j -->
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.evolveum.midpoint.tools</groupId>
+                <artifactId>test-ng</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.evolveum.midpoint.repo</groupId>
+                <artifactId>repo-sql-impl-test</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.commons</groupId>-->
+<!--                <artifactId>commons-lang3</artifactId>-->
+<!--                <version>${commons-lang3.version}</version>-->
+<!--            </dependency>-->
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${project.source.version}</source>
+                    <target>${project.source.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
