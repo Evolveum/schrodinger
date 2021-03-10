@@ -27,6 +27,22 @@
     <version>4.3-SNAPSHOT</version>
 
     <name>midPoint Schrodinger</name>
+    <organization>
+        <name>evolveum</name>
+        <url>https://www.evolveum.com</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License v2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>European Union Public License</name>
+            <url>https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <modules>
         <module>schrodinger-framework</module>
@@ -40,9 +56,106 @@
         <commons.io.version>2.6</commons.io.version>
         <slf4j.version>1.7.25</slf4j.version>
         <surefire.version>3.0.0-M3</surefire.version>
+        <spring.security.saml2.version>2.0.0.M30</spring.security.saml2.version>
+        <quartz.version>2.3.2.e1</quartz.version>
+        <hibernate.version>5.2.12.Final</hibernate.version>
+        <!--
+        Default Spring Boot 2.4.3 uses H2 1.4.200 but that one has NPE bug:
+        https://github.com/h2database/h2database/issues/1808
+        Sometimes occurs on heavy concurrent test, e.g. on TestDummyParallelism, but also during app run.
+        This bug was introduced in 1.4.198, which was major version that also changed queries in OrgClosureManager.
+        Between 1.4.197 and 198 changes of OrgClosureManager and around MVCC must be made (see commit history).
+        With 1.4.200 TestObjectLifecycleApprovalGlobal fails consistently.
+        197 is the last version that does not require code changes, but self-corrupts DB sometimes (MID-6510).
+        193 was used for 4 years with few problems, so it's still here to stay.
+        -->
+        <h2.version>1.4.193</h2.version>
+        <guava.version>30.1-jre</guava.version>
     </properties>
+
+    <scm>
+        <connection>https://github.com/Evolveum/schrodinger.git</connection>
+        <developerConnection>git@github.com:Evolveum/schrodinger.git</developerConnection>
+        <url>https://github.com/Evolveum/schrodinger.git</url>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>evolveum-nexus</id>
+            <name>Internal Releases</name>
+            <url>http://nexus.evolveum.com/nexus/content/repositories/releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>evolveum-nexus</id>
+            <name>Internal Releases</name>
+            <url>http://nexus.evolveum.com/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>evolveum</id>
+            <name>Evolveum Public Releases</name>
+            <url>https://nexus.evolveum.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>evolveum-snapshots</id>
+            <name>Evolveum Snapshots</name>
+            <url>https://nexus.evolveum.com/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>evolveum</id>
+            <name>Evolveum</name>
+            <url>http://nexus.evolveum.com/nexus/content/groups/public</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <issueManagement>
+        <system>Atlassian JIRA</system>
+        <url>https://jira.evolveum.com/browse/MID</url>
+    </issueManagement>
+
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring-framework.version}</version>
+                <exclusions>
+                    <!-- replaced with jcl-over-slf4j -->
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-jcl</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security.extensions</groupId>
+                <artifactId>spring-security-saml2-core</artifactId>
+                <version>${spring.security.saml2.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.bouncycastle</groupId>
+                        <artifactId>bcpkix-jdk15on</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.bouncycastle</groupId>
+                        <artifactId>bcprov-jdk15on</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <dependency>
                 <groupId>com.codeborne</groupId>
                 <artifactId>selenide</artifactId>
@@ -97,11 +210,25 @@
                 <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.apache.commons</groupId>-->
-<!--                <artifactId>commons-lang3</artifactId>-->
-<!--                <version>${commons-lang3.version}</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.mchange</groupId>
+                        <artifactId>c3p0</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.mchange</groupId>
+                        <artifactId>mchange-commons-java</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.zaxxer</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
