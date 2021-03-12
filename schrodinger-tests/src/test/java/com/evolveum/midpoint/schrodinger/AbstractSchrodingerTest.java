@@ -68,7 +68,6 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @ActiveProfiles("default")
 @SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = { "server.port=8180", "midpoint.schrodinger=true" })
@@ -145,11 +144,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 throw new com.evolveum.midpoint.client.api.exception.SchemaException(e);
             }
         }
-
         getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, true));
-
-
-
     }
 
 
@@ -166,7 +161,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         }
 
         FormLoginPage login = midPoint.formLogin();
-
         basicPage = login.loginIfUserIsNotLog(username, password);
     }
 
