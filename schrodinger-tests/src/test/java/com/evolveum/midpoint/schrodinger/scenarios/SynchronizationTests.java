@@ -62,7 +62,6 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
         refreshResourceSchema(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
         ListResourcesPage listResourcesPage = basicPage.listResources();
-        Selenide.sleep(2000);
         ((TaskPage)listResourcesPage
                 .table()
                     .clickByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
@@ -88,9 +87,8 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
     @Test (priority = 1, dependsOnMethods = {RESOURCE_AND_SYNC_TASK_SETUP_DEPENDENCY})
     public void newResourceAccountUserCreated() throws IOException {
-
-    FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -158,12 +156,10 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                             .feedback()
                             .isSuccess();
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
-        LOG.info("File length before data copying, {}", csvTargetFile.length());
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
-        LOG.info("File length after data copying, {}", csvTargetFile.length());
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
 
         ListUsersPage usersListPage = basicPage.listUsers();
         ProjectionsTab projectionsTab = usersListPage
@@ -185,7 +181,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     public void alreadyLinkedResourceAccountModified() throws IOException {
 
         FileUtils.copyFile(CSV_UPDATED_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -203,7 +199,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     public void alreadyLinkedResourceAccountDeleted() throws IOException {
 
         FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -273,7 +269,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -285,10 +281,9 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                     .and()
                     .assertCurrentTableDoesntContain(ScenariosCommons.TEST_USER_DON_NAME);
 
-    changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(), true);
+        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(), true);
 
         ListTasksPage  tasksPage = basicPage.listTasks();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         tasksPage
                 .table()
                 .search()
@@ -300,7 +295,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                 .clickResume()
                 .resumeStopRefreshing();
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         usersPage = basicPage.listUsers();
         usersPage
@@ -336,16 +331,14 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .clickSave()
                             .feedback()
                     .assertSuccess();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME , ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath()+"err",false);
-//        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME , ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(),true);
-//        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         ListTasksPage  tasksPage = basicPage.listTasks();
         tasksPage
@@ -359,7 +352,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                 .clickResume()
                 .resumeStopRefreshing();
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         listUsersPage = basicPage.listUsers();
         listUsersPage

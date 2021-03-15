@@ -136,13 +136,11 @@ public class M10ObjectTemplate extends AbstractLabTest {
         importObject(INTERNAL_EMPLOYEE_ROLE_FILE, true, true);
 
         importObject(HR_IMPORT_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         showTask("Initial import from HR")
                 .clickRunNow();
         Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         importObject(HR_SYNCHRONIZATION_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
 
         //user kirk should have projection with CSV-3 resource
         showUser("kirk")
@@ -245,7 +243,6 @@ public class M10ObjectTemplate extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod10test01SimpleObjectTemplate"})
     public void mod10test02AutomaticAssignments() throws IOException {
         importObject(OBJECT_TEMPLATE_USER_FILE, true);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()
@@ -499,7 +496,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .isSuccess();
 
         FileUtils.copyFile(HR_SOURCE_FILE_11_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
 
         String notification = readBodyOfLastNotification();
 

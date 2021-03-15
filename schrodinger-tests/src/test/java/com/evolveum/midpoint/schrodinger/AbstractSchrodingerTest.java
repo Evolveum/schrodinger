@@ -69,7 +69,7 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
  * Created by Viliam Repan (lazyman).
  */
 @ActiveProfiles("default")
-@SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+//@SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = { "server.port=8180", "midpoint.schrodinger=true" })
 @Listeners({ BrowserPerClass.class, SchrodingerTextReport.class })
 @Report

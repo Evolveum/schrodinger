@@ -32,7 +32,7 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     public AccountPage clickByName(String name) {
         SelenideElement link = getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name));
         link.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
 
         return new AccountPage();
     }

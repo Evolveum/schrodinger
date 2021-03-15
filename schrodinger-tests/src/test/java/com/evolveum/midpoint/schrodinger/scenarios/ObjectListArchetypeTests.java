@@ -97,7 +97,6 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
     @Test(priority = 4, dependsOnMethods ={"actualizeArchetypeConfiguration"})
     public void checkNewObjectButtonWithDropdown(){
-        Selenide.sleep(5000);
         basicPage.listUsers()
                 .table()
                 .assertNewObjectDropdownButtonsCountEquals(".fa.fa-plus", 2)
