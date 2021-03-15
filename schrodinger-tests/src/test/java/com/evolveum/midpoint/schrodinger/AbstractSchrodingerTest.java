@@ -17,6 +17,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.testng.BrowserPerClass;
 import com.codeborne.selenide.testng.annotations.Report;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -69,7 +70,7 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
  * Created by Viliam Repan (lazyman).
  */
 @ActiveProfiles("default")
-//@SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = { "server.port=8180", "midpoint.schrodinger=true" })
 @Listeners({ BrowserPerClass.class, SchrodingerTextReport.class })
 @Report
@@ -414,6 +415,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             addService = service.forms().add((FormType) object.asObjectable());
         }
         return (RestPrismObjectAddService) addService;
+    }
+
+
+    public void importResourceAndTestConnection(File resourceXml, String resourceName, String newFilePathValue) throws IOException {
+        Utils.changeResourceFilePathInXml(resourceXml, newFilePathValue);
+        addObjectFromFile(resourceXml);
+        basicPage
+                .listResources()
+                    .testConnectionClick(resourceName)
+                .feedback()
+                    .isSuccess();
     }
 
     public UserPage showUser(String userName){

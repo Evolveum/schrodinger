@@ -89,15 +89,12 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
     }
 
     @Test(groups={"M5"})
-    public void mod05test01UsingRBAC() {
+    public void mod05test01UsingRBAC() throws IOException {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
-        importObject(CSV_1_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
-        importObject(CSV_2_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
-        importObject(CSV_3_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         addObjectFromFile(INTERNAL_EMPLOYEE_ROLE_FILE);
         addObjectFromFile(INCOGNITO_ROLE_FILE);
@@ -176,15 +173,10 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
     }
 
     @Test(dependsOnMethods = {"mod05test04CreatingRoles"}, groups={"M5"})
-    public void mod05test05DisableOnUnassign() {
-        importObject(CSV_1_RESOURCE_FILE_5_5, true);
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
-
-        importObject(CSV_2_RESOURCE_FILE_5_5, true);
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
-
-        importObject(CSV_3_RESOURCE_FILE_5_5, true);
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
+    public void mod05test05DisableOnUnassign() throws IOException {
+        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_5_5, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_2_RESOURCE_FILE_5_5, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_5_5, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
 

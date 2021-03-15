@@ -103,18 +103,11 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
 
 //        showTask("HR Synchronization").clickSuspend();
 
-        importObject(HR_RESOURCE_FILE_8_1, true);
-        changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(HR_RESOURCE_FILE_8_1, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_8, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
-        importObject(CSV_1_RESOURCE_FILE_8, true);
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
-
-        importObject(CSV_2_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
-
-        importObject(CSV_3_RESOURCE_FILE_8, true);
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .search()

@@ -10,6 +10,8 @@ import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -18,6 +20,11 @@ import com.evolveum.midpoint.schrodinger.component.common.CheckFormGroupPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -110,5 +117,14 @@ public class Utils {
     public static SelenideElement getModalWindowSelenideElement() {
         return $(By.className("wicket-modal"))
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue) throws IOException {
+        String content = FileUtils.readFileToString(resourceXml, "UTF-8");
+        int startIndex = content.indexOf(":filePath>") + 10;
+        int endIndex = content.indexOf("</", startIndex);
+        content = content.substring(0, startIndex) + newFilePathValue + content.substring(endIndex);
+        FileUtils.writeStringToFile(resourceXml, content, "UTF-8");
+        return resourceXml;
     }
 }

@@ -18,7 +18,7 @@ import com.evolveum.midpoint.schrodinger.page.resource.SchemaStepSchemaTab;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
 
@@ -53,12 +53,9 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         csv1TargetFile = new File(getTestTargetDir(), CSV_1_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_1_SOURCE_FILE, csv1TargetFile);
 
-        importObject(CSV_1_SIMPLE_RESOURCE_FILE, true);
-
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         ListResourcesPage resourcesList = basicPage.listResources();
-
         PrismForm<ResourceConfigurationTab> configTab = resourcesList
                 .table()
                 .clickByName(CSV_1_RESOURCE_NAME)
@@ -85,21 +82,17 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         CSV_1_RESOURCE_ATTRIBUTES.forEach(attr ->
                 schemaStepSchemaTab.getAttributesTable().assertTableContainsText(attr));
 
-        importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
+        addObjectFromFile(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
         csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
 
-        importObject(CSV_2_RESOURCE_FILE, true);
-
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
 
-        importObject(CSV_3_RESOURCE_FILE, true);
-
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
     }
 
     @Test(dependsOnMethods = {"mod03test01ViewingResources"}, groups={"M3"})

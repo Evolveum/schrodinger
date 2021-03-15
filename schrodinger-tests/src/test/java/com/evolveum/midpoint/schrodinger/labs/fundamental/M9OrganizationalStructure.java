@@ -167,12 +167,11 @@ public class M9OrganizationalStructure extends AbstractLabTest {
     }
 
     @Test(dependsOnMethods = {"mod09test02CreateStaticOrgStructure"})
-    public void mod09test03OrganizationActingAsARole() {
+    public void mod09test03OrganizationActingAsARole() throws IOException {
         addObjectFromFile(SECRET_I_ROLE_FILE);
         addObjectFromFile(SECRET_II_ROLE_FILE);
 
-        importObject(CSV_1_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")

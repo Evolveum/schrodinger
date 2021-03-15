@@ -68,17 +68,12 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
     }
 
     @Test(groups={"M6"})
-    public void mod06test01UsingAccountIntentsForProvisioning() {
+    public void mod06test01UsingAccountIntentsForProvisioning() throws IOException {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
-        importObject(CSV_1_RESOURCE_FILE_6_1, true);
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
-
-        importObject(CSV_2_RESOURCE_FILE_6_1, true);
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
-
-        importObject(CSV_3_RESOURCE_FILE_6_1, true);
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_6_1, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_2_RESOURCE_FILE_6_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_6_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         addObjectFromFile(SECRET_I_ROLE_FILE);
         addObjectFromFile(SECRET_II_ROLE_FILE);

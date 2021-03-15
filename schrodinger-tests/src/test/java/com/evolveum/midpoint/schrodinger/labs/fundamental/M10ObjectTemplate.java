@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
 import org.testng.Assert;
@@ -112,8 +113,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_4, hrTargetFile);
 
-        importObject(HR_RESOURCE_FILE_10, true);
-        changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(HR_RESOURCE_FILE_10, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
@@ -124,14 +124,11 @@ public class M10ObjectTemplate extends AbstractLabTest {
         csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
 
-        importObject(CSV_1_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
-        importObject(CSV_2_RESOURCE_FILE, true);
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
-        importObject(CSV_3_RESOURCE_FILE_10, true);
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
+        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_10, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         importObject(INTERNAL_EMPLOYEE_ROLE_FILE, true, true);
 
