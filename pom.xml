@@ -229,6 +229,13 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- todo remove later, taken from mp project-->
+<!--            <dependency>-->
+<!--                &lt;!&ndash; Resolves dependency conflict in selenium &ndash;&gt;-->
+<!--                <groupId>com.squareup.okio</groupId>-->
+<!--                <artifactId>okio</artifactId>-->
+<!--                <version>1.14.1</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
     <build>

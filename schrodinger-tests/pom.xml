@@ -11,6 +11,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Notes
+        Running GUI tests from Schrodinger module only with custom location of ChromeDriver (Chrome must be installed too):
+    mvn clean install -P -dist -DskipTests -DskipSchrodingerTests=false -DwebdriverLocation=/c/work/tools/bin/chromedriver.exe
+    -->
     <parent>
         <artifactId>schrodinger</artifactId>
         <groupId>com.evolveum.midpoint</groupId>
