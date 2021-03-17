@@ -133,7 +133,10 @@ public class Utils {
         int startIndex = content.indexOf(":filePath>") + 10;
         int endIndex = content.indexOf("</", startIndex);
         content = content.substring(0, startIndex) + newFilePathValue + content.substring(endIndex);
-        FileUtils.writeStringToFile(resourceXml, content, "UTF-8");
-        return resourceXml;
+
+        String home = System.getProperty("midpoint.home");
+        File changedResource = new File(home + "temp.xml");
+        FileUtils.writeStringToFile(changedResource, content, "UTF-8");
+        return changedResource;
     }
 }
