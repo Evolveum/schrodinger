@@ -28,6 +28,7 @@ import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -39,7 +40,7 @@ import java.util.List;
 /**
  * @author skublik
  */
-
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
 
     protected static final String LAB_OBJECTS_DIRECTORY = LAB_FUNDAMENTAL_DIRECTORY + "M8/";
