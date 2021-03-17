@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourcesPageTable;
@@ -39,6 +40,7 @@ public class ListResourcesPage extends BasicPage {
     public ListResourcesPage testConnectionClick(String resourceName){
         table()
             .clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
 
     }

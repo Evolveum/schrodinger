@@ -291,7 +291,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Kathryn")
                         .addAttributeValue(UserType.F_FAMILY_NAME, "Janeway")
                         .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Enabled")
-                        .setPasswordFieldsValues(new QName(SchemaConstantsGenerated.NS_COMMON, "value"), "abc123")
+                        .addPasswordAttributeValue("abc123")
                         .and()
                     .and()
                 .clickSave()

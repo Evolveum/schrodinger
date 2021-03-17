@@ -260,7 +260,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jean-Luc")
                     .addAttributeValue(UserType.F_FAMILY_NAME, "Picard")
                     .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Enabled")
-                    .setPasswordFieldsValues(new QName(SchemaConstantsGenerated.NS_COMMON, "value"), "abc123")
+                    .addPasswordAttributeValue("abc123")
                     .and()
                 .and()
              .clickSave()

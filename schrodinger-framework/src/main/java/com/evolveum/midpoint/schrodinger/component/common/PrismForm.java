@@ -231,19 +231,6 @@ public class PrismForm<T> extends Component<T> {
         return this;
     }
 
-    public PrismForm<T> setPasswordFieldsValues(QName name, String value) {
-        SelenideElement property = findProperty(name);
-
-        ElementsCollection values = property.$$(By.className("prism-property-value"));
-        if (values.size() > 0) {
-            ElementsCollection passwordInputs = values.first().$$(By.tagName("input"));
-            if (passwordInputs != null){
-                passwordInputs.forEach(inputElement -> inputElement.setValue(value));
-            }
-        }
-        return this;
-    }
-
     public PrismForm<T> setPolyStringLocalizedValue(QName name, String locale, String value) {
         SelenideElement property = findProperty(name);
 

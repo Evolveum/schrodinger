@@ -60,7 +60,7 @@ public class M12Authorizations extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         showUser("X000005").selectTabBasic()
                 .form()
-                    .setPasswordFieldsValues(new QName(SchemaConstantsGenerated.NS_COMMON, "value"), "qwerty12345XXXX")
+                    .addPasswordAttributeValue("qwerty12345XXXX")
                     .and()
                 .and()
             .clickSave()
