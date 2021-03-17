@@ -38,15 +38,7 @@ public class ListResourcesPage extends BasicPage {
 
     public ListResourcesPage testConnectionClick(String resourceName){
         table()
-                .search()
-                .byName()
-                .inputValue(resourceName)
-                .updateSearch();
-
-        SelenideElement testConnectionIcon = $(Schrodinger
-                .byElementAttributeValue("i", "class","fa fa-question fa-fw")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        testConnectionIcon.click();
-
+            .clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
         return this;
 
     }
