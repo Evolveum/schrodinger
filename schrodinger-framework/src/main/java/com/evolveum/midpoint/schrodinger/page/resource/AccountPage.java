@@ -49,7 +49,7 @@ public class AccountPage extends BasicPage {
 
     public PrismForm<AccountPage> form() {
         SelenideElement element = $(Schrodinger.byElementAttributeValue("div", "class", "tab-content"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .waitUntil(Condition.appear, MidPoint.TIMEOUT_LONG_30_S);
         return new PrismForm<AccountPage>(this, element);
     }
 

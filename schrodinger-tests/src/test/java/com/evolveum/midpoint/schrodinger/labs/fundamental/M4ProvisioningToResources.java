@@ -118,9 +118,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                         .isSuccess();
 
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         PrismForm<AccountPage> accountForm = shadow.form();
-        Selenide.sleep(1000);
         accountForm.assertPropertyInputValue("fname", "Jim Tiberius");
 
         showUser("kirk")
@@ -236,14 +234,11 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                         .isSuccess();
 
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         PrismForm<AccountPage> accountForm = shadow.form();
-        Selenide.sleep(1000);
         accountForm.assertPropertyInputValue("phone", "123555-1010");
 
-        showShadow(CSV_3_RESOURCE_NAME, "Distinguished Name", "cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-
+        shadow = showShadow(CSV_3_RESOURCE_NAME, "Distinguished Name", "cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
+        accountForm = shadow.form();
         accountForm.assertPropertyInputValue("telephoneNumber", "123 / 555 - 1010");
         accountForm.assertPropertyInputValue("description", "This user is created by midPoint");
 
@@ -285,9 +280,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                         .isSuccess();
 
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jpicard");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         PrismForm<AccountPage> accountForm = shadow.form();
-        Selenide.sleep(1000);
         accountForm.assertPropertyInputValue("lname", "PICARD");
 
         showUser("kirk")
@@ -296,9 +289,8 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                     .feedback()
                         .isSuccess();
 
-        showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        accountForm.assertPropertyInputValue("lname", "KIRK");
+        shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
+        shadow.form().assertPropertyInputValue("lname", "KIRK");
 
     }
 

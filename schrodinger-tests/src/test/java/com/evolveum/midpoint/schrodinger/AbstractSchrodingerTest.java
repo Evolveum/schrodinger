@@ -498,7 +498,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         } else {
             tab.clickSearchInResource();
         }
-        Selenide.sleep(1000);
+//        Selenide.sleep(1000);
         if (intent != null && !intent.isEmpty()) {
             tab.setIntent(intent);
             Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
