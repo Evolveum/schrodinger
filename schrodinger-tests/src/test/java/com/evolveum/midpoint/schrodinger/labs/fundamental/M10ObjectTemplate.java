@@ -35,7 +35,6 @@ import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
 import org.testng.Assert;
@@ -122,7 +121,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_4, hrTargetFile);
 
-        importResourceAndTestConnection(HR_RESOURCE_FILE_10, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE_10, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
@@ -133,11 +132,11 @@ public class M10ObjectTemplate extends AbstractLabTest {
         csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
 
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
-        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
-        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_10, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_10, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         importObject(INTERNAL_EMPLOYEE_ROLE_FILE, true, true);
 

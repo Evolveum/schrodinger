@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
@@ -112,10 +111,10 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
 
 //        showTask("HR Synchronization").clickSuspend();
 
-        importResourceAndTestConnection(HR_RESOURCE_FILE_8_1, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_8, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE_8_1, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_8, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()

@@ -23,7 +23,6 @@ import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWit
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -80,9 +79,9 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
     public void mod06test01UsingAccountIntentsForProvisioning() throws IOException {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_6_1, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_2_RESOURCE_FILE_6_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_6_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_6_1, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_6_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_6_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         addObjectFromFile(SECRET_I_ROLE_FILE);
         addObjectFromFile(SECRET_II_ROLE_FILE);

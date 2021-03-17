@@ -23,7 +23,6 @@ import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
@@ -180,7 +179,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
         addObjectFromFile(SECRET_I_ROLE_FILE);
         addObjectFromFile(SECRET_II_ROLE_FILE);
 
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")

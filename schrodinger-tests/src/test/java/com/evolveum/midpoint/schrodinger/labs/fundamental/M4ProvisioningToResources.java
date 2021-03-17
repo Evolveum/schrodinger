@@ -27,7 +27,6 @@ import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
 
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
@@ -85,9 +84,9 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
 
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         showUser("kirk")
                 .selectTabProjections()
@@ -221,8 +220,8 @@ public class M4ProvisioningToResources extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod04test01BasicProvisioningToMultipleResources"}, groups={"M4"})
     public void mod04test02AddingMappings() throws IOException {
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_4_2, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_4_2, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_4_2, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_4_2, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         showUser("kirk")
                 .selectTabBasic()
@@ -252,7 +251,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod04test02AddingMappings"}, groups={"M4"})
     public void mod04test03ModifyingExistingMappings() throws IOException {
-        importResourceAndTestConnection(CSV_1_RESOURCE_FILE_4_3, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_4_3, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         UserPage user = basicPage.newUser();
         user.selectTabBasic()
@@ -326,7 +325,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         AccountPage shadow = showShadow(CSV_3_RESOURCE_NAME, "Distinguished Name", "cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
         shadow.form().assertPropertyInputValue("manager", "xxx");
 
-        importResourceAndTestConnection(CSV_3_RESOURCE_FILE_4_4, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_4_4, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
     }
 
     private void changeAdministrativeStatusViaProjectionTab(String userName, String accountName, String status, String resourceName) {
