@@ -31,6 +31,7 @@
     </parent>
 
     <artifactId>schrodinger-tests</artifactId>
+    <packaging>pom</packaging>
 
     <name>midPoint Schrodinger tests</name>
 
@@ -169,13 +170,6 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <!-- Doesn't have any unit tests, only integration. -->
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
@@ -210,7 +204,8 @@
                     <systemPropertyVariables>
                         <javax.net.ssl.trustStore>src/test/resources/truststore.jks</javax.net.ssl.trustStore>
                         <midpoint.home>target/midpoint-home</midpoint.home>
-                        <java.util.logging.config.file>${project.build.directory}/test-classes/logging.properties</java.util.logging.config.file>
+                        <java.util.logging.config.file>${project.build.directory}/test-classes/logging.properties
+                        </java.util.logging.config.file>
                     </systemPropertyVariables>
                     <argLine>-Xms1024m -Xmx4096m -Duser.language=en</argLine>
                     <suiteXmlFiles>
@@ -223,68 +218,67 @@
                         </property>
                         <property>
                             <name>listener</name>
-                            <value>com.evolveum.midpoint.tools.testng.TestListener,com.evolveum.midpoint.tools.testng.RetryListener</value>
+                            <value>
+                                com.evolveum.midpoint.tools.testng.TestListener,com.evolveum.midpoint.tools.testng.RetryListener
+                            </value>
                         </property>
                     </properties>
                 </configuration>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${surefire.version}</version>
-                    <executions>
-                        <execution>
-                            <id>default-test</id> <!-- unit tests -->
-                            <phase>test</phase>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <parallel>false</parallel>
-                        <forkCount>1</forkCount>
-                        <reuseForks>true</reuseForks>
-                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                        <trimStackTrace>false</trimStackTrace>
-                        <!-- See https://issues.apache.org/jira/browse/SUREFIRE-1588 -->
-                        <useSystemClassLoader>false</useSystemClassLoader>
-                        <systemPropertyVariables>
-                            <javax.net.ssl.trustStore>src/test/resources/truststore.jks</javax.net.ssl.trustStore>
-                            <midpoint.home>target/midpoint-home</midpoint.home>
-                            <java.util.logging.config.file>${project.build.directory}/test-classes/logging.properties
-                            </java.util.logging.config.file>
-                        </systemPropertyVariables>
-                        <argLine>-Xms1024m -Xmx4096m</argLine>
-                        <suiteXmlFiles>
-                            <suiteXmlFile>testng-integration.xml</suiteXmlFile>
-                        </suiteXmlFiles>
-                        <properties>
-                            <property>
-                                <name>suitename</name>
-                                <value>Unit</value>
-                            </property>
-                            <property>
-                                <name>listener</name>
-                                <value>
-                                    com.evolveum.midpoint.tools.testng.TestListener,com.evolveum.midpoint.tools.testng.RetryListener
-                                </value>
-                            </property>
-                        </properties>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <artifactId>surefire-testng</artifactId>
-                            <version>${surefire.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
     </build>
+
+    <profiles>
+        <profile>
+            <id>build-framework-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <systemPropertyVariables>
+                                <javax.net.ssl.trustStore>src/test/resources/truststore.jks</javax.net.ssl.trustStore>
+                                <midpoint.home>target/midpoint-home</midpoint.home>
+                                <java.util.logging.config.file>
+                                    ${project.build.directory}/test-classes/logging.properties
+                                </java.util.logging.config.file>
+                            </systemPropertyVariables>
+                            <argLine>-Xms1024m -Xmx4096m -Duser.language=en</argLine>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng-integration.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <properties>
+                                <property>
+                                    <name>suitename</name>
+                                    <value>Integration</value>
+                                </property>
+                                <property>
+                                    <name>listener</name>
+                                    <value>
+                                        com.evolveum.midpoint.tools.testng.TestListener,com.evolveum.midpoint.tools.testng.RetryListener
+                                    </value>
+                                </property>
+                            </properties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <modules>
+                <module>../schrodinger-framework</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
