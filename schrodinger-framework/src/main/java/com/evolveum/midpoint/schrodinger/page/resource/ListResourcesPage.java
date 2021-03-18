@@ -38,9 +38,13 @@ public class ListResourcesPage extends BasicPage {
     }
 
     public ListResourcesPage testConnectionClick(String resourceName){
-        table()
+        table().search()
+                    .byName()
+                    .inputValue(resourceName)
+                    .updateSearch()
+                .and()
             .clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.appears, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
         return this;
 
     }

@@ -21,8 +21,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Notes
-        Running GUI tests from Schrodinger module only with custom location of ChromeDriver (Chrome must be installed too):
-    mvn clean install -DskipTests -DskipSchrodingerTests=false -DwebdriverLocation=/c/work/tools/bin/chromedriver.exe
+        Running GUI tests from Schrodinger module
+    mvn clean install  -P build-framework-test
     -->
     <parent>
         <artifactId>schrodinger</artifactId>
