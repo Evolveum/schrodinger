@@ -32,7 +32,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
     private static final String COMPONENT_OBJECTS_DIRECTORY = "./src/test/resources/objects/";
     private static final String COMPONENT_OBJECT_TEMPLATE = COMPONENT_OBJECTS_DIRECTORY + "objecttemplate/";
-    private static final String COMPONENT_SYSTEM_CONFIGURATION = COMPONENT_OBJECTS_DIRECTORY + "systemconfig/";
+    private static final String COMPONENT_SYSTEM_CONFIGURATION = COMPONENT_OBJECTS_DIRECTORY + "systemconfiguration/";
     private static final String COMPONENT_ARCHETYPE = COMPONENT_OBJECTS_DIRECTORY + "archetypes/";
     private static final File FULL_NAME_OBJECT_TEMPLATE_FILE = new File(COMPONENT_OBJECT_TEMPLATE + "object-template-full-name.xml");
     private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-object-template.xml");

@@ -36,7 +36,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
     private static final File OBJ_REF_PROPERTY_CONFIG_TEST_USER = new File("./src/test/resources/objects/users/obj-ref-property-config-test-user.xml");
     private static final File DROPDOWN_PROPERTY_CONFIG_TEST_USER = new File("./src/test/resources/objects/users/dropdown-property-config-test-user.xml");
     private static final File NEW_OBJECT_COLLECTION_TEST_USER = new File("./src/test/resources/objects/users/new-object-collection-test-user.xml");
-    private static final File SYSTEM_CONFIG_WITH_OBJ_COLLECTIONS = new File("./src/test/resources/objects/systemconfig/system-configuration-user-obj-collection.xml");
+    private static final File SYSTEM_CONFIG_WITH_OBJ_COLLECTIONS = new File("./src/test/resources/objects/systemconfiguration/system-configuration-user-obj-collection.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
