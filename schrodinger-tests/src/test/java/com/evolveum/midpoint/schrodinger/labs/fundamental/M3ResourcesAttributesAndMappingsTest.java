@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.labs.fundamental;
 
 import com.codeborne.selenide.Selenide;
 
-import com.evolveum.midpoint.schema.SchemaConstantsGenerated;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationTab;
@@ -34,7 +33,6 @@ import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.IOException;
 
@@ -44,7 +42,7 @@ import java.io.IOException;
 
 public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
 
-    private static final String LAB_OBJECTS_DIRECTORY = LAB_FUNDAMENTAL_DIRECTORY + "M3/";
+    private static final String LAB_OBJECTS_DIRECTORY = FUNDAMENTAL_LABS_DIRECTORY + "M3/";
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-simple.xml");
     private static final File NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE = new File(LAB_OBJECTS_DIRECTORY + "valuepolicies/numeric-pin-first-nonzero-policy.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");

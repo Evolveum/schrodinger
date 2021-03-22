@@ -15,10 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.labs.fundamental;
 
-import com.codeborne.selenide.Selenide;
-
-import com.evolveum.midpoint.schema.SchemaConstantsGenerated;
-import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
@@ -38,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -51,7 +46,7 @@ import java.util.List;
 public class M4ProvisioningToResources extends AbstractLabTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(M4ProvisioningToResources.class);
-    protected static final String LAB_OBJECTS_DIRECTORY = LAB_FUNDAMENTAL_DIRECTORY + "M4/";
+    protected static final String LAB_OBJECTS_DIRECTORY = FUNDAMENTAL_LABS_DIRECTORY + "M4/";
 
     private static final File CSV_1_RESOURCE_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-4-2.xml");
     private static final File CSV_3_RESOURCE_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap-4-2.xml");

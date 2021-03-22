@@ -33,26 +33,27 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractLabTest.class);
 
-    protected static final String LAB_DIRECTORY = "./src/test/resources/labs/";
-    protected static final String LAB_SOURCES_DIRECTORY = LAB_DIRECTORY + "sources/";
-    protected static final String LAB_FUNDAMENTAL_DIRECTORY = LAB_DIRECTORY + "fundamental/";
-    protected static final String LAB_ADVANCED_DIRECTORY = LAB_DIRECTORY + "advanced/";
+    protected static final String RESOURCES_DIRECTORY = "./src/test/resources/";
+    protected static final String FUNDAMENTAL_LABS_DIRECTORY = RESOURCES_DIRECTORY + "fundamental-labs/";
+    protected static final String FUNDAMENTAL_LABS_SOURCES_DIRECTORY = FUNDAMENTAL_LABS_DIRECTORY + "sources/";
 
-    protected static final File EXTENSION_SCHEMA_FILE = new File(LAB_DIRECTORY +"schema/extension-example.xsd");
-    protected static final File CSV_1_SOURCE_FILE = new File(LAB_SOURCES_DIRECTORY + "csv-1.csv");
-    protected static final File CSV_1_SOURCE_FILE_7_3 = new File(LAB_SOURCES_DIRECTORY + "csv-1-7-3.csv");
-    protected static final File CSV_2_SOURCE_FILE = new File(LAB_SOURCES_DIRECTORY + "csv-2.csv");
-    protected static final File CSV_3_SOURCE_FILE = new File(LAB_SOURCES_DIRECTORY + "csv-3.csv");
-    protected static final File HR_SOURCE_FILE = new File(LAB_SOURCES_DIRECTORY + "source.csv");
-    protected static final File HR_SOURCE_FILE_7_4_PART_1 = new File(LAB_SOURCES_DIRECTORY + "source-7-4-part-1.csv");
-    protected static final File HR_SOURCE_FILE_7_4_PART_2 = new File(LAB_SOURCES_DIRECTORY + "source-7-4-part-2.csv");
-    protected static final File HR_SOURCE_FILE_7_4_PART_3 = new File(LAB_SOURCES_DIRECTORY + "source-7-4-part-3.csv");
-    protected static final File HR_SOURCE_FILE_7_4_PART_4 = new File(LAB_SOURCES_DIRECTORY + "source-7-4-part-4.csv");
-    protected static final File HR_SOURCE_FILE_10_1 = new File(LAB_SOURCES_DIRECTORY + "source-10-1.csv");
-    protected static final File HR_SOURCE_FILE_10_2_PART1 = new File(LAB_SOURCES_DIRECTORY + "source-10-2-part1.csv");
-    protected static final File HR_SOURCE_FILE_10_2_PART2 = new File(LAB_SOURCES_DIRECTORY + "source-10-2-part2.csv");
-    protected static final File HR_SOURCE_FILE_10_2_PART3 = new File(LAB_SOURCES_DIRECTORY + "source-10-2-part3.csv");
-    protected static final File HR_SOURCE_FILE_11_1 = new File(LAB_SOURCES_DIRECTORY + "source-11-1.csv");
+    protected static final String LAB_ADVANCED_DIRECTORY = RESOURCES_DIRECTORY + "advanced-labs/";
+
+    protected static final File EXTENSION_SCHEMA_FILE = new File(RESOURCES_DIRECTORY +"schema/extension-example.xsd");
+    protected static final File CSV_1_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-1.csv");
+    protected static final File CSV_1_SOURCE_FILE_7_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-1-7-3.csv");
+    protected static final File CSV_2_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-2.csv");
+    protected static final File CSV_3_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-3.csv");
+    protected static final File HR_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source.csv");
+    protected static final File HR_SOURCE_FILE_7_4_PART_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-7-4-part-1.csv");
+    protected static final File HR_SOURCE_FILE_7_4_PART_2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-7-4-part-2.csv");
+    protected static final File HR_SOURCE_FILE_7_4_PART_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-7-4-part-3.csv");
+    protected static final File HR_SOURCE_FILE_7_4_PART_4 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-7-4-part-4.csv");
+    protected static final File HR_SOURCE_FILE_10_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-10-1.csv");
+    protected static final File HR_SOURCE_FILE_10_2_PART1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-10-2-part1.csv");
+    protected static final File HR_SOURCE_FILE_10_2_PART2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-10-2-part2.csv");
+    protected static final File HR_SOURCE_FILE_10_2_PART3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-10-2-part3.csv");
+    protected static final File HR_SOURCE_FILE_11_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-11-1.csv");
 
     protected static final String DIRECTORY_CURRENT_TEST = "labTests";
     protected static final String EXTENSION_SCHEMA_NAME = "extension-example.xsd";
