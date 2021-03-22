@@ -310,7 +310,7 @@
                             <properties>
                                 <property>
                                     <name>testnames</name>
-                                    <value>fundamentallabs</value>
+                                    <value>fundamental-labs</value>
                                 </property>
                             </properties>
                         </configuration>

@@ -281,14 +281,14 @@
             </modules>
         </profile>
         <profile>
-            <id>fundamentallabs</id>
+            <id>fundamental-labs</id>
             <modules>
                 <module>schrodinger-framework</module>
                 <module>schrodinger-tests</module>
             </modules>
         </profile>
 <!--        <profile>-->
-<!--            <id>advancedlabs</id>-->
+<!--            <id>advanced-labs</id>-->
 <!--            <modules>-->
 <!--                <module>schrodinger-framework</module>-->
 <!--                <module>schrodinger-tests</module>-->

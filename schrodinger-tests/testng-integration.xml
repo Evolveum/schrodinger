@@ -47,7 +47,7 @@
             <class name="com.evolveum.midpoint.schrodinger.scenarios.ObjectTemplateTests"/>
         </classes>
     </test>
-    <test name="fundamentallabs" preserve-order="true" parallel="false" verbose="3" enabled="true">
+    <test name="fundamental-labs" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
             <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M3ResourcesAttributesAndMappingsTest"/>
             <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M4ProvisioningToResources"/>
