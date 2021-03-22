@@ -267,12 +267,33 @@
     </build>
     <profiles>
         <profile>
-            <id>build-framework-test</id>
+            <id>all-tests</id>
             <modules>
                 <module>schrodinger-framework</module>
                 <module>schrodinger-tests</module>
             </modules>
         </profile>
+        <profile>
+            <id>configless</id>
+            <modules>
+                <module>schrodinger-framework</module>
+                <module>schrodinger-tests</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>fundamentallabs</id>
+            <modules>
+                <module>schrodinger-framework</module>
+                <module>schrodinger-tests</module>
+            </modules>
+        </profile>
+<!--        <profile>-->
+<!--            <id>advancedlabs</id>-->
+<!--            <modules>-->
+<!--                <module>schrodinger-framework</module>-->
+<!--                <module>schrodinger-tests</module>-->
+<!--            </modules>-->
+<!--        </profile>-->
     </profiles>
 
 </project>
