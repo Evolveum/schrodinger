@@ -32,7 +32,7 @@ public class ImportTest extends AbstractSchrodingerTest {
 
     @Test
     public void importXml() throws IOException {
-        File user = new File("./src/test/resources/user.xml");
+        File user = new File("./src/test/resources/objects/users/user.xml");
         String xml = FileUtils.readFileToString(user, StandardCharsets.UTF_8);
 
         ImportObjectPage importObject = basicPage.importObject();

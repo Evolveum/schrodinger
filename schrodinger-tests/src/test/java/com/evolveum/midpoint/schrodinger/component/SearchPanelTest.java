@@ -38,7 +38,7 @@ import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
  */
 public class SearchPanelTest extends AbstractSchrodingerTest {
 
-    private static final String COMPONENT_RESOURCES_DIRECTORY = "./src/test/resources/component/";
+    private static final String COMPONENT_RESOURCES_DIRECTORY = "./src/test/resources/";
     private static final String COMPONENT_OBJECTS_DIRECTORY = COMPONENT_RESOURCES_DIRECTORY + "objects/";
     private static final String COMPONENT_USERS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "users/";
     private static final String COMPONENT_ROLES_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "roles/";
@@ -62,7 +62,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_TYPE_ORG_FILE = new File(COMPONENT_ORGS_DIRECTORY + "org-membership-search-by-type.xml");
     private static final File ORG_MEMBER_SEARCH_ROOT_ORG_FILE = new File(COMPONENT_ORGS_DIRECTORY + "org-root-member-search.xml");
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE = new File(COMPONENT_ROLES_DIRECTORY + "role-membership-search-by-relation.xml");
-    private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File("./src/test/resources/configuration/objects/systemconfig/system-configuration-with-configured-user-search.xml");
+    private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File("./src/test/resources/objects/systemconfig/system-configuration-with-configured-user-search.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
 

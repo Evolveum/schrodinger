@@ -27,7 +27,7 @@ import java.util.List;
  * Created by honchar
  */
 public class CredentialsPageTest extends AbstractSchrodingerTest {
-    private static final File CHANGE_USER_PASSWORD_TEST_FILE = new File("./src/test/resources/component/objects/users/change-user-password-test-user.xml");
+    private static final File CHANGE_USER_PASSWORD_TEST_FILE = new File("./src/test/resources/objects/users/change-user-password-test-user.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

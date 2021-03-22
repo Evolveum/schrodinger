@@ -40,19 +40,19 @@ import static com.codeborne.selenide.Selenide.*;
 
 public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
 
-    protected static final File MAIL_NONCE_VALUE_POLICY = new File("src/test/resources/configuration/objects/valuepolicies/mail-nonce.xml");
-    protected static final File USER_WITHOUT_SUPERUSER = new File("src/test/resources/configuration/objects/users/user-without-superuser.xml");
-    protected static final File SYSTEM_CONFIG_WITH_NOTIFICATION = new File("src/test/resources/configuration/objects/systemconfig/system-configuration-notification.xml");
-    protected static final File CREATE_NAME_OBJECT_TEMPLATE = new File("src/test/resources/configuration/objects/objecttemplate/create-name-after-self-reg.xml");
+    protected static final File MAIL_NONCE_VALUE_POLICY = new File("src/test/resources/objects/valuepolicies/mail-nonce.xml");
+    protected static final File USER_WITHOUT_SUPERUSER = new File("src/test/resources/objects/users/user-without-superuser.xml");
+    protected static final File SYSTEM_CONFIG_WITH_NOTIFICATION = new File("src/test/resources/objects/systemconfig/system-configuration-notification.xml");
+    protected static final File CREATE_NAME_OBJECT_TEMPLATE = new File("src/test/resources/objects/objecttemplate/create-name-after-self-reg.xml");
     protected static final File NOTIFICATION_FILE = new File("./target/notification.txt");
-    protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/configuration/objects/archetypes/archetype-node-group-gui.xml");
+    protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/objects/archetypes/archetype-node-group-gui.xml");
 
     protected static final String NAME_OF_ENABLED_USER = "enabled_user";
     protected static final String MAIL_OF_ENABLED_USER = "enabled_user@evolveum.com";
 
-    private static final File ENABLED_USER = new File("src/test/resources/configuration/objects/users/enabled-user.xml");
-    private static final File DISABLED_USER = new File("src/test/resources/configuration/objects/users/disabled-user.xml");
-    private static final File ENABLED_USER_WITHOUT_AUTHORIZATIONS = new File("src/test/resources/configuration/objects/users/enabled-user-without-authorizations.xml");
+    private static final File ENABLED_USER = new File("src/test/resources/objects/users/enabled-user.xml");
+    private static final File DISABLED_USER = new File("src/test/resources/objects/users/disabled-user.xml");
+    private static final File ENABLED_USER_WITHOUT_AUTHORIZATIONS = new File("src/test/resources/objects/users/enabled-user-without-authorizations.xml");
 
     @BeforeClass
     @Override

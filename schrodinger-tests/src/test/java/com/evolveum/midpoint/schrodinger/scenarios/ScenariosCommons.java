@@ -19,12 +19,12 @@ import java.io.File;
 
 public class ScenariosCommons {
 
-    protected static final File CSV_SOURCE_FILE = new File("./src/test/resources/midpoint-groups-authoritative.csv");
+    protected static final File CSV_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative.csv");
     protected static final String CSV_SOURCE_OLDVALUE = "target/midpoint.csv";
-    protected static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/midpoint-groups-authoritative-initial.csv");
-    protected static final File CSV_UPDATED_SOURCE_FILE = new File("./src/test/resources/midpoint-groups-authoritative-updated.csv");
+    protected static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative-initial.csv");
+    protected static final File CSV_UPDATED_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative-updated.csv");
     protected static final File RESOURCE_CSV_GROUPS_AUTHORITATIVE_FILE = new File("./src/test/resources/resource-csv-groups-authoritative.xml");
-    protected static final File USER_TEST_RAPHAEL_FILE = new File("./src/test/resources/user-raphael.xml");
+    protected static final File USER_TEST_RAPHAEL_FILE = new File("./src/test/resources/objects/users/user-raphael.xml");
 
     protected static final String RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME = "CSV (target with groups) authoritative";
     protected static final String CSV_RESOURCE_NAME= "Test CSV: username";

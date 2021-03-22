@@ -40,8 +40,8 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(SynchronizationTests.class);
 
-    private static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/midpoint-groups-authoritative-initial.csv");
-    private static final File CSV_UPDATED_SOURCE_FILE = new File("./src/test/resources/midpoint-groups-authoritative-updated.csv");
+    private static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative-initial.csv");
+    private static final File CSV_UPDATED_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative-updated.csv");
 
     private static final String RESOURCE_AND_SYNC_TASK_SETUP_DEPENDENCY = "setUpResourceAndSynchronizationTask";
     private static final String NEW_USER_AND_ACCOUNT_CREATED_DEPENDENCY = "newResourceAccountUserCreated";

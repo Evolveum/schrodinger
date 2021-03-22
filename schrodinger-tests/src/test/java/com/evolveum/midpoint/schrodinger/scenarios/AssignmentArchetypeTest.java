@@ -25,7 +25,7 @@ import java.io.File;
  */
 public class AssignmentArchetypeTest extends AbstractSchrodingerTest {
 
-    private static final File ARCHETYPE_BUSINESS_ROLE_FILE = new File("src/test/resources/configuration/objects/archetypes/archetype-business-role.xml");
+    private static final File ARCHETYPE_BUSINESS_ROLE_FILE = new File("src/test/resources/objects/archetypes/archetype-business-role.xml");
     private static final String RELATIONS_CONTAINER_HEADER_KEY = "Relations";
     private static final String RELATION_CONTAINER_HEADER_KEY = "Relation";
     private static final String NEWLY_ADDED_RELATION_CONTAINER_HEADER_KEY = "RelationDefinitionType.details";

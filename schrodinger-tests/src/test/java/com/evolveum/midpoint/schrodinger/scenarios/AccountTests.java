@@ -34,9 +34,9 @@ public class AccountTests extends AbstractSchrodingerTest {
 
     private static File csvTargetFile;
 
-    private static final File CSV_RESOURCE_MEDIUM = new File("./src/test/resources/csv/resource-csv-username.xml");
+    private static final File CSV_RESOURCE_MEDIUM = new File("./src/test/resources/objects/resources/resource-csv-username.xml");
 
-    protected static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/csv/midpoint-username.csv");
+    protected static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-username.csv");
 
     protected static final String IMPORT_CSV_RESOURCE_DEPENDENCY= "importCsvResource";
     protected static final String CREATE_MP_USER_DEPENDENCY= "createMidpointUser";

@@ -25,7 +25,7 @@ import java.util.List;
 
 public class AssignmentPanelTest extends AbstractSchrodingerTest {
 
-    private static final File ASSIGNMENTS_COUNT_TEST_USER = new File("./src/test/resources/component/objects/assignment/assignments-count-test.xml");
+    private static final File ASSIGNMENTS_COUNT_TEST_USER = new File("./src/test/resources/objects/assignment/assignments-count-test.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

@@ -29,14 +29,14 @@ import java.util.List;
  */
 public class FilterConfigPanelTest extends AbstractSchrodingerTest {
 
-    private static final File TEST_OBJECT_COLLECTION = new File("./src/test/resources/component/objects/objectcollections/filter-config-test-object-collection.xml");
-    private static final File OBJ_REF_PROPERTY_CONFIG_COLLECTION_TEST = new File("./src/test/resources/component/objects/objectcollections/obj-ref-property-config-test.xml");
-    private static final File DROPDOWN_PROPERTY_CONFIG_COLLECTION_TEST = new File("./src/test/resources/component/objects/objectcollections/dropdown-property-config-test.xml");
-    private static final File OBJECT_COLLECTION_TEST_USER = new File("./src/test/resources/component/objects/users/object-collection-test-user.xml");
-    private static final File OBJ_REF_PROPERTY_CONFIG_TEST_USER = new File("./src/test/resources/component/objects/users/obj-ref-property-config-test-user.xml");
-    private static final File DROPDOWN_PROPERTY_CONFIG_TEST_USER = new File("./src/test/resources/component/objects/users/dropdown-property-config-test-user.xml");
-    private static final File NEW_OBJECT_COLLECTION_TEST_USER = new File("./src/test/resources/component/objects/users/new-object-collection-test-user.xml");
-    private static final File SYSTEM_CONFIG_WITH_OBJ_COLLECTIONS = new File("./src/test/resources/configuration/objects/systemconfig/system-configuration-user-obj-collection.xml");
+    private static final File TEST_OBJECT_COLLECTION = new File("./src/test/resources/objects/objectcollections/filter-config-test-object-collection.xml");
+    private static final File OBJ_REF_PROPERTY_CONFIG_COLLECTION_TEST = new File("./src/test/resources/objects/objectcollections/obj-ref-property-config-test.xml");
+    private static final File DROPDOWN_PROPERTY_CONFIG_COLLECTION_TEST = new File("./src/test/resources/objects/objectcollections/dropdown-property-config-test.xml");
+    private static final File OBJECT_COLLECTION_TEST_USER = new File("./src/test/resources/objects/users/object-collection-test-user.xml");
+    private static final File OBJ_REF_PROPERTY_CONFIG_TEST_USER = new File("./src/test/resources/objects/users/obj-ref-property-config-test-user.xml");
+    private static final File DROPDOWN_PROPERTY_CONFIG_TEST_USER = new File("./src/test/resources/objects/users/dropdown-property-config-test-user.xml");
+    private static final File NEW_OBJECT_COLLECTION_TEST_USER = new File("./src/test/resources/objects/users/new-object-collection-test-user.xml");
+    private static final File SYSTEM_CONFIG_WITH_OBJ_COLLECTIONS = new File("./src/test/resources/objects/systemconfig/system-configuration-user-obj-collection.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

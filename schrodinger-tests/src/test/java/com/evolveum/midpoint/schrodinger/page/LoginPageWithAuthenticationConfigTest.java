@@ -36,9 +36,9 @@ import static com.codeborne.selenide.Selenide.*;
  */
 public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest {
 
-    private static final File FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/configuration/objects/securitypolicies/flexible-authentication-policy-secururity-question-reset-pass.xml");
-    private static final File FLEXIBLE_AUTHENTICATION_MAIL_NONCE_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/configuration/objects/securitypolicies/flexible-authentication-policy-nonce-reset-pass.xml");
-    private static final File BULK_TASK = new File("src/test/resources/configuration/objects/tasks/add-archetype-to-node-bulk-task.xml");
+    private static final File FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/flexible-authentication-policy-secururity-question-reset-pass.xml");
+    private static final File FLEXIBLE_AUTHENTICATION_MAIL_NONCE_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/flexible-authentication-policy-nonce-reset-pass.xml");
+    private static final File BULK_TASK = new File("src/test/resources/objects/tasks/add-archetype-to-node-bulk-task.xml");
 
     private static final String ARCHETYPE_NODE_GROUP_GUI_OID = "05b6933a-b7fc-4543-b8fa-fd8b278ff9ee";
 

@@ -33,9 +33,9 @@ import static com.codeborne.selenide.Selenide.screenshot;
  */
 public class CustomColumnTest extends AbstractSchrodingerTest {
 
-    private static final File CUSTOM_COLUMNS_OBJECT_COLLECTION_SIMPLE_FILE = new File("./src/test/resources/component/objects/objectcollections/object-collection-custom-columns-simple.xml");
-    private static final File CUSTOM_COLUMNS_OBJECT_COLLECTION_KEY_LABELS_FILE = new File("./src/test/resources/component/objects/objectcollections/object-collection-custom-columns-key-labels.xml");
-    private static final File CUSTOM_COLUMNS_SYSTEM_CONFIGURATION = new File("./src/test/resources/configuration/objects/systemconfig/system-configuration-custom-columns.xml");
+    private static final File CUSTOM_COLUMNS_OBJECT_COLLECTION_SIMPLE_FILE = new File("./src/test/resources/objects/objectcollections/object-collection-custom-columns-simple.xml");
+    private static final File CUSTOM_COLUMNS_OBJECT_COLLECTION_KEY_LABELS_FILE = new File("./src/test/resources/objects/objectcollections/object-collection-custom-columns-key-labels.xml");
+    private static final File CUSTOM_COLUMNS_SYSTEM_CONFIGURATION = new File("./src/test/resources/objects/systemconfig/system-configuration-custom-columns.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

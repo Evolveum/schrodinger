@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
-    private static final String COMPONENT_OBJECTS_DIRECTORY = "./src/test/resources/configuration/objects/";
+    private static final String COMPONENT_OBJECTS_DIRECTORY = "./src/test/resources/objects/";
     private static final String COMPONENT_OBJECT_TEMPLATE = COMPONENT_OBJECTS_DIRECTORY + "objecttemplate/";
     private static final String COMPONENT_SYSTEM_CONFIGURATION = COMPONENT_OBJECTS_DIRECTORY + "systemconfig/";
     private static final String COMPONENT_ARCHETYPE = COMPONENT_OBJECTS_DIRECTORY + "archetypes/";

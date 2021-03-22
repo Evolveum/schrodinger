@@ -34,10 +34,10 @@ import java.util.Map;
  */
 public class UsersTest extends AbstractSchrodingerTest {
 
-    private static final File LOOKUP_TABLE_SUBTYPES = new File("src/test/resources/configuration/objects/lookuptable/subtypes.xml");
-    private static final File OT_FOR_LOOKUP_TABLE_SUBTYPES = new File("src/test/resources/configuration/objects/objecttemplate/object-template-for-lookup-table-subtypes.xml");
-    private static final File SYSTEM_CONFIG_WITH_LOOKUP_TABLE = new File("src/test/resources/configuration/objects/systemconfig/system-configuration-with-lookup-table.xml");
-    private static final File MULTIPLE_USERS = new File("src/test/resources/configuration/objects/users/jack-users.xml");
+    private static final File LOOKUP_TABLE_SUBTYPES = new File("src/test/resources/objects/lookuptable/subtypes.xml");
+    private static final File OT_FOR_LOOKUP_TABLE_SUBTYPES = new File("src/test/resources/objects/objecttemplate/object-template-for-lookup-table-subtypes.xml");
+    private static final File SYSTEM_CONFIG_WITH_LOOKUP_TABLE = new File("src/test/resources/objects/systemconfig/system-configuration-with-lookup-table.xml");
+    private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

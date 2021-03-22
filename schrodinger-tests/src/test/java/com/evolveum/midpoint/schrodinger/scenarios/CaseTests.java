@@ -41,7 +41,7 @@ import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
  */
 public class CaseTests extends AbstractSchrodingerTest {
 
-    public static final File ROLE_WITH_ADMIN_APPROVER_XML = new File("./src/test/resources/role-with-admin-approver.xml");
+    public static final File ROLE_WITH_ADMIN_APPROVER_XML = new File("./src/test/resources/objects/roles/role-with-admin-approver.xml");
     public static final String CASE_CREATION_TEST_USER_NAME = "caseCreationTestUser";
     public static final String CASE_CREATION_TEST_ROLE_NAME = "Role with admin approver";
     public static final String REQUEST_CASE_NAME = "Approving and executing change of user \"";

@@ -28,7 +28,7 @@ import java.util.List;
 
 public class CleanupPoliciesTest extends AbstractSchrodingerTest {
 
-    public static final File CLOSED_TASKS_XML = new File("./src/test/resources/component/objects/tasks/closed-tasks.xml");
+    public static final File CLOSED_TASKS_XML = new File("./src/test/resources/objects/tasks/closed-tasks.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

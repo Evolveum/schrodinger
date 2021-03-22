@@ -37,9 +37,9 @@ import java.util.List;
 
 public class TaskPageTest extends AbstractSchrodingerTest {
 
-    private static final File OPERATION_STATISTICS_CLEANUP_TASK_FILE = new File("./src/test/resources/configuration/objects/tasks/operation-statistics-clean-up.xml");
-    private static final File ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE = new File("./src/test/resources/configuration/objects/tasks/environmental-performance-clean-up.xml");
-    private static final File RESULTS_CLEANUP_TASK_FILE = new File("./src/test/resources/configuration/objects/tasks/results-clean-up.xml");
+    private static final File OPERATION_STATISTICS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/operation-statistics-clean-up.xml");
+    private static final File ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/environmental-performance-clean-up.xml");
+    private static final File RESULTS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/results-clean-up.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

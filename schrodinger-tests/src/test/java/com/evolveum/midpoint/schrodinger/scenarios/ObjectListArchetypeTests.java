@@ -33,7 +33,7 @@ import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
  */
 public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
-    private static final File EMPLOYEE_ARCHETYPE_FILE = new File("src/test/resources/configuration/objects/archetypes/archetype-employee.xml");
+    private static final File EMPLOYEE_ARCHETYPE_FILE = new File("src/test/resources/objects/archetypes/archetype-employee.xml");
     private static final String ARCHETYPE_OBJECT_NAME = "Employee";
     private static final String ARCHETYPE_PLURAL_LABEL = "Employees";
     private static final String ARCHETYPE_ICON_CSS_STYLE = ".fa.fa-male";

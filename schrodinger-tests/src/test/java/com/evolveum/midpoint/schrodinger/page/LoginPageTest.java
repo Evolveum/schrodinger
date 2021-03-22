@@ -39,8 +39,8 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginPageTest.class);
 
-    private static final File SEC_QUES_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/configuration/objects/securitypolicies/policy-secururity-question-reset-pass.xml");
-    private static final File MAIL_NONCE_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/configuration/objects/securitypolicies/policy-nonce-reset-pass.xml");
+    private static final File SEC_QUES_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/policy-secururity-question-reset-pass.xml");
+    private static final File MAIL_NONCE_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/policy-nonce-reset-pass.xml");
 
     @Test
     public void test020selfRegistration() throws IOException, InterruptedException {

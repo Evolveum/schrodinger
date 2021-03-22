@@ -38,11 +38,11 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final String LOCALIZATION_TEST_USER_NAME_ORIG = "localizationTestUserName";
     private static final String LOCALIZATION_TEST_USER_NAME_DE = "localizationTestUserNameDe";
     private static final String LOCALIZATION_VALUE = "de";
-    private static final File DELEGATE_FROM_USER_FILE = new File("./src/test/resources/component/objects/users/delegate-from-user.xml");
-    private static final File DELEGATE_TO_USER_FILE = new File("./src/test/resources/component/objects/users/delegate-to-user.xml");
-    private static final File DELEGABLE_END_USER_ROLE_FILE = new File("./src/test/resources/component/objects/roles/delegable-end-user-role.xml");
-    private static final File DELEGATE_END_USER_ROLE_FROM_USER_FILE = new File("./src/test/resources/component/objects/users/delegate-end-user-role-from-user.xml");
-    private static final File DELEGATE_END_USER_ROLE_TO_USER_FILE = new File("./src/test/resources/component/objects/users/delegate-end-user-role-to-user.xml");
+    private static final File DELEGATE_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegate-from-user.xml");
+    private static final File DELEGATE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-to-user.xml");
+    private static final File DELEGABLE_END_USER_ROLE_FILE = new File("./src/test/resources/objects/roles/delegable-end-user-role.xml");
+    private static final File DELEGATE_END_USER_ROLE_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-from-user.xml");
+    private static final File DELEGATE_END_USER_ROLE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-to-user.xml");
 
     @Override
     protected List<File> getObjectListToImport(){

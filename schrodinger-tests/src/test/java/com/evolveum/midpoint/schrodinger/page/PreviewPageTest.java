@@ -38,7 +38,7 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
 
 public class PreviewPageTest  extends AbstractSchrodingerTest {
 
-    private static final String TEST_DIR = "./src/test/resources/page/preview";
+    private static final String TEST_DIR = "./src/test/resources/objects/roles";
 
     private static final File ROLE_USER_PREVIEW_FILE = new File(TEST_DIR, "role-user-preview.xml");
     private static final String ROLE_USER_PREVIEW_NAME = "rolePreviewChanges";

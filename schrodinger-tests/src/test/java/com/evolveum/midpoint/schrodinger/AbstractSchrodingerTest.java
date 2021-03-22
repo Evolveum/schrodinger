@@ -88,7 +88,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     public static final String PROPERTY_NAME_MIDPOINT_HOME = "-Dmidpoint.home";
     public static final String PROPERTY_NAME_USER_HOME = "user.home";
     public static final String PROPERTY_NAME_FILE_SEPARATOR = "file.separator";
-    private static final File SYSTEM_CONFIG_INITIAL = new File("src/test/resources/configuration/objects/systemconfig/system-configuration-initial.xml");
+    private static final File SYSTEM_CONFIG_INITIAL = new File("src/test/resources/objects/systemconfig/system-configuration-initial.xml");
 
     protected static final String CSV_RESOURCE_ATTR_UNIQUE = "Unique attribute name";
 

@@ -36,11 +36,11 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
 
     private static File csvTargetFile;
 
-    private static final File CSV_RESOURCE_ADVANCED_SYNC = new File("./src/test/resources/csv/resource-csv-groups.xml");
+    private static final File CSV_RESOURCE_ADVANCED_SYNC = new File("./src/test/resources/objects/resources/resource-csv-groups.xml");
 
-    private static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/csv/midpoint-groups.csv");
-    private static final File ORG_ACCOUNT_INDUCEMENT_FILE = new File("./src/test/resources/org-account-inducement.xml");
-    private static final File ORG_MONKEY_ISLAND_SOURCE_FILE = new File("./src/test/resources/csv/org-monkey-island-simple.xml");
+    private static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups.csv");
+    private static final File ORG_ACCOUNT_INDUCEMENT_FILE = new File("./src/test/resources/objects/orgs/org-account-inducement.xml");
+    private static final File ORG_MONKEY_ISLAND_SOURCE_FILE = new File("./src/test/resources/objects/orgs/org-monkey-island-simple.xml");
 
     private static final String TEST_USER_GUYBRUSH_NAME = "guybrush";
 

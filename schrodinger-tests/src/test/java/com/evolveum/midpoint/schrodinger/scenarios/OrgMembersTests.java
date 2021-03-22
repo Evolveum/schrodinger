@@ -43,8 +43,7 @@ import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
  */
 public class OrgMembersTests extends AbstractSchrodingerTest {
 
-    private static final String CONFIGURATION_DIRECTORY = "./src/test/resources/configuration/";
-    private static final String CONFIGURATION_OBJECTS_DIRECTORY = CONFIGURATION_DIRECTORY + "objects/";
+    private static final String CONFIGURATION_OBJECTS_DIRECTORY = "./src/test/resources/objects/";
     private static final String CONFIGURATION_USERS_DIRECTORY = CONFIGURATION_OBJECTS_DIRECTORY + "users/";
     private static final String CONFIGURATION_ORGS_DIRECTORY = CONFIGURATION_OBJECTS_DIRECTORY + "orgs/";
 
