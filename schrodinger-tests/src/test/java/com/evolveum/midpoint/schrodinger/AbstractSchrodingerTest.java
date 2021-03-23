@@ -170,8 +170,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             password = getConfigurationPropertyValue("password");
         }
 
+        basicPage.loggedUser().logout();
         FormLoginPage login = midPoint.formLogin();
-        basicPage = login.loginIfUserIsNotLog(username, password);
+        basicPage = login.loginWithReloadLoginPage(username, password);
     }
 
     protected EnvironmentConfiguration buildEnvironmentConfiguration() throws IOException {
@@ -200,14 +201,15 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Selenide.clearBrowserLocalStorage();
         Selenide.close();
 
-        midPoint.formLogin().loginWithReloadLoginPage(username, password);
-
-        LOG.info("After: Login name " + username + " pass " + password);
-
-        AboutPage aboutPage = basicPage.aboutPage();
-        aboutPage
-                .clickSwitchToFactoryDefaults()
-                .clickYes();
+        //attempt not to clean midPoint after each test
+//        midPoint.formLogin().loginWithReloadLoginPage(username, password);
+//
+//        LOG.info("After: Login name " + username + " pass " + password);
+//
+//        AboutPage aboutPage = basicPage.aboutPage();
+//        aboutPage
+//                .clickSwitchToFactoryDefaults()
+//                .clickYes();
     }
 
     /**
