@@ -290,7 +290,7 @@
                             <properties>
                                 <property>
                                     <name>testnames</name>
-                                    <value>configless</value>
+                                    <value>UserPhotoTests,OrganizationStructureTests,UserAccountTests,OrgMembersTests,PolyStringTests,PostAuthenticationTests,SynchronizationTests,ObjectListArchetypeTests,CaseTests,UserTest,UsersTest,QueryPlaygroundPageTest,InternalsConfigurationPageTest,LoginPageTest,LoginPageWithAuthenticationConfigTest,AboutPageTest,BulkActionsTest,ImportTest,HomePageTest,TaskPageTest,FilterConfigPanelTest,SearchPanelTest,AssignmentPanelTest,CredentialsPageTest,ReportTests,ObjectTemplateTests</value>
                                 </property>
                             </properties>
                         </configuration>
