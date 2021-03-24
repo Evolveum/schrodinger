@@ -82,6 +82,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
     private static final File HR_IMPORT_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/task-hr-import.xml");
     private static final File OBJECT_TEMPLATE_USER_SIMPLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objecttemplate/object-template-example-user-simple.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-10.xml");
+    protected static final File EXTENSION_SCHEMA_FILE = new File(FUNDAMENTAL_LABS_DIRECTORY +"schema/extension-example.xsd");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextBeforeTestClass" })
     @Override

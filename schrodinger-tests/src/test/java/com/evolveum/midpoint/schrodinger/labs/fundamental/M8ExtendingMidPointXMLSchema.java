@@ -50,6 +50,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
     private static final File CSV_1_RESOURCE_FILE_8 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-8.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-8.xml");
     private static final File CSV_3_RESOURCE_FILE_8 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap-8.xml");
+    protected static final File EXTENSION_SCHEMA_FILE = new File(FUNDAMENTAL_LABS_DIRECTORY +"schema/extension-example.xsd");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override

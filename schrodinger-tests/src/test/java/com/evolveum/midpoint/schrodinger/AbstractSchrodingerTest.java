@@ -170,9 +170,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             password = getConfigurationPropertyValue("password");
         }
 
-        basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        basicPage = login.loginWithReloadLoginPage(username, password);
+        basicPage = login.loginIfUserIsNotLog(username, password);
     }
 
     protected EnvironmentConfiguration buildEnvironmentConfiguration() throws IOException {
@@ -197,6 +196,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     public void afterClass() {
         LOG.info("Finished tests from class {}", getClass().getName());
 
+        basicPage.loggedUser().logoutIfUserIsLogin();
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
         Selenide.close();
