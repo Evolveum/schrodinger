@@ -31,9 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -52,7 +50,6 @@ import com.evolveum.midpoint.prism.PrismContext;
 import com.evolveum.midpoint.prism.PrismObject;
 import com.evolveum.midpoint.prism.util.PrismContextFactory;
 import com.evolveum.midpoint.schema.MidPointPrismContextFactory;
-import com.evolveum.midpoint.schrodinger.WebDriver;
 import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
@@ -128,7 +125,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     private Properties props = null;
 
-    @Autowired protected PrismContext prismContext;
+    protected PrismContext prismContext;
 
     protected List<File> getObjectListToImport(){
         return new ArrayList<>();
@@ -144,6 +141,25 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             startMidpoint = false;
         }
         if (startMidpoint) {
+
+            File extensionSchemaFile = getExtensionSchemaFile();
+            if (extensionSchemaFile != null) {
+                String home = System.getProperty("midpoint.home");
+                File mpHomeDir = new File(home);
+                File schemaDir = new File(home, "schema");
+                if (!mpHomeDir.exists()) {
+                    super.springTestContextPrepareTestInstance();
+                }
+                if (!schemaDir.mkdir()) {
+                    if (schemaDir.exists()) {
+                        FileUtils.cleanDirectory(schemaDir);
+                    } else {
+                        throw new IOException("Creation of directory \"" + schemaDir.getAbsolutePath() + "\" unsuccessful");
+                    }
+                }
+                File schemaFile = new File(schemaDir, extensionSchemaFile.getName());
+                FileUtils.copyFile(extensionSchemaFile, schemaFile);
+            }
             super.springTestContextPrepareTestInstance();
         } else if (prismContext == null) {
             PrismContextFactory pcf = new MidPointPrismContextFactory();
@@ -571,5 +587,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             headlessStart = props.getProperty(propertyName);
         }
         return headlessStart;
+    }
+
+    protected File getExtensionSchemaFile() {
+        return null;
     }
 }

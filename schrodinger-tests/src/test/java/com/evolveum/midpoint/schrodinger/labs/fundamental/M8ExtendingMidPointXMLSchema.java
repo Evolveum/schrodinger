@@ -70,32 +70,14 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
         FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
     }
 
-    @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextBeforeTestClass" })
-    @Override
-    protected void springTestContextPrepareTestInstance() throws Exception {
-        String home = System.getProperty("midpoint.home");
-        File mpHomeDir = new File(home);
-        File schemaDir = new File(home, "schema");
-        if (!mpHomeDir.exists()) {
-            super.springTestContextPrepareTestInstance();
-        }
-
-        if (!schemaDir.mkdir()) {
-            if (schemaDir.exists()) {
-                FileUtils.cleanDirectory(schemaDir);
-            } else {
-                throw new IOException("Creation of directory \"" + schemaDir.getAbsolutePath() + "\" unsuccessful");
-            }
-        }
-        File schemaFile = new File(schemaDir, EXTENSION_SCHEMA_NAME);
-        FileUtils.copyFile(EXTENSION_SCHEMA_FILE, schemaFile);
-
-        super.springTestContextPrepareTestInstance();
-    }
-
     @Override
     protected List<File> getObjectListToImport(){
         return Arrays.asList(INTERNAL_EMPLOYEE_ROLE_FILE);
+    }
+
+    @Override
+    protected File getExtensionSchemaFile() {
+        return EXTENSION_SCHEMA_FILE;
     }
 
     @Test

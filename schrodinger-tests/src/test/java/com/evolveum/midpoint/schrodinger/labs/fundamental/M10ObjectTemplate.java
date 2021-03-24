@@ -84,39 +84,16 @@ public class M10ObjectTemplate extends AbstractLabTest {
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-10.xml");
     protected static final File EXTENSION_SCHEMA_FILE = new File(FUNDAMENTAL_LABS_DIRECTORY +"schema/extension-example.xsd");
 
-    @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextBeforeTestClass" })
-    @Override
-    protected void springTestContextPrepareTestInstance() throws Exception {
-        String home = System.getProperty("midpoint.home");
-        File mpHomeDir = new File(home);
-        File schemaDir = new File(home, "schema");
-        if (!mpHomeDir.exists()) {
-            super.springTestContextPrepareTestInstance();
-        }
-        if (!schemaDir.mkdir()) {
-            if (schemaDir.exists()) {
-                FileUtils.cleanDirectory(schemaDir);
-            } else {
-                throw new IOException("Creation of directory \"" + schemaDir.getAbsolutePath() + "\" unsuccessful");
-            }
-        }
-        File schemaFile = new File(schemaDir, EXTENSION_SCHEMA_NAME);
-        FileUtils.copyFile(EXTENSION_SCHEMA_FILE, schemaFile);
-
-        super.springTestContextPrepareTestInstance();
-    }
-
-    @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
-    @Override
-    public void beforeClass() throws IOException {
-        super.beforeClass();
-    }
-
     @Override
     protected List<File> getObjectListToImport(){
         return Arrays.asList(ARCHETYPE_EMPLOYEE_FILE, ARCHETYPE_ORG_FUNCTIONAL_FILE, ARCHETYPE_ORG_COMPANY_FILE, ARCHETYPE_ORG_GROUP_FILE,
                 ARCHETYPE_ORG_GROUP_LIST_FILE, OBJECT_TEMPLATE_USER_SIMPLE_FILE, KIRK_USER_TIBERIUS_FILE, PICARD_USER_TIBERIUS_FILE,
                 ORG_EXAMPLE_FILE, ORG_SECRET_OPS_FILE, ORG_WARP_SPEED_RESEARCH_FILE, NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE);
+    }
+
+    @Override
+    protected File getExtensionSchemaFile() {
+        return EXTENSION_SCHEMA_FILE;
     }
 
     @Test
