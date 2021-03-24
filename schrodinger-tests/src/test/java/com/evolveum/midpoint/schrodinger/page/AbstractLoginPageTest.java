@@ -23,6 +23,9 @@ import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -53,6 +56,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     private static final File ENABLED_USER = new File("src/test/resources/objects/users/enabled-user.xml");
     private static final File DISABLED_USER = new File("src/test/resources/objects/users/disabled-user.xml");
     private static final File ENABLED_USER_WITHOUT_AUTHORIZATIONS = new File("src/test/resources/objects/users/enabled-user-without-authorizations.xml");
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractLoginPageTest.class);
 
     @BeforeClass
     @Override
@@ -84,6 +88,12 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         notificationTab.setRedirectToFile(notificationFile.getAbsolutePath());
         systemPage.clickSave();
         systemPage.feedback().assertSuccess();
+    }
+
+    @AfterClass
+    public void afterClass() {
+        super.afterClass();
+        resetToDefault();
     }
 
 //    @Override

@@ -23,6 +23,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.codeborne.selenide.Selenide;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
@@ -50,10 +53,18 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     protected static final String ACTIVATION_STATE_ENABLED_VALUE = "Enabled";
     protected static final String ACTIVATION_STATE_ARCHIVAED_VALUE = "Archived";
 
+    private static final Logger LOG = LoggerFactory.getLogger(PostAuthenticationTests.class);
+
     @Override
     protected List<File> getObjectListToImport(){
         return Arrays.asList(ROLE_POST_AUTHENTICATION_AUTHORIZATION_FILE, CUSTOM_FORM_POST_AUTH_FILE, SECURITY_POLICY_POST_AUTH_DEFAULT_FILE,
                 SYSTEM_CONFIGURATION_POST_AUTH_NON_ACTIVE_FILE, USER_TEST_TITIAN_FILE, USER_TEST_BOTTICELLI_FILE);
+    }
+
+    @AfterClass
+    public void afterClass() {
+        super.afterClass();
+        resetToDefault();
     }
 
     @Test (groups = TEST_GROUP_BEFORE_POST_AUTH_FLOW)
