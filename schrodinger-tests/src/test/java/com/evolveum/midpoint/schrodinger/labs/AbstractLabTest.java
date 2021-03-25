@@ -87,17 +87,6 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     protected static File hrTargetFile;
     protected static File notificationFile;
 
-    @BeforeClass(
-            alwaysRun = true,
-            dependsOnMethods = {"springTestContextBeforeTestClass"}
-    )
-    protected void springTestContextPrepareTestInstance() throws Exception {
-        super.springTestContextPrepareTestInstance();
-        if (isStartMidpoint()) {
-            resetToDefault();
-        }
-    }
-
     protected File getTestTargetDir() throws IOException {
         if (testTargetDir == null) {
             initTestDirectory(DIRECTORY_CURRENT_TEST, false);
@@ -105,4 +94,7 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
         return testTargetDir;
     }
 
+    protected boolean resetToDefaultAfterTests() {
+        return true;
+    }
 }

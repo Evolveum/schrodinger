@@ -61,10 +61,9 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
                 SYSTEM_CONFIGURATION_POST_AUTH_NON_ACTIVE_FILE, USER_TEST_TITIAN_FILE, USER_TEST_BOTTICELLI_FILE);
     }
 
-    @AfterClass
-    public void afterClass() {
-        super.afterClass();
-        resetToDefault();
+    @Override
+    protected boolean resetToDefaultAfterTests() {
+        return true;
     }
 
     @Test (groups = TEST_GROUP_BEFORE_POST_AUTH_FLOW)

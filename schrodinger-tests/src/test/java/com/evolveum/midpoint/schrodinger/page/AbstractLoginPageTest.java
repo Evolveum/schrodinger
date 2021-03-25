@@ -90,12 +90,10 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         systemPage.feedback().assertSuccess();
     }
 
-    @AfterClass
-    public void afterClass() {
-        super.afterClass();
-        resetToDefault();
+    @Override
+    protected boolean resetToDefaultAfterTests() {
+        return true;
     }
-
 //    @Override
 //    protected List<File> getObjectListToImport(){
 //        return Arrays.asList(USER_WITHOUT_SUPERUSER, ENABLED_USER, DISABLED_USER, ENABLED_USER_WITHOUT_AUTHORIZATIONS, MAIL_NONCE_VALUE_POLICY, ARCHETYPE_NODE_GUI,

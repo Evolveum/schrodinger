@@ -211,15 +211,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Selenide.clearBrowserLocalStorage();
         Selenide.close();
 
-        //attempt not to clean midPoint after each test
-//        midPoint.formLogin().loginWithReloadLoginPage(username, password);
-//
-//        LOG.info("After: Login name " + username + " pass " + password);
-//
-//        AboutPage aboutPage = basicPage.aboutPage();
-//        aboutPage
-//                .clickSwitchToFactoryDefaults()
-//                .clickYes();
+        if (resetToDefaultAfterTests()) {
+            resetToDefault();
+        }
     }
 
     protected void resetToDefault() {
@@ -593,5 +587,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             return false;
         }
         return true;
+    }
+
+    protected boolean resetToDefaultAfterTests() {
+        return false;
     }
 }
