@@ -161,7 +161,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 FileUtils.copyFile(extensionSchemaFile, schemaFile);
             }
             super.springTestContextPrepareTestInstance();
-        } else if (prismContext == null) {
+        }
+        if (prismContext == null) {
             PrismContextFactory pcf = new MidPointPrismContextFactory();
             try {
                 prismContext = pcf.createPrismContext();
