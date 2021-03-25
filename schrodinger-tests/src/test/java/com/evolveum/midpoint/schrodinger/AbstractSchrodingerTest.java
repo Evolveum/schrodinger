@@ -120,10 +120,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         return password;
     }
 
-    public boolean isStartMidpoint() {
-        return startMidpoint;
-    }
-
     private Properties props = null;
 
     @Autowired protected PrismContext prismContext;
@@ -137,10 +133,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             dependsOnMethods = {"springTestContextBeforeTestClass"}
     )
     protected void springTestContextPrepareTestInstance() throws Exception {
-        String startMidpointStr = getConfigurationPropertyValue("startMidpoint");
-        if (!StringUtils.isEmpty(startMidpointStr) && startMidpointStr.equals("false")) {
-            startMidpoint = false;
-        }
+        startMidpoint = isStartMidpoint();
         if (startMidpoint) {
 
             File extensionSchemaFile = getExtensionSchemaFile();
@@ -232,7 +225,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void resetToDefault() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
 
-        LOG.info("Cleaning up midPoin.");
+        LOG.info("Cleaning up midPoint.");
 
         AboutPage aboutPage = basicPage.aboutPage();
         aboutPage
@@ -577,7 +570,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .assertSuccess();
     }
 
-    private String getConfigurationPropertyValue(String propertyName) throws IOException {
+    protected String getConfigurationPropertyValue(String propertyName) throws IOException {
         if (props == null) {
             props = new Properties();
             InputStream is = new FileInputStream(new File(SCHRODINGER_PROPERTIES));
@@ -592,5 +585,13 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected File getExtensionSchemaFile() {
         return null;
+    }
+
+    protected boolean isStartMidpoint() throws IOException {
+        String startMidpointStr = getConfigurationPropertyValue("startMidpoint");
+        if (!StringUtils.isEmpty(startMidpointStr) && startMidpointStr.equals("false")) {
+            return false;
+        }
+        return true;
     }
 }

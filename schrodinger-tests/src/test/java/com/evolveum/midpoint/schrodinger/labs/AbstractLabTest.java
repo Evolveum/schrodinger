@@ -19,6 +19,7 @@ import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -85,6 +86,17 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     protected static File csv3TargetFile;
     protected static File hrTargetFile;
     protected static File notificationFile;
+
+    @BeforeClass(
+            alwaysRun = true,
+            dependsOnMethods = {"springTestContextBeforeTestClass"}
+    )
+    protected void springTestContextPrepareTestInstance() throws Exception {
+        super.springTestContextPrepareTestInstance();
+        if (isStartMidpoint()) {
+            resetToDefault();
+        }
+    }
 
     protected File getTestTargetDir() throws IOException {
         if (testTargetDir == null) {
