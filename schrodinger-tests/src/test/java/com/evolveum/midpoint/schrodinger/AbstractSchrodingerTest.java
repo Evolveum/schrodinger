@@ -31,6 +31,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -125,7 +126,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     private Properties props = null;
 
-    protected PrismContext prismContext;
+    @Autowired protected PrismContext prismContext;
 
     protected List<File> getObjectListToImport(){
         return new ArrayList<>();
@@ -161,8 +162,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 FileUtils.copyFile(extensionSchemaFile, schemaFile);
             }
             super.springTestContextPrepareTestInstance();
-        }
-        if (prismContext == null) {
+        } else if (prismContext == null) {
             PrismContextFactory pcf = new MidPointPrismContextFactory();
             try {
                 prismContext = pcf.createPrismContext();
