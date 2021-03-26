@@ -16,32 +16,10 @@
 
 package com.evolveum.midpoint.schrodinger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.testng.BrowserPerClass;
 import com.codeborne.selenide.testng.annotations.Report;
-import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.xml.sax.SAXException;
-
 import com.evolveum.midpoint.client.api.ObjectAddService;
 import com.evolveum.midpoint.client.api.exception.CommonException;
 import com.evolveum.midpoint.client.impl.prism.RestPrismObjectAddService;
@@ -69,9 +47,30 @@ import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.reports.SchrodingerTextReport;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
+import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -155,22 +154,28 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 FileUtils.copyFile(extensionSchemaFile, schemaFile);
             }
 
-            File postInitObjectsDir = new File(home, "post-initial-objects");
-            if (!postInitObjectsDir.mkdir()) {
-                if (postInitObjectsDir.exists()) {
-                    FileUtils.cleanDirectory(postInitObjectsDir);
-                } else {
-                    throw new IOException("Creation of directory \"" + postInitObjectsDir.getAbsolutePath() + "\" unsuccessful");
-                }
-            }
             String postInitialObjectsPath = getPostInitialObjectsFolderPath();
             if (StringUtils.isNotEmpty(postInitialObjectsPath)) {
                 File postInitObjectsSourceDir = new File(postInitialObjectsPath);
                 File[] objList = postInitObjectsSourceDir.listFiles();
-                Arrays.sort(objList);
-                for (File postInitFile : objList) {
-                    File objFile = new File(postInitObjectsDir, postInitFile.getName());
-                    FileUtils.copyFile(postInitFile, objFile);
+
+                if (objList != null && objList.length > 0) {
+                    File postInitObjectsDir = new File(home, "post-initial-objects");
+                    if (!postInitObjectsDir.exists()) {
+                        super.springTestContextPrepareTestInstance();
+                    }
+                    if (!postInitObjectsDir.mkdir()) {
+                        if (postInitObjectsDir.exists()) {
+                            FileUtils.cleanDirectory(postInitObjectsDir);
+                        } else {
+                            throw new IOException("Creation of directory \"" + postInitObjectsDir.getAbsolutePath() + "\" unsuccessful");
+                        }
+                    }
+                    Arrays.sort(objList);
+                    for (File postInitFile : objList) {
+                        File objFile = new File(postInitObjectsDir, postInitFile.getName());
+                        FileUtils.copyFile(postInitFile, objFile);
+                    }
                 }
             }
             super.springTestContextPrepareTestInstance();
