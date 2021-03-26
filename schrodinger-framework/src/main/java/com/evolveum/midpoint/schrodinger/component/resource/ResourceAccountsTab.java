@@ -102,7 +102,8 @@ public class ResourceAccountsTab<T> extends Component<T> {
     }
 
     public void setIntent(String intent) {
-        $(Schrodinger.byDataId("div", "intent")).$(Schrodinger.byDataId("input", "input"))
+        $(Schrodinger.byDataId("div", "intent")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+                .$(Schrodinger.byDataId("input", "input"))
                 .setValue(intent).sendKeys(Keys.ENTER);
     }
 

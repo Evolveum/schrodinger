@@ -135,10 +135,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void springTestContextPrepareTestInstance() throws Exception {
         startMidpoint = isStartMidpoint();
         if (startMidpoint) {
+            String home = System.getProperty("midpoint.home");
 
             File extensionSchemaFile = getExtensionSchemaFile();
             if (extensionSchemaFile != null) {
-                String home = System.getProperty("midpoint.home");
                 File mpHomeDir = new File(home);
                 File schemaDir = new File(home, "schema");
                 if (!mpHomeDir.exists()) {
@@ -153,6 +153,25 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 }
                 File schemaFile = new File(schemaDir, extensionSchemaFile.getName());
                 FileUtils.copyFile(extensionSchemaFile, schemaFile);
+            }
+
+            File postInitObjectsDir = new File(home, "post-initial-objects");
+            if (!postInitObjectsDir.mkdir()) {
+                if (postInitObjectsDir.exists()) {
+                    FileUtils.cleanDirectory(postInitObjectsDir);
+                } else {
+                    throw new IOException("Creation of directory \"" + postInitObjectsDir.getAbsolutePath() + "\" unsuccessful");
+                }
+            }
+            String postInitialObjectsPath = getPostInitialObjectsFolderPath();
+            if (StringUtils.isNotEmpty(postInitialObjectsPath)) {
+                File postInitObjectsSourceDir = new File(postInitialObjectsPath);
+                File[] objList = postInitObjectsSourceDir.listFiles();
+                Arrays.sort(objList);
+                for (File postInitFile : objList) {
+                    File objFile = new File(postInitObjectsDir, postInitFile.getName());
+                    FileUtils.copyFile(postInitFile, objFile);
+                }
             }
             super.springTestContextPrepareTestInstance();
         } else if (prismContext == null) {
@@ -578,6 +597,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected File getExtensionSchemaFile() {
+        return null;
+    }
+
+    protected String getPostInitialObjectsFolderPath() {
         return null;
     }
 
