@@ -78,7 +78,7 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
 
         $(Schrodinger.byDataResourceKey("userBrowserDialog.button.addButton"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getParentElement().waitWhile(Condition.disappears, MidPoint.TIMEOUT_LONG_1_M);
+        $(Schrodinger.byDataId("mainPopup")).waitWhile(Condition.attribute("style", "display:none"), MidPoint.TIMEOUT_LONG_1_M);
         return this.getParent();
     }
 
