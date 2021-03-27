@@ -34,6 +34,8 @@ import org.openqa.selenium.By;
 
 import javax.management.relation.Role;
 
+import static com.codeborne.selenide.Selectors.byText;
+
 public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
 
     public ChooseFocusTypeAndRelationModal(T parent, SelenideElement parentElement) {
@@ -56,14 +58,24 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
     }
 
     public ChooseFocusTypeAndRelationModal<T> setRelation(String relation) {
-        getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected"))
+        if (getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected")).exists()) {
+            getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected"))
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+        }
+        SelenideElement relationButton = getParentElement()
+                .$x(".//button[@class='multiselect dropdown-toggle btn btn-default']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String relationButtonTitle = relationButton.getAttribute("title");
+        if (relation.equals(relationButtonTitle)) {
+            return this;
+        }
+        relationButton
+                .click();
+        getParentElement().$(By.partialLinkText(relationButtonTitle))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-        getParentElement()
-                .$(By.linkText(relation))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", relation))
+        getParentElement().$(By.partialLinkText(relation))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return this;
