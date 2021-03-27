@@ -36,7 +36,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
 
     private static final File SYSTEM_CONFIGURATION_POST_AUTH_ACTIVE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-post-auth-active.xml");
     private static final File SYSTEM_CONFIGURATION_POST_AUTH_NON_ACTIVE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-post-auth-non-active.xml");
-    private static final File USER_TEST_TITIAN_FILE = new File("./src/test/resource/objects/users/user-titian-post-auth.xml");
+    private static final File USER_TEST_TITIAN_FILE = new File("./src/test/resources/objects/users/user-titian-post-auth.xml");
     private static final File USER_TEST_BOTTICELLI_FILE = new File("./src/test/resources/objects/users/user-botticelli-post-auth.xml");
     private static final File ROLE_POST_AUTHENTICATION_AUTHORIZATION_FILE = new File("./src/test/resources/objects/roles/post-authentication-authorization.xml");
     private static final File SECURITY_POLICY_POST_AUTH_DEFAULT_FILE = new File("./src/test/resources/objects/securitypolicies/post-auth-no-form-default-policy.xml");
