@@ -62,12 +62,12 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
         FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
 
-        addObjectFromFile(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_FILE, true);
+        addResourceFromFileAndTestConnection(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_FILE, ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, csvTargetFile.getAbsolutePath());
         addObjectFromFile(ScenariosCommons.USER_TEST_RAPHAEL_FILE);
 
         //changeResourceFilePath(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, ScenariosCommons.CSV_SOURCE_OLDVALUE, CSV_TARGET_FILE.getAbsolutePath(), true);
 
-        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(), true);
+//        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(), true);
 
 
         refreshResourceSchema(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
@@ -169,7 +169,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         ListUsersPage usersListPage = basicPage.listUsers();
         ProjectionsTab projectionsTab = usersListPage
