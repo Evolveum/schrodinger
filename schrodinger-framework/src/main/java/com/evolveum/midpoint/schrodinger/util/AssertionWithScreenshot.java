@@ -33,8 +33,8 @@ public class AssertionWithScreenshot extends Assertion {
         StackTraceElement[] stack = new Throwable().fillInStackTrace().getStackTrace();
         for (int i = 0; i < stack.length; i++) {
             StackTraceElement el = stack[i];
-            if (el.getClassName().contains(".schrodinger")) {
-                return el.getClassName().substring(el.getClassName().lastIndexOf(".") + 1) + "_" + el.getMethodName() + "_line" + el.getLineNumber();
+            if (el.getMethodName().contains("test")) {
+                return el.getMethodName().substring(el.getClassName().lastIndexOf(".") + 1) + "_" + el.getMethodName() + "_line" + el.getLineNumber();
             }
         }
         return "assertionError";
