@@ -27,7 +27,7 @@ public class BulkActionsTest extends AbstractSchrodingerTest {
     private static final String PARSING_ERROR_MESSAGE = "Couldn't parse bulk action object";
 
     @Test
-    public void wrongBulkActionXmlExecution(){
+    public void test0010wrongBulkActionXmlExecution(){
         BulkActionsPage bulkActionsPage = basicPage.bulkActions();
         bulkActionsPage
                 .insertOneLineTextIntoEditor("<objects></objects>")

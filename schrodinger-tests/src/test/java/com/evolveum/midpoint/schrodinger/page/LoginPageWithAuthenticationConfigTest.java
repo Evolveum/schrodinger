@@ -43,7 +43,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
     private static final String ARCHETYPE_NODE_GROUP_GUI_OID = "05b6933a-b7fc-4543-b8fa-fd8b278ff9ee";
 
     @Test
-    public void failWholeAuthenticationFlow() {
+    public void test010failWholeAuthenticationFlow() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         open("/auth/emergency/internalLoginForm");
         open("/");

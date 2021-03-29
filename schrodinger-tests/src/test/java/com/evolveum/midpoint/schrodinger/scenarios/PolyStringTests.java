@@ -47,7 +47,7 @@ public class PolyStringTests extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void createUserWithDiacritic(){
+    public void test0010createUserWithDiacritic(){
         UserPage user = basicPage.newUser();
 
         user.selectTabBasic()
@@ -66,7 +66,7 @@ public class PolyStringTests extends AbstractSchrodingerTest {
     }
 
     @Test (dependsOnMethods = {CREATE_USER_WITH_DIACRITIC_DEPENDENCY})
-    public void searchForUserWithDiacritic(){
+    public void test0020searchForUserWithDiacritic(){
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -90,7 +90,7 @@ public class PolyStringTests extends AbstractSchrodingerTest {
     }
 
     @Test (dependsOnMethods = {SEARCH_USER_WITH_DIACRITIC_DEPENDENCY})
-    public void fullTextSearchForUserWithDiacritic(){
+    public void test0030fullTextSearchForUserWithDiacritic(){
 
         ListUsersPage usersPage = basicPage.listUsers();
 

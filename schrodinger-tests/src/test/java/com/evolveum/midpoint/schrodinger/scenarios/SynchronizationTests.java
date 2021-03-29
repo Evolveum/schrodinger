@@ -54,7 +54,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     private static final String DIRECTORY_CURRENT_TEST = "synchronizationTests";
 
     @Test(priority = 0)
-    public void setUpResourceAndSynchronizationTask() throws IOException {
+    public void test0010setUpResourceAndSynchronizationTask() throws IOException {
 
         initTestDirectory(DIRECTORY_CURRENT_TEST);
 
@@ -96,7 +96,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
 
     @Test (priority = 1, dependsOnMethods = {RESOURCE_AND_SYNC_TASK_SETUP_DEPENDENCY})
-    public void newResourceAccountUserCreated() throws IOException {
+    public void test0020newResourceAccountUserCreated() throws IOException {
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
@@ -112,7 +112,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 2, dependsOnMethods = {NEW_USER_AND_ACCOUNT_CREATED_DEPENDENCY})
-    public void protectedAccountAdded(){
+    public void test0030protectedAccountAdded(){
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -142,7 +142,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
 
     @Test (priority = 3, dependsOnMethods = {NEW_USER_AND_ACCOUNT_CREATED_DEPENDENCY})
-    public void newResourceAccountCreatedLinked() throws IOException {
+    public void test0040newResourceAccountCreatedLinked() throws IOException {
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -188,7 +188,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 4, dependsOnMethods = {NEW_USER_ACCOUNT_CREATED_LINKED_DEPENDENCY})
-    public void alreadyLinkedResourceAccountModified() throws IOException {
+    public void test0050alreadyLinkedResourceAccountModified() throws IOException {
 
         FileUtils.copyFile(CSV_UPDATED_SOURCE_FILE, csvTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -206,7 +206,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 5, dependsOnMethods = {LINKED_USER_ACCOUNT_MODIFIED})
-    public void alreadyLinkedResourceAccountDeleted() throws IOException {
+    public void test0060alreadyLinkedResourceAccountDeleted() throws IOException {
 
         FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
@@ -223,7 +223,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 6, dependsOnMethods = {RESOURCE_AND_SYNC_TASK_SETUP_DEPENDENCY})
-    public void resourceAccountDeleted(){
+    public void test0070resourceAccountDeleted(){
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -273,7 +273,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 7, dependsOnMethods = {LINKED_USER_ACCOUNT_DELETED})
-    public void resourceAccountCreatedWhenResourceUnreachable() throws IOException {
+    public void test0080resourceAccountCreatedWhenResourceUnreachable() throws IOException {
 
         changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME,  ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath()+"err", false);
 
@@ -319,7 +319,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 8, dependsOnMethods = {RESOURCE_ACCOUNT_CREATED_WHEN_UNREACHABLE})
-    public void resourceAccountCreatedWhenResourceUnreachableToBeLinked() throws IOException {
+    public void test0090resourceAccountCreatedWhenResourceUnreachableToBeLinked() throws IOException {
         ListUsersPage listUsersPage= basicPage.listUsers();
         listUsersPage
                     .table()

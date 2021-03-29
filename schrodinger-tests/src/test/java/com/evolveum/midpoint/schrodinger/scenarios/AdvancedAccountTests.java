@@ -33,7 +33,7 @@ public class AdvancedAccountTests extends AbstractSchrodingerTest {
   private static final String DIRECTORY_CURRENT_TEST = "advancedAccountTests";
 
   @Test
-  public void initializeTestConfiguration() throws IOException {
+  public void test0010initializeTestConfiguration() throws IOException {
 
     initTestDirectory(DIRECTORY_CURRENT_TEST);
 
@@ -47,7 +47,7 @@ public class AdvancedAccountTests extends AbstractSchrodingerTest {
   }
 
   @Test (dependsOnMethods ={INITIALIZE_TEST_CONFIGURATION_DEPENDENCY})
-  public void iterateForUniqueAttribute(){
+  public void test0020iterateForUniqueAttribute(){
  ListUsersPage listUsersPage = basicPage.listUsers();
       listUsersPage
               .table()

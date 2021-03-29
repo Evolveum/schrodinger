@@ -47,7 +47,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 1, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
-    public void configureArchetypeObjectListView(){
+    public void test0010configureArchetypeObjectListView(){
         AdminGuiTab adminGuiTab = basicPage.adminGui();
         adminGuiTab
                 .addNewObjectCollection(ARCHETYPE_PLURAL_LABEL, "User", "Archetype", ARCHETYPE_PLURAL_LABEL)
@@ -58,7 +58,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
 
     @Test(priority = 2, dependsOnMethods ={"configureArchetypeObjectListView"}, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
-    public void actualizeArchetypeConfiguration() {
+    public void test0020actualizeArchetypeConfiguration() {
         basicPage.loggedUser().logout();
         midPoint.formLogin()
                 .loginWithReloadLoginPage(getUsername(), getPassword());
@@ -78,7 +78,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     }
 
 //    @Test(priority = 3, dependsOnMethods ={"actualizeArchetypeConfiguration"}, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
-    public void createNewEmployeeUser(){
+    public void test0030createNewEmployeeUser(){
         ListUsersPage collectionListPage = basicPage.listUsers(ARCHETYPE_PLURAL_LABEL);
 
         collectionListPage
@@ -105,7 +105,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 4, dependsOnMethods ={"actualizeArchetypeConfiguration"})
-    public void checkNewObjectButtonWithDropdown(){
+    public void test0040checkNewObjectButtonWithDropdown(){
         basicPage.listUsers()
                 .table()
                 .assertNewObjectDropdownButtonsCountEquals(".fa.fa-plus", 2)

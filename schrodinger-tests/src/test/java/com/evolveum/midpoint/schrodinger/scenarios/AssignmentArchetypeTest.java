@@ -31,12 +31,12 @@ public class AssignmentArchetypeTest extends AbstractSchrodingerTest {
     private static final String NEWLY_ADDED_RELATION_CONTAINER_HEADER_KEY = "RelationDefinitionType.details";
 
     @Test(priority = 0)
-    public void importArchetypeBusinessRole() {
+    public void test0010importArchetypeBusinessRole() {
         addObjectFromFile(ARCHETYPE_BUSINESS_ROLE_FILE);
     }
 
     @Test
-    public void configureRelationDefinitions(){
+    public void test0020configureRelationDefinitions(){
         //TODO wait till MID-5144 fix
 //        basicPage
 //                .roleManagement()

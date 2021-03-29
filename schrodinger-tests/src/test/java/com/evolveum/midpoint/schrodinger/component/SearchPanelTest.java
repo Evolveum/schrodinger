@@ -196,7 +196,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void test0080referenceAttributeByNameSearch() {
+    public void test0090referenceAttributeByNameSearch() {
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
         search.resetBasicSearch();
@@ -211,7 +211,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void test0090configuredAttributesSearch() {
+    public void test0100configuredAttributesSearch() {
         addObjectFromFile(SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH);
         basicPage.loggedUser().logout();
         midPoint.formLogin()
@@ -234,7 +234,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void test0100dateIntervalSearch() {
+    public void test0110dateIntervalSearch() {
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         basicPage.auditLogViewer()
                 .table()
@@ -245,7 +245,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void test0110OrgMemberPanelConfiguration() {
+    public void test012OrgMemberPanelConfiguration() {
         basicPage.orgStructure()
                 .selectTabWithRootOrg("orgRootMemberSearch")
                     .getMemberPanel()
@@ -273,7 +273,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void test0120OrgMemberPanelConfigurationWithoutDefaultSearchItems() {
+    public void test013OrgMemberPanelConfigurationWithoutDefaultSearchItems() {
         addObjectFromFile(SEARCH_CONFIG_WITHOUT_DEFAULT_ITEM_SYSTEM_CONFIG_FILE);
         basicPage.loggedUser().logout();
         basicPage = midPoint.formLogin().login(getUsername(), getPassword());

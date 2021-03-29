@@ -60,7 +60,7 @@ public class AccountTests extends AbstractSchrodingerTest {
 
 
     @Test(priority = 1, groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void createMidpointUser() throws IOException {
+    public void test0010createMidpointUser() throws IOException {
 
         initTestDirectory(DIRECTORY_CURRENT_TEST);
 
@@ -84,7 +84,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 2, groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void importCsvResource(){
+    public void test0020importCsvResource(){
         ImportObjectPage importPage = basicPage.importObject();
 
         importPage
@@ -98,7 +98,7 @@ public class AccountTests extends AbstractSchrodingerTest {
 
 
     @Test (priority = 3, dependsOnMethods = {IMPORT_CSV_RESOURCE_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void changeResourceFilePath(){
+    public void test0030changeResourceFilePath(){
         ListResourcesPage listResourcesPage = basicPage.listResources();
 
         listResourcesPage
@@ -116,7 +116,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 4, dependsOnMethods = {CREATE_MP_USER_DEPENDENCY,CHANGE_RESOURCE_FILE_PATH_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void addAccount() {
+    public void test0040addAccount() {
         ListUsersPage users = basicPage.listUsers();
         users
                 .table()
@@ -140,7 +140,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 5, dependsOnMethods = {ADD_ACCOUNT_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void modifyAccountAttribute(){
+    public void test0050modifyAccountAttribute(){
         ListUsersPage users = basicPage.listUsers();
                 users
                     .table()
@@ -164,7 +164,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 6, dependsOnMethods = {ADD_ACCOUNT_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void modifyAccountPassword(){
+    public void test0060modifyAccountPassword(){
         ListUsersPage users = basicPage.listUsers();
             users
                 .table()
@@ -189,7 +189,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 7, dependsOnMethods = {ADD_ACCOUNT_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void disableAccount(){
+    public void test0070disableAccount(){
         ListUsersPage users = basicPage.listUsers();
             users
                 .table()
@@ -213,7 +213,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 8, dependsOnMethods = {ADD_ACCOUNT_DEPENDENCY, DISABLE_ACCOUNT_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void enableAccount(){
+    public void test0080enableAccount(){
         ListUsersPage users = basicPage.listUsers();
             users
                 .table()
@@ -237,7 +237,7 @@ public class AccountTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 9, dependsOnMethods = {ENABLE_ACCOUNT_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void deleteAccount(){
+    public void test0090deleteAccount(){
         ListUsersPage users = basicPage.listUsers();
                 users
                     .table()

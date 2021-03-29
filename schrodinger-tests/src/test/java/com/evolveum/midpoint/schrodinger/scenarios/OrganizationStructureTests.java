@@ -58,7 +58,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
     private static final String FILE_RESOUCE_NAME = "midpoint-advanced-sync.csv";
 
     @Test
-    public void importOrgStructure() throws IOException {
+    public void test0010importOrgStructure() throws IOException {
 
         initTestDirectory(DIRECTORY_CURRENT_TEST);
 
@@ -76,7 +76,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
     }
 
 //    @Test (dependsOnMethods ={IMPORT_ORG_STRUCT_DEPENDENCY})
-    public void assignOrgUnit(){
+    public void test0020assignOrgUnit(){
          ListUsersPage users = basicPage.listUsers();
          UserPage userPage = users
                 .table()
@@ -106,7 +106,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
     }
 
 //    @Test (dependsOnMethods ={ORG_UNIT_ACCOUNT_INDUCEMENT_DEPENDENCY})
-    public void unassignOrgUnit(){
+    public void test0030unassignOrgUnit(){
         ListUsersPage users = basicPage.listUsers();
         UserPage userPage = users
                 .table()
@@ -128,7 +128,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
     }
 
 //    @Test (dependsOnMethods ={ASSIGN_ORG_UNIT_DEPENDENCY})
-    public void orgUnitAccountInducement(){
+    public void test0040orgUnitAccountInducement(){
         addObjectFromFile(CSV_RESOURCE_ADVANCED_SYNC);
         addObjectFromFile(ORG_ACCOUNT_INDUCEMENT_FILE);
         addObjectFromFile(ScenariosCommons.USER_TEST_RAPHAEL_FILE);
@@ -167,7 +167,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
    }
 
     @Test (dependsOnMethods ={IMPORT_ORG_STRUCT_DEPENDENCY})
-    public void expandCollapseAllTests(){
+    public void test0050expandCollapseAllTests(){
         OrgTreePage orgPage = basicPage.orgStructure();
         orgPage.selectTabWithRootOrg("Governor Office")
                 .getOrgHierarchyPanel()

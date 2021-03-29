@@ -41,32 +41,32 @@ public class AboutPageTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void checkMidpointVersion() {
+    public void test0010checkMidpointVersion() {
         aboutPage.assertVersionValueEquals(VERSION_EXPECTED);
     }
 
     @Test
-    public void checkGitDescribeValue() {
+    public void test0020checkGitDescribeValue() {
         aboutPage.assertGitDescribeValueIsNotEmpty();
     }
 
     @Test
-    public void checkBuildAt() {
+    public void test0030checkBuildAt() {
         aboutPage.assertBuildAtValueIsNotEmpty();
     }
 
     @Test // TODO fix select the right element
-    public void checkHibernateDialect() {
+    public void test0040checkHibernateDialect() {
         aboutPage.assertHibernateDialectValueEquals(HIBERNATE_DIALECT_EXPECTED);
     }
 
     @Test
-    public void checkConnIdVersion() {
+    public void test0050checkConnIdVersion() {
         aboutPage.assertConnIdVersionValueEquals(CONNID_VERSION_EXPECTED);
     }
 
     @Test
-    public void repoSelfTestFeedbackPositive() {
+    public void test0060repoSelfTestFeedbackPositive() {
 
         aboutPage
                 .repositorySelfTest()
@@ -75,7 +75,7 @@ public class AboutPageTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void reindexRepositoryObjectsFeedbackInfo() {
+    public void test0070reindexRepositoryObjectsFeedbackInfo() {
         aboutPage
                 .reindexRepositoryObjects()
                 .feedback()
@@ -84,7 +84,7 @@ public class AboutPageTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void checkReindexRepositoryObjectsCategory() {
+    public void test0080checkReindexRepositoryObjectsCategory() {
         aboutPage
                 .reindexRepositoryObjects()
                     .feedback()
@@ -93,7 +93,7 @@ public class AboutPageTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void checkReindexRepositoryObjectsDisplayName() {
+    public void test0090checkReindexRepositoryObjectsDisplayName() {
         // @formatter:off
         aboutPage
                         .reindexRepositoryObjects()
@@ -106,16 +106,17 @@ public class AboutPageTest extends AbstractSchrodingerTest {
     }
 
     @Test (enabled = false)
-    public void checkJVMPropertiesMidpointHome(){
+    public void test0100checkJVMPropertiesMidpointHome(){
         aboutPage.assertJVMPropertyValueIsNotEmpty(AbstractSchrodingerTest.PROPERTY_NAME_MIDPOINT_HOME);
     }
 
     @Test
-    public void checkJVMPropertiesXmx(){
+    public void test0110checkJVMPropertiesXmx(){
         aboutPage.assertJVMPropertyValueIsNotEmpty(PROPERTY_JVM_NAME_XMX);
     }
+
     @Test
-    public void checkSystemProperty(){
+    public void test0120checkSystemProperty(){
         aboutPage.assertSystemPropertyValueIsNotEmpty(AbstractSchrodingerTest.PROPERTY_NAME_USER_HOME);
     }
 }

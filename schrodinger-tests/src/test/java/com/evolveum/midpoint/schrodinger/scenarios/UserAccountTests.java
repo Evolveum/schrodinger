@@ -29,7 +29,7 @@ public class UserAccountTests extends AccountTests {
     private static final String BULK_DISABLE_MP_USER_DEPENDENCY = "bulkDisableUsers";
 
     @Test (dependsOnMethods = {CREATE_MP_USER_DEPENDENCY}, groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void modifyUserAttribute(){
+    public void test0010modifyUserAttribute(){
         ListUsersPage usersPage = basicPage.listUsers();
             usersPage
                     .table()
@@ -50,7 +50,7 @@ public class UserAccountTests extends AccountTests {
                         .isSuccess();
     }
     @Test (dependsOnMethods = {CREATE_MP_USER_DEPENDENCY, MODIFY_ACCOUNT_PASSWORD_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void modifyUserPassword(){
+    public void test0020modifyUserPassword(){
         ListUsersPage usersPage = basicPage.listUsers();
             usersPage
                     .table()
@@ -74,7 +74,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnMethods = {CREATE_MP_USER_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void disableUser(){
+    public void test0030disableUser(){
         ListUsersPage usersPage = basicPage.listUsers();
             usersPage
                 .table()
@@ -97,7 +97,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnMethods = {DISABLE_MP_USER_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void enableUser(){
+    public void test0040enableUser(){
         ListUsersPage usersPage = basicPage.listUsers();
             usersPage
                 .table()
@@ -120,7 +120,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnMethods = {ENABLE_MP_USER_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void bulkDisableUsers(){
+    public void test0050bulkDisableUsers(){
         ListUsersPage usersPage = basicPage.listUsers();
             usersPage
                 .table()
@@ -141,7 +141,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnMethods = {BULK_DISABLE_MP_USER_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void bulkEnableUsers(){
+    public void test0060bulkEnableUsers(){
         ListUsersPage usersPage = basicPage.listUsers();
             usersPage
                 .table()
@@ -162,7 +162,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnMethods = {CREATE_MP_USER_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void searchUser(){
+    public void test0070searchUser(){
     ListUsersPage usersPage = basicPage.listUsers();
     usersPage
                        .table()
@@ -175,7 +175,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnMethods = {CREATE_MP_USER_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
-    public void searchUserFromHome(){
+    public void test0080searchUserFromHome(){
         HomePage homePage = basicPage.home();
         homePage
                     .search()
@@ -188,7 +188,7 @@ public class UserAccountTests extends AccountTests {
     }
 
     @Test (dependsOnGroups = {TEST_GROUP_BEFORE_USER_DELETION})
-    public void bulkDeleteUsers(){
+    public void test0090bulkDeleteUsers(){
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
                 .table()

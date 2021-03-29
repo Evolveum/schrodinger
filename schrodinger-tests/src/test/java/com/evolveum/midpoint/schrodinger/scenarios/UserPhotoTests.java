@@ -36,7 +36,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     private static final String CREATE_USER_WITH_NORMAL_PHOTO_DEPENDENCY = "createMidpointUserWithPhotoJustRight";
 
     //@Test TODO test commented out because of MID-4774
-    public void createMidpointUserWithPhotoLarge(){
+    public void test0010createMidpointUserWithPhotoLarge(){
         UserPage user = basicPage.newUser();
         user
                     .selectTabBasic()
@@ -54,7 +54,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     }
 
     @Test //(dependsOnMethods = {CREATE_USER_WITH_LARGE_PHOTO_DEPENDENCY}) // TODO uncomment test dependency after MID-4774 fix
-    public void createMidpointUserWithPhotoJustRight(){
+    public void test0020createMidpointUserWithPhotoJustRight(){
         UserPage user = basicPage.newUser();
         user
                         .selectTabBasic()
@@ -72,7 +72,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     }
 
     @Test (dependsOnMethods = {CREATE_USER_WITH_NORMAL_PHOTO_DEPENDENCY})
-    public void deleteUserPhoto(){
+    public void test0030deleteUserPhoto(){
          ListUsersPage usersPage = basicPage.listUsers();
          usersPage
                     .table()

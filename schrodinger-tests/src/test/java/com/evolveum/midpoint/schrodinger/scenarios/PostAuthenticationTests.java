@@ -67,7 +67,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     }
 
     @Test (groups = TEST_GROUP_BEFORE_POST_AUTH_FLOW)
-    public void forcedActivationStatusProposedEnabled(){
+    public void test0010forcedActivationStatusProposedEnabled(){
 
     basicPage.listUsers()
                 .table()
@@ -81,7 +81,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     }
 
     @Test (groups = TEST_GROUP_BEFORE_POST_AUTH_FLOW)
-    public void forcedActivationStatusProposedArchived(){
+    public void test0020forcedActivationStatusProposedArchived(){
 
     basicPage.listUsers()
                 .table()
@@ -106,7 +106,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
 
 //TODO issue listed in Jira under MID-4996
     @Test (dependsOnGroups = {TEST_GROUP_BEFORE_POST_AUTH_FLOW}, alwaysRun = true)
-    public void flowWithoutPostAuthRoleAssigned(){
+    public void test0030flowWithoutPostAuthRoleAssigned(){
         midPoint.logout();
         midPoint.formLogin()
                 .loginWithReloadLoginPage(TEST_USER_TITIAN_NAME,TEST_USER_TITIAN_PASSWORD)
@@ -116,7 +116,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     }
 
     @Test (dependsOnMethods = {TEST_FLOW_WITHOUT_POST_AUTH_ROLE_ASSIGNED}, alwaysRun = true)
-    public void flowWithPostAuthRoleAssigned(){
+    public void test0040flowWithPostAuthRoleAssigned(){
         Selenide.clearBrowserCookies();
         Selenide.refresh();
 

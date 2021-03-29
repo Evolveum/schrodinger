@@ -46,7 +46,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void configureFilterForObjectCollection() {
+    public void test0010configureFilterForObjectCollection() {
         basicPage
                 .listObjectCollections()
                     .table()
@@ -73,7 +73,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void createNewObjectCollectionWithConfiguredFilter() {
+    public void test0020createNewObjectCollectionWithConfiguredFilter() {
         basicPage
                 .newObjectCollection()
                     .selectTabBasic()
@@ -105,7 +105,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void configureFilterWithObjectReferenceAttribute() {
+    public void test0030configureFilterWithObjectReferenceAttribute() {
         basicPage
                 .listObjectCollections()
                     .table()
@@ -135,7 +135,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void configureFilterWithDropdownAttribute() {
+    public void test0040configureFilterWithDropdownAttribute() {
         basicPage
                 .listObjectCollections()
                     .table()
