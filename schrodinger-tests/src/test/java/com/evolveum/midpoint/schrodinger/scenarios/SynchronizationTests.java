@@ -166,7 +166,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                             .feedback()
                             .isSuccess();
 
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
