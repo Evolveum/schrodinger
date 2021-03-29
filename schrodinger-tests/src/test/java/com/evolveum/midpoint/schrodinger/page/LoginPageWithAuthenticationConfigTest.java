@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -39,8 +40,15 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
     private static final File FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/flexible-authentication-policy-secururity-question-reset-pass.xml");
     private static final File FLEXIBLE_AUTHENTICATION_MAIL_NONCE_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/flexible-authentication-policy-nonce-reset-pass.xml");
     private static final File BULK_TASK = new File("src/test/resources/objects/tasks/add-archetype-to-node-bulk-task.xml");
+    protected static final File ADMINISTRATOR_USER_INITIAL = new File("src/test/resources/objects/users/user-administrator-initial.xml");
 
     private static final String ARCHETYPE_NODE_GROUP_GUI_OID = "05b6933a-b7fc-4543-b8fa-fd8b278ff9ee";
+
+    @AfterClass
+    public void afterClass() {
+        addObjectFromFile(ADMINISTRATOR_USER_INITIAL);
+        super.afterClass();
+    }
 
     @Test
     public void test010failWholeAuthenticationFlow() {

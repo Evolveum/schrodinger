@@ -25,7 +25,6 @@ import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -62,12 +61,12 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException{
         super.beforeClass();
-        addObjectFromFile(ENABLED_USER, true);
-        addObjectFromFile(DISABLED_USER, true);
-        addObjectFromFile(ENABLED_USER_WITHOUT_AUTHORIZATIONS, true);
-        addObjectFromFile(MAIL_NONCE_VALUE_POLICY, true);
-        addObjectFromFile(ARCHETYPE_NODE_GUI, true);
-        addObjectFromFile(getSecurityPolicyMailNonceResetPass(), true);
+        addObjectFromFile(ENABLED_USER);
+        addObjectFromFile(DISABLED_USER);
+        addObjectFromFile(ENABLED_USER_WITHOUT_AUTHORIZATIONS);
+        addObjectFromFile(MAIL_NONCE_VALUE_POLICY);
+        addObjectFromFile(ARCHETYPE_NODE_GUI);
+        addObjectFromFile(getSecurityPolicyMailNonceResetPass());
         //todo smth goes wrong after security policy import
         importObject(USER_WITHOUT_SUPERUSER, true);
         importObject(CREATE_NAME_OBJECT_TEMPLATE, true);
