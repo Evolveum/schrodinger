@@ -25,7 +25,6 @@ import java.util.List;
 import com.codeborne.selenide.Selenide;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
@@ -48,7 +47,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     protected static final String TEST_USER_TITIAN_PASSWORD= "5ecr3t";
     protected static final String ROLE_POST_AUTHENTICATION_AUTHORIZATION_NAME= "Post authentication authorization role";
     protected static final String TEST_GROUP_BEFORE_POST_AUTH_FLOW = "beforePostAuthFlow";
-    protected static final String TEST_FLOW_WITHOUT_POST_AUTH_ROLE_ASSIGNED = "flowWithoutPostAuthRoleAssigned";
+    protected static final String TEST_FLOW_WITHOUT_POST_AUTH_ROLE_ASSIGNED = "test0030flowWithoutPostAuthRoleAssigned";
 
     protected static final String ACTIVATION_STATE_ENABLED_VALUE = "Enabled";
     protected static final String ACTIVATION_STATE_ARCHIVAED_VALUE = "Archived";

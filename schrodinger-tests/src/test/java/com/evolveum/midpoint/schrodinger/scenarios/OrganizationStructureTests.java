@@ -50,9 +50,9 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
     private static final String NAME_CSV_RESOURCE_ADVANCED_SYNC ="CSV (target with groups)";
     private static final String TYPE_SELECTOR_ORG= "Org";
 
-    private static final String IMPORT_ORG_STRUCT_DEPENDENCY = "importOrgStructure";
-    private static final String ASSIGN_ORG_UNIT_DEPENDENCY = "assignOrgUnit";
-    private static final String ORG_UNIT_ACCOUNT_INDUCEMENT_DEPENDENCY = "orgUnitAccountInducement";
+    private static final String IMPORT_ORG_STRUCT_DEPENDENCY = "test0010importOrgStructure";
+    private static final String ASSIGN_ORG_UNIT_DEPENDENCY = "test0020assignOrgUnit";
+    private static final String ORG_UNIT_ACCOUNT_INDUCEMENT_DEPENDENCY = "test0040orgUnitAccountInducement";
 
     private static final String DIRECTORY_CURRENT_TEST = "organizationStructureTests";
     private static final String FILE_RESOUCE_NAME = "midpoint-advanced-sync.csv";

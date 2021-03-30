@@ -57,7 +57,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
 
 
-    @Test(priority = 2, dependsOnMethods ={"configureArchetypeObjectListView"}, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
+    @Test(priority = 2, dependsOnMethods ={"test0010configureArchetypeObjectListView"}, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
     public void test0020actualizeArchetypeConfiguration() {
         basicPage.loggedUser().logout();
         midPoint.formLogin()
@@ -77,7 +77,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
     }
 
-//    @Test(priority = 3, dependsOnMethods ={"actualizeArchetypeConfiguration"}, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
+//    @Test(priority = 3, dependsOnMethods ={"test0020actualizeArchetypeConfiguration"}, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
     public void test0030createNewEmployeeUser(){
         ListUsersPage collectionListPage = basicPage.listUsers(ARCHETYPE_PLURAL_LABEL);
 
@@ -104,7 +104,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
     }
 
-    @Test(priority = 4, dependsOnMethods ={"actualizeArchetypeConfiguration"})
+    @Test(priority = 4, dependsOnMethods ={"test0020actualizeArchetypeConfiguration"})
     public void test0040checkNewObjectButtonWithDropdown(){
         basicPage.listUsers()
                 .table()

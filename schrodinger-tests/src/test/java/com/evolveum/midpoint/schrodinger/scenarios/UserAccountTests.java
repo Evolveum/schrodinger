@@ -24,9 +24,9 @@ import org.testng.annotations.Test;
  */
 public class UserAccountTests extends AccountTests {
 
-    private static final String DISABLE_MP_USER_DEPENDENCY = "disableUser";
-    private static final String ENABLE_MP_USER_DEPENDENCY = "enableUser";
-    private static final String BULK_DISABLE_MP_USER_DEPENDENCY = "bulkDisableUsers";
+    private static final String DISABLE_MP_USER_DEPENDENCY = "test0030disableUser";
+    private static final String ENABLE_MP_USER_DEPENDENCY = "test0040enableUser";
+    private static final String BULK_DISABLE_MP_USER_DEPENDENCY = "test0050bulkDisableUsers";
 
     @Test (dependsOnMethods = {CREATE_MP_USER_DEPENDENCY}, groups = TEST_GROUP_BEFORE_USER_DELETION)
     public void test0010modifyUserAttribute(){

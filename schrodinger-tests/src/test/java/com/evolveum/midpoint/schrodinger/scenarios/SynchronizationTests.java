@@ -43,12 +43,12 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     private static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative-initial.csv");
     private static final File CSV_UPDATED_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-groups-authoritative-updated.csv");
 
-    private static final String RESOURCE_AND_SYNC_TASK_SETUP_DEPENDENCY = "setUpResourceAndSynchronizationTask";
-    private static final String NEW_USER_AND_ACCOUNT_CREATED_DEPENDENCY = "newResourceAccountUserCreated";
-    private static final String NEW_USER_ACCOUNT_CREATED_LINKED_DEPENDENCY = "newResourceAccountCreatedLinked";
-    private static final String LINKED_USER_ACCOUNT_MODIFIED = "alreadyLinkedResourceAccountModified";
-    private static final String LINKED_USER_ACCOUNT_DELETED = "alreadyLinkedResourceAccountDeleted";
-    private static final String RESOURCE_ACCOUNT_CREATED_WHEN_UNREACHABLE = "resourceAccountCreatedWhenResourceUnreachable";
+    private static final String RESOURCE_AND_SYNC_TASK_SETUP_DEPENDENCY = "test0010setUpResourceAndSynchronizationTask";
+    private static final String NEW_USER_AND_ACCOUNT_CREATED_DEPENDENCY = "test0020newResourceAccountUserCreated";
+    private static final String NEW_USER_ACCOUNT_CREATED_LINKED_DEPENDENCY = "test0040newResourceAccountCreatedLinked";
+    private static final String LINKED_USER_ACCOUNT_MODIFIED = "test0050alreadyLinkedResourceAccountModified";
+    private static final String LINKED_USER_ACCOUNT_DELETED = "test0060alreadyLinkedResourceAccountDeleted";
+    private static final String RESOURCE_ACCOUNT_CREATED_WHEN_UNREACHABLE = "test0080resourceAccountCreatedWhenResourceUnreachable";
 
     private static final String FILE_RESOUCE_NAME = "midpoint-advanced-sync.csv";
     private static final String DIRECTORY_CURRENT_TEST = "synchronizationTests";

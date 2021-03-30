@@ -32,8 +32,8 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     private static final File PHOTO_SOURCE_FILE_LARGE = new File("./src/test/resources/images/leonardo_large_nc.jpg");
     private static final File PHOTO_SOURCE_FILE_SMALL = new File("./src/test/resources/images/leonardo_small_nc.jpg");
 
-    private static final String CREATE_USER_WITH_LARGE_PHOTO_DEPENDENCY = "createMidpointUserWithPhotoLarge";
-    private static final String CREATE_USER_WITH_NORMAL_PHOTO_DEPENDENCY = "createMidpointUserWithPhotoJustRight";
+    private static final String CREATE_USER_WITH_LARGE_PHOTO_DEPENDENCY = "test0010createMidpointUserWithPhotoLarge";
+    private static final String CREATE_USER_WITH_NORMAL_PHOTO_DEPENDENCY = "test0020createMidpointUserWithPhotoJustRight";
 
     //@Test TODO test commented out because of MID-4774
     public void test0010createMidpointUserWithPhotoLarge(){

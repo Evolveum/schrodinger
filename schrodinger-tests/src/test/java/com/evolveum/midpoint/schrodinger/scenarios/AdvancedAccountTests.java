@@ -29,7 +29,7 @@ public class AdvancedAccountTests extends AbstractSchrodingerTest {
   private static File csvTargetFile;
 
   private static final String FILE_RESOUCE_NAME = "midpoint-advanced-sync.csv";
-  private static final String INITIALIZE_TEST_CONFIGURATION_DEPENDENCY = "initializeTestConfiguration";
+  private static final String INITIALIZE_TEST_CONFIGURATION_DEPENDENCY = "test0010initializeTestConfiguration";
   private static final String DIRECTORY_CURRENT_TEST = "advancedAccountTests";
 
   @Test

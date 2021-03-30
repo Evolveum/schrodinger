@@ -38,13 +38,13 @@ public class AccountTests extends AbstractSchrodingerTest {
 
     protected static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/midpoint-username.csv");
 
-    protected static final String IMPORT_CSV_RESOURCE_DEPENDENCY= "importCsvResource";
-    protected static final String CREATE_MP_USER_DEPENDENCY= "createMidpointUser";
-    protected static final String CHANGE_RESOURCE_FILE_PATH_DEPENDENCY= "changeResourceFilePath";
-    protected static final String ADD_ACCOUNT_DEPENDENCY= "addAccount";
-    protected static final String DISABLE_ACCOUNT_DEPENDENCY= "disableAccount";
-    protected static final String ENABLE_ACCOUNT_DEPENDENCY= "enableAccount";
-    protected static final String MODIFY_ACCOUNT_PASSWORD_DEPENDENCY= "modifyAccountPassword";
+    protected static final String IMPORT_CSV_RESOURCE_DEPENDENCY= "test0020importCsvResource";
+    protected static final String CREATE_MP_USER_DEPENDENCY= "test0010createMidpointUser";
+    protected static final String CHANGE_RESOURCE_FILE_PATH_DEPENDENCY= "test0030changeResourceFilePath";
+    protected static final String ADD_ACCOUNT_DEPENDENCY= "test0040addAccount";
+    protected static final String DISABLE_ACCOUNT_DEPENDENCY= "test0070disableAccount";
+    protected static final String ENABLE_ACCOUNT_DEPENDENCY= "test0080enableAccount";
+    protected static final String MODIFY_ACCOUNT_PASSWORD_DEPENDENCY= "test0060modifyAccountPassword";
     protected static final String TEST_GROUP_BEFORE_USER_DELETION = "beforeDelete";
 
     protected static final String CSV_RESOURCE_NAME= "Test CSV: username";
