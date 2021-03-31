@@ -199,6 +199,7 @@
                 <configuration>
                     <parallel>false</parallel>
                     <forkCount>1</forkCount>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <reuseForks>true</reuseForks>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <trimStackTrace>false</trimStackTrace>
@@ -287,6 +288,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${surefire.version}</version>
                         <configuration>
+                            <testFailureIgnore>true</testFailureIgnore>
                             <properties>
                                 <property>
                                     <name>testnames</name>
@@ -295,6 +297,14 @@
                             </properties>
                         </configuration>
                     </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                        <version>3.0.0-M4</version>-->
+<!--                        <configuration>-->
+<!--                            <testFailureIgnore>true</testFailureIgnore>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
@@ -307,6 +317,7 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${surefire.version}</version>
                         <configuration>
+                            <testFailureIgnore>true</testFailureIgnore>
                             <properties>
                                 <property>
                                     <name>testnames</name>
