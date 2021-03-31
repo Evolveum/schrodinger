@@ -37,7 +37,8 @@ import static com.codeborne.selenide.Selenide.*;
 public class FormLoginPage extends LoginPage {
 
     public SelfRegistrationPage register() {
-        $(Schrodinger.byDataId("selfRegistration")).click();
+        $(Schrodinger.byDataId("selfRegistration")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.byDataId("registrationInfo")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new SelfRegistrationPage();
     }
 

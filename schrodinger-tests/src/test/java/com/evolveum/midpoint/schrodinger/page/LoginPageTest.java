@@ -44,7 +44,6 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
     @Test
     public void test020selfRegistration() throws IOException, InterruptedException {
-        System.setProperty("midpoint.schrodinger","true");
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         open("/login");
