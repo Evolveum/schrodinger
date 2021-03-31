@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -48,6 +49,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     protected static final File CREATE_NAME_OBJECT_TEMPLATE = new File("src/test/resources/objects/objecttemplate/create-name-after-self-reg.xml");
     protected static final File NOTIFICATION_FILE = new File("./target/notification.txt");
     protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/objects/archetypes/archetype-node-group-gui.xml");
+    protected static final File ADMINISTRATOR_USER_INITIAL = new File("src/test/resources/objects/users/user-administrator-initial.xml");
 
     protected static final String NAME_OF_ENABLED_USER = "enabled_user";
     protected static final String MAIL_OF_ENABLED_USER = "enabled_user@evolveum.com";
@@ -61,12 +63,12 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException{
         super.beforeClass();
-        addObjectFromFile(ENABLED_USER);
-        addObjectFromFile(DISABLED_USER);
-        addObjectFromFile(ENABLED_USER_WITHOUT_AUTHORIZATIONS);
-        addObjectFromFile(MAIL_NONCE_VALUE_POLICY);
-        addObjectFromFile(ARCHETYPE_NODE_GUI);
-        addObjectFromFile(getSecurityPolicyMailNonceResetPass());
+        importObject(ENABLED_USER, true);
+        importObject(DISABLED_USER, true);
+        importObject(ENABLED_USER_WITHOUT_AUTHORIZATIONS, true);
+        importObject(MAIL_NONCE_VALUE_POLICY, true);
+        importObject(ARCHETYPE_NODE_GUI, true);
+        importObject(getSecurityPolicyMailNonceResetPass(), true);
         //todo smth goes wrong after security policy import
         importObject(USER_WITHOUT_SUPERUSER, true);
         importObject(CREATE_NAME_OBJECT_TEMPLATE, true);
@@ -87,6 +89,12 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         notificationTab.setRedirectToFile(notificationFile.getAbsolutePath());
         systemPage.clickSave();
         systemPage.feedback().assertSuccess();
+    }
+
+    @AfterClass
+    public void afterClass() {
+        super.afterClass();
+        addObjectFromFile(ADMINISTRATOR_USER_INITIAL);
     }
 
     @Override

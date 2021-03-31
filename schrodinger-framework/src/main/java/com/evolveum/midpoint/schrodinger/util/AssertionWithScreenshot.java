@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.util;
 
 import com.codeborne.selenide.Selenide;
+import org.testng.Reporter;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
 
@@ -25,8 +26,10 @@ public class AssertionWithScreenshot extends Assertion {
 
     @Override
     public void onAssertFailure(IAssert<?> var1, AssertionError var2) {
-        Selenide.screenshot(screenshotFileName != null ? screenshotFileName : generateScreenshotName());
+        String fileName = screenshotFileName != null ? screenshotFileName : generateScreenshotName();
+        Selenide.screenshot(fileName);
         super.onAssertFailure(var1, var2);
+        throw new AssertionError(var2.getMessage() + ", screenshot is created " + fileName + ".png");
     }
 
     private String generateScreenshotName() {
@@ -34,7 +37,7 @@ public class AssertionWithScreenshot extends Assertion {
         for (int i = 0; i < stack.length; i++) {
             StackTraceElement el = stack[i];
             if (el.getMethodName().contains("test")) {
-                return el.getMethodName().substring(el.getClassName().lastIndexOf(".") + 1) + "_" + el.getMethodName() + "_line" + el.getLineNumber();
+                return el.getClassName().substring(el.getClassName().lastIndexOf(".") + 1) + "_" + el.getMethodName() + "_line" + el.getLineNumber();
             }
         }
         return "assertionError";
