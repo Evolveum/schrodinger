@@ -22,8 +22,8 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
+import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -35,6 +35,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest {
 
     private static final File FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY = new File("src/test/resources/objects/securitypolicies/flexible-authentication-policy-secururity-question-reset-pass.xml");
