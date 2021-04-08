@@ -24,7 +24,6 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import java.util.Objects;
 
@@ -38,7 +37,7 @@ public class FormLoginPage extends LoginPage {
 
     public SelfRegistrationPage register() {
         $(Schrodinger.byDataId("selfRegistration")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        $(Schrodinger.byDataId("registrationInfo")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(byText("Self Registration")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new SelfRegistrationPage();
     }
 
