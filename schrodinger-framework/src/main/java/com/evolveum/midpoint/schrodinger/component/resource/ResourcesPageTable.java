@@ -26,6 +26,8 @@ import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selenide.$;
+
 /**
  * Created by matus on 4/25/2018.
  */
@@ -48,7 +50,7 @@ public class ResourcesPageTable<T> extends TableWithPageRedirect<T> {
     public ViewResourcePage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         return new ViewResourcePage();
     }
 
