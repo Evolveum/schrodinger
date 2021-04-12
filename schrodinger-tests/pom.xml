@@ -75,7 +75,7 @@
         <dependency>
             <groupId>com.evolveum.midpoint.infra</groupId>
             <artifactId>schema</artifactId>
-            <version>${project.version}</version>
+            <version>${midpoint.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>net.sf.jasperreports</groupId>
@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.evolveum.midpoint.gui</groupId>
             <artifactId>admin-gui</artifactId>
-            <version>${project.version}</version>
+            <version>${midpoint.version}</version>
             <classifier>classes</classifier>
             <scope>test</scope>
             <exclusions>
@@ -123,7 +123,7 @@
         <dependency>
             <groupId>com.evolveum.midpoint.repo</groupId>
             <artifactId>task-api</artifactId>
-            <version>${project.version}</version>
+            <version>${midpoint.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -145,7 +145,7 @@
         <dependency>
             <groupId>com.evolveum.midpoint.repo</groupId>
             <artifactId>repo-sql-impl</artifactId>
-            <version>${project.version}</version>
+            <version>${midpoint.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
