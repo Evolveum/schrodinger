@@ -282,12 +282,18 @@ public class Table<T> extends Component<T> {
     }
 
     public Table<T> assertTableContainsColumnWithValue(String columnResourceKey, String value) {
-        assertion.assertNotNull(rowByColumnResourceKey(columnResourceKey, value));
+        assertion.assertNotNull(rowByColumnResourceKey(columnResourceKey, value), "Table doesn't contain value '" + value +
+                "' in column with resource key '" + columnResourceKey + "'.");
         return this;
     }
 
     public Table<T> assertTableColumnValueIsEmpty(String columnResourceKey) {
-        assertion.assertEquals(getTableCellValue(columnResourceKey, 1), "");
+        assertion.assertEquals("", getTableCellValue(columnResourceKey, 1));
+        return this;
+    }
+
+    public Table<T> assertTableColumnValueIsNull(String columnResourceKey) {
+        assertion.assertEquals(null, getTableCellValue(columnResourceKey, 1));
         return this;
     }
 

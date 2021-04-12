@@ -121,7 +121,6 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .clickByName("EnvironmentalPerformanceCleanupTest");
         taskPage
                 .selectTabEnvironmentalPerformance()
-                    .getStatisticsPanel()
                         .assertMappingsEvaluationContainingObjectValueMatch("ManRes")
                         .assertMappingsEvaluationInvocationsCountValueMatch("4")
                         .assertMappingsEvaluationMaxValueMatch("1")
@@ -133,7 +132,6 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         taskPage
                 .selectTabEnvironmentalPerformance()
-                    .getStatisticsPanel()
                         .assertMappingsEvaluationContainingObjectValueMatch(null)
                         .assertMappingsEvaluationInvocationsCountValueMatch(null)
                         .assertMappingsEvaluationMaxValueMatch(null)
