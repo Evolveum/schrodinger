@@ -288,13 +288,25 @@
                 <module>schrodinger-tests</module>
             </modules>
         </profile>
-<!--        <profile>-->
-<!--            <id>advanced-labs</id>-->
-<!--            <modules>-->
-<!--                <module>schrodinger-framework</module>-->
-<!--                <module>schrodinger-tests</module>-->
-<!--            </modules>-->
-<!--        </profile>-->
+        <profile>
+            <id>build-framework-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${surefire.version}</version>
+                        <configuration>
+                            <testFailureIgnore>true</testFailureIgnore>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <modules>
+                <module>schrodinger-framework</module>
+                <module>schrodinger-tests</module>
+            </modules>
+        </profile>
     </profiles>
 
 </project>
