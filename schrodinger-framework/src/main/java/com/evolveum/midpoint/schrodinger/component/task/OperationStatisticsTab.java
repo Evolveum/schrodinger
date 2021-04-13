@@ -22,6 +22,8 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import static com.codeborne.selenide.Selenide.$;
+
 /**
  * @author skublik
  */
@@ -80,5 +82,15 @@ public class OperationStatisticsTab extends Component<TaskPage> {
     public OperationStatisticsTab assertObjectsTotalIsNull() {
         assertion.assertNull(getObjectsTotalCount(), "The total count of processed objects should be null.");
         return null;
+    }
+
+    public OperationStatisticsTab assertResultsChartIsDisplayed() {
+        assertion.assertTrue($(Schrodinger.byDataId("chart")).isDisplayed(), "Chart with operation results should be visible");
+        return this;
+    }
+
+    public OperationStatisticsTab assertResultsChartIsNotDisplayed() {
+        assertion.assertFalse($(Schrodinger.byDataId("chart")).isDisplayed(), "Chart with operation results shouldn't be visible");
+        return this;
     }
 }

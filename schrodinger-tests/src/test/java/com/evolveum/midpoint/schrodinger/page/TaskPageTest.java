@@ -93,9 +93,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .clickByName("OperationStatisticsCleanupTest");
         OperationStatisticsTab operationStatisticsTab = taskPage
                 .selectTabOperationStatistics();
-        operationStatisticsTab.assertSuccessfullyProcessedCountMatch(30);
-        operationStatisticsTab.assertObjectsFailedToBeProcessedCountMatch(3);
-        operationStatisticsTab.assertObjectsTotalCountMatch(33);
+        operationStatisticsTab.assertResultsChartIsDisplayed();
         taskPage
                 .cleanupEnvironmentalPerformanceInfo()
                 .clickYes()
@@ -103,9 +101,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         operationStatisticsTab = taskPage
                 .selectTabOperationStatistics();
-        operationStatisticsTab.assertSuccessfullyProcessedIsNull();
-        operationStatisticsTab.assertObjectsFailedToBeProcessedIsNull();
-        operationStatisticsTab.assertObjectsTotalIsNull();
+        operationStatisticsTab.assertResultsChartIsNotDisplayed();
 
     }
 

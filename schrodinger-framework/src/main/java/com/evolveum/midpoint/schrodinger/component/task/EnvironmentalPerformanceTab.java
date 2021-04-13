@@ -38,11 +38,6 @@ public class EnvironmentalPerformanceTab extends Component<TaskPage> {
         super(parent, parentElement);
     }
 
-    public StatisticsPanel<EnvironmentalPerformanceTab> getStatisticsPanel() {
-        return new StatisticsPanel<>(this, $(Schrodinger.byDataId("statisticsPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
-    }
-
     public Table<EnvironmentalPerformanceTab> getMappingsEvaluationInformationTable() {
         SelenideElement tableElement = $(Schrodinger.byDataId("mappingsStatisticsLines"))
                 .$x(".//table[@data-s-id='table']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
