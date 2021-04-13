@@ -16,17 +16,24 @@
 
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
+import com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author honchar
  */
@@ -47,6 +54,9 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File SYSTEM_CONFIGURATION_FILE_INIT = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-advanced-labs-init.xml");
     private static final File HR_NO_EXTENSION_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-noextension.xml");
     private static final File ORG_EXAMPLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "org/org-example.xml");
+    protected static final File HR_SOURCE_FILE_1_3_UPDATE_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-1.csv");
+    protected static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
+    protected static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -63,12 +73,12 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
     }
 
-//    @Override
-//    protected List<File> getObjectListToImport(){
-//        return Arrays.asList(OBJECT_COLLECTION_ACTIVE_EMP_FILE, OBJECT_COLLECTION_INACTIVE_EMP_FILE, OBJECT_COLLECTION_FORMER_EMP_FILE,
-//                KIRK_USER_FILE, SECRET_I_ROLE_FILE, SECRET_II_ROLE_FILE, INTERNAL_EMPLOYEE_ROLE_FILE,
-//                CSV_1_SIMPLE_RESOURCE_FILE, CSV_2_RESOURCE_FILE, CSV_3_RESOURCE_FILE, SYSTEM_CONFIGURATION_FILE_INIT);
-//    }
+    @Override
+    protected List<File> getObjectListToImport(){
+        return Arrays.asList(OBJECT_COLLECTION_ACTIVE_EMP_FILE, OBJECT_COLLECTION_INACTIVE_EMP_FILE, OBJECT_COLLECTION_FORMER_EMP_FILE,
+                KIRK_USER_FILE, SECRET_I_ROLE_FILE, SECRET_II_ROLE_FILE, INTERNAL_EMPLOYEE_ROLE_FILE,
+                CSV_1_SIMPLE_RESOURCE_FILE, CSV_2_RESOURCE_FILE, CSV_3_RESOURCE_FILE, SYSTEM_CONFIGURATION_FILE_INIT);
+    }
 
     @Test(groups={"advancedM1"})
     public void mod01test01environmentInitialization() {
@@ -141,7 +151,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     }
 
     @Test(groups={"advancedM1"})
-    public void mod01test03EnvironmentExamination() {
+    public void mod01test03EnvironmentExamination() throws IOException {
         changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
 
         getShadowTable(HR_RESOURCE_NAME, "name", "001212")
@@ -166,6 +176,100 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertProjectionExist("cn=John Smith,ou=0300,ou=ExAmPLE,dc=example,dc=com")
                     .assertProjectionExist("smith");
 
+        basicPage.listResources()
+                    .table()
+                        .search()
+                            .byName()
+                            .inputValue(HR_RESOURCE_NAME)
+                            .updateSearch()
+                        .and()
+                        .clickByName(HR_RESOURCE_NAME)
+                            .clickAccountsTab()
+                                .liveSyncTask()
+                                    .clickCreateNew()
+                                        .selectTabBasic()
+                                        .form()
+                                        .addAttributeValue("Name", "Initial import from HR")
+                                        .and()
+                                    .and()
+                                .clickSave()
+                                .feedback()
+                                .assertSuccess();
+        basicPage
+                .listUsers()
+                    .table()
+                        .assertTableObjectsCountEquals(15);
 
+        TaskPage task = basicPage.newTask();
+        task.setHandlerUriForNewTask("Live synchronization task");
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        task.selectTabBasic()
+                .form()
+                    .addAttributeValue(TaskType.F_NAME, "HR Synchronization")
+                    .addAttributeValue("objectclass", "AccountObjectClass")
+                    .editRefValue("objectRef")
+                        .selectType("Resource")
+                        .table()
+                            .search()
+                                .byName()
+                                .inputValue(HR_RESOURCE_NAME)
+                                .updateSearch()
+                                .and()
+                            .clickByName(HR_RESOURCE_NAME)
+                    .selectOption("recurrence","Recurring")
+                    .selectOption("binding","Tight")
+                    .and()
+                .and()
+                .selectScheduleTab()
+                    .form()
+                        .addAttributeValue("interval", "5")
+                        .and()
+                    .and()
+                .clickSaveAndRun()
+                .feedback()
+                .isInfo();
+
+       FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_1, hrTargetFile);
+       Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        basicPage
+                .listUsers()
+                    .table()
+                        .search()
+                        .byName()
+                        .inputValue("000999")
+                        .updateSearch()
+                    .and()
+                    .assertTableObjectsCountEquals(1);
+
+        FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        basicPage
+                .listUsers()
+                    .table()
+                        .search()
+                        .byName()
+                        .inputValue("Arnold J.")
+                        .updateSearch()
+                    .and()
+                    .assertTableObjectsCountEquals(1);
+
+        FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_3, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("Arnold J.")
+                .assertActivationStateEquals("Disabled")
+                .selectTabAssignments()
+                    .assertAssignmentsWithRelationExist("Member", "Inactive Employees")
+                    .and()
+                .selectTabProjections()
+                    .assertProjectionDisabled("cn=Arnold J. Rimmer,ou=ExAmPLE,dc=example,dc=com");
+
+        FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("Arnold J.")
+                .assertActivationStateEquals("Enabled");
     }
 }

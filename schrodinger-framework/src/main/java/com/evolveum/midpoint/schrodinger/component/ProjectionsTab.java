@@ -149,12 +149,12 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
         SelenideElement assignmentSummaryDisplayName = table()
                 .clickByName(assignmentName)
                 .getParentElement()
-                .$(Schrodinger.byDataId("displayName"));
+                .$x(".//span[@data-s-id='displayName']");
         return assignmentName.equals(assignmentSummaryDisplayName.getText());
     }
 
     public ProjectionsTab<P> assertProjectionExist(String projectionName) {
-        assertion.assertTrue(projectionExists(projectionName), "Projection " + projectionName + "should exist");
+        assertion.assertTrue(projectionExists(projectionName), "Projection " + projectionName + " should exist");
         return this;
     }
 
