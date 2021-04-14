@@ -42,6 +42,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File OBJECT_COLLECTION_ACTIVE_EMP_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-active-employees.xml");
     private static final File OBJECT_COLLECTION_INACTIVE_EMP_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-inactive-employees.xml");
     private static final File OBJECT_COLLECTION_FORMER_EMP_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-former-employees.xml");
+    private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
     private static final File ARCHETYPE_EMPLOYEE_FILE = new File(LAB_OBJECTS_DIRECTORY + "archetypes/archetype-employee.xml");
     private static final File ARCHETYPE_EXTERNAL_FILE = new File(LAB_OBJECTS_DIRECTORY + "archetypes/archetype-external.xml");
     private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
@@ -54,9 +55,10 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File SYSTEM_CONFIGURATION_FILE_INIT = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-advanced-labs-init.xml");
     private static final File HR_NO_EXTENSION_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-noextension.xml");
     private static final File ORG_EXAMPLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "org/org-example.xml");
-    protected static final File HR_SOURCE_FILE_1_3_UPDATE_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-1.csv");
-    protected static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
-    protected static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
+    private static final File HR_SOURCE_FILE_1_3_UPDATE_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-1.csv");
+    private static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
+    private static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
+    private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -271,5 +273,20 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         showUser("Arnold J.")
                 .assertActivationStateEquals("Enabled");
+    }
+
+    @Test(groups={"advancedM1"})
+    public void mod01test04objectCollection() {
+        addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
+        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_1_4);
+
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        FormLoginPage login = midPoint.formLogin();
+        login.loginWithReloadLoginPage("administrator", "5ecr3t");
+
+        basicPage.listUsers("Empty Telephone")
+                .table()
+                    .assertTableObjectsCountNotEquals(0);
+
     }
 }

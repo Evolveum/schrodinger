@@ -124,8 +124,11 @@ public class Utils {
     }
 
     public static SelenideElement getModalWindowSelenideElement() {
-        return $(By.className("wicket-modal"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getModalWindowSelenideElement(MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    public static SelenideElement getModalWindowSelenideElement(long waitTime) {
+        return $(By.className("wicket-modal")).waitUntil(Condition.appear, waitTime);
     }
 
     public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue) throws IOException {

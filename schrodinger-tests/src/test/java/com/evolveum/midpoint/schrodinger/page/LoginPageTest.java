@@ -64,7 +64,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
     }
 
     @Test
-    public void test030resetPassowordMailNonce() throws IOException, InterruptedException {
+    public void test030resetPasswordMailNonce() throws IOException, InterruptedException {
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
