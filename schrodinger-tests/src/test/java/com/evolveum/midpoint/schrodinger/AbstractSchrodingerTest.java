@@ -135,14 +135,15 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         startMidpoint = isStartMidpoint();
         if (startMidpoint) {
             String home = System.getProperty("midpoint.home");
-
+            File mpHomeDir = new File(home);
+            if (!mpHomeDir.exists()) {
+                if (!mpHomeDir.mkdir()) {
+                    throw new IOException("Creation of directory " + mpHomeDir.getAbsolutePath() + " unsuccessful");
+                }
+            }
             File extensionSchemaFile = getExtensionSchemaFile();
             if (extensionSchemaFile != null) {
-                File mpHomeDir = new File(home);
                 File schemaDir = new File(home, "schema");
-                if (!mpHomeDir.exists()) {
-                    super.springTestContextPrepareTestInstance();
-                }
                 if (!schemaDir.mkdir()) {
                     if (schemaDir.exists()) {
                         FileUtils.cleanDirectory(schemaDir);
@@ -161,9 +162,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
                 if (objList != null && objList.length > 0) {
                     File postInitObjectsDir = new File(home, "post-initial-objects");
-                    if (!postInitObjectsDir.exists()) {
-                        super.springTestContextPrepareTestInstance();
-                    }
                     if (!postInitObjectsDir.mkdir()) {
                         if (postInitObjectsDir.exists()) {
                             FileUtils.cleanDirectory(postInitObjectsDir);
