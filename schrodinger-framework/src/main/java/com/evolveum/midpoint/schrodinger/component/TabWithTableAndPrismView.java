@@ -61,7 +61,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
 
             @Override
             public AbstractTableWithPrismView<T> selectHeaderCheckbox() {
-                $(Schrodinger.byFollowingSiblingEnclosedValue("th", "class", "check", "data-s-id", "3", ""))
+                $(Schrodinger.bySelfOrDescendantElementAttributeValue("input", "type", "checkbox", "data-s-id", "check"))
                         .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
                 return this;

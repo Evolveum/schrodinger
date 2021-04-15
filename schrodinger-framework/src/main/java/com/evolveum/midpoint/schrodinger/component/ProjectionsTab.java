@@ -148,20 +148,13 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
     public boolean projectionExists(String projectionName, String resourceName){
         table()
                 .search()
-                    .byName()
-                    .inputValue(projectionName)
-                    .updateSearch()
-                    .and()
-                .rowByColumnLabel("Resource", resourceName)
-                    .clickCheckBox();
-        table()
-                .clickHeaderActionButton("fa fa-edit ");
-        String assignmentActualName = getParentElement().$x(".//span[@data-s-id='displayName']")
+                    .referencePanelByItemName("Resource")
+                        .inputRefName(resourceName, resourceName)
+                    .updateSearch();
+        PrismFormWithActionButtons form = table()
+                .clickByName(projectionName);
+        String assignmentActualName = form.getParentElement().$x(".//span[@data-s-id='displayName']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getText();
-
-        SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
-        PrismFormWithActionButtons form = new PrismFormWithActionButtons(this, prismElement);
         form.clickCancel();
         form.getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return projectionName.equals(assignmentActualName);

@@ -91,15 +91,16 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
-                        .assertProjectionExist("jkirk", "CSV-2")
-                        .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3")
-                        .assertProjectionExist("jkirk", "CSV-1");
+                        .assertProjectionExist("jkirk", "CSV-2 (Canteen Ordering System)")
+                        .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
+                        .assertProjectionExist("jkirk", "CSV-1 (Document Access)");
 
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Secret Projects I", "Secret Projects II");
         //TODO check CSV-1 groups
         showUser("kirk")
                 .selectTabProjections();
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects I", "Secret Projects II");
+        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects I");
+        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects II");
         //TODO check CSV-1 groups
         Utils.removeAllAssignments(showUser("kirk").selectTabAssignments());
         showUser("kirk")
