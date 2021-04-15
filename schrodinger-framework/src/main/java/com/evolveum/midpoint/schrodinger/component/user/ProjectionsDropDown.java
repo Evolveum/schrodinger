@@ -53,6 +53,10 @@ public class ProjectionsDropDown<T> extends TableHeaderDropDownMenu<T> {
         return clickByDataResourceKey("pageAdminFocus.button.unlock");
     }
 
+    public T edit() {
+        return clickByDataResourceKey("pageAdminFocus.button.unlock");
+    }
+
 //    public FocusSetProjectionModal<T> addProjection() {
 //        $(Schrodinger.byElementValue("a", "data-s-id", "menuItemLink", "\n" +
 //                "        Add projection")).waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();

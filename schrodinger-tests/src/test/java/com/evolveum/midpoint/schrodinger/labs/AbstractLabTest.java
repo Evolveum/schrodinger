@@ -85,6 +85,7 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     protected static File csv2TargetFile;
     protected static File csv3TargetFile;
     protected static File hrTargetFile;
+    protected static File contractorsTargetFile;
     protected static File notificationFile;
 
     protected File getTestTargetDir() throws IOException {

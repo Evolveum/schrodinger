@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2010-2021 Evolveum
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~     http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
-xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
-xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
-xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
-    <resource oid="10000000-9999-9999-0000-a000ff000001">
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<resource oid="10000000-9999-9999-0000-a000ff000001"
+    xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+    xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+    xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
         <!-- Resource name. It will be displayed in GUI.  -->
         <name>ExAmPLE, Inc. HR Source</name>
         <!-- Reference to the ICF CSV connector. -->
@@ -118,6 +103,44 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                     </inbound>
                 </attribute>
                 <attribute>
+                    <ref>ri:isManager</ref>
+                    <displayName>Is Manager</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <expression>
+                            <!-- 1 == manager, 0 (or anything else) = employee -->
+                            <script>
+                                <code>return input == '1'</code>
+                            </script>
+                        </expression>
+                        <target>
+                            <path>extension/isManager</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:empStatus</ref>
+                    <displayName>Employee Status</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>extension/empStatus</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
                     <ref>ri:department</ref>
                     <displayName>Department name</displayName>
                     <limitations>
@@ -130,6 +153,11 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                     <inbound>
                         <target>
                             <path>organizationalUnit</path>
+                            <!-- Range used to REPLACE instead of ADD the value
+                        (organizationalUnit is multi-value) -->
+                            <set>
+                                <predefined>all</predefined>
+                            </set>
                         </target>
                     </inbound>
                 </attribute>
@@ -146,6 +174,22 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                     <inbound>
                         <target>
                             <path>costCenter</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:ouPath</ref>
+                    <displayName>Organizational Hierarchy</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>extension/ouPath</path>
                         </target>
                     </inbound>
                 </attribute>
@@ -209,6 +253,18 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                         </access>
                     </limitations>
                 </attribute>
+                <attribute>
+                    <ref>ri:employedTo</ref>
+                    <displayName>Employed To</displayName>
+                    <limitations>
+                        <maxOccurs>1</maxOccurs>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                </attribute>
                 <!--
                 <attribute>
                     <ref>ri:locality</ref>
@@ -239,7 +295,11 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                             </source>
                             <expression>
                                 <script>
-                                    <code>basic.parseDateTime("yyyy-MM-dd'T'HH:mm:ss", employedFrom)</code>
+                                    <code><!--
+dateFromString = new Date().parse("yyyy-MM-dd'T'HH:mm:ss.SSSZ", employedFrom)
+com.evolveum.midpoint.util.MiscUtil.asXMLGregorianCalendar(dateFromString)-->
+basic.parseDateTime("yyyy-MM-dd'T'HH:mm:ss", employedFrom)
+                        </code>
                                 </script>
                             </expression>
                         </inbound>
@@ -252,7 +312,10 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                             </source>
                             <expression>
                                 <script>
-                                    <code>basic.parseDateTime("yyyy-MM-dd'T'HH:mm:ss", employedTo)</code>
+                                    <code><!--dateToString = new Date().parse("yyyy-MM-dd'T'HH:mm:ss.SSSZ", employedTo)
+com.evolveum.midpoint.util.MiscUtil.asXMLGregorianCalendar(dateToString)-->
+basic.parseDateTime("yyyy-MM-dd'T'HH:mm:ss", employedTo)
+                        </code>
                                 </script>
                             </expression>
                         </inbound>
@@ -263,7 +326,8 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                         <inbound>
                             <strength>weak</strength>
                             <expression>
-                                <generate/><!-- Global password policy will be used -->
+                                <generate/>
+                                <!-- Global password policy will be used -->
                             </expression>
                         </inbound>
                     </password>
@@ -308,10 +372,9 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                 <correlation>
                     <q:description>
                         Correlation expression is a search query.
-                        Following search queury will look for users that have "name"
-                        equal to the "name" attribute of the account. Simply speaking,
-                        it will look for match in usernames in the IDM and the resource.
-                        The correlation rule always looks for users, so it will not match
+                        Following search queury will look for users that have "employeeNumber"
+                        equal to the "name" attribute of the account. 
+                        The correlation rule by default looks for users, so it will not match
                         any other object type.
                     </q:description>
                     <q:equal>
@@ -356,5 +419,4 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                 </reaction>
             </objectSynchronization>
         </synchronization>
-    </resource>
-</objects>
+</resource>

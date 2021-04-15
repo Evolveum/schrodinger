@@ -91,9 +91,9 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
-                        .assertProjectionExist("jkirk")
-                        .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com")
-                        .assertProjectionExist("kirk");
+                        .assertProjectionExist("jkirk", "CSV-2")
+                        .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3")
+                        .assertProjectionExist("jkirk", "CSV-1");
 
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Secret Projects I", "Secret Projects II");
         //TODO check CSV-1 groups
@@ -174,9 +174,9 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             "Former Employees", "Internal Employee")
                     .and()
                 .selectTabProjections()
-                    .assertProjectionExist("jsmith")
-                    .assertProjectionExist("cn=John Smith,ou=0300,ou=ExAmPLE,dc=example,dc=com")
-                    .assertProjectionExist("smith");
+                    .assertProjectionExist("jsmith", "CSV-2")
+                    .assertProjectionExist("cn=John Smith,ou=0300,ou=ExAmPLE,dc=example,dc=com", "CSV-3")
+                    .assertProjectionExist("smith", "CSV-1");
 
         basicPage.listResources()
                     .table()

@@ -9,7 +9,7 @@ especially an expression that is using a lookup of value from an configuration
 object.
 
 -->
-<resource oid="10000000-9999-9999-0000-a000ff000004"
+<resource oid="10000000-9999-9999-0000-a000ff000002"
     xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
     xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -18,7 +18,7 @@ object.
     xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
     xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
         <!-- Resource name. It will be displayed in GUI.  -->
-        <name>CSV-3 (LDAP)</name>
+        <name>CSV-1 (Document Access)</name>
         <!-- Reference to the ICF CSV connector. -->
         <connectorRef type="ConnectorType">
             <filter>
@@ -33,14 +33,14 @@ object.
         <connectorConfiguration>
             <!-- Configuration specific for the CSV connector -->
             <icfc:configurationProperties xmlns:icfcsv="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-csv/com.evolveum.polygon.connector.csv.CsvConnector">
-                <icfcsv:filePath>/opt/training/midpoint-labs/flatfiles/csv-3.csv</icfcsv:filePath>
+                <icfcsv:filePath>/opt/training/midpoint-labs/flatfiles/csv-1.csv</icfcsv:filePath>
                 <icfcsv:encoding>utf-8</icfcsv:encoding>
                 <icfcsv:quoteMode>ALL</icfcsv:quoteMode>
                 <icfcsv:quote>"</icfcsv:quote>
                 <icfcsv:fieldDelimiter>,</icfcsv:fieldDelimiter>
                 <icfcsv:multivalueDelimiter>;</icfcsv:multivalueDelimiter>
-                <icfcsv:uniqueAttribute>dn</icfcsv:uniqueAttribute>
-                <icfcsv:passwordAttribute>userPassword</icfcsv:passwordAttribute>
+                <icfcsv:uniqueAttribute>login</icfcsv:uniqueAttribute>
+                <icfcsv:passwordAttribute>password</icfcsv:passwordAttribute>
             </icfc:configurationProperties>
             <!-- Generic ICF configuration -->
         </connectorConfiguration>
@@ -55,6 +55,8 @@ object.
              This is the part where most of the customization takes place.
         -->
         <schemaHandling>
+            <!-- Definition of default account type.
+                 This is now the only account type that midPoint can work with. -->
             <objectType>
                 <kind>account</kind>
                 <intent>default</intent>
@@ -65,63 +67,40 @@ object.
                      object class for this account type -->
                 <objectClass>ri:AccountObjectClass</objectClass>
                 <attribute>
-                    <ref>ri:dn</ref>
+                    <ref>ri:login</ref>
                     <!-- Readable name for the attribute. This will be used in GUI -->
-                    <displayName>Distinguished Name</displayName>
-                    <!-- Access limitation for this attribute.
-                          -->
+                    <displayName>Login</displayName>
+                    <!-- Access limitation for this attribute. -->
                     <limitations>
                         <minOccurs>0</minOccurs>
                     </limitations>
                     <outbound>
-                        <strength>strong</strength>
-                        <!-- allow renames when reconciling/recomputing -->
-                        <source>
-                            <path>extension/ouPath</path>
-                        </source>
                         <source>
                             <path>givenName</path>
                         </source>
                         <source>
                             <path>familyName</path>
                         </source>
-                        <source>
-                            <path>extension/empStatus</path>
-                        </source>
                         <expression>
                             <script>
                                 <code><!-- Generate user name:
 
-- cn=givenName familyName,ou=...,ou=...,ou=...,ou=ExAmPLE,dc=example,dc=com
+- GivenName initial (1 character) + FamilyName
+- no diacritics, all lower case (normalized)
 
 -->
 
+tmpGivenNameInitial = basic.stringify(givenName)?.size() &gt; 0 ? (basic.stringify(givenName)).substring(0,1) : ''
 
-String[] tmpOuPath = []
-
-if (empStatus == 'A' || basic.isEmpty(empStatus)) {
-    tmpOuPath = ouPath ? ouPath.toString().split(':') : []
-    tmpOuPathDn = ''
-
-    for (i = 0; i &lt; tmpOuPath.size(); i++) {
-        tmpOuPathDn = ',ou=' + tmpOuPath[i] + tmpOuPathDn
-    }
-} else {
-    tmpOuPathDn = ',ou=_DISABLED_'
-}
-<!-- MID-102, LAB 2-2, part 1 of 3: append: "+ iterationToken" (without quotes) after
-cn component of DN -->
-cn = basic.concatName(givenName, familyName)
-return 'cn=' + cn + tmpOuPathDn + ',ou=ExAmPLE,dc=example,dc=com'
-
-
+<!-- MID-102, LAB 2-2, part 1 of 2: add: "+ iterationToken" (without quotes) at the end of the following line -->
+basic.norm(tmpGivenNameInitial + basic.stringify(familyName))?.replace(' ', '')
                         </code>
                             </script>
                         </expression>
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:employeeNumber</ref>
+                    <ref>ri:enumber</ref>
                     <displayName>Employee Number</displayName>
                     <description>Definition of Employee Number attribute handling.</description>
                     <outbound>
@@ -131,7 +110,7 @@ return 'cn=' + cn + tmpOuPathDn + ',ou=ExAmPLE,dc=example,dc=com'
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:givenName</ref>
+                    <ref>ri:fname</ref>
                     <displayName>First name</displayName>
                     <description>Definition of Firstname attribute handling.</description>
                     <outbound>
@@ -141,143 +120,74 @@ return 'cn=' + cn + tmpOuPathDn + ',ou=ExAmPLE,dc=example,dc=com'
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:sn</ref>
+                    <ref>ri:lname</ref>
                     <displayName>Last name</displayName>
                     <description>Definition of Lastname attribute handling.</description>
                     <outbound>
-                        <source>
-                            <path>familyName</path>
-                        </source>
-                    </outbound>
-                </attribute>
-                <attribute>
-                    <ref>ri:mail</ref>
-                    <displayName>Mail</displayName>
-                    <description>Definition of Mail attribute handling.</description>
-                    <outbound>
-                        <source>
-                            <path>givenName</path>
-                        </source>
+                        <strength>strong</strength>
                         <source>
                             <path>familyName</path>
                         </source>
                         <expression>
                             <script>
-                                <code><!-- MID-102, LAB 2-2, part 2 of 3: append: "iterationToken + " (without quotes) just before '@example.com' part -->
-    basic.norm(basic.stringify(givenName))?.replace(' ', '.') + '.' +
- basic.norm(basic.stringify(familyName))?.replace(' ', '.') + '@example.com'
-                    </code>
+                                <code>basic.uc(basic.stringify(familyName))</code>
                             </script>
                         </expression>
                     </outbound>
-                    <!-- TODO MID-2153: this is evaluated as strong! -->
-                    <inbound>
-                        <target>
-                            <path>emailAddress</path>
-                        </target>
-                    </inbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:MemberOf</ref>
-                    <displayName>Member Of</displayName>
-                    <description>Definition of MemberOf attribute handling.</description>
+                    <ref>ri:dep</ref>
+                    <displayName>Department</displayName>
+                    <description>Definition of Department attribute handling.</description>
+                    <outbound>
+                        <source>
+                            <path>organizationalUnit</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:groups</ref>
+                    <displayName>Groups</displayName>
+                    <description>Definition of Group attribute handling.</description>
                     <limitations>
                         <minOccurs>0</minOccurs>
                         <maxOccurs>unbounded</maxOccurs>
                     </limitations>
+                    <tolerant>false</tolerant>
+                    <!-- For also removing group values when recalculating -->
                 </attribute>
-                <!-- XXX commented, because "manager" column is not present in
-                csv-3.csv by default -->
-                <!--
                 <attribute>
-                <tolerant>false</tolerant>
-                    <ref>ri:manager</ref>
-                    <displayName>Manager</displayName>
-                    <outbound>
-                        <strength>strong</strength>
-                        <expression>
-                            <script>
-                                <code>
-// get user managers from org. structure
-// (will not return anything unless we have org. structure...
-m = midpoint.getManagersOidsExceptUser(user)
-// so we return empty value for that case
-if (m?.size() == 0) return ""
-// otherwise, get user login (name) instead of oid
-// (we need to take only first entry of manager list)
-manager = midpoint.getUserByOid(m.iterator().next())?.name
-return manager
-                                </code>
-                            </script>
-                        </expression>
-                    </outbound>
-                </attribute>
-                -->
-                <attribute>
-                    <ref>ri:telephoneNumber</ref>
-                    <displayName>Telephone Number</displayName>
-                    <description>Phone number normalized spaces</description>
+                    <ref>ri:phone</ref>
+                    <displayName>Phone Number</displayName>
+                    <description>Phone number must be without any spaces on this system</description>
                     <outbound>
                         <source>
                             <path>telephoneNumber</path>
                         </source>
                         <expression>
                             <script>
-                                <code>basic.stringify(telephoneNumber)?.trim()?.replaceAll("( )+", " ")</code>
+                                <code>basic.stringify(telephoneNumber)?.replace(' ', '')?.replace('/', '')</code>
                             </script>
                         </expression>
                     </outbound>
                 </attribute>
-                <!-- MID-102, LAB 2-2, part 3 of 3: uncomment the following section -->
+                <!-- MID-102, LAB 2-2, part 2 of 2: uncomment the following section -->
                 <!--
         <iteration>
-            <maxIterations>10</maxIterations>
-
-            <tokenExpression>
-                <script>
-                    <code>
-if (iteration == 0)
-    return ""
-else return ""+(iteration+1)
-                    </code>
-                </script>
-            </tokenExpression>
-
-            <postIterationCondition>
-                <variable>
-                    <name>mail</name>
-                    <path>$projection/attributes/ri:mail</path>
-                </variable>
-                <script>
-                    <code>
-if (mail == null) {
-    return true
-}
-return midpoint.isUniqueAccountValue(resource, projection, 'mail', mail)
-                    </code>
-                </script>
-            </postIterationCondition>
+            <maxIterations>5</maxIterations>
         </iteration>
 -->
-                <!-- MID-102, LAB 2-2, part 3 of 3: end of comment -->
+                <!-- MID-102, LAB 2-2, part 2 of 2: end of comment -->
                 <protected>
                     <filter>
                         <q:equal>
                             <q:matching>http://prism.evolveum.com/xml/ns/public/matching-rule-3#stringIgnoreCase</q:matching>
-                            <q:path>attributes/ri:dn</q:path>
-                            <q:value>cn=administrator,ou=ExAmPLE,dc=example,dc=com</q:value>
+                            <q:path>attributes/ri:login</q:path>
+                            <q:value>admin</q:value>
                         </q:equal>
                     </filter>
                 </protected>
-                <protected>
-                    <filter>
-                        <q:equal>
-                            <q:matching>http://prism.evolveum.com/xml/ns/public/matching-rule-3#stringIgnoreCase</q:matching>
-                            <q:path>attributes/ri:dn</q:path>
-                            <q:value>cn=mail-daemon,ou=ExAmPLE,dc=example,dc=com</q:value>
-                        </q:equal>
-                    </filter>
-                </protected>
+                <!-- MID-102, LAB 8-4, part 1 of 2: remove the activation element -->
                 <activation>
                     <existence>
                         <outbound>
@@ -286,6 +196,45 @@ return midpoint.isUniqueAccountValue(resource, projection, 'mail', mail)
                                 <path>$focusExists</path>
                             </expression>
                         </outbound>
+                        <!-- MID-102, LAB 2-5: uncomment this section -->
+                        <!--
+                    <outbound>
+                        <name>Delayed delete after account is unassigned and disabled</name>
+                        <description>
+                            This mapping will be used only two minutes after the account is disabled.
+                            Its result is constant "false" which causes the account to stop existing.
+                            The time interval is TWO MINUTES after account has been disabled after role(s) unassignment.
+                        </description>
+                        <timeFrom>
+                            <referenceTime>
+                                <path>$projection/activation/disableTimestamp</path>
+                            </referenceTime>
+                            <offset>PT2M</offset>
+                        </timeFrom>
+                        <source>
+                            <path>$projection/activation/administrativeStatus</path>
+                        </source>
+                        <source>
+                            <path>$projection/activation/disableReason</path>
+                        </source>
+                        <expression>
+                            <value>false</value>
+                        </expression>
+                        <condition>
+                            <script>
+                                <code>
+                                    import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationStatusType;
+                                    import com.evolveum.midpoint.schema.constants.SchemaConstants;
+                                    // do not delete explicitly disabled accounts
+
+                                    (administrativeStatus == ActivationStatusType.DISABLED) &amp;&amp; 
+                                        (disableReason == SchemaConstants.MODEL_DISABLE_REASON_DEPROVISION)
+                                </code>
+                            </script>
+                        </condition>
+                    </outbound>
+                    -->
+                        <!-- MID-102, LAB 2-5: end of comment -->
                     </existence>
                     <administrativeStatus>
                         <outbound>
@@ -304,6 +253,7 @@ return midpoint.isUniqueAccountValue(resource, projection, 'mail', mail)
                         </outbound>
                     </administrativeStatus>
                 </activation>
+                <!-- MID-102, LAB 8-4, part 1 of 2: end of the element to remove -->
                 <credentials>
                     <password>
                         <outbound/>
@@ -324,32 +274,29 @@ password for account activation instead of using an empty one  -->
             </objectType>
             <objectType>
                 <kind>account</kind>
-                <intent>admin</intent>
-                <displayName>Admin Account</displayName>
+                <intent>test</intent>
+                <displayName>Test Account</displayName>
                 <default>false</default>
                 <objectClass>ri:AccountObjectClass</objectClass>
                 <attribute>
-                    <ref>ri:dn</ref>
-                    <displayName>Distinguished Name</displayName>
+                    <ref>ri:login</ref>
+                    <displayName>Login</displayName>
                     <limitations>
                         <minOccurs>0</minOccurs>
                     </limitations>
                     <outbound>
                         <source>
-                            <path>givenName</path>
-                        </source>
-                        <source>
-                            <path>familyName</path>
+                            <path>name</path>
                         </source>
                         <expression>
                             <script>
-                                <code>'cn=' + givenName + ' ' + familyName + iterationToken + ',ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com'</code>
+                                <code>'_' + basic.norm(name)</code>
                             </script>
                         </expression>
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:employeeNumber</ref>
+                    <ref>ri:enumber</ref>
                     <displayName>Employee Number</displayName>
                     <description>Definition of Employee Number attribute handling.</description>
                     <outbound>
@@ -359,7 +306,7 @@ password for account activation instead of using an empty one  -->
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:givenName</ref>
+                    <ref>ri:fname</ref>
                     <displayName>First name</displayName>
                     <description>Definition of Firstname attribute handling.</description>
                     <outbound>
@@ -369,7 +316,7 @@ password for account activation instead of using an empty one  -->
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:sn</ref>
+                    <ref>ri:lname</ref>
                     <displayName>Last name</displayName>
                     <description>Definition of Lastname attribute handling.</description>
                     <outbound>
@@ -379,41 +326,46 @@ password for account activation instead of using an empty one  -->
                     </outbound>
                 </attribute>
                 <attribute>
-                    <ref>ri:MemberOf</ref>
-                    <displayName>Member Of</displayName>
-                    <description>Definition of MemberOf attribute handling.</description>
+                    <ref>ri:dep</ref>
+                    <displayName>Department</displayName>
+                    <description>Definition of Department attribute handling.</description>
+                    <outbound>
+                        <source>
+                            <path>organizationalUnit</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:groups</ref>
+                    <displayName>Groups</displayName>
+                    <description>Definition of Group attribute handling.</description>
                     <limitations>
                         <minOccurs>0</minOccurs>
                         <maxOccurs>unbounded</maxOccurs>
                     </limitations>
+                    <tolerant>false</tolerant>
                 </attribute>
-                <iteration>
-                    <maxIterations>10</maxIterations>
-                    <tokenExpression>
-                        <script>
-                            <code>
-if (iteration == 0)
-    return ""
-else return ""+(iteration+1)
-                    </code>
-                        </script>
-                    </tokenExpression>
-                </iteration>
+                <attribute>
+                    <ref>ri:phone</ref>
+                    <displayName>Phone Number</displayName>
+                    <description>Phone number must be without any spaces on this system</description>
+                    <outbound>
+                        <source>
+                            <path>telephoneNumber</path>
+                        </source>
+                        <expression>
+                            <script>
+                                <code>basic.stringify(telephoneNumber)?.replace(' ', '')?.replace('/', '')</code>
+                            </script>
+                        </expression>
+                    </outbound>
+                </attribute>
                 <protected>
                     <filter>
                         <q:equal>
                             <q:matching>http://prism.evolveum.com/xml/ns/public/matching-rule-3#stringIgnoreCase</q:matching>
-                            <q:path>attributes/ri:dn</q:path>
-                            <q:value>cn=admin2,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com</q:value>
-                        </q:equal>
-                    </filter>
-                </protected>
-                <protected>
-                    <filter>
-                        <q:equal>
-                            <q:matching>http://prism.evolveum.com/xml/ns/public/matching-rule-3#stringIgnoreCase</q:matching>
-                            <q:path>attributes/ri:dn</q:path>
-                            <q:value>cn=admin3,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com</q:value>
+                            <q:path>attributes/ri:login</q:path>
+                            <q:value>admin</q:value>
                         </q:equal>
                     </filter>
                 </protected>
@@ -433,11 +385,18 @@ else return ""+(iteration+1)
                 </credentials>
             </objectType>
         </schemaHandling>
+        <!--  MID-102, LAB 8-4, part 2 of 2: uncomment this section -->
+        <!--
+        <projection>
+            <assignmentPolicyEnforcement>full</assignmentPolicyEnforcement>
+        </projection>
+        -->
+        <!--  MID-102, LAB 8-4, part 2 of 2: end of section -->
         <capabilities xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
             <configured>
                 <cap:activation>
                     <cap:status>
-                        <cap:attribute>ri:disabled</cap:attribute>
+                        <cap:attribute>ri:dis</cap:attribute>
                         <cap:enableValue>false</cap:enableValue>
                         <cap:disableValue>true</cap:disableValue>
                     </cap:status>
@@ -453,26 +412,27 @@ else return ""+(iteration+1)
                     The synchronization for this resource is enabled.
                     It means that the synchronization will react to changes detected by
                     the system (live sync task, discovery or reconciliation) -->
-                <name>  Default accnunt</name>
-                <description>Normal accounts are NOT in ou=_Administrators container</description>
+                <name>Default account</name>
+                <description>The default account name does NOT start with "_"</description>
+                <!--<objectClass>ri:AccountObjectClass</objectClass>-->
                 <kind>account</kind>
                 <intent>default</intent>
                 <enabled>true</enabled>
                 <condition>
                     <script>
                         <code>
-tmpSuffix = '(?i).*,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com$'
-re = ~tmpSuffix
-!(basic.getAttributeValue(projection, "dn") ==~ re)
-                            </code>
+                              name = basic.getAttributeValue(projection, "login")
+                              //log.info("XXX Synchronization condition for account/default; name (getName()) = {}; name (getAttributeValue) = {}; evaluated to {}", projection.getName(), name, !name?.startsWith('_'))
+                              return !name?.startsWith('_')
+                           </code>
                     </script>
                 </condition>
                 <correlation>
                     <q:description>
                         Correlation expression is a search query.
                         Following search queury will look for users that have "employeeNumber"
-                        equal to the "employeeNumber" attribute of the account.
-                        The condition will skip entries with empty "employeeNumber"
+                        equal to the "enumber" attribute of the account.
+                        The condition will ensure that correlation skips entries with empty "enumber"
                         - otherwise it would match any midPoint user
                         with empty "employeeNumber" attribute, such as "administrator".
                         The correlation rule by default looks for users, so it will not match
@@ -481,12 +441,12 @@ re = ~tmpSuffix
                     <q:equal>
                         <q:path>employeeNumber</q:path>
                         <expression>
-                            <path>$projection/attributes/ri:employeeNumber</path>
+                            <path>$projection/attributes/ri:enumber</path>
                         </expression>
                     </q:equal>
                     <condition>
                         <script>
-                            <code>basic.getAttributeValue(projection, 'employeeNumber') != null</code>
+                            <code>basic.getAttributeValue(projection, 'enumber') != null</code>
                         </script>
                     </condition>
                 </correlation>
@@ -518,45 +478,49 @@ re = ~tmpSuffix
                 </reaction>
                 <reaction>
                     <situation>unmatched</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#inactivateShadow</handlerUri>
+                    </action>
                 </reaction>
             </objectSynchronization>
             <objectSynchronization>
-                <name>Admin account</name>
-                <description>Admin accounts are in ou=_Administrators container</description>
+                <name>Test account</name>
+                <description>The test account name starts with "_"</description>
                 <kind>account</kind>
-                <intent>admin</intent>
+                <intent>test</intent>
                 <enabled>true</enabled>
                 <condition>
                     <script>
                         <code>
-tmpSuffix = '(?i).*,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com$'
-re = ~tmpSuffix
-basic.getAttributeValue(projection, "dn") ==~ re 
-                            </code>
+                              name = basic.getAttributeValue(projection, "login")
+                              //log.info("XXX Synchronization condition for account/test; name (getName()) = {}; name (getAttribute) = {}; evaluated to {}", projection.getName(), name, name.startsWith('_'))
+                              return name?.startsWith('_')
+                           </code>
                     </script>
                 </condition>
                 <correlation>
                     <q:description>
                         Correlation expression is a search query.
-                        Following search queury will look for users that have "employeeNumber"
-                        equal to the "employeeNumber" attribute of the account.
-                            The condition will ensure that "employeeNumber" is not
-                            empty, otherwise it would match any midPoint user
-                            with empty "employeeNumber" attribute, such as "administrator".
-                        The correlation rule always looks for users, so it will not match
+                        Following search queury will look for users that have "name"
+                        equal to the account login without the first character. We assume that
+                        the first character of login is "_" because of the condition above.
+                        The correlation rule by default looks for users, so it will not match
                         any other object type.
                     </q:description>
                     <q:equal>
-                        <q:path>employeeNumber</q:path>
+                        <q:matching>polyStringNorm</q:matching>
+                        <q:path>name</q:path>
                         <expression>
-                            <path>$projection/attributes/ri:employeeNumber</path>
+                            <script>
+                                <code>
+                                        name = basic.getAttributeValue(projection, "login")
+                                        //n = projection.getName().toString()
+                                        return name?.substring(1)
+                                        </code>
+                            </script>
                         </expression>
                     </q:equal>
-                    <condition>
-                        <script>
-                            <code>basic.getAttributeValue(projection, 'employeeNumber') != null</code>
-                        </script>
-                    </condition>
                 </correlation>
                 <reaction>
                     <situation>linked</situation>
@@ -578,6 +542,10 @@ basic.getAttributeValue(projection, "dn") ==~ re
                 </reaction>
                 <reaction>
                     <situation>unmatched</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#inactivateShadow</handlerUri>
+                    </action>
                 </reaction>
             </objectSynchronization>
         </synchronization>

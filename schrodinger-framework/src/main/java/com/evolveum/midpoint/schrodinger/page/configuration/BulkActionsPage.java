@@ -32,8 +32,6 @@ public class BulkActionsPage extends BasicPage {
     public BulkActionsPage insertOneLineTextIntoEditor(String text){
         $(Schrodinger.byElementAttributeValue("textarea", "class", "ace_text-input"))
                 .waitUntil(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
-
-//        $(Schrodinger.byElementAttributeValue("textarea", "class", "ace_text-input"))
                 .sendKeys(text);
         return this;
     }
