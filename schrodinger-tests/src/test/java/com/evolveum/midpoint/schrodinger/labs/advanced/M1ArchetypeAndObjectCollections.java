@@ -105,15 +105,15 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         Utils.removeAllAssignments(showUser("kirk").selectTabAssignments());
         showUser("kirk")
                         .selectTabProjections()
-                            .assertProjectionDisabled("jkirk")
-                            .assertProjectionDisabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com")
-                            .assertProjectionDisabled("kirk");
+                            .assertProjectionDisabled("jkirk", "CSV-2 (Canteen Ordering System)")
+                            .assertProjectionDisabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
+                            .assertProjectionDisabled("jkirk", "CSV-1 (Document Access)");
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
-                            .assertProjectionEnabled("jkirk")
-                            .assertProjectionEnabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com")
-                            .assertProjectionEnabled("kirk");
+                            .assertProjectionEnabled("jkirk", "CSV-2 (Canteen Ordering System)")
+                            .assertProjectionEnabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
+                            .assertProjectionEnabled("jkirk", "CSV-1 (Document Access)");
     }
 
     @Test(groups={"advancedM1"})
@@ -267,7 +267,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertAssignmentsWithRelationExist("Member", "Inactive Employees")
                     .and()
                 .selectTabProjections()
-                    .assertProjectionDisabled("cn=Arnold J. Rimmer,ou=ExAmPLE,dc=example,dc=com");
+                    .assertProjectionDisabled("cn=Arnold J. Rimmer,ou=ExAmPLE,dc=example,dc=com", HR_RESOURCE_NAME);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);

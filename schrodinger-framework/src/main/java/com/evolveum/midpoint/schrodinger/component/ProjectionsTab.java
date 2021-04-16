@@ -165,14 +165,24 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
         return this;
     }
 
-    public ProjectionsTab<P> assertProjectionEnabled(String projectionName) {
+    public ProjectionsTab<P> assertProjectionEnabled(String projectionName, String resourceName) {
+        table()
+                .search()
+                .referencePanelByItemName("Resource")
+                .inputRefName(resourceName, resourceName)
+                .updateSearch();
         table()
                 .clickByName(projectionName)
                 .assertPropertyDropdownValue("Administrative status", "Enabled");
         return this;
     }
 
-    public ProjectionsTab<P> assertProjectionDisabled(String projectionName) {
+    public ProjectionsTab<P> assertProjectionDisabled(String projectionName, String resourceName) {
+        table()
+                .search()
+                .referencePanelByItemName("Resource")
+                .inputRefName(resourceName, resourceName)
+                .updateSearch();
         table()
                 .clickByName(projectionName)
                     .assertPropertyDropdownValue("Administrative status", "Disabled");
