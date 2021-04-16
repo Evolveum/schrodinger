@@ -61,7 +61,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
 
             @Override
             public AbstractTableWithPrismView<T> selectHeaderCheckbox() {
-                $(Schrodinger.bySelfOrDescendantElementAttributeValue("input", "type", "checkbox", "data-s-id", "check"))
+                $(By.tagName("thead")).$x(".//input[@data-s-id='check']")
                         .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
                 return this;
@@ -75,7 +75,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
 
             @Override
             public AbstractTableWithPrismView<T> clickHeaderActionButton(String actionButtonStyle) {
-                $(Schrodinger.byDescendantElementAttributeValue("th", "class", actionButtonStyle))
+                $(By.tagName("thead")).$x(".//i[@class='" + actionButtonStyle + "']")
                         .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
                 return this;
