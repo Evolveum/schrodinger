@@ -20,6 +20,7 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
@@ -49,10 +50,10 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File SECRET_I_ROLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "roles/role-secret-i.xml");
     private static final File SECRET_II_ROLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "roles/role-secret-ii.xml");
     private static final File INTERNAL_EMPLOYEE_ROLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee.xml");
-    private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-simple.xml");
+    private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
     private static final File CSV_3_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap.xml");
-    private static final File SYSTEM_CONFIGURATION_FILE_INIT = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-advanced-labs-init.xml");
+//    private static final File SYSTEM_CONFIGURATION_FILE_INIT = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-advanced-labs-init.xml");
     private static final File HR_NO_EXTENSION_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-noextension.xml");
     private static final File ORG_EXAMPLE_FILE = new File(LAB_OBJECTS_DIRECTORY + "org/org-example.xml");
     private static final File HR_SOURCE_FILE_1_3_UPDATE_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-1.csv");
@@ -79,7 +80,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     protected List<File> getObjectListToImport(){
         return Arrays.asList(OBJECT_COLLECTION_ACTIVE_EMP_FILE, OBJECT_COLLECTION_INACTIVE_EMP_FILE, OBJECT_COLLECTION_FORMER_EMP_FILE,
                 KIRK_USER_FILE, SECRET_I_ROLE_FILE, SECRET_II_ROLE_FILE, INTERNAL_EMPLOYEE_ROLE_FILE,
-                CSV_1_SIMPLE_RESOURCE_FILE, CSV_2_RESOURCE_FILE, CSV_3_RESOURCE_FILE, SYSTEM_CONFIGURATION_FILE_INIT);
+                CSV_1_SIMPLE_RESOURCE_FILE, CSV_2_RESOURCE_FILE, CSV_3_RESOURCE_FILE);
     }
 
     @Test(groups={"advancedM1"})
@@ -167,7 +168,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
             .selectTabBasic()
                 .form()
                     .assertPropertySelectValue("isManager", "True")
-                    .assertPropertyInputValue("empStatus", "A")
+                    .assertPropertyInputValue("empStatus", "Active Employee")
                     .and()
                 .and()
                 .selectTabAssignments()
