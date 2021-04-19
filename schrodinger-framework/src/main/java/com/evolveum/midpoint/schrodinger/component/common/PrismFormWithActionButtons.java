@@ -42,7 +42,7 @@ public class PrismFormWithActionButtons<T> extends PrismForm<T> {
 
         $(Schrodinger.byDataResourceKey("div", "MultivalueContainerListPanel.cancelButton"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
+        getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this.getParent();
     }
 }

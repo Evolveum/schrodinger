@@ -87,7 +87,12 @@ public class Utils {
         tab
                 .table()
                     .selectHeaderCheckbox()
-                    .clickHeaderActionButton("fa fa-minus ");
+                    .clickHeaderActionButton("fa fa-minus ")
+                .and()
+            .and()
+        .clickSave()
+            .feedback()
+                .isSuccess();
     }
 
     public static <P extends AssignmentHolderDetailsPage> void addAsignments(AssignmentsTab<P> tab, String... assignments){

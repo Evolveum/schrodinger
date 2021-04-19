@@ -156,7 +156,6 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
         String assignmentActualName = form.getParentElement().$x(".//span[@data-s-id='displayName']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getText();
         form.clickCancel();
-        form.getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return projectionName.equals(assignmentActualName);
     }
 
@@ -171,9 +170,10 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
                 .referencePanelByItemName("Resource")
                 .inputRefName(resourceName, resourceName)
                 .updateSearch();
-        table()
-                .clickByName(projectionName)
-                .assertPropertyDropdownValue("Administrative status", "Enabled");
+        PrismFormWithActionButtons form = table()
+                .clickByName(projectionName);
+        form.assertPropertyDropdownValue("Administrative status", "Enabled");
+        form.clickCancel();
         return this;
     }
 
@@ -183,9 +183,10 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
                 .referencePanelByItemName("Resource")
                 .inputRefName(resourceName, resourceName)
                 .updateSearch();
-        table()
-                .clickByName(projectionName)
-                    .assertPropertyDropdownValue("Administrative status", "Disabled");
+        PrismFormWithActionButtons form = table()
+                .clickByName(projectionName);
+        form.assertPropertyDropdownValue("Administrative status", "Disabled");
+        form.clickCancel();
         return this;
     }
 
