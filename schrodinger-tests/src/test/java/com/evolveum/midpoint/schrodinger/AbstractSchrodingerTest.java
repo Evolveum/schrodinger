@@ -491,6 +491,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
+    public ViewResourcePage showResource(String resourceName){
+        return basicPage.listResources()
+                .table()
+                    .search()
+                        .byName()
+                        .inputValue(resourceName)
+                        .updateSearch()
+                    .and()
+                    .clickByName(resourceName);
+    }
+
     public AccountPage showShadow(String resourceName, String searchedItem, String itemValue){
         return showShadow(resourceName, searchedItem, itemValue, null, false);
     }

@@ -67,14 +67,14 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(KIRK_USER_FILE, CSV_1_SIMPLE_RESOURCE_FILE, CSV_2_RESOURCE_FILE, CSV_3_RESOURCE_FILE);
+        return Arrays.asList(KIRK_USER_FILE);
     }
 
     @Test(groups={"advancedM1"})
-    public void mod01test01environmentInitialization() {
-        changeResourceAttribute(CSV_1_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv1TargetFile.getAbsolutePath(), true);
-        changeResourceAttribute(CSV_2_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv2TargetFile.getAbsolutePath(), true);
-        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
+    public void mod01test01environmentInitialization() throws IOException {
+        addResourceFromFileAndTestConnection(CSV_1_SOURCE_FILE, CSV_1_FILE_SOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_SOURCE_FILE, CSV_2_FILE_SOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_SOURCE_FILE, CSV_3_FILE_SOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
         showUser("kirk")
@@ -161,6 +161,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                 .selectTabAssignments()
                     .assertAssignmentsWithRelationExist("Member", "Active Employees", "Internal Employee")
                     .and()
+                //todo fails because of MID-7009
                 .selectTabProjections()
                     .assertProjectionExist("jsmith", "CSV-2")
                     .assertProjectionExist("cn=John Smith,ou=0300,ou=ExAmPLE,dc=example,dc=com", "CSV-3")
