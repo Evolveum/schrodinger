@@ -38,7 +38,8 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     protected static final String FUNDAMENTAL_LABS_DIRECTORY = RESOURCES_DIRECTORY + "fundamental-labs/";
     protected static final String FUNDAMENTAL_LABS_SOURCES_DIRECTORY = FUNDAMENTAL_LABS_DIRECTORY + "sources/";
 
-    protected static final String LAB_ADVANCED_DIRECTORY = RESOURCES_DIRECTORY + "advanced-labs/";
+    protected static final String ADVANCED_LABS_DIRECTORY = RESOURCES_DIRECTORY + "advanced-labs/";
+    protected static final String ADVANCED_LABS_SOURCES_DIRECTORY = ADVANCED_LABS_DIRECTORY + "sources/";
 
     protected static final File EXTENSION_SCHEMA_FILE = new File(RESOURCES_DIRECTORY +"schema/extension-example.xsd");
     protected static final File CSV_1_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-1.csv");
@@ -85,7 +86,6 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     protected static File csv2TargetFile;
     protected static File csv3TargetFile;
     protected static File hrTargetFile;
-    protected static File contractorsTargetFile;
     protected static File notificationFile;
 
     protected File getTestTargetDir() throws IOException {

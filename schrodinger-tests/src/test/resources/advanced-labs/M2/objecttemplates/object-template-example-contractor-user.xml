@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2018-2020 Evolveum, All rights reserved -->
+<objectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" oid="41cfe394-221f-11e8-99e0-2bbd78799fe9">
+    <name>ExAmPLE Deleted Contractor User Template</name>
+    <mapping>
+        <description>Users deleted from Contractor DB will be marked with special description.</description>
+        <strength>strong</strength>
+        <expression>
+            <script>
+                <code>
+                return 'Contractor disabled: ' + basic.formatDateTime("dd.MM.yyyy HH:mm:ss", basic.currentDateTime())
+                </code>
+            </script>
+        </expression>
+        <target>
+            <path>description</path>
+        </target>
+    </mapping>
+</objectTemplate>

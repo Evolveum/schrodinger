@@ -20,7 +20,6 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
@@ -39,7 +38,7 @@ import java.util.List;
  * @author honchar
  */
 public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
-    protected static final String LAB_OBJECTS_DIRECTORY = LAB_ADVANCED_DIRECTORY + "M1/";
+    protected static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M1/";
     private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
     private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -72,9 +71,9 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod01test01environmentInitialization() throws IOException {
-        addResourceFromFileAndTestConnection(CSV_1_SOURCE_FILE, CSV_1_FILE_SOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_SOURCE_FILE, CSV_2_FILE_SOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_SOURCE_FILE, CSV_3_FILE_SOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_FILE_SOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_FILE_SOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_FILE_SOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
         showUser("kirk")

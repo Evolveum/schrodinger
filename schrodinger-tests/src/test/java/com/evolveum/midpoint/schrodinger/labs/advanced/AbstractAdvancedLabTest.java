@@ -24,8 +24,8 @@ import java.io.File;
  */
 public class AbstractAdvancedLabTest extends AbstractLabTest {
 
-    protected static final File EXTENSION_SCHEMA_FILE = new File(LAB_ADVANCED_DIRECTORY + "schema/extension-example.xsd");
-    protected static final String POST_INITIAL_OBJECTS_DIR = LAB_ADVANCED_DIRECTORY + "post-initial-objects";
+    protected static final File EXTENSION_SCHEMA_FILE = new File(ADVANCED_LABS_DIRECTORY + "schema/extension-example.xsd");
+    protected static final String POST_INITIAL_OBJECTS_DIR = ADVANCED_LABS_DIRECTORY + "post-initial-objects";
 
     @Override
     protected File getExtensionSchemaFile() {
