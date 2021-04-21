@@ -15,8 +15,10 @@
  */
 package com.evolveum.midpoint.schrodinger.component.task;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.Assert;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
@@ -46,6 +48,12 @@ public class OperationStatisticsTab extends Component<TaskPage> {
         return getIntegerValueForTextField("objectsTotal");
     }
 
+    public OperationStatisticsTab assertProgressSummaryObjectsCountEquals(int expectedCount) {
+        String actualValue = getParentElement().$(Schrodinger.byDataId("span", "progressSummary")).getText();
+        assertion.assertEquals("Objects processed: " + expectedCount, actualValue);
+        return this;
+    }
+
     private Integer getIntegerValueForTextField(String fieldName) {
         String textValue = getParentElement().$(Schrodinger.byDataId("span", fieldName)).getText();
         if (textValue == null || textValue.trim().equals("")) {
@@ -54,8 +62,15 @@ public class OperationStatisticsTab extends Component<TaskPage> {
         return Integer.valueOf(textValue);
     }
 
-    public OperationStatisticsTab assertSuccessfullyProcessedCountMatch(int expectedCount) {
-        assertion.assertTrue(getSuccessfullyProcessed() == expectedCount, "The count of successfully processed objects doesn't match to " + expectedCount);
+    public Table<OperationStatisticsTab> getSynchronizationSituationTransitionsTable() {
+        Table<OperationStatisticsTab> table = new Table<>(this,
+                $(Schrodinger.byDataId("synchronizationSituationTransitions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return table;
+    }
+
+    public OperationStatisticsTab assertSucceededCountMatch(int expectedCount) {
+        getSynchronizationSituationTransitionsTable().calculateAllIntValuesInColumn("Succeeded");
+        assertion.assertEquals(expectedCount, getSynchronizationSituationTransitionsTable().calculateAllIntValuesInColumn("Succeeded"), "The count of successfully processed objects doesn't match to " + expectedCount);
         return this;
     }
 

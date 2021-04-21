@@ -51,7 +51,7 @@ public class ResourceTaskQuickAccessDropDown<T> extends DropDown<T> {
                 break;
             }
         }
-        $(Schrodinger.byDataResourceKey("pageTask.basic.title")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        $(Schrodinger.byDataResourceKey("pageTask.basic.title")).waitUntil(Condition.exist, MidPoint.TIMEOUT_LONG_1_M);
         return new TaskPage();
     }
 

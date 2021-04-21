@@ -30,14 +30,15 @@ import java.io.IOException;
  */
 public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     protected static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M2/";
+    private static final String ADVANCED_LABS_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
 
     private static final File CONTRACTORS_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors-2-1-update-1.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors-2-1-update-2.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors-2-1-update-3.csv");
-    protected static final String CONTRACTORS_FILE_SOURCE_NAME = "contractors.csv";
-    protected static final String CONTRACTORS_RESOURCE_NAME = "ExAmPLE, Inc. Contractor DB";
-    protected static final String CONTRACTORS_RESOURCE_IMPORT_TASK_NAME = "Initial import from Contractor DB";
+    private static final String CONTRACTORS_FILE_SOURCE_NAME = "contractors.csv";
+    private static final String CONTRACTORS_RESOURCE_NAME = "ExAmPLE, Inc. Contractor DB";
+    private static final String CONTRACTORS_RESOURCE_IMPORT_TASK_NAME = "Initial import from Contractor DB";
     private static final File OBJECT_TEMPLATE_EXAMPLE_CONTRACTOR_USER = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-contractor-user.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -46,10 +47,10 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors.xml");
     private static final File CONTRACTORS_RESOURCE_FILE_2_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors-2-1.xml");
 
-    protected static final File CSV_1_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-1.csv");
-    protected static final File CSV_2_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-2.csv");
-    protected static final File CSV_3_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "csv-3.csv");
-    protected static final File HR_SOURCE_FILE = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source.csv");
+    protected static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
+    protected static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
+    protected static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
+    protected static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
 
     protected static File contractorsTargetFile;
 
@@ -99,9 +100,9 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                                     .addAttributeValue("Name", CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
                                     .and()
                                 .and()
-                            .clickSave()
+                            .clickSaveAndRun()
                             .feedback()
-                                .isSuccess();
+                                .isInfo();
         basicPage.listTasks()
                 .table()
                     .search()
@@ -111,7 +112,8 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .and()
                     .clickByName(CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
                 .selectTabOperationStatistics()
-                    .assertSuccessfullyProcessedCountMatch(11);
+                    .assertProgressSummaryObjectsCountEquals(11)
+                    .assertSucceededCountMatch(11);
         basicPage.listUsers("Externals")
                 .table()
                     .assertTableObjectsCountEquals(11);

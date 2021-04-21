@@ -126,6 +126,24 @@ public class Table<T> extends Component<T> {
         return null;
     }
 
+    public int calculateAllIntValuesInColumn(String columnName) {
+        int index = findColumnByLabel(columnName);
+        ElementsCollection rows = getParentElement().findAll("tbody tr");
+        int sum = 0;
+        for (SelenideElement row : rows) {
+            String value = row.find("td:nth-child(" + index + ")").text();
+            if (value == null) {
+                continue;
+            }
+            try {
+                sum += Integer.parseInt(value);
+            } catch (NumberFormatException e) {
+                //just skipp
+            }
+        }
+        return sum;
+    }
+
     public String getTableCellValue(String columnResourceKey, int rowIndex) {
         int columnIndex = findColumnByResourceKey(columnResourceKey);
         ElementsCollection rows = getParentElement().findAll("tbody tr");

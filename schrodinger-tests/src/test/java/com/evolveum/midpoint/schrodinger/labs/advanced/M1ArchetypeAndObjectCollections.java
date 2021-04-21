@@ -38,7 +38,9 @@ import java.util.List;
  * @author honchar
  */
 public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
-    protected static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M1/";
+    private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M1/";
+    private static final String ADVANCED_LABS_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+
     private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
     private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -48,6 +50,10 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
     private static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
     private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
+    private static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
+    private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
