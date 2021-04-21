@@ -78,7 +78,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
 
-        getShadowTable(CONTRACTORS_RESOURCE_NAME, "cid", "001212")
+        getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
                 .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
                 .clickImport();
 

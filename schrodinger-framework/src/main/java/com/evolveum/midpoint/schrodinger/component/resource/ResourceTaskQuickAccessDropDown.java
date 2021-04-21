@@ -15,8 +15,10 @@
  */
 package com.evolveum.midpoint.schrodinger.component.resource;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.DropDown;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -49,7 +51,7 @@ public class ResourceTaskQuickAccessDropDown<T> extends DropDown<T> {
                 break;
             }
         }
-
+        $(Schrodinger.byDataResourceKey("pageTask.basic.title")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         return new TaskPage();
     }
 

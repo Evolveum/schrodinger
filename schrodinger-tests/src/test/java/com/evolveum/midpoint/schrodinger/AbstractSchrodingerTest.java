@@ -534,32 +534,39 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     public ResourceShadowTable getShadowTable(String resourceName, String searchedItem, String itemValue, String intent, boolean useRepository) {
-        ResourceAccountsTab<ViewResourcePage> tab = basicPage.listResources()
-                .table()
-                .search()
-                .byName()
-                .inputValue(resourceName)
-                .updateSearch()
-                .and()
-                .clickByName(resourceName)
-                .clickAccountsTab();
-        if (useRepository) {
-            tab.clickSearchInRepository();
-        } else {
-            tab.clickSearchInResource();
-        }
-//        Selenide.sleep(1000);
-        if (intent != null && !intent.isEmpty()) {
-            tab.setIntent(intent);
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        }
-        return tab.table()
+        return getShadowTabTable(resourceName, intent, useRepository)
                 .search()
                 .resetBasicSearch()
                 .textInputPanelByItemName(searchedItem)
                 .inputValue(itemValue)
                 .updateSearch()
                 .and();
+    }
+
+    public ResourceShadowTable<ResourceAccountsTab<ViewResourcePage>> getShadowTabTable(String resourceName) {
+        return getShadowTabTable(resourceName, null, false);
+    }
+
+    public ResourceShadowTable<ResourceAccountsTab<ViewResourcePage>> getShadowTabTable(String resourceName, String intent, boolean useRepository) {
+        ResourceAccountsTab<ViewResourcePage> tab = basicPage.listResources()
+                .table()
+                  .search()
+                    .byName()
+                        .inputValue(resourceName)
+                        .updateSearch()
+                        .and()
+                    .clickByName(resourceName)
+                        .clickAccountsTab();
+        if (useRepository) {
+            tab.clickSearchInRepository();
+        } else {
+            tab.clickSearchInResource();
+        }
+        if (intent != null && !intent.isEmpty()) {
+            tab.setIntent(intent);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        }
+        return tab.table();
     }
 
     protected TaskPage showTask(String name, String menuKey) {
