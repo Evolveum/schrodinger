@@ -102,7 +102,7 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Name:")).parent()
                 .$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
-        inputField.setValue(referenceObjNamePartial);
+        inputField.setValue(referenceObjNameFull);
 //        $(By.className("wicket-aa-container")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
 //                .$(byText(referenceObjNameFull)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");

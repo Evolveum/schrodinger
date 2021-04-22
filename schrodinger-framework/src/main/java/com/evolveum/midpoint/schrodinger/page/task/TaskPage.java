@@ -15,11 +15,14 @@
  */
 package com.evolveum.midpoint.schrodinger.page.task;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.task.*;
@@ -153,8 +156,8 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
     public TaskPage setHandlerUriForNewTask(String handler) {
         SelenideElement handlerElement = $(Schrodinger.byDataResourceKey("a", "TaskHandlerSelectorPanel.selector.header"));
-        selectTabBasic().form().addAttributeValue("handlerUri", handler.substring(0, (handler.length() - 1)));
-        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        selectTabBasic().form().addAttributeValue("handlerUri", handler);
+//        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         handlerElement.waitWhile(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
     }

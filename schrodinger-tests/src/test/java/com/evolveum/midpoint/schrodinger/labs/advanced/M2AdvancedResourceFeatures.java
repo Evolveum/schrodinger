@@ -121,19 +121,17 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         //todo check notification file; password is generated message
 
         TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Live Synchronization Task");
-        basicPage.newTask()
+        task.setHandlerUriForNewTask("Live synchronization task")
                 .selectTabBasic()
                     .form()
                         .addAttributeValue("Name", "Contractor DB Synchronization")
-                        .addAttributeValue("Object Class", "AccountObjectClass")
+                        .addAttributeValue("Object class", "AccountObjectClass")
                         .selectOption("Recurrence","Recurring")
                         .selectOption("Binding","Tight")
-                        .editRefValue("Resource reference")
+                        .editRefValue("Object")
+                            .selectType("Resource")
                             .table()
-                                .selectCheckboxByName("ExAmPLE, Inc. Contractor DB")
-                                .and()
-                            .clickAddButton()
+                                .clickByName("ExAmPLE, Inc. Contractor DB")
                         .and()
                     .and()
                 .selectScheduleTab()
@@ -141,7 +139,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .addAttributeValue("Interval", "5")
                         .and()
                     .and()
-                .clickSave()
+                .clickSaveAndRun()
                 .feedback()
                     .isSuccess();
 
