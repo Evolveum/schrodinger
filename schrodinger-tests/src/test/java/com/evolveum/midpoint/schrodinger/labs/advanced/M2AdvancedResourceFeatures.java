@@ -201,7 +201,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         showUser("rshelteron")
                 .selectTabBasic()
                     .form()
-                        .assertPropertyInputValueContainsText("Description", "Contractor disabled:")
+                        .assertPropertyTextareaValueContainsText("Description", "Contractor disabled:")
                         .assertPropertyDropdownValue("Administrative status", "Disabled");
 
     }

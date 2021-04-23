@@ -141,8 +141,32 @@ public class PrismForm<T> extends Component<T> {
 
     public Boolean inputAttributeValueContains(String name, String expectedPartialValue) {
         SelenideElement property = findProperty(name);
-        SelenideElement value = property.parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
+        SelenideElement value = property.parent().$x(".//input[@data-s-id='input']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String valueElement = value.getValue();
+
+        if (!valueElement.isEmpty()) {
+            return valueElement.contains(expectedPartialValue);
+        } else {
+            return expectedPartialValue.isEmpty();
+        }
+    }
+
+    public Boolean textareaAttributeValueEquals(String name, String expectedValue) {
+        SelenideElement property = findProperty(name);
+        SelenideElement value = property.parent().$x(".//textarea[@data-s-id='input']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String valueElement = value.getValue();
+
+        if (!valueElement.isEmpty()) {
+            return valueElement.equals(expectedValue);
+        } else {
+            return expectedValue.isEmpty();
+        }
+    }
+
+    public Boolean textareaAttributeValueContains(String name, String expectedPartialValue) {
+        SelenideElement property = findProperty(name);
+        SelenideElement value = property.parent().$x(".//textarea[@data-s-id='input']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
@@ -351,7 +375,7 @@ public class PrismForm<T> extends Component<T> {
 
     public SelenideElement findProperty(String name) {
 
-        Selenide.sleep(5000);
+//        Selenide.sleep(5000);
 
         SelenideElement element = null;
 
@@ -534,8 +558,20 @@ public class PrismForm<T> extends Component<T> {
         return this;
     }
 
+    public PrismForm<T> assertPropertyTextareaValueEquals(String attributeName, String expectedValue) {
+        assertion.assertTrue(textareaAttributeValueEquals(attributeName, expectedValue), "The value of the input attribute " + attributeName
+                + " doesn't match to expected value '" + expectedValue + "'.");
+        return this;
+    }
+
     public PrismForm<T> assertPropertyInputValueContainsText(String attributeName, String partialValue) {
         assertion.assertTrue(inputAttributeValueContains(attributeName, partialValue), "The value of the input attribute " + attributeName
+                + " doesn't contain text '" + partialValue + "'.");
+        return this;
+    }
+
+    public PrismForm<T> assertPropertyTextareaValueContainsText(String attributeName, String partialValue) {
+        assertion.assertTrue(textareaAttributeValueContains(attributeName, partialValue), "The value of the input attribute " + attributeName
                 + " doesn't contain text '" + partialValue + "'.");
         return this;
     }
