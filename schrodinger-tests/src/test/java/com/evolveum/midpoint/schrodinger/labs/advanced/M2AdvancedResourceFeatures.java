@@ -46,22 +46,25 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-lab-2-2-update-1.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
     private static final File CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-2-update-1.xml");
+    private static final File CSV_2_RESOURCE_FILE_LAB_2_3_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-3-update-1.xml");
     private static final File CSV_3_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap.xml");
     private static final File CSV_3_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap-lab-2-2-update-1.xml");
     private static final File CONTRACTORS_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors.xml");
     private static final File CONTRACTORS_RESOURCE_FILE_2_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors-2-1.xml");
+    private static final File OPENLDAP_CORPORATE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
 
     protected static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
     protected static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
     protected static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
-    protected static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
-    protected static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-1.csv");
-    protected static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-2.csv");
-    protected static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");
+    private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-1.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-2.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
+    private static final File OPENLDAP_CORPORATE_SOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
     private static final File RIMSY_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/rimsy-user.xml");
 
-    protected static File contractorsTargetFile;
+    private static File contractorsTargetFile;
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -266,6 +269,11 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM2"})
     public void mod02test03provisioningDependencies() {
+        //todo impossible to test because of openldap resource
+    }
+
+    @Test(groups={"advancedM2"})
+    public void mod02test04provisioningScripts() {
 
     }
 }
