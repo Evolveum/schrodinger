@@ -87,7 +87,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_FILE_SOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
                 .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
@@ -151,7 +151,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .and()
                 .clickSaveAndRun()
                 .feedback()
-                    .isSuccess();
+                    .isInfo();
 
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE_UPDATE_1, contractorsTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -198,9 +198,10 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE_UPDATE_3, contractorsTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
-        showUser("esmith")
+        showUser("rshelteron")
                 .selectTabBasic()
                     .form()
+                        .assertPropertyInputValueContainsText("Description", "Contractor disabled:")
                         .assertPropertyDropdownValue("Administrative status", "Disabled");
 
     }
@@ -261,7 +262,10 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertProjectionExist("anewman", "CSV-1 (Document Access)")
                     .assertProjectionExist("anewman", "CSV-2 (Canteen Ordering System)")
                     .assertProjectionExist("cn=Ann De Wries2,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
+    }
 
+    @Test(groups={"advancedM2"})
+    public void mod02test03provisioningDependencies() {
 
     }
 }

@@ -39,8 +39,6 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import org.testng.Assert;
-
 /**
  * Created by Viliam Repan (lazyman).
  */
@@ -128,7 +126,7 @@ public class PrismForm<T> extends Component<T> {
         return this;
     }
 
-    public Boolean compareInputAttributeValue(String name, String expectedValue) {
+    public Boolean inputAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
@@ -139,7 +137,19 @@ public class PrismForm<T> extends Component<T> {
         } else {
             return expectedValue.isEmpty();
         }
+    }
 
+    public Boolean inputAttributeValueContains(String name, String expectedPartialValue) {
+        SelenideElement property = findProperty(name);
+        SelenideElement value = property.parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String valueElement = value.getValue();
+
+        if (!valueElement.isEmpty()) {
+            return valueElement.contains(expectedPartialValue);
+        } else {
+            return expectedPartialValue.isEmpty();
+        }
     }
 
     //seems that the property fields in new container are wrapped to extra parent, that is why we need one extra parent() call
@@ -519,8 +529,14 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> assertPropertyInputValue(String attributeName, String expectedValue) {
-        assertion.assertTrue(compareInputAttributeValue(attributeName, expectedValue), "The value of the input attribute " + attributeName
+        assertion.assertTrue(inputAttributeValueEquals(attributeName, expectedValue), "The value of the input attribute " + attributeName
                 + " doesn't match to expected value '" + expectedValue + "'.");
+        return this;
+    }
+
+    public PrismForm<T> assertPropertyInputValueContainsText(String attributeName, String partialValue) {
+        assertion.assertTrue(inputAttributeValueContains(attributeName, partialValue), "The value of the input attribute " + attributeName
+                + " doesn't contain text '" + partialValue + "'.");
         return this;
     }
 
