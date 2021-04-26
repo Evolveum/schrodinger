@@ -164,6 +164,11 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
         return this;
     }
 
+    public ProjectionsTab<P> assertProjectionDoesntExist(String projectionName, String resourceName) {
+        assertion.assertFalse(projectionExists(projectionName, resourceName), "Projection " + projectionName + " should not exist");
+        return this;
+    }
+
     public ProjectionsTab<P> assertProjectionEnabled(String projectionName, String resourceName) {
         table()
                 .search()

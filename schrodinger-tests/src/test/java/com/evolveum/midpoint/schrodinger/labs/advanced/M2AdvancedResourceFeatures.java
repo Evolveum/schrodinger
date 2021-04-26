@@ -44,6 +44,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-lab-2-2-update-1.xml");
+    private static final File CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-lab-2-5-update-1.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
     private static final File CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-2-update-1.xml");
     private static final File CSV_2_RESOURCE_FILE_LAB_2_3_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-3-update-1.xml");
@@ -298,16 +299,76 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         FileUtils.copyFile(CSV_2_AFTER_MODIFY_SCRIPT_FILE, csv2AfterModifyScript);
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_4_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
 
         showUser("kkochanski")
                 .selectTabAssignments()
                     .assertAssignmentsWithRelationExist("Member", "Internal Employee");
+
+        //todo check log files created by scripts
     }
 
     @Test(groups={"advancedM2"})
-    public void mod02test05delayedAccountDeletion() {
+    public void mod02test05delayedAccountDeletion() throws IOException {
+        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
+        showUser("picard")
+                .selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Internal Employee")
+                .table()
+                    .removeByName("Internal Employee")
+                    .and()
+                .and()
+                .clickSave()
+                    .feedback()
+                    .assertSuccess();
 
+        showUser("picard")
+                .selectTabProjections()
+                .assertProjectionDisabled("jpicard", "CSV-2 (Canteen Ordering System)")
+                .assertProjectionDisabled("cn=Jean-Luc PICARD,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
+                .assertProjectionDisabled("jpicard", "CSV-1 (Document Access)");
+
+        basicPage
+                .listRepositoryObjects()
+                    .table()
+                        .showObjectInTableByTypeAndName("Shadow", "jpicard")
+                        .clickByName("jpicard");
+        //todo check shadow contains
+        /**
+         * <trigger id="3">
+         *
+         * <timestamp>2019-09-23T16:23:28.970+02:00</timestamp>
+         *
+         * <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/trigger/
+         * recompute/handler-3</handlerUri>
+         *
+         * <originDescription>Delayed delete after account is unassigned
+         * and disabled</originDescription>
+         *
+         * </trigger>
+         */
+
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
+
+        showUser("picard")
+                .selectTabProjections()
+                .assertProjectionDoesntExist("jpicard", "CSV-2 (Canteen Ordering System)");
+
+        /**
+         * todo check notifications
+         * Mon Sep 23 16:23:43 CEST 2019
+         * Message{to='[idm@example.com]', cc='[]', bcc='[]',
+         *  subject='[IDM] SUCCESS: account DELETE operation succeeded for picard',
+         *  contentType='null', body='Notification about account-related operation
+         * User: Jean-Luc Picard (picard, oid 654ca8cf-98cf-437e-9e01-176b6a369b5c)
+         * Notification created on: Mon Sep 23 16:23:43 CEST 2019
+         * Resource: CSV-1 (Document Access) (oid 10000000-9999-9999-0000-a000ff000002)
+         * Account: jpicard
+         * The account has been successfully removed from the resource.
+         * Requester: midPoint Administrator (administrator)
+         * Channel: null
+         * ', attachmentsCount: 0
+         */
     }
 }

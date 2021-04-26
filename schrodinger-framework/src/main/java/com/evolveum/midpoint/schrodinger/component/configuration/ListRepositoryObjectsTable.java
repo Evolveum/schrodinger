@@ -79,7 +79,7 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
         return this;
     }
 
-    private ListRepositoryObjectsTable showObjectInTableByTypeAndName(String type, String name) {
+    public ListRepositoryObjectsTable showObjectInTableByTypeAndName(String type, String name) {
         search()
                 .dropDownPanelByItemName("Type")
                 .inputDropDownValue(type)
@@ -90,13 +90,13 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
         return this;
     }
 
-    private ConfirmationModal<ListRepositoryObjectsTable>  clickDeleteButton() {
+    public ConfirmationModal<ListRepositoryObjectsTable>  clickDeleteButton() {
         $x(".//a[@data-s-id='delete']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }
 
-    private ListRepositoryObjectsTable  clickExportButton() {
+    public ListRepositoryObjectsTable  clickExportButton() {
         $x(".//a[@data-s-id='export']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
