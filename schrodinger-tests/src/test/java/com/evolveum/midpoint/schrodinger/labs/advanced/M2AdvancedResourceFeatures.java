@@ -47,22 +47,30 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
     private static final File CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-2-update-1.xml");
     private static final File CSV_2_RESOURCE_FILE_LAB_2_3_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-3-update-1.xml");
+    private static final File CSV_2_RESOURCE_FILE_LAB_2_4_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen-lab-2-4-update-1.xml");
     private static final File CSV_3_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap.xml");
     private static final File CSV_3_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap-lab-2-2-update-1.xml");
     private static final File CONTRACTORS_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors.xml");
     private static final File CONTRACTORS_RESOURCE_FILE_2_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors-2-1.xml");
     private static final File OPENLDAP_CORPORATE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
 
-    protected static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
-    protected static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
-    protected static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
     private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-1.csv");
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-2.csv");
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_4_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-4-update-1.csv");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
     private static final File OPENLDAP_CORPORATE_SOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
     private static final File RIMSY_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/rimsy-user.xml");
+
+    private static File csv2AfterAddScript;
+    private static File csv2AfterModifyScript;
+    protected static final String SCRIPTS_DIRECTORY = LAB_OBJECTS_DIRECTORY + "scripts/";
+    private static final File CSV_2_AFTER_ADD_SCRIPT_FILE = new File(SCRIPTS_DIRECTORY + "csv2-after-add-script.sh");
+    private static final File CSV_2_AFTER_MODIFY_SCRIPT_FILE = new File(SCRIPTS_DIRECTORY + "csv2-after-mod-script.sh");
 
     private static File contractorsTargetFile;
 
@@ -82,16 +90,16 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
-    }
 
-    @Test(groups={"advancedM2"})
-    public void mod02test01reactionSpecificObjectTemplate() throws IOException {
         addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+    }
 
+    @Test(groups={"advancedM2"})
+    public void mod02test01reactionSpecificObjectTemplate() throws IOException {
         getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
                 .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
                 .clickImport();
@@ -273,7 +281,33 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     }
 
     @Test(groups={"advancedM2"})
-    public void mod02test04provisioningScripts() {
+    public void mod02test04provisioningScripts() throws IOException {
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_4_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+
+        String home = System.getProperty("midpoint.home");
+        File scriptsDir = new File(home, "scripts");
+        if (!scriptsDir.exists()) {
+            if (!scriptsDir.mkdir()) {
+                throw new IOException("Creation of directory " + scriptsDir.getAbsolutePath() + " unsuccessful");
+            }
+        }
+        csv2AfterAddScript = new File(scriptsDir, "csv2-after-add-script.sh");
+        FileUtils.copyFile(CSV_2_AFTER_ADD_SCRIPT_FILE, csv2AfterAddScript);
+
+        csv2AfterModifyScript = new File(scriptsDir, "csv2-after-mod-script.sh");
+        FileUtils.copyFile(CSV_2_AFTER_MODIFY_SCRIPT_FILE, csv2AfterModifyScript);
+
+        FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_4_UPDATE_1, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("kkochanski")
+                .selectTabAssignments()
+                    .assertAssignmentsWithRelationExist("Member", "Internal Employee");
+    }
+
+    @Test(groups={"advancedM2"})
+    public void mod02test05delayedAccountDeletion() {
+
 
     }
 }

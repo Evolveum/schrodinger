@@ -69,6 +69,12 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
         FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
+
+        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+
     }
 
     @Override
@@ -78,11 +84,6 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod01test01environmentInitialization() throws IOException {
-        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
-
         Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
