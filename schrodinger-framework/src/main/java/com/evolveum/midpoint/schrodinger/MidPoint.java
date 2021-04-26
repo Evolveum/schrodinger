@@ -56,7 +56,9 @@ public class MidPoint {
 
     private void init() {
         configuration.validate();
+        Configuration.headless = configuration.isHeadless();
         if (configuration.isUseRemoteWebdriver()) {
+            System.setProperty("selenide.headlessStart", Boolean.toString(configuration.isHeadless()));
             System.setProperty("selenide.remote", configuration.getRemoteWebdriverUrl());
         } else {
             System.setProperty(configuration.getDriver().getDriver(), configuration.getDriverLocation());
@@ -64,7 +66,6 @@ public class MidPoint {
         System.setProperty("selenide.browser", configuration.getDriver().name().toLowerCase());
         System.setProperty("selenide.baseUrl", configuration.getBaseUrl());
 
-        Configuration.headless = configuration.isHeadless();
         Configuration.timeout = 6000L;
     }
 
