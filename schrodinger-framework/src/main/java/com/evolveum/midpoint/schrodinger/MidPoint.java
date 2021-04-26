@@ -61,6 +61,7 @@ public class MidPoint {
         System.setProperty("selenide.baseUrl", configuration.getBaseUrl());
         if (configuration.isUseRemoteWebdriver()) {
             System.setProperty("selenide.headlessStart", Boolean.toString(configuration.isHeadless()));
+            System.setProperty("chromeoptions.args", "--no-sandbox");
             System.setProperty("selenide.remote", configuration.getRemoteWebdriverUrl());
         } else {
             System.setProperty(configuration.getDriver().getDriver(), configuration.getDriverLocation());
