@@ -151,7 +151,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod01test03EnvironmentExamination() throws IOException {
-//        changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
+        changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
 
         getShadowTable(HR_RESOURCE_NAME, "name", "001212")
                 .selectCheckboxByName("001212")
@@ -184,7 +184,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .and()
                         .clickByName(HR_RESOURCE_NAME)
                             .clickAccountsTab()
-                                .liveSyncTask()
+                                .importTask()
                                     .clickCreateNew()
                                         .selectTabBasic()
                                         .form()

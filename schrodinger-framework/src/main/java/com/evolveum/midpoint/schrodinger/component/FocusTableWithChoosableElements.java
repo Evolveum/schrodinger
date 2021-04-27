@@ -40,8 +40,6 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
 
     @Override
     public AbstractTable<T> selectCheckboxByName(String name) {
-        $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         $(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//input[@data-s-id='check']")
