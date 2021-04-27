@@ -191,7 +191,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                                         .addAttributeValue("Name", "Initial import from HR")
                                         .and()
                                     .and()
-                                .clickSave()
+                                .clickSaveAndRun()
                                 .feedback()
                                 .assertSuccess();
         basicPage
