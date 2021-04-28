@@ -16,6 +16,7 @@
 
 package com.evolveum.midpoint.schrodinger;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.testng.BrowserPerClass;
@@ -47,6 +48,7 @@ import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.reports.SchrodingerTextReport;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
@@ -71,6 +73,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -477,7 +481,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     public UserPage showUser(String userName){
         UserPage user = showUserInTable(userName).clickByName(userName);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return user;
     }
 
