@@ -26,6 +26,11 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
 
     protected static final File EXTENSION_SCHEMA_FILE = new File(ADVANCED_LABS_DIRECTORY + "schema/extension-example.xsd");
     protected static final String POST_INITIAL_OBJECTS_DIR = ADVANCED_LABS_DIRECTORY + "post-initial-objects";
+    protected static final String CONTRACTORS_FILE_SOURCE_NAME = "contractors.csv";
+    protected static File contractorsTargetFile;
+
+    protected static final String CONTRACTORS_RESOURCE_NAME = "ExAmPLE, Inc. Contractor DB";
+    protected static final String CONTRACTORS_RESOURCE_IMPORT_TASK_NAME = "Initial import from Contractor DB";
 
     @Override
     protected File getExtensionSchemaFile() {

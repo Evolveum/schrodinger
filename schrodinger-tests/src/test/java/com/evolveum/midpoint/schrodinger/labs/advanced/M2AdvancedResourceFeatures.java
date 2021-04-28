@@ -30,16 +30,13 @@ import java.io.IOException;
  * @author honchar
  */
 public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
-    protected static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M2/";
-    private static final String ADVANCED_LABS_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+    private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M2/";
+    private static final String M2_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
 
-    private static final File CONTRACTORS_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors.csv");
-    private static final File CONTRACTORS_SOURCE_FILE_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors-2-1-update-1.csv");
-    private static final File CONTRACTORS_SOURCE_FILE_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors-2-1-update-2.csv");
-    private static final File CONTRACTORS_SOURCE_FILE_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "contractors-2-1-update-3.csv");
-    private static final String CONTRACTORS_FILE_SOURCE_NAME = "contractors.csv";
-    private static final String CONTRACTORS_RESOURCE_NAME = "ExAmPLE, Inc. Contractor DB";
-    private static final String CONTRACTORS_RESOURCE_IMPORT_TASK_NAME = "Initial import from Contractor DB";
+    private static final File CONTRACTORS_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "contractors.csv");
+    private static final File CONTRACTORS_SOURCE_FILE_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-1.csv");
+    private static final File CONTRACTORS_SOURCE_FILE_UPDATE_2 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-2.csv");
+    private static final File CONTRACTORS_SOURCE_FILE_UPDATE_3 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-3.csv");
     private static final File OBJECT_TEMPLATE_EXAMPLE_CONTRACTOR_USER = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-contractor-user.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -55,14 +52,14 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_RESOURCE_FILE_2_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors-2-1.xml");
     private static final File OPENLDAP_CORPORATE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
 
-    private static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
-    private static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
-    private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
-    private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
-    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-1.csv");
-    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-2.csv");
-    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");
-    private static final File HR_SOURCE_FILE_LAB_2_4_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-2-4-update-1.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-1.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-2.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-3.csv");
+    private static final File HR_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "source.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-1.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_2 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-2.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");
+    private static final File HR_SOURCE_FILE_LAB_2_4_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-4-update-1.csv");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
     private static final File OPENLDAP_CORPORATE_SOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
     private static final File RIMSY_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/rimsy-user.xml");
@@ -71,11 +68,9 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
     private static File csv2AfterAddScript;
     private static File csv2AfterModifyScript;
-    protected static final String SCRIPTS_DIRECTORY = LAB_OBJECTS_DIRECTORY + "scripts/";
+    private static final String SCRIPTS_DIRECTORY = LAB_OBJECTS_DIRECTORY + "scripts/";
     private static final File CSV_2_AFTER_ADD_SCRIPT_FILE = new File(SCRIPTS_DIRECTORY + "csv2-after-add-script.sh");
     private static final File CSV_2_AFTER_MODIFY_SCRIPT_FILE = new File(SCRIPTS_DIRECTORY + "csv2-after-mod-script.sh");
-
-    private static File contractorsTargetFile;
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -237,6 +232,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .and()
                     .clickSave()
                     .feedback()
+                //todo fails because of MID-7009. actual result is success, because arimmer wasn't created while HR import task
                         .assertError()
                         .assertMessageExists("Error processing account");
 
