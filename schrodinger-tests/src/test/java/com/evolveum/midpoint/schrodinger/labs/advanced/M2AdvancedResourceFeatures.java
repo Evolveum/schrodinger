@@ -101,7 +101,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
     }
 

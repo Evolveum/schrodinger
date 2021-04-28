@@ -47,9 +47,9 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
     private static final File CSV_3_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap.xml");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
-    private static final File HR_SOURCE_FILE_1_3_UPDATE_1 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-1.csv");
-    private static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
-    private static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(FUNDAMENTAL_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
+    private static final File HR_SOURCE_FILE_1_3_UPDATE_1 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-1.3-update-1.csv");
+    private static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
+    private static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
     private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
     private static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
     private static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
