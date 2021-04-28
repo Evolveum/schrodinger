@@ -180,15 +180,11 @@ else {
                 <attribute>
                     <ref>ri:cardNumber</ref>
                     <displayName>Meal Card Number</displayName>
-                    <!-- MID-102, LAB 3-1: uncomment the following section -->
-                    <!--
                     <outbound>
                         <source>
                             <path>extension/mealCardNumber</path>
                         </source>
                     </outbound>
-                    -->
-                    <!-- MID-102, LAB 3-1: end of comment -->
                 </attribute>
                 <dependency>
                     <strictness>strict</strictness>

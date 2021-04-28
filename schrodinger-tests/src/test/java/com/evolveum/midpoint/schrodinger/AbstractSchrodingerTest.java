@@ -44,6 +44,8 @@ import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -485,12 +487,28 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         return user;
     }
 
+    public RolePage showRole(String roleName){
+        RolePage role = showRoleInTable(roleName).clickByName(roleName);
+        $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        return role;
+    }
+
     public AssignmentHolderObjectListTable<ListUsersPage, UserPage> showUserInTable(String userName) {
         return basicPage.listUsers()
                 .table()
                 .search()
                 .byName()
                 .inputValue(userName)
+                .updateSearch()
+                .and();
+    }
+
+    public AssignmentHolderObjectListTable<ListRolesPage, RolePage> showRoleInTable(String roleName) {
+        return basicPage.listRoles()
+                .table()
+                .search()
+                .byName()
+                .inputValue(roleName)
                 .updateSearch()
                 .and();
     }

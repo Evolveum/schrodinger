@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M3/";
@@ -26,8 +28,11 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
 
     private static final File RIMSY_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/rimsy-user.xml");
+    private static final File SEQUENCE_MEALCARD_FILE = new File(LAB_OBJECTS_DIRECTORY + "sequences/sequence-mealcard.xml");
     private static final File HR_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/hr-synchronization.xml");
     private static final File INITIAL_IMPORT_FROM_HR_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr.xml");
+    private static final File ROLE_INTERNAL_EMPLOYEE_FILE = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee.xml");
+    private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -56,12 +61,48 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
-        //todo we need to take rimsy user xml after all M2 tests are executed.
-        addObjectFromFile(RIMSY_USER_FILE);
+    }
 
+    @Override
+    protected List<File> getObjectListToImport(){
+        return Arrays.asList(RIMSY_USER_FILE,   //todo we need to take rimsy user xml after all M2 tests are executed.
+                SEQUENCE_MEALCARD_FILE, KIRK_USER_FILE);
     }
 
     @Test(groups={"advancedM2"})
-    public void mod03test01reactionSpecificObjectTemplate() throws IOException {
+    public void mod03test01sequences() throws IOException {
+        addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_FILE);
+
+        showUser("kirk")
+                .checkReconcile()
+                .clickSave()
+                .feedback()
+                    .assertSuccess();
+
+        showUser("kirk")
+                .selectTabBasic()
+                    .form()
+                        .assertPropertyInputValueContainsText("Meal Card Number", "1001")
+                        .and()
+                    .and()
+                .selectTabProjections()
+                    .table()
+                        .clickByName("jkirk")
+                            .assertPropertyInputValue("Meal Card number", "1001");
+
+        showRole("Internal Employee")
+                .selectTabMembers()
+                    .membersPanel()
+                        .table()
+                            .recompute()
+                                .clickYes();
+
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        basicPage.listUsers("Internal Employees")
+                .table()
+                    .clickByName("jsmith")
+                        .selectTabBasic()
+                            .form()
+                                .assertPropertyInputValueContainsText("Meal Card Number", "10");
     }
 }

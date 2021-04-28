@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2018-2020 Evolveum, All rights reserved -->
+<sequence xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="fc847640-2608-11e8-95cb-6b5d942ef06a">
+    <name>Meal Card Numbers</name>
+    <counter>1001</counter>
+    <maxUnusedValues>10</maxUnusedValues>
+</sequence>
