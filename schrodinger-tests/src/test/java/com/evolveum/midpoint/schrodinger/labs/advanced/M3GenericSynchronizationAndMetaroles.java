@@ -61,12 +61,9 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
-    }
-
-    @Override
-    protected List<File> getObjectListToImport(){
-        return Arrays.asList(RIMSY_USER_FILE,   //todo we need to take rimsy user xml after all M2 tests are executed.
-                SEQUENCE_MEALCARD_FILE, KIRK_USER_FILE);
+        addObjectFromFile(RIMSY_USER_FILE);
+        addObjectFromFile(SEQUENCE_MEALCARD_FILE);
+        addObjectFromFile(KIRK_USER_FILE);
     }
 
     @Test(groups={"advancedM2"})

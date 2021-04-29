@@ -15,6 +15,8 @@
   ~ limitations under the License.
   -->
 <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
 oid="ca233e9a-f474-1ed7-9a22-1nkdea34bb50">
     <name>kirk</name>
@@ -28,12 +30,9 @@ oid="ca233e9a-f474-1ed7-9a22-1nkdea34bb50">
         </password>
     </credentials>
     <assignment>
-        <targetRef oid="10000000-9999-9999-0000-a000d0000009" relation="org:default" type="c:RoleType">
-        </targetRef>
-        <activation>
-            <effectiveStatus>enabled</effectiveStatus>
-        </activation>
+        <targetRef oid="10000000-9999-9999-0000-a000d0000009" relation="org:default" type="c:RoleType"/>
     </assignment>
+    <roleMembershipRef oid="10000000-9999-9999-0000-a000d0000009" relation="org:default" type="c:RoleType"/>
     <activation>
         <administrativeStatus>enabled</administrativeStatus>
     </activation>
