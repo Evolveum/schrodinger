@@ -159,6 +159,20 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
         return projectionName.equals(assignmentActualName);
     }
 
+    public PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<P>>> viewProjectionDetails(String projectionName, String resourceName){
+        table()
+                .search()
+                    .referencePanelByItemName("Resource")
+                        .inputRefName(resourceName, resourceName)
+                    .updateSearch();
+        PrismFormWithActionButtons form = table()
+                .clickByName(projectionName);
+        PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<P>>> detailsPanel =
+                new PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<P>>>(table(),
+                        $(Schrodinger.byDataId("valueForm")));
+        return detailsPanel;
+    }
+
     public ProjectionsTab<P> assertProjectionExist(String projectionName, String resourceName) {
         assertion.assertTrue(projectionExists(projectionName, resourceName), "Projection " + projectionName + " should exist");
         return this;

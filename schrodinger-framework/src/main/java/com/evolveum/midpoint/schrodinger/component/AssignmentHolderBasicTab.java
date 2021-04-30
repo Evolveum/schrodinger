@@ -15,13 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.component;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 /**
  * Created by Viliam Repan (lazyman).

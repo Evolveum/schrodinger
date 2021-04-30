@@ -67,7 +67,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         addObjectFromFile(SEQUENCE_MEALCARD_FILE);
         addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_FILE);
-
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         showUser("kirk")
                 .checkReconcile()
                 .clickSave()
@@ -81,8 +81,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .and()
                     .and()
                 .selectTabProjections()
-                    .table()
-                        .clickByName("jkirk")
+                    .viewProjectionDetails("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertPropertyInputValue("Meal Card Number", "1001");
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
@@ -97,9 +96,14 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .clickYes();
 
         Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
-        basicPage.listUsers("Internal Employees")
+        basicPage.listUsers()
                 .table()
-                    .clickByName("jsmith")
+                    .search()
+                        .byName()
+                        .inputValue("X000021")
+                        .updateSearch()
+                    .and()
+                    .clickByName("X000021")
                         .selectTabBasic()
                             .form()
                                 .assertPropertyInputValueContainsText("Meal Card Number", "10");
