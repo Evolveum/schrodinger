@@ -29,10 +29,6 @@ oid="ca233e9a-f474-1ed7-9a22-1nkdea34bb50">
             </value>
         </password>
     </credentials>
-    <assignment>
-        <targetRef oid="10000000-9999-9999-0000-a000d0000009" relation="org:default" type="c:RoleType"/>
-    </assignment>
-    <roleMembershipRef oid="10000000-9999-9999-0000-a000d0000009" relation="org:default" type="c:RoleType"/>
     <activation>
         <administrativeStatus>enabled</administrativeStatus>
     </activation>

@@ -186,12 +186,16 @@ else {
                         </source>
                     </outbound>
                 </attribute>
+                <!-- MID-102, LAB 2-3, part 2 of 3: uncomment the following section and follow the lab guide to complete it -->
+                <!--
                 <dependency>
-                    <strictness>strict</strictness>
-                    <resourceRef oid="3961ffc8-2209-11e8-8018-7738b0ea3fa2"/>
-                    <kind>account</kind>
-                    <intent>default</intent>
-                </dependency>            
+                    <strictness>PLACEHOLDER</strictness>
+                    <resourceRef oid="PLACEHOLDER"/>
+                    <kind>PLACEHOLDER</kind>
+                    <intent>PLACEHOLDER</intent>
+                </dependency>
+                -->
+                <!-- MID-102, LAB 2-3, part 2 of 3: end of comment -->
                 <!-- MID-102, LAB 2-2, part 2 of 2: uncomment the following section -->
                 <!--
         <iteration>
@@ -226,15 +230,12 @@ else {
                     </administrativeStatus>
                 </activation>
                 <!-- MID-102, LAB 2-3, part 3 of 3: comment this section -->
-                <!--
                 <credentials>
                     <password>
                         <outbound/>
                     </password>
                 </credentials>
-                -->
-                <!-- MID-102, LAB 2-3, part 3 of 3: end of to-be-commented-section -->
-            </objectType>
+                <!-- MID-102, LAB 2-3, part 3 of 3: end of to-be-commented-section -->            </objectType>
         </schemaHandling>
         <capabilities xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
             <configured>
@@ -248,57 +249,61 @@ else {
                 <cap:countObjects>
                     <cap:simulate>sequentialSearch</cap:simulate>
                 </cap:countObjects>
+                <!-- MID-102, LAB 2-3, part 1 of 3: uncomment the following section -->
+                <!--
                 <cap:credentials>
                     <cap:password>
                        <cap:enabled>false</cap:enabled>
                     </cap:password>
                 </cap:credentials>
+                -->
+                <!-- MID-102, LAB 2-3, part 1 of 3: end of section -->
             </configured>
         </capabilities>
-    <scripts>
-        <script>
-            <host>resource</host>   
-            <language>exec</language>
-            <argument>
-                <path>$focus/name</path>
-                <name>midpoint_name</name>
-            </argument>
-            <argument>
-                <path>$focus/givenName</path>
-                <name>midpoint_givenName</name>
-            </argument>
-            <argument>
-                <path>$focus/familyName</path>
-                <name>midpoint_familyName</name>
-            </argument>
-            <argument>
-                <path>$projection/attributes/ri:pin</path>
-                <name>pin</name>
-            </argument>
-            <code>./scripts/csv2-after-mod-script.sh</code>
-            <operation>add</operation>
-            <order>after</order>
-        </script>
-        <script>
-            <host>resource</host>   
-            <language>exec</language>
-            <argument>
-                <path>$focus/name</path>
-                <name>midpoint_name</name>
-            </argument>
-            <argument>
-                <path>$focus/givenName</path>
-                <name>midpoint_givenName</name>
-            </argument>
-            <argument>
-                <path>$focus/familyName</path>
-                <name>midpoint_familyName</name>
-            </argument>
-            <code>./scripts/csv2-after-mod-script.sh</code>
-            <operation>modify</operation>
-            <order>after</order>
-        </script>
-</scripts>
+<!--    <scripts.>-->
+<!--        <script>-->
+<!--            <host>resource</host>   -->
+<!--            <language>exec</language>-->
+<!--            <argument>-->
+<!--                <path>$focus/name</path>-->
+<!--                <name>midpoint_name</name>-->
+<!--            </argument>-->
+<!--            <argument>-->
+<!--                <path>$focus/givenName</path>-->
+<!--                <name>midpoint_givenName</name>-->
+<!--            </argument>-->
+<!--            <argument>-->
+<!--                <path>$focus/familyName</path>-->
+<!--                <name>midpoint_familyName</name>-->
+<!--            </argument>-->
+<!--            <argument>-->
+<!--                <path>$projection/attributes/ri:pin</path>-->
+<!--                <name>pin</name>-->
+<!--            </argument>-->
+<!--            <code>./scripts/csv2-after-mod-script.sh</code>-->
+<!--            <operation>add</operation>-->
+<!--            <order>after</order>-->
+<!--        </script>-->
+<!--        <script>-->
+<!--            <host>resource</host>   -->
+<!--            <language>exec</language>-->
+<!--            <argument>-->
+<!--                <path>$focus/name</path>-->
+<!--                <name>midpoint_name</name>-->
+<!--            </argument>-->
+<!--            <argument>-->
+<!--                <path>$focus/givenName</path>-->
+<!--                <name>midpoint_givenName</name>-->
+<!--            </argument>-->
+<!--            <argument>-->
+<!--                <path>$focus/familyName</path>-->
+<!--                <name>midpoint_familyName</name>-->
+<!--            </argument>-->
+<!--            <code>./scripts/csv2-after-mod-script.sh</code>-->
+<!--            <operation>modify</operation>-->
+<!--            <order>after</order>-->
+<!--        </script>-->
+<!--</scripts.>-->
         <synchronization>
             <objectSynchronization>
                 <!--

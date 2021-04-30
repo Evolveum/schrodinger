@@ -20,6 +20,7 @@ import static com.codeborne.selenide.Selenide.$;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 

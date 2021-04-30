@@ -190,12 +190,16 @@ else {
                     -->
                     <!-- MID-102, LAB 3-1: end of comment -->
                 </attribute>
+                <!-- MID-102, LAB 2-3, part 2 of 3: uncomment the following section and follow the lab guide to complete it -->
+                <!--
                 <dependency>
-                    <strictness>strict</strictness>
-                    <resourceRef oid="3961ffc8-2209-11e8-8018-7738b0ea3fa2"/>
-                    <kind>account</kind>
-                    <intent>default</intent>
-                </dependency>            
+                    <strictness>PLACEHOLDER</strictness>
+                    <resourceRef oid="PLACEHOLDER"/>
+                    <kind>PLACEHOLDER</kind>
+                    <intent>PLACEHOLDER</intent>
+                </dependency>
+                -->
+                <!-- MID-102, LAB 2-3, part 2 of 3: end of comment -->
                 <!-- MID-102, LAB 2-2, part 2 of 2: uncomment the following section -->
                 <!--
         <iteration>
@@ -230,13 +234,11 @@ else {
                     </administrativeStatus>
                 </activation>
                 <!-- MID-102, LAB 2-3, part 3 of 3: comment this section -->
-                <!--
                 <credentials>
                     <password>
                         <outbound/>
                     </password>
                 </credentials>
-                -->
                 <!-- MID-102, LAB 2-3, part 3 of 3: end of to-be-commented-section -->
             </objectType>
         </schemaHandling>
@@ -252,11 +254,15 @@ else {
                 <cap:countObjects>
                     <cap:simulate>sequentialSearch</cap:simulate>
                 </cap:countObjects>
+                <!-- MID-102, LAB 2-3, part 1 of 3: uncomment the following section -->
+                <!--
                 <cap:credentials>
                     <cap:password>
                        <cap:enabled>false</cap:enabled>
                     </cap:password>
                 </cap:credentials>
+                -->
+                <!-- MID-102, LAB 2-3, part 1 of 3: end of section -->
             </configured>
         </capabilities>
         <!-- MID-102, LAB 2-4: uncomment the following section. Be sure to
