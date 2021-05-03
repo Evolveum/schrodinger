@@ -2,6 +2,8 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.org.OrgHierarchyPanel;
+import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType;
@@ -20,7 +22,9 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
     private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
     private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
+    private static final File HR_SOURCE_FILE_LAB_3_4_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-4-update-1.csv");
     private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
+    private static final File HR_ORG_SOURCE_FILE_LAB_3_4_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-4-update-1.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
 
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -36,6 +40,8 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File INITIAL_IMPORT_FROM_HR_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr.xml");
     private static final File ROLE_INTERNAL_EMPLOYEE_FILE = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee.xml");
     private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
+
+    private static final File OBJECT_TEMPLATE_EXAMPLE_ORG = new File(LAB_OBJECTS_DIRECTORY + "objectTemplates/object-template-example-org.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -130,7 +136,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .table()
                                 .search()
                                     .byName()
-                                    .inputValue(HR_RESOURCE_NAME)
+                                    .inputValue(HR_ORGS_RESOURCE_NAME)
                                 .updateSearch()
                                 .and()
                             .clickByName(HR_ORGS_RESOURCE_NAME)
@@ -164,7 +170,126 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                     .table()
                                         .assertTableObjectsCountEquals(10); //todo check UNLINKED: 7 objects; UNMATCHED: 3 objects
 
+        addObjectFromFile(OBJECT_TEMPLATE_EXAMPLE_ORG);
 
+        basicPage
+                .listTasks()
+                    .table()
+                        .search()
+                            .byName()
+                            .inputValue("HR Org Reconciliation")
+                            .updateSearch()
+                            .and()
+                        .clickByName("HR Org Reconciliation")
+                            .selectTabBasic()
+                                .form()
+                                    .selectOption("Dry run", "False")
+                                    .and()
+                                .and()
+                            .clickSaveAndRun();
 
+        OrgHierarchyPanel<OrgRootTab> orgHierarchyPanel = basicPage
+                .orgStructure()
+                    .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .assertChildOrgExists("Special operations", "Augmentation Development", "Xenomorph Acquisition");
+        orgHierarchyPanel
+                        .showTreeNodeDropDownMenu("Special operations")
+                            .edit()
+                                .summary()
+                                    .assertSummaryTagWithTextExists("Organization")
+                //todo check LDAP Org Group Metarole is assigned
+                                    .and()
+                                .clickBack();
+        orgHierarchyPanel
+                .showTreeNodeDropDownMenu("Augmentation Development")
+                    .edit()
+                        .summary()
+                        .assertSummaryTagWithTextExists("Organization")
+                //todo check LDAP Org Group Metarole is assigned
+                        .and()
+                    .clickBack();
+
+        orgHierarchyPanel
+                .showTreeNodeDropDownMenu("Xenomorph Acquisition")
+                    .edit()
+                        .summary()
+                        .assertSummaryTagWithTextExists("Organization")
+                //todo check LDAP Org Group Metarole is not assigned
+                        .and()
+                    .clickBack();
+
+        TaskPage hrOrgsSyncTask = basicPage.newTask();
+        task.setHandlerUriForNewTask("Live synchronization task");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        hrOrgsSyncTask.selectTabBasic()
+                .form()
+                    .addAttributeValue(TaskType.F_NAME, "HR Orgs Synchronization")
+                    .addAttributeValue("Kind", "Generic")
+                    .selectOption("Recurrence","Recurring")
+                    .selectOption("Binding","Tight")
+                    .editRefValue("objectRef")
+                        .selectType("Resource")
+                        .table()
+                        .search()
+                            .byName()
+                            .inputValue(HR_ORGS_RESOURCE_NAME)
+                            .updateSearch()
+                            .and()
+                        .clickByName(HR_ORGS_RESOURCE_NAME)
+                    .selectOption("Dry run","True")
+                    .and()
+                .and()
+                .selectScheduleTab()
+                    .form()
+                        .addAttributeValue("Interval", "5")
+                        .and()
+                    .and()
+                .clickSaveAndRun()
+                    .feedback()
+                        .assertInfo();
+
+        FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_4_UPDATE_1, hrOrgsTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        //TODO check notification
+
+        basicPage
+                .orgStructure()
+                    .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                        .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("Special operations")
+                            .expandAll()
+                            .selectOrgInTree("Biomechanic Arm Development")
+                                .showTreeNodeDropDownMenu("Biomechanic Arm Development")
+                                .edit()
+                                    .summary()
+                                    .assertSummaryTagWithTextExists("Organization")
+                                    //todo check LDAP Org Group Metarole is not assigned
+                                    //todo check parent organization (Special Operations) should be assigned
+                                    .and()
+                                .selectTabAssignments()
+                                    .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
+                                    .and()
+                                .clickBack();
+
+        FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_4_UPDATE_1, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+
+        basicPage
+                .listUsers("Employees")
+                    .table()
+                        .search()
+                            .byName()
+                            .inputValue("X000979")
+                            .updateSearch()
+                            .and()
+                        .clickByName("X000979")
+                            .selectTabAssignments()
+                                .assertAssignmentsWithRelationExist("Member", "Biomechanic Arm Development", "Internal Employee")
+                                .and()
+                            .selectTabProjections()
+                                .table()
+                                    .assertTableObjectsCountEquals(4); //todo actual result should be 5 when ldap resource is up
+        //todo check notification
     }
 }
