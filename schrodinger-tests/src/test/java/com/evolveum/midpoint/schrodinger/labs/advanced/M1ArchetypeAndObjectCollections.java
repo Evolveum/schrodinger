@@ -226,7 +226,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .and()
                 .clickSaveAndRun()
                 .feedback()
-                .isInfo();
+                    .assertInfo();
 
        FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_1, hrTargetFile);
        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);

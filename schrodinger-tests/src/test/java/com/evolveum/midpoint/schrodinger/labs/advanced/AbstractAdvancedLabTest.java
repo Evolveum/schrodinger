@@ -32,6 +32,10 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
     protected static final String CONTRACTORS_RESOURCE_NAME = "ExAmPLE, Inc. Contractor DB";
     protected static final String CONTRACTORS_RESOURCE_IMPORT_TASK_NAME = "Initial import from Contractor DB";
 
+    protected static File hrOrgsTargetFile;
+    protected static final String HR_ORGS_FILE_SOURCE_NAME = "source-orgs.csv";
+    protected static final String HR_ORGS_RESOURCE_NAME = "ExAmPLE Inc. HR Organization Structure Source";
+
     @Override
     protected File getExtensionSchemaFile() {
         return EXTENSION_SCHEMA_FILE;

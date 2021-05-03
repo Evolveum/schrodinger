@@ -2,15 +2,15 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M3/";
@@ -20,6 +20,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
     private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
     private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
+    private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
 
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -27,6 +28,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File CSV_3_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap.xml");
     private static final File CONTRACTORS_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors.xml");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
+    private static final File HR_ORG_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-org.xml");
 
     private static final File RIMSY_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/rimsy-user.xml");
     private static final File SEQUENCE_MEALCARD_FILE = new File(LAB_OBJECTS_DIRECTORY + "sequences/sequence-mealcard.xml");
@@ -48,6 +50,9 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
         FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
+
+        hrOrgsTargetFile = new File(getTestTargetDir(), HR_ORGS_FILE_SOURCE_NAME);
+        FileUtils.copyFile(HR_ORG_SOURCE_FILE, hrOrgsTargetFile);
 
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
@@ -107,5 +112,59 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .selectTabBasic()
                             .form()
                                 .assertPropertyInputValueContainsText("Meal Card Number", "10");
+    }
+
+    @Test(groups={"advancedM2"})
+    public void mod03test04orgStructureSynchronization() throws IOException {
+        addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_FILE_SOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+        TaskPage task = basicPage.newTask();
+        task.setHandlerUriForNewTask("Reconciliation task");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        task.selectTabBasic()
+                .form()
+                    .addAttributeValue(TaskType.F_NAME, "HR Org Reconciliation")
+                    .addAttributeValue("objectclass", "AccountObjectClass")
+                    .addAttributeValue("Kind", "Generic")
+                    .editRefValue("objectRef")
+                        .selectType("Resource")
+                            .table()
+                                .search()
+                                    .byName()
+                                    .inputValue(HR_RESOURCE_NAME)
+                                .updateSearch()
+                                .and()
+                            .clickByName(HR_ORGS_RESOURCE_NAME)
+                    .selectOption("Dry run","True")
+                    .and()
+                .and()
+                .clickSaveAndRun()
+                    .feedback()
+                        .assertInfo();
+
+        basicPage.listTasks()
+                .table()
+                    .search()
+                        .byName()
+                        .inputValue(CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
+                        .updateSearch()
+                        .and()
+                    .clickByName(CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
+                        .selectTabOperationStatistics()
+                        .assertProgressSummaryObjectsCountEquals(10)
+                        .assertSucceededCountMatch(10);
+        basicPage
+                .listResources()
+                    .table()
+                        .search()
+                            .resetBasicSearch()
+                            .and()
+                        .clickByName("ExAmPLE Inc. HR Organization Structure Source")
+                            .clickGenericsTab()
+                                .clickSearchInResource()
+                                    .table()
+                                        .assertTableObjectsCountEquals(10); //todo check UNLINKED: 7 objects; UNMATCHED: 3 objects
+
+
+
     }
 }

@@ -58,6 +58,17 @@ public class ViewResourcePage extends BasicPage {
         return new ResourceAccountsTab<>(this, tabContent);
     }
 
+    public ResourceAccountsTab<ViewResourcePage> clickGenericsTab() {
+
+        $(Schrodinger.byDataResourceKey("schrodinger", "PageResource.tab.content.generic")).parent()
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(By.className("resource-content-selection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        SelenideElement tabContent = $(By.cssSelector(".tab-pane.active"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+
+        return new ResourceAccountsTab<>(this, tabContent);
+    }
+
     public ViewResourcePage refreshSchema() {
         $(Schrodinger.byDataResourceKey("a", "pageResource.button.refreshSchema")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
