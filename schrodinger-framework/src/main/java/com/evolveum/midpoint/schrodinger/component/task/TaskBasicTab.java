@@ -36,7 +36,7 @@ public class TaskBasicTab extends AssignmentHolderBasicTab<TaskPage> {
     }
 
     public TaskBasicTab assertUtilityValueEquals(String expectedValue) {
-        assertion.assertEquals(expectedValue, form().findProperty("category").$(By.tagName("input")).getValue(), "Utility value doesn't match");
+        form().assertPropertyInputValue("Category", expectedValue);
         return this;
     }
 }

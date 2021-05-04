@@ -192,7 +192,7 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage assertConnIdVersionValueEquals(String expectedValue) {
-        assertion.assertEquals(expectedValue, connIdFrameworkVersion(), "Connid version value doesn't match");
+        assertion.assertEquals(connIdFrameworkVersion(), expectedValue, "Connid version value doesn't match");
         return this;
     }
 
