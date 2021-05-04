@@ -340,7 +340,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 return testTargetDir;
             } else {
 
-                throw new IOException("Creation of directory \"" + testTargetDir.getAbsolutePath() + "\" unsuccessful");
+                throw new IOException("Creation of directory \"" + testTargetDir.getAbsolutePath() + "\" unsuccessful. ");
             }
         }
     }
