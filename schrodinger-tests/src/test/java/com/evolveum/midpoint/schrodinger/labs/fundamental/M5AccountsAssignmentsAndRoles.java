@@ -191,7 +191,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         accountForm
                 .assertPropertySelectValue("administrativeStatus", "Disabled")
                 .showEmptyAttributes("Attributes")
-                .assertPropertyInputValues("groups", new ArrayList<String>());
+                .assertPropertyInputValues("Groups", new ArrayList<String>());
 
         showShadow(CSV_2_RESOURCE_NAME, "Login", "jkirk");
         accountForm.assertPropertySelectValue("administrativeStatus", "Disabled");

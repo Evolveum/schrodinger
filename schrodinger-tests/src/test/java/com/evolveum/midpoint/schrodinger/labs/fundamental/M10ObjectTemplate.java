@@ -330,8 +330,8 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         form
                 .showEmptyAttributes("Properties")
-                    .addAttributeValue("empStatus", "O")
-                    .addAttributeValue("familyName", "kirk2");
+                    .addAttributeValue("Employee Status", "O")
+                    .addAttributeValue("Family name", "kirk2");
         boolean existFeedback = false;
         try { existFeedback = form.and().and().feedback().isError(); } catch (ElementNotFound e) { }
         Assert.assertFalse(existFeedback);
