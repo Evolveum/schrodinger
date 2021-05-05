@@ -75,7 +75,7 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
 
     protected  <P extends TableWithPageRedirect<T>> ConfirmationModal<P> clickMenuItemWithConfirmation(String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
-        return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
+        return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_SHORT_4_S));
     }
 
     protected  <P extends TableWithPageRedirect<T>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
