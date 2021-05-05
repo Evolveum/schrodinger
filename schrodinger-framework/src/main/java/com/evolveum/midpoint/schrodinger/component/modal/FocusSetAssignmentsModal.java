@@ -76,7 +76,7 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     }
 
     public T clickAdd() {
-        SelenideElement addButton = getParentElement().$x(".//a[@data-s-id='addButton']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement addButton = getParentElement().$x(".//a[@data-s-resource-key='userBrowserDialog.button.addButton']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         addButton.hover().click();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_LONG_1_M);
