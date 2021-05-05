@@ -393,7 +393,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .table()
                     .clickByName("cn=James Bradley,ou=0200,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")
-                        .assertPropertyInputValue("manager", "");
+                        .assertPropertyInputValue("Manager", "");
 
         showUser("kirk")
                 .selectTabAssignments()
