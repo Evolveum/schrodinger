@@ -133,7 +133,7 @@ public class AssignmentsTab<P extends AssignmentHolderDetailsPage> extends TabWi
 
     @Override
     protected String getPrismViewPanelId() {
-        return "assignmentsContainer";
+        return "details";
     }
 
     public AssignmentsTab<P> assertAssignmentsWithRelationExist(String relation, String... expectedAssignments) {
