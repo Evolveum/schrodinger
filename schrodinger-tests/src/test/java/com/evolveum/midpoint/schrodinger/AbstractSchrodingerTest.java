@@ -89,6 +89,7 @@ import static com.codeborne.selenide.Selenide.$;
 public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContextTests {
 
     public static final String PROPERTY_NAME_MIDPOINT_HOME = "-Dmidpoint.home";
+    public static final String SYSTEM_PROPERTY_NAME_MIDPOINT_HOME = "midpoint.home";
     public static final String PROPERTY_NAME_USER_HOME = "user.home";
     public static final String PROPERTY_NAME_FILE_SEPARATOR = "file.separator";
     private static final File SYSTEM_CONFIG_INITIAL = new File("src/test/resources/objects/systemconfiguration/system-configuration-initial.xml");
@@ -304,10 +305,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         String mpHomeDir = aboutPage.getJVMproperty(PROPERTY_NAME_MIDPOINT_HOME);
 
         if (mpHomeDir != null && !mpHomeDir.isEmpty() && !PROPERTY_NAME_MIDPOINT_HOME.equalsIgnoreCase(mpHomeDir)) {
-
             return mpHomeDir;
+        } else if (StringUtils.isNotEmpty(System.getProperty(SYSTEM_PROPERTY_NAME_MIDPOINT_HOME))) {
+            return System.getProperty(SYSTEM_PROPERTY_NAME_MIDPOINT_HOME);
         } else {
-
             mpHomeDir = aboutPage.getSystemProperty(PROPERTY_NAME_USER_HOME)
                     + aboutPage.getSystemProperty(PROPERTY_NAME_FILE_SEPARATOR)
                     + "midpoint";
