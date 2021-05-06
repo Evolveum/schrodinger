@@ -213,6 +213,7 @@
                     <systemPropertyVariables>
                         <javax.net.ssl.trustStore>src/test/resources/truststore.jks</javax.net.ssl.trustStore>
                         <midpoint.home>target/midpoint-home</midpoint.home>
+                        <midpoint.test.folder>target/tests</midpoint.test.folder>
                         <java.util.logging.config.file>${project.build.directory}/test-classes/logging.properties
                         </java.util.logging.config.file>
                     </systemPropertyVariables>
@@ -265,6 +266,7 @@
                             <testFailureIgnore>true</testFailureIgnore>
                             <systemPropertyVariables>
                                 <midpoint.home>target/midpoint-home</midpoint.home>
+                                <midpoint.test.folder>target/tests</midpoint.test.folder>
                             </systemPropertyVariables>
                             <properties>
                                 <property>
@@ -289,6 +291,7 @@
                             <testFailureIgnore>true</testFailureIgnore>
                             <systemPropertyVariables>
                                 <midpoint.home>target/midpoint-home</midpoint.home>
+                                <midpoint.test.folder>target/tests</midpoint.test.folder>
                             </systemPropertyVariables>
                             <properties>
                                 <property>
@@ -313,6 +316,7 @@
                             <testFailureIgnore>true</testFailureIgnore>
                             <systemPropertyVariables>
                                 <midpoint.home>target/midpoint-home</midpoint.home>
+                                <midpoint.test.folder>target/tests</midpoint.test.folder>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>
@@ -331,6 +335,7 @@
                             <testFailureIgnore>true</testFailureIgnore>
                             <systemPropertyVariables>
                                 <midpoint.home>target/midpoint-home</midpoint.home>
+                                <midpoint.test.folder>target/tests</midpoint.test.folder>
                             </systemPropertyVariables>
                         </configuration>
                     </plugin>

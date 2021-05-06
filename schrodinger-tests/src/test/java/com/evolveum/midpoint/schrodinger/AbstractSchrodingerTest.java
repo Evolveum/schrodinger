@@ -325,7 +325,13 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected File initTestDirectory(String dir, boolean clearExist) throws IOException {
 
-        String home = fetchMidpointHome();
+        String home;
+        if (startMidpoint) {
+            home = fetchMidpointHome();
+        } else {
+            String testFolderPath = System.getProperty("midpoint.test.folder");
+            home = StringUtils.isNotEmpty(testFolderPath) ? testFolderPath : "target/tests";
+        }
         File parentDir = new File(home, "schrodinger");
         parentDir.mkdir();
         testTargetDir = new File(parentDir, dir);
