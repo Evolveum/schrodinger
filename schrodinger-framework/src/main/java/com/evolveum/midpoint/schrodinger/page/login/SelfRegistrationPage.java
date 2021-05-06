@@ -16,11 +16,13 @@
 package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -45,6 +47,14 @@ public class SelfRegistrationPage extends LoginPage {
     public SelfRegistrationPage setPassword(String value) {
         $(Schrodinger.byDataId("password1")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         $(Schrodinger.byDataId("password2")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        return  this;
+    }
+
+    public SelfRegistrationPage setCaptcha() {
+        SelenideElement captcha = $x(".//img[@data-s-id='image']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String captchaFullId = captcha.getAttribute("data-s-id");
+        $(Schrodinger.byDataId("text")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(captchaFullId.substring(5));
+//        $(By.name("contentArea:staticForm:firstName:input")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         return  this;
     }
 
