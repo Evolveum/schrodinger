@@ -402,7 +402,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")
-                        .assertPropertyInputValue("manager", "");
+                        .assertPropertyInputValue("Manager", "");
 
         showUser("picard")
                 .selectTabAssignments()
@@ -430,7 +430,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         showUser("kirk").selectTabProjections()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
-                        .assertPropertyInputValue("manager", "picard");
+                        .assertPropertyInputValue("Manager", "picard");
 
         showUser("picard").selectTabAssignments()
                 .table()
@@ -445,7 +445,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         showUser("kirk").selectTabProjections()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
-                        .assertPropertyInputValue("manager", "picard");
+                        .assertPropertyInputValue("Manager", "picard");
 
         importObject(CSV_3_RESOURCE_FILE_10_4, true);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
@@ -460,7 +460,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")
-                        .assertPropertyInputValue("manager", "");
+                        .assertPropertyInputValue("Manager", "");
     }
 
     @Test(dependsOnMethods = {"mod10test03LookupTablesAndAttributeOverrides"})

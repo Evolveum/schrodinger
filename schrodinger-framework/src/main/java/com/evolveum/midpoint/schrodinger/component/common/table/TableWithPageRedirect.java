@@ -52,10 +52,10 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
     protected SelenideElement clickAndGetHeaderDropDownMenu() {
 
         getParentElement().$x(".//div[@data-s-id='inlineMenuPanel']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("ul", "class", "dropdown-menu pull-right"));
+        SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("ul", "class", "dropdown-menu pull-right"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
 
         return dropDownMenu;
     }
