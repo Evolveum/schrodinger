@@ -61,6 +61,8 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException{
         super.beforeClass();
+        System.setProperty("midpoint.schrodinger","true");
+
         importObject(ENABLED_USER, true);
         importObject(DISABLED_USER, true);
         importObject(ENABLED_USER_WITHOUT_AUTHORIZATIONS, true);

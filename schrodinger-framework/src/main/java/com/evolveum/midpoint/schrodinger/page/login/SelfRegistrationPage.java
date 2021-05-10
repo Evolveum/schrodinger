@@ -51,10 +51,9 @@ public class SelfRegistrationPage extends LoginPage {
     }
 
     public SelfRegistrationPage setCaptcha() {
-        SelenideElement captcha = $x(".//img[@data-s-id='image']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        String captchaFullId = captcha.getAttribute("data-s-id");
-        $(Schrodinger.byDataId("text")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(captchaFullId.substring(5));
-//        $(By.name("contentArea:staticForm:firstName:input")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        SelenideElement captcha = $x(".//input[@data-s-id='text']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        //todo we need to set any value, it will be ignored during the test
+        captcha.setValue("1234");
         return  this;
     }
 
