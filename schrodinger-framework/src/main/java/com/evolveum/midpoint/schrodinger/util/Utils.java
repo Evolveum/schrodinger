@@ -50,7 +50,7 @@ public class Utils {
     }
 
     public static void setOptionCheckedByName(String optionName, boolean checked) {
-        SelenideElement checkBox = $(By.name(optionName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement checkBox = $(By.name(optionName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         checkBox.setSelected(checked).waitUntil(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
