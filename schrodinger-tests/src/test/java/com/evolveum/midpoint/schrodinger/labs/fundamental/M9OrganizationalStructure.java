@@ -174,122 +174,124 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                     .isSuccess();
     }
 
-    @Test(dependsOnMethods = {"mod09test02CreateStaticOrgStructure"})
+    @Test//(dependsOnMethods = {"mod09test02CreateStaticOrgStructure"})
     public void mod09test03OrganizationActingAsARole() throws IOException {
-        addObjectFromFile(SECRET_I_ROLE_FILE);
-        addObjectFromFile(SECRET_II_ROLE_FILE);
-
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        importObject(ORG_EXAMPLE_FILE, true);
+        importObject(ORG_SECRET_OPS_FILE, true);
+//        addObjectFromFile(SECRET_I_ROLE_FILE);
+//        addObjectFromFile(SECRET_II_ROLE_FILE);
+//
+//        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+//
+//        basicPage.orgStructure()
+//                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+//                    .getOrgHierarchyPanel()
+//                        .showTreeNodeDropDownMenu("Secret Operations")
+//                            .expandAll()
+//                        .selectOrgInTree("Warp Speed Research")
+//                        .and()
+//                    .getMemberPanel()
+//                        .selectType("User")
+//                            .table()
+//                            .assertTableDoesntContainText("kirk");
+//
+//        basicPage.orgStructure()
+//                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+//                    .getOrgHierarchyPanel()
+//                        .showTreeNodeDropDownMenu("Warp Speed Research")
+//                            .edit()
+//                                .selectTabInducements()
+//                                    .clickAddInducement()
+//                                        .table()
+//                                            .search()
+//                                                .byName()
+//                                                    .inputValue("Secret Projects I")
+//                                                    .updateSearch()
+//                                                    .and()
+//                                            .selectCheckboxByName("Secret Projects I")
+//                                            .and()
+//                                        .clickAdd()
+//                                    .and()
+//                                .clickSave()
+//                                    .feedback()
+//                                        .isSuccess();
+//
+//        basicPage.orgStructure()
+//                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+//                    .getOrgHierarchyPanel()
+//                        .selectOrgInTree("Warp Speed Research")
+//                        .and()
+//                    .getMemberPanel()
+//                        .table()
+//                                .assign()
+//                                    .selectType("User")
+//                                    .table()
+//                                        .search()
+//                                            .byName()
+//                                                .inputValue("kirk")
+//                                                .updateSearch()
+//                                            .and()
+//                                        .selectCheckboxByName("kirk")
+//                                        .and()
+//                                    .clickAdd()
+//                                .and()
+//                            .and()
+//                        .and()
+//                    .feedback()
+//                        .isInfo();
+//
+//        basicPage.orgStructure()
+//                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+//                    .getOrgHierarchyPanel()
+//                        .showTreeNodeDropDownMenu("Secret Operations")
+//                            .expandAll()
+//                        .selectOrgInTree("Warp Speed Research")
+//                        .and()
+//                    .getMemberPanel()
+//                        .selectType("User")
+//                            .table()
+//                            .assertTableContainsText("kirk");
+//
+//        AccountPage accountPage = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
+//        Selenide.screenshot("M9_accountPage");
+//        accountPage
+//                        .form()
+//                        .assertPropertyInputValues("groups", "Internal Employees",
+//                                "Essential Documents", "Teleportation", "Time Travel");
+//
+//        basicPage.orgStructure()
+//                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+//                    .getOrgHierarchyPanel()
+//                        .showTreeNodeDropDownMenu("Secret Operations")
+//                            .expandAll()
+//                        .showTreeNodeDropDownMenu("Warp Speed Research")
+//                            .edit()
+//                                .selectTabInducements()
+//                                    .clickAddInducement()
+//                                        .selectType("Role")
+//                                        .table()
+//                                            .search()
+//                                                .byName()
+//                                                    .inputValue("Secret Projects II")
+//                                                    .updateSearch()
+//                                                .and()
+//                                            .selectCheckboxByName("Secret Projects II")
+//                                            .and()
+//                                        .clickAdd()
+//                                    .and()
+//                                .clickSave()
+//                                    .feedback()
+//                                        .isSuccess();
+//
+//        showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk")
+//                        .form()
+//                        .assertPropertyInputValues("groups", "Internal Employees",
+//                                "Essential Documents", "Teleportation", "Time Travel");
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
                     .getOrgHierarchyPanel()
-                        .showTreeNodeDropDownMenu("Secret Operations")
-                            .expandAll()
-                        .selectOrgInTree("Warp Speed Research")
-                        .and()
-                    .getMemberPanel()
-                        .selectType("User")
-                            .table()
-                            .assertTableDoesntContainText("kirk");
-
-        basicPage.orgStructure()
-                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
-                    .getOrgHierarchyPanel()
-                        .showTreeNodeDropDownMenu("Warp Speed Research")
-                            .edit()
-                                .selectTabInducements()
-                                    .clickAddInducement()
-                                        .table()
-                                            .search()
-                                                .byName()
-                                                    .inputValue("Secret Projects I")
-                                                    .updateSearch()
-                                                    .and()
-                                            .selectCheckboxByName("Secret Projects I")
-                                            .and()
-                                        .clickAdd()
-                                    .and()
-                                .clickSave()
-                                    .feedback()
-                                        .isSuccess();
-
-        basicPage.orgStructure()
-                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
-                    .getOrgHierarchyPanel()
-                        .selectOrgInTree("Warp Speed Research")
-                        .and()
-                    .getMemberPanel()
-                        .table()
-                                .assign()
-                                    .selectType("User")
-                                    .table()
-                                        .search()
-                                            .byName()
-                                                .inputValue("kirk")
-                                                .updateSearch()
-                                            .and()
-                                        .selectCheckboxByName("kirk")
-                                        .and()
-                                    .clickAdd()
-                                .and()
-                            .and()
-                        .and()
-                    .feedback()
-                        .isInfo();
-
-        basicPage.orgStructure()
-                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
-                    .getOrgHierarchyPanel()
-                        .showTreeNodeDropDownMenu("Secret Operations")
-                            .expandAll()
-                        .selectOrgInTree("Warp Speed Research")
-                        .and()
-                    .getMemberPanel()
-                        .selectType("User")
-                            .table()
-                            .assertTableContainsText("kirk");
-
-        AccountPage accountPage = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
-        Selenide.screenshot("M9_accountPage");
-        accountPage
-                        .form()
-                        .assertPropertyInputValues("groups", "Internal Employees",
-                                "Essential Documents", "Teleportation", "Time Travel");
-
-        basicPage.orgStructure()
-                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
-                    .getOrgHierarchyPanel()
-                        .showTreeNodeDropDownMenu("Secret Operations")
-                            .expandAll()
-                        .showTreeNodeDropDownMenu("Warp Speed Research")
-                            .edit()
-                                .selectTabInducements()
-                                    .clickAddInducement()
-                                        .selectType("Role")
-                                        .table()
-                                            .search()
-                                                .byName()
-                                                    .inputValue("Secret Projects II")
-                                                    .updateSearch()
-                                                .and()
-                                            .selectCheckboxByName("Secret Projects II")
-                                            .and()
-                                        .clickAdd()
-                                    .and()
-                                .clickSave()
-                                    .feedback()
-                                        .isSuccess();
-
-        showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk")
-                        .form()
-                        .assertPropertyInputValues("groups", "Internal Employees",
-                                "Essential Documents", "Teleportation", "Time Travel");
-
-        basicPage.orgStructure()
-                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
-                    .getOrgHierarchyPanel()
-                        .selectOrgInTree("Warp Speed Research")
+                        .selectOrgInTree("Human Resources")
                         .and()
                     .getMemberPanel()
                         .table()

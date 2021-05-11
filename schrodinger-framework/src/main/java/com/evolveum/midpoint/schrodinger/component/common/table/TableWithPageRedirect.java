@@ -80,7 +80,7 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
 
     protected  <P extends TableWithPageRedirect<T>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
         clickMenuItemButton(columnTitleKey, rowValue, iconClass);
-        return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
+        return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_SHORT_4_S));
     }
 
     protected  <P extends TableWithPageRedirect> FocusSetAssignmentsModal<P> clickMenuItemWithFocusSetAssignmentsModal(String columnTitleKey, String rowValue, String menuItemKey) {
@@ -97,11 +97,11 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
      */
     private void clickMenuItem(String columnTitleKey, String rowValue, String menuItemKey){
         if (columnTitleKey == null && rowValue == null) {
-            clickAndGetHeaderDropDownMenu()
+            SelenideElement menuItem = clickAndGetHeaderDropDownMenu()
                     .$(Schrodinger.byDescendantElementAttributeValue("a", Schrodinger.DATA_S_RESOURCE_KEY, menuItemKey))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            menuItem.click();
+            menuItem.waitUntil(Condition.disappears, MidPoint.TIMEOUT_SHORT_4_S);
         } else {
             rowByColumnResourceKey(columnTitleKey, rowValue)
                     .getInlineMenu()
