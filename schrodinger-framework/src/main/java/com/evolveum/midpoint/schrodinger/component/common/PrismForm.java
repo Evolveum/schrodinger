@@ -129,7 +129,7 @@ public class PrismForm<T> extends Component<T> {
     public Boolean inputAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
