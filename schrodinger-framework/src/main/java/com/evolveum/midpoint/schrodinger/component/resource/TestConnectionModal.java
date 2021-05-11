@@ -124,8 +124,6 @@ public class TestConnectionModal<T> extends ModalBox<T> {
             }
         }
 
-        clickOk(); // Not sure if this is good practice
-
         return isSuccess;
     }
 

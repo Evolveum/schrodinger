@@ -396,7 +396,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .and()
                     .and()
                     .clickSaveAndTestConnection()
-                    .assertIsTestSuccess();
+                    .assertIsTestSuccess()
+                    .clickOk();
         } else {
             listResourcesPage
                             .table()

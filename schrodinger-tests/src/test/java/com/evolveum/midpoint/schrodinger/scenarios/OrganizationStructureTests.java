@@ -200,6 +200,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
                     .and()
                 .and()
                 .clickSaveAndTestConnection()
-                .assertIsTestSuccess();
+                .assertIsTestSuccess()
+                .clickOk();
     }
 }

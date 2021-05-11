@@ -111,7 +111,8 @@ public class AccountTests extends AbstractSchrodingerTest {
                     .and()
                 .and()
                 .clickSaveAndTestConnection()
-                .assertIsTestSuccess();
+                .assertIsTestSuccess()
+                .clickOk();
         refreshResourceSchema(CSV_RESOURCE_NAME);
     }
 
