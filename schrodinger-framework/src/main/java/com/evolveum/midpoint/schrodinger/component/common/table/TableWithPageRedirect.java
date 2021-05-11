@@ -123,10 +123,8 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
                     .clickInlineMenuButtonByIconClass(iconClass);
         } else {
             TableRow tableRow = rowByColumnResourceKey(columnTitleKey, rowValue);
-            if (tableRow == null) {
-                Selenide.screenshot("tableRowIsNull");
-                return;
-            }
+            assertion.assertNotNull(tableRow, "Unable to find table row with columnTitleKey='" + columnTitleKey
+                    + "' and rowValue='" + rowValue + "'; ") ;
             tableRow
                     .getInlineMenu()
                     .clickInlineMenuButtonByIconClass(iconClass);
