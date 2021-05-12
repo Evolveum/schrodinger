@@ -112,7 +112,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             .assertProjectionEnabled("jkirk", "CSV-1 (Document Access)");
     }
 
-    @Test(groups={"advancedM1"})
+    @Test(dependsOnMethods = {"mod01test01environmentInitialization"}, groups={"advancedM1"})
     public void mod01test02ArchetypeAndObjectCollection() {
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
@@ -149,7 +149,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .assertCurrentTableContains("janeway");
     }
 
-    @Test(groups={"advancedM1"})
+    @Test(dependsOnMethods = {"mod01test02ArchetypeAndObjectCollection"}, groups={"advancedM1"})
     public void mod01test03EnvironmentExamination() throws IOException {
         changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
 
@@ -272,7 +272,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                 .assertActivationStateEquals("Enabled");
     }
 
-    @Test(groups={"advancedM1"})
+    @Test(dependsOnMethods = {"mod01test03EnvironmentExamination"}, groups={"advancedM1"})
     public void mod01test04objectCollection() {
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         addObjectFromFile(SYSTEM_CONFIGURATION_FILE_1_4);

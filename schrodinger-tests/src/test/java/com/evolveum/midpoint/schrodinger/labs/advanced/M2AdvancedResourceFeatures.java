@@ -219,7 +219,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
     }
 
-    @Test(groups={"advancedM2"})
+    @Test(dependsOnMethods = {"mod02test01reactionSpecificObjectTemplate"}, groups={"advancedM2"})
     public void mod02test02iterators() throws IOException{
         addObjectFromFile(RIMSY_USER_FILE);
         showUser("rimsy")
@@ -278,12 +278,12 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertProjectionExist("cn=Ann De Wries2,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
     }
 
-    @Test(groups={"advancedM2"})
+    @Test(dependsOnMethods = {"mod02test02iterators"}, groups={"advancedM2"})
     public void mod02test03provisioningDependencies() {
         //todo impossible to test because of openldap resource
     }
 
-    @Test(groups={"advancedM2"})
+    @Test(dependsOnMethods = {"mod02test02iterators"}, groups={"advancedM2"})
     public void mod02test04provisioningScripts() throws IOException {
         addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_4_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
@@ -310,7 +310,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         //todo check log files created by scripts
     }
 
-    @Test(groups={"advancedM2"})
+    @Test(dependsOnMethods = {"mod02test04provisioningScripts"}, groups={"advancedM2"})
     public void mod02test05delayedAccountDeletion() throws IOException {
         addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
