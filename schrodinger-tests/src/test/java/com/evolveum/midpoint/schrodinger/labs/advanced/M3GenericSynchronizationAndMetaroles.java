@@ -25,11 +25,15 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
     private static final File HR_SOURCE_FILE_LAB_3_4_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-4-update-1.csv");
     private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-1.csv");
+    private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_2 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-2.csv");
+    private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_3 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-3.csv");
+    private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_4 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-4.csv");
     private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_4_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-4-update-1.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-1.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_2 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-2.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_3 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-3.csv");
+    private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_4 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-4.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
 
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -48,6 +52,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
     private static final File OBJECT_TEMPLATE_EXAMPLE_ORG = new File(LAB_OBJECTS_DIRECTORY + "objectTemplates/object-template-example-org.xml");
     private static final File OBJECT_TEMPLATE_EXAMPLE_USER = new File(LAB_OBJECTS_DIRECTORY + "objectTemplates/object-template-example-user.xml");
+    private static final String CORPORATE_DIRECTORY_RESOURCE_NAME = "New Corporate Directory";
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -102,7 +107,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertPropertyInputValue("Meal Card Number", "1001");
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         showRole("Internal Employee")
@@ -256,7 +261,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .assertInfo();
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_4_UPDATE_1, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         //TODO check notification
 
         basicPage
@@ -279,7 +284,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .clickBack();
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_4_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         basicPage
                 .listUsers("Employees")
@@ -304,7 +309,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         addObjectFromFile(OBJECT_TEMPLATE_EXAMPLE_USER);
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000993")
                 .selectTabAssignments()
@@ -334,7 +339,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         //todo check notification
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_1, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -349,7 +354,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                             .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_2, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -360,7 +365,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .assertChildOrgExists("Private Investigation");
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_3, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -370,5 +375,149 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .selectOrgInTree("Augmentation Development")
                                 .assertChildOrgExists("Private Investigation");
 
+        FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_2, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("000992")
+                .selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Active Employees")
+                .assertAssignmentsWithRelationExist("Member", "0470")
+                .assertAssignmentsWithRelationExist("Member", "Internal Employee")
+        //todo account in New Corporate Directory should be member of cn=org-0470,ou=orgStruct,dc=example,dc=com group
+        ;
+
+        basicPage.orgStructure()
+                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("ExAmPLE, Inc. - Functional Structure")
+                        .expandAll()
+                            .selectOrgInTree("Temporary")
+                            .assertChildOrgExists("0470")
+                            .showTreeNodeDropDownMenu("0470")
+                            .edit()
+                                .selectTabAssignments()
+                                    .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
+                                    .and()
+                                .selectTabProjections()
+                            //todo check that a group cn=org-0470,ou=orgStruct,dc=example,dc=com has
+                            //been created in New Corporate Directory
+        ;
+
+        //todo check notification
+
+        showUser("000991")
+                .selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Active Employees")
+                .assertAssignmentsWithRelationExist("Member", "0450")
+                .assertAssignmentsWithRelationExist("Member", "Internal Employee")
+        //todo account in New Corporate Directory should be member of cn=org-0450,ou=orgStruct,dc=example,dc=com group
+        ;
+
+        basicPage.orgStructure()
+                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("ExAmPLE, Inc. - Functional Structure")
+                        .expandAll()
+                            .selectOrgInTree("Temporary")
+                            .assertChildOrgExists("0450")
+                            .showTreeNodeDropDownMenu("0450")
+                            .edit()
+                                .selectTabAssignments()
+                                    .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
+                                    .and()
+                                .selectTabProjections()
+                            //todo check that a group cn=org-0450,ou=orgStruct,dc=example,dc=com has
+                            //been created in New Corporate Directory
+        ;
+
+        //todo check notification
+
+        showUser("X000990")
+                .selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Active Employees")
+                .assertAssignmentsWithRelationExist("Member", "0460")
+                .assertAssignmentsWithRelationExist("Member", "Internal Employee")
+        //todo account in New Corporate Directory should be member of cn=org-0460,ou=orgStruct,dc=example,dc=com group
+        ;
+
+        basicPage.orgStructure()
+                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("ExAmPLE, Inc. - Functional Structure")
+                        .expandAll()
+                            .selectOrgInTree("Temporary")
+                            .assertChildOrgExists("0460")
+                            .showTreeNodeDropDownMenu("0460")
+                            .edit()
+                                .selectTabAssignments()
+                                    .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
+                                    .and()
+                                .selectTabProjections()
+                            //todo check that a group cn=org-0460,ou=orgStruct,dc=example,dc=com has
+                            //been created in New Corporate Directory
+        ;
+
+        //todo check notification
+
+        FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_4, hrOrgsTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        basicPage.orgStructure()
+                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("ExAmPLE, Inc. - Functional Structure")
+                        .expandAll()
+                            .selectOrgInTree("Special operations")
+                            .assertChildOrgExists("Public Relations")
+                            .showTreeNodeDropDownMenu("Public Relations")
+                                .edit()
+                                    .selectTabProjections()
+                                        .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
+
+        basicPage.orgStructure()
+                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("ExAmPLE, Inc. - Functional Structure")
+                        .expandAll()
+                            .selectOrgInTree("Special operations")
+                            .assertChildOrgExists("Interrogation Specialists")
+                            .showTreeNodeDropDownMenu("Interrogation Specialists")
+                                .edit()
+                                    .selectTabProjections()
+                                        .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
+
+        basicPage.orgStructure()
+                .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
+                    .getOrgHierarchyPanel()
+                        .showTreeNodeDropDownMenu("ExAmPLE, Inc. - Functional Structure")
+                        .expandAll()
+                            .selectOrgInTree("Special operations")
+                            .assertChildOrgExists("Explosions Department")
+                            .showTreeNodeDropDownMenu("Explosions Department")
+                                .edit()
+                                    .selectTabProjections()
+                                        .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
+
+        FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_3, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("000993")
+                .selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Active Employees")
+                .assertAssignmentsWithRelationExist("Member", "Explosions Department")
+                .assertAssignmentsWithRelationExist("Member", "Internal Employee")
+                //todo check projection cn=org-0470,ou=orgStruct,dc=example,dc=com in New Corporate Directory
+        ;
+
+        FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_4, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("000991")
+                .assertActivationStateEquals("Disabled")
+                .selectTabProjections()
+                    .assertProjectionDisabled("epresleigh", CSV_1_RESOURCE_NAME)
+                    .assertProjectionDisabled("", CSV_2_RESOURCE_NAME)
+                    .assertProjectionDisabled("", CSV_3_RESOURCE_NAME)
+                    .assertProjectionDisabled("", CORPORATE_DIRECTORY_RESOURCE_NAME);
     }
 }

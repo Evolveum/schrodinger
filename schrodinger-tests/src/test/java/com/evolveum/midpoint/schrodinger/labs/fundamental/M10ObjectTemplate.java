@@ -482,7 +482,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .isSuccess();
 
         FileUtils.copyFile(HR_SOURCE_FILE_11_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         String notification = readBodyOfLastNotification();
 

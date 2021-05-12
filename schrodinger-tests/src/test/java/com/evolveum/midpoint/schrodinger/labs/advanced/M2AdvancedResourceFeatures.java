@@ -301,7 +301,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         FileUtils.copyFile(CSV_2_AFTER_MODIFY_SCRIPT_FILE, csv2AfterModifyScript);
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_4_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("kkochanski")
                 .selectTabAssignments()

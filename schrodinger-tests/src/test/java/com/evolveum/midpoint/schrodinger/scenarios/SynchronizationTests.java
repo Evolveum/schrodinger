@@ -209,7 +209,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     public void test0060alreadyLinkedResourceAccountDeleted() throws IOException {
 
         FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -279,7 +279,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
         FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
