@@ -1,0 +1,5 @@
+"dn","givenName","sn","employeeNumber","mail","disabled","userPassword","MemberOf","telephoneNumber","description"
+"cn=administrator,ou=ExAmPLE,dc=example,dc=com","administrator","administrator","","","false","","","",""
+"cn=mail-daemon,ou=ExAmPLE,dc=example,dc=com","mail","daemon","","","false","","","",""
+"cn=admin2,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com","administrator","administrator","","","false","","","",""
+"cn=admin3,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com","administrator","administrator","","","false","","","",""

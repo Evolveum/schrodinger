@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<!-- DO NOT FORGET TO LINK THIS TEMPLATE IN SYSTEM CONFIGURATION !!! -->
+<objectTemplate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="10000000-9999-9999-0000-a000fe000002">
+    <name>ExAmPLE Org Template</name>
+    <!-- MID-102, LAB 3-3: uncomment this section -->
+    <!--
+    <mapping>
+        <name>Org metarole assignment for creation of groups in New Corporate Directory</name>
+        <authoritative>true</authoritative>
+        <strength>strong</strength>
+        <source>
+            <path>$focus/activation/administrativeStatus</path>
+        </source>
+        <expression>
+            <assignmentTargetSearch>
+                <description>includeNullInputs: we need to work with empty administrativeStatus...</description>
+                <includeNullInputs>true</includeNullInputs>
+                <targetType>c:RoleType</targetType>
+                <filter>
+                    <q:equal>
+                        <q:path>c:name</q:path>
+                        <q:value>LDAP Org Group Metarole</q:value>
+                    </q:equal>
+                </filter>
+            </assignmentTargetSearch>       
+        </expression>
+        <target>
+            <path>assignment</path>
+        </target>
+        <condition>
+            <script>
+                <code>
+                import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationStatusType;
+
+                // XXX "not disabled" because it may be also undefined when creating from GUI
+                // DISABLED will be set from the authoritative source for inactive organizations
+                
+                // Company archetype: oid=a596202e-3245-44b1-ae63-dcc783578568
+                // Organization archetype: oid=dc18c532-6022-11e9-ae4b-53f281ce01f4
+                // Group archetype: oid=56797948-8f9b-44af-858e-1387e1fcddd2
+                
+            return (administrativeStatus != ActivationStatusType.DISABLED &amp;&amp;
+                    midpoint.hasArchetype(focus, "dc18c532-6022-11e9-ae4b-53f281ce01f4") )
+                </code>
+            </script>
+        </condition>
+    </mapping>
+    -->
+    <!-- MID-102, LAB 3-3: end of comment -->
+    <!-- MID-102, LAB 3-4: uncomment this section -->
+    <mapping>
+        <name>Org-org mapping</name>
+        <description>
+        Assign parent organization for "complete" organizations. That means, they come from HR Orgs source.
+        We assume the parent org. already exists, so that the ordering in in place in HR Orgs from top down.
+        
+        The organizations created onDemand from person data are created with isComplete=null so this will not be used.
+        Also they are created under Temporary organization.
+        This mapping uses range to move the organization to its parent by setting the new parent when the organization is
+        marked as isComplete=true, and the range will remove other assigned parents.
+        "Organization" archetype is used for filtering.     
+        </description>
+        <strength>strong</strength>
+        <authoritative>true</authoritative>
+        <source>
+            <path>costCenter</path>
+        </source>
+        <source>
+            <path>extension/isComplete</path>
+        </source>
+        <expression>
+            <assignmentTargetSearch>
+                <description>Just assign parent, without create-on-demand to simplify the logic.</description>
+                <targetType>c:OrgType</targetType>
+                <filter>
+                <q:equal>
+                    <q:path>c:name</q:path>
+                    <expression>
+                        <script>
+                            <code>
+//log.info("XXX org object template, searching for parent: {}", costCenter?.tokenize(':')?.reverse()[1])
+                                    parent = costCenter?.tokenize(':')?.reverse()[1]
+                                    if (!parent) {
+                                        return "EXAMPLE_ORG"; // TODO or Temporary?
+                                    } else {
+                                        return parent;
+                                    }
+                            </code>
+                        </script>
+                    </expression>
+                </q:equal>
+            </filter>
+            </assignmentTargetSearch>       
+        </expression>
+        <target>
+            <path>assignment</path>
+            <set>
+                <condition>
+                    <script>
+                        <code>
+import com.evolveum.midpoint.schema.constants.*
+import com.evolveum.midpoint.xml.ns._public.common.common_3.OrgType;
+                                                                                                                               
+if (assignment.targetRef != null &amp;&amp; assignment.targetRef.type.localPart == "OrgType") {
+  role = midpoint.getObject(OrgType.class, assignment.targetRef.oid)
+  alist = midpoint.getArchetype(role)
+  
+  // Organization archetype: oid=dc18c532-6022-11e9-ae4b-53f281ce01f4
+  inRange = midpoint.hasArchetype(role, "dc18c532-6022-11e9-ae4b-53f281ce01f4")
+
+  // log.info("XXX Detected org: {} of archetype: {}, hasArchetype organization: {}, will return inRange: {}", role, alist,
+  // midpoint.hasArchetype(role, 'dc18c532-6022-11e9-ae4b-53f281ce01f4'), inRange)
+  
+  return inRange
+}                                               
+                        </code>
+                    </script>
+                </condition>
+            </set>
+        </target>
+        <condition>
+            <script>
+                <code>isComplete</code>
+            </script>
+        </condition>
+    </mapping>
+   <!-- MID-102, LAB 3-4: end of comment -->
+</objectTemplate>
