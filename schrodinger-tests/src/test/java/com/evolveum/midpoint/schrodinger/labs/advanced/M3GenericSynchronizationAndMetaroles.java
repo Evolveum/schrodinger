@@ -133,7 +133,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
     @Test(dependsOnMethods = {"mod03test01sequences"}, groups={"advancedM2"})
     public void mod03test04orgStructureSynchronization() throws IOException {
-        addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_FILE_SOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Reconciliation task");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
