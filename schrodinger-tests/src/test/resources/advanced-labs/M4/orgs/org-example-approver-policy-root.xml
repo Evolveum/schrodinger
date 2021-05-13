@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2020 Evolveum, All rights reserved -->
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="b09b66e8-838c-11e9-ad36-bfa67f280d70" version="1">
+        <name>APPROVAL_POLICY_ORG</name>
+        <displayName>ExAmPLE, Inc. Approval Policies</displayName>
+        <!-- TODO add archetype? -->
+    </org>
+</objects>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="0fe646ba-26c1-11e8-a76a-b7bc9a124b16">
+    <name>Metarole - Request Approval by User Manager(s)</name>
+    <description>Request for role with this metarole assigned must be approved by all user's managers, otherwise the request will be rejected</description>
+    <!-- stage 10: "Approval by manager"
+         stage 20: "Approval by role approver"
+         stage 100: "Approval by security officer" -->
+    <displayName>Request Approval by User Manager(s)</displayName>
+    <inducement>
+        <policyRule>
+            <policyConstraints>
+                <assignment>
+                    <operation>add</operation>
+                    <!--<relation>any</relation>-->
+                    <!-- FIXME MID-5592 -->
+                </assignment>
+            </policyConstraints>
+            <policyActions>
+                <approval>
+                    <compositionStrategy>
+                        <order>10</order>
+                    </compositionStrategy>
+                    <approvalSchema>
+                        <stage>
+                            <name>User's manager</name>
+                            <approverExpression>
+                                <runAsRef oid="00000000-0000-0000-0000-000000000002"/>
+                                <!-- XXX otherwise requester has no authorizations to see all Users -->
+                                <script>
+                                    <code>midpoint.getManagersOidsExceptUser(object)</code>
+                                </script>
+                            </approverExpression>
+                            <evaluationStrategy>allMustApprove</evaluationStrategy>
+                            <!-- FIXME or firstDecides -->
+                            <outcomeIfNoApprovers>reject</outcomeIfNoApprovers>
+                        </stage>
+                    </approvalSchema>
+                </approval>
+            </policyActions>
+        </policyRule>
+    </inducement>
+</role>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!-- (c) 2018-2020 Evolveum, All rights reserved -->
+<role xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="3c51bbd2-2764-11e8-bcbc-9b21bd213ec6">
+    <name>Metarole - Request Approval by Security Officer for Non-employees</name>
+    <description>Request for role with this metarole assigned must be approved by a member of "Security" organization for non-employees</description>
+    <!-- stage 10: "Approval by manager"
+         stage 20: "Approval by role approver"
+         stage 100: "Approval by security officer" if it's not employee -->
+    <displayName>Request Approval by Security Officer for Non-employees</displayName>
+    <inducement>
+        <policyRule>
+            <policyConstraints>
+                <assignment>
+                    <operation>add</operation>
+                    <!--<relation>any</relation>-->
+                    <!-- FIXME MID-5592 -->
+                </assignment>
+            </policyConstraints>
+            <policyActions>
+                <approval>
+                    <compositionStrategy>
+                        <order>100</order>
+                    </compositionStrategy>
+                    <approvalSchema>
+                        <stage>
+                            <name>Security Officer (any)</name>
+                            <approverRef type="OrgType">
+                                <filter>
+                                    <q:equal>
+                                        <q:path>name</q:path>
+                                        <q:value>SECURITY</q:value>
+                                    </q:equal>
+                                </filter>
+                                <resolutionTime>run</resolutionTime>
+                            </approverRef>
+                            <evaluationStrategy>firstDecides</evaluationStrategy>
+                            <groupExpansion>onWorkItemCreation</groupExpansion>
+                            <outcomeIfNoApprovers>reject</outcomeIfNoApprovers>
+                            <!-- FIXME if there are no approvers, request is rejected -->
+                        </stage>
+                    </approvalSchema>
+                </approval>
+            </policyActions>
+        </policyRule>
+        <condition>
+            <expression>
+                <script>
+                    <code>!midpoint.hasArchetype(focus, "7135e68c-ee53-11e8-8025-170b77da3fd6") <!-- Employee --></code>
+                </script>
+            </expression>
+        </condition>
+    </inducement>
+</role>
