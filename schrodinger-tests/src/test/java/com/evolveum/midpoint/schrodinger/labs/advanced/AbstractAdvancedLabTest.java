@@ -34,7 +34,7 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
 
     protected static File hrOrgsTargetFile;
     protected static final String HR_ORGS_FILE_SOURCE_NAME = "source-orgs.csv";
-    protected static final String HR_ORGS_RESOURCE_NAME = "ExAmPLE Inc. HR Organization Structure Source";
+    protected static final String HR_ORGS_RESOURCE_NAME = "ExAmPLE, Inc. HR Organization Structure Source";
 
     @Override
     protected File getExtensionSchemaFile() {
