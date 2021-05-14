@@ -16,10 +16,10 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
     private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
-    private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1.xml");
-    private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-2.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-1.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");
     private static final File ROLE_META_POLICY_RULE_BIGBROTHER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-bigbrother.xml");
-    private static final File ROLE_META_POLICY_RULE_APPROVER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-approver.xml");
+    private static final File ROLE_META_POLICY_RULE_APPROVER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-approver.xml");
     private static final File ROLE_META_POLICY_RULE_SECURITY_OFFICER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-security-officer-skip-employees.xml");
     private static final File ROLE_META_POLICY_RULE_USER_MANAGER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-user-manager.xml");
     private static final File ROLE_ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
@@ -52,6 +52,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         addObjectFromFile(ROLE_META_POLICY_RULE_APPROVER);
         addObjectFromFile(ROLE_META_POLICY_RULE_SECURITY_OFFICER);
         addObjectFromFile(ROLE_META_POLICY_RULE_USER_MANAGER);
+        addObjectFromFile(ROLE_ORG_EXAMPLE_APPROVER_POLICY_ROOT);
 
         basicPage
                 .orgStructure()
@@ -89,6 +90,17 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
+        showRole("Secret roles")
+                .selectTabBasic()
+                    .form()
+                        .showEmptyAttributes("Properties")
+                        .setDropDownAttributeValue("Requestable", "True")
+                        .and()
+                    .and()
+                .selectTabApplicablePolicies();
+//                .clickSave()
+//                    .feedback()
+//                        .assertSuccess();
     }
 
 }

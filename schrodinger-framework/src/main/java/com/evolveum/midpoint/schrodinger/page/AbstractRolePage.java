@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import com.codeborne.selenide.SelenideElement;
 
+import com.evolveum.midpoint.schrodinger.component.ApplicablePoliciesTab;
 import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
 import com.evolveum.midpoint.schrodinger.component.InducementsTab;
 import com.evolveum.midpoint.schrodinger.component.MembersTab;
@@ -45,9 +46,9 @@ public class AbstractRolePage<A extends AbstractRolePage> extends FocusPage<A> {
 
     }
 
-//    public ApplicablePoliciesTab<A> selectTabApplicablePolicies() {
-//        SelenideElement element = getTabPanel().clickTab("pageRole.applicablePolicies");
-//        return new ApplicablePoliciesTab<A>((A) this, element);
-//
-//    }
+    public ApplicablePoliciesTab<A> selectTabApplicablePolicies() {
+        SelenideElement element = getTabPanel().clickTab("pageRole.applicablePolicies");
+        return new ApplicablePoliciesTab<A>((A) this, element);
+
+    }
 }
