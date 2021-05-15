@@ -15,6 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.util;
 
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
@@ -68,6 +70,12 @@ public class Utils {
     public static void setCheckFormGroupOptionCheckedByTitleResourceKey(String titleResourceKey, boolean checked) {
         CheckFormGroupPanel checkBoxGroup = new CheckFormGroupPanel(null,
                 $(Schrodinger.byDataResourceKey(titleResourceKey)).parent().parent().waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        checkBoxGroup.setOptionCheckedById(checked);
+    }
+
+    public static void setCheckFormGroupOptionCheckedByValue(String value, boolean checked) {
+        CheckFormGroupPanel checkBoxGroup = new CheckFormGroupPanel(null,
+                $(withText(value)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         checkBoxGroup.setOptionCheckedById(checked);
     }
 

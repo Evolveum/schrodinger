@@ -1,5 +1,6 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -90,17 +91,55 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
-        showRole("Secret roles")
+        RolePage rolePage = showRole("Secret Projects I");
+        rolePage
                 .selectTabBasic()
                     .form()
                         .showEmptyAttributes("Properties")
                         .setDropDownAttributeValue("Requestable", "True")
                         .and()
                     .and()
-                .selectTabApplicablePolicies();
-//                .clickSave()
-//                    .feedback()
-//                        .assertSuccess();
+                .selectTabApplicablePolicies()
+                    .selectPolicyByName("Request Approval by Role Approver(s)")
+                    .selectPolicyByName("Request Approval by Security Officer for Non-employees")
+                    .selectPolicyByName("Request Approval by User Manager(s)");
+        rolePage
+                .clickSave()
+                    .feedback()
+                        .assertSuccess();
+        rolePage = showRole("Secret Projects II");
+        rolePage
+                .selectTabBasic()
+                    .form()
+                        .showEmptyAttributes("Properties")
+                        .setDropDownAttributeValue("Requestable", "True")
+                        .and()
+                    .and()
+                .selectTabApplicablePolicies()
+                    .selectPolicyByName("Request Approval by Role Approver(s)")
+                    .selectPolicyByName("Request Approval by Security Officer for Non-employees")
+                    .selectPolicyByName("Request Approval by User Manager(s)");
+        rolePage
+                .clickSave()
+                    .feedback()
+                        .assertSuccess();
+        rolePage = showRole("Top Secret Projects I");
+        rolePage
+                .selectTabBasic()
+                    .form()
+                        .showEmptyAttributes("Properties")
+                        .setDropDownAttributeValue("Requestable", "True")
+                        .and()
+                    .and()
+                .selectTabApplicablePolicies()
+                    .selectPolicyByName("Request Approval by Role Approver(s)")
+                    .selectPolicyByName("Request Approval by Security Officer for Non-employees")
+                    .selectPolicyByName("Request Approval by User Manager(s)")
+                    .selectPolicyByName("Request Additional Approval by Big Brother");
+        rolePage
+                .clickSave()
+                    .feedback()
+                        .assertSuccess();
     }
 
 }
