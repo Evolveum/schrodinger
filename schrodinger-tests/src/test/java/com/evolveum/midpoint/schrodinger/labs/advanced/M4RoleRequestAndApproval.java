@@ -1,6 +1,11 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,7 +28,10 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File ROLE_META_POLICY_RULE_APPROVER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-approver.xml");
     private static final File ROLE_META_POLICY_RULE_SECURITY_OFFICER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-security-officer-skip-employees.xml");
     private static final File ROLE_META_POLICY_RULE_USER_MANAGER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-user-manager.xml");
-    private static final File ROLE_ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
+    private static final File ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
+    private static final File ROLE_BASIC_USER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser.xml");
+    private static final File ROLE_INTERNAL_EMPLOYEE_LAB_1_UPDATE_2 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee-lab-1-update-2.xml");
+
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -53,7 +61,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         addObjectFromFile(ROLE_META_POLICY_RULE_APPROVER);
         addObjectFromFile(ROLE_META_POLICY_RULE_SECURITY_OFFICER);
         addObjectFromFile(ROLE_META_POLICY_RULE_USER_MANAGER);
-        addObjectFromFile(ROLE_ORG_EXAMPLE_APPROVER_POLICY_ROOT);
+        addObjectFromFile(ORG_EXAMPLE_APPROVER_POLICY_ROOT);
 
         basicPage
                 .orgStructure()
@@ -140,6 +148,98 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
+
+        AssignmentsTab<UserPage> assignmentsTab = showUser("X000089")
+                .selectTabBasic()
+                    .form()
+                        .addPasswordAttributeValue("qwerty12345XXXX")
+                        .and()
+                    .and()
+                    .selectTabAssignments();
+        Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", true,"Secret Projects I", "Secret Projects II");
+        Utils.addAssignmentsWithRelation(assignmentsTab, "Member", true, "Basic Approver");
+
+        FocusSetAssignmentsModal modal = showRole("Top Secret Projects I")
+                .selectTabGovernance()
+                    .membersPanel()
+                        .assignMember();
+        modal.setRelation("Approver")
+                .table()
+                    .selectCheckboxByName("administrator");
+        modal.clickAdd();
+        basicPage
+                .feedback()
+                    .assertInfo();
+
+        Utils.addAssignments(showUser("X000158").selectTabAssignments(), false, "Secret Projects I");
+        basicPage.listAllCases()
+                .table()
+                    .clickByName("Approving and executing change of user \"X000158\"")
+                        .selectTabChildren()
+                            .table()
+                            .clickByPartialName("Assigning role \"Secret Projects I\" to user \"X000158\"")
+                                .selectTabWorkitems()
+                                    .table()
+                                        .clickByName("") //todo enter the name
+                                            .setComment("Test of approvals, stage 1")
+                                            .approveButtonClick();
+
+        basicPage.listAllCases()
+                .table()
+                    .clickByName("Approving and executing change of user \"X000158\"")
+                        .selectTabChildren()
+                            .table()
+                            .clickByPartialName("Assigning role \"Secret Projects I\" to user \"X000158\"")
+                                .selectTabWorkitems()
+                                    .table()
+                                        .clickByName("") //todo enter the name for the second workitem
+                                            .setComment("Test of approvals, stage 2")
+                                            .approveButtonClick();
+
+        showUser("X000158").selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
+                .and()
+                .selectTabProjections()
+                    .viewProjectionDetails("", "CSV-1") //todo enter projection name and check group attribute
+                    .clickCancel()
+                //todo click the New Corporate Directory projection to show its details. You should see the project
+        //groups updated
+        ;
+
+        //todo check notification
+        addObjectFromFile(ROLE_BASIC_USER);
+        addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_LAB_1_UPDATE_2);
+
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login("X000089", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage.listAllCases();
+
+        basicPage.loggedUser().logout();
+        loginPage = midPoint.formLogin();
+        loginPage.login(getUsername(), getPassword())
+                .assertUserMenuExist();
+
+        showUser("X000158")
+                .selectTabBasic()
+                    .form()
+                        .addPasswordAttributeValue("qwerty12345XXXX")
+                        .and()
+                    .and()
+                .clickSave()
+                    .feedback()
+                        .assertSuccess();
+        showUser("X000390")
+                .selectTabBasic()
+                    .form()
+                        .addPasswordAttributeValue("qwerty12345XXXX")
+                        .and()
+                    .and()
+                .clickSave()
+                    .feedback()
+                        .assertSuccess();
+        Utils.removeAssignments(showUser("X000158").selectTabAssignments(), "Secret Projects I");
     }
 
 }

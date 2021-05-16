@@ -85,7 +85,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         addObjectFromFile(RIMSY_USER_FILE);
         addObjectFromFile(KIRK_USER_FILE);
-        Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
+        Utils.addAssignments(showUser("kirk").selectTabAssignments(), true, "Internal Employee");
 
         addObjectFromFile(SEQUENCE_MEALCARD_FILE);
         addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_FILE);

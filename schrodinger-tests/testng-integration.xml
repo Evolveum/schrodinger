@@ -160,11 +160,11 @@
             <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M11SystemConfiguration"/>
         </classes>
     </test>
-    <test name="advanced-labs" preserve-order="true" parallel="false" verbose="3" enabled="true">
-        <classes>
-            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M1ArchetypeAndObjectCollections"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M2AdvancedResourceFeatures"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M3GenericSynchronizationAndMetaroles"/>
-        </classes>
-    </test>
+<!--    <test name="advanced-labs" preserve-order="true" parallel="false" verbose="3" enabled="true">-->
+<!--        <classes>-->
+<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M1ArchetypeAndObjectCollections"/>-->
+<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M2AdvancedResourceFeatures"/>-->
+<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M3GenericSynchronizationAndMetaroles"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

@@ -84,14 +84,14 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod01test01environmentInitialization() throws IOException {
-        Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
+        Utils.addAssignments(showUser("kirk").selectTabAssignments(), true,  "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
                         .assertProjectionExist("jkirk", "CSV-2 (Canteen Ordering System)")
                         .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                         .assertProjectionExist("jkirk", "CSV-1 (Document Access)");
 
-        Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Secret Projects I", "Secret Projects II");
+        Utils.addAssignments(showUser("kirk").selectTabAssignments(), true,  "Secret Projects I", "Secret Projects II");
         //TODO check CSV-1 groups
         showUser("kirk")
                 .selectTabProjections();
@@ -104,7 +104,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             .assertProjectionDisabled("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertProjectionDisabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                             .assertProjectionDisabled("jkirk", "CSV-1 (Document Access)");
-        Utils.addAsignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
+        Utils.addAssignments(showUser("kirk").selectTabAssignments(), true, "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
                             .assertProjectionEnabled("jkirk", "CSV-2 (Canteen Ordering System)")

@@ -19,6 +19,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
@@ -73,6 +74,12 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
 
 
         };
+    }
+
+    public FocusSetAssignmentsModal<T> setRelation(String relation) {
+        getParentElement().$x(".//select[@data-s-id='select']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).selectOption(relation);
+        return this;
     }
 
     public T clickAdd() {

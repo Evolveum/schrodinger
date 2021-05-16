@@ -84,4 +84,10 @@ public class WorkitemDetailsPanel<P extends BasicPage> extends Component<P> {
                 .is(Condition.visible));
         return this;
     }
+
+    public WorkitemDetailsPanel<P> setComment(String comment) {
+        $(By.tagName("textarea")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+                .setValue(comment);
+        return this;
+    }
 }

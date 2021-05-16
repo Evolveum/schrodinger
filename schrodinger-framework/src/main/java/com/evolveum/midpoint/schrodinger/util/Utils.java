@@ -104,7 +104,7 @@ public class Utils {
                 .isSuccess();
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAsignments(AssignmentsTab<P> tab, String... assignments){
+    public static <P extends AssignmentHolderDetailsPage> void addAssignments(AssignmentsTab<P> tab, boolean checkIfSuccess, String... assignments){
         for (String assignment : assignments) {
             tab.clickAddAssignemnt()
                 .table()
@@ -118,10 +118,36 @@ public class Utils {
                 .clickAdd();
         }
 
-        tab.and()
-            .clickSave()
-                .feedback()
-                    .isSuccess();
+        if (checkIfSuccess) {
+            tab.and()
+                    .clickSave()
+                       .feedback()
+                            .assertSuccess();
+        }
+    }
+
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
+                                                                                          boolean checkIfSuccess, String... assignments){
+        for (String assignment : assignments) {
+            tab.clickAddAssignemnt()
+                    .setRelation(relation)
+                    .table()
+                    .search()
+                        .byName()
+                            .inputValue(assignment)
+                            .updateSearch()
+                        .and()
+                    .selectCheckboxByName(assignment)
+                    .and()
+                .clickAdd();
+        }
+
+        if (checkIfSuccess) {
+            tab.and()
+                    .clickSave()
+                       .feedback()
+                            .assertSuccess();
+        }
     }
 
     public static <P extends AssignmentHolderDetailsPage> void setStatusForAssignment(AssignmentsTab<P> tab, String assignment, String status) {
