@@ -3,6 +3,7 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.login.LoginPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -242,4 +243,38 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         Utils.removeAssignments(showUser("X000158").selectTabAssignments(), "Secret Projects I");
     }
 
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    public void mod04test02selfServiceRequestingRoles() throws IOException {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
+
+        basicPage.requestRole()
+                .selectRoleCatalogViewTab()
+                    .getItemsPanel()
+                        .addItemToCart("Secret Projects I")
+                        .and()
+                    .goToShoppingCart()
+                        .setRequestComment("Please approve, I need to work on the X911 project")
+                        .clickRequestButton()
+                            .feedback()
+                            .assertInfo();
+
+        //todo check notification "[IDM] Workflow Process Assigning role "Secret
+        //Projects I" to user "X000158" has been started" addressed to user himself/herself (alice.black@example.com)
+        //there should a notification with a subject: [IDM] Work Item Allocation Event for X000158 (by
+        //X000158), allocated to: X000390 addressed to user’s manager (john.wicks@example.com)
+
+        basicPage.loggedUser().logout();
+        loginPage.login("X000390", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage.myItems()
+                    .table()
+                        .clickByName("") //todo insert name
+                            //todo approve
+;
+
+
+    }
 }
