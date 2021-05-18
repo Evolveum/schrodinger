@@ -1,5 +1,7 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
@@ -22,6 +24,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File CSV_1_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-1.csv");
     private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
     private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
+    protected static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
     private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-1.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");
@@ -32,6 +35,14 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
     private static final File ROLE_BASIC_USER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser.xml");
     private static final File ROLE_INTERNAL_EMPLOYEE_LAB_1_UPDATE_2 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee-lab-1-update-2.xml");
+    private static final File HR_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/hr-synchronization.xml");
+    private static final File INITIAL_IMPORT_FROM_HR_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr.xml");
+    private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
+    private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
+    private static final File CSV_3_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-3-ldap.xml");
+    private static final File CONTRACTORS_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors.xml");
+    private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
+    private static final File HR_ORG_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-org.xml");
 
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
@@ -57,6 +68,13 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod04test01configureApprovalsUsingPolicyRules() throws IOException {
+        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+
         addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_4_1, "redirectToFile",
                 System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
         addObjectFromFile(ROLE_META_POLICY_RULE_BIGBROTHER);
@@ -64,6 +82,10 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         addObjectFromFile(ROLE_META_POLICY_RULE_SECURITY_OFFICER);
         addObjectFromFile(ROLE_META_POLICY_RULE_USER_MANAGER);
         addObjectFromFile(ORG_EXAMPLE_APPROVER_POLICY_ROOT);
+
+        addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         basicPage
                 .orgStructure()
@@ -160,6 +182,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .and()
                     .selectTabAssignments();
         Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", true,"Secret Projects I", "Secret Projects II");
+        assignmentsTab = showUser("X000089").selectTabAssignments();
         Utils.addAssignmentsWithRelation(assignmentsTab, "Member", true, "Basic Approver");
 
         FocusSetAssignmentsModal modal = showRole("Top Secret Projects I")

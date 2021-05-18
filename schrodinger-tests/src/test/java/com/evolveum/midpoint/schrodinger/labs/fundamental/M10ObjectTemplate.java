@@ -35,6 +35,7 @@ import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
 import org.springframework.test.annotation.DirtiesContext;
@@ -484,7 +485,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         FileUtils.copyFile(HR_SOURCE_FILE_11_1, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
-        String notification = readBodyOfLastNotification();
+        String notification = Utils.readBodyOfLastNotification(notificationFile);
 
         String startOfNotification = "Notification about user-related operation (status: SUCCESS)\n"
                 + "\n"
@@ -525,22 +526,6 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         Assertions.assertThat(notification).startsWith(startOfNotification);
         Assertions.assertThat(notification).endsWith(endOfNotification);
-    }
-
-    protected String readBodyOfLastNotification() throws IOException {
-        String separator = "============================================";
-        byte[] encoded = Files.readAllBytes(Paths.get(notificationFile.getAbsolutePath()));
-        String notifications = new String(encoded, Charset.defaultCharset());
-        if (!notifications.contains(separator)) {
-            return "";
-        }
-        String notification = notifications.substring(notifications.lastIndexOf(separator) + separator.length(), notifications.length()-1);
-        String bodyTag = "body='";
-        if (!notifications.contains(bodyTag)) {
-            return "";
-        }
-        String body = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
-        return body;
     }
 
 }

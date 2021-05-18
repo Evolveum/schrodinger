@@ -37,6 +37,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -178,7 +181,7 @@ public class Utils {
         content = content.substring(0, startIndex) + newFilePathValue + content.substring(endIndex);
 
         String home = System.getProperty("midpoint.home");
-        File changedResource = new File(home + "temp.xml");
+        File changedResource = new File(home + "/temp.xml");
         FileUtils.writeStringToFile(changedResource, content, "UTF-8");
         return changedResource;
     }
@@ -195,10 +198,27 @@ public class Utils {
         content = content.substring(0, startIndex) + newValue + content.substring(endIndex);
 
         String home = System.getProperty("midpoint.home");
-        File changedResource = new File(home + "temp.xml");
+        File changedResource = new File(home + "/temp.xml");
         FileUtils.writeStringToFile(changedResource, content, "UTF-8");
         return changedResource;
 
 
     }
+
+    public static String readBodyOfLastNotification(File notificationFile) throws IOException {
+        String separator = "============================================";
+        byte[] encoded = Files.readAllBytes(Paths.get(notificationFile.getAbsolutePath()));
+        String notifications = new String(encoded, Charset.defaultCharset());
+        if (!notifications.contains(separator)) {
+            return "";
+        }
+        String notification = notifications.substring(notifications.lastIndexOf(separator) + separator.length(), notifications.length()-1);
+        String bodyTag = "body='";
+        if (!notifications.contains(bodyTag)) {
+            return "";
+        }
+        String body = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
+        return body;
+    }
+
 }
