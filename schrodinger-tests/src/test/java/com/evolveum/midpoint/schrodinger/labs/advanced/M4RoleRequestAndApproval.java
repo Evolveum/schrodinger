@@ -7,7 +7,6 @@ import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
-import com.evolveum.midpoint.schrodinger.page.login.LoginPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -182,9 +181,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .and()
                     .and()
                     .selectTabAssignments();
-        Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", true,"Secret Projects I", "Secret Projects II");
-        assignmentsTab = showUser("X000089").selectTabAssignments();
-        Utils.addAssignmentsWithRelation(assignmentsTab, "Member", true, "Basic Approver");
+        Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", "Secret Projects I", "Secret Projects II");
+        Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "Member", true, "Basic Approver");
 
         FocusSetAssignmentsModal<MemberPanel<GovernanceTab>> modal = showRole("Top Secret Projects I")
                 .selectTabGovernance()
@@ -203,7 +201,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .feedback()
                     .assertInfo();
 
-        Utils.addAssignments(showUser("X000158").selectTabAssignments(), false, "Secret Projects I");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000158").selectTabAssignments(), false, "Secret Projects I");
         basicPage.listAllCases()
                 .table()
                     .clickByName("Approving and executing change of user \"X000158\"")

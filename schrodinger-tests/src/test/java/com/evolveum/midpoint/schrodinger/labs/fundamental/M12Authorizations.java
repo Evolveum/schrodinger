@@ -73,7 +73,7 @@ public class M12Authorizations extends AbstractLabTest {
 
         login.login(getUsername(), getPassword());
 
-        Utils.addAssignments(showUser("X000005").selectTabAssignments(), true,  "Basic user");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000005").selectTabAssignments(), true,  "Basic user");
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         login.login("X000005", "qwerty12345XXXX");

@@ -21,9 +21,11 @@ import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -107,49 +109,44 @@ public class Utils {
                 .isSuccess();
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAssignments(AssignmentsTab<P> tab, boolean checkIfSuccess, String... assignments){
-        for (String assignment : assignments) {
-            tab.clickAddAssignemnt()
-                .table()
-                    .search()
-                        .byName()
-                            .inputValue(assignment)
-                            .updateSearch()
-                        .and()
-                    .selectCheckboxByName(assignment)
-                    .and()
-                .clickAdd();
-        }
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithDefaultRelationAndSave(AssignmentsTab<P> tab, boolean checkIfSuccess, String... assignments){
+        addAssignmentsWithRelationAndSave(tab, "", checkIfSuccess, assignments);
+    }
 
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelationAndSave(AssignmentsTab<P> tab, String relation,
+                                                                                                 boolean checkIfSuccess, String... assignments){
+        addAssignmentsWithRelation(tab, relation, assignments);
+        ProgressPage progressPage = tab.and()
+                .clickSave();
         if (checkIfSuccess) {
-            tab.and()
-                    .clickSave()
-                       .feedback()
+            progressPage
+                    .feedback()
                             .assertSuccess();
         }
     }
 
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithDefaultRelation(AssignmentsTab<P> tab, String... assignments) {
+        addAssignmentsWithRelation(tab, "", assignments);
+    }
+
     public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
-                                                                                          boolean checkIfSuccess, String... assignments){
+                                       String... assignments) {
         for (String assignment : assignments) {
-            tab.clickAddAssignemnt()
-                    .setRelation(relation)
-                    .table()
-                    .search()
-                        .byName()
+            FocusSetAssignmentsModal<AssignmentsTab<P>> modal = tab.clickAddAssignemnt();
+            if (StringUtils.isNotEmpty(relation)) {
+                modal
+                        .setRelation(relation);
+            }
+            modal
+                        .table()
+                            .search()
+                            .byName()
                             .inputValue(assignment)
                             .updateSearch()
+                            .and()
+                        .selectCheckboxByName(assignment)
                         .and()
-                    .selectCheckboxByName(assignment)
-                    .and()
-                .clickAdd();
-        }
-
-        if (checkIfSuccess) {
-            tab.and()
-                    .clickSave()
-                       .feedback()
-                            .assertSuccess();
+                    .clickAdd();
         }
     }
 

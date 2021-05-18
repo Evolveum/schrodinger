@@ -240,7 +240,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
-        Utils.addAssignments(showUser("rimsy").selectTabAssignments(), true, "Internal Employee");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("rimsy").selectTabAssignments(), true, "Internal Employee");
         showUser("rimsy")
                 .selectTabProjections()
                 .assertProjectionExist("arimmer1", "CSV-2 (Canteen Ordering System)")
