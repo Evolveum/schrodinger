@@ -47,7 +47,7 @@ public class AbstractRolePage<A extends AbstractRolePage> extends FocusPage<A> {
     }
 
     public ApplicablePoliciesTab<A> selectTabApplicablePolicies() {
-        SelenideElement element = getTabPanel().clickTab("pageRole.applicablePolicies");
+        SelenideElement element = getTabPanel().clickTab("pageAdminFocus.applicablePolicies");
         return new ApplicablePoliciesTab<A>((A) this, element);
 
     }
