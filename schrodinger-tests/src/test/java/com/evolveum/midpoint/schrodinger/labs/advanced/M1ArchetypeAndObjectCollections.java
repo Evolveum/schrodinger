@@ -273,9 +273,10 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     }
 
     @Test(dependsOnMethods = {"mod01test03EnvironmentExamination"}, groups={"advancedM1"})
-    public void mod01test04objectCollection() {
+    public void mod01test04objectCollection() throws IOException {
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
-        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_1_4);
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_1_4, "redirectToFile",
+                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();

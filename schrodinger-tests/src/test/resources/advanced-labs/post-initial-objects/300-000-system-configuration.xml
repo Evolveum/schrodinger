@@ -34,7 +34,7 @@
         <defaultHostname>http://192.168.56.20/midpoint</defaultHostname>
     </infrastructure>
 <!-- TODO fix notification file path -->
-<!--    <notificationConfiguration>-->
+    <notificationConfiguration>
 <!--        <handler>-->
 <!--            <simpleUserNotifier>-->
 <!--                <recipientExpression>-->
@@ -204,13 +204,13 @@
 <!--            </userPasswordNotifier>-->
 <!--        </handler>-->
 <!--        &lt;!&ndash; ******************************************* &ndash;&gt;-->
-<!--        <mail>-->
-<!--            <defaultFrom>idm@example.com</defaultFrom>-->
-<!--            <debug>false</debug>-->
-<!--            &lt;!&ndash; REDIRECT &ndash;&gt;-->
-<!--            <redirectToFile>/opt/training/midpoint-labs/example-mail-notifications.log</redirectToFile>-->
-<!--        </mail>-->
-<!--    </notificationConfiguration>-->
+        <mail>
+            <defaultFrom>idm@example.com</defaultFrom>
+            <debug>false</debug>
+            <!-- REDIRECT -->
+            <redirectToFile>/opt/training/midpoint-labs/example-mail-notifications.log</redirectToFile>
+        </mail>
+    </notificationConfiguration>
 
     <workflowConfiguration>
         <useLegacyApproversSpecification>never</useLegacyApproversSpecification>

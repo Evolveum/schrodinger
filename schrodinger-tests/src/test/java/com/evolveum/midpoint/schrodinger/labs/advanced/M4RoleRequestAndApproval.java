@@ -57,7 +57,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod04test01configureApprovalsUsingPolicyRules() throws IOException {
-        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_1);
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_4_1, "redirectToFile",
+                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
         addObjectFromFile(ROLE_META_POLICY_RULE_BIGBROTHER);
         addObjectFromFile(ROLE_META_POLICY_RULE_APPROVER);
         addObjectFromFile(ROLE_META_POLICY_RULE_SECURITY_OFFICER);
@@ -88,7 +89,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .assertTableContainsText("Metarole - Request Approval by Security Officer for Non-employees")
                                     .assertTableContainsText("Metarole - Request Approval by User Manager(s)");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_2);
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_4_2, "redirectToFile",
+                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
 
         showUser("administrator")
                 .selectTabBasic()

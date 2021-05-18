@@ -179,7 +179,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     Arrays.sort(objList);
                     for (File postInitFile : objList) {
                         File objFile = new File(postInitObjectsDir, postInitFile.getName());
-                        FileUtils.copyFile(postInitFile, objFile);
+                        FileUtils.copyFile(Utils.changeAttributeIfPresent(postInitFile,
+                                "redirectToFile", home + "/example-mail-notifications.log"), objFile);
                     }
                 }
             }

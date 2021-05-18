@@ -182,4 +182,23 @@ public class Utils {
         FileUtils.writeStringToFile(changedResource, content, "UTF-8");
         return changedResource;
     }
+
+    public static File changeAttributeIfPresent(File xmlFile, String attributeName, String newValue) throws IOException {
+        String content = FileUtils.readFileToString(xmlFile, "UTF-8");
+        String openAttrValue = "<" + attributeName + ">";
+        String closeAttrValue = "</" + attributeName + ">";
+        if (!content.contains(openAttrValue) || !content.contains(closeAttrValue)) {
+            return xmlFile;
+        }
+        int startIndex = content.indexOf(openAttrValue) + openAttrValue.length();
+        int endIndex = content.indexOf(closeAttrValue, startIndex);
+        content = content.substring(0, startIndex) + newValue + content.substring(endIndex);
+
+        String home = System.getProperty("midpoint.home");
+        File changedResource = new File(home + "temp.xml");
+        FileUtils.writeStringToFile(changedResource, content, "UTF-8");
+        return changedResource;
+
+
+    }
 }
