@@ -23,9 +23,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.ChooseFocusTypeAndRelationModal;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.page.FocusPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourceWizardPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
@@ -91,10 +89,10 @@ public class MemberPanel<T> extends Component<T> {
         return null;
     }
 
-    public FocusSetAssignmentsModal<T> assignMember() {
+    public FocusSetAssignmentsModal<MemberPanel<T>> assignMember() {
         $(By.xpath("//button[@type='button'][@title='Assign  member ']")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new FocusSetAssignmentsModal<T>((T) this.getParent(),  Utils.getModalWindowSelenideElement());
+        return new FocusSetAssignmentsModal<MemberPanel<T>>(this,  Utils.getModalWindowSelenideElement());
     }
 
     public MemberPanel<T> selectType(String type) {

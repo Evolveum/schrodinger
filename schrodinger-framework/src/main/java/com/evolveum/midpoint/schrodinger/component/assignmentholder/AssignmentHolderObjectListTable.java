@@ -58,8 +58,10 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(getDetailsPageLoadingTimeToWait());
-        return getObjectDetailsPage();
+//        Selenide.sleep(getDetailsPageLoadingTimeToWait());
+        PD detailsPage = getObjectDetailsPage();
+        detailsPage.getTabPanel();
+        return detailsPage;
     }
 
     public long getDetailsPageLoadingTimeToWait() {

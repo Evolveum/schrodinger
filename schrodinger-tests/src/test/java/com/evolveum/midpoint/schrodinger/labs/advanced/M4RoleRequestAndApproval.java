@@ -3,7 +3,9 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
+import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.login.LoginPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
@@ -103,7 +105,6 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .selectCheckboxByName("Metarole - Request Approval by User Manager(s)")
                                     .and()
                                 .clickAdd()
-                            .getMemberPanel()
                                 .selectType("All")
                                 .table()
                                     .assertTableContainsText("Metarole - Request Additional Approval by Big Brother")
@@ -185,12 +186,17 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         assignmentsTab = showUser("X000089").selectTabAssignments();
         Utils.addAssignmentsWithRelation(assignmentsTab, "Member", true, "Basic Approver");
 
-        FocusSetAssignmentsModal modal = showRole("Top Secret Projects I")
+        FocusSetAssignmentsModal<MemberPanel<GovernanceTab>> modal = showRole("Top Secret Projects I")
                 .selectTabGovernance()
                     .membersPanel()
                         .assignMember();
         modal.setRelation("Approver")
                 .table()
+                    .search()
+                        .byName()
+                        .inputValue("administrator")
+                        .updateSearch()
+                    .and()
                     .selectCheckboxByName("administrator");
         modal.clickAdd();
         basicPage
@@ -300,6 +306,10 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             //todo approve
 ;
 
+        basicPage.loggedUser().logout();
+        loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
+//        basicPage.home().
 
     }
 }
