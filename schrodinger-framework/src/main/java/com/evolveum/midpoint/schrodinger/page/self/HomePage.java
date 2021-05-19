@@ -18,8 +18,14 @@ package com.evolveum.midpoint.schrodinger.page.self;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.cases.WorkitemDetailsPanel;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableWithComponentRedirect;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.self.QuickSearch;
+import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -34,5 +40,30 @@ public class HomePage extends BasicPage {
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new QuickSearch<HomePage>(this, searchElement);
+    }
+
+    public TableWithPageRedirect<HomePage> myRequestsTable() {
+        SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .$x(".//table[@data-s-id='table']");
+        return new TableWithPageRedirect<HomePage>(HomePage.this, table) {
+            @Override
+            public CasePage clickByName(String name) {
+                getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
+                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                $(Schrodinger.byDataId("summaryBox")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                return new CasePage();
+            }
+
+            @Override
+            public TableWithPageRedirect<HomePage> selectCheckboxByName(String name) {
+                return null;
+            }
+
+            @Override
+            protected TableHeaderDropDownMenu<TableWithPageRedirect<CasePage>> clickHeaderActionDropDown() {
+                return null;
+            }
+
+        };
     }
 }

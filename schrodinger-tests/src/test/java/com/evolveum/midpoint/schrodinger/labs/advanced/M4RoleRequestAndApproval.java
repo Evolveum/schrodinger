@@ -6,6 +6,7 @@ import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -307,7 +308,29 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
                 .assertUserMenuExist();
-//        basicPage.home().
+        CasePage casePage = basicPage.home().
+                myRequestsTable()
+                    .clickByName("");
+        casePage
+                .selectTabChildren()
+                    .table()
+                        .clickByPartialName("");
+        //todo check the second (2/2) stage of approval by Ivan Rockerteller (X000089)
+
+        basicPage.loggedUser().logout();
+        loginPage.login("X000089", "qwerty12345XXXX")
+                .assertUserMenuExist();
+
+        basicPage.myItems()
+                .table()
+                    .clickByName("")
+                        .detailsPanel()
+                            .approveButtonClick();
+
+        //todo check notification
+        basicPage.loggedUser().logout();
+        loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
 
     }
 }
