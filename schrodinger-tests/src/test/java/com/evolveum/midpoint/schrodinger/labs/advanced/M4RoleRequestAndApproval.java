@@ -203,24 +203,26 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .assertInfo();
 
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000158").selectTabAssignments(), false, "Secret Projects I");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         basicPage.listAllCases()
                 .table()
-                    .clickByName("Approving and executing change of user \"X000158\"")
+                    .clickByName("Approving and executing change of user ")
                         .selectTabChildren()
                             .table()
-                            .clickByPartialName("Assigning role \"Secret Projects I\" to user \"X000158\"")
+                            .clickByPartialName("Assigning role")
                                 .selectTabWorkitems()
                                     .table()
+//        Selenide.screenshot("name");
                                         .clickByName("") //todo enter the name
                                             .setComment("Test of approvals, stage 1")
                                             .approveButtonClick();
 
         basicPage.listAllCases()
                 .table()
-                    .clickByName("Approving and executing change of user \"X000158\"")
+                    .clickByName("Approving and executing change of user")
                         .selectTabChildren()
                             .table()
-                            .clickByPartialName("Assigning role \"Secret Projects I\" to user \"X000158\"")
+                            .clickByPartialName("Assigning role")
                                 .selectTabWorkitems()
                                     .table()
                                         .clickByName("") //todo enter the name for the second workitem
