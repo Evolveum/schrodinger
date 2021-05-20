@@ -55,7 +55,6 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public PD clickByName(String name) {
-        name = name.replaceAll(" \"", " &ldquo;").replaceAll("\" ", "&rdquo;");
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 //        Selenide.sleep(getDetailsPageLoadingTimeToWait());
