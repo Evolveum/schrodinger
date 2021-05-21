@@ -212,8 +212,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .clickByPartialName("Assigning role")
                                 .selectTabWorkitems()
                                     .table()
-//        Selenide.screenshot("name");
-                                        .clickByName("") //todo enter the name
+                                        .clickByName("Assigning role")
                                             .setComment("Test of approvals, stage 1")
                                             .approveButtonClick();
 
@@ -225,7 +224,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .clickByPartialName("Assigning role")
                                 .selectTabWorkitems()
                                     .table()
-                                        .clickByName("") //todo enter the name for the second workitem
+                                        .clickByName("Assigning role")
                                             .setComment("Test of approvals, stage 2")
                                             .approveButtonClick();
 
