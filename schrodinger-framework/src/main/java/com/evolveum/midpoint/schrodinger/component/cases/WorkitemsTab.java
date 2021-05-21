@@ -35,28 +35,8 @@ public class WorkitemsTab extends Component<CasePage> {
         super(parent, parentElement);
     }
 
-    public TableWithComponentRedirect<WorkitemsTab, WorkitemDetailsPanel> table() {
+    public WorkitemsTabTable table() {
         SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).waitUntil(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
-
-        return new TableWithComponentRedirect<WorkitemsTab, WorkitemDetailsPanel>(this, tableBox) {
-            @Override
-            public WorkitemDetailsPanel<CasePage> clickByName(String name) {
-                    getParentElement()
-                            .$(Schrodinger.byDataId("tableContainer"))
-                            .$(By.partialLinkText(name))
-                            .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
-                SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
-
-                return new WorkitemDetailsPanel<CasePage>(WorkitemsTab.this.getParent(), detailsPanel);
-            }
-
-            @Override
-            public TableWithComponentRedirect<WorkitemsTab, WorkitemDetailsPanel> selectCheckboxByName(String name) {
-                //do nothing as there is no checkbox column in the table
-                return this;
-            }
-        };
+        return new WorkitemsTabTable(this, tableBox);
     }
 }

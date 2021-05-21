@@ -212,7 +212,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .clickByPartialName("Assigning role")
                                 .selectTabWorkitems()
                                     .table()
-                                        .clickByName("Assigning role")
+                                        .clickNameByState("open")
                                             .setComment("Test of approvals, stage 1")
                                             .approveButtonClick();
 
@@ -224,7 +224,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .clickByPartialName("Assigning role")
                                 .selectTabWorkitems()
                                     .table()
-                                        .clickByName("Assigning role")
+                                        .clickNameByState("open")
                                             .setComment("Test of approvals, stage 2")
                                             .approveButtonClick();
 
