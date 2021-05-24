@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
+import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
@@ -228,12 +229,16 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                             .setComment("Test of approvals, stage 2")
                                             .approveButtonClick();
 
-        showUser("X000158").selectTabAssignments()
+        PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
                 .and()
                 .selectTabProjections()
-                    .viewProjectionDetails("", "CSV-1") //todo enter projection name and check group attribute
-                    .clickCancel()
+                    .viewProjectionDetails("ablack", "CSV-1");
+        projectionForm
+                .assertPropertyInputValues("Groups", "Internal Employees", "Teleportation",
+                        "Time Travel", "Essential Documents");
+        projectionForm
+                .clickCancel()
                 //todo click the New Corporate Directory projection to show its details. You should see the project
         //groups updated
         ;
@@ -246,7 +251,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         FormLoginPage loginPage = midPoint.formLogin();
         loginPage.login("X000089", "qwerty12345XXXX")
                 .assertUserMenuExist();
-        basicPage.listAllCases();
+        basicPage.listMyCases();
 
         basicPage.loggedUser().logout();
         loginPage = midPoint.formLogin();
