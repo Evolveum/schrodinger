@@ -41,18 +41,20 @@ public class WorkitemDetailsPanel<P> extends Component<P> {
         super(parent, parentElement);
     }
 
-    public void approveButtonClick(){
+    public WorkitemDetailsPanel<P> approveButtonClick(){
         getParentElement()
                 .$(Schrodinger.byDataId("workItemApproveButton"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
+        return this;
     }
 
-    public void rejectButtonClick(){
+    public WorkitemDetailsPanel<P> rejectButtonClick(){
         getParentElement()
                 .$(Schrodinger.byDataId("workItemRejectButton"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
+        return this;
     }
 
     public ForwardWorkitemModal forwardButtonClick(){

@@ -227,7 +227,11 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .table()
                                         .clickNameByState("open")
                                             .setComment("Test of approvals, stage 2")
-                                            .approveButtonClick();
+                                            .approveButtonClick()
+                                            .and()
+                                        .and()
+                                    .feedback()
+                                        .assertInfo();
 
         PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
