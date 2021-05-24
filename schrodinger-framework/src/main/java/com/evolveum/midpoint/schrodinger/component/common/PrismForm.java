@@ -75,6 +75,7 @@ public class PrismForm<T> extends Component<T> {
         }
         passwordContainer.getParentElement().$x("//input[@data-s-id='password1']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         passwordContainer.getParentElement().$x("//input[@data-s-id='password2']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        passwordContainer.getParentElement().$x("//input[@data-s-id='password2']").waitUntil(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
         return this;
     }
 
