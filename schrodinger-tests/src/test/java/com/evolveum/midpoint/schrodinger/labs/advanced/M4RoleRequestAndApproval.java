@@ -32,7 +32,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
     private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-1.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");
-    private static final File SYSTEM_CONFIGURATION_FILE_4_3 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3-update-1.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3-update-2.xml");
     private static final File ROLE_META_POLICY_RULE_BIGBROTHER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-bigbrother.xml");
     private static final File ROLE_META_POLICY_RULE_APPROVER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-approver.xml");
     private static final File ROLE_META_POLICY_RULE_SECURITY_OFFICER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-security-officer-skip-employees.xml");
@@ -356,7 +357,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     public void mod04test03selfServiceRequestingRolesFromRoleCatalog() {
         addObjectFromFile(ORG_EXAMPLE_ROLE_CATALOG_ROOT);
         addObjectFromFile(ROLE_BASICUSER_LAB_4_3);
-        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_3);
+        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_1);
 
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
@@ -368,7 +369,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .getOrgHierarchyPanel()
                     .showTreeNodeDropDownMenu("ExAmPLE, Inc. Role Catalog")
                     .expandAll()
-                    .assertChildOrgsDontExist("ExAmPLE, Inc. Role Catalog", false);
+                    .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
+                    .and()
+                .getMemberPanel()
+                    .selectType("All")
+                    .table()
+                        .assertTableObjectsCountEquals(0);
 
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
@@ -377,13 +383,22 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .selectRoleCatalogViewTab()
                     .getRoleCatalogHierarchyPanel()
                         .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
-                            .assertChildOrgsDontExist("ExAmPLE, Inc. Role Catalog", true)
-                            .and()
+                        .and()
                         .getItemsPanel()
                             .assertItemsCountEqual(0)
                             .and()
                         .and()
                     .selectRoleCatalogViewTab()
+                        .getItemsPanel()
+                            .assertItemsCountEqual(0)
+                            .and()
+                        .and()
+                    .selectAllOrganizationsViewTab()
+                        .getItemsPanel()
+                            .assertItemsCountEqual(0)
+                            .and()
+                        .and()
+                    .selectAllServicesViewTab()
                         .getItemsPanel()
                             .assertItemsCountEqual(0);
 
@@ -391,5 +406,63 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         loginPage.login(getUsername(), getPassword())
                 .assertUserMenuExist();
 
+        basicPage.orgStructure();
+        orgTree.selectTabWithRootOrg("ExAmPLE, Inc. Role Catalog")
+                .getOrgHierarchyPanel()
+                    .showTreeNodeDropDownMenu("ExAmPLE, Inc. Role Catalog")
+                    .expandAll()
+                        .selectOrgInTree("Application Bundles")
+                            .and()
+                        .getMemberPanel()
+                            .assignMember()
+                                .selectType("Role")
+                                .table()
+                                    .search()
+                                    .byName()
+                                    .inputValue("Secret")
+                                    .updateSearch()
+                                    .and()
+                                .selectAll()
+                                .and()
+                            .clickAdd()
+                            .and()
+                        .and()
+                    .feedback()
+                    .assertInfo();
+        orgTree.selectTabWithRootOrg("ExAmPLE, Inc. Role Catalog")
+                .getOrgHierarchyPanel()
+                    .showTreeNodeDropDownMenu("ExAmPLE, Inc. Role Catalog")
+                    .expandAll()
+                        .selectOrgInTree("Application Bundles")
+                            .and()
+                        .getMemberPanel()
+                            .selectType("Role")
+                            .table()
+                                .assertTableContainsText("Secret Projects I")
+                                .assertTableContainsText("Secret Projects II")
+                                .assertTableContainsText("Secret Operations");
+        basicPage.loggedUser().logout();
+        loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage
+                .requestRole()
+                    .selectRoleCatalogViewTab()
+                        .getRoleCatalogHierarchyPanel()
+                            .selectOrgInTree("Application bundles")
+                            .and()
+                        .getItemsPanel()
+                            .assertItemsCountEqual(3);
+
+        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_2);
+        basicPage.loggedUser().logout();
+        loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage
+                .requestRole()
+                    .assertAllRolesViewTabExists()
+                    .assertRoleCatalogViewTabExists()
+                    .assertAllServicesViewTabDoesntExist()
+                    .assertAllOrganizationsViewTabDoesntExist()
+                    .assertUserAssignmentsTabDoesntExist();
     }
 }

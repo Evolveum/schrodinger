@@ -74,4 +74,17 @@ public class TabPanel<T> extends Component<T> {
     public SelenideElement getActiveTab() {
         return getParentElement().$(By.cssSelector(".tab-pane.active"));
     }
+
+    public TabPanel<T> assertTabExists(String resourceKey) {
+        assertion.assertTrue(getParentElement().$(Schrodinger.bySchrodingerDataResourceKey(resourceKey)).exists()
+                        && getParentElement().$(Schrodinger.bySchrodingerDataResourceKey(resourceKey)).isDisplayed(),
+                "Tab with resource key '" + resourceKey + "' should exist.");
+        return this;
+    }
+
+    public TabPanel<T> assertTabDoesntExist(String resourceKey) {
+        assertion.assertFalse(getParentElement().$(Schrodinger.bySchrodingerDataResourceKey(resourceKey)).exists(),
+                "Tab with resource key '" + resourceKey + "' should exist.");
+        return this;
+    }
 }

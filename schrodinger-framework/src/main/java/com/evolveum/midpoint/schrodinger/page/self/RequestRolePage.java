@@ -57,6 +57,56 @@ public class RequestRolePage extends BasicPage {
         return new RequestRoleTab(this, tabElement);
     }
 
+    public RequestRolePage assertRoleCatalogViewTabExists(){
+        getTabPanel().assertTabExists("AssignmentViewType.ROLE_CATALOG_VIEW");
+        return this;
+    }
+
+    public RequestRolePage assertAllRolesViewTabExists(){
+        getTabPanel().assertTabExists("AssignmentViewType.ROLE_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertAllOrganizationsViewTabExists(){
+        getTabPanel().assertTabExists("AssignmentViewType.ORG_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertAllServicesViewTabExists(){
+        getTabPanel().assertTabExists("AssignmentViewType.SERVICE_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertUserAssignmentsTabExists(){
+        getTabPanel().assertTabExists("AssignmentViewType.USER_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertRoleCatalogViewTabDoesntExist(){
+        getTabPanel().assertTabDoesntExist("AssignmentViewType.ROLE_CATALOG_VIEW");
+        return this;
+    }
+
+    public RequestRolePage assertAllRolesViewTabDoesntExist(){
+        getTabPanel().assertTabDoesntExist("AssignmentViewType.ROLE_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertAllOrganizationsViewTabDoesntExist(){
+        getTabPanel().assertTabDoesntExist("AssignmentViewType.ORG_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertAllServicesViewTabDoesntExist(){
+        getTabPanel().assertTabDoesntExist("AssignmentViewType.SERVICE_TYPE");
+        return this;
+    }
+
+    public RequestRolePage assertUserAssignmentsTabDoesntExist(){
+        getTabPanel().assertTabDoesntExist("AssignmentViewType.USER_TYPE");
+        return this;
+    }
+
     private TabPanel<RequestRolePage> getTabPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "viewsTabPanel"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
