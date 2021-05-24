@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.self;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -25,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 /**
  * Created by honchar
@@ -58,4 +60,10 @@ public class RequestRoleItemsPanel extends Component<RequestRoleTab> {
     }
 
 
+    public  RequestRoleItemsPanel assertItemsCountEqual(int expectedCount) {
+        ElementsCollection col = $$(Schrodinger.byDataId("itemButtonContainer"));
+        int realCount = col != null ? col.size() : 0;
+        assertion.assertEquals(expectedCount, realCount, "The count of shopping cart items doesn't match, ");
+        return this;
+    }
 }

@@ -9,6 +9,7 @@ import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModa
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -31,11 +32,14 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
     private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-1.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE_4_3 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3.xml");
     private static final File ROLE_META_POLICY_RULE_BIGBROTHER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-bigbrother.xml");
     private static final File ROLE_META_POLICY_RULE_APPROVER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-approver.xml");
     private static final File ROLE_META_POLICY_RULE_SECURITY_OFFICER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-security-officer-skip-employees.xml");
     private static final File ROLE_META_POLICY_RULE_USER_MANAGER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-user-manager.xml");
+    private static final File ROLE_BASICUSER_LAB_4_3 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser-lab-4-3.xml");
     private static final File ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
+    private static final File ORG_EXAMPLE_ROLE_CATALOG_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-role-catalog-root.xml");
     private static final File ROLE_BASIC_USER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser.xml");
     private static final File ROLE_INTERNAL_EMPLOYEE_LAB_1_UPDATE_2 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee-lab-1-update-2.xml");
     private static final File HR_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/hr-synchronization.xml");
@@ -344,6 +348,47 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         //todo check notification
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
+
+    }
+
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    public void mod04test03selfServiceRequestingRolesFromRoleCatalog() {
+        addObjectFromFile(ORG_EXAMPLE_ROLE_CATALOG_ROOT);
+        addObjectFromFile(ROLE_BASICUSER_LAB_4_3);
+        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_3);
+
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login(getUsername(), getPassword())
+                .assertUserMenuExist();
+
+        OrgTreePage orgTree = basicPage.orgStructure();
+        orgTree.selectTabWithRootOrg("ExAmPLE, Inc. Role Catalog")
+                .getOrgHierarchyPanel()
+                    .showTreeNodeDropDownMenu("ExAmPLE, Inc. Role Catalog")
+                    .expandAll()
+                    .assertChildOrgsDontExist("ExAmPLE, Inc. Role Catalog", false);
+
+        basicPage.loggedUser().logout();
+        loginPage.login("X000158", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage.requestRole()
+                .selectRoleCatalogViewTab()
+                    .getRoleCatalogHierarchyPanel()
+                        .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
+                            .assertChildOrgsDontExist("ExAmPLE, Inc. Role Catalog", true)
+                            .and()
+                        .getItemsPanel()
+                            .assertItemsCountEqual(0)
+                            .and()
+                        .and()
+                    .selectRoleCatalogViewTab()
+                        .getItemsPanel()
+                            .assertItemsCountEqual(0);
+
+        basicPage.loggedUser().logout();
+        loginPage.login(getUsername(), getPassword())
                 .assertUserMenuExist();
 
     }

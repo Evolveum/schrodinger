@@ -84,6 +84,16 @@ public class OrgHierarchyPanel<T> extends Component<T> {
         return child.containsAll(Arrays.asList(expectedChild));
     }
 
+    public OrgHierarchyPanel<T> assertChildOrgsDontExist(String parentOrg, Boolean expandParent){
+        if (expandParent) {
+            expandAllIfNeeded(parentOrg);
+        }
+        SelenideElement parentNode = getParentOrgNode(parentOrg);
+        SelenideElement subtree = parentNode.$x(".//div[@"+Schrodinger.DATA_S_ID+"='subtree']");
+        assertion.assertFalse(subtree.exists(), "Child orgs shouldn't exist, ");
+        return this;
+    }
+
     public boolean containsChildOrg(String parentOrg, String... expectedChild){
         return containsChildOrg(parentOrg, true, expectedChild);
     }

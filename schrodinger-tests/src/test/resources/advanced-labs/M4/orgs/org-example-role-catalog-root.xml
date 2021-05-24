@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" version="1">
+        <name>ROLE_CATALOG</name>
+        <displayName>ExAmPLE, Inc. Role Catalog</displayName>
+        <assignment id="1">
+            <targetRef oid="d44b862c-731f-11e9-95c8-7fc36e84e561" relation="org:default" type="c:ArchetypeType">
+                <!-- Role Catalog Root -->
+            </targetRef>
+        </assignment>
+        <roleMembershipRef oid="d44b862c-731f-11e9-95c8-7fc36e84e561" type="c:ArchetypeType">
+            <!-- Role Catalog Root -->
+        </roleMembershipRef>
+        <archetypeRef oid="d44b862c-731f-11e9-95c8-7fc36e84e561" type="c:ArchetypeType">
+            <!-- Role Catalog Root -->
+        </archetypeRef>
+    </org>
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="7fba2787-2c7c-4f3f-8539-220eb8769bd8" version="1">
+        <name>TRANSPORTATION</name>
+        <parentOrgRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </parentOrgRef>
+        <assignment id="1">
+            <targetRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+                <!-- ROLE_CATALOG -->
+            </targetRef>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" relation="org:default" type="c:ArchetypeType">
+                <!-- Role Catalog Group -->
+            </targetRef>
+        </assignment>
+        <roleMembershipRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </roleMembershipRef>
+        <archetypeRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </archetypeRef>
+        <roleMembershipRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </roleMembershipRef>
+        <displayName>Transportation and Logistics Applications</displayName>
+    </org>
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="a15523f3-c0a4-49c1-a6cc-f04b8d10ae08" version="1">
+        <name>SPECIAL_OPS</name>
+        <parentOrgRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </parentOrgRef>
+        <assignment id="1">
+            <targetRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+                <!-- ROLE_CATALOG -->
+            </targetRef>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" relation="org:default" type="c:ArchetypeType">
+                <!-- Role Catalog Group -->
+            </targetRef>
+        </assignment>
+        <roleMembershipRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </roleMembershipRef>
+        <roleMembershipRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </roleMembershipRef>
+        <archetypeRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </archetypeRef>
+        <displayName>Special Operations Applications</displayName>
+    </org>
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="bfc83fb9-6617-47c4-a3b2-880a12b2d41c" version="1">
+        <name>MAINTENANCE_OPS</name>
+        <parentOrgRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </parentOrgRef>
+        <assignment id="1">
+            <targetRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+                <!-- ROLE_CATALOG -->
+            </targetRef>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" relation="org:default" type="c:ArchetypeType">
+                <!-- Role Catalog Group -->
+            </targetRef>
+        </assignment>
+        <roleMembershipRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </roleMembershipRef>
+        <roleMembershipRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </roleMembershipRef>
+        <archetypeRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </archetypeRef>
+        <displayName>Maintenance Operations Applications</displayName>
+    </org>
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="c0fd60a9-818f-48ef-a7fc-efea5aaccefa" version="1">
+        <name>TRAINING</name>
+        <parentOrgRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </parentOrgRef>
+        <assignment id="1">
+            <targetRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+                <!-- ROLE_CATALOG -->
+            </targetRef>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" relation="org:default" type="c:ArchetypeType">
+                <!-- Role Catalog Group -->
+            </targetRef>
+        </assignment>
+        <roleMembershipRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </roleMembershipRef>
+        <roleMembershipRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </roleMembershipRef>
+        <archetypeRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </archetypeRef>
+        <displayName>Training Courses</displayName>
+    </org>
+    <org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" oid="eec2e88c-3811-11e8-80d8-ebaa308dec5d" version="1">
+        <name>BUNDLES</name>
+        <parentOrgRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </parentOrgRef>
+        <assignment id="1">
+            <targetRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+                <!-- ROLE_CATALOG -->
+            </targetRef>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" relation="org:default" type="c:ArchetypeType">
+                <!-- Role Catalog Group -->
+            </targetRef>
+        </assignment>
+        <roleMembershipRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </roleMembershipRef>
+        <roleMembershipRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e" relation="org:default" type="c:OrgType">
+            <!-- ROLE_CATALOG -->
+        </roleMembershipRef>
+        <archetypeRef oid="55459f64-731c-11e9-921d-eb6cd4fd27d3" type="c:ArchetypeType">
+            <!-- Role Catalog Group -->
+        </archetypeRef>
+        <displayName>Application Bundles</displayName>
+    </org>
+</objects>
