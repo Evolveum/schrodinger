@@ -215,7 +215,10 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .table()
                                         .clickNameByState("open")
                                             .setComment("Test of approvals, stage 1")
-                                            .approveButtonClick();
+                                            .approveButtonClick()
+                                            .and()
+                                        .and()
+                                    .assertFeedbackExists();
 
         basicPage.listAllCases()
                 .table()
@@ -230,8 +233,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                             .approveButtonClick()
                                             .and()
                                         .and()
-                                    .feedback()
-                                        .assertInfo();
+                                    .assertFeedbackExists();
 
         PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
@@ -335,7 +337,9 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .table()
                     .clickByName("")
                         .detailsPanel()
-                            .approveButtonClick();
+                            .approveButtonClick()
+                            .and()
+                        .assertFeedbackExists();
 
         //todo check notification
         basicPage.loggedUser().logout();

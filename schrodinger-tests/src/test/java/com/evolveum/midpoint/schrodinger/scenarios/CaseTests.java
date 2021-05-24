@@ -131,7 +131,10 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .selectTabWorkitems()
                 .table()
                 .clickByName(ASSIGNING_ROLE_CASE_NAME + CASE_CREATION_TEST_USER_NAME)
-                .approveButtonClick();
+                .approveButtonClick()
+                .and()
+                .and()
+                .assertFeedbackExists();
 
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 

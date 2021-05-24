@@ -426,6 +426,11 @@ public class BasicPage {
         return new FeedbackBox<>(this, feedback);
     }
 
+    public BasicPage assertFeedbackExists() {
+        assertion.assertTrue($(By.cssSelector("div.feedbackContainer")).is(Condition.visible), "Feedback message box is absent");
+        return this;
+    }
+
     private void clickMenuItem(String topLevelMenuKey, String mainMenuKey, String menuItemKey) {
         clickMenuItem(topLevelMenuKey, mainMenuKey, menuItemKey, 0);
     }
