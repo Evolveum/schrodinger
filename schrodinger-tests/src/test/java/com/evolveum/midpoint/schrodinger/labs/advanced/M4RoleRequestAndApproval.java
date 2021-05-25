@@ -353,7 +353,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    @Test(groups={"advancedM1"})
     public void mod04test03selfServiceRequestingRolesFromRoleCatalog() {
         addObjectFromFile(ORG_EXAMPLE_ROLE_CATALOG_ROOT);
         addObjectFromFile(ROLE_BASICUSER_LAB_4_3);
@@ -372,7 +372,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
                     .and()
                 .getMemberPanel()
-                    .selectType("All")
+                    .selectType("Role")
                     .table()
                         .assertTableObjectsCountEquals(0);
 

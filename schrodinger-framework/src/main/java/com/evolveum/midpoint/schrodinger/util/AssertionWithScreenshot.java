@@ -37,7 +37,7 @@ public class AssertionWithScreenshot extends Assertion {
         for (int i = 0; i < stack.length; i++) {
             StackTraceElement el = stack[i];
             if (el.getMethodName().contains("test")) {
-                return el.getClassName().substring(el.getClassName().lastIndexOf(".") + 1) + "_" + el.getMethodName() + "_line" + el.getLineNumber();
+                return el.getClassName().substring(el.getClassName().lastIndexOf(".") + 1) + "_" + el.getMethodName();
             }
         }
         return "assertionError";
