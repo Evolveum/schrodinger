@@ -491,7 +491,7 @@ public class BasicPage {
     private void checkCssClass(SelenideElement mainMenuLi, SelenideElement mainMenu, String cssClass) {
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
             mainMenu.click();
-            mainMenuLi.waitUntil(Condition.cssClass(cssClass),MidPoint.TIMEOUT_MEDIUM_6_S).shouldHave(Condition.cssClass(cssClass));
+            mainMenuLi.waitUntil(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S).shouldHave(Condition.cssClass(cssClass));
         }
     }
 

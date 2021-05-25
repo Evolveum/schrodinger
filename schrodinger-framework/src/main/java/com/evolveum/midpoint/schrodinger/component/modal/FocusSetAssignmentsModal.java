@@ -43,8 +43,7 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
 
         tabElement.click();
         if (!classActive.contains("active")) {
-            $(Schrodinger.byElementValue("a", "class", "tab-label", option))
-                    .waitUntil(Condition.attribute("class", classActive + " active"), MidPoint.TIMEOUT_DEFAULT_2_S).exists();
+            tabElement.waitUntil(Condition.attribute("class", classActive + " active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
 
 
