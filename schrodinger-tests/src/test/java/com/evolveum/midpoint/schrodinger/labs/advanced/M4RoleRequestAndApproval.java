@@ -39,6 +39,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File ROLE_META_POLICY_RULE_SECURITY_OFFICER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-security-officer-skip-employees.xml");
     private static final File ROLE_META_POLICY_RULE_USER_MANAGER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-user-manager.xml");
     private static final File ROLE_BASICUSER_LAB_4_3 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser-lab-4-3.xml");
+    private static final File ROLE_MANAGER_4_4 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-manager-4-4.xml");
     private static final File ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
     private static final File ORG_EXAMPLE_ROLE_CATALOG_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-role-catalog-root.xml");
     private static final File ROLE_BASIC_USER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser.xml");
@@ -225,6 +226,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                         .and()
                                     .assertFeedbackExists();
 
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         basicPage.listAllCases()
                 .table()
                     .clickByName("Approving and executing change of user")
@@ -239,6 +241,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                             .and()
                                         .and()
                                     .assertFeedbackExists();
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
         PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
@@ -345,6 +348,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .approveButtonClick()
                             .and()
                         .assertFeedbackExists();
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
         //todo check notification
         basicPage.loggedUser().logout();
@@ -468,5 +472,77 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
     public void mod04test04selfServiceRequestingRolesForSubordinateEmployees() {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login("X000390", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage.listUsers("Employees")
+                .table()
+                    .assertTableContainsText("X000158");
+        basicPage.requestRole()
+                .setRequestingForUser("X000158")
+                .selectRoleCatalogViewTab()
+                    .getRoleCatalogHierarchyPanel()
+                        .selectOrgInTree("Application Bundles")
+                        .and()
+                    .getItemsPanel()
+                    .assertItemsCountEqual(0);
+
+        basicPage.loggedUser().logout();
+
+        addObjectFromFile(ROLE_MANAGER_4_4);
+
+        loginPage = midPoint.formLogin();
+        loginPage.login("X000390", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage.listUsers("Employees")
+                .table()
+                    .assertTableContainsText("X000158");
+        basicPage.requestRole()
+                .setRequestingForUser("X000158")
+                .selectRoleCatalogViewTab()
+                    .getRoleCatalogHierarchyPanel()
+                        .selectOrgInTree("Application Bundles")
+                        .and()
+                    .getItemsPanel()
+                        .addItemToCart("Secret Projects II")
+                        .and()
+                    .goToShoppingCart()
+                        .clickRequestButton()
+                        .assertFeedbackExists();
+        basicPage
+                .myItems()
+                    .table()
+                        .approveWorkitemByName("X000158")
+                        .and()
+                    .assertFeedbackExists();
+
+        basicPage.loggedUser().logout();
+        loginPage = midPoint.formLogin();
+        loginPage.login("X000390", "qwerty12345XXXX")
+                .assertUserMenuExist();
+
+        addObjectFromFile(ROLE_MANAGER_4_4);
+
+        basicPage.loggedUser().logout();
+        loginPage.login("X000089", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage
+                .myItems()
+                    .table()
+                        .approveWorkitemByName("X000158")
+                        .and()
+                    .assertFeedbackExists();
+        basicPage.loggedUser().logout();
+        loginPage.login(getUsername(), getPassword())
+                .assertUserMenuExist();
+        PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
+                .assertAssignmentsWithRelationExist("Member", "Secret Projects II")
+                .and()
+                .selectTabProjections()
+                .viewProjectionDetails("ablack", "CSV-1");
+        projectionForm
+                .assertPropertyInputValues("Groups", "Internal Employees", "Teleportation",
+                        "Time Travel", "Essential Documents", "Lucky Numbers", "Presidential Candidates Motivation");
     }
 }

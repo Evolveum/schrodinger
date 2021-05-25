@@ -50,4 +50,12 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T> {
         return null;
 
     }
+
+    public WorkitemsTable<T> approveWorkitemByName(String itemName) {
+        rowByColumnLabel("Name", itemName)
+                .getParentElement().$x(".//i[@class='fa fa-check ']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
+        return this;
+    }
 }

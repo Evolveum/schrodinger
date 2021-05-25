@@ -160,11 +160,13 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
     }
 
     public PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<P>>> viewProjectionDetails(String projectionName, String resourceName){
+        Selenide.screenshot("beforeSearch");
         table()
                 .search()
                     .referencePanelByItemName("Resource")
                         .inputRefName(resourceName, resourceName)
                     .updateSearch();
+        Selenide.screenshot("afterSearch");
         PrismFormWithActionButtons form = table()
                 .clickByName(projectionName);
         PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<P>>> detailsPanel =
