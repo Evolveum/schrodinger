@@ -353,7 +353,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     }
 
-    @Test(groups={"advancedM1"})
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
     public void mod04test03selfServiceRequestingRolesFromRoleCatalog() {
         addObjectFromFile(ORG_EXAMPLE_ROLE_CATALOG_ROOT);
         addObjectFromFile(ROLE_BASICUSER_LAB_4_3);
@@ -464,5 +464,9 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .assertAllServicesViewTabDoesntExist()
                     .assertAllOrganizationsViewTabDoesntExist()
                     .assertUserAssignmentsTabDoesntExist();
+    }
+
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    public void mod04test04selfServiceRequestingRolesForSubordinateEmployees() {
     }
 }

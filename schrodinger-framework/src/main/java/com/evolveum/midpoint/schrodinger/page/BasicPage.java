@@ -450,7 +450,7 @@ public class BasicPage {
         }
 
         SelenideElement menuItem = mainMenu.$(Schrodinger.byDataResourceKey(menuItemKey));
-        menuItem.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        menuItem.waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return menuItem;
     }
@@ -484,15 +484,7 @@ public class BasicPage {
         mainMenu.shouldBe(Condition.visible);
 
         SelenideElement mainMenuLi = mainMenu.parent().parent();
-
-        // this is not a very clean and clear code. needs review and rewrite.
-        // it seems that after adminLTE upgrade, top menu items doesn't have 'active' css class but 'menu-open' css class.
-        try {
-            checkCssClass(mainMenuLi, mainMenu, "menu-open"); //try first for top level e.g. Users, Roles, ...
-        } catch (ElementShould e) {
-            checkCssClass(mainMenuLi, mainMenu, "active"); //if doesn't exists, try for subitems, e.g All users, New user,...
-        }
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        checkCssClass(mainMenuLi, mainMenu, "menu-open");
         return mainMenu;
     }
 
