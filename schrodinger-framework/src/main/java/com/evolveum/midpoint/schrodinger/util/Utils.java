@@ -164,7 +164,7 @@ public class Utils {
     }
 
     public static SelenideElement getModalWindowSelenideElement() {
-        return getModalWindowSelenideElement(MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getModalWindowSelenideElement(MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     public static SelenideElement getModalWindowSelenideElement(long waitTime) {

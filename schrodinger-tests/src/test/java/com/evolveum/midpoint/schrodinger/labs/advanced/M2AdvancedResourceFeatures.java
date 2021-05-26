@@ -33,6 +33,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M2/";
     private static final String M2_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
 
+    private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "contractors.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-1.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_2 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-2.csv");
@@ -102,6 +103,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM2"})
     public void mod02test01reactionSpecificObjectTemplate() throws IOException {
+        addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
                 .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
                 .clickImport();

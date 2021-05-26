@@ -3,6 +3,7 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
 import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
@@ -24,6 +25,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M4/";
     private static final String M3_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
 
+    private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
     private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
     private static final File CSV_1_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-1.csv");
     private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
@@ -40,6 +42,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File ROLE_META_POLICY_RULE_USER_MANAGER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-user-manager.xml");
     private static final File ROLE_BASICUSER_LAB_4_3 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser-lab-4-3.xml");
     private static final File ROLE_MANAGER_4_4 = new File(LAB_OBJECTS_DIRECTORY + "roles/role-manager-4-4.xml");
+    private static final File ROLE_META_POLICY_ROLE_MODIFICATION_SO = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-modification-so.xml");
+    private static final File ROLE_META_POLICY_ROLE_MODIFICATION_OWNER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-modification-owner.xml");
     private static final File ORG_EXAMPLE_APPROVER_POLICY_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-approver-policy-root.xml");
     private static final File ORG_EXAMPLE_ROLE_CATALOG_ROOT = new File(LAB_OBJECTS_DIRECTORY + "orgs/org-example-role-catalog-root.xml");
     private static final File ROLE_BASIC_USER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-basicuser.xml");
@@ -77,6 +81,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod04test01configureApprovalsUsingPolicyRules() throws IOException {
+        addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
@@ -544,5 +549,108 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         projectionForm
                 .assertPropertyInputValues("Groups", "Internal Employees", "Teleportation",
                         "Time Travel", "Essential Documents", "Lucky Numbers", "Presidential Candidates Motivation");
+    }
+
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    public void mod04test05roleModificationApproval() {
+        MemberPanel<GovernanceTab<RolePage>> memberPanel = showRole("Secret Projects I")
+                .selectTabGovernance()
+                    .membersPanel();
+        memberPanel
+                .assignMember()
+                    .setRelation("Owner")
+                    .table()
+                        .search()
+                            .byName()
+                            .inputValue("administrator")
+                            .updateSearch()
+                            .and()
+                    .selectCheckboxByName("administrator")
+                    .and()
+                .clickAdd()
+                .and()
+                .and()
+                .assertFeedbackExists();
+        memberPanel
+                .selectRelation("Any")
+                .table()
+                    .clickRefreshButton()
+                    .assertTableContainsLinksTextPartially("administrator");
+
+        addObjectFromFile(ROLE_META_POLICY_ROLE_MODIFICATION_SO);
+        addObjectFromFile(ROLE_META_POLICY_ROLE_MODIFICATION_OWNER);
+
+        basicPage
+                .orgStructure()
+                    .selectTabWithRootOrg("ExAmPLE, Inc. Approval Policies")
+                        .getOrgHierarchyPanel()
+                            .selectOrgInTree("ExAmPLE, Inc. Approval Policies")
+                            .and()
+                        .getMemberPanel()
+                            .assignMember()
+                                .selectType("Role")
+                                .table()
+                                    .selectCheckboxByName("Metarole - Role Modification Approval by Role Owner(s)")
+                                    .selectCheckboxByName("Metarole - Role Modification Approval by Security Officer")
+                                    .and()
+                                .clickAdd()
+                                .selectType("All")
+                                .table()
+                                    .assertTableContainsText("Metarole - Role Modification Approval by Role Owner(s)")
+                                    .assertTableContainsText("Metarole - Role Modification Approval by Security Officer")
+                                    .assertTableObjectsCountEquals(6);
+
+        RolePage rolePage = showRole("Secret Projects I");
+        rolePage
+                .selectTabApplicablePolicies()
+                    .selectPolicyByName("Role Modification Approval by Role Owner(s)")
+                    .selectPolicyByName("Role Modification Approval by Security Officer");
+        rolePage
+                .clickSave()
+                    .feedback()
+                        .assertInfo();
+
+        basicPage.listMyCases()
+                .table()
+                    .clickByName("Approving and executing change of role")
+                        .selectTabChildren()
+                            .table()
+                            .clickByPartialName("Modifying role")
+                                .selectTabWorkitems()
+                                    .table()
+                                        .clickNameByState("open")
+                                            .approveButtonClick()
+                                            .and()
+                                        .and()
+                                    .assertFeedbackExists();
+
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login("security-officer", "sECurit400")
+                .assertUserMenuExist();
+
+        basicPage.myItems()
+                   .table()
+                        .clickByName("Modifying role")
+                            .detailsPanel()
+                                .approveButtonClick()
+                                .and()
+                            .assertFeedbackExists();
+
+        rolePage = showRole("Area 52 Managers");
+        rolePage
+                .selectTabApplicablePolicies()
+                    .selectPolicyByName("Role Modification Approval by Role Owner(s)")
+                    .selectPolicyByName("Role Modification Approval by Security Officer");
+        rolePage.clickSave()
+                .feedback()
+                    .assertInfo();
+        basicPage.myItems()
+                .table()
+                    .clickByName("Modifying role")
+                        .detailsPanel()
+                        .approveButtonClick()
+                        .and()
+                    .assertFeedbackExists();
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<objectCollection xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="981760f4-67fd-11e9-9cbe-8f2cd981c0ce">
+    <name>users-without-telephone</name>
+    <type>UserType</type>
+    <filter>
+        <q:equal>
+            <q:path>telephoneNumber</q:path>
+        </q:equal>
+    </filter>
+</objectCollection>

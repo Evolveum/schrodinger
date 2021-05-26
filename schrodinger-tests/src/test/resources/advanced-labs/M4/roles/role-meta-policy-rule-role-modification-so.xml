@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- (c) 2018-2020 Evolveum, All rights reserved -->
+<role xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="daf77824-3990-11e8-8e82-abb739690593">
+    <name>Metarole - Role Modification Approval by Security Officer</name>
+    <description>Modification of the role with this metarole assigned must be approved by a member of "Security" organization</description>
+    <!-- stage 10: "Approval by role owner (if defined, otherwise skip)"
+         stage 100: "Approval by security officer" -->
+    <displayName>Role Modification Approval by Security Officer</displayName>
+    <inducement>
+        <policyRule>
+            <policyConstraints>
+                <modification>
+                    <operation>modify</operation>
+                </modification>
+            </policyConstraints>
+            <policyActions>
+                <approval>
+                    <compositionStrategy>
+                        <order>100</order>
+                    </compositionStrategy>
+                    <approvalSchema>
+                        <stage>
+                            <name>Security Officer (any)</name>
+                            <approverRef type="OrgType">
+                                <filter>
+                                    <q:equal>
+                                        <q:path>name</q:path>
+                                        <q:value>SECURITY</q:value>
+                                    </q:equal>
+                                </filter>
+                                <resolutionTime>run</resolutionTime>
+                            </approverRef>
+                            <evaluationStrategy>firstDecides</evaluationStrategy>
+                            <groupExpansion>onWorkItemCreation</groupExpansion>
+                            <outcomeIfNoApprovers>reject</outcomeIfNoApprovers>
+                            <!-- FIXME if there are no approvers, request is rejected -->
+                        </stage>
+                    </approvalSchema>
+                </approval>
+            </policyActions>
+        </policyRule>
+    </inducement>
+</role>
