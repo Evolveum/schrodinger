@@ -20,6 +20,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.task.TaskBasicTab;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
@@ -106,8 +107,13 @@ public class FeedbackBox<T> extends Component<T> {
         return new TaskBasicTab(new TaskPage(), taskBasicTab);
     }
 
-    public Boolean isFeedbackBoxPresent() {
+    public CasePage clickShowCase() {
+        getParentElement().$x(".//a[@data-s-id='case']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.byDataId("summaryBox")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return new CasePage();
+    }
 
+    public Boolean isFeedbackBoxPresent() {
         return getParentElement().isDisplayed();
     }
 

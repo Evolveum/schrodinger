@@ -3,7 +3,6 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
-import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
 import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
@@ -36,6 +35,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3-update-1.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3-update-2.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE_4_6 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-6.xml");
     private static final File ROLE_META_POLICY_RULE_BIGBROTHER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-bigbrother.xml");
     private static final File ROLE_META_POLICY_RULE_APPROVER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-role-approver.xml");
     private static final File ROLE_META_POLICY_RULE_SECURITY_OFFICER = new File(LAB_OBJECTS_DIRECTORY + "roles/role-meta-policy-rule-security-officer-skip-employees.xml");
@@ -551,7 +551,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         "Time Travel", "Essential Documents", "Lucky Numbers", "Presidential Candidates Motivation");
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test04selfServiceRequestingRolesForSubordinateEmployees")
     public void mod04test05roleModificationApproval() {
         MemberPanel<GovernanceTab<RolePage>> memberPanel = showRole("Secret Projects I")
                 .selectTabGovernance()
@@ -652,5 +652,46 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .approveButtonClick()
                         .and()
                     .assertFeedbackExists();
+    }
+
+    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test05roleModificationApproval")
+    public void mod04test06roleCreationApproval() {
+        addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_6);
+
+        basicPage
+                .newRole()
+                    .selectTabBasic()
+                        .form()
+                            .addAttributeValue("Name", "Test Role 1")
+                            .addAttributeValue("Subtype", "auto")
+                            .and()
+                        .and()
+                    .clickSave()
+                        .feedback()
+                            .assertSuccess();
+
+        basicPage
+                .newRole()
+                    .selectTabBasic()
+                        .form()
+                            .addAttributeValue("Name", "Test Role 2")
+                            .addAttributeValue("Subtype", "xxx")
+                            .and()
+                        .and()
+                    .clickSave()
+                        .feedback()
+                            .assertInfo()
+                            .clickShowCase()
+                                .selectTabChildren()
+                                    .table()
+                                        .clickByPartialName("Adding role")
+                                            .selectTabWorkitems()
+                                                .table()
+                                                    .clickByName("Adding role")
+                                                        .approveButtonClick()
+                                                        .and()
+                                                    .and()
+                                                .assertFeedbackExists();
+        showRole("Test Role 2");
     }
 }
