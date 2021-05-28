@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<resource oid="ec4067d0-50a5-11e9-a660-f763d51427b7"
+    xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+    xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+    xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
+        <!-- Resource name. It will be displayed in GUI.  -->
+        <name>ExAmPLE, Inc. HR Organization Structure Source</name>
+        <!-- Reference to the ICF CSV connector. -->
+        <connectorRef type="ConnectorType">
+            <filter>
+                <q:equal>
+                    <q:path>c:connectorType</q:path>
+                    <q:value>com.evolveum.polygon.connector.csv.CsvConnector</q:value>
+                </q:equal>
+            </filter>
+        </connectorRef>
+        <!-- Configuration section contains configuration of the connector,
+             such as hostnames and passwords -->
+        <connectorConfiguration>
+            <!-- Configuration specific for the CSV connector -->
+            <icfc:configurationProperties xmlns:icfcsv="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-csv/com.evolveum.polygon.connector.csv.CsvConnector">
+                <icfcsv:filePath>/opt/training/midpoint-labs/flatfiles/source-orgs.csv</icfcsv:filePath>
+                <icfcsv:encoding>utf-8</icfcsv:encoding>
+                <icfcsv:quoteMode>ALL</icfcsv:quoteMode>
+                <icfcsv:quote>"</icfcsv:quote>
+                <icfcsv:fieldDelimiter>,</icfcsv:fieldDelimiter>
+                <!--                <icfcsv:multivalueDelimiter>;</icfcsv:multivalueDelimiter>-->
+                <icfcsv:uniqueAttribute>orgName</icfcsv:uniqueAttribute>
+                <icfcsv:readOnly>true</icfcsv:readOnly>
+                <icfcsv:ignoreSurroundingSpaces>true</icfcsv:ignoreSurroundingSpaces>
+            </icfc:configurationProperties>
+            <!-- Generic ICF configuration -->
+        </connectorConfiguration>
+        <!-- Resource Schema Handling definition.
+             This part defines how the schema defined above will be used by
+             midPoint. It defines expressions and limitations for individual
+             schema attributes.
+
+             The expressions that describe both inbound and outbound flow of
+             the attributes are defined in this section.
+
+             This is the part where most of the customization takes place.
+        -->
+        <schemaHandling>
+            <objectType>
+                <kind>generic</kind>
+                <intent>org</intent>
+                <displayName>Organization</displayName>
+                <default>true</default>
+                <!-- Reference to the Resource Schema (see above) specifying
+                     object class for this account type -->
+                <objectClass>ri:AccountObjectClass</objectClass>
+                <attribute>
+                    <ref>ri:orgName</ref>
+                    <displayName>ORG Name</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>$focus/name</path>
+                        </target>
+                    </inbound>
+                    <inbound>
+                        <strength>strong</strength>
+                        <expression>
+                            <assignmentTargetSearch>
+                                <targetType>c:ArchetypeType</targetType>
+                                <filter>
+                                    <q:equal>
+                                        <q:path>name</q:path>
+                                        <expression>
+                                            <value>Organization</value>
+                                        </expression>
+                                    </q:equal>
+                                </filter>
+                            </assignmentTargetSearch>
+                        </expression>
+                        <target>
+                            <path>assignment</path>
+                        </target>
+                    </inbound>
+                    <inbound>
+                        <!-- For all organizations from the file we set extension/isComplete=true -->
+                        <expression>
+                            <value>true</value>
+                        </expression>
+                        <target>
+                            <path>$focus/extension/isComplete</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:orgDisplayName</ref>
+                    <displayName>ORG Display Name</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>$focus/displayName</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:orgPath</ref>
+                    <displayName>ORG Path</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>$focus/costCenter</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <activation>
+                    <administrativeStatus>
+                        <inbound/>
+                    </administrativeStatus>
+                </activation>
+            </objectType>
+        </schemaHandling>
+        <capabilities xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
+            <configured>
+                <cap:delete>
+                    <cap:enabled>false</cap:enabled>
+                </cap:delete>
+                <cap:update>
+                    <cap:enabled>false</cap:enabled>
+                </cap:update>
+                <cap:create>
+                    <cap:enabled>false</cap:enabled>
+                </cap:create>
+                <cap:activation>
+                    <cap:status>
+                        <cap:attribute>ri:status</cap:attribute>
+                        <cap:enableValue>A</cap:enableValue>
+                        <cap:disableValue>I</cap:disableValue>
+                        <!-- FIXME just two values? No "former"? -->
+                        <cap:ignoreAttribute>false</cap:ignoreAttribute>
+                    </cap:status>
+                </cap:activation>
+                <cap:countObjects>
+                    <cap:simulate>sequentialSearch</cap:simulate>
+                </cap:countObjects>
+            </configured>
+        </capabilities>
+        <synchronization>
+            <objectSynchronization>
+                <name>Organization</name>
+                <kind>generic</kind>
+                <intent>org</intent>
+                <focusType>c:OrgType</focusType>
+                <!--
+                    The synchronization for this resource is enabled.
+                    It means that the synchronization will react to changes detected by
+                    the system (live sync task, discovery or reconciliation) -->
+                <enabled>true</enabled>
+                <correlation>
+                    <q:description>
+                        Correlation expression is a search query.
+                        Following search queury will look for organizations (see focusType above) that have "name"
+                        equal to the "orgName" attribute of the CSV entry.
+                    </q:description>
+                    <q:equal>
+                        <q:path>name</q:path>
+                        <expression>
+                            <path>$projection/attributes/ri:orgName</path>
+                        </expression>
+                    </q:equal>
+                </correlation>
+                <!-- Confirmation rule may be here, but as the search above will
+                     always return at most one match, the confirmation rule is not needed. -->
+                <!-- Following section describes reactions to a situations.
+                     The setting here assumes that this resource is authoritative,
+                     therefore all entries created on the resource should be
+                     reflected as new orgs in IDM.
+                     See http://wiki.evolveum.com/display/midPoint/Synchronization+Situations
+                 -->
+                <reaction>
+                    <situation>linked</situation>
+                    <synchronize>true</synchronize>
+                </reaction>
+                <reaction>
+                    <situation>deleted</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#unlink</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unlinked</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unmatched</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#addFocus</handlerUri>
+                    </action>
+                </reaction>
+            </objectSynchronization>
+        </synchronization>
+</resource>

@@ -76,7 +76,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
     }
 
-    @Test(groups={"advancedM2"})
+    @Test(groups={"advancedM3"})
     public void mod03test01sequences() throws IOException {
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
@@ -133,7 +133,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .assertPropertyInputValueContainsText("Meal Card Number", "10");
     }
 
-    @Test(dependsOnMethods = {"mod03test01sequences"}, groups={"advancedM2"})
+    @Test(dependsOnMethods = {"mod03test01sequences"}, groups={"advancedM3"})
     public void mod03test04orgStructureSynchronization() throws IOException {
         addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
         TaskPage task = basicPage.newTask();
@@ -306,7 +306,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         //todo check notification
     }
 
-    @Test(dependsOnMethods = {"mod03test04orgStructureSynchronization"}, groups={"advancedM2"})
+    @Test(dependsOnMethods = {"mod03test04orgStructureSynchronization"}, groups={"advancedM3"})
     public void mod03test05orgSynchWithCreateOnDemand() throws IOException {
         addObjectFromFile(OBJECT_TEMPLATE_EXAMPLE_USER);
 

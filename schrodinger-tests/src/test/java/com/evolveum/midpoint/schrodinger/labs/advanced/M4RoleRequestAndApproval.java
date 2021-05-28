@@ -79,7 +79,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
     }
 
-    @Test(groups={"advancedM1"})
+    @Test(groups={"advancedM4"})
     public void mod04test01configureApprovalsUsingPolicyRules() throws IOException {
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
@@ -298,7 +298,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         Utils.removeAssignments(showUser("X000158").selectTabAssignments(), "Secret Projects I");
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
     public void mod04test02selfServiceRequestingRoles() throws IOException {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage loginPage = midPoint.formLogin();
@@ -362,7 +362,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
     public void mod04test03selfServiceRequestingRolesFromRoleCatalog() {
         addObjectFromFile(ORG_EXAMPLE_ROLE_CATALOG_ROOT);
         addObjectFromFile(ROLE_BASICUSER_LAB_4_3);
@@ -475,7 +475,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .assertUserAssignmentsTabDoesntExist();
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
+    @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
     public void mod04test04selfServiceRequestingRolesForSubordinateEmployees() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage loginPage = midPoint.formLogin();
@@ -551,7 +551,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         "Time Travel", "Essential Documents", "Lucky Numbers", "Presidential Candidates Motivation");
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test04selfServiceRequestingRolesForSubordinateEmployees")
+    @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test04selfServiceRequestingRolesForSubordinateEmployees")
     public void mod04test05roleModificationApproval() {
         MemberPanel<GovernanceTab<RolePage>> memberPanel = showRole("Secret Projects I")
                 .selectTabGovernance()
@@ -654,7 +654,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .assertFeedbackExists();
     }
 
-    @Test(groups={"advancedM1"}, dependsOnMethods = "mod04test05roleModificationApproval")
+    @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test05roleModificationApproval")
     public void mod04test06roleCreationApproval() {
         addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_6);
 

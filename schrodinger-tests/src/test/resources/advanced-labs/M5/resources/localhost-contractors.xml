@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2018-2020 Evolveum, All rights reserved -->
+<resource oid="ff735c0a-21e3-11e8-a91a-df0065248d2d"
+    xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+    xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+    xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
+        <name>ExAmPLE, Inc. Contractor DB</name>
+        <connectorRef type="ConnectorType">
+            <filter>
+                <q:equal>
+                    <q:path>c:connectorType</q:path>
+                    <q:value>com.evolveum.polygon.connector.csv.CsvConnector</q:value>
+                </q:equal>
+            </filter>
+        </connectorRef>
+        <connectorConfiguration>
+            <!-- Configuration specific for the CSV connector -->
+            <icfc:configurationProperties xmlns:icfcsv="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-csv/com.evolveum.polygon.connector.csv.CsvConnector">
+                <icfcsv:filePath>/opt/training/midpoint-labs/flatfiles/contractors.csv</icfcsv:filePath>
+                <icfcsv:encoding>utf-8</icfcsv:encoding>
+                <icfcsv:quoteMode>ALL</icfcsv:quoteMode>
+                <icfcsv:quote>"</icfcsv:quote>
+                <icfcsv:fieldDelimiter>,</icfcsv:fieldDelimiter>
+                <!--                <icfcsv:multivalueDelimiter>;</icfcsv:multivalueDelimiter>-->
+                <icfcsv:uniqueAttribute>cid</icfcsv:uniqueAttribute>
+                <icfcsv:readOnly>true</icfcsv:readOnly>
+                <icfcsv:ignoreSurroundingSpaces>true</icfcsv:ignoreSurroundingSpaces>
+            </icfc:configurationProperties>
+            <!-- Generic ICF configuration -->
+        </connectorConfiguration>
+        <schemaHandling>
+            <objectType>
+                <kind>account</kind>
+                <intent>default</intent>
+                <displayName>Default Account</displayName>
+                <default>true</default>
+                <objectClass>ri:AccountObjectClass</objectClass>
+                <attribute>
+                    <ref>ri:cid</ref>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>employeeNumber</path>
+                        </target>
+                    </inbound>
+                    <inbound>
+                        <strength>strong</strength>
+                        <expression>
+                            <assignmentTargetSearch>
+                                <targetType>c:ArchetypeType</targetType>
+                                <filter>
+                                    <q:equal>
+                                        <q:path>name</q:path>
+                                        <expression>
+                                            <value>External</value>
+                                        </expression>
+                                    </q:equal>
+                                </filter>
+                            </assignmentTargetSearch>
+                        </expression>
+                        <target>
+                            <path>assignment</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:firstName</ref>
+                    <displayName>First name</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>givenName</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:lastName</ref>
+                    <displayName>Last name</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>familyName</path>
+                        </target>
+                    </inbound>
+                    <!-- MID-102, LAB 6-1: comment this inbound mapping -->
+                    <inbound>
+                        <source>
+                            <path>$projection/attributes/ri:firstName</path>
+                        </source>
+                        <expression>
+                            <description>Create midPoint username in jsmith convention. No uniqueness here!</description>
+                            <script>
+                                <code>
+tmpGivenNameInitial = basic.stringify(firstName)?.size() &gt; 0 ? (basic.stringify(firstName)).substring(0,1) : ''
+basic.norm(tmpGivenNameInitial + input)?.replace(' ', '')
+                              </code>
+                            </script>
+                        </expression>
+                        <target>
+                            <path>name</path>
+                        </target>
+                    </inbound>
+                    <!-- MID-102, LAB 6-1: end of to-be-commented inbound mapping -->
+                </attribute>
+                <attribute>
+                    <ref>ri:mail</ref>
+                    <displayName>Mail</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>emailAddress</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:jobDescription</ref>
+                    <displayName>Job Description</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <inbound>
+                        <target>
+                            <path>title</path>
+                        </target>
+                    </inbound>
+                </attribute>
+                <attribute>
+                    <!-- TODO -->
+                    <ref>ri:responsibleManager</ref>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                </attribute>
+                <attribute>
+                    <ref>ri:mainProject</ref>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                    <!-- MID-102, LAB 6-2: uncomment this section -->
+                    <!--
+                    <inbound>
+                        <strength>strong</strength>
+                        <expression>
+                            <assignmentTargetSearch>
+                                <targetType>c:OrgType</targetType>
+                                <filter>
+                                <q:equal>
+                                    <q:path>c:displayName</q:path>
+                                    <expression>
+                                        <script>
+                                            <code>return input</code>
+                                        </script>
+                                    </expression>
+                                </q:equal>
+                            </filter>
+                        </assignmentTargetSearch>
+                        </expression>
+                        <target>
+                            <path>assignment</path>
+                            <set>
+                                <condition>
+                                    <script>
+                                        <code>
+import com.evolveum.midpoint.schema.constants.*
+import com.evolveum.midpoint.xml.ns._public.common.common_3.OrgType;
+                                                                                                                               
+// we want to evaluate range only for organizations...
+if (assignment.targetRef != null &amp;&amp; assignment.targetRef.type.localPart == "OrgType") {
+  org = midpoint.getObject(OrgType.class, assignment.targetRef.oid)
+  // Archetype Organization: oid="dc18c532-6022-11e9-ae4b-53f281ce01f4"
+  inRange = midpoint.hasArchetype(org, "dc18c532-6022-11e9-ae4b-53f281ce01f4")
+  return inRange
+}                                   
+                                        </code>
+                                    </script>
+                                </condition>
+                            </set>
+                        </target>
+                    </inbound>
+                    -->
+                    <!-- XXX no create on demand -->
+                    <!-- XXX we expect the organization already exists -->
+                    <!-- MID-102, LAB 6-2: end of comment -->
+                </attribute>
+                <attribute>
+                    <ref>ri:fromDate</ref>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                </attribute>
+                <attribute>
+                    <ref>ri:toDate</ref>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>false</modify>
+                        </access>
+                    </limitations>
+                </attribute>
+                <activation>
+                    <!--
+                    <administrativeStatus>
+                        <inbound/>
+                    </administrativeStatus>
+                    -->
+                    <validFrom>
+                        <inbound>
+                            <source>
+                                <path>$projection/attributes/ri:fromDate</path>
+                            </source>
+                            <expression>
+                                <script>
+                                    <code>basic.parseDateTime("yyyy-MM-dd'T'HH:mm:ss", fromDate)</code>
+                                </script>
+                            </expression>
+                        </inbound>
+                    </validFrom>
+                    <validTo>
+                        <inbound>
+                            <source>
+                                <path>$projection/attributes/ri:toDate</path>
+                            </source>
+                            <expression>
+                                <script>
+                                    <code>basic.parseDateTime("yyyy-MM-dd'T'HH:mm:ss", toDate)</code>
+                                </script>
+                            </expression>
+                        </inbound>
+                    </validTo>
+                </activation>
+                <credentials>
+                    <password>
+                        <inbound>
+                            <strength>weak</strength>
+                            <expression>
+                                <generate/>
+                                <!-- Global password policy will be used -->
+                            </expression>
+                        </inbound>
+                    </password>
+                </credentials>
+            </objectType>
+        </schemaHandling>
+        <!-- MID-5452 (closed) -->
+        <consistency>
+            <deadShadowRetentionPeriod>PT0H</deadShadowRetentionPeriod>
+        </consistency>
+        <capabilities xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
+            <configured>
+                <cap:delete>
+                    <cap:enabled>false</cap:enabled>
+                </cap:delete>
+                <cap:update>
+                    <cap:enabled>false</cap:enabled>
+                </cap:update>
+                <cap:create>
+                    <cap:enabled>false</cap:enabled>
+                </cap:create>
+                <cap:activation>
+                    <!-- XXX not used. -->
+                    <!--
+              <cap:status>
+                <cap:attribute>ri:status</cap:attribute>
+                <cap:enableValue>E</cap:enableValue>
+                <cap:disableValue>D</cap:disableValue>
+                -->
+                    <!--                <cap:ignoreAttribute>false</cap:ignoreAttribute>-->
+                    <!--              </cap:status>-->
+                </cap:activation>
+                <cap:countObjects>
+                    <cap:simulate>sequentialSearch</cap:simulate>
+                </cap:countObjects>
+            </configured>
+        </capabilities>
+        <synchronization>
+            <objectSynchronization>
+                <name>Default account</name>
+                <kind>account</kind>
+                <intent>default</intent>
+                <!--
+                    The synchronization for this resource is enabled.
+                    It means that the synchronization will react to changes detected by
+                    the system (live sync task, discovery or reconciliation) -->
+                <enabled>true</enabled>
+                <correlation>
+                    <q:description>
+                        Correlation expression is a search query.
+                        Following search query will look for users that have "employeeNumber"
+                        equal to the "cid" attribute of the account. 
+                        The correlation rule looks for users by default, so it will not match
+                        any other object type.
+                    </q:description>
+                    <q:equal>
+                        <q:path>employeeNumber</q:path>
+                        <expression>
+                            <path>$projection/attributes/ri:cid</path>
+                        </expression>
+                    </q:equal>
+                </correlation>
+                <reaction>
+                    <situation>linked</situation>
+                    <synchronize>true</synchronize>
+                </reaction>
+                <reaction>
+                    <situation>deleted</situation>
+                    <synchronize>true</synchronize>
+                    <objectTemplateRef oid="41cfe394-221f-11e8-99e0-2bbd78799fe9"/>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#inactivateFocus</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unlinked</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unmatched</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#addFocus</handlerUri>
+                    </action>
+                </reaction>
+            </objectSynchronization>
+        </synchronization>
+</resource>

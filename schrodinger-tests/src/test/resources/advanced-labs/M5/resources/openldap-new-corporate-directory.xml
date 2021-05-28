@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2018-2020 Evolveum, All rights reserved -->
+<resource oid="3961ffc8-2209-11e8-8018-7738b0ea3fa2"
+    xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+    xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+    xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3"
+    xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+    xmlns:mr="http://prism.evolveum.com/xml/ns/public/matching-rule-3"
+    xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
+        <name>New Corporate Directory</name>
+        <description>
+            LDAP resource using a ConnId LDAP connector. It contains configuration
+            for use with OpenLDAP servers.
+        </description>
+        <connectorRef type="ConnectorType">
+            <description>
+                Reference to the OpenICF LDAP connector. This is dynamic reference, it will be translated to
+                OID during import.
+            </description>
+            <filter>
+                <q:equal>
+                    <q:path>c:connectorType</q:path>
+                    <q:value>com.evolveum.polygon.connector.ldap.LdapConnector</q:value>
+                </q:equal>
+            </filter>
+        </connectorRef>
+        <!-- Configuration section contains configuration of the connector,
+             such as hostnames and passwords -->
+        <connectorConfiguration xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3" xmlns:icfcldap="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-ldap/com.evolveum.polygon.connector.ldap.LdapConnector">
+            <icfc:configurationProperties>
+                <icfcldap:port>389</icfcldap:port>
+                <icfcldap:host>openldap</icfcldap:host>
+                <icfcldap:baseContext>dc=example,dc=com</icfcldap:baseContext>
+                <icfcldap:bindDn>cn=idm,ou=Administrators,dc=example,dc=com</icfcldap:bindDn>
+                <icfcldap:bindPassword>
+                    <t:clearValue>secret</t:clearValue>
+                </icfcldap:bindPassword>
+                <icfcldap:usePermissiveModify>always</icfcldap:usePermissiveModify>
+                <icfcldap:pagingStrategy>auto</icfcldap:pagingStrategy>
+                <icfcldap:passwordHashAlgorithm>SSHA</icfcldap:passwordHashAlgorithm>
+                <icfcldap:vlvSortAttribute>uid</icfcldap:vlvSortAttribute>
+                <icfcldap:vlvSortOrderingRule>2.5.13.3</icfcldap:vlvSortOrderingRule>
+                <icfcldap:operationalAttributes>memberOf</icfcldap:operationalAttributes>
+                <icfcldap:operationalAttributes>createTimestamp</icfcldap:operationalAttributes>
+            </icfc:configurationProperties>
+            <icfc:resultsHandlerConfiguration>
+                <icfc:enableNormalizingResultsHandler>false</icfc:enableNormalizingResultsHandler>
+                <icfc:enableFilteredResultsHandler>false</icfc:enableFilteredResultsHandler>
+                <icfc:enableAttributesToGetSearchResultsHandler>false</icfc:enableAttributesToGetSearchResultsHandler>
+            </icfc:resultsHandlerConfiguration>
+        </connectorConfiguration>
+        <schema>
+            <!-- workaround to MID-2723 -->
+            <generationConstraints>
+                <generateObjectClass>ri:inetOrgPerson</generateObjectClass>
+                <generateObjectClass>ri:groupOfUniqueNames</generateObjectClass>
+                <generateObjectClass>ri:groupOfNames</generateObjectClass>
+                <generateObjectClass>ri:organizationalUnit</generateObjectClass>
+            </generationConstraints>
+        </schema>
+        <!-- Resource Schema Handling definition.
+             This part defines how the schema defined above will be used by
+             midPoint. It defines expressions and limitations for individual
+             schema attributes.
+
+             The expressions that describe both inbound and outbound flow of
+             the attributes are defined in this section.
+
+             This is the part where most of the customization takes place.
+        -->
+        <schemaHandling>
+            <objectType>
+                <kind>account</kind>
+                <intent>default</intent>
+                <displayName>Normal Account</displayName>
+                <default>true</default>
+                <objectClass>ri:inetOrgPerson</objectClass>
+                <attribute>
+                    <ref>ri:dn</ref>
+                    <displayName>Distinguished Name</displayName>
+                    <limitations>
+                        <minOccurs>0</minOccurs>
+                    </limitations>
+                    <matchingRule>mr:stringIgnoreCase</matchingRule>
+                    <outbound>
+                        <source>
+                            <path>name</path>
+                        </source>
+                        <expression>
+                            <script>
+                                <!-- No explicit script language was specified. It means that this is Groovy -->
+                                <code>
+                                'uid=' + name + iterationToken + ',ou=people,dc=example,dc=com'
+                            </code>
+                            </script>
+                        </expression>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:entryUUID</ref>
+                    <displayName>Entry UUID</displayName>
+                    <limitations>
+                        <access>
+                            <read>true</read>
+                            <add>false</add>
+                            <modify>true</modify>
+                        </access>
+                    </limitations>
+                    <matchingRule>mr:stringIgnoreCase</matchingRule>
+                </attribute>
+                <attribute>
+                    <ref>ri:cn</ref>
+                    <displayName>Common Name</displayName>
+                    <limitations>
+                        <minOccurs>0</minOccurs>
+                    </limitations>
+                    <outbound>
+                        <source>
+                            <path>fullName</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:sn</ref>
+                    <displayName>Surname</displayName>
+                    <limitations>
+                        <minOccurs>0</minOccurs>
+                    </limitations>
+                    <outbound>
+                        <source>
+                            <!-- The path can be shorteden like this. $user is a default source "context" in outbound -->
+                            <path>familyName</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:givenName</ref>
+                    <displayName>Given Name</displayName>
+                    <outbound>
+                        <source>
+                            <path>givenName</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:uid</ref>
+                    <displayName>Login Name</displayName>
+                    <matchingRule>mr:stringIgnoreCase</matchingRule>
+                    <outbound>
+                        <strength>weak</strength>
+                        <source>
+                            <description>Source may have description</description>
+                            <path>name</path>
+                        </source>
+                        <!-- We need to put iterationToken here as well, otherwise effect described in MID-2139 occurs -->
+                        <expression>
+                            <script>
+                                <code>name + iterationToken</code>
+                            </script>
+                        </expression>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:telephoneNumber</ref>
+                    <displayName>Telephone Number</displayName>
+                    <limitations>
+                        <minOccurs>0</minOccurs>
+                    </limitations>
+                    <outbound>
+                        <source>
+                            <path>telephoneNumber</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:mail</ref>
+                    <displayName>E-mail Address</displayName>
+                    <limitations>
+                        <minOccurs>0</minOccurs>
+                    </limitations>
+                    <outbound>
+                        <source>
+                            <path>emailAddress</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:description</ref>
+                    <outbound>
+                        <strength>weak</strength>
+                        <expression>
+                            <description>Expression that assigns a fixed value</description>
+                            <value>Created by midPoint</value>
+                        </expression>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:jpegPhoto</ref>
+                    <displayName>User photo</displayName>
+                    <outbound>
+                        <source>
+                            <path>jpegPhoto</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:l</ref>
+                    <displayName>Location</displayName>
+                    <outbound>
+                        <source>
+                            <path>locality</path>
+                        </source>
+                    </outbound>
+                </attribute>
+                <attribute>
+                    <ref>ri:employeeType</ref>
+                    <displayName>Employee Type</displayName>
+                    <description>This attribute should be EMP for employees, EXT for external. Other values are not defined.</description>
+                    <tolerant>false</tolerant>
+                    <outbound>
+                        <expression>
+                            <script>
+                                <code>
+                            isEmployee = midpoint.hasArchetype(focus, "7135e68c-ee53-11e8-8025-170b77da3fd6") <!-- Employee -->
+                            isExternal = midpoint.hasArchetype(focus, "b97490e6-24aa-11e9-923a-cbe17394eff9") <!-- External -->
+                            if (isEmployee) {
+                                return 'EMP'
+                            } else if (isExternal) {
+                                return 'EXT'
+                            } else {
+                                return null
+                            }
+                            </code>
+                            </script>
+                        </expression>
+                    </outbound>
+                </attribute>
+                <!-- MID-102, LAB 3-2, part 1 of 3, uncomment the following section -->
+                <!--
+            <association>
+                <ref>ri:ldapProjectGroup</ref>
+                <displayName>LDAP Project Group Membership</displayName>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+                <kind>entitlement</kind>
+                <intent>ldapProjectGroup</intent>
+                <direction>objectToSubject</direction>
+                <associationAttribute>ri:member</associationAttribute>
+                <valueAttribute>ri:dn</valueAttribute>
+                <shortcutAssociationAttribute>ri:memberOf</shortcutAssociationAttribute>
+                <shortcutValueAttribute>ri:dn</shortcutValueAttribute>
+                <explicitReferentialIntegrity>false</explicitReferentialIntegrity>
+            </association>
+            -->
+                <!-- MID-102, LAB 3-2, part 1 of 3, end of comment -->
+                <!-- MID-102, LAB 3-3, part 1 of 3, uncomment the following section -->
+                <!--
+            <association>
+                <ref>ri:ldapOrgGroup</ref>
+                <displayName>LDAP Org Group Membership</displayName>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+                <kind>entitlement</kind>
+                <intent>ldapOrgGroup</intent>
+                <direction>objectToSubject</direction>
+                <associationAttribute>ri:member</associationAttribute>
+                <valueAttribute>ri:dn</valueAttribute>
+                <shortcutAssociationAttribute>ri:memberOf</shortcutAssociationAttribute>
+                <shortcutValueAttribute>ri:dn</shortcutValueAttribute>
+                <explicitReferentialIntegrity>false</explicitReferentialIntegrity>
+            </association>
+            -->
+                <!-- MID-102, LAB 3-3, part 1 of 3, end of comment -->
+                <iteration>
+                    <maxIterations>5</maxIterations>
+                </iteration>
+                <protected>
+                    <filter>
+                        <q:equal>
+                            <q:matching>http://prism.evolveum.com/xml/ns/public/matching-rule-3#stringIgnoreCase</q:matching>
+                            <q:path>attributes/ri:dn</q:path>
+                            <q:value>cn=idm,ou=Administrators,dc=example,dc=com</q:value>
+                        </q:equal>
+                    </filter>
+                </protected>
+                <protected>
+                    <filter>
+                        <q:equal>
+                            <q:matching>http://prism.evolveum.com/xml/ns/public/matching-rule-3#stringIgnoreCase</q:matching>
+                            <q:path>attributes/ri:dn</q:path>
+                            <q:value>cn=admin,dc=example,dc=com</q:value>
+                        </q:equal>
+                    </filter>
+                </protected>
+                <activation>
+                    <existence>
+                        <outbound>
+                            <strength>weak</strength>
+                            <expression>
+                                <path>$focusExists</path>
+                            </expression>
+                        </outbound>
+                    </existence>
+                    <administrativeStatus>
+                        <outbound>
+                            <description>Please note that OpenLDAP does not support any default way of disabling accounts...</description>
+                            <expression>
+                                <script>
+                                    <code>
+                                    import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationStatusType;
+                                    if (legal &amp;&amp; assigned) {
+                                        input;
+                                    } else {
+                                        ActivationStatusType.DISABLED;
+                                    }
+                                </code>
+                                </script>
+                            </expression>
+                        </outbound>
+                    </administrativeStatus>
+                </activation>
+                <credentials>
+                    <password>
+                        <outbound>
+                            <expression>
+                                <asIs/>
+                            </expression>
+                        </outbound>
+                        <!-- MID-102, LAB 5-1: uncomment the following code to generate the initial
+password for account activation instead of using an empty one  -->
+                    <outbound>
+                        <name>passwd-generate</name>
+                        <strength>weak</strength>
+                        <expression>
+                            <generate/>
+                        </expression>
+                    </outbound>
+                        <!-- MID-102, LAB 5-1: end of comment -->
+                    </password>
+                </credentials>
+            </objectType>
+            <!-- MID-102, LAB 3-2, part 2 of 3, uncomment the following section -->
+            <!--
+        <objectType>
+            <kind>entitlement</kind>
+            <intent>ldapProjectGroup</intent>
+            <displayName>LDAP Project Group</displayName>
+            <objectClass>ri:groupOfNames</objectClass>
+            <baseContext>
+                <objectClass>ri:organizationalUnit</objectClass>
+                <filter>
+                    <q:equal>
+                        <q:path>attributes/dn</q:path>
+                        <q:value>ou=groups,dc=example,dc=com</q:value>
+                    </q:equal>
+                </filter>
+            </baseContext>
+
+            <attribute>
+                <ref>ri:dn</ref>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+                <outbound>
+                    <source>
+                        <path>$focus/name</path>
+                    </source>
+                        <expression>
+                            <script>
+                            <code>
+                            return 'cn=' + name + ',ou=groups,dc=example,dc=com'
+                            </code>
+                        </script>
+                        </expression>
+                </outbound>
+            </attribute>
+            <attribute>
+                <ref>ri:member</ref>
+                <matchingRule>mr:distinguishedName</matchingRule>
+                <outbound>
+                    <strength>strong</strength>
+                    <expression>
+                        <value>cn=dummy,o=whatever</value>
+                    </expression>
+                </outbound>
+            </attribute>            
+            <attribute>
+                <ref>ri:cn</ref>
+                <limitations>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </limitations>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+                <outbound>
+                    <strength>weak</strength>
+                    <source>
+                        <path>$focus/name</path>
+                    </source>
+                </outbound>
+            </attribute>
+            <attribute>
+                <ref>ri:description</ref>
+                <outbound>
+                    <source>
+                        <path>description</path>
+                    </source>
+                </outbound>
+            </attribute>
+            <configuredCapabilities>
+                <cap:pagedSearch>
+                    <cap:defaultSortField>ri:cn</cap:defaultSortField>
+                </cap:pagedSearch>
+            </configuredCapabilities>
+        </objectType>
+        -->
+            <!-- MID-102, LAB 3-2, part 2 of 3: end of comment -->
+            <!-- MID-102, LAB 3-3, part 2 of 3, uncomment the following section -->
+            <!--
+        <objectType>
+            <kind>entitlement</kind>
+            <intent>ldapOrgGroup</intent>
+            <displayName>LDAP Organization Group</displayName>
+            <objectClass>ri:groupOfNames</objectClass>
+            <baseContext>
+                <objectClass>ri:organizationalUnit</objectClass>
+                <filter>
+                    <q:equal>
+                        <q:path>attributes/dn</q:path>
+                        <q:value>ou=orgStruct,dc=example,dc=com</q:value>
+                    </q:equal>
+                </filter>
+            </baseContext>
+
+            <attribute>
+                <ref>ri:dn</ref>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+                <outbound>
+                    <source>
+                        <path>$focus/name</path>
+                    </source>
+                        <expression>
+                            <script>
+                            <code>
+                            cn = basic.norm(name)?.replace(' ', '-')
+                            return 'cn=org-' + cn + ',ou=orgStruct,dc=example,dc=com'
+                            </code>
+                        </script>
+                        </expression>
+                </outbound>
+            </attribute>
+            <attribute>
+                <ref>ri:member</ref>
+                <matchingRule>mr:distinguishedName</matchingRule>
+                <outbound>
+                    <strength>strong</strength>
+                    <expression>
+                        <value>cn=dummy,o=whatever</value>
+                    </expression>
+                </outbound>
+            </attribute>            
+            <attribute>
+                <ref>ri:cn</ref>
+                <limitations>
+                    <minOccurs>0</minOccurs>
+                    <maxOccurs>1</maxOccurs>
+                </limitations>
+                <matchingRule>mr:stringIgnoreCase</matchingRule>
+                <outbound>
+                    <strength>weak</strength>
+                    <source>
+                        <path>$focus/name</path>
+                    </source>
+                        <expression>
+                            <script>
+                            <code>
+                            cn = basic.norm(name)?.replace(' ', '-')
+                            return 'org-' + cn
+                            </code>
+                        </script>
+                        </expression>
+                </outbound>
+            </attribute>
+            <attribute>
+                <ref>ri:description</ref>
+                <outbound>
+                    <source>
+                        <path>displayName</path>
+                    </source>
+                </outbound>
+            </attribute>
+            <configuredCapabilities>
+                <cap:pagedSearch>
+                    <cap:defaultSortField>ri:cn</cap:defaultSortField>
+                </cap:pagedSearch>
+            </configuredCapabilities>
+        </objectType>
+        -->
+            <!-- MID-102, LAB 3-3, part 2 of 3: end of comment -->
+        </schemaHandling>
+        <capabilities xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
+            <configured>
+                <cap:activation>
+                    <cap:status>
+                        <!-- OpenLDAP has no standard way of disabling accounts.
+                    In this training, telexNumber will be used instead:
+                     telexNumber=true means disabled account.
+                     null value means enabled account.
+                    This is to avoid modification of OpenLDAP schema. -->
+                        <cap:attribute>ri:telexNumber</cap:attribute>
+                        <cap:enableValue/>
+                        <cap:disableValue>true</cap:disableValue>
+                    </cap:status>
+                </cap:activation>
+                <cap:countObjects>
+                    <cap:simulate>pagedSearchEstimate</cap:simulate>
+                </cap:countObjects>
+            </configured>
+        </capabilities>
+        <synchronization>
+            <objectSynchronization>
+                <enabled>true</enabled>
+                <objectClass>ri:inetOrgPerson</objectClass>
+                <correlation>
+                    <q:description>
+                        Correlation expression is a search query.
+                        Following search queury will look for users that have "name"
+                        equal to the "uid" attribute of the account.
+                        The correlation rule by default looks for users, so it will not match
+                        any other object type.
+                    </q:description>
+                    <q:equal>
+                        <q:path>name</q:path>
+                        <expression>
+                            <path>
+                                declare namespace ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3";
+                                $projection/attributes/ri:uid
+                            </path>
+                        </expression>
+                    </q:equal>
+                </correlation>
+                <reaction>
+                    <situation>linked</situation>
+                    <synchronize>true</synchronize>
+                </reaction>
+                <reaction>
+                    <situation>deleted</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#unlink</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unlinked</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unmatched</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                    </action>
+                </reaction>
+            </objectSynchronization>
+            <!-- MID-102, LAB 3-2, part 3 of 3, uncomment the following section -->
+            <!--
+            <objectSynchronization>
+                    <name>ldapProjectGroup synchronization</name>
+                    <objectClass>ri:groupOfNames</objectClass>
+                    <kind>entitlement</kind>
+                    <intent>ldapProjectGroup</intent>
+                    <focusType>c:RoleType</focusType>
+                    <enabled>true</enabled>
+                    <condition>
+                        <script>
+                            <code>
+tmpSuffix = '(?i).*,ou=groups,dc=example,dc=com$'
+re = ~tmpSuffix
+(basic.getAttributeValue(projection, "dn") ==~ re)
+                            </code>
+                        </script>
+                    </condition>
+    
+                    <correlation>
+                    <q:description>
+                        Correlation expression is a search query.
+                        Following search query will look for roles that have "name"
+                        equal to the "cn" attribute of the group.
+                        The correlation rule looks for roles, so it will not match
+                        any other object type.
+                    </q:description>
+                    <q:equal>
+                        <q:path>name</q:path>
+                        <expression>
+                            <path>
+                                declare namespace ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3";
+                                $projection/attributes/ri:cn
+                            </path>
+                        </expression>
+                    </q:equal>
+                    </correlation>
+    
+                <reaction>
+                    <situation>linked</situation>
+                    <synchronize>true</synchronize>
+                </reaction>
+                <reaction>
+                    <situation>deleted</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#unlink</handlerUri>
+                    </action>
+                </reaction>
+    
+                <reaction>
+                    <situation>unlinked</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unmatched</situation>
+                </reaction>
+        </objectSynchronization>
+        -->
+            <!-- MID-102, LAB 3-2, part 3 of 3, end of comment -->
+            <!-- MID-102, LAB 3-3, part 3 of 3, uncomment the following section -->
+            <!--
+            <objectSynchronization>
+                    <name>ldapOrgGroup synchronization</name>
+                    <objectClass>ri:groupOfNames</objectClass>
+                    <kind>entitlement</kind>
+                    <intent>ldapOrgGroup</intent>
+                    <focusType>c:OrgType</focusType>
+                    <enabled>true</enabled>
+                    <condition>
+                        <script>
+                            <code>
+tmpSuffix = '(?i).*,ou=orgStruct,dc=example,dc=com$'
+re = ~tmpSuffix
+(basic.getAttributeValue(projection, "dn") ==~ re)
+                            </code>
+                        </script>
+                    </condition>
+    
+                    <correlation>
+                    <q:description>
+                        Correlation expression is a search query.
+                        Following search query will look for orgs that have "name"
+                        equal to the "cn" attribute of the group after removal
+                        the initial "org-" prefix.
+                        The correlation rule looks for organizations, so it will not match
+                        any other object type.
+                    </q:description>
+                    <q:equal>
+                    <q:matching>polyStringNorm</q:matching>
+                        <q:path>name</q:path>
+                        <expression>
+                            <script>
+                                <code>
+                                tmpCn = basic.getAttributeValue(projection, 'http://midpoint.evolveum.com/xml/ns/public/resource/instance-3', 'cn')
+                                if (tmpCn?.startsWith('org-')) {
+                                    tmpCn = tmpCn.substring(4)?.replace('-', ' ')
+                                    return tmpCn
+                                }
+                                </code>
+                            </script>
+                        </expression>
+                    </q:equal>
+                    </correlation>
+    
+                <reaction>
+                    <situation>linked</situation>
+                    <synchronize>true</synchronize>
+                </reaction>
+                <reaction>
+                    <situation>deleted</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#unlink</handlerUri>
+                    </action>
+                </reaction>
+    
+                <reaction>
+                    <situation>unlinked</situation>
+                    <synchronize>true</synchronize>
+                    <action>
+                        <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/action-3#link</handlerUri>
+                    </action>
+                </reaction>
+                <reaction>
+                    <situation>unmatched</situation>
+                </reaction>
+        </objectSynchronization>
+        -->
+            <!-- MID-102, LAB 3-3, part 3 of 3, end of comment -->
+        </synchronization>
+</resource>
