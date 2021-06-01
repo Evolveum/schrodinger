@@ -71,10 +71,9 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
 
         refreshResourceSchema(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
-        ListResourcesPage listResourcesPage = basicPage.listResources();
-        ((TaskPage)listResourcesPage
+        basicPage.listResources()
                 .table()
-                    .clickByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
+                    .clickByName("CSV (target with groups) authoritative")
                         .clickAccountsTab()
                         .liveSyncTask()
                             .clickCreateNew()
@@ -83,7 +82,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                                         .addAttributeValue("name","LiveSyncTest")
                                         .selectOption("recurrence","Recurring")
                                         .and()
-                                    .and())
+                                    .and()
                                 .selectScheduleTab()
                                     .form()
                                         .addAttributeValue("interval", "5")
@@ -91,7 +90,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                             .and()
                                 .clickSaveAndRun()
                                     .feedback()
-                                    .isInfo();
+                                    .assertInfo();
     }
 
 

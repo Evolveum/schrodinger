@@ -51,8 +51,8 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File ROLE_INTERNAL_EMPLOYEE_FILE = new File(LAB_OBJECTS_DIRECTORY + "roles/role-internal-employee.xml");
     private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
 
-    private static final File OBJECT_TEMPLATE_EXAMPLE_ORG = new File(LAB_OBJECTS_DIRECTORY + "objectTemplates/object-template-example-org.xml");
-    private static final File OBJECT_TEMPLATE_EXAMPLE_USER = new File(LAB_OBJECTS_DIRECTORY + "objectTemplates/object-template-example-user.xml");
+    private static final File OBJECT_TEMPLATE_EXAMPLE_ORG = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-org.xml");
+    private static final File OBJECT_TEMPLATE_EXAMPLE_USER = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-user.xml");
     private static final String CORPORATE_DIRECTORY_RESOURCE_NAME = "New Corporate Directory";
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
@@ -87,11 +87,11 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         addObjectFromFile(RIMSY_USER_FILE);
         addObjectFromFile(KIRK_USER_FILE);
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, "Internal Employee");
 
         addObjectFromFile(SEQUENCE_MEALCARD_FILE);
         addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
         showUser("kirk")
                 .checkReconcile()
                 .clickSave()

@@ -25,6 +25,8 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors.xml");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
     private static final File HR_ORG_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-org.xml");
+    private static final File OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
+    private static final File SECURITY_POLICY_HASHING_FILE = new File(LAB_OBJECTS_DIRECTORY + "securityPolicies/example-security-policy-hashing.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -55,5 +57,9 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
         addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+
+        addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
+        addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
+
     }
 }

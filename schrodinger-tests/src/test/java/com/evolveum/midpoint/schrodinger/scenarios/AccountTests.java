@@ -85,14 +85,12 @@ public class AccountTests extends AbstractSchrodingerTest {
 
     @Test(priority = 2, groups = TEST_GROUP_BEFORE_USER_DELETION)
     public void test0020importCsvResource(){
-        ImportObjectPage importPage = basicPage.importObject();
-
-        importPage
+        basicPage.importObject()
                 .getObjectsFromFile()
-                .chooseFile(CSV_RESOURCE_MEDIUM)
-                .checkOverwriteExistingObject()
-                .clickImportFileButton()
-                    .feedback()
+                    .chooseFile(CSV_RESOURCE_MEDIUM)
+                    .checkOverwriteExistingObject()
+                    .clickImportFileButton()
+                .feedback()
                     .assertSuccess();
     }
 
