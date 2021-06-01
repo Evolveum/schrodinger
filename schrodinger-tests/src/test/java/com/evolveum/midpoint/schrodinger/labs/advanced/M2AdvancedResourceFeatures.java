@@ -99,11 +99,14 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
+
+        addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_1_4, "redirectToFile",
+                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
     }
 
     @Test(groups={"advancedM2"})
     public void mod02test01reactionSpecificObjectTemplate() throws IOException {
-        addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
                 .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
                 .clickImport();
