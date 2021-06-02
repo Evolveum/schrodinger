@@ -33,21 +33,16 @@ import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -102,7 +97,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_4, hrTargetFile);
 
-        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE_10, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE_10, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
@@ -113,11 +108,11 @@ public class M10ObjectTemplate extends AbstractLabTest {
         csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
 
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_10, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_10, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         importObject(INTERNAL_EMPLOYEE_ROLE_FILE, true, true);
 
@@ -448,7 +443,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .assertPropertyInputValue("Manager", "picard");
 
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_10_4, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_10_4, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 //        importObject(CSV_3_RESOURCE_FILE_10_4, true);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
 //        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);

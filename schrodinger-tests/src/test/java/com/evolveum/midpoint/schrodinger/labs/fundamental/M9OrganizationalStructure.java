@@ -179,7 +179,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
         addObjectFromFile(SECRET_I_ROLE_FILE);
         addObjectFromFile(SECRET_II_ROLE_FILE);
 
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")

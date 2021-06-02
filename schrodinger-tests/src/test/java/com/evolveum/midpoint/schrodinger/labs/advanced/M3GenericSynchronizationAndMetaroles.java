@@ -6,7 +6,6 @@ import com.evolveum.midpoint.schrodinger.component.org.OrgHierarchyPanel;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
@@ -79,11 +78,11 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     @Test(groups={"advancedM3"})
     public void mod03test01sequences() throws IOException {
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
-        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         addObjectFromFile(RIMSY_USER_FILE);
         addObjectFromFile(KIRK_USER_FILE);
@@ -135,7 +134,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
     @Test(dependsOnMethods = {"mod03test01sequences"}, groups={"advancedM3"})
     public void mod03test04orgStructureSynchronization() throws IOException {
-        addResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Reconciliation task");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);

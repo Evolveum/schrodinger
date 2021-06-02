@@ -74,7 +74,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
         FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
 
-        addResourceFromFileAndTestConnection(HR_NO_EXTENSION_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_NO_EXTENSION_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
         ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()
@@ -124,9 +124,9 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
 
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_7, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_7, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_7, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_7, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_7, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_7, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         createReconTask("CSV-1 Reconciliation", CSV_1_RESOURCE_NAME);

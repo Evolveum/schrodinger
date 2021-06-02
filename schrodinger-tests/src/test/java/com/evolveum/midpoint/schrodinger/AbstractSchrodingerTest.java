@@ -483,8 +483,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
 
-    public void addResourceFromFileAndTestConnection(File resourceXml, String resourceName, String newFilePathValue) throws IOException {
+    public void addCsvResourceFromFileAndTestConnection(File resourceXml, String resourceName, String newFilePathValue) throws IOException {
         addObjectFromFile(Utils.changeResourceFilePathInXml(resourceXml, newFilePathValue));
+        basicPage
+                .listResources()
+                    .testConnectionClick(resourceName)
+                .feedback()
+                    .isSuccess();
+    }
+
+    public void addResourceFromFileAndTestConnection(File resourceXml, String resourceName) throws IOException {
+        addObjectFromFile(resourceXml);
         basicPage
                 .listResources()
                     .testConnectionClick(resourceName)

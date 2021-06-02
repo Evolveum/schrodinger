@@ -39,7 +39,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_2 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-2.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_3 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-3.csv");
     private static final File OBJECT_TEMPLATE_EXAMPLE_CONTRACTOR_USER = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-contractor-user.xml");
-    private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_2_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-lab-2-2-update-1.xml");
     private static final File CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access-lab-2-5-update-1.xml");
@@ -62,7 +62,6 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");
     private static final File HR_SOURCE_FILE_LAB_2_4_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-4-update-1.csv");
     private static final File HR_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr.xml");
-    private static final File OPENLDAP_CORPORATE_SOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
     private static final File RIMSY_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/rimsy-user.xml");
     private static final File HR_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/hr-synchronization.xml");
     private static final File INITIAL_IMPORT_FROM_HR_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr.xml");
@@ -90,18 +89,19 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
 
-        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addResourceFromFileAndTestConnection(OPENLDAP_CORPORATE_RESOURCE_FILE, HR_RESOURCE_NAME);
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
-        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_1_4, "redirectToFile",
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE, "redirectToFile",
                 System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
     }
 
@@ -210,7 +210,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .assertPropertyDropdownValue("Administrative status", "Disabled");
 
         addObjectFromFile(OBJECT_TEMPLATE_EXAMPLE_CONTRACTOR_USER);
-        addResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE_2_1, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE_2_1, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
 
         //todo in labs desc: delete the row for Raymond Shelteron. BUT there is no such user. Elisabeth Smith is deleted instead
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE_UPDATE_3, contractorsTargetFile);
@@ -241,9 +241,9 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .assertError()
                         .assertMessageExists("Error processing account");
 
-        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("rimsy").selectTabAssignments(), true, "Internal Employee");
         showUser("rimsy")
@@ -290,7 +290,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
     @Test(dependsOnMethods = {"mod02test02iterators"}, groups={"advancedM2"})
     public void mod02test04provisioningScripts() throws IOException {
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_4_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_4_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
         String home = System.getProperty("midpoint.home");
         File scriptsDir = new File(home, "scripts");
@@ -317,7 +317,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
     @Test(dependsOnMethods = {"mod02test04provisioningScripts"}, groups={"advancedM2"})
     public void mod02test05delayedAccountDeletion() throws IOException {
-        addResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
         showUser("picard")
                 .selectTabAssignments()

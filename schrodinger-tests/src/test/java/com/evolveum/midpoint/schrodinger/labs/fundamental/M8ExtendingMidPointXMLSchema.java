@@ -95,10 +95,10 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
 
 //        showTask("HR Synchronization").clickSuspend();
 
-        addResourceFromFileAndTestConnection(HR_RESOURCE_FILE_8_1, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_8, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE_8_1, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_8, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()

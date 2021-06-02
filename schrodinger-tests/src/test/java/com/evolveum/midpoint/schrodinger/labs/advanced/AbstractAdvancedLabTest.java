@@ -29,6 +29,7 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
     protected static final String CONTRACTORS_FILE_SOURCE_NAME = "contractors.csv";
     protected static File contractorsTargetFile;
 
+    protected static final String OPENLDAP_CORPORATE_RESOURCE_NAME = "New Corporate Directory";
     protected static final String CONTRACTORS_RESOURCE_NAME = "ExAmPLE, Inc. Contractor DB";
     protected static final String CONTRACTORS_RESOURCE_IMPORT_TASK_NAME = "Initial import from Contractor DB";
 

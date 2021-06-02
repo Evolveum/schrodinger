@@ -97,9 +97,9 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
     public void mod05test01UsingRBAC() throws IOException {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         addObjectFromFile(INTERNAL_EMPLOYEE_ROLE_FILE);
         addObjectFromFile(INCOGNITO_ROLE_FILE);
@@ -179,9 +179,9 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod05test04CreatingRoles"}, groups={"M5"})
     public void mod05test05DisableOnUnassign() throws IOException {
-        addResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_5_5, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_5_5, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_5_5, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_5_5, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_5_5, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_5_5, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
 
