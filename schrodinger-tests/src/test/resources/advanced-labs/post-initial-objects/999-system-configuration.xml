@@ -33,177 +33,176 @@
     <infrastructure>
         <defaultHostname>http://192.168.56.20/midpoint</defaultHostname>
     </infrastructure>
-<!-- TODO fix notification file path -->
     <notificationConfiguration>
-<!--        <handler>-->
-<!--            <simpleUserNotifier>-->
-<!--                <recipientExpression>-->
-<!--                    <value>idm@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <subjectExpression>-->
-<!--                    <script>-->
-<!--                        <code>-->
-<!--                            if (event.isSuccess())-->
-<!--                            tmpText = "[IDM] SUCCESS: User " + event.getChangeType() + " operation succeeded for "-->
-<!--                            else if (event.isFailure())-->
-<!--                            tmpText = "[IDM] ERROR: User " + event.getChangeType() + " operation failed for "-->
-<!--                            else tmpText = "[IDM] IN PROGRESS: User " + event.getChangeType() + " operation in progress for "-->
-<!--                            tmpText + requestee?.getName()?.getOrig()-->
-<!--                        </code>-->
-<!--                    </script>-->
-<!--                </subjectExpression>-->
-<!--                <transport>mail</transport>-->
-<!--            </simpleUserNotifier>-->
-<!--        </handler>-->
-<!--        <handler>-->
-<!--            <simpleResourceObjectNotifier>-->
-<!--                <name>Notify system administrator for accounts</name>-->
-<!--                <recipientExpression>-->
-<!--                    <value>idm@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <subjectExpression>-->
-<!--                    <script>-->
-<!--                        <code>-->
-<!--                            import com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowKindType;-->
+        <handler>
+            <simpleUserNotifier>
+                <recipientExpression>
+                    <value>idm@example.com</value>
+                </recipientExpression>
+                <subjectExpression>
+                    <script>
+                        <code>
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: User " + event.getChangeType() + " operation succeeded for "
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: User " + event.getChangeType() + " operation failed for "
+                            else tmpText = "[IDM] IN PROGRESS: User " + event.getChangeType() + " operation in progress for "
+                            tmpText + requestee?.getName()?.getOrig()
+                        </code>
+                    </script>
+                </subjectExpression>
+                <transport>mail</transport>
+            </simpleUserNotifier>
+        </handler>
+        <handler>
+            <simpleResourceObjectNotifier>
+                <name>Notify system administrator for accounts</name>
+                <recipientExpression>
+                    <value>idm@example.com</value>
+                </recipientExpression>
+                <subjectExpression>
+                    <script>
+                        <code>
+                            import com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowKindType;
 
-<!--                            if (event?.isShadowKind(ShadowKindType.ACCOUNT)) tmpObject = 'account '-->
-<!--                            else tmpObject = 'resource object (not account) '-->
+                            if (event?.isShadowKind(ShadowKindType.ACCOUNT)) tmpObject = 'account '
+                            else tmpObject = 'resource object (not account) '
 
-<!--                            if (event.isSuccess())-->
-<!--                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"-->
-<!--                            else if (event.isFailure())-->
-<!--                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"-->
-<!--                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"-->
-<!--                            if (tmpObject == 'account ' &amp;&amp; !basic.isEmpty(requestee)) tmpText = tmpText + ' for ' +-->
-<!--                            requestee?.getName()?.getOrig()-->
-<!--                            return tmpText-->
-<!--                        </code>-->
-<!--                    </script>-->
-<!--                </subjectExpression>-->
-<!--                <transport>mail</transport>-->
-<!--            </simpleResourceObjectNotifier>-->
-<!--        </handler>-->
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
+                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"
+                            if (tmpObject == 'account ' &amp;&amp; !basic.isEmpty(requestee)) tmpText = tmpText + ' for ' +
+                            requestee?.getName()?.getOrig()
+                            return tmpText
+                        </code>
+                    </script>
+                </subjectExpression>
+                <transport>mail</transport>
+            </simpleResourceObjectNotifier>
+        </handler>
 
-<!--        &lt;!&ndash; ******************************************* &ndash;&gt;-->
-<!--        <handler>-->
-<!--            <simpleFocalObjectNotifier>-->
-<!--                <focusType>RoleType</focusType>-->
-<!--                <name>Notify system administrator for role change</name>-->
-<!--                <recipientExpression>-->
-<!--                    <value>idm@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <bccExpression>-->
-<!--                    <value>idm-bcc@example.com</value>-->
-<!--                </bccExpression>-->
-<!--                <subjectExpression>-->
-<!--                    <script>-->
-<!--                        <code>-->
-<!--                            tmpObject = 'Role '-->
+        <!-- ******************************************* -->
+        <handler>
+            <simpleFocalObjectNotifier>
+                <focusType>RoleType</focusType>
+                <name>Notify system administrator for role change</name>
+                <recipientExpression>
+                    <value>idm@example.com</value>
+                </recipientExpression>
+                <bccExpression>
+                    <value>idm-bcc@example.com</value>
+                </bccExpression>
+                <subjectExpression>
+                    <script>
+                        <code>
+                            tmpObject = 'Role '
 
-<!--                            if (event.isSuccess())-->
-<!--                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"-->
-<!--                            else if (event.isFailure())-->
-<!--                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"-->
-<!--                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"-->
-<!--                            return tmpText-->
-<!--                        </code>-->
-<!--                    </script>-->
-<!--                </subjectExpression>-->
-<!--                <transport>mail</transport>-->
-<!--            </simpleFocalObjectNotifier>-->
-<!--        </handler>-->
-<!--        <handler>-->
-<!--            <simpleFocalObjectNotifier>-->
-<!--                <focusType>OrgType</focusType>-->
-<!--                <name>Notify system administrator for organization change</name>-->
-<!--                <recipientExpression>-->
-<!--                    <value>idm@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <subjectExpression>-->
-<!--                    <script>-->
-<!--                        <code>-->
-<!--                            tmpObject = 'Organization '-->
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
+                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"
+                            return tmpText
+                        </code>
+                    </script>
+                </subjectExpression>
+                <transport>mail</transport>
+            </simpleFocalObjectNotifier>
+        </handler>
+        <handler>
+            <simpleFocalObjectNotifier>
+                <focusType>OrgType</focusType>
+                <name>Notify system administrator for organization change</name>
+                <recipientExpression>
+                    <value>idm@example.com</value>
+                </recipientExpression>
+                <subjectExpression>
+                    <script>
+                        <code>
+                            tmpObject = 'Organization '
 
-<!--                            if (event.isSuccess())-->
-<!--                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"-->
-<!--                            else if (event.isFailure())-->
-<!--                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"-->
-<!--                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"-->
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
+                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"
 
-<!--                            return tmpText-->
-<!--                        </code>-->
-<!--                    </script>-->
-<!--                </subjectExpression>-->
-<!--                <transport>mail</transport>-->
-<!--            </simpleFocalObjectNotifier>-->
-<!--        </handler>-->
-<!--        &lt;!&ndash;-->
-<!--        <handler>-->
-<!--            <simpleWorkflowNotifier>-->
-<!--                <transport>mail</transport>-->
-<!--            </simpleWorkflowNotifier>-->
-<!--        </handler>-->
-<!--        &ndash;&gt;-->
-<!--        <handler>-->
-<!--            <simpleTaskNotifier>-->
-<!--                <recipientExpression>-->
-<!--                    <value>idm@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <transport>mail</transport>-->
-<!--                <operation>delete</operation>    &lt;!&ndash; DELETE means finishing task handler execution &ndash;&gt;-->
-<!--                <category>taskEvent</category>-->
-<!--                <expressionFilter>-->
-<!--                    <script>                     &lt;!&ndash; any situation that results in the task being suspended &ndash;&gt;-->
-<!--                        <code>event.isPermanentError()</code>-->
-<!--                    </script>-->
-<!--                </expressionFilter>-->
-<!--            </simpleTaskNotifier>-->
-<!--        </handler>-->
-<!--        <handler>-->
-<!--            <accountPasswordNotifier>-->
-<!--                <name>New accounts in midPoint managed systems</name>-->
-<!--                <operation>add</operation>-->
-<!--                <status>success</status>-->
-<!--                <recipientExpression>-->
-<!--                    <value>administrator@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <subjectExpression>-->
-<!--                    <script>-->
-<!--                        <code>"[IDM] New account created by IDM for user: " + requestee?.getName()?.getOrig()</code>-->
-<!--                    </script>-->
-<!--                </subjectExpression>-->
-<!--                <transport>mail</transport>-->
-<!--            </accountPasswordNotifier>-->
-<!--        </handler>-->
-<!--        <handler>-->
-<!--            <userPasswordNotifier>-->
-<!--                <name>New contractor password - send to security-officer</name>-->
-<!--                <operation>add</operation>-->
-<!--                <status>success</status>-->
-<!--                <expressionFilter>-->
-<!--                    <script>-->
-<!--                        <code>-->
-<!--                            import com.evolveum.midpoint.notifications.api.events.ModelEvent;-->
+                            return tmpText
+                        </code>
+                    </script>
+                </subjectExpression>
+                <transport>mail</transport>
+            </simpleFocalObjectNotifier>
+        </handler>
+        <!--
+        <handler>
+            <simpleWorkflowNotifier>
+                <transport>mail</transport>
+            </simpleWorkflowNotifier>
+        </handler>
+        -->
+        <handler>
+            <simpleTaskNotifier>
+                <recipientExpression>
+                    <value>idm@example.com</value>
+                </recipientExpression>
+                <transport>mail</transport>
+                <operation>delete</operation>    <!-- DELETE means finishing task handler execution -->
+                <category>taskEvent</category>
+                <expressionFilter>
+                    <script>                     <!-- any situation that results in the task being suspended -->
+                        <code>event.isPermanentError()</code>
+                    </script>
+                </expressionFilter>
+            </simpleTaskNotifier>
+        </handler>
+        <handler>
+            <accountPasswordNotifier>
+                <name>New accounts in midPoint managed systems</name>
+                <operation>add</operation>
+                <status>success</status>
+                <recipientExpression>
+                    <value>administrator@example.com</value>
+                </recipientExpression>
+                <subjectExpression>
+                    <script>
+                        <code>"[IDM] New account created by IDM for user: " + requestee?.getName()?.getOrig()</code>
+                    </script>
+                </subjectExpression>
+                <transport>mail</transport>
+            </accountPasswordNotifier>
+        </handler>
+        <handler>
+            <userPasswordNotifier>
+                <name>New contractor password - send to security-officer</name>
+                <operation>add</operation>
+                <status>success</status>
+                <expressionFilter>
+                    <script>
+                        <code>
+                            import com.evolveum.midpoint.notifications.api.events.ModelEvent;
 
-<!--                            (event instanceof ModelEvent &amp;&amp;-->
-<!--                            event.isUserRelated() &amp;&amp;-->
-<!--                            !basic.isEmpty(requestee) &amp;&amp; midpoint.hasArchetype(requestee,-->
-<!--                            "b97490e6-24aa-11e9-923a-cbe17394eff9") )-->
-<!--                        </code>-->
-<!--                    </script>-->
-<!--                </expressionFilter>-->
-<!--                <recipientExpression>-->
-<!--                    <value>security-officer@example.com</value>-->
-<!--                </recipientExpression>-->
-<!--                <subjectExpression>-->
-<!--                    <script>-->
-<!--                        <code>"[IDM] New Contractor user in IDM: " + requestee?.getName()?.getOrig()</code>-->
-<!--                    </script>-->
-<!--                </subjectExpression>-->
-<!--                <transport>mail</transport>-->
-<!--            </userPasswordNotifier>-->
-<!--        </handler>-->
-<!--        &lt;!&ndash; ******************************************* &ndash;&gt;-->
+                            (event instanceof ModelEvent &amp;&amp;
+                            event.isUserRelated() &amp;&amp;
+                            !basic.isEmpty(requestee) &amp;&amp; midpoint.hasArchetype(requestee,
+                            "b97490e6-24aa-11e9-923a-cbe17394eff9") )
+                        </code>
+                    </script>
+                </expressionFilter>
+                <recipientExpression>
+                    <value>security-officer@example.com</value>
+                </recipientExpression>
+                <subjectExpression>
+                    <script>
+                        <code>"[IDM] New Contractor user in IDM: " + requestee?.getName()?.getOrig()</code>
+                    </script>
+                </subjectExpression>
+                <transport>mail</transport>
+            </userPasswordNotifier>
+        </handler>
+        <!-- ******************************************* -->
         <mail>
             <defaultFrom>idm@example.com</defaultFrom>
             <debug>false</debug>

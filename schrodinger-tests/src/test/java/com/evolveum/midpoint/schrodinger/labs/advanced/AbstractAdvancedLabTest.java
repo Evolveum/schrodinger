@@ -59,7 +59,7 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
     public void beforeClass() throws IOException {
         super.beforeClass();
 
-        notificationFile = new File(getTestTargetDir(), EXAMPLE_MAIL_NOTIFICATIONS_FILE_NAME);
+        notificationFile = new File(System.getProperty("midpoint.home"), EXAMPLE_MAIL_NOTIFICATIONS_FILE_NAME);
         if (!notificationFile.exists()) {
             notificationFile.createNewFile();
         }
