@@ -36,7 +36,6 @@ import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
-import org.assertj.core.api.Assertions;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -519,8 +518,8 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 + "Channel: http://midpoint.evolveum.com/xml/ns/public/common/channels-3#liveSync\n"
                 + "\n";
 
-        Assertions.assertThat(notification).startsWith(startOfNotification);
-        Assertions.assertThat(notification).endsWith(endOfNotification);
+        Assert.assertTrue(notification.startsWith(startOfNotification));
+        Assert.assertTrue(notification.endsWith(endOfNotification));
     }
 
 }

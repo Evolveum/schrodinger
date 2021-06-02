@@ -68,6 +68,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
+import org.testng.asserts.Assertion;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -677,5 +678,23 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected boolean resetToDefaultAfterTests() {
         return false;
+    }
+
+    public void assertLastNotificationStartsWith(File notificationFile, String text) throws IOException {
+        String lastNotification = Utils.readBodyOfLastNotification(notificationFile);
+        Assert.assertTrue(lastNotification.startsWith(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+                + " doesn't start with the text '" + text + "'");
+    }
+
+    public void assertLastNotificationEndsWith(File notificationFile, String text) throws IOException {
+        String lastNotification = Utils.readBodyOfLastNotification(notificationFile);
+        Assert.assertTrue(lastNotification.endsWith(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+                + " doesn't end with the text '" + text + "'");
+    }
+
+    public void assertLastNotificationContains(File notificationFile, String text) throws IOException {
+        String lastNotification = Utils.readBodyOfLastNotification(notificationFile);
+        Assert.assertTrue(lastNotification.contains(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+                + " doesn't contain with the text '" + text + "'");
     }
 }

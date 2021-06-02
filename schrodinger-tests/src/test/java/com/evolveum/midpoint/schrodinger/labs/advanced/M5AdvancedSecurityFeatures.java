@@ -27,6 +27,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File HR_ORG_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-hr-org.xml");
     private static final File OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
     private static final File SECURITY_POLICY_HASHING_FILE = new File(LAB_OBJECTS_DIRECTORY + "securityPolicies/example-security-policy-hashing.xml");
+    private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -47,6 +48,11 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
+    }
+
+    @Override
+    protected File getModuleInitialSystemConfigXml() {
+        return SYSTEM_CONFIGURATION_FILE;
     }
 
     @Test(groups={"advancedM5"})

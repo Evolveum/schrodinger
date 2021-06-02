@@ -53,6 +53,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     private static final File OBJECT_TEMPLATE_EXAMPLE_ORG = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-org.xml");
     private static final File OBJECT_TEMPLATE_EXAMPLE_USER = new File(LAB_OBJECTS_DIRECTORY + "objecttemplates/object-template-example-user.xml");
     private static final String CORPORATE_DIRECTORY_RESOURCE_NAME = "New Corporate Directory";
+    private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -73,6 +74,11 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
+    }
+
+    @Override
+    protected File getModuleInitialSystemConfigXml() {
+        return SYSTEM_CONFIGURATION_FILE;
     }
 
     @Test(groups={"advancedM3"})

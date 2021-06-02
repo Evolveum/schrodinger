@@ -101,8 +101,11 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
-        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE, "redirectToFile",
-                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
+    }
+
+    @Override
+    protected File getModuleInitialSystemConfigXml() {
+        return SYSTEM_CONFIGURATION_FILE;
     }
 
     @Test(groups={"advancedM2"})
@@ -378,4 +381,5 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
          * ', attachmentsCount: 0
          */
     }
+
 }

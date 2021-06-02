@@ -31,6 +31,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
     protected static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
+    private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-1.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-3-update-1.xml");
@@ -77,6 +78,11 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
+    }
+
+    @Override
+    protected File getModuleInitialSystemConfigXml() {
+        return SYSTEM_CONFIGURATION_FILE;
     }
 
     @Test(groups={"advancedM4"})

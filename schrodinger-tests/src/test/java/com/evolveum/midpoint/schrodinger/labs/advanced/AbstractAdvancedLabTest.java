@@ -17,7 +17,12 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.io.FileUtils;
+import org.testng.annotations.BeforeClass;
+
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author honchar
@@ -36,6 +41,8 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
     protected static File hrOrgsTargetFile;
     protected static final String HR_ORGS_FILE_SOURCE_NAME = "source-orgs.csv";
     protected static final String HR_ORGS_RESOURCE_NAME = "ExAmPLE, Inc. HR Organization Structure Source";
+    protected static File notificationFile;
+    protected static final String EXAMPLE_MAIL_NOTIFICATIONS_FILE_NAME = "example-mail-notifications.log";
 
     @Override
     protected File getExtensionSchemaFile() {
@@ -45,6 +52,27 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
     @Override
     protected String getPostInitialObjectsFolderPath() {
         return POST_INITIAL_OBJECTS_DIR;
+    }
+
+    @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+
+        notificationFile = new File(getTestTargetDir(), EXAMPLE_MAIL_NOTIFICATIONS_FILE_NAME);
+        if (!notificationFile.exists()) {
+            notificationFile.createNewFile();
+        }
+
+        File systemConfig = getModuleInitialSystemConfigXml();
+        if (systemConfig != null) {
+            addObjectFromFile(Utils.changeAttributeIfPresent(systemConfig, "redirectToFile",
+                    notificationFile.getAbsolutePath()));
+        }
+    }
+
+    protected File getModuleInitialSystemConfigXml() {
+        return null;
     }
 
 }
