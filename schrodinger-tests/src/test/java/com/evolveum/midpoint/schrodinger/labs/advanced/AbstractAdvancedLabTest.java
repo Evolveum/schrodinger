@@ -18,7 +18,6 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 
 import java.io.File;
@@ -59,7 +58,7 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
     public void beforeClass() throws IOException {
         super.beforeClass();
 
-        notificationFile = new File(System.getProperty("midpoint.home"), EXAMPLE_MAIL_NOTIFICATIONS_FILE_NAME);
+        notificationFile = new File(fetchTestHomeDir(), EXAMPLE_MAIL_NOTIFICATIONS_FILE_NAME);
         if (!notificationFile.exists()) {
             notificationFile.createNewFile();
         }
@@ -67,7 +66,7 @@ public class AbstractAdvancedLabTest extends AbstractLabTest {
         File systemConfig = getModuleInitialSystemConfigXml();
         if (systemConfig != null) {
             addObjectFromFile(Utils.changeAttributeIfPresent(systemConfig, "redirectToFile",
-                    notificationFile.getAbsolutePath()));
+                    notificationFile.getAbsolutePath(), fetchTestHomeDir()));
         }
     }
 

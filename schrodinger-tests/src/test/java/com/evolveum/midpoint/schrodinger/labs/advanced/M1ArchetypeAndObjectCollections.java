@@ -276,7 +276,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     public void mod01test04objectCollection() throws IOException {
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
         addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_1_4, "redirectToFile",
-                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
+                fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();

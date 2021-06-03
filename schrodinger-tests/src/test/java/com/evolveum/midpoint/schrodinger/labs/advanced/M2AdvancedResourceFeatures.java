@@ -295,7 +295,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     public void mod02test04provisioningScripts() throws IOException {
         addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_4_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
-        String home = System.getProperty("midpoint.home");
+        String home = fetchMidpointHome();
         File scriptsDir = new File(home, "scripts");
         if (!scriptsDir.exists()) {
             if (!scriptsDir.mkdir()) {

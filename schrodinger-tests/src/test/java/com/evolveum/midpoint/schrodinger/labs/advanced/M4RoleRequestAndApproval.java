@@ -96,7 +96,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
 
         addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_4_1, "redirectToFile",
-                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
+                fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
         addObjectFromFile(ROLE_META_POLICY_RULE_BIGBROTHER);
         addObjectFromFile(ROLE_META_POLICY_RULE_APPROVER);
         addObjectFromFile(ROLE_META_POLICY_RULE_SECURITY_OFFICER);
@@ -131,7 +131,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .assertTableContainsText("Metarole - Request Approval by User Manager(s)");
 
         addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_FILE_4_2, "redirectToFile",
-                System.getProperty("midpoint.home") + "/example-mail-notifications.log"));
+                fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
 
         showUser("administrator")
                 .selectTabBasic()

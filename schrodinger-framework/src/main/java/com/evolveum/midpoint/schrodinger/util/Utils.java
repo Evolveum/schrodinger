@@ -15,14 +15,12 @@
  */
 package com.evolveum.midpoint.schrodinger.util;
 
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
-import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,9 +34,7 @@ import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -171,19 +167,19 @@ public class Utils {
         return $(By.className("wicket-modal")).waitUntil(Condition.appear, waitTime);
     }
 
-    public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue) throws IOException {
+    public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue, String tempFilePath) throws IOException {
         String content = FileUtils.readFileToString(resourceXml, "UTF-8");
         int startIndex = content.indexOf(":filePath>") + 10;
         int endIndex = content.indexOf("</", startIndex);
         content = content.substring(0, startIndex) + newFilePathValue + content.substring(endIndex);
 
-        String home = System.getProperty("midpoint.home");
-        File changedResource = new File(home + "/temp.xml");
+        String tempFile = StringUtils.isNotEmpty(tempFilePath) ? tempFilePath : System.getProperty("midpoint.home");
+        File changedResource = new File(tempFile + "/temp.xml");
         FileUtils.writeStringToFile(changedResource, content, "UTF-8");
         return changedResource;
     }
 
-    public static File changeAttributeIfPresent(File xmlFile, String attributeName, String newValue) throws IOException {
+    public static File changeAttributeIfPresent(File xmlFile, String attributeName, String newValue, String tempFilePath) throws IOException {
         String content = FileUtils.readFileToString(xmlFile, "UTF-8");
         String openAttrValue = "<" + attributeName + ">";
         String closeAttrValue = "</" + attributeName + ">";
@@ -194,8 +190,8 @@ public class Utils {
         int endIndex = content.indexOf(closeAttrValue, startIndex);
         content = content.substring(0, startIndex) + newValue + content.substring(endIndex);
 
-        String home = System.getProperty("midpoint.home");
-        File changedResource = new File(home + "/temp.xml");
+        String tempFile = StringUtils.isNotEmpty(tempFilePath) ? tempFilePath : System.getProperty("midpoint.home");
+        File changedResource = new File(tempFile + "/temp.xml");
         FileUtils.writeStringToFile(changedResource, content, "UTF-8");
         return changedResource;
 

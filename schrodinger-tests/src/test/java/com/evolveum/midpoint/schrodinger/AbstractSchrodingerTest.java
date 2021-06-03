@@ -68,7 +68,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
-import org.testng.asserts.Assertion;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -180,8 +179,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     Arrays.sort(objList);
                     for (File postInitFile : objList) {
                         File objFile = new File(postInitObjectsDir, postInitFile.getName());
-                        FileUtils.copyFile(Utils.changeAttributeIfPresent(postInitFile,
-                                "redirectToFile",  home + "/example-mail-notifications.log"), objFile);
+                        FileUtils.copyFile(Utils.changeAttributeIfPresent(postInitFile, "redirectToFile",
+                                home + "/example-mail-notifications.log", fetchTestHomeDir()), objFile);
                     }
                 }
             }
@@ -302,6 +301,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         importObject(source, false, false);
     }
 
+    protected String fetchTestHomeDir() {
+        String home;
+        if (startMidpoint) {
+            home = fetchMidpointHome();
+        } else {
+            String testFolderPath = System.getProperty("midpoint.test.folder");
+            home = StringUtils.isNotEmpty(testFolderPath) ? testFolderPath : "target";
+        }
+        return home;
+    }
+
     protected String fetchMidpointHome() {
         AboutPage aboutPage = basicPage.aboutPage();
         String mpHomeDir = aboutPage.getJVMproperty(PROPERTY_NAME_MIDPOINT_HOME);
@@ -327,13 +337,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected File initTestDirectory(String dir, boolean clearExist) throws IOException {
 
-        String home;
-        if (startMidpoint) {
-            home = fetchMidpointHome();
-        } else {
-            String testFolderPath = System.getProperty("midpoint.test.folder");
-            home = StringUtils.isNotEmpty(testFolderPath) ? testFolderPath : "target";
-        }
+        String home = fetchTestHomeDir();
         File parentDir = new File(home, "schrodinger");
         parentDir.mkdir();
         testTargetDir = new File(parentDir, dir);
@@ -485,7 +489,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
 
     public void addCsvResourceFromFileAndTestConnection(File resourceXml, String resourceName, String newFilePathValue) throws IOException {
-        addObjectFromFile(Utils.changeResourceFilePathInXml(resourceXml, newFilePathValue));
+        addObjectFromFile(Utils.changeResourceFilePathInXml(resourceXml, newFilePathValue, fetchTestHomeDir()));
         basicPage
                 .listResources()
                     .testConnectionClick(resourceName)
