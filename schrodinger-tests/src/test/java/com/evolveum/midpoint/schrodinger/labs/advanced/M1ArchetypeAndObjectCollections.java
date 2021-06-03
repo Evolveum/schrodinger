@@ -56,6 +56,9 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
     private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
 
+    String notificationCheck1 = "User: Jim Kirk (kirk, oid ca233e9a-f474-1ed7-9a22-1nkdea34bb50)";
+    String notificationCheck2 = "An account has been successfully created on the resource with attributes:";
+
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
     public void beforeClass() throws IOException {
@@ -91,6 +94,8 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                         .assertProjectionExist("jkirk", "CSV-1 (Document Access)");
 
+        assertLastNotificationContains(notificationFile, notificationCheck1);
+        assertLastNotificationContains(notificationFile, notificationCheck2);
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,  "Secret Projects I", "Secret Projects II");
         //TODO check CSV-1 groups
         showUser("kirk")
