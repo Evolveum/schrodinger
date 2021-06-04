@@ -58,6 +58,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     String notificationCheck1 = "User: Jim Kirk (kirk, oid ca233e9a-f474-1ed7-9a22-1nkdea34bb50)";
     String notificationCheck2 = "An account has been successfully created on the resource with attributes:";
+    String notificationCheck3 = "An account has been successfully updated on the resource with attributes:";
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -97,11 +98,13 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         assertLastNotificationContains(notificationFile, notificationCheck1);
         assertLastNotificationContains(notificationFile, notificationCheck2);
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,  "Secret Projects I", "Secret Projects II");
+        assertLastNotificationContains(notificationFile, notificationCheck3);
         //TODO check CSV-1 groups
         showUser("kirk")
                 .selectTabProjections();
         Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects I");
         Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects II");
+        assertLastNotificationContains(notificationFile, notificationCheck3);
         //TODO check CSV-1 groups
         Utils.removeAllAssignments(showUser("kirk").selectTabAssignments());
         showUser("kirk")
@@ -115,6 +118,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             .assertProjectionEnabled("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertProjectionEnabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                             .assertProjectionEnabled("jkirk", "CSV-1 (Document Access)");
+        assertLastNotificationContains(notificationFile, notificationCheck3);
     }
 
     @Test(dependsOnMethods = {"mod01test01environmentInitialization"}, groups={"advancedM1"})
