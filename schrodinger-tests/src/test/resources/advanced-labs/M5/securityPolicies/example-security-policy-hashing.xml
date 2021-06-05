@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2020 Evolveum, All rights reserved -->
+<securityPolicy xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="076eabee-332d-11e8-8087-f3c9c7e9809d">
+    <name>ExAmPLE Security Policy with Password Hashing</name>
+    <credentials>
+        <password>
+            <storageMethod>
+                <storageType>hashing</storageType>
+            </storageMethod>
+            <maxAge>P180D</maxAge>
+            <lockoutMaxFailedAttempts>3</lockoutMaxFailedAttempts>
+            <lockoutFailedAttemptsDuration>PT3M</lockoutFailedAttemptsDuration>
+            <lockoutDuration>PT15M</lockoutDuration>
+            <valuePolicyRef oid="10000000-9999-9999-0000-a000f2000002"/>
+            <!--            <historyLength>0</historyLength>-->
+        </password>
+        <!-- MID-102, LAB 5-3, part 1 of 2: uncomment the following section -->
+        <!--
+      <nonce>
+         <maxAge>PT15M</maxAge>
+         <name>mailNonce</name>
+         <valuePolicyRef oid="315e18c8-422c-11e8-8b39-4f7f5b379941"/>
+      </nonce>
+      -->
+        <!-- MID-102, LAB 5-3, part 1 of 2: end of comment -->
+    </credentials>
+    <!--  MID-102, LAB 5-3, part 2 of 2: uncomment the following secition -->
+    <!-- 
+       <authentication>
+      <mailAuthentication>
+         <name>confirmationLink</name>
+         <displayName>Additional mail authentication</displayName>
+         <mailNonce>mailNonce</mailNonce>
+      </mailAuthentication>
+   </authentication>
+   <credentialsReset>
+      <mailReset>
+         <name>Reset password using mail</name>
+         <additionalAuthenticationName>confirmationLink</additionalAuthenticationName>
+      </mailReset>
+   </credentialsReset>
+   -->
+    <!-- MID-102, LAB 5-3, part 2 of 2: end of comment -->
+</securityPolicy>

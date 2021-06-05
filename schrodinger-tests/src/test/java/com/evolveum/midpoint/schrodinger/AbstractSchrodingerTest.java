@@ -701,4 +701,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Assert.assertTrue(lastNotification.contains(text), "Last notification in the file " + notificationFile.getAbsolutePath()
                 + " doesn't contain with the text '" + text + "'");
     }
+
+    public void assertLastNotificationSubjectEquals(File notificationFile, String text) throws IOException {
+        String lastNotificationSubject = Utils.readSubjectOfLastNotification(notificationFile);
+        Assert.assertTrue(lastNotificationSubject.equals(text), "Last notification subject in the file " + notificationFile.getAbsolutePath()
+                + " doesn't equal to the text '" + text + "'");
+    }
 }

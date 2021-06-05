@@ -1,5 +1,6 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,6 +29,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
     private static final File SECURITY_POLICY_HASHING_FILE = new File(LAB_OBJECTS_DIRECTORY + "securityPolicies/example-security-policy-hashing.xml");
     private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
+    private static final File SYSTEM_CONFIGURATION_5_1_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -66,6 +68,12 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
         addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
         addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_5_1_FILE, "redirectToFile",
+                fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
 
+        basicPage.listRepositoryObjects()
+                .table()
+                    .showObjectInTableByTypeAndName("User", "picard")
+                        .clickByName("picard");
     }
 }

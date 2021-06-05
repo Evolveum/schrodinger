@@ -214,4 +214,20 @@ public class Utils {
         return body;
     }
 
+    public static String readSubjectOfLastNotification(File notificationFile) throws IOException {
+        String separator = "============================================";
+        byte[] encoded = Files.readAllBytes(Paths.get(notificationFile.getAbsolutePath()));
+        String notifications = new String(encoded, Charset.defaultCharset());
+        if (!notifications.contains(separator)) {
+            return "";
+        }
+        String notification = notifications.substring(notifications.lastIndexOf(separator) + separator.length(), notifications.length()-1);
+        String bodyTag = "subject='";
+        if (!notifications.contains(bodyTag)) {
+            return "";
+        }
+        int subjectStartIndex = notification.indexOf(bodyTag) + bodyTag.length();
+        return notification.substring(subjectStartIndex, notification.indexOf("'", subjectStartIndex));
+    }
+
 }
