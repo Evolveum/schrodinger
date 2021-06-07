@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
@@ -268,6 +270,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.search().assertExistSearchItem("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
                 .assertActualOptionOfSelectSearchItem("Scope2", "Subtree");
         table.search().dropDownPanelByItemName("Scope2").inputDropDownValue("One level");
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         table.search().assertExistSearchItem("Indirect2").assertHelpTextOfSearchItem("Indirect2", "Indirect help")
                 .assertActualOptionOfSelectSearchItem("Indirect2", "True");
     }

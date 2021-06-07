@@ -95,7 +95,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         addObjectFromFile(SEQUENCE_MEALCARD_FILE);
         addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
 
         showUser("kirk")
                 .checkReconcile()
