@@ -108,6 +108,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                                     .clickSaveAndRun()
                                         .feedback()
                                             .isInfo();
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S); // the time for the task to be finished
 //todo fix test page
 //        showTask("Initial import from HR")
 //                .selectTabOperationStatistics()
