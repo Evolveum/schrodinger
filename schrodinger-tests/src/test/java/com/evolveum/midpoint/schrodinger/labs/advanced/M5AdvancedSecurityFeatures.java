@@ -1,5 +1,6 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
@@ -30,6 +31,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File SECURITY_POLICY_HASHING_FILE = new File(LAB_OBJECTS_DIRECTORY + "securityPolicies/example-security-policy-hashing.xml");
     private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
     private static final File SYSTEM_CONFIGURATION_5_1_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1.xml");
+    private static final File SYSTEM_CONFIGURATION_5_1_UPDATE_2_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1-update-2.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -74,6 +76,35 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         basicPage.listRepositoryObjects()
                 .table()
                     .showObjectInTableByTypeAndName("User", "picard")
-                        .clickByName("picard");
+                        .clickByName("picard")
+                            .assertObjectXmlContainsText("<t:algorithm>http://www.w3.org/2001/04/xmlenc#aes256-cbc</t:algorithm>");
+        UserPage userPage = showUser("picard");
+        userPage
+                .selectTabProjections()
+                    .table()
+                        .assertTableObjectsCountEquals(0)
+                        .and()
+                    .and()
+                .selectTabBasic()
+                    .form()
+                        .addPasswordAttributeValue("qwerty12345XXXX");
+        userPage.clickSave()
+                .feedback()
+                    .assertSuccess();
+        basicPage.listRepositoryObjects()
+                .table()
+                    .showObjectInTableByTypeAndName("User", "picard")
+                        .clickByName("picard")
+                            .assertObjectXmlContainsText("<t:hashedData>")
+                            .assertObjectXmlContainsText("<t:algorithm>http://prism.evolveum.com/xml/ns/public/crypto/algorithm/pbkd-3#PBKDF2WithHmacSHA512</t:algorithm>");
+        showUser("badobi")
+                .selectTabBasic()
+                    .form()
+                        .addPasswordAttributeValue("qwerty12345XXXX")
+                        .and()
+                    .and()
+                .clickSave()
+                    .feedback()
+                        .assertSuccess();
     }
 }
