@@ -127,11 +127,11 @@ public class Utils {
 
     public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
                                        String... assignments) {
-        addAssignmentsWithRelation(tab, relation, "", assignments);
+        addPredefinedAssignmentByTitle(tab, relation, "", assignments);
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
-                                       String newAssignmentTitle, String... assignments) {
+    public static <P extends AssignmentHolderDetailsPage> void addPredefinedAssignmentByTitle(AssignmentsTab<P> tab, String relation,
+                                                                                              String newAssignmentTitle, String... assignments) {
         for (String assignment : assignments) {
             FocusSetAssignmentsModal<AssignmentsTab<P>> modal;
             if (StringUtils.isNotEmpty(newAssignmentTitle)) {
