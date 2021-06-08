@@ -15,8 +15,26 @@
  */
 package com.evolveum.midpoint.schrodinger.page.configuration;
 
+import com.codeborne.selenide.Condition;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class RepositoryObjectPage extends BasicPage {
 
+    public String getObjectXmlText() {
+        Utils.setCheckFormGroupOptionCheckedById("switchToPlainText", true);
+        $(Schrodinger.byDataId("plainTextarea")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        String xml = $(Schrodinger.byDataId("plainTextarea")).getValue();
+        return xml == null ? "" : xml;
+    }
+
+    public RepositoryObjectPage assertObjectXmlContainsText(String expectedText) {
+        String objectXml = getObjectXmlText();
+        assertion.assertTrue(objectXml.contains(expectedText), "Object xml doesn't contain text: " + expectedText);
+        return this;
+    }
 }
