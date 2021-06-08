@@ -363,7 +363,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         showUser("picard")
                 .selectTabProjections()
-                .assertProjectionDoesntExist("jpicard", "CSV-2 (Canteen Ordering System)");
+                .assertProjectionForResourceDoesntExist("CSV-2 (Canteen Ordering System)");
 
         /**
          * todo check notifications

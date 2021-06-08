@@ -118,30 +118,30 @@ public class UserTest extends AbstractSchrodingerTest {
                         .clickByName("DelegateToUser")
                     .and()
                 .clickSave()
-                .feedback()
-                .assertSuccess();
+                    .feedback()
+                        .assertSuccess();
 
         showUser("DelegateToUser")
                 .selectTabDelegatedToMe()
                     .getDelegationDetailsPanel("DelegateFromUser")
-                    .expandDetailsPanel("DelegateFromUser")
-                    .assertAssignmentPrivilegesNotSelected()
-                    .assertAssignmentLimitationsNotSelected()
-                    .assertApprovalWorkItemsSelected()
-                    .assertCertificationWorkItemsSelected()
-                    .assertDescriptionDisabled()
-                    .assertValidFromPanelDisabled();
+                        .expandDetailsPanel("DelegateFromUser")
+                        .assertAssignmentPrivilegesNotSelected()
+                        .assertAssignmentLimitationsNotSelected()
+                        .assertApprovalWorkItemsSelected()
+                        .assertCertificationWorkItemsSelected()
+                        .assertDescriptionDisabled()
+                        .assertValidFromPanelDisabled();
 
         showUser("DelegateFromUser")
                 .selectTabDelegations()
-                .getDelegationDetailsPanel("DelegateToUser")
-                .expandDetailsPanel("DelegateToUser")
-                .assertAssignmentPrivilegesNotSelected()
-                .assertAssignmentLimitationsNotSelected()
-                .assertApprovalWorkItemsSelected()
-                .assertCertificationWorkItemsSelected()
-                .assertDescriptionDisabled()
-                .assertValidFromPanelDisabled();
+                    .getDelegationDetailsPanel("DelegateToUser")
+                        .expandDetailsPanel("DelegateToUser")
+                        .assertAssignmentPrivilegesNotSelected()
+                        .assertAssignmentLimitationsNotSelected()
+                        .assertApprovalWorkItemsSelected()
+                        .assertCertificationWorkItemsSelected()
+                        .assertDescriptionDisabled()
+                        .assertValidFromPanelDisabled();
     }
 
     @Test

@@ -127,8 +127,18 @@ public class Utils {
 
     public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
                                        String... assignments) {
+        addAssignmentsWithRelation(tab, relation, "", assignments);
+    }
+
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
+                                       String newAssignmentTitle, String... assignments) {
         for (String assignment : assignments) {
-            FocusSetAssignmentsModal<AssignmentsTab<P>> modal = tab.clickAddAssignemnt();
+            FocusSetAssignmentsModal<AssignmentsTab<P>> modal;
+            if (StringUtils.isNotEmpty(newAssignmentTitle)) {
+                modal = tab.clickAddAssignemnt(newAssignmentTitle);
+            } else {
+                modal = tab.clickAddAssignemnt();
+            }
             if (StringUtils.isNotEmpty(relation)) {
                 modal
                         .setRelation(relation);

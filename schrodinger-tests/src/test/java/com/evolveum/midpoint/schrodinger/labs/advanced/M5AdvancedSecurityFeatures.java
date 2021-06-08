@@ -1,5 +1,7 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
@@ -106,5 +108,46 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
+        AssignmentsTab<UserPage> assignmentsTab = showUser("badobi").selectTabAssignments();
+        Utils.addAssignmentsWithRelation(assignmentsTab, "Member",
+                "New Organization type assignment with default relation", "IT Administration Department");
+        Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");
+
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login("badobi", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage.requestRole()
+                .selectRoleCatalogViewTab()
+                    .getRoleCatalogHierarchyPanel()
+                        .selectOrgInTree("Application bundles")
+                        .and()
+                    .getItemsPanel()
+                        .addItemToCart("Secret Projects I")
+                        .and()
+                    .goToShoppingCart()
+                        .setRequestComment("Please approve, I need to work on the X911 project")
+                        .clickRequestButton();
+
+        basicPage.loggedUser().logout();
+        loginPage = midPoint.formLogin();
+        loginPage.login(getUsername(), getPassword())
+                .assertUserMenuExist();
+        basicPage.allItems()
+                .table()
+                    .approveWorkitemByName("badobi");   //first stage approval
+        basicPage.allItems()
+                .table()
+                    .approveWorkitemByName("badobi");   //second stage approval
+        basicPage.allItems()
+                .table()
+                    .approveWorkitemByName("badobi");   //third stage approval
+        showUser("badobi")
+                .selectTabAssignments()
+                    .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
+                    .and()
+                .selectTabProjections()
+                    .assertProjectionExist("badobi", "CSV-1 (Document Access)")
+                    .assertProjectionForResourceDoesntExist("New Corporate Directory");
     }
 }
