@@ -94,11 +94,11 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                         .assertProjectionExist("jkirk", "CSV-1 (Document Access)");
 
-        assertLastNotificationContains(notificationFile, notificationCheck1);
-        assertLastNotificationContains(notificationFile, notificationCheck2);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck1);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,  "Secret Projects I", "Secret Projects II");
-        assertLastNotificationContains(notificationFile, notificationCheck1);
-        assertLastNotificationContains(notificationFile, notificationCheck2);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck1);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         showUser("kirk")
                 .selectTabProjections()
                     .viewProjectionDetails("jkirk", "CSV-1 (Document Access)")
@@ -106,8 +106,8 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                                 "Time Travel", "Teleportation", "Lucky Numbers", "Presidential Candidates Motivation");
         Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects I");
         Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects II");
-        assertLastNotificationContains(notificationFile, notificationCheck1);
-        assertLastNotificationContains(notificationFile, notificationCheck2);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck1);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         showUser("kirk")
                 .selectTabProjections()
                 .viewProjectionDetails("jkirk", "CSV-1 (Document Access)")
@@ -124,8 +124,8 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             .assertProjectionEnabled("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertProjectionEnabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                             .assertProjectionEnabled("jkirk", "CSV-1 (Document Access)");
-        assertLastNotificationContains(notificationFile, notificationCheck1);
-        assertLastNotificationContains(notificationFile, notificationCheck2);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck1);
+        assertLastNotificationBodyContains(notificationFile, notificationCheck2);
     }
 
     @Test(dependsOnMethods = {"mod01test01environmentInitialization"}, groups={"advancedM1"})

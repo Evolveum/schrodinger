@@ -1,5 +1,6 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -149,5 +150,9 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 .selectTabProjections()
                     .assertProjectionExist("badobi", "CSV-1 (Document Access)")
                     .assertProjectionForResourceDoesntExist("New Corporate Directory");
+        assertWholeLastNotificationContains(notificationFile, "Message{to='[ben.adobi@example.com]'");
+        assertLastNotificationSubjectContains(notificationFile, "[IDM] Activate your account(s)");
+        String activationLink = getAccountActivationLinkFromNotification(notificationFile);
+        Selenide.open(activationLink);
     }
 }

@@ -684,27 +684,44 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         return false;
     }
 
-    public void assertLastNotificationStartsWith(File notificationFile, String text) throws IOException {
+    public void assertLastNotificationBodyStartsWith(File notificationFile, String text) throws IOException {
         String lastNotification = Utils.readBodyOfLastNotification(notificationFile);
-        Assert.assertTrue(lastNotification.startsWith(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+        Assert.assertTrue(lastNotification.startsWith(text), "Last notification body in the file " + notificationFile.getAbsolutePath()
                 + " doesn't start with the text '" + text + "'");
     }
 
-    public void assertLastNotificationEndsWith(File notificationFile, String text) throws IOException {
+    public void assertLastNotificationBodyEndsWith(File notificationFile, String text) throws IOException {
         String lastNotification = Utils.readBodyOfLastNotification(notificationFile);
-        Assert.assertTrue(lastNotification.endsWith(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+        Assert.assertTrue(lastNotification.endsWith(text), "Last notification body in the file " + notificationFile.getAbsolutePath()
                 + " doesn't end with the text '" + text + "'");
     }
 
-    public void assertLastNotificationContains(File notificationFile, String text) throws IOException {
+    public void assertLastNotificationBodyContains(File notificationFile, String text) throws IOException {
         String lastNotification = Utils.readBodyOfLastNotification(notificationFile);
-        Assert.assertTrue(lastNotification.contains(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+        Assert.assertTrue(lastNotification.contains(text), "Last notification body in the file " + notificationFile.getAbsolutePath()
                 + " doesn't contain with the text '" + text + "'");
     }
 
-    public void assertLastNotificationSubjectEquals(File notificationFile, String text) throws IOException {
+    public void assertWholeLastNotificationContains(File notificationFile, String text) throws IOException {
+        String lastNotification = Utils.readWholeLastNotification(notificationFile);
+        Assert.assertTrue(lastNotification.contains(text), "Last notification in the file " + notificationFile.getAbsolutePath()
+                + " doesn't contain the text '" + text + "'");
+    }
+
+    public void assertLastNotificationSubjectContains(File notificationFile, String text) throws IOException {
         String lastNotificationSubject = Utils.readSubjectOfLastNotification(notificationFile);
-        Assert.assertTrue(lastNotificationSubject.equals(text), "Last notification subject in the file " + notificationFile.getAbsolutePath()
-                + " doesn't equal to the text '" + text + "'");
+        Assert.assertTrue(lastNotificationSubject.contains(text), "Last notification subject in the file " + notificationFile.getAbsolutePath()
+                + " doesn't contain to the text '" + text + "'");
+    }
+
+    public String getAccountActivationLinkFromNotification(File notificationFile) throws IOException {
+        String lastNotification = Utils.readWholeLastNotification(notificationFile);
+        int activationLinkStart = lastNotification.indexOf("http://");
+        String userOid = "user=";
+        int activationLinkEnd = lastNotification.indexOf(userOid) + userOid.length() + 36; // 36 is a length of oid
+        if (activationLinkEnd <= activationLinkStart) {
+            return null;
+        }
+        return lastNotification.substring(activationLinkStart, activationLinkEnd).replace("\n", "");
     }
 }
