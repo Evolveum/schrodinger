@@ -3,6 +3,7 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.self.AccountActivationPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
@@ -114,10 +115,6 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 "New Organization type assignment with default relation", "IT Administration Department");
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");
 
-        basicPage.loggedUser().logout();
-        FormLoginPage loginPage = midPoint.formLogin();
-        loginPage.login("badobi", "qwerty12345XXXX")
-                .assertUserMenuExist();
         basicPage.requestRole()
                 .selectRoleCatalogViewTab()
                     .getRoleCatalogHierarchyPanel()
@@ -129,6 +126,10 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                     .goToShoppingCart()
                         .setRequestComment("Please approve, I need to work on the X911 project")
                         .clickRequestButton();
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login("badobi", "qwerty12345XXXX")
+                .assertUserMenuExist();
 
         basicPage.loggedUser().logout();
         loginPage = midPoint.formLogin();
@@ -153,6 +154,41 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         assertWholeLastNotificationContains(notificationFile, "Message{to='[ben.adobi@example.com]'");
         assertLastNotificationSubjectContains(notificationFile, "[IDM] Activate your account(s)");
         String activationLink = getAccountActivationLinkFromNotification(notificationFile);
+        basicPage.loggedUser().logout();
         Selenide.open(activationLink);
+
+
+        AccountActivationPage activationPage = new AccountActivationPage();
+        activationPage
+                .setPasswordValue("qwerty12345XXXX")
+                .clickCinfirmPasswordButton()
+                .assertActivatedShadowsContainText("badobi on resource 10000000-9999-9999-0000-a000ff000002");
+        assertLastNotificationSubjectContains(notificationFile, "account MODIFY operation succeeded for badobi");
+        assertLastNotificationBodyContains(notificationFile, "Resource: CSV-1 (Document Access) (oid 10000000-9999-9999-0000-a000ff000002)");
+        assertLastNotificationBodyContains(notificationFile, "Account: badobi");
+        assertLastNotificationBodyContains(notificationFile, "The account has been successfully modified on the resource. Modified attributes\n" +
+                "are:\n" +
+                " - Lifecycle state:\n" +
+                "  - REPLACE: active\n" +
+                " - credentials/Password/Value:\n" +
+                "  - REPLACE: (protected string)");
+
+        basicPage.loggedUser().logout();
+        loginPage = midPoint.formLogin();
+        loginPage.login("badobi", "qwerty12345XXXX")
+                .assertUserMenuExist();
+        basicPage
+                .credentials()
+                    .passwordTab()
+                        .changePasswordPanel()
+                            .setOldPasswordValue("qwerty12345XXXX")
+                            .setNewPasswordValue("qwerty12345BAD")
+                            .setRepeatPasswordValue("qwerty12345BAD")
+                            .and()
+                        .and()
+                    .save()
+                    .feedback()
+                        .assertSuccess();
+
     }
 }
