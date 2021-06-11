@@ -1,6 +1,7 @@
 package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.self.AccountActivationPage;
@@ -23,6 +24,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
     private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
     private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
+    private static final File HR_SOURCE_5_1_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
     private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
 
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
@@ -190,5 +192,18 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                     .feedback()
                         .assertSuccess();
 
+        FileUtils.copyFile(HR_SOURCE_5_1_FILE, hrTargetFile);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        showUser("X000980")
+                .selectTabAssignments()
+                    .assertAssignmentsWithRelationExist("Member", "Internal Employee", "Active Employees");
+        //todo check generated password in notification file and on resources
+        basicPage.listRepositoryObjects()
+                .table()
+                   .showObjectInTableByTypeAndName("User", "picard")
+                        .clickByName("picard")
+                            .assertObjectXmlContainsText("<t:hashedData>")
+                            .assertObjectXmlContainsText("algorithm/pbkd-3#PBKDF2WithHmacSHA512</t:algorithm>");
     }
 }

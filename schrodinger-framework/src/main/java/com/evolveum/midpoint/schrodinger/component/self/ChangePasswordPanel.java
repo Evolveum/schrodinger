@@ -69,11 +69,11 @@ public class ChangePasswordPanel<T> extends Component<T> {
         return new Table<>(this, $(Schrodinger.byDataId("accounts")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
-    public Table<ChangePasswordPanel> clickAccountCheckboxIconByResourceValue(String resourceValue) {
+    public ChangePasswordPanel clickAccountCheckboxIconByResourceValue(String resourceValue) {
         Table<ChangePasswordPanel> accountsTable = new Table<>(this, $(Schrodinger.byDataId("accounts"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         TableRow row = accountsTable.rowByColumnResourceKey("ChangePasswordPanel.resourceName", resourceValue);
         row.clickColumnByName("Name", "i");
-        return accountsTable;
+        return this;
     }
 }
