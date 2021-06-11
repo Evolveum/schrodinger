@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
-    private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M4/";
+    private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M5/";
     private static final String M3_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
 
     private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
@@ -58,6 +58,17 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
         contractorsTargetFile = new File(getTestTargetDir(), CONTRACTORS_FILE_SOURCE_NAME);
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
+
+        addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+        addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
+        addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_5_1_FILE, "redirectToFile",
+                fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
     }
 
     @Override
@@ -67,18 +78,6 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM5"})
     public void mod05test01passwordHashingAndAccountActivation() throws IOException {
-        addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
-
-        addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
-        addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
-        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_5_1_FILE, "redirectToFile",
-                fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
-
         basicPage.listRepositoryObjects()
                 .table()
                     .showObjectInTableByTypeAndName("User", "picard")
@@ -205,5 +204,10 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                         .clickByName("picard")
                             .assertObjectXmlContainsText("<t:hashedData>")
                             .assertObjectXmlContainsText("algorithm/pbkd-3#PBKDF2WithHmacSHA512</t:algorithm>");
+    }
+
+    @Test(groups={"advancedM5"})
+    public void mod05test02passwordValidationWithCheckExpression() throws IOException {
+        
     }
 }
