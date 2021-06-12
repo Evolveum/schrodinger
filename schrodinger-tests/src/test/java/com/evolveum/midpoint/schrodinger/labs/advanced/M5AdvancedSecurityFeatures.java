@@ -38,6 +38,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
     private static final File SYSTEM_CONFIGURATION_5_1_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1.xml");
     private static final File SYSTEM_CONFIGURATION_5_1_UPDATE_2_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1-update-2.xml");
+    private static final File PICARD_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/picard-user.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -67,6 +68,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
         addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
         addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
+        addObjectFromFile(PICARD_USER_FILE);
         addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIGURATION_5_1_FILE, "redirectToFile",
                 fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
     }
@@ -208,6 +210,6 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM5"})
     public void mod05test02passwordValidationWithCheckExpression() throws IOException {
-        
+
     }
 }
