@@ -43,6 +43,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File INITIAL_IMPORT_FROM_CONTRACTORS_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-contractors.xml");
     private static final File HR_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/hr-synchronization.xml");
     private static final File INITIAL_IMPORT_FROM_HR_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr.xml");
+    private static final File INITIAL_IMPORT_FROM_HR_ORG_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr-org.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -77,6 +78,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         addObjectFromFile(INITIAL_IMPORT_FROM_CONTRACTORS_TASK_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         addObjectFromFile(CONTRACTORS_SYNCHRONIZATION_TASK_FILE);
+        addObjectFromFile(INITIAL_IMPORT_FROM_HR_ORG_TASK_FILE);
 
         addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
         addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
@@ -127,7 +129,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                         .assertSuccess();
         AssignmentsTab<UserPage> assignmentsTab = showUser("badobi").selectTabAssignments();
         Utils.addPredefinedAssignmentByTitle(assignmentsTab, "Member",
-                "New Organization type assignment with Member relation", "IT Administration Department");
+                "New Organization type assignment with Member relation", "0212"); //assign IT Administration Department org
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");
 
         basicPage.requestRole()
