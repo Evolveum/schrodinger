@@ -39,6 +39,10 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
     private static final File SYSTEM_CONFIGURATION_5_1_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1.xml");
     private static final File SYSTEM_CONFIGURATION_5_1_UPDATE_2_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-5-1-update-2.xml");
     private static final File PICARD_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/picard-user.xml");
+    private static final File CONTRACTORS_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/contractors-synchronization.xml");
+    private static final File INITIAL_IMPORT_FROM_CONTRACTORS_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-contractors.xml");
+    private static final File HR_SYNCHRONIZATION_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/hr-synchronization.xml");
+    private static final File INITIAL_IMPORT_FROM_HR_TASK_FILE = new File(LAB_OBJECTS_DIRECTORY + "tasks/initial-import-from-hr.xml");
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -66,6 +70,14 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         addCsvResourceFromFileAndTestConnection(CONTRACTORS_RESOURCE_FILE, CONTRACTORS_RESOURCE_NAME, contractorsTargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(HR_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
+
+        addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
+        addObjectFromFile(INITIAL_IMPORT_FROM_CONTRACTORS_TASK_FILE);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        addObjectFromFile(CONTRACTORS_SYNCHRONIZATION_TASK_FILE);
+
         addObjectFromFile(OPENLDAP_NEW_CORPORATE_DIRECTORY_RESOURCE_FILE);
         addObjectFromFile(SECURITY_POLICY_HASHING_FILE);
         addObjectFromFile(PICARD_USER_FILE);
