@@ -19,15 +19,16 @@ import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class RepositoryObjectPage extends BasicPage {
 
     public String getObjectXmlText() {
-        Utils.setCheckFormGroupOptionCheckedById("switchToPlainText", true);
-        $(Schrodinger.byDataId("plainTextarea")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+//        Utils.setCheckFormGroupOptionCheckedById("switchToPlainText", true);
+        $(By.name("switchToPlainText:container:check")).setSelected(true).waitUntil(Condition.selected, MidPoint.TIMEOUT_SHORT_4_S);
+        $(Schrodinger.byDataId("plainTextarea")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String xml = $(Schrodinger.byDataId("plainTextarea")).getValue();
         return xml == null ? "" : xml;
     }
