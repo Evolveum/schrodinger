@@ -127,7 +127,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                         .assertSuccess();
         AssignmentsTab<UserPage> assignmentsTab = showUser("badobi").selectTabAssignments();
         Utils.addPredefinedAssignmentByTitle(assignmentsTab, "Member",
-                "New Organization type assignment with default relation", "IT Administration Department");
+                "New Organization type assignment with Member relation", "IT Administration Department");
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");
 
         basicPage.requestRole()

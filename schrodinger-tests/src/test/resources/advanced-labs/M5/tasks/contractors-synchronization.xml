@@ -1,0 +1,38 @@
+<task xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="5fef7ce4-aff2-4cc5-8880-0cafecb26a4c" version="36">
+    <name>Contractor DB Synchronization</name>
+    <extension xmlns:gen329="http://midpoint.evolveum.com/xml/ns/public/provisioning/liveSync-3" xmlns:mext="http://midpoint.evolveum.com/xml/ns/public/model/extension-3">
+        <mext:objectclass>ri:AccountObjectClass</mext:objectclass>
+        <gen329:token xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xsd:string">1619516680477</gen329:token>
+    </extension>
+    <assignment id="1">
+        <targetRef oid="00000000-0000-0000-0000-000000000504" relation="org:default" type="c:ArchetypeType">
+            <!-- Live synchronization task -->
+        </targetRef>
+        <activation>
+            <effectiveStatus>enabled</effectiveStatus>
+        </activation>
+    </assignment>
+    <archetypeRef oid="00000000-0000-0000-0000-000000000504" relation="org:default" type="c:ArchetypeType">
+        <!-- Live synchronization task -->
+    </archetypeRef>
+    <roleMembershipRef oid="00000000-0000-0000-0000-000000000504" relation="org:default" type="c:ArchetypeType">
+        <!-- Live synchronization task -->
+    </roleMembershipRef>
+    <taskIdentifier>1619516666218-0-1</taskIdentifier>
+    <ownerRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+        <!-- administrator -->
+    </ownerRef>
+    <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#liveSync</channel>
+    <executionStatus>runnable</executionStatus>
+    <schedulingState>ready</schedulingState>
+    <node>DefaultNode</node>
+    <category>LiveSynchronization</category>
+    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/model/synchronization/task/live-sync/handler-3</handlerUri>
+    <objectRef oid="ff735c0a-21e3-11e8-a91a-df0065248d2d" relation="org:default" type="c:ResourceType">
+    </objectRef>
+    <recurrence>recurring</recurrence>
+    <binding>tight</binding>
+    <schedule>
+        <interval>5</interval>
+    </schedule>
+</task>
