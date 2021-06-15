@@ -612,7 +612,19 @@
         <!-- %%objectDetails%% -->
     </adminGuiConfiguration>
     <!-- %%globalPolicyRules%% -->
-    <!-- %%roleManagement%% -->
+    <roleManagement>
+        <roleCatalogRef oid="2b87e856-2fe3-4e66-9d1d-fc407149a53e"/>
+        <!-- MID-102, LAB 4-3 -->
+        <roleCatalogCollections>
+            <collection>
+                <collectionUri>http://midpoint.evolveum.com/xml/ns/public/common/object-collections-3#roleCatalog</collectionUri>
+            </collection>
+            <collection>
+                <collectionUri>http://midpoint.evolveum.com/xml/ns/public/common/object-collections-3#allRoles</collectionUri>
+            </collection>
+        </roleCatalogCollections>
+        <!-- MID-102, LAB 4-3: end of section -->
+    </roleManagement>
 
     <expressions>
         <expressionProfile>
