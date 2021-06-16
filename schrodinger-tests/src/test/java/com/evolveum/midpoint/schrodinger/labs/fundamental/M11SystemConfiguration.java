@@ -65,7 +65,7 @@ public class M11SystemConfiguration extends AbstractLabTest {
         loginPage.loginWithReloadLoginPage(getUsername(), getPassword());
 
         basicPage.assertMainHeaderPanelStyleMatch("rgba(48, 174, 48, 1)")
-                .doesPageTitleStartsWith("DEV:");
+                .assertPageTitleStartsWith("DEV:");
 
         basicPage.deploymentInformation()
                 .form()
