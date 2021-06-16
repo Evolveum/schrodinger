@@ -123,6 +123,16 @@ public class BasicPage {
         return new UserPage();
     }
 
+    public UserPage newUser(String templateTitle) {
+        clickAdministrationMenu("PageAdmin.menu.top.users", "PageAdmin.menu.top.users.new");
+        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if (pageTitleEndsWith("from template")) {
+            NewObjectFromTemplatePage<UserPage> templatePage = new NewObjectFromTemplatePage<>();
+            return templatePage.clickTemplateButtonWithTitle(templateTitle, new UserPage());
+        }
+        return new UserPage();
+    }
+
     public OrgTreePage orgStructure() {
         clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.tree");
         return new OrgTreePage();
@@ -130,6 +140,16 @@ public class BasicPage {
 
     public OrgPage newOrgUnit() {
         clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.new");
+        return new OrgPage();
+    }
+
+    public OrgPage newOrgUnit(String templateTitle) {
+        clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.new");
+        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if (pageTitleEndsWith("from template")) {
+            NewObjectFromTemplatePage<OrgPage> templatePage = new NewObjectFromTemplatePage<>();
+            return templatePage.clickTemplateButtonWithTitle(templateTitle, new OrgPage());
+        }
         return new OrgPage();
     }
 
@@ -143,6 +163,16 @@ public class BasicPage {
         return new RolePage();
     }
 
+    public RolePage newRole(String templateTitle) {
+        clickAdministrationMenu("PageAdmin.menu.top.roles", "PageAdmin.menu.top.roles.new");
+        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if (pageTitleEndsWith("from template")) {
+            NewObjectFromTemplatePage<RolePage> templatePage = new NewObjectFromTemplatePage<>();
+            return templatePage.clickTemplateButtonWithTitle(templateTitle, new RolePage());
+        }
+        return new RolePage();
+    }
+
     public ListServicesPage listServices() {
         clickAdministrationMenu("PageAdmin.menu.top.services", "PageAdmin.menu.top.services.list");
         return new ListServicesPage();
@@ -150,6 +180,16 @@ public class BasicPage {
 
     public ServicePage newService() {
         clickAdministrationMenu("PageAdmin.menu.top.services", "PageAdmin.menu.top.services.new");
+        return new ServicePage();
+    }
+
+    public ServicePage newService(String templateTitle) {
+        clickAdministrationMenu("PageAdmin.menu.top.services", "PageAdmin.menu.top.services.new");
+        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if (pageTitleEndsWith("from template")) {
+            NewObjectFromTemplatePage<ServicePage> templatePage = new NewObjectFromTemplatePage<>();
+            return templatePage.clickTemplateButtonWithTitle(templateTitle, new ServicePage());
+        }
         return new ServicePage();
     }
 
@@ -263,6 +303,16 @@ public class BasicPage {
 
     public TaskPage newTask() {
         clickAdministrationMenu("PageAdmin.menu.top.serverTasks", "PageAdmin.menu.top.tasks.new");
+        return new TaskPage();
+    }
+
+    public TaskPage newTask(String templateTitle) {
+        clickAdministrationMenu("PageAdmin.menu.top.serverTasks", "PageAdmin.menu.top.tasks.new");
+        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if (pageTitleEndsWith("from template")) {
+            NewObjectFromTemplatePage<TaskPage> templatePage = new NewObjectFromTemplatePage<>();
+            return templatePage.clickTemplateButtonWithTitle(templateTitle, new TaskPage());
+        }
         return new TaskPage();
     }
 
@@ -518,8 +568,21 @@ public class BasicPage {
     }
 
     public BasicPage assertPageTitleStartsWith(String titleStartText) {
-        assertion.assertTrue(getPageTitleElement().getText().startsWith(titleStartText), "Page title doesn't start with " + titleStartText);
+        assertion.assertTrue(pageTitleStartsWith(titleStartText), "Page title doesn't start with " + titleStartText);
         return this;
+    }
+
+    public BasicPage assertPageTitleEndsWith(String titleEndText) {
+        assertion.assertTrue(pageTitleEndsWith(titleEndText), "Page title doesn't start with " + titleEndText);
+        return this;
+    }
+
+    public boolean pageTitleStartsWith(String titleStartText) {
+        return getPageTitleElement().getText().startsWith(titleStartText);
+    }
+
+    public boolean pageTitleEndsWith(String titleEndText) {
+        return getPageTitleElement().getText().endsWith(titleEndText);
     }
 
     public UserMenuPanel clickUserMenu() {

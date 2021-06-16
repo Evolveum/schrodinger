@@ -55,23 +55,22 @@ public class UserTest extends AbstractSchrodingerTest {
 
         //@formatter:off
         Map<String, String> attr = new HashMap<>();
-        attr.put("name", "jdoe222323");
+        attr.put("name", "jdoe");
         attr.put(UserType.F_GIVEN_NAME.getLocalPart(), "john");
         attr.put(UserType.F_FAMILY_NAME.getLocalPart(), "doe");
         createUser(attr);
-
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
                 .table()
-                .search()
-                .byName()
-                .inputValue("jdoe222323")
-                .updateSearch()
-                .and()
-                .clickByName("jdoe222323")
-                .assertName("jdoe222323")
-                .assertGivenName("john")
-                .assertFamilyName("doe");
+                   .search()
+                        .byName()
+                        .inputValue("jdoe")
+                        .updateSearch()
+                        .and()
+                    .clickByName("jdoe")
+                        .assertName("jdoe")
+                        .assertGivenName("john")
+                        .assertFamilyName("doe");
 
     }
 
