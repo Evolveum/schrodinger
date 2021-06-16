@@ -119,8 +119,7 @@ public class BasicPage {
     }
 
     public UserPage newUser() {
-        clickAdministrationMenu("PageAdmin.menu.top.users", "PageAdmin.menu.top.users.new");
-        return new UserPage();
+        return newUser("bla"); //todo fix later
     }
 
     public UserPage newUser(String templateTitle) {
@@ -159,8 +158,7 @@ public class BasicPage {
     }
 
     public RolePage newRole() {
-        clickAdministrationMenu("PageAdmin.menu.top.roles", "PageAdmin.menu.top.roles.new");
-        return new RolePage();
+        return newRole("bla"); //todo fix later
     }
 
     public RolePage newRole(String templateTitle) {
