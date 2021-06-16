@@ -45,4 +45,17 @@ public class PrismFormWithActionButtons<T> extends PrismForm<T> {
         getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this.getParent();
     }
+
+    public PrismFormWithActionButtons<T> selectFormTabByName(String tabName) {
+        if (getFormTabbedPanelId() != null) {
+            TabPanel<PrismFormWithActionButtons<T>> tabPanel = new TabPanel<PrismFormWithActionButtons<T>>(this,
+                    $(Schrodinger.byDataId(getFormTabbedPanelId())).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
+            tabPanel.clickTabWithName(tabName);
+        }
+        return this;
+    }
+
+    protected String getFormTabbedPanelId() {
+        return null;
+    }
 }

@@ -21,16 +21,14 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
-import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
-import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.table.DirectIndirectAssignmentTable;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,8 +130,9 @@ public class AssignmentsTab<P extends AssignmentHolderDetailsPage> extends TabWi
     }
 
     @Override
-    protected String getPrismViewPanelId() {
-        return "details";
+    protected SelenideElement getPrismViewPanel() {
+        return $(Schrodinger.byDataId("div", "valueForm"))
+                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public AssignmentsTab<P> assertAssignmentsWithRelationExist(String relation, String... expectedAssignments) {

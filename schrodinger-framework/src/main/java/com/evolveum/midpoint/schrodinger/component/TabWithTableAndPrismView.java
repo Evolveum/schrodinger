@@ -45,8 +45,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
                 $(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                         .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
-                SelenideElement prismElement = $(Schrodinger.byDataId("div", getPrismViewPanelId()))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                SelenideElement prismElement = getPrismViewPanel();
 
                 return new PrismFormWithActionButtons<>(this, prismElement);
             }
@@ -83,5 +82,5 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
         };
     }
 
-    abstract protected String getPrismViewPanelId();
+    abstract protected SelenideElement getPrismViewPanel();
 }

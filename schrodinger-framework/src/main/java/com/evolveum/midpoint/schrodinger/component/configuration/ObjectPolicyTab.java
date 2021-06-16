@@ -47,7 +47,8 @@ public class ObjectPolicyTab extends TabWithTableAndPrismView<SystemPage> {
     }
 
     @Override
-    protected String getPrismViewPanelId() {
-        return "itemDetails";
+    protected SelenideElement getPrismViewPanel() {
+        return $(Schrodinger.byDataId("div", "itemDetails"))
+                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 }

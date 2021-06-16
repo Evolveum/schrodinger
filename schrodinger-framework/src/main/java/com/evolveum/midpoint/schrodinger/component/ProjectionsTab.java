@@ -218,8 +218,9 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
     }
 
     @Override
-    protected String getPrismViewPanelId() {
-        return "itemDetails";
+    protected SelenideElement getPrismViewPanel() {
+        return $(Schrodinger.byDataId("div", "itemDetails"))
+                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
 }

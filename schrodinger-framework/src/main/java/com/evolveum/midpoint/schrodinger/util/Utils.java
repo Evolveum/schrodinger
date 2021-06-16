@@ -159,6 +159,7 @@ public class Utils {
     public static <P extends AssignmentHolderDetailsPage> void setStatusForAssignment(AssignmentsTab<P> tab, String assignment, String status) {
         tab.table()
                     .clickByName(assignment)
+                        .selectFormTabByName("Activation")
                         .showEmptyAttributes("Activation")
                         .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS , status)
                         .and()
