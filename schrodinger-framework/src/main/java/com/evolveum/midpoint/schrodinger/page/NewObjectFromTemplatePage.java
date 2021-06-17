@@ -11,8 +11,8 @@ public class NewObjectFromTemplatePage<T extends AssignmentHolderDetailsPage> ex
 
 
     public T clickTemplateButtonWithTitle(String title, T pageToRedirect) {
-        SelenideElement templateButton = $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("div",
-                "data-s-id", "template", "data-s-id", "buttonDescription", title)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        SelenideElement templateButton = $(Schrodinger.byElementValue("div",
+                "data-s-id", "buttonDescription", title)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         templateButton.click();
         templateButton.waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return pageToRedirect;
