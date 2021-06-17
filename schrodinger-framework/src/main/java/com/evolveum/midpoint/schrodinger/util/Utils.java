@@ -97,7 +97,7 @@ public class Utils {
         tab
                 .table()
                     .selectHeaderCheckbox()
-                    .clickHeaderActionButton("fa fa-minus ")
+                    .clickHeaderActionButton("fa fa-minus")
                 .and()
             .and()
         .clickSave()

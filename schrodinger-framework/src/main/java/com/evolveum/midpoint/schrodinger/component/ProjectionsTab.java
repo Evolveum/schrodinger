@@ -139,7 +139,7 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
 //    }
 
     public FocusSetProjectionModal<ProjectionsTab<P>> clickAddProjection() {
-        $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus "))
+        $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return new FocusSetProjectionModal<ProjectionsTab<P>>(this, Utils.getModalWindowSelenideElement());

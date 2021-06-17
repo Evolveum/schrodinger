@@ -37,7 +37,7 @@ public class ObjectPolicyTab extends TabWithTableAndPrismView<SystemPage> {
     }
 
     public PrismFormWithActionButtons<ObjectPolicyTab> clickAddObjectPolicy() {
-        SelenideElement plusButton = $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus "));
+        SelenideElement plusButton = $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus"));
         plusButton.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         plusButton.waitWhile(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
