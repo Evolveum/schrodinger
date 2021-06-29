@@ -22,9 +22,9 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.4.3</version>
+        <version>2.5.0</version>
         <!-- This parent also declares dependencies listed here:
-        https://docs.spring.io/spring-boot/docs/2.4.3/reference/html/appendix-dependency-versions.html
+        https://docs.spring.io/spring-boot/docs/2.5.0/reference/html/dependency-versions.html#dependency-versions
         Or for current version of Spring Boot:
         https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-dependency-versions.html
         -->
@@ -63,14 +63,14 @@
 
     <properties>
         <selenium.version>3.141.59</selenium.version>
-        <testng.version>7.3.0</testng.version>
+        <testng.version>7.4.0</testng.version>
         <project.source.version>11</project.source.version>
-        <commons.io.version>2.6</commons.io.version>
-        <slf4j.version>1.7.25</slf4j.version>
-        <surefire.version>3.0.0-M3</surefire.version>
+        <commons.io.version>2.9.0</commons.io.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <surefire.version>3.0.0-M5</surefire.version>
         <spring.security.saml2.version>2.0.0.M30</spring.security.saml2.version>
         <quartz.version>2.3.2.e1</quartz.version>
-        <hibernate.version>5.2.12.Final</hibernate.version>
+        <hibernate.version>5.5.3.Final</hibernate.version>
         <!--
         Default Spring Boot 2.4.3 uses H2 1.4.200 but that one has NPE bug:
         https://github.com/h2database/h2database/issues/1808
@@ -82,7 +82,7 @@
         193 was used for 4 years with few problems, so it's still here to stay.
         -->
         <h2.version>1.4.193</h2.version>
-        <guava.version>30.1-jre</guava.version>
+        <guava.version>30.1.1-jre</guava.version>
         <midpoint.version>4.4-SNAPSHOT</midpoint.version>
     </properties>
 
