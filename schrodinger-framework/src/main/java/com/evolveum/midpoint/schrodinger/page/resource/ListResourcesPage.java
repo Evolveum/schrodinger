@@ -21,7 +21,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourcesPageTable;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -45,6 +44,13 @@ public class ListResourcesPage extends BasicPage {
                 .and()
             .clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
         $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.appears, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
+        if (feedback().isError()) {
+            if (feedback().getParentElement().$x(".//a[@data-s-id='showAll']").exists()) {
+                feedback().getParentElement().$x(".//a[@data-s-id='showAll']").click();
+                Selenide.screenshot(resourceName + "testConnectionError"
+                        + Long.toString(System.currentTimeMillis()).substring(5, 8));
+            }
+        }
         return this;
 
     }
