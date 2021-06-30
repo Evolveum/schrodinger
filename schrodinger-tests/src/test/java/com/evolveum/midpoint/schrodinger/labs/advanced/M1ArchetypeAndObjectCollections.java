@@ -26,6 +26,8 @@ import com.evolveum.midpoint.schrodinger.scenarios.ScenariosCommons;
 
 import com.evolveum.midpoint.xml.ns._public.common.common_3.TaskType;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -40,6 +42,8 @@ import java.util.List;
 public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M1/";
     private static final String ADVANCED_LABS_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+
+    private static final Logger LOG = LoggerFactory.getLogger(M1ArchetypeAndObjectCollections.class);
 
     private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
     private static final File KIRK_USER_FILE = new File(LAB_OBJECTS_DIRECTORY + "users/kirk-user.xml");
@@ -63,16 +67,20 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        csv1TargetFile = new File(getTestTargetDir(), CSV_1_FILE_SOURCE_NAME);
-        FileUtils.copyFile(CSV_1_SOURCE_FILE, csv1TargetFile);
-        csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
-        FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
-        csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
-        FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
+        LOG.info("Test target dir path: " + getTestTargetDir().getAbsolutePath());
+        try {
+            csv1TargetFile = new File(getTestTargetDir(), CSV_1_FILE_SOURCE_NAME);
+            FileUtils.copyFile(CSV_1_SOURCE_FILE, csv1TargetFile);
+            csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
+            FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
+            csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
+            FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
 
-        hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
-        FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
-
+            hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
+            FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
+        } catch (IOException e) {
+            LOG.error("Cannot copy resource source file, {}", e);
+        }
         addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
