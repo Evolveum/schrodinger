@@ -39,7 +39,9 @@ public class TabPanel<T> extends Component<T> {
     }
 
     public SelenideElement clickTab(String resourceKey) {
-        SelenideElement link = getParentElement().$(Schrodinger.bySchrodingerDataResourceKey(resourceKey)).parent();
+        SelenideElement link = getParentElement()
+                .$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "class", "tab-label", "data-s-resource-key", resourceKey))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return verifyAndFetchActiveTab(link);
     }
@@ -61,12 +63,13 @@ public class TabPanel<T> extends Component<T> {
     }
 
     private SelenideElement verifyAndFetchActiveTab(SelenideElement link) {
-        link.shouldBe(Condition.visible);
-
-        link.click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        link.waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         SelenideElement li = link.parent();
-        li.shouldHave(Condition.cssClass("active"));
+        if (li.getAttribute("class").contains("active")) {
+            return li.parent().parent().$(By.cssSelector(".tab-pane.active"));
+        }
+        link.click();
+        li.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return li.parent().parent().$(By.cssSelector(".tab-pane.active"));
     }

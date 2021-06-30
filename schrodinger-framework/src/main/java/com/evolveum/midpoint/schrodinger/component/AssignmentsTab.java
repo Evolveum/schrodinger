@@ -47,7 +47,7 @@ public class AssignmentsTab<P extends AssignmentHolderDetailsPage> extends TabWi
 
 
     public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignemnt() {
-        $(Schrodinger.byElementAttributeValue("i", "class", "fe fe-assignment"))
+        getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement modalElement = getNewAssignmentModal();
