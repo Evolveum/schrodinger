@@ -21,13 +21,12 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.table.DirectIndirectAssignmentTable;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
@@ -47,21 +46,36 @@ public class AssignmentsTab<P extends AssignmentHolderDetailsPage> extends TabWi
 
 
     public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignemnt() {
-        getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        SelenideElement modalElement = getNewAssignmentModal();
-
-        return new FocusSetAssignmentsModal<A>((A) this, modalElement);
+        return clickAddAssignemnt("");
     }
 
     public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignemnt(String title) {
-        $(Schrodinger.byElementAttributeValue("div", "title", title))
+        getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement modalElement = getNewAssignmentModal();
-
+        if (compositedIconsExist(modalElement)) {
+            clickCompositedButtonInPopup(modalElement, title);
+        }
+        modalElement.$x(".//div[@data-s-id='tabsPanel']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new FocusSetAssignmentsModal<A>((A) this, modalElement);
+    }
+
+    private boolean compositedIconsExist(SelenideElement modalElement) {
+        return modalElement != null && modalElement.$(Schrodinger.byDataId("compositedButtons")).exists();
+    }
+
+    private SelenideElement getCompositedIconsPopupPanel(SelenideElement modalElement) {
+        return modalElement.$x(".//div[@data-s-id='compositedButtons']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    private void clickCompositedButtonInPopup(SelenideElement modalElement, String buttonTitle) {
+        if (compositedIconsExist(modalElement)) {
+            if (StringUtils.isEmpty(buttonTitle)) {
+                buttonTitle = "New  assignment ";
+            }
+            getCompositedIconsPopupPanel(modalElement).$(Schrodinger.byElementAttributeValue("div", "title", buttonTitle))
+                    .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        }
     }
 
     private SelenideElement getNewAssignmentModal() {
