@@ -48,7 +48,7 @@ public class FeedbackBox<T> extends Component<T> {
 
     public Boolean isSuccess(String idOfChild) {
 
-        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-success")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M).exists();
+        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-success")).exists();
 
     }
 
@@ -58,7 +58,7 @@ public class FeedbackBox<T> extends Component<T> {
 
     public Boolean isWarning(String idOfChild) {
 
-        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-warning")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M).exists();
+        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-warning")).exists();
 
     }
 
@@ -68,7 +68,7 @@ public class FeedbackBox<T> extends Component<T> {
 
     public Boolean isError(String idOfChild) {
 
-        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-danger")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M).exists();
+        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-danger")).exists();
 
     }
 
@@ -78,7 +78,7 @@ public class FeedbackBox<T> extends Component<T> {
 
     public Boolean isInfo(String idOfChild) {
 
-        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-info")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M).exists();
+        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-info")).exists();
 
     }
 
