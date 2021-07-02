@@ -51,7 +51,6 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
         String name = "NewTest";
         String handler = "Recompute task";
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask(handler);
         task.selectTabBasic()

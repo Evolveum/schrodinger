@@ -300,8 +300,7 @@ public class BasicPage {
     }
 
     public TaskPage newTask() {
-        clickAdministrationMenu("PageAdmin.menu.top.serverTasks", "PageAdmin.menu.top.tasks.new");
-        return new TaskPage();
+        return newTask("bla");
     }
 
     public TaskPage newTask(String templateTitle) {
