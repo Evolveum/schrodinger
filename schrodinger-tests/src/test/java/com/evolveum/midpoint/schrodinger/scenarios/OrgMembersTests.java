@@ -125,6 +125,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .and()
                             .selectCheckboxByName("UniqueNameUserForMemberTest")
                         .and()
+                        .setRelation("Member")
                         .clickAdd();
 
         AssignmentHolderObjectListTable<MemberPanel<OrgRootTab>, AssignmentHolderDetailsPage> membersTable =
