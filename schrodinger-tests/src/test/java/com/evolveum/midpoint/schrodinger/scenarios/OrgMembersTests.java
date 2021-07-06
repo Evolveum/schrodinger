@@ -101,6 +101,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .and()
                         .selectCheckboxByName(USER_NAME)
                     .and()
+                    .setRelation("Member")
                     .clickAdd();
         orgTreePage = basicPage.orgStructure();
         orgTreePage
