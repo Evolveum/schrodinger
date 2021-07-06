@@ -22,12 +22,14 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -86,7 +88,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         MailNoncePage mailNonce = (MailNoncePage) login.forgotPassword();
         mailNonce.setMail(MAIL_OF_ENABLED_USER);
         TimeUnit.SECONDS.sleep(6);
-        String notification = readLastNotification();
+        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         String bodyTag = "body='";
         String link = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
         open(link);
@@ -123,7 +125,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         SelfRegistrationPage registrationPage = login.register();
         registrationPage.setGivenName("Test").setFamilyName("User").setEmail("test.user@evolveum.com").setPassword("5ecr3t").submit();
         TimeUnit.SECONDS.sleep(6);
-        String notification = readLastNotification();
+        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
 //        String usernameTag = "username='";
         String linkTag = "link='";
 //        String username = notification.substring(notification.indexOf(usernameTag) + usernameTag.length(), notification.lastIndexOf("', " + linkTag));

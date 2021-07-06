@@ -21,6 +21,7 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -28,6 +29,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -54,7 +56,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setEmail("test.user@evolveum.com").setPassword("5ecr3t").setCaptcha().submit();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         basicPage.feedback().isSuccess();
-        String notification = readLastNotification();
+        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         String linkTag = "link='";
         String link = notification.substring(notification.indexOf(linkTag) + linkTag.length(), notification.lastIndexOf("''"));
         open(link);
@@ -77,7 +79,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setEmailValue(MAIL_OF_ENABLED_USER)
                 .clickSubmitButton();
         TimeUnit.SECONDS.sleep(6);
-        String notification = readLastNotification();
+        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         String bodyTag = "body='";
         String link = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
         open(link);

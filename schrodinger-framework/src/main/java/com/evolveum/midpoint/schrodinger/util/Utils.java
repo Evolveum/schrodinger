@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -210,8 +211,12 @@ public class Utils {
     }
 
     public static String readBodyOfLastNotification(File notificationFile) throws IOException {
+        return readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
+    }
+
+    public static String readBodyOfLastNotification(Path notificationFilePath) throws IOException {
         String separator = "============================================";
-        byte[] encoded = Files.readAllBytes(Paths.get(notificationFile.getAbsolutePath()));
+        byte[] encoded = Files.readAllBytes(notificationFilePath);
         String notifications = new String(encoded, Charset.defaultCharset());
         if (!notifications.contains(separator)) {
             return "";

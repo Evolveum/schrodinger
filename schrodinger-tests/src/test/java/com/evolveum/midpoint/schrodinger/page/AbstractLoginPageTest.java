@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
@@ -30,9 +31,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -46,7 +44,6 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     protected static final File USER_WITHOUT_SUPERUSER = new File("src/test/resources/objects/users/user-without-superuser.xml");
     protected static final File SYSTEM_CONFIG_WITH_NOTIFICATION = new File("src/test/resources/objects/systemconfiguration/system-configuration-notification.xml");
     protected static final File CREATE_NAME_OBJECT_TEMPLATE = new File("src/test/resources/objects/objecttemplate/create-name-after-self-reg.xml");
-    protected static final File NOTIFICATION_FILE = new File("./target/notification.txt");
     protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/objects/archetypes/archetype-node-group-gui.xml");
 
     protected static final String NAME_OF_ENABLED_USER = "enabled_user";
@@ -56,6 +53,8 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     private static final File DISABLED_USER = new File("src/test/resources/objects/users/disabled-user.xml");
     private static final File ENABLED_USER_WITHOUT_AUTHORIZATIONS = new File("src/test/resources/objects/users/enabled-user-without-authorizations.xml");
     private static final Logger LOG = LoggerFactory.getLogger(AbstractLoginPageTest.class);
+    private static final String NOTIFICATIONS_FILE_NAME = "notification.txt";
+    protected static File notificationFile;
 
     @BeforeClass
     @Override
@@ -79,16 +78,13 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         infrastructureForm.expandContainerPropertiesPanel("Infrastructure");
         infrastructureForm.showEmptyAttributes("Infrastructure");
         infrastructureForm.addAttributeValue("Public http url pattern", getConfiguration().getBaseUrl());
-        File notificationFile = NOTIFICATION_FILE;
-        try {
+
+        notificationFile = new File(fetchTestHomeDir(), NOTIFICATIONS_FILE_NAME);
+        if (!notificationFile.exists()) {
             notificationFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        NotificationsTab notificationTab = systemPage.notificationsTab();
-        notificationTab.setRedirectToFile(notificationFile.getAbsolutePath());
-        systemPage.clickSave();
-        systemPage.feedback().assertSuccess();
+        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
+                    notificationFile.getAbsolutePath(), fetchTestHomeDir()));
     }
 
     @Override
@@ -175,13 +171,6 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         auditRecordsTable.checkInitiator(2, "administrator");
         auditRecordsTable.checkEventType(2, "Terminate session");
         auditRecordsTable.checkOutcome(2, "Success");
-    }
-
-    protected String readLastNotification() throws IOException {
-        String separator = "============================================";
-        byte[] encoded = Files.readAllBytes(Paths.get(NOTIFICATION_FILE.getAbsolutePath()));
-        String notifications = new String(encoded, Charset.defaultCharset());
-        return notifications.substring(notifications.lastIndexOf(separator) + separator.length(), notifications.length()-1);
     }
 
     protected abstract File getSecurityPolicyMailNonceResetPass();
