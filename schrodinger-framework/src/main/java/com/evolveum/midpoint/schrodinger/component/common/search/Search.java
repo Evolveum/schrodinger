@@ -122,7 +122,7 @@ public class Search<T> extends Component<T> {
         try {
             SelenideElement basicLink = getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Basic')]");
             basicLink.waitUntil(Condition.appears, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-            basicLink.waitWhile(Condition.appears, MidPoint.TIMEOUT_MEDIUM_6_S);
+            basicLink.waitWhile(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         } catch (Throwable t) {
             getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
         }
@@ -178,13 +178,7 @@ public class Search<T> extends Component<T> {
     }
 
     public SelenideElement getItemByName(String name) {
-        ElementsCollection items = getParentElement().findAll(By.className("search-item"));
-        for (SelenideElement item : items) {
-            if (item.$(byText(name)).exists()) {
-                return item;
-            }
-        }
-        return null;
+        return getParentElement().$x(".//div[text()='" + name + "']");
     }
 
     private SelenideElement getDisplayedPopover() {
