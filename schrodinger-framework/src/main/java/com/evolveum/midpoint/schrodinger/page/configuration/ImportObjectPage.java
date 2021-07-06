@@ -15,14 +15,20 @@
  */
 package com.evolveum.midpoint.schrodinger.page.configuration;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 import static com.evolveum.midpoint.schrodinger.util.Utils.setOptionCheckedByName;
@@ -146,61 +152,15 @@ public class ImportObjectPage extends BasicPage {
     }
 
     public ImportObjectPage setEditorXmlText(String text) {
-        $(By.xpath("/html/body/div[2]/div/section/form/div[4]/div/div[1]/div/button[1]")).click();
+        SelenideElement xmlButton = $(byText("XML"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        String xmlButtonClass = xmlButton.getAttribute("class");
+        if (StringUtils.isNotEmpty(xmlButtonClass) && !xmlButtonClass.contains("active")) {
+            xmlButton.click();
+            xmlButton.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
         SelenideElement aceEditor = $(By.className("ace_text-input"));
         aceEditor.setValue(text);
-        aceEditor.screenshot();
-
-        //uncomment the following peace of code if the value is set to ace editor incorrectly
-        // (e.g. multiple close tags present)
-//           int lastIndex = 0;
-//           while (lastIndex < text.length() && text.substring(lastIndex, text.length()-1).contains("<")) {
-//            text = text.substring(lastIndex, text.length());
-//            int actualIndex = text.indexOf("<");
-//            if (actualIndex != 0) {
-//                aceEditor.setValue(text.substring(0, actualIndex));
-//            }
-//            lastIndex = actualIndex;
-//            text = text.substring(actualIndex);
-//            if (text.startsWith("</")) {
-//                lastIndex = text.indexOf(">") + 1;
-//                aceEditor.setValue(text.substring(0, lastIndex));
-//            } else if (text.startsWith("<?")) {
-//                lastIndex = text.indexOf("?>") + 2;
-//                aceEditor.setValue(text.substring(0, lastIndex));
-//            } else if (text.startsWith("<!--")) {
-//                lastIndex = text.indexOf("-->") + 3;
-//                aceEditor.setValue(text.substring(0, lastIndex));
-//            } else {
-//
-//                lastIndex = text.indexOf(">") + 1;
-//                String tag = text.substring(0, lastIndex);
-//                aceEditor.setValue(tag);
-//                String endTag = "</" + tag.substring(1, (tag.contains(" ") ? (tag.indexOf(" ")) : (tag.length()-1))) + ">";
-//                for (int i = 0; i < endTag.length(); i++) {
-//                    aceEditor.sendKeys(Keys.DELETE);
-//                }
-//
-//            }
-//        }
-//
-//        obviously this peace of code was used as experimental, needs to be cleaned up
-//
-//        executeJavaScript(
-//                "const ta = document.querySelector(\"textarea\"); " +
-//                        "ta.value = \"asdf\";" +
-//                        "ta.dispatchEvent(new Event(\"input\"));");
-//
-//        text = "asdf";
-//        executeJavaScript(
-//                "var ta = $(\"textarea[name='input:inputAce:aceEditor']\"); " +
-//                        "ta.value('" + text + "'); " +
-//                        "ta.dispatchEvent(new Event(\"input\"));");
-//
-//        $(".ace_content").shouldBe(Condition.visible);
-//        $(".ace_content").click();
-//        $(".ace_content").sendKeys("asdf");
-
 
         return this;
     }
