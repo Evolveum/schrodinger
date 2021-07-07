@@ -71,20 +71,18 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         //todo smth goes wrong after security policy import
         importObject(USER_WITHOUT_SUPERUSER, true);
         importObject(CREATE_NAME_OBJECT_TEMPLATE, true);
-        importObject(SYSTEM_CONFIG_WITH_NOTIFICATION, true);
+        notificationFile = new File(fetchTestHomeDir(), NOTIFICATIONS_FILE_NAME);
+        if (!notificationFile.exists()) {
+            notificationFile.createNewFile();
+        }
+        importObject(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
+                notificationFile.getAbsolutePath(), fetchTestHomeDir()), true);
         basicPage.infrastructure();
         SystemPage systemPage = new SystemPage();
         PrismForm<InfrastructureTab> infrastructureForm = systemPage.infrastructureTab().form();
         infrastructureForm.expandContainerPropertiesPanel("Infrastructure");
         infrastructureForm.showEmptyAttributes("Infrastructure");
         infrastructureForm.addAttributeValue("Public http url pattern", getConfiguration().getBaseUrl());
-
-        notificationFile = new File(fetchTestHomeDir(), NOTIFICATIONS_FILE_NAME);
-        if (!notificationFile.exists()) {
-            notificationFile.createNewFile();
-        }
-        addObjectFromFile(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
-                    notificationFile.getAbsolutePath(), fetchTestHomeDir()));
     }
 
     @Override

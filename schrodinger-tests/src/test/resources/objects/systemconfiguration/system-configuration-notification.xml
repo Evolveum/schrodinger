@@ -422,6 +422,9 @@
                 <transport>mail</transport>
             </passwordResetNotifier>
         </handler>
+        <mail>
+            <redirectToFile>notification.txt</redirectToFile>
+        </mail>
     </notificationConfiguration>
     <defaultObjectPolicyConfiguration>
         <objectTemplateRef oid="10000000-0000-0000-0000-000000000223" relation="org:default" type="c:ObjectTemplateType"/>
