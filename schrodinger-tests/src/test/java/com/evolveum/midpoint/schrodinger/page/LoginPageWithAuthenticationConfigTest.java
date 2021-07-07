@@ -88,9 +88,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         MailNoncePage mailNonce = (MailNoncePage) login.forgotPassword();
         mailNonce.setMail(MAIL_OF_ENABLED_USER);
         TimeUnit.SECONDS.sleep(6);
-        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
-        String bodyTag = "body='";
-        String link = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
+        String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"));
@@ -123,8 +121,14 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         open("/");
         TimeUnit.SECONDS.sleep(2);
         SelfRegistrationPage registrationPage = login.register();
-        registrationPage.setGivenName("Test").setFamilyName("User").setEmail("test.user@evolveum.com").setPassword("5ecr3t").submit();
-        TimeUnit.SECONDS.sleep(6);
+        registrationPage
+                .setGivenName("Test")
+                .setFamilyName("User")
+                .setEmail("test.user@evolveum.com")
+                .setPassword("5ecr3t")
+                .submit()
+                .feedback()
+                .assertSuccess();
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
 //        String usernameTag = "username='";
         String linkTag = "link='";
