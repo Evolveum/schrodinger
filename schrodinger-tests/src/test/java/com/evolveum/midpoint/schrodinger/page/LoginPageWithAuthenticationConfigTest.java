@@ -129,11 +129,14 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
                 .submit()
                 .feedback()
                 .assertSuccess();
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
 //        String usernameTag = "username='";
         String linkTag = "link='";
 //        String username = notification.substring(notification.indexOf(usernameTag) + usernameTag.length(), notification.lastIndexOf("', " + linkTag));
-        String link = notification.substring(notification.indexOf(linkTag) + linkTag.length(), notification.lastIndexOf("''"));
+        int start = notification.indexOf(linkTag) + linkTag.length();
+        int end = notification.indexOf("'", start);
+        String link = notification.substring(start, end);
         open(link);
 
         new RegistrationFinishPage().assertSuccessPanelExists();

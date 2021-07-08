@@ -83,6 +83,8 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         infrastructureForm.expandContainerPropertiesPanel("Infrastructure");
         infrastructureForm.showEmptyAttributes("Infrastructure");
         infrastructureForm.addAttributeValue("Public http url pattern", getConfiguration().getBaseUrl());
+        systemPage.clickSave();
+        systemPage.feedback().assertSuccess();
     }
 
     @Override
