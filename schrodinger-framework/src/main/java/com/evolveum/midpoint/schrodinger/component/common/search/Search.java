@@ -178,7 +178,13 @@ public class Search<T> extends Component<T> {
     }
 
     public SelenideElement getItemByName(String name) {
-        return getParentElement().$x(".//div[text()='" + name + "']");
+        ElementsCollection items = getParentElement().findAll(By.className("search-item"));
+        for (SelenideElement item : items) {
+            if (item.$(byText(name)).exists()) {
+                return item;
+            }
+        }
+        return null;
     }
 
     private SelenideElement getDisplayedPopover() {
