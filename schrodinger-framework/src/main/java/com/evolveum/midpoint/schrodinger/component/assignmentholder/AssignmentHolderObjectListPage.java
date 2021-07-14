@@ -62,7 +62,8 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     }
 
     public D newObjectCollection(String title) {
-        SelenideElement mainButton = $(By.xpath("//button[@type='button'][@" + Schrodinger.DATA_S_ID + "='mainButton']"));
+        SelenideElement mainButton = $(Schrodinger.byDataId("buttonToolbar"))
+                .$x(".//i[contains(@class,\"fa-plus\")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         if (!Boolean.getBoolean(mainButton.getAttribute("aria-expanded"))) {
             mainButton.click();
         }
