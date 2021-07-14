@@ -58,7 +58,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         basicPage.feedback().isSuccess();
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         String linkTag = "link='";
-        String link = notification.substring(notification.indexOf(linkTag) + linkTag.length(), notification.lastIndexOf("''"));
+        String link = notification.substring(notification.indexOf(linkTag) + linkTag.length(), notification.lastIndexOf("'"));
         open(link);
         new RegistrationConfirmationPage()
                 .assertSuccessPanelExists();
