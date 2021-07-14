@@ -11,10 +11,10 @@ public class NewObjectFromTemplatePage<T extends AssignmentHolderDetailsPage> ex
 
 
     public T clickTemplateButtonWithTitle(String title, T pageToRedirect) {
-        SelenideElement templateButton = $(Schrodinger.byElementValue("div",
-                "data-s-id", "buttonDescription", title)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        SelenideElement templateButton = $(Schrodinger.byElementValue("span",
+                "class", "compositedButtonLabel", title)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         templateButton.click();
-        templateButton.waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         return pageToRedirect;
     }
 }

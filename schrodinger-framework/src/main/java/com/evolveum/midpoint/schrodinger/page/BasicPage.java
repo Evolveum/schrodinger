@@ -119,7 +119,7 @@ public class BasicPage {
     }
 
     public UserPage newUser() {
-        return newUser("bla"); //todo fix later
+        return newUser("User");
     }
 
     public UserPage newUser(String templateTitle) {
@@ -158,7 +158,7 @@ public class BasicPage {
     }
 
     public RolePage newRole() {
-        return newRole("bla"); //todo fix later
+        return newRole("Role");
     }
 
     public RolePage newRole(String templateTitle) {
@@ -300,7 +300,7 @@ public class BasicPage {
     }
 
     public TaskPage newTask() {
-        return newTask("bla");
+        return newTask("Task");
     }
 
     public TaskPage newTask(String templateTitle) {
