@@ -15,8 +15,10 @@
  */
 package com.evolveum.midpoint.schrodinger.page.user;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
 import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
@@ -48,7 +50,8 @@ public class ListUsersPage extends AssignmentHolderObjectListPage<UsersPageTable
 
     @Override
     public UserPage newUser() {
-        SelenideElement mainButton = $(By.xpath("//button[@type='button'][@" + Schrodinger.DATA_S_ID + "='mainButton']"));
+        SelenideElement mainButton = $(Schrodinger.byDataId("buttonToolbar"))
+                .$x(".//i[contains(@class,\"fa-plus\")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String expanded = mainButton.getAttribute("aria-haspopup");
         if (Boolean.getBoolean(expanded)) {
             return newObjectCollection("New user");
