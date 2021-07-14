@@ -64,9 +64,9 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE, true);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
-//        basicPage.loggedUser().logout();
-//        FormLoginPage loginPage = midPoint.formLogin();
-//        loginPage.login(getUsername(), getPassword());
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login(getUsername(), getPassword());
 
         attributesMap.clear();
         attributesMap.put("Name", "userWithFullname");

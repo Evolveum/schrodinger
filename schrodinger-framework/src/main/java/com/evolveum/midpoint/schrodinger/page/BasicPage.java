@@ -469,7 +469,7 @@ public class BasicPage {
     }
 
     public FeedbackBox<? extends BasicPage> feedback() {
-        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.appears, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
+        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
         return new FeedbackBox<>(this, feedback);
     }
 
