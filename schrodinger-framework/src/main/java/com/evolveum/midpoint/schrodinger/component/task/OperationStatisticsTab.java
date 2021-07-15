@@ -49,7 +49,7 @@ public class OperationStatisticsTab extends Component<TaskPage> {
     }
 
     public OperationStatisticsTab assertProgressSummaryObjectsCountEquals(int expectedCount) {
-        String actualValue = getParentElement().$(Schrodinger.byDataId("span", "progressSummary")).getText();
+        String actualValue = getParentElement().$(Schrodinger.byDataId("span", "summary")).getText();
         assertion.assertEquals("Objects processed: " + expectedCount, actualValue);
         return this;
     }
