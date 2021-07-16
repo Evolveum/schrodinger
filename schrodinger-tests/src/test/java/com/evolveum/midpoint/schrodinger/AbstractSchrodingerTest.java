@@ -494,7 +494,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .listResources()
                     .testConnectionClick(resourceName)
                 .feedback()
-                    .isSuccess();
+                    .assertSuccess();
     }
 
     public void addResourceFromFileAndTestConnection(File resourceXml, String resourceName) throws IOException {
@@ -503,7 +503,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .listResources()
                     .testConnectionClick(resourceName)
                 .feedback()
-                    .isSuccess();
+                    .assertSuccess();
     }
 
     public UserPage showUser(String userName){
