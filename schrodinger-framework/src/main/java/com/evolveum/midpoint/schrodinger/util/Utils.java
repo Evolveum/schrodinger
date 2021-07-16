@@ -176,7 +176,7 @@ public class Utils {
     }
 
     public static SelenideElement getModalWindowSelenideElement(long waitTime) {
-        return $(By.className("wicket-modal")).waitUntil(Condition.appear, waitTime);
+        return $(By.className("modal-dialog")).waitUntil(Condition.appear, waitTime);
     }
 
     public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue, String tempFilePath) throws IOException {
