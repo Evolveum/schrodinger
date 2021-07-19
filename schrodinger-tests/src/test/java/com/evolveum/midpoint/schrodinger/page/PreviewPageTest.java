@@ -80,9 +80,10 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .assertChangedObjectNameEquals("jack")
                 .assertIsNotLink();
 
-        ProgressPage progressPage = previewPage.clickSave();
-        Selenide.sleep(3000);
-        progressPage.feedback().assertSuccess();
+        previewPage
+                .clickSave()
+                .feedback()
+                .assertSuccess();
     }
 
     @Test (priority = 2, dependsOnMethods = {"test001createUser"})
@@ -113,9 +114,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .assertChangedObjectNameEquals("jack")
                 .assertIsLink();
 
-        ProgressPage progressPage = previewPage.clickSave();
-        Selenide.sleep(1000);
-        progressPage.feedback().assertSuccess();
+        previewPage.clickSave().feedback().assertSuccess();
     }
 
     @Test (priority = 3, dependsOnMethods = {"test001createUser"})

@@ -17,14 +17,12 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.ex.ElementShould;
 
-import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.UserMenuPanel;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
@@ -469,12 +467,14 @@ public class BasicPage {
     }
 
     public FeedbackBox<? extends BasicPage> feedback() {
-        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
+        SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
         return new FeedbackBox<>(this, feedback);
     }
 
     public BasicPage assertFeedbackExists() {
-        assertion.assertTrue($(By.cssSelector("div.feedbackContainer")).is(Condition.visible), "Feedback message box is absent");
+        assertion.assertTrue($x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
+                .is(Condition.visible), "Feedback message box is absent");
         return this;
     }
 
