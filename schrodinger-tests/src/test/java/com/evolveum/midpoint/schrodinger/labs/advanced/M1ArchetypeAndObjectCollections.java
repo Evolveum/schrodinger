@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M1/";
-    private static final String ADVANCED_LABS_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+    private static final String ADVANCED_LABS_SOURCES_DIRECTORY = ADVANCED_LABS_DIRECTORY + "sources/";
 
     private static final Logger LOG = LoggerFactory.getLogger(M1ArchetypeAndObjectCollections.class);
 
@@ -55,10 +55,10 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File HR_SOURCE_FILE_1_3_UPDATE_2 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-1.3-update-2.csv");
     private static final File HR_SOURCE_FILE_1_3_UPDATE_3 = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-1.3-update-3.csv");
     private static final File SYSTEM_CONFIGURATION_FILE_1_4 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-1-4.xml");
-    private static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1.csv");
-    private static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2.csv");
-    private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3.csv");
-    private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-1-lab-1-initial.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-2-lab-1-initial.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3-lab-1-initial.csv");
+    private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-1-initial.csv");
 
     String notificationCheck1 = "User: Jim Kirk (kirk, oid ca233e9a-f474-1ed7-9a22-1nkdea34bb50)";
     String notificationCheck2 = "The user record was modified. Modified attributes are:";
