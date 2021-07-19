@@ -16,25 +16,25 @@ import java.io.IOException;
 
 public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M3/";
-    private static final String M3_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+    private static final String M3_LAB_SOURCES_DIRECTORY = ADVANCED_LABS_DIRECTORY + "sources/";
 
     private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
-    private static final File CSV_1_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-1.csv");
-    private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
-    private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
-    private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-1-lab-3-initial.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2-lab-3-initial.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3-lab-3-initial.csv");
+    private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-initial.csv");
     private static final File HR_SOURCE_FILE_LAB_3_4_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-4-update-1.csv");
     private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-1.csv");
     private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_2 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-2.csv");
     private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_3 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-3.csv");
     private static final File HR_SOURCE_FILE_LAB_3_5_UPDATE_4 = new File(M3_LAB_SOURCES_DIRECTORY + "source-lab-3-5-update-4.csv");
-    private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
+    private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-initial.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_4_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-4-update-1.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_1 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-1.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_2 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-2.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_3 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-3.csv");
     private static final File HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_4 = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs-lab-3-5-update-4.csv");
-    private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
+    private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors-lab-3-initial.csv");
 
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");

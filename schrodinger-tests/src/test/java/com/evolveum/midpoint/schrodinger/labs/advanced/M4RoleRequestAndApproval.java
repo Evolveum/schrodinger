@@ -22,15 +22,15 @@ import java.io.IOException;
 
 public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M4/";
-    private static final String M3_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+    private static final String M4_LAB_SOURCES_DIRECTORY = ADVANCED_LABS_DIRECTORY + "sources/";
 
     private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
-    private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
-    private static final File CSV_1_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-1.csv");
-    private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
-    private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
-    protected static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
-    private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
+    private static final File HR_ORG_SOURCE_FILE = new File(M4_LAB_SOURCES_DIRECTORY + "source-orgs-lab-4-initial.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(M4_LAB_SOURCES_DIRECTORY + "csv-1-lab-4-initial.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(M4_LAB_SOURCES_DIRECTORY + "csv-2-lab-4-initial.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(M4_LAB_SOURCES_DIRECTORY + "csv-3-lab-4-initial.csv");
+    protected static final File HR_SOURCE_FILE = new File(M4_LAB_SOURCES_DIRECTORY + "source-lab-4-initial.csv");
+    private static final File CONTRACTORS_SOURCE_FILE = new File(M4_LAB_SOURCES_DIRECTORY + "contractors-lab-4-initial.csv");
     private static final File SYSTEM_CONFIGURATION_FILE = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_1 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-1.xml");
     private static final File SYSTEM_CONFIGURATION_FILE_4_2 = new File(LAB_OBJECTS_DIRECTORY + "systemconfiguration/system-configuration-4-1-update-2.xml");

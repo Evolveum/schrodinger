@@ -31,10 +31,10 @@ import java.io.IOException;
  */
 public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M2/";
-    private static final String M2_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+    private static final String M2_LAB_SOURCES_DIRECTORY = ADVANCED_LABS_DIRECTORY + "sources/";
 
     private static final File OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE = new File(LAB_OBJECTS_DIRECTORY + "objectcollections/objectCollection-employees-without-telephone.xml");
-    private static final File CONTRACTORS_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "contractors.csv");
+    private static final File CONTRACTORS_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-lab-2-initial.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-1.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_2 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-2.csv");
     private static final File CONTRACTORS_SOURCE_FILE_UPDATE_3 = new File(M2_LAB_SOURCES_DIRECTORY + "contractors-2-1-update-3.csv");
@@ -53,10 +53,10 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     private static final File CONTRACTORS_RESOURCE_FILE_2_1 = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-contractors-2-1.xml");
     private static final File OPENLDAP_CORPORATE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/openldap-new-corporate-directory.xml");
 
-    private static final File CSV_1_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-1.csv");
-    private static final File CSV_2_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-2.csv");
-    private static final File CSV_3_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-3.csv");
-    private static final File HR_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "source.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-1-lab-2-initial.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-2-lab-2-initial.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "csv-3-lab-2-initial.csv");
+    private static final File HR_SOURCE_FILE = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-initial.csv");
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_1 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-1.csv");
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_2 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-2.csv");
     private static final File HR_SOURCE_FILE_LAB_2_2_UPDATE_3 = new File(M2_LAB_SOURCES_DIRECTORY + "source-lab-2-2-update-3.csv");

@@ -17,15 +17,15 @@ import java.io.IOException;
 public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
 
     private static final String LAB_OBJECTS_DIRECTORY = ADVANCED_LABS_DIRECTORY + "M5/";
-    private static final String M3_LAB_SOURCES_DIRECTORY = LAB_OBJECTS_DIRECTORY + "sources/";
+    private static final String M5_LAB_SOURCES_DIRECTORY = ADVANCED_LABS_DIRECTORY + "sources/";
 
-    private static final File HR_ORG_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source-orgs.csv");
-    private static final File CSV_1_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-1.csv");
-    private static final File CSV_2_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-2.csv");
-    private static final File CSV_3_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "csv-3.csv");
-    private static final File HR_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
-    private static final File HR_SOURCE_5_1_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "source.csv");
-    private static final File CONTRACTORS_SOURCE_FILE = new File(M3_LAB_SOURCES_DIRECTORY + "contractors.csv");
+    private static final File HR_ORG_SOURCE_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "source-orgs-lab-5-initial.csv");
+    private static final File CSV_1_SOURCE_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "csv-1-lab-5-initial.csv");
+    private static final File CSV_2_SOURCE_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "csv-2-lab-5-initial.csv");
+    private static final File CSV_3_SOURCE_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "csv-3-lab-5-initial.csv");
+    private static final File HR_SOURCE_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "source-lab-5-initial.csv");
+    private static final File HR_SOURCE_5_1_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "source-5-1.csv");
+    private static final File CONTRACTORS_SOURCE_FILE = new File(M5_LAB_SOURCES_DIRECTORY + "contractors-lab-5-initial.csv");
 
     private static final File CSV_1_SIMPLE_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-1-document-access.xml");
     private static final File CSV_2_RESOURCE_FILE = new File(LAB_OBJECTS_DIRECTORY + "resources/localhost-csvfile-2-canteen.xml");
