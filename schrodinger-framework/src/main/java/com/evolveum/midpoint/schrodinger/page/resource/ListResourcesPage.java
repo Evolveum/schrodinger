@@ -44,13 +44,13 @@ public class ListResourcesPage extends BasicPage {
                 .and()
             .clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
         $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.appears, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
-        if (feedback().isError()) {
+//        if (feedback().isError()) {
             if (feedback().getParentElement().$x(".//a[@data-s-id='showAll']").exists()) {
                 feedback().getParentElement().$x(".//a[@data-s-id='showAll']").click();
-                Selenide.screenshot(resourceName + "testConnectionError"
-                        + Long.toString(System.currentTimeMillis()).substring(5, 8));
             }
-        }
+        Selenide.screenshot(resourceName + "testConnectionError"
+                + Long.toString(System.currentTimeMillis()).substring(5, 8));
+//        }
         return this;
 
     }
