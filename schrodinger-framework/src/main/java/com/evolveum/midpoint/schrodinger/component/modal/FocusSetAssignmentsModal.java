@@ -19,10 +19,8 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
 import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -83,8 +81,12 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
 
     public T clickAdd() {
         SelenideElement addButton = getParentElement().$x(".//a[@data-s-resource-key='userBrowserDialog.button.addButton']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        addButton.hover().doubleClick();
-        getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_LONG_1_M);
+        addButton.click();
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        if (addButton.isDisplayed()) {
+            addButton.click();
+            Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        }
         return this.getParent();
     }
 
