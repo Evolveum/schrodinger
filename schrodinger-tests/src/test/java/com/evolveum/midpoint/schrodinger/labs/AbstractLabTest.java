@@ -89,10 +89,11 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     protected static File notificationFile;
 
     protected File getTestTargetDir() throws IOException {
-        if (testTargetDir == null) {
-            initTestDirectory(DIRECTORY_CURRENT_TEST, false);
-        }
-        return testTargetDir;
+        return new File(fetchMidpointHome(), "sources");
+//        if (testTargetDir == null) {
+//            initTestDirectory(DIRECTORY_CURRENT_TEST, false);
+//        }
+//        return testTargetDir;
     }
 
     protected boolean resetToDefaultAfterTests() {
