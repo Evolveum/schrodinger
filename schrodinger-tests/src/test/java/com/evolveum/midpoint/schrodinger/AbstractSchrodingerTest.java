@@ -306,7 +306,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         if (startMidpoint) {
             home = fetchMidpointHome();
         } else {
-            String testFolderPath = System.getProperty("midpoint.test.folder");
+            String testFolderPath = System.getProperty("midpoint.home");
             home = StringUtils.isNotEmpty(testFolderPath) ? testFolderPath : "target";
         }
         return home;
