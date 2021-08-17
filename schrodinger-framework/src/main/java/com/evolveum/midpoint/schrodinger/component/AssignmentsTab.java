@@ -45,37 +45,24 @@ public class AssignmentsTab<P extends AssignmentHolderDetailsPage> extends TabWi
     }
 
 
-    public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignemnt() {
-        return clickAddAssignemnt("");
+    public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignment() {
+        return clickAddAssignment("");
     }
 
-    public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignemnt(String title) {
+    public <A extends AssignmentsTab<P>> FocusSetAssignmentsModal<A> clickAddAssignment(String title) {
         getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement modalElement = getNewAssignmentModal();
-        if (compositedIconsExist(modalElement)) {
-            clickCompositedButtonInPopup(modalElement, title);
+        FocusSetAssignmentsModal<A> modal = new FocusSetAssignmentsModal<A>((A) this, modalElement);
+        if (modal.compositedIconsExist()) {
+            modal.clickCompositedButtonByTitle(title);
         }
         modalElement.$x(".//div[@data-s-id='tabsPanel']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new FocusSetAssignmentsModal<A>((A) this, modalElement);
     }
 
-    private boolean compositedIconsExist(SelenideElement modalElement) {
-        return modalElement != null && modalElement.$(Schrodinger.byDataId("compositedButtons")).exists();
-    }
-
     private SelenideElement getCompositedIconsPopupPanel(SelenideElement modalElement) {
         return modalElement.$x(".//div[@data-s-id='compositedButtons']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-    }
-
-    private void clickCompositedButtonInPopup(SelenideElement modalElement, String buttonTitle) {
-        if (compositedIconsExist(modalElement)) {
-            if (StringUtils.isEmpty(buttonTitle)) {
-                buttonTitle = "New  assignment ";
-            }
-            getCompositedIconsPopupPanel(modalElement).$(Schrodinger.byElementAttributeValue("div", "title", buttonTitle))
-                    .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        }
     }
 
     private SelenideElement getNewAssignmentModal() {

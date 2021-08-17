@@ -78,8 +78,13 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
         return new MultiCompositedButtonPanel<>(this, buttonsPanel);
     }
 
-    public FocusSetAssignmentsModal<T> clickCompositedButtonWithTypeAndRelation(String type, String relation) {
+    public FocusSetAssignmentsModal<T> clickCompositedButtonByTypeAndRelation(String type, String relation) {
         String buttonTitle = "New " + type + " type assignment with " + relation + " relation";
+        clickCompositedButtonByTitle(buttonTitle);
+        return this;
+    }
+
+    public FocusSetAssignmentsModal<T> clickCompositedButtonByTitle(String buttonTitle) {
         getCompositedButtonsPanel().findCompositedButtonByTitle(buttonTitle).getParentElement().click();
         getParentElement().$x(".//div[@class='box boxed-table']").waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         return this;
@@ -94,6 +99,10 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
             Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         }
         return this.getParent();
+    }
+
+    public boolean compositedIconsExist() {
+        return getParentElement().$(Schrodinger.byDataId("compositedButtons")).exists();
     }
 
 }

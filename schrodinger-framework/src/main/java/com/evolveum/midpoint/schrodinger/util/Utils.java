@@ -136,9 +136,9 @@ public class Utils {
         for (String assignment : assignments) {
             FocusSetAssignmentsModal<AssignmentsTab<P>> modal;
             if (StringUtils.isNotEmpty(newAssignmentTitle)) {
-                modal = tab.clickAddAssignemnt(newAssignmentTitle);
+                modal = tab.clickAddAssignment(newAssignmentTitle);
             } else {
-                modal = tab.clickAddAssignemnt();
+                modal = tab.clickAddAssignment();
             }
             if (StringUtils.isNotEmpty(relation)) {
                 modal

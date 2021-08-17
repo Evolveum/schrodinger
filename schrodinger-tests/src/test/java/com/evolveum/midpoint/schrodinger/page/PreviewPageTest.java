@@ -25,13 +25,10 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 
-import com.evolveum.midpoint.xml.ns._public.common.common_3.PasswordType;
-
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.component.prism.show.PreviewChangesTab;
 import com.evolveum.midpoint.schrodinger.component.prism.show.ScenePanel;
-import com.evolveum.midpoint.schrodinger.page.PreviewPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
@@ -124,7 +121,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .table()
                     .clickByName("jack")
                     .selectTabAssignments()
-                        .clickAddAssignemnt()
+                        .clickAddAssignment()
                             .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                             .table()
                                 .search()
@@ -203,7 +200,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .table()
                     .clickByName("jack")
                         .selectTabAssignments()
-                            .clickAddAssignemnt()
+                            .clickAddAssignment()
                                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                                 .table()
                                     .search()

@@ -297,7 +297,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod10test02AutomaticAssignments"})
     public void mod10test03LookupTablesAndAttributeOverrides() {
         showUser("kirk").selectTabAssignments()
-                .clickAddAssignemnt("New Organization type assignment with Member relation")
+                .clickAddAssignment("New Organization type assignment with Member relation")
                     .table()
                         .paging()
                         .next()
@@ -401,7 +401,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         showUser("picard")
                 .selectTabAssignments()
-                    .clickAddAssignemnt("New Organization type assignment with Manager relation")
+                    .clickAddAssignment("New Organization type assignment with Manager relation")
                         .selectType("Org")
                             .table()
                                 .search()

@@ -136,7 +136,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod05test01UsingRBAC"}, groups={"M5"})
     public void mod05test02SegregationOfDuties() {
         showUser("kirk").selectTabAssignments()
-                .clickAddAssignemnt()
+                .clickAddAssignment()
                     .table()
                         .search()
                             .byName()

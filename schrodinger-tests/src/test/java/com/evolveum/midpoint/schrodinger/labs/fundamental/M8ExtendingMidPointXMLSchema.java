@@ -131,7 +131,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
         form.and()
                 .and()
             .selectTabAssignments()
-                .clickAddAssignemnt()
+                .clickAddAssignment()
                     .table()
                         .search()
                             .byName()

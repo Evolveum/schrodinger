@@ -129,7 +129,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                                 .assertName("0919");
 
         showUser("kirk").selectTabAssignments()
-                .clickAddAssignemnt("New Organization type assignment with Member relation")
+                .clickAddAssignment("New Organization type assignment with Member relation")
                     .table()
                         .paging()
                             .next()

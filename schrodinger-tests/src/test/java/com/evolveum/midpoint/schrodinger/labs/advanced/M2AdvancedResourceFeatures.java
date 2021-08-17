@@ -232,7 +232,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addObjectFromFile(RIMSY_USER_FILE);
         showUser("rimsy")
                 .selectTabAssignments()
-                    .clickAddAssignemnt()
+                    .clickAddAssignment()
                         .table()
                             .selectCheckboxByName("Internal Employee")
                             .and()

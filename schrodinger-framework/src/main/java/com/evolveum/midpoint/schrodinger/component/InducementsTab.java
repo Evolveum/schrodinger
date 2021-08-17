@@ -16,16 +16,10 @@
 
 package com.evolveum.midpoint.schrodinger.component;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
-import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -39,7 +33,7 @@ public class InducementsTab<P extends AbstractRolePage> extends AssignmentsTab<P
     }
 
     public FocusSetAssignmentsModal<InducementsTab<P>> clickAddInducement() {
-        return super.clickAddAssignemnt();
+        return super.clickAddAssignment();
     }
 
     public boolean inducementExists(String inducementName){
