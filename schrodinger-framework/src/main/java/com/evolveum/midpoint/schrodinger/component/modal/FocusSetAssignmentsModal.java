@@ -20,6 +20,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
+import com.evolveum.midpoint.schrodinger.component.MultiCompositedButtonPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
@@ -43,8 +44,6 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
         if (!classActive.contains("active")) {
             tabElement.waitUntil(Condition.attribute("class", classActive + " active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
-
-
         return this;
     }
 
@@ -65,17 +64,24 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     public FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>> table() {
         SelenideElement resourcesBox = getParentElement().$x(".//div[@class='box boxed-table']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-
-        return new FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>>(this, resourcesBox){
-
-
-
-        };
+        return new FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>>(this, resourcesBox);
     }
 
     public FocusSetAssignmentsModal<T> setRelation(String relation) {
         getParentElement().$x(".//select[@data-s-id='select']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).selectOption(relation);
+        return this;
+    }
+
+    public MultiCompositedButtonPanel<FocusSetAssignmentsModal<T>> getCompositedButtonsPanel() {
+        SelenideElement buttonsPanel = $(Schrodinger.byDataId("compositedButtons")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        return new MultiCompositedButtonPanel<>(this, buttonsPanel);
+    }
+
+    public FocusSetAssignmentsModal<T> clickCompositedButtonWithTypeAndRelation(String type, String relation) {
+        String buttonTitle = "New " + type + " type assignment with " + relation + " relation";
+        getCompositedButtonsPanel().findCompositedButtonByTitle(buttonTitle).getParentElement().click();
+        getParentElement().$x(".//div[@class='box boxed-table']").waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         return this;
     }
 
