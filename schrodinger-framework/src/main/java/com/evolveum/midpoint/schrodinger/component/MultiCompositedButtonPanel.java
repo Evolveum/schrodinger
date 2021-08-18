@@ -16,7 +16,7 @@ public class MultiCompositedButtonPanel<T> extends Component<T> {
     }
 
     public CompositedButtonPanel<MultiCompositedButtonPanel<T>> findCompositedButtonByTitle(String buttonTitle) {
-        SelenideElement button = $(Schrodinger.byElementAttributeValue("button", "data-original-title", buttonTitle))
+        SelenideElement button = $(Schrodinger.byElementAttributeValue("button", "title", buttonTitle))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new CompositedButtonPanel<>(this, button);
     }
