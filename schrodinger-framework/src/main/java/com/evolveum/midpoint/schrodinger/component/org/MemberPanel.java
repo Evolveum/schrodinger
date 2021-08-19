@@ -90,9 +90,19 @@ public class MemberPanel<T> extends Component<T> {
     }
 
     public FocusSetAssignmentsModal<MemberPanel<T>> assignMember() {
-        $(By.xpath("//button[@type='button'][@title='Assign  member ']")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new FocusSetAssignmentsModal<MemberPanel<T>>(this,  Utils.getModalWindowSelenideElement());
+        return assignMember("");
+    }
+
+    public FocusSetAssignmentsModal<MemberPanel<T>> assignMember(String title) {
+        getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
+                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement modalElement = Utils.getModalWindowSelenideElement();
+        FocusSetAssignmentsModal<MemberPanel<T>> modal = new FocusSetAssignmentsModal(this, modalElement);
+        if (modal.compositedIconsExist()) {
+            modal.clickCompositedButtonByTitle(title);
+        }
+        modalElement.$x(".//div[@data-s-id='tabsPanel']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return modal;
     }
 
     public MemberPanel<T> selectType(String type) {
