@@ -51,7 +51,7 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         }
         SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
         confirmButton.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        confirmButton.waitUntil(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);
+        confirmButton.waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return getParent();
     }
 
