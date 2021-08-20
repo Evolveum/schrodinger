@@ -65,11 +65,16 @@ public class ProjectionsTab<P extends AssignmentHolderDetailsPage> extends TabWi
             @Override
             public PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<P>>> clickByName(String name) {
 
-                $(Schrodinger.byElementValue("span", "data-s-id", "label", name))
+                SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "label", name));
+                linkElement
                         .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                if (linkElement.isDisplayed() && linkElement.isEnabled()) {
+                    linkElement.click();
+                }
 
                 SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_SHORT_4_S);
 
                 return new PrismFormWithActionButtons<>(this, prismElement);
             }
