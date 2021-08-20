@@ -21,6 +21,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -37,9 +38,8 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
-        getParent()
-                .getParentElement()
-                .waitUntil(Condition.disappears, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(By.className("modal-dialog"))
+                .waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
         return getParent().getParent();
     }
 
