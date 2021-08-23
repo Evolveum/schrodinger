@@ -56,6 +56,6 @@ public class PrismFormWithActionButtons<T> extends PrismForm<T> {
     }
 
     protected String getFormTabbedPanelId() {
-        return null;
+        return "details";
     }
 }
