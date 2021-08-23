@@ -64,10 +64,8 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     public D newObjectCollection(String title) {
         SelenideElement mainButton = $(Schrodinger.byDataId("buttonToolbar"))
                 .$x(".//i[contains(@class,\"fa-plus\")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-        if (!Boolean.getBoolean(mainButton.getAttribute("aria-expanded"))) {
-            mainButton.click();
-        }
-        $(Schrodinger.byElementAttributeValue("div", "title", title))
+        mainButton.click();
+        $(Schrodinger.byElementAttributeValue("button", "title", title))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return getObjectDetailsPage();
     }
