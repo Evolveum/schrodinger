@@ -149,13 +149,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create user type member with Member relation", "User");
-//                            .setType("User")
-//                            .setRelation("Member")
-//                            .clickOk();
+                        .newMember("Create user type member with Approver relation", "User");
         newUserPage.selectTabBasic()
                     .form()
-                        .addAttributeValue("name", "NewUserAsOrgMember")
+                        .addAttributeValue("name", "NewUserAsOrgApprover")
                         .and()
                     .and()
                 .clickSave()
@@ -164,14 +161,15 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
+                        .selectRelation("Approver")
                         .table()
                             .search()
                             .byName()
-                            .inputValue("NewUserAsOrgMember")
+                            .inputValue("NewUserAsOrgApprover")
                             .updateSearch()
                         .and()
                         .assertTableObjectsCountEquals(1)
-                        .assertTableContainsText("Member");
+                        .assertTableContainsText("Approver");
     }
 
     @Test (priority = 5)
@@ -179,10 +177,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         RolePage newRolePage = (RolePage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember()
-                            .setType("Role")
-                            .setRelation("Manager")
-                            .clickOk();
+                        .newMember("Create role type member with Manager relation", "Role");
         newRolePage.selectTabBasic()
                     .form()
                         .addAttributeValue("name", "NewRoleAsOrgManager")
@@ -196,7 +191,9 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-        memberPanel.selectType("All");
+        memberPanel
+                .selectType("All")
+                .selectRelation("Manager");
         memberTable
                 .search()
                     .byName()
@@ -212,10 +209,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         OrgPage newOrgPage = (OrgPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember()
-                            .setType("Organization")
-                            .setRelation("Owner")
-                            .clickOk();
+                        .newMember("Create organization type member with Owner relation", "Organization");
         newOrgPage.selectTabBasic()
                     .form()
                         .addAttributeValue("name", "NewOrgAsOrgOwner")
@@ -245,13 +239,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         ServicePage newServicePage = (ServicePage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember()
-                            .setType("Service")
-                            .setRelation("Approver")
-                            .clickOk();
+                        .newMember("Create service type member with Member relation", "Service");
         newServicePage.selectTabBasic()
                     .form()
-                        .addAttributeValue("name", "NewServiceAsOrgApprover")
+                        .addAttributeValue("name", "NewServiceAsOrgMember")
                         .and()
                     .and()
                 .clickSave()
@@ -262,14 +253,16 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-        memberPanel.selectType("All");
+        memberPanel
+                .selectType("All")
+                .selectRelation("Member");
         memberTable
                             .search()
                             .byName()
-                            .inputValue("NewServiceAsOrgApprover")
+                            .inputValue("NewServiceAsOrgMember")
                 .updateSearch()
                 .and()
                 .assertTableObjectsCountEquals(1)
-                .assertTableContainsText("Approver");
+                .assertTableContainsText("Member");
     }
 }
