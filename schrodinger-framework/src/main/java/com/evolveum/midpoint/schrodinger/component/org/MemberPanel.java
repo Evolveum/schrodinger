@@ -69,7 +69,7 @@ public class MemberPanel<T> extends Component<T> {
         getParentElement().$x(".//i[@class='fa fa-plus']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
         FocusSetAssignmentsModal<MemberPanel<T>> newMemberPopup = new FocusSetAssignmentsModal<>(this, Utils.getModalWindowSelenideElement());
-        newMemberPopup.getParentElement().$x(".//div[@title='" + title + "']")
+        newMemberPopup.getParentElement().$x(".//button[@title='" + title + "']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
