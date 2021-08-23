@@ -91,7 +91,7 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     }
 
     public ConfirmationModal<UsersPageTable> deleteUser(String columnTitleKey, String rowValue) {
-        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "pageUsers.menu.delete");
+        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "MainObjectListPanel.menu.delete");
     }
 
     public ConfirmationModal<UsersPageTable> mergeUser() {
