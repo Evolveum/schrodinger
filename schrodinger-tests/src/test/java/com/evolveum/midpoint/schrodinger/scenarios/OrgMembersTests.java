@@ -149,10 +149,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember()
-                            .setType("User")
-                            .setRelation("Member")
-                            .clickOk();
+                        .newMember("Create user type member with Member relation", "User");
+//                            .setType("User")
+//                            .setRelation("Member")
+//                            .clickOk();
         newUserPage.selectTabBasic()
                     .form()
                         .addAttributeValue("name", "NewUserAsOrgMember")

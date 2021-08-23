@@ -36,6 +36,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * @author skublik
@@ -65,13 +66,10 @@ public class MemberPanel<T> extends Component<T> {
     }
 
     public BasicPage newMember(String title, String newMemberType) {
-        SelenideElement mainButton = $(By.xpath(".//button[@type='button'][@title='Create  member ']"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent();
-        if (!mainButton.$x(".//div[@data-s-id='additionalButton']").is(Condition.visible)) {
-            mainButton.click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        }
-        mainButton.$x(".//div[@title='" + title + "']")
+        getParentElement().$x(".//i[@class='fa fa-plus']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
+        FocusSetAssignmentsModal<MemberPanel<T>> newMemberPopup = new FocusSetAssignmentsModal<>(this, Utils.getModalWindowSelenideElement());
+        newMemberPopup.getParentElement().$x(".//div[@title='" + title + "']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
