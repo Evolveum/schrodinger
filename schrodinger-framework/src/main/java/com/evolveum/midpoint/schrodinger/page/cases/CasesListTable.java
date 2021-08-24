@@ -42,7 +42,7 @@ public class CasesListTable extends AssignmentHolderObjectListTable<CasesPage, C
     @Override
     public CasePage getObjectDetailsPage(){
         $(Schrodinger.byDataId("mainPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new CasePage();
     }
 

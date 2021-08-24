@@ -31,6 +31,7 @@ import org.testng.Assert;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by Kate Honchar
@@ -46,6 +47,8 @@ public class WorkitemDetailsPanel<P> extends Component<P> {
                 .$(Schrodinger.byDataId("workItemApproveButton"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
+        $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
@@ -54,6 +57,8 @@ public class WorkitemDetailsPanel<P> extends Component<P> {
                 .$(Schrodinger.byDataId("workItemRejectButton"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
+        $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
