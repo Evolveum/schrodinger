@@ -38,8 +38,8 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
-        $(By.className("modal-dialog"))
-                .waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
+        getParentElement()
+                .waitUntil(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);
         return getParent().getParent();
     }
 
