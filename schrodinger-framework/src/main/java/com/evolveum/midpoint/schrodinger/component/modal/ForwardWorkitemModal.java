@@ -32,16 +32,7 @@ public class ForwardWorkitemModal<T> extends ModalBox<T> {
         SelenideElement box = $(Schrodinger.byElementAttributeValue("div", "class","box boxed-table"))
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new ObjectBrowserModalTable<T, ForwardWorkitemModal<T>>(this, box){
-            public T clickByName(String name){
-                getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
-//                box.waitUntil(Condition.disappears, MidPoint.TIMEOUT_DEFAULT_2_S);
-
-                return getParent().getParent();
-            }
-        };
+        return new ObjectBrowserModalTable<T, ForwardWorkitemModal<T>>(this, box);
     }
 
 }
