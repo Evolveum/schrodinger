@@ -79,9 +79,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setEmailValue(MAIL_OF_ENABLED_USER)
                 .clickSubmitButton();
         TimeUnit.SECONDS.sleep(6);
-        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
-        String bodyTag = "body='";
-        String link = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
+        String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"));
@@ -124,16 +122,6 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
         login.changeLanguage("de");
         login.assertSignInButtonTitleMatch("Anmelden");
-    }
-
-    @Test
-    public void test041changeLanguageSamlSelectPage() {
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        SamlSelectPage login = midPoint.samlSelect();
-        login.goToUrl();
-
-        login.changeLanguage("us");
-        login.assertElementWithTextExists("Select an Identity Provider");
     }
 
     @Override
