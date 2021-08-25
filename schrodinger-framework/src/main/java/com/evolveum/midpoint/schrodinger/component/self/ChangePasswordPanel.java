@@ -65,8 +65,17 @@ public class ChangePasswordPanel<T> extends Component<T> {
         return this;
     }
 
-    public Table<ChangePasswordPanel> accountsTable() {
+    public Table<ChangePasswordPanel<T>> accountsTable() {
         return new Table<>(this, $(Schrodinger.byDataId("accounts")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+    }
+
+    public ChangePasswordPanel<T> assertPasswordPropagationResultSuccess(String userName) {
+        assertion.assertTrue(accountsTable()
+                .rowByColumnLabel("Name", userName)
+                    .getColumnCellElementByColumnName("Propagation result")
+                        .$x(".//i[@data-s-is='basicIcon'][contains[(@class,\"fa-check-circle text-success\")]")
+                        .isDisplayed(), "Propagation result is not successfull, ");
+        return this;
     }
 
     public ChangePasswordPanel clickAccountCheckboxIconByResourceValue(String resourceValue) {
