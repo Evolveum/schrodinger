@@ -34,9 +34,4 @@ public class TaskBasicTab extends AssignmentHolderBasicTab<TaskPage> {
     public String utility() {
         return form().findProperty("category").$(By.tagName("input")).getValue();
     }
-
-    public TaskBasicTab assertUtilityValueEquals(String expectedValue) {
-        form().assertPropertyInputValue("Category", expectedValue);
-        return this;
-    }
 }
