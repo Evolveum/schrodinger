@@ -50,7 +50,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .save()
                     .passwordTab()
                         .changePasswordPanel()
-                            .assertPasswordPropagationResultSuccess("administrator")
+                            .assertPasswordPropagationResultSuccess("CredentialsPageTestUser")
                             .and()
                         .and()
                 .feedback()
