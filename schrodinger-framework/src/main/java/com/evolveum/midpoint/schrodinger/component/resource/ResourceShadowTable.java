@@ -69,7 +69,7 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         if (StringUtils.isNotEmpty(expectedUserPageTitle)) {
             $(Schrodinger.byDataId("span", "pageTitle"))
-                    .waitUntil(Condition.value(expectedUserPageTitle), MidPoint.TIMEOUT_MEDIUM_6_S);
+                    .waitUntil(Condition.text(expectedUserPageTitle), MidPoint.TIMEOUT_MEDIUM_6_S);
         } else {
             Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         }
