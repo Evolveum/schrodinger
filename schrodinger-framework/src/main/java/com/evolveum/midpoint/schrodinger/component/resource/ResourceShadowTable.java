@@ -62,7 +62,8 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
 
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
+        $(Schrodinger.byDataId("span", "pageTitle"))
+                .waitUntil(Condition.value("Edit User"), MidPoint.TIMEOUT_MEDIUM_6_S);
         return new UserPage();
     }
 
