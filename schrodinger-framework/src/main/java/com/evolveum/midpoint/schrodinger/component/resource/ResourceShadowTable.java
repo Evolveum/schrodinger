@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -59,11 +60,19 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     }
 
     public UserPage clickOnOwnerByName(String name) {
+        return clickOnOwnerByName(name, "");
+    }
+
+    public UserPage clickOnOwnerByName(String name, String expectedUserPageTitle) {
 
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        $(Schrodinger.byDataId("span", "pageTitle"))
-                .waitUntil(Condition.value("Edit User"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if (StringUtils.isNotEmpty(expectedUserPageTitle)) {
+            $(Schrodinger.byDataId("span", "pageTitle"))
+                    .waitUntil(Condition.value(expectedUserPageTitle), MidPoint.TIMEOUT_MEDIUM_6_S);
+        } else {
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        }
         return new UserPage();
     }
 

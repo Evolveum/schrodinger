@@ -120,7 +120,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                 .isSuccess();
 
         form = accountTab.table()
-                .clickOnOwnerByName("X001212")
+                .clickOnOwnerByName("X001212", "Edit Employee")
                 .selectTabBasic()
                 .form();
 

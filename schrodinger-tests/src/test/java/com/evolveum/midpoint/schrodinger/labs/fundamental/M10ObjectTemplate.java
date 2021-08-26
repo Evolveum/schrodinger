@@ -239,7 +239,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .isSuccess();
 
         AssignmentsTab<UserPage> tab = accountTab.table()
-                .clickOnOwnerByName("X001212")
+                .clickOnOwnerByName("X001212", "Edit Employee")
                 .selectTabAssignments();
         tab.assertAssignmentsWithRelationExist("Member", "Human Resources",
                 "Active Employees", "Internal Employee")

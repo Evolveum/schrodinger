@@ -90,7 +90,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                 .isSuccess();
 
         UserPage owner = accountTab.table()
-                .clickOnOwnerByName("X001212");
+                .clickOnOwnerByName("X001212", "Edit Employee");
 
         owner.assertName("X001212");
 
