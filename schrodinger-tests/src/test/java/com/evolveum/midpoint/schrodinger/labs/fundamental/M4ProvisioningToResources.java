@@ -15,7 +15,7 @@
  */
 package com.evolveum.midpoint.schrodinger.labs.fundamental;
 
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
@@ -291,7 +291,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod04test03ModifyingExistingMappings"}, groups={"M4"})
     public void mod04test04AddingANewAttribute() throws IOException {
-        ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<UserPage>>>)
+        ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
                 ((AbstractTableWithPrismView)showUser("kirk")
                         .selectTabProjections()
                             .table()
@@ -316,7 +316,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
     }
 
     private void changeAdministrativeStatusViaProjectionTab(String userName, String accountName, String status, String resourceName) {
-        ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsTab<UserPage>>>)
+        ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
                 ((AbstractTableWithPrismView)showUser(userName)
                 .selectTabProjections()
                     .table()

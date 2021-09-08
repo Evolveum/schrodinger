@@ -24,14 +24,12 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
-import org.testng.Assert;
 
 /**
  * Created by honchar
@@ -74,12 +72,12 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         return new TabPanel<>(this, tabPanelElement);
     }
 
-    public AssignmentHolderBasicTab<P> selectTabBasic() {
-        return new AssignmentHolderBasicTab<>((P) this, getTabSelenideElement("pageAdminFocus.basic"));
+    public AssignmentHolderBasicPanel<P> selectTabBasic() {
+        return new AssignmentHolderBasicPanel<>((P) this, getTabSelenideElement("pageAdminFocus.basic"));
     }
 
-    public AssignmentsTab<P> selectTabAssignments() {
-        return new AssignmentsTab<>((P) this, getTabSelenideElement("pageAdminFocus.assignments"));
+    public AssignmentsPanel<P> selectTabAssignments() {
+        return new AssignmentsPanel<>((P) this, getTabSelenideElement("pageAdminFocus.assignments"));
     }
 
     protected SelenideElement getTabSelenideElement(String tabTitleKey) {

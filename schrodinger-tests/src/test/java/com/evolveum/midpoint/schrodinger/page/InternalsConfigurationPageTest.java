@@ -17,7 +17,7 @@
 package com.evolveum.midpoint.schrodinger.page;
 
 import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
-import com.evolveum.midpoint.schrodinger.component.configuration.ClockTab;
+import com.evolveum.midpoint.schrodinger.component.configuration.ClockPanel;
 import com.evolveum.midpoint.schrodinger.page.configuration.InternalsConfigurationPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.testng.annotations.AfterClass;
@@ -40,9 +40,9 @@ public class InternalsConfigurationPageTest extends AbstractSchrodingerTest {
     @Test (enabled = false)
     public void test001changeTime() {
         InternalsConfigurationPage configPage = basicPage.internalsConfiguration();
-        ClockTab clockTab = configPage.clockTab();
+        ClockPanel clockPanel = configPage.clockTab();
 
-        clockTab.changeTime("5/15/2099", "10", "30", DateTimePanel.AmOrPmChoice.PM);
+        clockPanel.changeTime("5/15/2099", "10", "30", DateTimePanel.AmOrPmChoice.PM);
 
         basicPage.feedback().assertSuccess();
 
@@ -60,9 +60,9 @@ public class InternalsConfigurationPageTest extends AbstractSchrodingerTest {
     @Test
     public void test010resetTime() {
         InternalsConfigurationPage configPage = basicPage.internalsConfiguration();
-        ClockTab clockTab = configPage.clockTab();
+        ClockPanel clockPanel = configPage.clockTab();
 
-        clockTab.resetTime();
+        clockPanel.resetTime();
 
         basicPage.feedback().assertSuccess();
     }

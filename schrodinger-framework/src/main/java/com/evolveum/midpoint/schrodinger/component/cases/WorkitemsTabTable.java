@@ -10,14 +10,14 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsTab, WorkitemDetailsPanel> {
+public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel> {
 
-    public WorkitemsTabTable(WorkitemsTab parent, SelenideElement parentElement) {
+    public WorkitemsTabTable(WorkitemsPanel parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
     @Override
-    public WorkitemDetailsPanel<WorkitemsTab> clickByName(String name) {
+    public WorkitemDetailsPanel<WorkitemsPanel> clickByName(String name) {
         getParentElement()
                 .$(Schrodinger.byDataId("tableContainer"))
                 .$(By.partialLinkText(name))
@@ -26,7 +26,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsTab, 
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new WorkitemDetailsPanel<WorkitemsTab>(WorkitemsTabTable.this.getParent(), detailsPanel);
+        return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }
 
     /**
@@ -34,7 +34,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsTab, 
      * @param state open, closed
      * @return
      */
-    public WorkitemDetailsPanel<WorkitemsTab> clickNameByState(String state) {
+    public WorkitemDetailsPanel<WorkitemsPanel> clickNameByState(String state) {
         TableRow row = rowByColumnLabel("State", state);
         if (row == null) {
             assertion.fail("Unable to find row with the the value " + state + "in State column");
@@ -48,10 +48,10 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsTab, 
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new WorkitemDetailsPanel<WorkitemsTab>(WorkitemsTabTable.this.getParent(), detailsPanel);
+        return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }
 
-    public WorkitemDetailsPanel<WorkitemsTab> clickNameByActor(String actor) {
+    public WorkitemDetailsPanel<WorkitemsPanel> clickNameByActor(String actor) {
         rowByColumnLabel("Actor(s)", actor)
                 .clickColumnByName("Name");
 //                    getParentElement()
@@ -61,11 +61,11 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsTab, 
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new WorkitemDetailsPanel<WorkitemsTab>(WorkitemsTabTable.this.getParent(), detailsPanel);
+        return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }
 
     @Override
-    public TableWithComponentRedirect<WorkitemsTab, WorkitemDetailsPanel> selectCheckboxByName(String name) {
+    public TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel> selectCheckboxByName(String name) {
         //do nothing as there is no checkbox column in the table
         return this;
     }

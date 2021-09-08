@@ -66,8 +66,6 @@ import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import org.testng.Assert;
-
 /**
  * Created by Viliam Repan (lazyman).
  */
@@ -384,47 +382,47 @@ public class BasicPage {
         return new SystemPage().systemTab();
     }
 
-    public ObjectPolicyTab objectPolicy() {
+    public ObjectPolicyPanel objectPolicy() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.objectPolicy");
         return new SystemPage().objectPolicyTab();
     }
 
-    public NotificationsTab notifications() {
+    public NotificationsPanel notifications() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.notifications");
         return new SystemPage().notificationsTab();
     }
 
-    public LoggingTab logging() {
+    public LoggingPanel logging() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.logging");
         return new SystemPage().loggingTab();
     }
 
-    public ProfilingTab profiling() {
+    public ProfilingPanel profiling() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.profiling");
         return new SystemPage().profilingTab();
     }
 
-    public AdminGuiTab adminGui() {
+    public AdminGuiPanel adminGui() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.adminGui");
         return new SystemPage().adminGuiTab();
     }
 
-    public DeploymentInformationTab deploymentInformation() {
+    public DeploymentInformationPanel deploymentInformation() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.deploymentInformation");
         return new SystemPage().deploymentInformationTab();
     }
 
-    public InfrastructureTab infrastructure() {
+    public InfrastructurePanel infrastructure() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.infrastructure");
         return new SystemPage().infrastructureTab();
     }
 
-    public RoleManagementTab roleManagement() {
+    public RoleManagementPanel roleManagement() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.roleManagement");
         return new SystemPage().roleManagementTab();
     }
 
-    public CleanupPolicyTab cleanupPolicy() {
+    public CleanupPolicyPanel cleanupPolicy() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.cleanupPolicy");
         return new SystemPage().cleanupPolicyTab();
     }

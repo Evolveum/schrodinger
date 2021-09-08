@@ -20,11 +20,11 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementNotFound;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
-import com.evolveum.midpoint.schrodinger.component.configuration.ObjectPolicyTab;
+import com.evolveum.midpoint.schrodinger.component.configuration.ObjectPolicyPanel;
 import com.evolveum.midpoint.schrodinger.component.org.ManagerPanel;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
@@ -171,7 +171,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                                 .table()
                                 .selectCheckboxByName("001212")
                                 .clickImport();
-        ((PrismFormWithActionButtons<ObjectPolicyTab>)basicPage.objectPolicy()
+        ((PrismFormWithActionButtons<ObjectPolicyPanel>)basicPage.objectPolicy()
                 .clickAddObjectPolicy()
                     .selectOption("type", "User")
                     .editRefValue("objectTemplateRef")
@@ -238,7 +238,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
             .feedback()
                 .isSuccess();
 
-        AssignmentsTab<UserPage> tab = accountTab.table()
+        AssignmentsPanel<UserPage> tab = accountTab.table()
                 .clickOnOwnerByName("X001212", "Edit Employee")
                 .selectTabAssignments();
         tab.assertAssignmentsWithRelationExist("Member", "Human Resources",
@@ -319,7 +319,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .feedback()
                         .isSuccess();
 
-        PrismForm<AssignmentHolderBasicTab<UserPage>> form = showUser("kirk")
+        PrismForm<AssignmentHolderBasicPanel<UserPage>> form = showUser("kirk")
                 .selectTabBasic()
                     .form();
 

@@ -18,7 +18,7 @@ package com.evolveum.midpoint.schrodinger.labs.fundamental;
 import com.codeborne.selenide.Selenide;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
@@ -223,8 +223,8 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
     }
 
-    private Table<ProjectionsTab<UserPage>> assertContainsProjection(String user, String resourceOid, String accountName) {
-       AbstractTableWithPrismView<ProjectionsTab<UserPage>> table = showUser(user).selectTabProjections().table();
+    private Table<ProjectionsPanel<UserPage>> assertContainsProjection(String user, String resourceOid, String accountName) {
+       AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser(user).selectTabProjections().table();
        Selenide.screenshot(user + "_" + resourceOid + "_" + accountName);
        return table
                     .search()

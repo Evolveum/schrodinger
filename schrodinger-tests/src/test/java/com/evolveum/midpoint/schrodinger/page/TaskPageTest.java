@@ -15,12 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
-import com.codeborne.selenide.Selenide;
-
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsTab;
+import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsPanel;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
@@ -65,7 +62,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .isSuccess();
 
         ListTasksPage tasksPage = basicPage.listTasks();
-        PrismForm<AssignmentHolderBasicTab<TaskPage>> taskForm = tasksPage
+        PrismForm<AssignmentHolderBasicPanel<TaskPage>> taskForm = tasksPage
                 .table()
                     .search()
                         .byName()
@@ -90,17 +87,17 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                     .clickByName("OperationStatisticsCleanupTest");
-        OperationStatisticsTab operationStatisticsTab = taskPage
+        OperationStatisticsPanel operationStatisticsPanel = taskPage
                 .selectTabOperationStatistics();
-        operationStatisticsTab.assertResultsChartIsDisplayed();
+        operationStatisticsPanel.assertResultsChartIsDisplayed();
         taskPage
                 .cleanupEnvironmentalPerformanceInfo()
                 .clickYes()
                 .feedback()
                 .assertSuccess();
-        operationStatisticsTab = taskPage
+        operationStatisticsPanel = taskPage
                 .selectTabOperationStatistics();
-        operationStatisticsTab.assertResultsChartIsNotDisplayed();
+        operationStatisticsPanel.assertResultsChartIsNotDisplayed();
 
     }
 

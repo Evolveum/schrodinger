@@ -20,11 +20,10 @@ import java.util.Collections;
 import java.util.List;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.configuration.AdminGuiTab;
+import com.evolveum.midpoint.schrodinger.component.configuration.AdminGuiPanel;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
@@ -48,7 +47,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
     @Test(priority = 1, groups = OBJECT_LIST_ARCHETYPE_TESTS_GROUP)
     public void test0010configureArchetypeObjectListView(){
-        AdminGuiTab adminGuiTab = basicPage.adminGui();
+        AdminGuiPanel adminGuiTab = basicPage.adminGui();
         adminGuiTab
                 .addNewObjectCollection(ARCHETYPE_PLURAL_LABEL, "User", "Archetype", ARCHETYPE_PLURAL_LABEL)
                     .feedback()

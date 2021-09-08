@@ -15,14 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.page.configuration;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
-import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -35,44 +29,44 @@ public class SystemPage extends AssignmentHolderDetailsPage {
         return new SystemTab(this, getTabSelenideElement("pageSystemConfiguration.system.title"));
     }
 
-    public ObjectPolicyTab objectPolicyTab() {
-        return new ObjectPolicyTab(this, getTabSelenideElement("pageSystemConfiguration.objectPolicy.title"));
+    public ObjectPolicyPanel objectPolicyTab() {
+        return new ObjectPolicyPanel(this, getTabSelenideElement("pageSystemConfiguration.objectPolicy.title"));
     }
 
-    public NotificationsTab notificationsTab() {
-        return new NotificationsTab(this, getTabSelenideElement("pageSystemConfiguration.notifications.title"));
+    public NotificationsPanel notificationsTab() {
+        return new NotificationsPanel(this, getTabSelenideElement("pageSystemConfiguration.notifications.title"));
     }
 
-    public LoggingTab loggingTab() {
-        return new LoggingTab(this, getTabSelenideElement("pageSystemConfiguration.logging.title"));
+    public LoggingPanel loggingTab() {
+        return new LoggingPanel(this, getTabSelenideElement("pageSystemConfiguration.logging.title"));
     }
 
-    public ProfilingTab profilingTab() {
-        return new ProfilingTab(this, getTabSelenideElement("pageSystemConfiguration.profiling.title"));
+    public ProfilingPanel profilingTab() {
+        return new ProfilingPanel(this, getTabSelenideElement("pageSystemConfiguration.profiling.title"));
     }
 
-    public AdminGuiTab adminGuiTab() {
-        return new AdminGuiTab(this, getTabSelenideElement("pageSystemConfiguration.adminGui.title"));
+    public AdminGuiPanel adminGuiTab() {
+        return new AdminGuiPanel(this, getTabSelenideElement("pageSystemConfiguration.adminGui.title"));
     }
 
-    public DeploymentInformationTab deploymentInformationTab() {
-        return new DeploymentInformationTab(this, getTabSelenideElement("pageSystemConfiguration.deploymentInformation.title"));
+    public DeploymentInformationPanel deploymentInformationTab() {
+        return new DeploymentInformationPanel(this, getTabSelenideElement("pageSystemConfiguration.deploymentInformation.title"));
     }
 
-    public InfrastructureTab infrastructureTab() {
-        return new InfrastructureTab(this, getTabSelenideElement("pageSystemConfiguration.infrastructure.title"));
+    public InfrastructurePanel infrastructureTab() {
+        return new InfrastructurePanel(this, getTabSelenideElement("pageSystemConfiguration.infrastructure.title"));
     }
 
-    public RoleManagementTab roleManagementTab(){
-        return new RoleManagementTab(this, getTabSelenideElement("pageSystemConfiguration.roleManagement.title"));
+    public RoleManagementPanel roleManagementTab(){
+        return new RoleManagementPanel(this, getTabSelenideElement("pageSystemConfiguration.roleManagement.title"));
     }
 
-    public InternalsConfigurationTab internalsConfigurationsTab(){
-        return new InternalsConfigurationTab(this, getTabSelenideElement("pageSystemConfiguration.internals.title"));
+    public InternalsConfigurationPanel internalsConfigurationsTab(){
+        return new InternalsConfigurationPanel(this, getTabSelenideElement("pageSystemConfiguration.internals.title"));
     }
 
-    public CleanupPolicyTab cleanupPolicyTab() {
-        return new CleanupPolicyTab(this, getTabSelenideElement("pageSystemConfiguration.cleanupPolicy.title"));
+    public CleanupPolicyPanel cleanupPolicyTab() {
+        return new CleanupPolicyPanel(this, getTabSelenideElement("pageSystemConfiguration.cleanupPolicy.title"));
     }
 
 }

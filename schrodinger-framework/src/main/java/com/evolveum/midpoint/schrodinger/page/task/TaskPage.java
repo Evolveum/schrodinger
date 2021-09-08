@@ -15,14 +15,11 @@
  */
 package com.evolveum.midpoint.schrodinger.page.task;
 
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.task.*;
@@ -30,8 +27,8 @@ import com.evolveum.midpoint.schrodinger.component.task.*;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.SummaryPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
@@ -121,37 +118,37 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     @Override
-    public AssignmentHolderBasicTab<TaskPage> selectTabBasic() {
+    public AssignmentHolderBasicPanel<TaskPage> selectTabBasic() {
         return new TaskBasicTab(this, getTabSelenideElement(("pageTask.basic.title")));
     }
 
     @Override
-    public  AssignmentsTab<TaskPage> selectTabAssignments() {
+    public AssignmentsPanel<TaskPage> selectTabAssignments() {
         return null;
     }
 
-    public AssignmentHolderBasicTab<TaskPage> selectScheduleTab(){
-        return new AssignmentHolderBasicTab<TaskPage>(this, getTabSelenideElement(("pageTask.schedule.title")));
+    public AssignmentHolderBasicPanel<TaskPage> selectScheduleTab(){
+        return new AssignmentHolderBasicPanel<TaskPage>(this, getTabSelenideElement(("pageTask.schedule.title")));
     }
 
-    public OperationStatisticsTab selectTabOperationStatistics() {
-        return new OperationStatisticsTab(this, getTabSelenideElement(("pageTask.operationStats.title")));
+    public OperationStatisticsPanel selectTabOperationStatistics() {
+        return new OperationStatisticsPanel(this, getTabSelenideElement(("pageTask.operationStats.title")));
     }
 
-    public EnvironmentalPerformanceTab selectTabEnvironmentalPerformance() {
-        return new EnvironmentalPerformanceTab(this, getTabSelenideElement(("pageTask.environmentalPerformance.title")));
+    public EnvironmentalPerformancePanel selectTabEnvironmentalPerformance() {
+        return new EnvironmentalPerformancePanel(this, getTabSelenideElement(("pageTask.environmentalPerformance.title")));
     }
 
-    public InternalPerformanceTab selectTabInternalPerformance() {
-        return new InternalPerformanceTab(this, getTabSelenideElement(("pageTask.internalPerformance.title")));
+    public InternalPerformancePanel selectTabInternalPerformance() {
+        return new InternalPerformancePanel(this, getTabSelenideElement(("pageTask.internalPerformance.title")));
     }
 
-    public ResultTab selectTabResult() {
-        return new ResultTab(this, getTabSelenideElement(("pageTask.result.title")));
+    public ResultPanel selectTabResult() {
+        return new ResultPanel(this, getTabSelenideElement(("pageTask.result.title")));
     }
 
-     public ErrorsTab selectTabErrors() {
-        return new ErrorsTab(this, getTabSelenideElement(("pageTask.errors.title")));
+     public ErrorsPanel selectTabErrors() {
+        return new ErrorsPanel(this, getTabSelenideElement(("pageTask.errors.title")));
     }
 
     public TaskPage setHandlerUriForNewTask(String handler) {

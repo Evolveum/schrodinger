@@ -20,13 +20,12 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.SummaryPanel;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -78,16 +77,16 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
         return this;
     }
 
-    public ProjectionsTab<F> selectTabProjections() {
+    public ProjectionsPanel<F> selectTabProjections() {
         SelenideElement element = getTabPanel().clickTab("pageAdminFocus.projections");
         Selenide.sleep(2000);
-        return new ProjectionsTab<F>(this, element);
+        return new ProjectionsPanel<F>(this, element);
     }
 
-    public ProjectionsTab<F> selectTabCases() {
+    public ProjectionsPanel<F> selectTabCases() {
         SelenideElement element = getTabPanel().clickTab("pageAdminFocus.cases");
         Selenide.sleep(2000);
-        return new ProjectionsTab<F>(this, element);
+        return new ProjectionsPanel<F>(this, element);
     }
 
 

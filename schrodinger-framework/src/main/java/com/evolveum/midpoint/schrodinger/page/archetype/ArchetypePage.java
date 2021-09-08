@@ -19,12 +19,11 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
-import com.evolveum.midpoint.schrodinger.component.archetype.ArchetypePolicyTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
+import com.evolveum.midpoint.schrodinger.component.archetype.ArchetypePolicyPanel;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
-import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -32,25 +31,25 @@ import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 public class ArchetypePage extends AbstractRolePage {
 
     @Override
-    public ProjectionsTab<ArchetypePage> selectTabProjections() {
+    public ProjectionsPanel<ArchetypePage> selectTabProjections() {
         return super.selectTabProjections();
     }
 
     @Override
-    public AssignmentHolderBasicTab<ArchetypePage> selectTabBasic() {
+    public AssignmentHolderBasicPanel<ArchetypePage> selectTabBasic() {
         return super.selectTabBasic();
     }
 
     @Override
-    public AssignmentsTab<ArchetypePage> selectTabAssignments() {
+    public AssignmentsPanel<ArchetypePage> selectTabAssignments() {
         return super.selectTabAssignments();
     }
 
-    public ArchetypePolicyTab selectTabArchetypePolicy() {
+    public ArchetypePolicyPanel selectTabArchetypePolicy() {
         SelenideElement element = getTabPanel().clickTab("PageArchetype.archetypePolicy")
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new ArchetypePolicyTab(this, element);
+        return new ArchetypePolicyPanel(this, element);
     }
 
     public ArchetypePage assertName(String expectedValue) {

@@ -18,7 +18,7 @@ package com.evolveum.midpoint.schrodinger.labs.fundamental;
 import com.codeborne.selenide.Selenide;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -95,7 +95,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, "Secret Projects I", "Secret Projects II", "Incognito");
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, CSV1_TESTER_ROLE_NAME, CSV3_ADMIN_ROLE_NAME);
 
-        AbstractTableWithPrismView<ProjectionsTab<UserPage>> table = showUser("kirk").selectTabProjections()
+        AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser("kirk").selectTabProjections()
                 .table();
         Selenide.screenshot("kirk_user_projections");
         table.search()

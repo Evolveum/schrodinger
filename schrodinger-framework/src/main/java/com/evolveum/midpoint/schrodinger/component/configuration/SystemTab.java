@@ -17,10 +17,7 @@ package com.evolveum.midpoint.schrodinger.component.configuration;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
-import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 
 /**

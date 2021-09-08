@@ -17,10 +17,10 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.ApplicablePoliciesTab;
-import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
-import com.evolveum.midpoint.schrodinger.component.InducementsTab;
-import com.evolveum.midpoint.schrodinger.component.MembersTab;
+import com.evolveum.midpoint.schrodinger.component.ApplicablePoliciesPanel;
+import com.evolveum.midpoint.schrodinger.component.GovernancePanel;
+import com.evolveum.midpoint.schrodinger.component.InducementsPanel;
+import com.evolveum.midpoint.schrodinger.component.MembersPanel;
 
 /**
  * @author skublik
@@ -28,27 +28,27 @@ import com.evolveum.midpoint.schrodinger.component.MembersTab;
 
 public class AbstractRolePage<A extends AbstractRolePage> extends FocusPage<A> {
 
-    public InducementsTab<A> selectTabInducements() {
+    public InducementsPanel<A> selectTabInducements() {
         SelenideElement element = getTabPanel().clickTab("FocusType.inducement");
 
-        return new InducementsTab<A>((A) this, element);
+        return new InducementsPanel<A>((A) this, element);
     }
 
-    public MembersTab<A> selectTabMembers() {
+    public MembersPanel<A> selectTabMembers() {
         SelenideElement element = getTabPanel().clickTab("pageRole.members");
-        return new MembersTab<A>((A) this, element);
+        return new MembersPanel<A>((A) this, element);
 
     }
 
-    public GovernanceTab<A> selectTabGovernance() {
+    public GovernancePanel<A> selectTabGovernance() {
         SelenideElement element = getTabPanel().clickTab("pageRole.governance");
-        return new GovernanceTab<A>((A) this, element);
+        return new GovernancePanel<A>((A) this, element);
 
     }
 
-    public ApplicablePoliciesTab<A> selectTabApplicablePolicies() {
+    public ApplicablePoliciesPanel<A> selectTabApplicablePolicies() {
         SelenideElement element = getTabPanel().clickTab("pageAdminFocus.applicablePolicies");
-        return new ApplicablePoliciesTab<A>((A) this, element);
+        return new ApplicablePoliciesPanel<A>((A) this, element);
 
     }
 }

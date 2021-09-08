@@ -2,7 +2,7 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.self.AccountActivationPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -127,7 +127,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
-        AssignmentsTab<UserPage> assignmentsTab = showUser("badobi").selectTabAssignments();
+        AssignmentsPanel<UserPage> assignmentsTab = showUser("badobi").selectTabAssignments();
         Utils.addPredefinedAssignmentByTitle(assignmentsTab, "Member",
                 "New Organization type assignment with Member relation", "0212"); //assign IT Administration Department org
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");

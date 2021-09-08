@@ -17,16 +17,15 @@ package com.evolveum.midpoint.schrodinger.component.task;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 /**
  * @author lskublik
  */
-public class TaskBasicTab extends AssignmentHolderBasicTab<TaskPage> {
+public class TaskBasicTab extends AssignmentHolderBasicPanel<TaskPage> {
     public TaskBasicTab(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

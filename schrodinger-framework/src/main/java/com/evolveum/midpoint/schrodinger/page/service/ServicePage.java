@@ -15,9 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.page.service;
 
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 
 /**
@@ -26,17 +26,17 @@ import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 public class ServicePage extends AbstractRolePage {
 
     @Override
-    public ProjectionsTab<ServicePage> selectTabProjections() {
+    public ProjectionsPanel<ServicePage> selectTabProjections() {
         return super.selectTabProjections();
     }
 
     @Override
-    public AssignmentHolderBasicTab<ServicePage> selectTabBasic() {
+    public AssignmentHolderBasicPanel<ServicePage> selectTabBasic() {
         return super.selectTabBasic();
     }
 
     @Override
-    public AssignmentsTab<ServicePage> selectTabAssignments() {
+    public AssignmentsPanel<ServicePage> selectTabAssignments() {
         return super.selectTabAssignments();
     }
 

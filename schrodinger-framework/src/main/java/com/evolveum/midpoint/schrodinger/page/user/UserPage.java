@@ -17,49 +17,47 @@ package com.evolveum.midpoint.schrodinger.page.user;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.user.*;
 import com.evolveum.midpoint.schrodinger.page.FocusPage;
-
-import org.testng.Assert;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class UserPage extends FocusPage<UserPage> {
 
-    public UserPersonasTab selectTabPersonas() {
+    public UserPersonasPanel selectTabPersonas() {
         SelenideElement element = getTabPanel().clickTab("pageAdminFocus.personas");
 
-        return new UserPersonasTab(this, element);
+        return new UserPersonasPanel(this, element);
     }
 
-    public UserTasksTab selectTabTasks() {
+    public UserTasksPanel selectTabTasks() {
         SelenideElement element = getTabPanel().clickTab("pageAdminFocus.tasks");
 
-        return new UserTasksTab(this, element);
+        return new UserTasksPanel(this, element);
     }
 
-    public UserHistoryTab selectTabHistory() {
+    public UserHistoryPanel selectTabHistory() {
         SelenideElement element = getTabPanel().clickTab("pageAdminFocus.objectHistory");
 
-        return new UserHistoryTab(this, element);
+        return new UserHistoryPanel(this, element);
     }
 
-    public UserDelegationsTab selectTabDelegations() {
+    public UserDelegationsPanel selectTabDelegations() {
         SelenideElement element = getTabPanel().clickTab("FocusType.delegations");
 
-        return new UserDelegationsTab(this, element);
+        return new UserDelegationsPanel(this, element);
     }
 
-    public UserDelegatedToMeTab selectTabDelegatedToMe() {
+    public UserDelegatedToMePanel selectTabDelegatedToMe() {
         SelenideElement element = getTabPanel().clickTab("FocusType.delegatedToMe");
 
-        return new UserDelegatedToMeTab(this, element);
+        return new UserDelegatedToMePanel(this, element);
     }
 
     @Override
-    public ProjectionsTab<UserPage> selectTabProjections() {
+    public ProjectionsPanel<UserPage> selectTabProjections() {
         return super.selectTabProjections();
     }
 

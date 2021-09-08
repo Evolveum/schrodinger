@@ -24,9 +24,9 @@ import java.util.List;
 import com.codeborne.selenide.Selenide;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
-import com.evolveum.midpoint.schrodinger.component.InducementsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.InducementsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.table.DirectIndirectAssignmentTable;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
@@ -154,7 +154,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod05test02SegregationOfDuties"}, groups={"M5"})
     public void mod05test04CreatingRoles() {
-        InducementsTab<AbstractRolePage> tab = basicPage.newRole()
+        InducementsPanel<AbstractRolePage> tab = basicPage.newRole()
                 .selectTabBasic()
                     .form()
                         .addAttributeValue(RoleType.F_NAME, "Too Many Secrets")
@@ -167,7 +167,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,"Too Many Secrets");
         assertShadowExists(CSV_1_RESOURCE_NAME, "Login", "jkirk");
 
-        DirectIndirectAssignmentTable<AssignmentsTab<UserPage>> table = showUser("kirk").selectTabAssignments()
+        DirectIndirectAssignmentTable<AssignmentsPanel<UserPage>> table = showUser("kirk").selectTabAssignments()
                 .selectTypeAllDirectIndirect();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         table.assertIndirectAssignmentsExist("Secret Projects I",
@@ -264,7 +264,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         addObjectFromFile(ARCHETYPE_EMPLOYEE_FILE);
         addObjectFromFile(ARCHETYPE_EXTERNAL_FILE);
 
-        PrismForm<AssignmentHolderBasicTab<ArchetypePage>> archetypePolicyForm = basicPage.listArchetypes()
+        PrismForm<AssignmentHolderBasicPanel<ArchetypePage>> archetypePolicyForm = basicPage.listArchetypes()
                 .table()
                     .clickByName(ARCHETYPE_EMPLOYEE_NAME)
                         .selectTabArchetypePolicy()
@@ -295,7 +295,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                     .feedback()
                         .isSuccess();
 
-        AssignmentsTab<UserPage> assigmentsTab = showUser("janeway")
+        AssignmentsPanel<UserPage> assigmentsTab = showUser("janeway")
                 .selectTabAssignments();
         assigmentsTab
                 .table()

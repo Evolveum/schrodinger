@@ -16,8 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page;
 
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.configuration.InfrastructureTab;
-import com.evolveum.midpoint.schrodinger.component.configuration.NotificationsTab;
+import com.evolveum.midpoint.schrodinger.component.configuration.InfrastructurePanel;
 import com.evolveum.midpoint.schrodinger.component.report.AuditRecordTable;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
@@ -79,7 +78,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
                 notificationFile.getAbsolutePath(), fetchTestHomeDir()), true);
         basicPage.infrastructure();
         SystemPage systemPage = new SystemPage();
-        PrismForm<InfrastructureTab> infrastructureForm = systemPage.infrastructureTab().form();
+        PrismForm<InfrastructurePanel> infrastructureForm = systemPage.infrastructureTab().form();
         infrastructureForm.expandContainerPropertiesPanel("Infrastructure");
         infrastructureForm.showEmptyAttributes("Infrastructure");
         infrastructureForm.addAttributeValue("Public http url pattern", getConfiguration().getBaseUrl());

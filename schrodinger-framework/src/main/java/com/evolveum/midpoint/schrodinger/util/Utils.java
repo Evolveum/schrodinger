@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.CheckFormGroupPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
@@ -81,8 +81,8 @@ public class Utils {
         checkBoxGroup.setOptionCheckedById(checked);
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void removeAssignments(AssignmentsTab<P> tab, String... assignments) {
-        AbstractTableWithPrismView<AssignmentsTab<P>> table = tab.table();
+    public static <P extends AssignmentHolderDetailsPage> void removeAssignments(AssignmentsPanel<P> tab, String... assignments) {
+        AbstractTableWithPrismView<AssignmentsPanel<P>> table = tab.table();
         for (String assignment : assignments) {
             table.removeByName(assignment);
         }
@@ -94,7 +94,7 @@ public class Utils {
 
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void removeAllAssignments(AssignmentsTab<P> tab) {
+    public static <P extends AssignmentHolderDetailsPage> void removeAllAssignments(AssignmentsPanel<P> tab) {
         tab
                 .table()
                     .selectHeaderCheckbox()
@@ -106,11 +106,11 @@ public class Utils {
                 .isSuccess();
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithDefaultRelationAndSave(AssignmentsTab<P> tab, boolean checkIfSuccess, String... assignments){
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithDefaultRelationAndSave(AssignmentsPanel<P> tab, boolean checkIfSuccess, String... assignments){
         addAssignmentsWithRelationAndSave(tab, "", checkIfSuccess, assignments);
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelationAndSave(AssignmentsTab<P> tab, String relation,
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelationAndSave(AssignmentsPanel<P> tab, String relation,
                                                                                                  boolean checkIfSuccess, String... assignments){
         addAssignmentsWithRelation(tab, relation, assignments);
         ProgressPage progressPage = tab.and()
@@ -122,19 +122,19 @@ public class Utils {
         }
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithDefaultRelation(AssignmentsTab<P> tab, String... assignments) {
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithDefaultRelation(AssignmentsPanel<P> tab, String... assignments) {
         addAssignmentsWithRelation(tab, "", assignments);
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsTab<P> tab, String relation,
-                                       String... assignments) {
+    public static <P extends AssignmentHolderDetailsPage> void addAssignmentsWithRelation(AssignmentsPanel<P> tab, String relation,
+                                                                                          String... assignments) {
         addPredefinedAssignmentByTitle(tab, relation, "", assignments);
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void addPredefinedAssignmentByTitle(AssignmentsTab<P> tab, String relation,
+    public static <P extends AssignmentHolderDetailsPage> void addPredefinedAssignmentByTitle(AssignmentsPanel<P> tab, String relation,
                                                                                               String newAssignmentTitle, String... assignments) {
         for (String assignment : assignments) {
-            FocusSetAssignmentsModal<AssignmentsTab<P>> modal;
+            FocusSetAssignmentsModal<AssignmentsPanel<P>> modal;
             if (StringUtils.isNotEmpty(newAssignmentTitle)) {
                 modal = tab.clickAddAssignment(newAssignmentTitle);
             } else {
@@ -157,7 +157,7 @@ public class Utils {
         }
     }
 
-    public static <P extends AssignmentHolderDetailsPage> void setStatusForAssignment(AssignmentsTab<P> tab, String assignment, String status) {
+    public static <P extends AssignmentHolderDetailsPage> void setStatusForAssignment(AssignmentsPanel<P> tab, String assignment, String status) {
         tab.table()
                     .clickByName(assignment)
                         .selectFormTabByName("Activation")

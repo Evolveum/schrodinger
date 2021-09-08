@@ -2,8 +2,8 @@ package com.evolveum.midpoint.schrodinger.labs.advanced;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsTab;
-import com.evolveum.midpoint.schrodinger.component.GovernanceTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.GovernancePanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
@@ -193,7 +193,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .feedback()
                         .assertSuccess();
 
-        AssignmentsTab<UserPage> assignmentsTab = showUser("X000089")
+        AssignmentsPanel<UserPage> assignmentsTab = showUser("X000089")
                 .selectTabBasic()
                     .form()
                         .addPasswordAttributeValue("qwerty12345XXXX")
@@ -203,7 +203,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", "Secret Projects I", "Secret Projects II");
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "Member", true, "Basic Approver");
 
-        FocusSetAssignmentsModal<MemberPanel<GovernanceTab>> modal = showRole("Top Secret Projects I")
+        FocusSetAssignmentsModal<MemberPanel<GovernancePanel>> modal = showRole("Top Secret Projects I")
                 .selectTabGovernance()
                     .membersPanel()
                         .assignMember();
@@ -559,7 +559,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test04selfServiceRequestingRolesForSubordinateEmployees")
     public void mod04test05roleModificationApproval() {
-        MemberPanel<GovernanceTab<RolePage>> memberPanel = showRole("Secret Projects I")
+        MemberPanel<GovernancePanel<RolePage>> memberPanel = showRole("Secret Projects I")
                 .selectTabGovernance()
                     .membersPanel();
         memberPanel

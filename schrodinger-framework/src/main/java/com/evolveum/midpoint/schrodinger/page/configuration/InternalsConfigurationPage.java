@@ -30,49 +30,49 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class InternalsConfigurationPage extends BasicPage {
 
-    public ClockTab clockTab() {
+    public ClockPanel clockTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.clock");
-        return new ClockTab(this, element);
+        return new ClockPanel(this, element);
     }
 
-    public DebugUtilTab debugUtilTab() {
+    public DebugUtilPanel debugUtilTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.debugUtil");
-        return new DebugUtilTab(this, element);
+        return new DebugUtilPanel(this, element);
     }
 
-    public InternalConfigurationTab internalConfigurationTab() {
+    public InternalConfigurationPanel internalConfigurationTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.internalConfig");
-        return new InternalConfigurationTab(this, element);
+        return new InternalConfigurationPanel(this, element);
     }
 
-    public TracesTab tracesTab() {
+    public TracesPanel tracesTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.traces");
-        return new TracesTab(this, element);
+        return new TracesPanel(this, element);
     }
 
-    public CountersTab countersTab() {
+    public CountersPanel countersTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.counters");
-        return new CountersTab(this, element);
+        return new CountersPanel(this, element);
     }
 
-    public CacheManagementTab cacheManagementTab() {
+    public CacheManagementPanel cacheManagementTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.cache");
-        return new CacheManagementTab(this, element);
+        return new CacheManagementPanel(this, element);
     }
 
-    public MemoryTab memoryTab() {
+    public MemoryPanel memoryTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.memory");
-        return new MemoryTab(this, element);
+        return new MemoryPanel(this, element);
     }
 
-    public ThreadsTab threadsTab() {
+    public ThreadsPanel threadsTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.threads");
-        return new ThreadsTab(this, element);
+        return new ThreadsPanel(this, element);
     }
 
-    public PerformanceTab performanceTab() {
+    public PerformancePanel performanceTab() {
         SelenideElement element = findTabPanel().clickTab("PageInternals.tab.performance");
-        return new PerformanceTab(this, element);
+        return new PerformancePanel(this, element);
     }
 
     protected TabPanel findTabPanel() {

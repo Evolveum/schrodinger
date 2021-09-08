@@ -17,7 +17,7 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.ProjectionsTab;
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
@@ -170,7 +170,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
         Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
 
         ListUsersPage usersListPage = basicPage.listUsers();
-        ProjectionsTab projectionsTab = usersListPage
+        ProjectionsPanel projectionsTab = usersListPage
                 .table()
                     .search()
                         .byName()

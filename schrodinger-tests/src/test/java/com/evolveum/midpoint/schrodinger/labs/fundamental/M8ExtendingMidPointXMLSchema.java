@@ -18,7 +18,7 @@ package com.evolveum.midpoint.schrodinger.labs.fundamental;
 import com.codeborne.selenide.Selenide;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicTab;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
@@ -84,7 +84,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
     public void mod08test01ExtendingMidPointXMLSchema() throws IOException {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
-        PrismForm<AssignmentHolderBasicTab<UserPage>> form = basicPage.newUser()
+        PrismForm<AssignmentHolderBasicPanel<UserPage>> form = basicPage.newUser()
                 .selectTabBasic()
                     .form();
 

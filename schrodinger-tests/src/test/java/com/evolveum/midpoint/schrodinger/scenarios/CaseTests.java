@@ -24,7 +24,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.cases.ChildrenCaseTable;
 import com.evolveum.midpoint.schrodinger.component.cases.WorkitemDetailsPanel;
-import com.evolveum.midpoint.schrodinger.component.cases.WorkitemsTab;
+import com.evolveum.midpoint.schrodinger.component.cases.WorkitemsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.search.TextInputSearchItemPanel;
 
@@ -223,7 +223,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .byName()
                 .inputValue(ASSIGNING_ROLE_CASE_NAME + FORWARD_WORKITEM_TEST_USER_NAME)
                 .updateSearch();
-        WorkitemDetailsPanel<WorkitemsTab> workitemDetailsPanel = childrenCaseTable
+        WorkitemDetailsPanel<WorkitemsPanel> workitemDetailsPanel = childrenCaseTable
                 .clickByPartialName(ASSIGNING_ROLE_CASE_NAME + FORWARD_WORKITEM_TEST_USER_NAME)
                 .selectTabWorkitems()
                 .table()
