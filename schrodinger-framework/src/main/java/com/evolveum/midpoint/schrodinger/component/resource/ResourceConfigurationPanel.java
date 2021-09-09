@@ -19,24 +19,22 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.EditResourceConfigurationPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 /**
  * Created by matus on 3/28/2018.
  */
-public class ResourceConfigurationTab extends TabWithContainerWrapper<EditResourceConfigurationPage> {
-    public ResourceConfigurationTab(EditResourceConfigurationPage parent, SelenideElement parentElement) {
+public class ResourceConfigurationPanel extends PanelWithContainerWrapper<EditResourceConfigurationPage> {
+    public ResourceConfigurationPanel(EditResourceConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public PrismForm<ResourceConfigurationTab> form() {
-        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "class", "tab-content"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new PrismForm<>(this, element);
-    }
+//    public PrismForm<ResourceConfigurationPanel> form() {
+//        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "class", "tab-content"))
+//                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//        return new PrismForm<>(this, element);
+//    }
 }

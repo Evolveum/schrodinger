@@ -17,12 +17,12 @@ package com.evolveum.midpoint.schrodinger.component.configuration;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.common.PrismContainerPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 
-public class CleanupPolicyPanel extends TabWithContainerWrapper<SystemPage> {
+public class CleanupPolicyPanel extends PanelWithContainerWrapper<SystemPage> {
 
     public CleanupPolicyPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -160,7 +160,7 @@ public class CleanupPolicyPanel extends TabWithContainerWrapper<SystemPage> {
                 .addAttributeValue("Max records to keep", maxRecordsToKeep);
     }
 
-    private PrismForm<PrismContainerPanel<PrismForm<TabWithContainerWrapper<SystemPage>>>> getContainerFormPanel(String containerResourceKey) {
+    private PrismForm<PrismContainerPanel<PrismForm<PanelWithContainerWrapper<SystemPage>>>> getContainerFormPanel(String containerResourceKey) {
         return form()
                 .expandContainerPropertiesPanel("Cleanup policy")
                 .expandContainerPropertiesPanel(containerResourceKey)

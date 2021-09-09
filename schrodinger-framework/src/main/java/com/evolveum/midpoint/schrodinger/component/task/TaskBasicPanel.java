@@ -13,18 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.page.resource;
+package com.evolveum.midpoint.schrodinger.component.task;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
+
+import org.openqa.selenium.By;
 
 /**
- * Created by honchar.
+ * @author lskublik
  */
-public class SchemaStepXmlTab extends TabWithContainerWrapper<SchemaWizardStep> {
-
-    public SchemaStepXmlTab(SchemaWizardStep parent, SelenideElement parentElement) {
+public class TaskBasicPanel extends AssignmentHolderBasicPanel<TaskPage> {
+    public TaskBasicPanel(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
+    }
+
+    public String utility() {
+        return form().findProperty("category").$(By.tagName("input")).getValue();
     }
 }

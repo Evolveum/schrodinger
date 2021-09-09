@@ -34,7 +34,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class ObjectCollectionPage extends AssignmentHolderDetailsPage {
 
     public SearchPropertiesConfigPanel<ObjectCollectionPage> configSearch() {
-        selectTabBasic()
+        selectBasicPanel()
                 .form()
                 .findProperty("Filter")
                 .$(Schrodinger.byDataId("configureButton"))
@@ -44,7 +44,7 @@ public class ObjectCollectionPage extends AssignmentHolderDetailsPage {
     }
 
     @Override
-    public AssignmentHolderBasicPanel<ObjectCollectionPage> selectTabBasic() {
+    public AssignmentHolderBasicPanel<ObjectCollectionPage> selectBasicPanel() {
         SelenideElement element = getTabPanel().clickTab("pageObjectCollection.basic.title")
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 

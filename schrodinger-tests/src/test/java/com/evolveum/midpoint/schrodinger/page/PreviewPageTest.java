@@ -54,7 +54,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         //@formatter:off
         UserPage user = basicPage.newUser();
 
-        PreviewPage previewPage = user.selectTabBasic()
+        PreviewPage previewPage = user.selectBasicPanel()
                 .form()
                     .addAttributeValue("name", "jack")
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jack")
@@ -90,7 +90,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         PreviewPage previewPage = basicPage.listUsers()
                 .table()
                     .clickByName("jack")
-                    .selectTabBasic()
+                    .selectBasicPanel()
                         .form()
                             .addAttributeValue(UserType.F_FAMILY_NAME, "Sparrow")
                         .and()
@@ -120,7 +120,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         ProgressPage previewPage = basicPage.listUsers()
                 .table()
                     .clickByName("jack")
-                    .selectTabAssignments()
+                    .selectAssignmentsPanel()
                         .clickAddAssignment()
                             .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                             .table()
@@ -148,7 +148,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         basicPage = midPoint.formLogin().login("jack", "asd123");
 
         PreviewPage previewPage = basicPage.profile()
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue(UserType.F_FULL_NAME, "Jack Sparrow")
                     .and()
@@ -180,7 +180,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         ProgressPage previewPage = basicPage.listUsers()
                 .table()
                     .clickByName("jack")
-                        .selectTabAssignments()
+                        .selectAssignmentsPanel()
                             .table()
                                 .selectCheckboxByName(ROLE_USER_PREVIEW_NAME)
                                 .removeByName(ROLE_USER_PREVIEW_NAME)
@@ -199,7 +199,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         ProgressPage previewPage = basicPage.listUsers()
                 .table()
                     .clickByName("jack")
-                        .selectTabAssignments()
+                        .selectAssignmentsPanel()
                             .clickAddAssignment()
                                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                                 .table()
@@ -227,7 +227,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         basicPage = midPoint.formLogin().login("jack", "asd123");
 
         UserPage userPage = basicPage.profile()
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue(UserType.F_FULL_NAME, "Jack Sparrow")
                     .and()

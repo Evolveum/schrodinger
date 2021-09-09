@@ -21,7 +21,7 @@ import com.codeborne.selenide.SelenideElement;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class AssignmentHolderBasicPanel<P> extends TabWithContainerWrapper<P> {
+public class AssignmentHolderBasicPanel<P> extends PanelWithContainerWrapper<P> {
 
     public AssignmentHolderBasicPanel(P parent, SelenideElement parentElement) {
         super(parent, parentElement);

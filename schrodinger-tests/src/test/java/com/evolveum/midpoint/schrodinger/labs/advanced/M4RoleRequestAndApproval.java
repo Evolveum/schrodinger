@@ -134,7 +134,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 fetchTestHomeDir() + "/example-mail-notifications.log", fetchTestHomeDir()));
 
         showUser("administrator")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .showEmptyAttributes("Properties")
                         .addAttributeValue("Email", "administrator@example.com")
@@ -145,7 +145,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .assertSuccess();
         RolePage rolePage = showRole("Secret Projects I");
         rolePage
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .showEmptyAttributes("Properties")
                         .setDropDownAttributeValue("Requestable", "True")
@@ -161,7 +161,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .assertSuccess();
         rolePage = showRole("Secret Projects II");
         rolePage
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .showEmptyAttributes("Properties")
                         .setDropDownAttributeValue("Requestable", "True")
@@ -177,7 +177,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .assertSuccess();
         rolePage = showRole("Top Secret Projects I");
         rolePage
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .showEmptyAttributes("Properties")
                         .setDropDownAttributeValue("Requestable", "True")
@@ -194,12 +194,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .assertSuccess();
 
         AssignmentsPanel<UserPage> assignmentsTab = showUser("X000089")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addPasswordAttributeValue("qwerty12345XXXX")
                         .and()
                     .and()
-                    .selectTabAssignments();
+                    .selectAssignmentsPanel();
         Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", "Secret Projects I", "Secret Projects II");
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "Member", true, "Basic Approver");
 
@@ -220,7 +220,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .feedback()
                     .assertInfo();
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000158").selectTabAssignments(), false, "Secret Projects I");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000158").selectAssignmentsPanel(), false, "Secret Projects I");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         basicPage.listAllCases()
                 .table()
@@ -254,7 +254,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .assertFeedbackExists();
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
-        PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
+        PrismFormWithActionButtons projectionForm = showUser("X000158").selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
                 .and()
                 .selectTabProjections()
@@ -284,7 +284,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .assertUserMenuExist();
 
         showUser("X000158")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addPasswordAttributeValue("qwerty12345XXXX")
                         .and()
@@ -293,7 +293,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .feedback()
                         .assertSuccess();
         showUser("X000390")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addPasswordAttributeValue("qwerty12345XXXX")
                         .and()
@@ -301,7 +301,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
-        Utils.removeAssignments(showUser("X000158").selectTabAssignments(), "Secret Projects I");
+        Utils.removeAssignments(showUser("X000158").selectAssignmentsPanel(), "Secret Projects I");
     }
 
     @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
@@ -547,7 +547,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.loggedUser().logout();
         loginPage.login(getUsername(), getPassword())
                 .assertUserMenuExist();
-        PrismFormWithActionButtons projectionForm = showUser("X000158").selectTabAssignments()
+        PrismFormWithActionButtons projectionForm = showUser("X000158").selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects II")
                 .and()
                 .selectTabProjections()
@@ -666,7 +666,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
         basicPage
                 .newRole()
-                    .selectTabBasic()
+                    .selectBasicPanel()
                         .form()
                             .addAttributeValue("Name", "Test Role 1")
                             .addAttributeValue("Subtype", "auto")
@@ -678,7 +678,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
         basicPage
                 .newRole()
-                    .selectTabBasic()
+                    .selectBasicPanel()
                         .form()
                             .addAttributeValue("Name", "Test Role 2")
                             .addAttributeValue("Subtype", "xxx")

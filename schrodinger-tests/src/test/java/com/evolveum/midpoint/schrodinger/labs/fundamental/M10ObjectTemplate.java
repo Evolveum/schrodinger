@@ -205,7 +205,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Recompute task");
-        task.selectTabBasic()
+        task.selectBasicPanel()
                 .form()
                     .addAttributeValue("name", "User Recomputation Task")
                     .selectOption("recurrence","Single")
@@ -240,7 +240,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         AssignmentsPanel<UserPage> tab = accountTab.table()
                 .clickOnOwnerByName("X001212", "Edit Employee")
-                .selectTabAssignments();
+                .selectAssignmentsPanel();
         tab.assertAssignmentsWithRelationExist("Member", "Human Resources",
                 "Active Employees", "Internal Employee")
                 .assertAssignmentsWithRelationExist("Manager", "Human Resources");
@@ -249,7 +249,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000999")
-            .selectTabAssignments()
+            .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Java Development",
                 "Active Employees", "Internal Employee");
 
@@ -257,7 +257,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000998")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Java Development",
                         "Active Employees", "Internal Employee");
 
@@ -265,38 +265,38 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         UserPage user = showUser("X000998");
-        user.selectTabBasic()
+        user.selectBasicPanel()
                 .form()
                     .assertPropertySelectValue("administrativeStatus", "Disabled");
-        user.selectTabAssignments()
+        user.selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Inactive Employees", "Internal Employee");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART3, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         user = showUser("X000998");
-        user.selectTabBasic()
+        user.selectBasicPanel()
                 .form()
                 .assertPropertySelectValue("administrativeStatus", "Disabled");
-        user.selectTabAssignments()
+        user.selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Former Employees");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART1, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         user = showUser("X000998");
-        user.selectTabBasic()
+        user.selectBasicPanel()
                 .form()
                 .assertPropertySelectValue("administrativeStatus", "Enabled");
         showUser("X000998")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Java Development",
                         "Active Employees", "Internal Employee");
     }
 
     @Test(dependsOnMethods = {"mod10test02AutomaticAssignments"})
     public void mod10test03LookupTablesAndAttributeOverrides() {
-        showUser("kirk").selectTabAssignments()
+        showUser("kirk").selectAssignmentsPanel()
                 .clickAddAssignment("New Organization type assignment with Member relation")
                     .table()
                         .paging()
@@ -320,7 +320,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                         .isSuccess();
 
         PrismForm<AssignmentHolderBasicPanel<UserPage>> form = showUser("kirk")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form();
 
         form
@@ -339,7 +339,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
         form = showUser("kirk")
-                .selectTabBasic()
+                .selectBasicPanel()
                 .form();
 
         form.showEmptyAttributes("Properties");
@@ -391,7 +391,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                         .assertPropertyInputValue("Manager", "");
 
         showUser("kirk")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Warp Speed Research");
         new UserPage().selectTabProjections()
                 .table()
@@ -400,7 +400,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                         .assertPropertyInputValue("Manager", "");
 
         showUser("picard")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .clickAddAssignment("New Organization type assignment with Manager relation")
                         .selectType("Org")
                             .table()
@@ -427,7 +427,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .assertPropertyInputValue("Manager", "picard");
 
-        showUser("picard").selectTabAssignments()
+        showUser("picard").selectAssignmentsPanel()
                 .table()
                     .selectCheckboxByName("Warp Speed Research")
                     .removeByName("Warp Speed Research")

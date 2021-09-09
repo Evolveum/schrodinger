@@ -13,24 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.component.task;
+package com.evolveum.midpoint.schrodinger.component.report;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
-import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
-
-import org.openqa.selenium.By;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.page.report.ReportPage;
 
 /**
- * @author lskublik
+ * Created by honchar
  */
-public class TaskBasicTab extends AssignmentHolderBasicPanel<TaskPage> {
-    public TaskBasicTab(TaskPage parent, SelenideElement parentElement) {
-        super(parent, parentElement);
-    }
+public class ReportEnginePanel extends PanelWithContainerWrapper<ReportPage> {
 
-    public String utility() {
-        return form().findProperty("category").$(By.tagName("input")).getValue();
+    public ReportEnginePanel(ReportPage parent, SelenideElement parentElement) {
+        super(parent, parentElement);
     }
 }

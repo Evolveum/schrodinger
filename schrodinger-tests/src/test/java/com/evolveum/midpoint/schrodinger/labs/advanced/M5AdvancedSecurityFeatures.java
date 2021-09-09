@@ -106,7 +106,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                         .assertTableObjectsCountEquals(0)
                         .and()
                     .and()
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addPasswordAttributeValue("qwerty12345XXXX");
         userPage.clickSave()
@@ -119,7 +119,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                             .assertObjectXmlContainsText("<t:hashedData>")
                             .assertObjectXmlContainsText("<t:algorithm>http://prism.evolveum.com/xml/ns/public/crypto/algorithm/pbkd-3#PBKDF2WithHmacSHA512</t:algorithm>");
         showUser("badobi")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addPasswordAttributeValue("qwerty12345XXXX")
                         .and()
@@ -127,7 +127,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 .clickSave()
                     .feedback()
                         .assertSuccess();
-        AssignmentsPanel<UserPage> assignmentsTab = showUser("badobi").selectTabAssignments();
+        AssignmentsPanel<UserPage> assignmentsTab = showUser("badobi").selectAssignmentsPanel();
         Utils.addPredefinedAssignmentByTitle(assignmentsTab, "Member",
                 "New Organization type assignment with Member relation", "0212"); //assign IT Administration Department org
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");
@@ -162,7 +162,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 .table()
                     .approveWorkitemByName("badobi");   //third stage approval
         showUser("badobi")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
                     .and()
                 .selectTabProjections()
@@ -211,7 +211,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000980")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Internal Employee", "Active Employees");
         //todo check generated password in notification file and on resources
         basicPage.listRepositoryObjects()

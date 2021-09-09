@@ -62,22 +62,22 @@ public class UserPage extends FocusPage<UserPage> {
     }
 
     public UserPage assertName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("name", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("name", expectedValue);
         return this;
     }
 
     public UserPage assertGivenName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("givenName", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("givenName", expectedValue);
         return this;
     }
 
     public UserPage assertFamilyName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("familyName", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("familyName", expectedValue);
         return this;
     }
 
     public UserPage assertFullName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("fullName", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("fullName", expectedValue);
         return this;
     }
 }

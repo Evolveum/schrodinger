@@ -17,8 +17,8 @@ package com.evolveum.midpoint.schrodinger.page.report;
 
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
-import com.evolveum.midpoint.schrodinger.component.report.ReportEngineTab;
-import com.evolveum.midpoint.schrodinger.component.report.ReportExportTab;
+import com.evolveum.midpoint.schrodinger.component.report.ReportEnginePanel;
+import com.evolveum.midpoint.schrodinger.component.report.ReportExportPanel;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 /**
  * Created by honchar
@@ -29,20 +29,20 @@ public class ReportPage extends AssignmentHolderDetailsPage<ReportPage> {
     }
 
     @Override
-    public AssignmentsPanel<ReportPage> selectTabAssignments() {
+    public AssignmentsPanel<ReportPage> selectAssignmentsPanel() {
         return null;
     }
 
     @Override
-    public AssignmentHolderBasicPanel<ReportPage> selectTabBasic() {
-        return new AssignmentHolderBasicPanel<>(this, getTabSelenideElement("pageReport.basic.title"));
+    public AssignmentHolderBasicPanel<ReportPage> selectBasicPanel() {
+        return new AssignmentHolderBasicPanel<>(this, getNavigationPanelSelenideElement("pageReport.basic.title"));
     }
 
-    public ReportExportTab selectCollectionReportTabExport() {
-        return new ReportExportTab(this, getTabSelenideElement("pageReport.export.title"));
+    public ReportExportPanel selectCollectionReportTabExport() {
+        return new ReportExportPanel(this, getNavigationPanelSelenideElement("pageReport.export.title"));
     }
 
-    public ReportEngineTab selectCollectionReportTabEngine() {
-        return new ReportEngineTab(this, getTabSelenideElement("pageReport.engine.title"));
+    public ReportEnginePanel selectCollectionReportTabEngine() {
+        return new ReportEnginePanel(this, getNavigationPanelSelenideElement("pageReport.engine.title"));
     }
 }

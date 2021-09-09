@@ -103,7 +103,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         assertShadowExists(CSV_1_RESOURCE_NAME, "Login", "jkirk");
 
         showUser("kirk")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Jim Tiberius")
                     .and()
@@ -117,7 +117,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         accountForm.assertPropertyInputValue("fname", "Jim Tiberius");
 
         showUser("kirk")
-            .selectTabBasic()
+            .selectBasicPanel()
                 .form()
                     .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Disabled")
                 .and()
@@ -217,7 +217,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_4_2, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         showUser("kirk")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .showEmptyAttributes("Properties")
                         .addAttributeValue(UserType.F_DESCRIPTION, "This user is created by midPoint")
@@ -244,7 +244,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_4_3, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         UserPage user = basicPage.newUser();
-        user.selectTabBasic()
+        user.selectBasicPanel()
                 .form()
                     .addAttributeValue(UserType.F_NAME, "picard")
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jean-Luc")

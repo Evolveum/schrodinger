@@ -25,48 +25,48 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class SystemPage extends AssignmentHolderDetailsPage {
 
-    public SystemTab systemTab() {
-        return new SystemTab(this, getTabSelenideElement("pageSystemConfiguration.system.title"));
+    public SystemPanel systemTab() {
+        return new SystemPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.system.title"));
     }
 
     public ObjectPolicyPanel objectPolicyTab() {
-        return new ObjectPolicyPanel(this, getTabSelenideElement("pageSystemConfiguration.objectPolicy.title"));
+        return new ObjectPolicyPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.objectPolicy.title"));
     }
 
     public NotificationsPanel notificationsTab() {
-        return new NotificationsPanel(this, getTabSelenideElement("pageSystemConfiguration.notifications.title"));
+        return new NotificationsPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.notifications.title"));
     }
 
     public LoggingPanel loggingTab() {
-        return new LoggingPanel(this, getTabSelenideElement("pageSystemConfiguration.logging.title"));
+        return new LoggingPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.logging.title"));
     }
 
     public ProfilingPanel profilingTab() {
-        return new ProfilingPanel(this, getTabSelenideElement("pageSystemConfiguration.profiling.title"));
+        return new ProfilingPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.profiling.title"));
     }
 
     public AdminGuiPanel adminGuiTab() {
-        return new AdminGuiPanel(this, getTabSelenideElement("pageSystemConfiguration.adminGui.title"));
+        return new AdminGuiPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.adminGui.title"));
     }
 
     public DeploymentInformationPanel deploymentInformationTab() {
-        return new DeploymentInformationPanel(this, getTabSelenideElement("pageSystemConfiguration.deploymentInformation.title"));
+        return new DeploymentInformationPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.deploymentInformation.title"));
     }
 
     public InfrastructurePanel infrastructureTab() {
-        return new InfrastructurePanel(this, getTabSelenideElement("pageSystemConfiguration.infrastructure.title"));
+        return new InfrastructurePanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.infrastructure.title"));
     }
 
     public RoleManagementPanel roleManagementTab(){
-        return new RoleManagementPanel(this, getTabSelenideElement("pageSystemConfiguration.roleManagement.title"));
+        return new RoleManagementPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.roleManagement.title"));
     }
 
     public InternalsConfigurationPanel internalsConfigurationsTab(){
-        return new InternalsConfigurationPanel(this, getTabSelenideElement("pageSystemConfiguration.internals.title"));
+        return new InternalsConfigurationPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.internals.title"));
     }
 
     public CleanupPolicyPanel cleanupPolicyTab() {
-        return new CleanupPolicyPanel(this, getTabSelenideElement("pageSystemConfiguration.cleanupPolicy.title"));
+        return new CleanupPolicyPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.cleanupPolicy.title"));
     }
 
 }

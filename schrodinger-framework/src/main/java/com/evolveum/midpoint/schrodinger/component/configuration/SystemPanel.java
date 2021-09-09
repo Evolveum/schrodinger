@@ -17,15 +17,15 @@ package com.evolveum.midpoint.schrodinger.component.configuration;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class SystemTab extends TabWithContainerWrapper<SystemPage> {
+public class SystemPanel extends PanelWithContainerWrapper<SystemPage> {
 
-    public SystemTab(SystemPage parent, SelenideElement parentElement) {
+    public SystemPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 

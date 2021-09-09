@@ -19,12 +19,11 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.task.TaskBasicTab;
+import com.evolveum.midpoint.schrodinger.component.task.TaskBasicPanel;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -100,11 +99,11 @@ public class FeedbackBox<T> extends Component<T> {
         return this;
     }
 
-    public TaskBasicTab clickShowTask() {
+    public TaskBasicPanel clickShowTask() {
 
         $(Schrodinger.byDataId("backgroundTask")).click();
         SelenideElement taskBasicTab = $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
-        return new TaskBasicTab(new TaskPage(), taskBasicTab);
+        return new TaskBasicPanel(new TaskPage(), taskBasicTab);
     }
 
     public CasePage clickShowCase() {

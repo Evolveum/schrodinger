@@ -26,6 +26,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.common.DetailsNavigationPanel;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
@@ -35,6 +36,16 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
  * Created by honchar
  */
 public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDetailsPage> extends BasicPage {
+
+    private boolean useTabbedPanel = false; //if gui uses old TabbedPanel, set to true
+
+    public AssignmentHolderDetailsPage() {
+        this(false);
+    }
+
+    public AssignmentHolderDetailsPage(boolean useTabbedPanel) {
+        this.useTabbedPanel = useTabbedPanel;
+    }
 
     public BasicPage clickBack() {
         $(Schrodinger.byDataResourceKey("pageAdminFocus.button.back"))
@@ -72,17 +83,28 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         return new TabPanel<>(this, tabPanelElement);
     }
 
-    public AssignmentHolderBasicPanel<P> selectTabBasic() {
-        return new AssignmentHolderBasicPanel<>((P) this, getTabSelenideElement("pageAdminFocus.basic"));
+    public DetailsNavigationPanel<AssignmentHolderDetailsPage<P>> getNavigationPanel() {
+        SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "navigation"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        tabPanelElement.waitUntil(Condition.appear, MidPoint.TIMEOUT_LONG_20_S);
+        return new DetailsNavigationPanel<>(this, tabPanelElement);
     }
 
-    public AssignmentsPanel<P> selectTabAssignments() {
-        return new AssignmentsPanel<>((P) this, getTabSelenideElement("pageAdminFocus.assignments"));
+    public AssignmentHolderBasicPanel<P> selectBasicPanel() {
+        return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("pageAdminFocus.basic"));
     }
 
-    protected SelenideElement getTabSelenideElement(String tabTitleKey) {
-        return getTabPanel().clickTab(tabTitleKey)
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+    public AssignmentsPanel<P> selectAssignmentsPanel() {
+        return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("pageAdminFocus.assignments"));
+    }
+
+    protected SelenideElement getNavigationPanelSelenideElement(String tabTitleKey) {
+        if (useTabbedPanel) {
+            return getTabPanel().clickTab(tabTitleKey)
+                    .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        } else {
+            return getNavigationPanel().selectPanelByName(tabTitleKey); //todo change to name?
+        }
     }
 
     public ObjectBrowserModal<AssignmentHolderDetailsPage<P>> changeArchetype() {

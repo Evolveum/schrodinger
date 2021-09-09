@@ -19,25 +19,24 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by honchar.
  */
-public class SchemaStepSchemaTab extends TabWithContainerWrapper<SchemaWizardStep> {
+public class SchemaStepSchemaPanel extends PanelWithContainerWrapper<SchemaWizardStep> {
 
-    public SchemaStepSchemaTab(SchemaWizardStep parent, SelenideElement parentElement) {
+    public SchemaStepSchemaPanel(SchemaWizardStep parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public SchemaStepSchemaTab clickObjectClass(String objectClassName) {
+    public SchemaStepSchemaPanel clickObjectClass(String objectClassName) {
         $(Schrodinger.bySelfOrDescendantElementAttributeValue("div", "class", "box box-solid box-primary",
                 "class", "box-title"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
@@ -55,12 +54,12 @@ public class SchemaStepSchemaTab extends TabWithContainerWrapper<SchemaWizardSte
                 .exists();
     }
 
-    public Table<SchemaStepSchemaTab> getAttributesTable() {
-        return new Table<SchemaStepSchemaTab>(this,
+    public Table<SchemaStepSchemaPanel> getAttributesTable() {
+        return new Table<SchemaStepSchemaPanel>(this,
                 $(Schrodinger.byDataId("attributeTable")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
-    public SchemaStepSchemaTab assertObjectClassPresent(String objectClassName) {
+    public SchemaStepSchemaPanel assertObjectClassPresent(String objectClassName) {
         assertion.assertTrue(isObjectClassPresent(objectClassName), "Object class component isn't visible.");
         return this;
     }

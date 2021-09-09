@@ -109,7 +109,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                     .getMemberPanel()
                         .newMember("Create Organization type member with Member relation", "Organization");
         orgPage
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue("Name", "0919")
                         .addAttributeValue("Display Name", "Warp Speed Research")
@@ -128,7 +128,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                             .edit()
                                 .assertName("0919");
 
-        showUser("kirk").selectTabAssignments()
+        showUser("kirk").selectAssignmentsPanel()
                 .clickAddAssignment("New Organization type assignment with Member relation")
                     .table()
                         .paging()
@@ -163,7 +163,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .table()
                             .assertTableContainsText("kirk");
 
-        showUser("kirk").selectTabAssignments()
+        showUser("kirk").selectAssignmentsPanel()
                 .table()
                     .selectCheckboxByName("Warp Speed Research")
                     .removeByName("Warp Speed Research")
@@ -306,7 +306,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .assertPropertyInputValues("groups", "Internal Employees", "Essential Documents",
                                 "Teleportation", "Time Travel", "Lucky Numbers", "Presidential Candidates Motivation");
 
-        showUser("kirk").selectTabAssignments()
+        showUser("kirk").selectAssignmentsPanel()
                 .selectTypeAllDirectIndirect()
                     .assertIndirectAssignmentsExist("Secret Projects II");
     }

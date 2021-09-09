@@ -56,7 +56,7 @@ public class M12Authorizations extends AbstractLabTest {
     public void mod12test01BasicUserAuthorization() {
         addObjectFromFile(ROLE_BASIC_USER_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        showUser("X000005").selectTabBasic()
+        showUser("X000005").selectBasicPanel()
                 .form()
                     .addPasswordAttributeValue("qwerty12345XXXX")
                     .and()
@@ -73,7 +73,7 @@ public class M12Authorizations extends AbstractLabTest {
 
         login.login(getUsername(), getPassword());
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000005").selectTabAssignments(), true,  "Basic user");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000005").selectAssignmentsPanel(), true,  "Basic user");
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         login.login("X000005", "qwerty12345XXXX");
@@ -83,7 +83,7 @@ public class M12Authorizations extends AbstractLabTest {
             .table()
                 .assertTableContainsLinksTextPartially(""); //TODO projections names
 
-        profile.selectTabAssignments()
+        profile.selectAssignmentsPanel()
                 .table()
                     .assertTableContainsLinksTextPartially("Basic user", ""); //TODO roles names
 

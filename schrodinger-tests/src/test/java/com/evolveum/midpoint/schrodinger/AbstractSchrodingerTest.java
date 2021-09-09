@@ -30,12 +30,12 @@ import com.evolveum.midpoint.prism.PrismContext;
 import com.evolveum.midpoint.prism.PrismObject;
 import com.evolveum.midpoint.prism.util.PrismContextFactory;
 import com.evolveum.midpoint.schema.MidPointPrismContextFactory;
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceShadowTable;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.AboutPage;
@@ -390,7 +390,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .and()
                     .clickByName(resourceName);
             Selenide.screenshot("beforeEditConfiguration");
-            ResourceConfigurationTab resourceConfigurationTab = viewResourcePage
+            ResourceConfigurationPanel resourceConfigurationTab = viewResourcePage
                     .clickEditResourceConfiguration();
             Selenide.screenshot("afterEditConfigurationClick");
             Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -638,9 +638,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected void createUser(Map<String, String> newUserAttributesMap) {
-        PrismForm<TabWithContainerWrapper<UserPage>> form = basicPage
+        PrismForm<PanelWithContainerWrapper<UserPage>> form = basicPage
                 .newUser()
-                    .selectTabBasic()
+                    .selectBasicPanel()
                         .form();
         newUserAttributesMap.forEach((key, attr) -> form.addAttributeValue(key, newUserAttributesMap.get(key)));
         form

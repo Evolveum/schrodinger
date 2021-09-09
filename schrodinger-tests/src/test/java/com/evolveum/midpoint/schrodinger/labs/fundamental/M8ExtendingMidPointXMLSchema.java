@@ -85,7 +85,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
         PrismForm<AssignmentHolderBasicPanel<UserPage>> form = basicPage.newUser()
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form();
 
         form.findProperty("ouNumber");
@@ -121,7 +121,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
 
         form = accountTab.table()
                 .clickOnOwnerByName("X001212", "Edit Employee")
-                .selectTabBasic()
+                .selectBasicPanel()
                 .form();
 
         form.assertPropertyInputValue("ouPath", "0300")
@@ -130,7 +130,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
 
         form.and()
                 .and()
-            .selectTabAssignments()
+            .selectAssignmentsPanel()
                 .clickAddAssignment()
                     .table()
                         .search()

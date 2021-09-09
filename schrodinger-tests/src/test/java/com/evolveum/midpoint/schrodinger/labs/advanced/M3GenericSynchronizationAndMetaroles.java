@@ -104,7 +104,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                     .assertSuccess();
 
         showUser("kirk")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertyInputValueContainsText("Meal Card Number", "1001")
                         .and()
@@ -133,7 +133,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .updateSearch()
                     .and()
                     .clickByName("X000021")
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                                 .assertPropertyInputValueContainsText("Meal Card Number", "10");
     }
@@ -144,7 +144,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Reconciliation task");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        task.selectTabBasic()
+        task.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Org Reconciliation")
                     .addAttributeValue("objectclass", "AccountObjectClass")
@@ -199,7 +199,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .updateSearch()
                             .and()
                         .clickByName("HR Org Reconciliation")
-                            .selectTabBasic()
+                            .selectBasicPanel()
                                 .form()
                                     .selectOption("Dry run", "False")
                                     .and()
@@ -240,7 +240,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         TaskPage hrOrgsSyncTask = basicPage.newTask();
         task.setHandlerUriForNewTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        hrOrgsSyncTask.selectTabBasic()
+        hrOrgsSyncTask.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Orgs Synchronization")
                     .addAttributeValue("Kind", "Generic")
@@ -285,7 +285,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                     //todo check LDAP Org Group Metarole is not assigned
                                     //todo check parent organization (Special Operations) should be assigned
                                     .and()
-                                .selectTabAssignments()
+                                .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
                                 .clickBack();
@@ -302,7 +302,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .updateSearch()
                             .and()
                         .clickByName("X000979")
-                            .selectTabAssignments()
+                            .selectAssignmentsPanel()
                                 .assertAssignmentsWithRelationExist("Member", "Biomechanic Arm Development", "Internal Employee")
                                 .and()
                             .selectTabProjections()
@@ -319,7 +319,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000993")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Active Employees")
                     .assertAssignmentsWithRelationExist("Member", "0440")
                     .assertAssignmentsWithRelationExist("Member", "Internal Employee")
@@ -335,7 +335,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .assertChildOrgExists("0440")
                                 .showTreeNodeDropDownMenu("0440")
                                     .edit()
-                                        .selectTabAssignments()
+                                        .selectAssignmentsPanel()
                                         .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                         .and()
                                         .selectTabProjections()
@@ -386,7 +386,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("000992")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Active Employees")
                 .assertAssignmentsWithRelationExist("Member", "0470")
                 .assertAssignmentsWithRelationExist("Member", "Internal Employee")
@@ -402,7 +402,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertChildOrgExists("0470")
                             .showTreeNodeDropDownMenu("0470")
                             .edit()
-                                .selectTabAssignments()
+                                .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
                                 .selectTabProjections()
@@ -413,7 +413,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         //todo check notification
 
         showUser("000991")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Active Employees")
                 .assertAssignmentsWithRelationExist("Member", "0450")
                 .assertAssignmentsWithRelationExist("Member", "Internal Employee")
@@ -429,7 +429,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertChildOrgExists("0450")
                             .showTreeNodeDropDownMenu("0450")
                             .edit()
-                                .selectTabAssignments()
+                                .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
                                 .selectTabProjections()
@@ -440,7 +440,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         //todo check notification
 
         showUser("X000990")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Active Employees")
                 .assertAssignmentsWithRelationExist("Member", "0460")
                 .assertAssignmentsWithRelationExist("Member", "Internal Employee")
@@ -456,7 +456,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertChildOrgExists("0460")
                             .showTreeNodeDropDownMenu("0460")
                             .edit()
-                                .selectTabAssignments()
+                                .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
                                 .selectTabProjections()
@@ -509,7 +509,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("000993")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Active Employees")
                 .assertAssignmentsWithRelationExist("Member", "Explosions Department")
                 .assertAssignmentsWithRelationExist("Member", "Internal Employee")

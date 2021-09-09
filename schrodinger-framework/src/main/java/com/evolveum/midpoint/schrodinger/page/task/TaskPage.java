@@ -118,42 +118,42 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     @Override
-    public AssignmentHolderBasicPanel<TaskPage> selectTabBasic() {
-        return new TaskBasicTab(this, getTabSelenideElement(("pageTask.basic.title")));
+    public AssignmentHolderBasicPanel<TaskPage> selectBasicPanel() {
+        return new TaskBasicPanel(this, getNavigationPanelSelenideElement(("pageTask.basic.title")));
     }
 
     @Override
-    public AssignmentsPanel<TaskPage> selectTabAssignments() {
+    public AssignmentsPanel<TaskPage> selectAssignmentsPanel() {
         return null;
     }
 
     public AssignmentHolderBasicPanel<TaskPage> selectScheduleTab(){
-        return new AssignmentHolderBasicPanel<TaskPage>(this, getTabSelenideElement(("pageTask.schedule.title")));
+        return new AssignmentHolderBasicPanel<TaskPage>(this, getNavigationPanelSelenideElement(("pageTask.schedule.title")));
     }
 
     public OperationStatisticsPanel selectTabOperationStatistics() {
-        return new OperationStatisticsPanel(this, getTabSelenideElement(("pageTask.operationStats.title")));
+        return new OperationStatisticsPanel(this, getNavigationPanelSelenideElement(("pageTask.operationStats.title")));
     }
 
     public EnvironmentalPerformancePanel selectTabEnvironmentalPerformance() {
-        return new EnvironmentalPerformancePanel(this, getTabSelenideElement(("pageTask.environmentalPerformance.title")));
+        return new EnvironmentalPerformancePanel(this, getNavigationPanelSelenideElement(("pageTask.environmentalPerformance.title")));
     }
 
     public InternalPerformancePanel selectTabInternalPerformance() {
-        return new InternalPerformancePanel(this, getTabSelenideElement(("pageTask.internalPerformance.title")));
+        return new InternalPerformancePanel(this, getNavigationPanelSelenideElement(("pageTask.internalPerformance.title")));
     }
 
     public ResultPanel selectTabResult() {
-        return new ResultPanel(this, getTabSelenideElement(("pageTask.result.title")));
+        return new ResultPanel(this, getNavigationPanelSelenideElement(("pageTask.result.title")));
     }
 
      public ErrorsPanel selectTabErrors() {
-        return new ErrorsPanel(this, getTabSelenideElement(("pageTask.errors.title")));
+        return new ErrorsPanel(this, getNavigationPanelSelenideElement(("pageTask.errors.title")));
     }
 
     public TaskPage setHandlerUriForNewTask(String handler) {
         SelenideElement handlerElement = $(Schrodinger.byDataResourceKey("a", "TaskHandlerSelectorPanel.selector.header"));
-        selectTabBasic().form().addAttributeValue("handlerUri", handler);
+        selectBasicPanel().form().addAttributeValue("handlerUri", handler);
 //        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         handlerElement.waitWhile(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;

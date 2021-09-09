@@ -34,7 +34,7 @@ public class AuditLogViewerPageTest extends AbstractSchrodingerTest {
                             .updateSearch()
                         .and()
                     .clickByName("auditLogViewerTestUser")
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                                 .changeAttributeValue("Name", "auditLogViewerTestUser", "auditLogViewerTestUser1")
                                 .and()

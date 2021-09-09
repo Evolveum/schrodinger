@@ -107,24 +107,24 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         addObjectFromFile(SECRET_II_ROLE_FILE);
         addObjectFromFile(TOP_SECRET_I_ROLE_FILE);
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, "Secret Projects I", "Secret Projects II");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Secret Projects I", "Secret Projects II");
         showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk")
                 .form()
                     .assertPropertyInputValues("groups", "Lucky Numbers",
                             "Teleportation", "Time Travel", "Presidential Candidates Motivation");
 
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects I");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Secret Projects I");
 
         showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk")
                     .form()
                         .assertPropertyInputValues("groups", "Lucky Numbers",
                                 "Presidential Candidates Motivation");
 
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects II");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Secret Projects II");
 
         assertShadowDoesntExist(CSV_1_RESOURCE_NAME, "Login", "jkirk");
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, "Internal Employee");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Internal Employee");
 
         assertShadowExists(CSV_1_RESOURCE_NAME, "Login", "jkirk");
         assertShadowExists(CSV_2_RESOURCE_NAME, "Login", "jkirk");
@@ -135,7 +135,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod05test01UsingRBAC"}, groups={"M5"})
     public void mod05test02SegregationOfDuties() {
-        showUser("kirk").selectTabAssignments()
+        showUser("kirk").selectAssignmentsPanel()
                 .clickAddAssignment()
                     .table()
                         .search()
@@ -155,7 +155,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod05test02SegregationOfDuties"}, groups={"M5"})
     public void mod05test04CreatingRoles() {
         InducementsPanel<AbstractRolePage> tab = basicPage.newRole()
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue(RoleType.F_NAME, "Too Many Secrets")
                         .addAttributeValue(RoleType.F_DISPLAY_NAME, "Too Many Secrets")
@@ -164,17 +164,17 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                 .selectTabInducements();
         Utils.addAssignmentsWithDefaultRelationAndSave(tab, true, "Secret Projects I", "Secret Projects II", "Top Secret Projects I");
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,"Too Many Secrets");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,"Too Many Secrets");
         assertShadowExists(CSV_1_RESOURCE_NAME, "Login", "jkirk");
 
-        DirectIndirectAssignmentTable<AssignmentsPanel<UserPage>> table = showUser("kirk").selectTabAssignments()
+        DirectIndirectAssignmentTable<AssignmentsPanel<UserPage>> table = showUser("kirk").selectAssignmentsPanel()
                 .selectTypeAllDirectIndirect();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         table.assertIndirectAssignmentsExist("Secret Projects I",
                 "Secret Projects II", "Top Secret Projects I", CSV_1_RESOURCE_NAME, CSV_2_RESOURCE_NAME,
                 CSV_3_RESOURCE_NAME);
 
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Too Many Secrets");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Too Many Secrets");
     }
 
     @Test(dependsOnMethods = {"mod05test04CreatingRoles"}, groups={"M5"})
@@ -183,7 +183,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_5_5, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_5_5, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Internal Employee");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Internal Employee");
 
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
         Selenide.sleep(2000);
@@ -199,7 +199,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         showShadow(CSV_3_RESOURCE_NAME, "Distinguished Name", "cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
         accountForm.assertPropertySelectValue("administrativeStatus", "Disabled");
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,  "Internal Employee");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,  "Internal Employee");
         showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
         accountForm
                 .assertPropertySelectValue("administrativeStatus", "Enabled")
@@ -215,7 +215,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod05test05DisableOnUnassign"}, groups={"M5"})
     public void mod05test06InactiveAssignment() {
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, "Too Many Secrets");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Too Many Secrets");
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         PrismForm<AccountPage> accountForm = shadow.form();
@@ -227,7 +227,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         accountForm.assertPropertyInputValues("groups", "Lucky Numbers",
                         "Teleportation", "Time Travel", "Presidential Candidates Motivation");
 
-        Utils.setStatusForAssignment(showUser("kirk").selectTabAssignments(), "Too Many Secrets", "Disabled");
+        Utils.setStatusForAssignment(showUser("kirk").selectAssignmentsPanel(), "Too Many Secrets", "Disabled");
 
         showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
         accountForm
@@ -240,7 +240,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         showShadow(CSV_3_RESOURCE_NAME, "Distinguished Name", "cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
         accountForm.assertPropertySelectValue("administrativeStatus", "Enabled");
 
-        Utils.setStatusForAssignment(showUser("kirk").selectTabAssignments(), "Internal Employee", "Disabled");
+        Utils.setStatusForAssignment(showUser("kirk").selectAssignmentsPanel(), "Internal Employee", "Disabled");
 
         showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
         accountForm
@@ -254,8 +254,8 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         showShadow(CSV_3_RESOURCE_NAME, "Distinguished Name", "cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
         accountForm.assertPropertySelectValue("administrativeStatus", "Disabled");
 
-        Utils.setStatusForAssignment(showUser("kirk").selectTabAssignments(), "Internal Employee", "Undefined");
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Too Many Secrets");
+        Utils.setStatusForAssignment(showUser("kirk").selectAssignmentsPanel(), "Internal Employee", "Undefined");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Too Many Secrets");
     }
 
     @Test(dependsOnMethods = {"mod05test06InactiveAssignment"}, groups={"M5"})
@@ -282,7 +282,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         login.login(getUsername(), getPassword());
 
         basicPage.listUsers().newObjectCollection("New "+ARCHETYPE_EMPLOYEE_LABEL.toLowerCase())
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue(UserType.F_NAME, "janeway")
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Kathryn")
@@ -296,7 +296,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                         .isSuccess();
 
         AssignmentsPanel<UserPage> assigmentsTab = showUser("janeway")
-                .selectTabAssignments();
+                .selectAssignmentsPanel();
         assigmentsTab
                 .table()
                 .assertTableDoesntContainText(ARCHETYPE_EMPLOYEE_NAME);

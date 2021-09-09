@@ -289,7 +289,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .updateSearch()
                 .and()
                 .clickByName(userName)
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .clickAddAssignment()
                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                 .table()

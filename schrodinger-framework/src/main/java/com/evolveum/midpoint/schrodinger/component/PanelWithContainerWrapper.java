@@ -24,14 +24,14 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
  * @author skublik
  */
 
-public class TabWithContainerWrapper<P> extends Component<P> {
+public class PanelWithContainerWrapper<P> extends Component<P> {
 
-    public TabWithContainerWrapper(P parent, SelenideElement parentElement) {
+    public PanelWithContainerWrapper(P parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public <T extends TabWithContainerWrapper<P>> PrismForm<T> form() {
-        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "class", "tab-content"));
+    public <T extends PanelWithContainerWrapper<P>> PrismForm<T> form() {
+        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "class", "container-wrapper"));
         return new PrismForm<T>((T) this, element);
     }
 }

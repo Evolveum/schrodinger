@@ -16,7 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.configuration;
 
 import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -26,16 +26,16 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class InfrastructurePanel extends TabWithContainerWrapper<SystemPage> {
+public class InfrastructurePanel extends PanelWithContainerWrapper<SystemPage> {
 
     public InfrastructurePanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public PrismForm<InfrastructurePanel> form() {
-
-        SelenideElement element = $(Schrodinger.byDataId("panel"));
-        return new PrismForm<InfrastructurePanel>(this, element);
-    }
+//    public PrismForm<InfrastructurePanel> form() {
+//
+//        SelenideElement element = $(Schrodinger.byDataId("panel"));
+//        return new PrismForm<InfrastructurePanel>(this, element);
+//    }
 
 }

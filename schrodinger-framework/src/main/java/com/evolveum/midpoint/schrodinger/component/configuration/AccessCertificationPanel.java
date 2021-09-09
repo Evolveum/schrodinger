@@ -17,10 +17,10 @@ package com.evolveum.midpoint.schrodinger.component.configuration;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 
-public class AccessCertificationPanel extends TabWithContainerWrapper<SystemPage> {
+public class AccessCertificationPanel extends PanelWithContainerWrapper<SystemPage> {
 
     public AccessCertificationPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

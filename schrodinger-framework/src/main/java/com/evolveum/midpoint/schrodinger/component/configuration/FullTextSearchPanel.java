@@ -17,10 +17,10 @@ package com.evolveum.midpoint.schrodinger.component.configuration;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 
-public class FullTextSearchPanel extends TabWithContainerWrapper<SystemPage> {
+public class FullTextSearchPanel extends PanelWithContainerWrapper<SystemPage> {
 
     public FullTextSearchPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

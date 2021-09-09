@@ -50,7 +50,7 @@ public class PolyStringTests extends AbstractSchrodingerTest {
     public void test0010createUserWithDiacritic(){
         UserPage user = basicPage.newUser();
 
-        user.selectTabBasic()
+        user.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", TEST_USER_JOZKO_NAME)
                         .addAttributeValue(UserType.F_GIVEN_NAME, TEST_USER_JOZKO_GIVEN_NAME)

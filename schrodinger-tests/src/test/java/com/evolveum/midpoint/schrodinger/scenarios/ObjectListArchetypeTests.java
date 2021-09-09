@@ -83,7 +83,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
         collectionListPage
                 .table()
                     .newObjectButtonClickPerformed(ARCHETYPE_ICON_CSS_STYLE)
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                                 .addAttributeValue("name", EMPLOYEE_USER_NAME_VALUE)
                             .and()

@@ -50,7 +50,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
         String handler = "Recompute task";
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask(handler);
-        task.selectTabBasic()
+        task.selectBasicPanel()
                 .form()
                     .addAttributeValue("name", name)
                     .selectOption("recurrence","Single")
@@ -70,7 +70,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                             .updateSearch()
                         .and()
                     .clickByName(name)
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form();
 
         taskForm.assertPropertyInputValue("name", name)

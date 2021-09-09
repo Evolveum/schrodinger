@@ -77,7 +77,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test //covers MID-5845
     public void test0020isLocalizedPolystringValueDisplayed(){
         UserPage user = basicPage.newUser();
-        user.selectTabBasic()
+        user.selectBasicPanel()
                         .form()
                         .addAttributeValue("name", LOCALIZATION_TEST_USER_NAME_ORIG)
                         .setPolyStringLocalizedValue(UserType.F_NAME, LOCALIZATION_VALUE, LOCALIZATION_TEST_USER_NAME_DE)

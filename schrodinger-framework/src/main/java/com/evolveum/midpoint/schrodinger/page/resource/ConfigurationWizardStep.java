@@ -15,7 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -33,19 +32,19 @@ public class ConfigurationWizardStep extends Component<ResourceWizardPage> {
             return new TabPanel<>(this, getParentElement());
         }
 
-        public ConfigurationStepConfigurationTab selectConfigurationTab() {
-            return new ConfigurationStepConfigurationTab(this, getTabPanel().clickTabWithName("Configuration"));
+        public ConfigurationStepConfigurationPanel selectConfigurationTab() {
+            return new ConfigurationStepConfigurationPanel(this, getTabPanel().clickTabWithName("Configuration"));
         }
 
-        public ConfigurationStepConnectorPoolTab selectConnectorPoolTab() {
-            return new ConfigurationStepConnectorPoolTab(this, getTabPanel().clickTabWithName("Connector pool"));
+        public ConfigurationStepConnectorPoolPanel selectConnectorPoolTab() {
+            return new ConfigurationStepConnectorPoolPanel(this, getTabPanel().clickTabWithName("Connector pool"));
         }
 
-        public ConfigurationStepResultsHandlersTab selectResultsHandlerTab() {
-            return new ConfigurationStepResultsHandlersTab(this, getTabPanel().clickTabWithName("Results handlers"));
+        public ConfigurationStepResultsHandlersPanel selectResultsHandlerTab() {
+            return new ConfigurationStepResultsHandlersPanel(this, getTabPanel().clickTabWithName("Results handlers"));
         }
 
-        public ConfigurationStepTimeoutsTab selectTimeoutsTab() {
-            return new ConfigurationStepTimeoutsTab(this, getTabPanel().clickTabWithName("Timeouts"));
+        public ConfigurationStepTimeoutsPanel selectTimeoutsTab() {
+            return new ConfigurationStepTimeoutsPanel(this, getTabPanel().clickTabWithName("Timeouts"));
         }
 }

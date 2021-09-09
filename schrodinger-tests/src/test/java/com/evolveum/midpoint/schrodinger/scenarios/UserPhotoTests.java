@@ -39,7 +39,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     public void test0010createMidpointUserWithPhotoLarge(){
         UserPage user = basicPage.newUser();
         user
-                    .selectTabBasic()
+                    .selectBasicPanel()
                         .form()
                         .addAttributeValue("name", TEST_USER_LEO_NAME)
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Leonardo")
@@ -57,7 +57,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     public void test0020createMidpointUserWithPhotoJustRight(){
         UserPage user = basicPage.newUser();
         user
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                             .addAttributeValue("name", TEST_USER_LEO_NAME)
                             .addAttributeValue(UserType.F_GIVEN_NAME, "Leonardo")
@@ -82,7 +82,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
                             .updateSearch()
                     .and()
                     .clickByName(TEST_USER_LEO_NAME)
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                             .removeFileAsAttributeValue("Jpeg photo")
                         .and()

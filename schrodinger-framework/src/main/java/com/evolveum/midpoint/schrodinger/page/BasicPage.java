@@ -377,7 +377,7 @@ public class BasicPage {
         return new ListRepositoryObjectsPage();
     }
 
-    public SystemTab system() {
+    public SystemPanel system() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.basic");
         return new SystemPage().systemTab();
     }

@@ -16,11 +16,10 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConnectorPoolTab;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceResultsHandlersTab;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceTimeoutsTab;
@@ -28,8 +27,6 @@ import com.evolveum.midpoint.schrodinger.component.resource.TestConnectionModal;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -46,10 +43,10 @@ public class EditResourceConfigurationPage extends BasicPage {
         return new TabPanel<>(this, tabPanelElement);
     }
 
-    public ResourceConfigurationTab selectTabconfiguration() {
+    public ResourceConfigurationPanel selectTabconfiguration() {
         SelenideElement element = findTabPanel().clickTabWithName(CONFIGURATION_TAB_NAME);
 
-        return new ResourceConfigurationTab(this, element);
+        return new ResourceConfigurationPanel(this, element);
     }
 
     public ResourceConnectorPoolTab selectTabConnectorPool() {

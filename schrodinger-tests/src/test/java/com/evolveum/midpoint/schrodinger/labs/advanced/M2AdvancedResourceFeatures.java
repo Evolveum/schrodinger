@@ -118,7 +118,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .assertGivenName("Antonio")
                 .assertFamilyName("Perkeltini")
                 .assertFullName("Antonio Perkeltini")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .table()
                         .assertTableObjectsCountEquals(0);
 
@@ -126,7 +126,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .clickAccountsTab()
                     .importTask()
                         .clickCreateNew()
-                            .selectTabBasic()
+                            .selectBasicPanel()
                                 .form()
                                     .addAttributeValue("Name", CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
                                     .and()
@@ -153,7 +153,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Live synchronization task")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .addAttributeValue("Name", "Contractor DB Synchronization")
                         .addAttributeValue("Object class", "AccountObjectClass")
@@ -208,7 +208,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("aanderson")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertyDropdownValue("Administrative status", "Disabled");
 
@@ -220,7 +220,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("rshelteron")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertyTextareaValueContainsText("Description", "Contractor disabled:")
                         .assertPropertyDropdownValue("Administrative status", "Disabled");
@@ -231,7 +231,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     public void mod02test02iterators() throws IOException{
         addObjectFromFile(RIMSY_USER_FILE);
         showUser("rimsy")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .clickAddAssignment()
                         .table()
                             .selectCheckboxByName("Internal Employee")
@@ -248,7 +248,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_LAB_2_2_UPDATE_1, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("rimsy").selectTabAssignments(), true, "Internal Employee");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("rimsy").selectAssignmentsPanel(), true, "Internal Employee");
         showUser("rimsy")
                 .selectTabProjections()
                 .assertProjectionExist("arimmer1", "CSV-2 (Canteen Ordering System)")
@@ -259,7 +259,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000997")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member","Internal Employee")
                     .and()
                 .selectTabProjections()
@@ -312,7 +312,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("kkochanski")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Internal Employee");
 
         //todo check log files created by scripts
@@ -323,7 +323,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE_LAB_2_5_UPDATE_1, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
 
         showUser("picard")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Internal Employee")
                 .table()
                     .removeByName("Internal Employee")

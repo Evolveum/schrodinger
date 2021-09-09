@@ -76,7 +76,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .clickAccountsTab()
                         .liveSyncTask()
                             .clickCreateNew()
-                                .selectTabBasic()
+                                .selectBasicPanel()
                                     .form()
                                         .addAttributeValue("name","LiveSyncTest")
                                         .selectOption("recurrence","Recurring")

@@ -36,13 +36,13 @@ public class ArchetypePage extends AbstractRolePage {
     }
 
     @Override
-    public AssignmentHolderBasicPanel<ArchetypePage> selectTabBasic() {
-        return super.selectTabBasic();
+    public AssignmentHolderBasicPanel<ArchetypePage> selectBasicPanel() {
+        return super.selectBasicPanel();
     }
 
     @Override
-    public AssignmentsPanel<ArchetypePage> selectTabAssignments() {
-        return super.selectTabAssignments();
+    public AssignmentsPanel<ArchetypePage> selectAssignmentsPanel() {
+        return super.selectAssignmentsPanel();
     }
 
     public ArchetypePolicyPanel selectTabArchetypePolicy() {
@@ -53,17 +53,17 @@ public class ArchetypePage extends AbstractRolePage {
     }
 
     public ArchetypePage assertName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("name", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("name", expectedValue);
         return this;
     }
 
     public ArchetypePage assertDisplayName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("displayName", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("displayName", expectedValue);
         return this;
     }
 
     public ArchetypePage assertIdentifier(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("identifier", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("identifier", expectedValue);
         return this;
     }
 

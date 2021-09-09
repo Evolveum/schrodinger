@@ -19,10 +19,10 @@ import com.codeborne.selenide.Selenide;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
-import com.evolveum.midpoint.schrodinger.page.resource.SchemaStepSchemaTab;
+import com.evolveum.midpoint.schrodinger.page.resource.SchemaStepSchemaPanel;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
@@ -62,7 +62,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_1_SIMPLE_RESOURCE_FILE, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
 
         ListResourcesPage resourcesList = basicPage.listResources();
-        PrismForm<ResourceConfigurationTab> configTab = resourcesList
+        PrismForm<ResourceConfigurationPanel> configTab = resourcesList
                 .table()
                 .clickByName(CSV_1_RESOURCE_NAME)
                     .clickEditResourceConfiguration()
@@ -73,7 +73,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         // Password attribute name should be password
         configTab.assertPropertyInputValue(PASSWORD_ATTRIBUTE_NAME, CSV_1_PASSWORD_ATTRIBUTE_NAME);
 
-        SchemaStepSchemaTab schemaStepSchemaTab = basicPage.listResources()
+        SchemaStepSchemaPanel schemaStepSchemaTab = basicPage.listResources()
                 .table()
                     .clickByName(CSV_1_RESOURCE_NAME)
                         .clickShowUsingWizard()
@@ -104,7 +104,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod03test01ViewingResources"}, groups={"M3"})
     public void mod03test02BasicProvisioning() {
         UserPage user = basicPage.newUser();
-        user.selectTabBasic()
+        user.selectBasicPanel()
                 .form()
                     .addAttributeValue(UserType.F_NAME, "kirk")
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jim")
@@ -137,7 +137,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         assertShadowExists(CSV_1_RESOURCE_NAME, "Login", "kirk");
 
         showUser("kirk")
-                .selectTabBasic()
+                .selectBasicPanel()
                             .form()
                                 .addAttributeValue(UserType.F_GIVEN_NAME, "Jim T.")
                                 .and()

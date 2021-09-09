@@ -15,7 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.scenarios;
 
-import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -69,7 +68,7 @@ public class AccountTests extends AbstractSchrodingerTest {
 
         UserPage user = basicPage.newUser();
 
-        user.selectTabBasic()
+        user.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", TEST_USER_MIKE_NAME)
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Michelangelo")

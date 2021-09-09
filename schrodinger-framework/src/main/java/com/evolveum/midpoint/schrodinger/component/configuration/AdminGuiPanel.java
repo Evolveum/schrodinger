@@ -19,13 +19,13 @@ import static com.evolveum.midpoint.schrodinger.util.ConstantsUtil.*;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class AdminGuiPanel extends TabWithContainerWrapper<SystemPage> {
+public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
 
     public AdminGuiPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

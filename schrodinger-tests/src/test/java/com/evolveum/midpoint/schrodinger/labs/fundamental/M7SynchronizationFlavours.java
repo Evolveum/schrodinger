@@ -100,7 +100,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                         .clickAccountsTab()
                             .importTask()
                                 .clickCreateNew()
-                                    .selectTabBasic()
+                                    .selectBasicPanel()
                                         .form()
                                             .addAttributeValue("name","Initial import from HR")
                                             .and()
@@ -167,7 +167,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
-        task.selectTabBasic()
+        task.selectBasicPanel()
                 .form()
                     .addAttributeValue("objectclass", "AccountObjectClass")
                     .addAttributeValue(TaskType.F_NAME, "HR Synchronization")
@@ -198,7 +198,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         showUser("X000999")
                 .assertGivenName("Arnold")
                 .assertFamilyName("Rimmer")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertySelectValue("administrativeStatus", "Enabled");
 
@@ -210,14 +210,14 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_3, hrTargetFile);
         Selenide.sleep(20000);
         showUser("X000999")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertySelectValue("administrativeStatus", "Disabled");
 
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_4, hrTargetFile);
         Selenide.sleep(20000);
         showUser("X000999")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertySelectValue("administrativeStatus", "Enabled");
 
@@ -239,7 +239,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Reconciliation task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
-        task.selectTabBasic()
+        task.selectBasicPanel()
                 .form()
                     .addAttributeValue("objectclass", "AccountObjectClass")
                     .selectOption("dryRun", "True")
@@ -261,7 +261,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     }
 
     private void deselectDryRun(String taskName) {
-        showTask(taskName).selectTabBasic()
+        showTask(taskName).selectBasicPanel()
                 .form()
                     .selectOption("dryRun", "Undefined")
                 .and()

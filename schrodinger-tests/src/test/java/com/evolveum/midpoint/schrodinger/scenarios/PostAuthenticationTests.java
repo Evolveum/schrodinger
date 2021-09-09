@@ -136,7 +136,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
                 .updateSearch()
                 .and()
                 .clickByName(TEST_USER_TITIAN_NAME)
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                 .clickAddAssignment()
                 .table()
                 .search()

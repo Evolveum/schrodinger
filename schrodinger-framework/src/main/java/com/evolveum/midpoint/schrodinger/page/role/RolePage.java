@@ -31,27 +31,27 @@ public class RolePage extends AbstractRolePage {
     }
 
     @Override
-    public AssignmentHolderBasicPanel<RolePage> selectTabBasic() {
-        return super.selectTabBasic();
+    public AssignmentHolderBasicPanel<RolePage> selectBasicPanel() {
+        return super.selectBasicPanel();
     }
 
     @Override
-    public AssignmentsPanel<RolePage> selectTabAssignments() {
-        return super.selectTabAssignments();
+    public AssignmentsPanel<RolePage> selectAssignmentsPanel() {
+        return super.selectAssignmentsPanel();
     }
 
     public RolePage assertName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("name", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("name", expectedValue);
         return this;
     }
 
     public RolePage assertDisplayName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("displayName", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("displayName", expectedValue);
         return this;
     }
 
     public RolePage assertIdentifier(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("identifier", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("identifier", expectedValue);
         return this;
     }
 }

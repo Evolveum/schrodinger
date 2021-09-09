@@ -17,13 +17,13 @@ package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 /**
  * Created by honchar.
  */
-public class ConfigurationStepConnectorPoolTab extends TabWithContainerWrapper<ConfigurationWizardStep> {
+public class ConfigurationStepConnectorPoolPanel extends PanelWithContainerWrapper<ConfigurationWizardStep> {
 
-    public ConfigurationStepConnectorPoolTab(ConfigurationWizardStep parent, SelenideElement parentElement){
+    public ConfigurationStepConnectorPoolPanel(ConfigurationWizardStep parent, SelenideElement parentElement){
         super(parent, parentElement);
     }
 }

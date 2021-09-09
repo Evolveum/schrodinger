@@ -103,7 +103,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         attributesMap.put("Family name", "Johnson");
         createUser(attributesMap);
         showUser("userWithoutFullname2")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                         .assertPropertyInputValue("Full name", "");
     }
@@ -121,7 +121,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         basicPage
                 .listUsers("Employees")
                     .newUser()
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                                 .addAttributeValue("Name", "employeeTestUser")
                                 .addAttributeValue("Given name", "Kevin")
@@ -145,7 +145,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                         .assertTableContainsColumnWithValue("UserType.familyName", "Black")
                         .assertTableColumnValueIsEmpty("UserType.fullName");
         table.clickByName("employeeTestUser")
-                .selectTabBasic();
+                .selectBasicPanel();
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
         addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE, true);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
@@ -153,7 +153,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         basicPage
                 .listUsers("Employees")
                     .newUser()
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                                 .addAttributeValue("Name", "employeeTestUserWithFullname")
                                 .addAttributeValue("Given name", "Oskar")
@@ -190,7 +190,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         basicPage
                 .listUsers("Employees")
                     .newUser()
-                        .selectTabBasic()
+                        .selectBasicPanel()
                             .form()
                             .addAttributeValue("Name", "employeeAfterObjTemplRemove")
                             .addAttributeValue("Given name", "David")
@@ -201,7 +201,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                         .feedback()
                             .assertSuccess();
        showUser("employeeAfterObjTemplRemove")
-                .selectTabBasic()
+                .selectBasicPanel()
                     .form()
                     .assertPropertyInputValue("Full name", "");
     }

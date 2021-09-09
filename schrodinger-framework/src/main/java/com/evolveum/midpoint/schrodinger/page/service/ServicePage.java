@@ -31,27 +31,27 @@ public class ServicePage extends AbstractRolePage {
     }
 
     @Override
-    public AssignmentHolderBasicPanel<ServicePage> selectTabBasic() {
-        return super.selectTabBasic();
+    public AssignmentHolderBasicPanel<ServicePage> selectBasicPanel() {
+        return super.selectBasicPanel();
     }
 
     @Override
-    public AssignmentsPanel<ServicePage> selectTabAssignments() {
-        return super.selectTabAssignments();
+    public AssignmentsPanel<ServicePage> selectAssignmentsPanel() {
+        return super.selectAssignmentsPanel();
     }
 
     public ServicePage assertName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("name", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("name", expectedValue);
         return this;
     }
 
     public ServicePage assertDisplayName(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("displayName", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("displayName", expectedValue);
         return this;
     }
 
     public ServicePage assertIdentifier(String expectedValue) {
-        selectTabBasic().form().assertPropertyInputValue("identifier", expectedValue);
+        selectBasicPanel().form().assertPropertyInputValue("identifier", expectedValue);
         return this;
     }
 

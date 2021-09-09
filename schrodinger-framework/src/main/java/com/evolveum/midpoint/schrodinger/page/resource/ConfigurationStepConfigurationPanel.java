@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.component.report;
+package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.TabWithContainerWrapper;
-import com.evolveum.midpoint.schrodinger.page.report.ReportPage;
-
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 /**
- * Created by honchar
+ * Created by honchar.
  */
-public class ReportExportTab extends TabWithContainerWrapper<ReportPage> {
+public class ConfigurationStepConfigurationPanel extends PanelWithContainerWrapper<ConfigurationWizardStep> {
 
-    public ReportExportTab(ReportPage parent, SelenideElement parentElement) {
+    public ConfigurationStepConfigurationPanel(ConfigurationWizardStep parent, SelenideElement parentElement){
         super(parent, parentElement);
     }
 }

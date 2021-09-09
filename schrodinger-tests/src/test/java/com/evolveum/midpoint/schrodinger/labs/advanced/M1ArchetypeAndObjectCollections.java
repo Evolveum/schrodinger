@@ -94,7 +94,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
     @Test(groups={"advancedM1"})
     public void mod01test01environmentInitialization() throws IOException {
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,  "Internal Employee");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,  "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
                         .assertProjectionExist("jkirk", "CSV-2 (Canteen Ordering System)")
@@ -103,7 +103,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         assertLastNotificationBodyContains(notificationFile, notificationCheck1);
         assertLastNotificationBodyContains(notificationFile, notificationCheck2);
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true,  "Secret Projects I", "Secret Projects II");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,  "Secret Projects I", "Secret Projects II");
         assertLastNotificationBodyContains(notificationFile, notificationCheck1);
         assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         showUser("kirk")
@@ -111,21 +111,21 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .viewProjectionDetails("jkirk", "CSV-1 (Document Access)")
                         .assertPropertyInputValues("Groups", "Internal Employees", "Essential Documents",
                                 "Time Travel", "Teleportation", "Lucky Numbers", "Presidential Candidates Motivation");
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects I");
-        Utils.removeAssignments(showUser("kirk").selectTabAssignments(), "Secret Projects II");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Secret Projects I");
+        Utils.removeAssignments(showUser("kirk").selectAssignmentsPanel(), "Secret Projects II");
         assertLastNotificationBodyContains(notificationFile, notificationCheck1);
         assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         showUser("kirk")
                 .selectTabProjections()
                 .viewProjectionDetails("jkirk", "CSV-1 (Document Access)")
                 .assertPropertyInputValues("Groups", "Internal Employees", "Essential Documents");
-        Utils.removeAllAssignments(showUser("kirk").selectTabAssignments());
+        Utils.removeAllAssignments(showUser("kirk").selectAssignmentsPanel());
         showUser("kirk")
                         .selectTabProjections()
                             .assertProjectionDisabled("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertProjectionDisabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                             .assertProjectionDisabled("jkirk", "CSV-1 (Document Access)");
-        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectTabAssignments(), true, "Internal Employee");
+        Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Internal Employee");
         showUser("kirk")
                         .selectTabProjections()
                             .assertProjectionEnabled("jkirk", "CSV-2 (Canteen Ordering System)")
@@ -143,7 +143,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         basicPage.listUsers()
                 .newObjectCollection("New employee")
-                    .selectTabBasic()
+                    .selectBasicPanel()
                         .form()
                             .addAttributeValue("Name", "janeway")
                             .addAttributeValue("Given name", "Kathryn")
@@ -183,13 +183,13 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
             .assertGivenName("John")
             .assertFamilyName("Smith")
             .assertFullName("John Smith")
-            .selectTabBasic()
+            .selectBasicPanel()
                 .form()
                     .assertPropertySelectValue("isManager", "True")
                     .assertPropertyInputValue("empStatus", "Active Employee")
                     .and()
                 .and()
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Active Employees", "Internal Employee")
                     .and()
                 //todo fails because of MID-7009
@@ -209,7 +209,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             .clickAccountsTab()
                                 .importTask()
                                     .clickCreateNew()
-                                        .selectTabBasic()
+                                        .selectBasicPanel()
                                         .form()
                                         .addAttributeValue("Name", "Initial import from HR")
                                         .and()
@@ -225,7 +225,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         TaskPage task = basicPage.newTask();
         task.setHandlerUriForNewTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
-        task.selectTabBasic()
+        task.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Synchronization")
                     .addAttributeValue("objectclass", "AccountObjectClass")
@@ -282,7 +282,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         showUser("Arnold J.")
                 .assertActivationStateEquals("Disabled")
-                .selectTabAssignments()
+                .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Inactive Employees")
                     .and()
                 .selectTabProjections()
