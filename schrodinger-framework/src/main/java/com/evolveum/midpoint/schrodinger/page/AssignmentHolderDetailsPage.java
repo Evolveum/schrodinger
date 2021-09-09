@@ -53,24 +53,34 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
+    public void clickOperationButton(String className, String elementId) {
+        if (useTabbedPanel) {
+            $(Schrodinger.byDataId(elementId))
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+        } else {
+            getButtonByIconClass(className).click();
+        }
+    }
+
     public SelenideElement getButtonByIconClass(String className) {
         return getButtonPanelElement().$x(".//i[contains(@class,\"" + className + "\")]")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     public BasicPage clickBack() {
-        getButtonByIconClass("fa fa-save").click();
+        clickOperationButton("fa fa-arrow-left", "back");
         return new BasicPage();
     }
 
     public ProgressPage clickSave() {
-        getButtonByIconClass("fa fa-save").click();
+        clickOperationButton("fa fa-save", "save");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ProgressPage();
     }
 
     public PreviewPage clickPreview() {
-        getPreviewButton().click();
+        clickOperationButton("fa fa-eye", "previewChanges");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         feedback().isSuccess();
         return new PreviewPage();
