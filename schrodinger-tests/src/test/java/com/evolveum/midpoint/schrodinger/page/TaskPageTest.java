@@ -88,7 +88,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .and()
                     .clickByName("OperationStatisticsCleanupTest");
         OperationStatisticsPanel operationStatisticsPanel = taskPage
-                .selectTabOperationStatistics();
+                .selectOperationStatisticsPanel();
         operationStatisticsPanel.assertResultsChartIsDisplayed();
         taskPage
                 .cleanupEnvironmentalPerformanceInfo()
@@ -96,7 +96,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                 .feedback()
                 .assertSuccess();
         operationStatisticsPanel = taskPage
-                .selectTabOperationStatistics();
+                .selectOperationStatisticsPanel();
         operationStatisticsPanel.assertResultsChartIsNotDisplayed();
 
     }
@@ -112,7 +112,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .and()
                     .clickByName("EnvironmentalPerformanceCleanupTest");
         taskPage
-                .selectTabEnvironmentalPerformance()
+                .selectEnvironmentalPerformancePanel()
                         .assertMappingsEvaluationContainingObjectValueMatch("ManRes")
                         .assertMappingsEvaluationInvocationsCountValueMatch("4")
                         .assertMappingsEvaluationMaxValueMatch("1")
@@ -123,7 +123,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                 .feedback()
                 .assertSuccess();
         taskPage
-                .selectTabEnvironmentalPerformance()
+                .selectEnvironmentalPerformancePanel()
                         .assertMappingsEvaluationContainingObjectValueMatch(null)
                         .assertMappingsEvaluationInvocationsCountValueMatch(null)
                         .assertMappingsEvaluationMaxValueMatch(null)
@@ -142,7 +142,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .clickByName("ResultCleanupTest");
         String tokenValue = "1000000000000003831";
         taskPage
-                .selectTabResult()
+                .selectResultPanel()
                     .getResultsTable()
                         .assertTableContainsText(tokenValue)
                         .and()
@@ -156,7 +156,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                         .feedback()
                         .assertSuccess();
         taskPage
-                .selectTabResult()
+                .selectResultPanel()
                     .getResultsTable()
                         .assertTableDoesntContainText(tokenValue)
                         .and()

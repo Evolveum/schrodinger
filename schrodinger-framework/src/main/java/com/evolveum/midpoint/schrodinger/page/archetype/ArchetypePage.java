@@ -36,11 +36,6 @@ public class ArchetypePage extends AbstractRolePage {
     }
 
     @Override
-    public AssignmentHolderBasicPanel<ArchetypePage> selectBasicPanel() {
-        return super.selectBasicPanel();
-    }
-
-    @Override
     public AssignmentsPanel<ArchetypePage> selectAssignmentsPanel() {
         return super.selectAssignmentsPanel();
     }

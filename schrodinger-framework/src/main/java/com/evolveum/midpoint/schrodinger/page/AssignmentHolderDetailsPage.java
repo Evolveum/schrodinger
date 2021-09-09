@@ -91,19 +91,19 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public AssignmentHolderBasicPanel<P> selectBasicPanel() {
-        return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("pageAdminFocus.basic"));
+        return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("Basic"));
     }
 
     public AssignmentsPanel<P> selectAssignmentsPanel() {
-        return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("pageAdminFocus.assignments"));
+        return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("Assignments"));
     }
 
-    protected SelenideElement getNavigationPanelSelenideElement(String tabTitleKey) {
+    protected SelenideElement getNavigationPanelSelenideElement(String tabTitle) {
         if (useTabbedPanel) {
-            return getTabPanel().clickTab(tabTitleKey)
+            return getTabPanel().clickTab(tabTitle)
                     .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
-            return getNavigationPanel().selectPanelByName(tabTitleKey); //todo change to name?
+            return getNavigationPanel().selectPanelByName(tabTitle);
         }
     }
 

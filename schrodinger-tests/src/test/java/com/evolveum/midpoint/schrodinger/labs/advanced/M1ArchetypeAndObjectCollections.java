@@ -242,7 +242,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .selectOption("binding","Tight")
                     .and()
                 .and()
-                .selectScheduleTab()
+                .selectSchedulePanel()
                     .form()
                         .addAttributeValue("interval", "5")
                         .and()

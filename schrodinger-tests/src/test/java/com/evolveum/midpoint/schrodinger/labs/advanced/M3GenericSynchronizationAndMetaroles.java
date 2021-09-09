@@ -173,7 +173,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .updateSearch()
                         .and()
                     .clickByName(CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
-                        .selectTabOperationStatistics()
+                        .selectOperationStatisticsPanel()
                         .assertProgressSummaryObjectsCountEquals(10)
                         .assertSucceededCountMatch(10);
         basicPage
@@ -258,7 +258,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                     .selectOption("Dry run","True")
                     .and()
                 .and()
-                .selectScheduleTab()
+                .selectSchedulePanel()
                     .form()
                         .addAttributeValue("Interval", "5")
                         .and()

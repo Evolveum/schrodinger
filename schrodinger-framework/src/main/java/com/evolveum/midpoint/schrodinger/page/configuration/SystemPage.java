@@ -25,6 +25,10 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class SystemPage extends AssignmentHolderDetailsPage {
 
+    public SystemPage(boolean useTabbedPanel) {
+        super(true);
+    }
+
     public SystemPanel systemTab() {
         return new SystemPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.system.title"));
     }

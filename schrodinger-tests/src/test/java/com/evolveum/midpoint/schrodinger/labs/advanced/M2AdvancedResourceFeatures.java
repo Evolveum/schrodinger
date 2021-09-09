@@ -142,7 +142,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                             .updateSearch()
                         .and()
                     .clickByName(CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
-                .selectTabOperationStatistics()
+                .selectOperationStatisticsPanel()
                     .assertProgressSummaryObjectsCountEquals(11)
                     .assertSucceededCountMatch(11);
         basicPage.listUsers("Externals")
@@ -165,7 +165,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                                 .clickByName("ExAmPLE, Inc. Contractor DB")
                         .and()
                     .and()
-                .selectScheduleTab()
+                .selectSchedulePanel()
                     .form()
                         .addAttributeValue("Interval", "5")
                         .and()

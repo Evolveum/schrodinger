@@ -184,7 +184,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                             .clickByName(HR_RESOURCE_NAME)
                     .and()
                 .and()
-            .selectScheduleTab()
+            .selectSchedulePanel()
                 .form()
                     .addAttributeValue("interval", "5")
                     .and()

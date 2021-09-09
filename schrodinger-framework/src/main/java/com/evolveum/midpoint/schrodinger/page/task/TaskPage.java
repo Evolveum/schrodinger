@@ -119,7 +119,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
     @Override
     public AssignmentHolderBasicPanel<TaskPage> selectBasicPanel() {
-        return new TaskBasicPanel(this, getNavigationPanelSelenideElement(("pageTask.basic.title")));
+        return new TaskBasicPanel(this, getNavigationPanelSelenideElement(("Basic")));
     }
 
     @Override
@@ -127,28 +127,28 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return null;
     }
 
-    public AssignmentHolderBasicPanel<TaskPage> selectScheduleTab(){
-        return new AssignmentHolderBasicPanel<TaskPage>(this, getNavigationPanelSelenideElement(("pageTask.schedule.title")));
+    public AssignmentHolderBasicPanel<TaskPage> selectSchedulePanel(){
+        return new AssignmentHolderBasicPanel<TaskPage>(this, getNavigationPanelSelenideElement(("Schedule")));
     }
 
-    public OperationStatisticsPanel selectTabOperationStatistics() {
-        return new OperationStatisticsPanel(this, getNavigationPanelSelenideElement(("pageTask.operationStats.title")));
+    public OperationStatisticsPanel selectOperationStatisticsPanel() {
+        return new OperationStatisticsPanel(this, getNavigationPanelSelenideElement(("Operation statistics")));
     }
 
-    public EnvironmentalPerformancePanel selectTabEnvironmentalPerformance() {
-        return new EnvironmentalPerformancePanel(this, getNavigationPanelSelenideElement(("pageTask.environmentalPerformance.title")));
+    public EnvironmentalPerformancePanel selectEnvironmentalPerformancePanel() {
+        return new EnvironmentalPerformancePanel(this, getNavigationPanelSelenideElement(("Environmental performance")));
     }
 
-    public InternalPerformancePanel selectTabInternalPerformance() {
-        return new InternalPerformancePanel(this, getNavigationPanelSelenideElement(("pageTask.internalPerformance.title")));
+    public InternalPerformancePanel selectInternalPerformanceTab() {
+        return new InternalPerformancePanel(this, getNavigationPanelSelenideElement(("Internal performance")));
     }
 
-    public ResultPanel selectTabResult() {
-        return new ResultPanel(this, getNavigationPanelSelenideElement(("pageTask.result.title")));
+    public ResultPanel selectResultPanel() {
+        return new ResultPanel(this, getNavigationPanelSelenideElement(("Result")));
     }
 
-     public ErrorsPanel selectTabErrors() {
-        return new ErrorsPanel(this, getNavigationPanelSelenideElement(("pageTask.errors.title")));
+     public ErrorsPanel selectErrorsPanel() {
+        return new ErrorsPanel(this, getNavigationPanelSelenideElement(("Title")));
     }
 
     public TaskPage setHandlerUriForNewTask(String handler) {

@@ -82,7 +82,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                                         .selectOption("recurrence","Recurring")
                                         .and()
                                     .and()
-                                .selectScheduleTab()
+                                .selectSchedulePanel()
                                     .form()
                                         .addAttributeValue("interval", "5")
                                         .and()
