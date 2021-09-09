@@ -25,7 +25,7 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class SystemPage extends AssignmentHolderDetailsPage {
 
-    public SystemPage(boolean useTabbedPanel) {
+    public SystemPage() {
         super(true);
     }
 

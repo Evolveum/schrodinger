@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import static com.codeborne.selenide.Selenide.$;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.Condition;
@@ -47,21 +48,29 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         this.useTabbedPanel = useTabbedPanel;
     }
 
+    public SelenideElement getButtonPanelElement() {
+        return $x(".//div[contains(@class,\"main-button-bar\")]")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    public SelenideElement getButtonByIconClass(String className) {
+        return getButtonPanelElement().$x(".//i[contains(@class,\"" + className + "\")]")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
     public BasicPage clickBack() {
-        $(Schrodinger.byDataResourceKey("pageAdminFocus.button.back"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+        getButtonByIconClass("fa fa-save").click();
         return new BasicPage();
     }
 
     public ProgressPage clickSave() {
-        $(Schrodinger.byDataId("save")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getButtonByIconClass("fa fa-save").click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ProgressPage();
     }
 
     public PreviewPage clickPreview() {
-        getPreviewButton().waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getPreviewButton().click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         feedback().isSuccess();
         return new PreviewPage();
@@ -73,7 +82,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     private SelenideElement getPreviewButton() {
-        return $(Schrodinger.byDataId("previewChanges"));
+        return getButtonByIconClass("fa fa-eye");
     }
 
     public TabPanel getTabPanel() {
