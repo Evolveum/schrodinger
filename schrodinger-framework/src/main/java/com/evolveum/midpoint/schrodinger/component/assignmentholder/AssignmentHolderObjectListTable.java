@@ -59,7 +59,11 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 //        Selenide.sleep(getDetailsPageLoadingTimeToWait());
         PD detailsPage = getObjectDetailsPage();
-        detailsPage.getTabPanel();
+        if (detailsPage.isUseTabbedPanel()) {
+            detailsPage.getTabPanel();
+        } else {
+            detailsPage.getNavigationPanel();
+        }
         return detailsPage;
     }
 

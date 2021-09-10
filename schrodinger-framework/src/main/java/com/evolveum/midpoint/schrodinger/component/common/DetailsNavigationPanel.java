@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.common;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -30,8 +31,13 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
         super(parent, parentElement);
     }
 
-    public SelenideElement selectPanelByName(String name) {
-        getParentElement().$x(".//span[@data-s-is='navItem' and contains(text(), '" + name + "')]");
+    public SelenideElement selectPanelByName(String... name) {
+        for (String navigationItemName : name) {
+            SelenideElement nav = $(Schrodinger.byElementAttributeValue("span", "data-s-resource-key", navigationItemName))
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            nav.click();
+            nav.parent().parent().waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
         return $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 }

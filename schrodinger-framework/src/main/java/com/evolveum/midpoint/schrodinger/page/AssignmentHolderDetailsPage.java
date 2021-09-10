@@ -49,8 +49,8 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public SelenideElement getButtonPanelElement() {
-        return $x(".//div[contains(@class,\"main-button-bar\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return $(Schrodinger.byElementValue("legend", "Object operations"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
     }
 
     public void clickOperationButton(String className, String elementId) {
@@ -114,15 +114,15 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public AssignmentsPanel<P> selectAssignmentsPanel() {
-        return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("Assignments"));
+        return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("Assignments", "All"));
     }
 
-    protected SelenideElement getNavigationPanelSelenideElement(String tabTitle) {
+    protected SelenideElement getNavigationPanelSelenideElement(String... panelTitle) {
         if (useTabbedPanel) {
-            return getTabPanel().clickTab(tabTitle)
+            return getTabPanel().clickTab(panelTitle[0])
                     .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
-            return getNavigationPanel().selectPanelByName(tabTitle);
+            return getNavigationPanel().selectPanelByName(panelTitle);
         }
     }
 
@@ -133,5 +133,9 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
             return new ObjectBrowserModal<AssignmentHolderDetailsPage<P>>(this, getModalWindowSelenideElement());
         }
         return null;
+    }
+
+    public boolean isUseTabbedPanel() {
+        return useTabbedPanel;
     }
 }
