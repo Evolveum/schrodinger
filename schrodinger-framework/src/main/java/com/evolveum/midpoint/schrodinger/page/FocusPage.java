@@ -82,7 +82,7 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
             setCheckFormGroupOptionCheckedByValue(option, true);
         } else {
             SelenideElement optionButton =
-                    $x(".//a[contains(text(), " + option + ")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                    $x(".//a[contains(text(), '" + option + "')]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             if (optionButton.getAttribute("class").contains("active")) {
                 return;
             }
