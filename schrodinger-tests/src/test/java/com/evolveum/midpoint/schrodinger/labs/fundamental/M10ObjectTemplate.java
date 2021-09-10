@@ -124,7 +124,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         //user kirk should have projection with CSV-3 resource
         showUser("kirk")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .clickAddProjection()
                         .table()
                             .search()
@@ -142,7 +142,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         //user kirk should have projection with CSV-1 resource
         showUser("picard")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .clickAddProjection()
                         .table()
                             .search()
@@ -376,15 +376,15 @@ public class M10ObjectTemplate extends AbstractLabTest {
                         .resetBasicSearch()
                     .and()
                 .clickByName("X000158");
-        new UserPage().selectTabProjections()
+        new UserPage().selectProjectionsPanel()
                 .table()
                     .clickByName("cn=Alice Black,ou=0212,ou=0200,ou=ExAmPLE,dc=example,dc=com")
                         .assertPropertyInputValue("manager", "X000390");
-        showUser("X000390").selectTabProjections()
+        showUser("X000390").selectProjectionsPanel()
                 .table()
                     .clickByName("cn=John Wicks,ou=0212,ou=0200,ou=ExAmPLE,dc=example,dc=com")
                         .assertPropertyInputValue("manager", "X000035");
-        showUser("X000035").selectTabProjections()
+        showUser("X000035").selectProjectionsPanel()
                 .table()
                     .clickByName("cn=James Bradley,ou=0200,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")
@@ -393,7 +393,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         showUser("kirk")
                 .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Warp Speed Research");
-        new UserPage().selectTabProjections()
+        new UserPage().selectProjectionsPanel()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")
@@ -422,7 +422,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .feedback()
                         .isSuccess();
 
-        showUser("kirk").selectTabProjections()
+        showUser("kirk").selectProjectionsPanel()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .assertPropertyInputValue("Manager", "picard");
@@ -437,7 +437,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .feedback()
                     .isSuccess();
 
-        showUser("kirk").selectTabProjections()
+        showUser("kirk").selectProjectionsPanel()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .assertPropertyInputValue("Manager", "picard");
@@ -452,7 +452,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .feedback()
                         .isSuccess();
 
-        showUser("kirk").selectTabProjections()
+        showUser("kirk").selectProjectionsPanel()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")

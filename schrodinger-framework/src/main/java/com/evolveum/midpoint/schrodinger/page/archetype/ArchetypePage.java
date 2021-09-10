@@ -19,7 +19,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.archetype.ArchetypePolicyPanel;
@@ -31,8 +30,8 @@ import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 public class ArchetypePage extends AbstractRolePage {
 
     @Override
-    public ProjectionsPanel<ArchetypePage> selectTabProjections() {
-        return super.selectTabProjections();
+    public ProjectionsPanel<ArchetypePage> selectProjectionsPanel() {
+        return super.selectProjectionsPanel();
     }
 
     @Override

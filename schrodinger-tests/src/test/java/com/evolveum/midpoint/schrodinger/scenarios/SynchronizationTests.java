@@ -151,7 +151,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                     .updateSearch()
                 .and()
                     .clickByName(ScenariosCommons.TEST_USER_DON_NAME)
-                        .selectTabProjections()
+                        .selectProjectionsPanel()
                             .table()
                                     .selectCheckboxByName(ScenariosCommons.TEST_USER_DON_NAME)
                         .and()
@@ -178,7 +178,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                     .updateSearch()
                 .and()
                 .clickByName(ScenariosCommons.TEST_USER_DON_NAME)
-                      .selectTabProjections();
+                      .selectProjectionsPanel();
         Selenide.screenshot("SynchronizationTests_projectionTab");
         projectionsTab
                         .table()
@@ -232,7 +232,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                         .clickByName("raphael")
-                            .selectTabProjections()
+                            .selectProjectionsPanel()
                                 .table()
                                 .assertCurrentTableDoesntContain(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
 
@@ -265,7 +265,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                         .clickByName("raphael")
-                            .selectTabProjections()
+                            .selectProjectionsPanel()
                                 .table()
                                 .assertCurrentTableDoesntContain(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
     }
@@ -327,7 +327,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                         .clickByName(ScenariosCommons.TEST_USER_RAPHAEL_NAME)
-                            .selectTabProjections()
+                            .selectProjectionsPanel()
                                 .table()
                                 .selectCheckboxByName(ScenariosCommons.TEST_USER_RAPHAEL_NAME)
                             .and()
@@ -371,7 +371,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                     .clickByName(ScenariosCommons.TEST_USER_RAPHAEL_NAME)
-                            .selectTabProjections()
+                            .selectProjectionsPanel()
                                 .table()
                         .assertCurrentTableContains(ScenariosCommons.TEST_USER_RAPHAEL_NAME);
     }

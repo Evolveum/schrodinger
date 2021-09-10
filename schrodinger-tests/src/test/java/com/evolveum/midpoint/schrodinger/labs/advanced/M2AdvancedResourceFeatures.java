@@ -250,7 +250,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("rimsy").selectAssignmentsPanel(), true, "Internal Employee");
         showUser("rimsy")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                 .assertProjectionExist("arimmer1", "CSV-2 (Canteen Ordering System)")
                 .assertProjectionExist("cn=Arnold J. Rimmer2,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                 .assertProjectionExist("arimmer1", "CSV-1 (Document Access)");
@@ -262,7 +262,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member","Internal Employee")
                     .and()
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionExist("adewries1", "CSV-1 (Document Access)")
                     .assertProjectionExist("adewrie1", "CSV-2 (Canteen Ordering System)")
                     .assertProjectionExist("cn=Ann Dewries,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
@@ -271,7 +271,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000997")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionExist("adewries1", "CSV-1 (Document Access)")
                     .assertProjectionExist("adewrie1", "CSV-2 (Canteen Ordering System)")
                     .assertProjectionExist("cn=Ann De Wries2,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
@@ -280,7 +280,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000997")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionExist("anewman", "CSV-1 (Document Access)")
                     .assertProjectionExist("anewman", "CSV-2 (Canteen Ordering System)")
                     .assertProjectionExist("cn=Ann De Wries2,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
@@ -334,7 +334,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertSuccess();
 
         showUser("picard")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                 .assertProjectionDisabled("jpicard", "CSV-2 (Canteen Ordering System)")
                 .assertProjectionDisabled("cn=Jean-Luc PICARD,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                 .assertProjectionDisabled("jpicard", "CSV-1 (Document Access)");
@@ -362,7 +362,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
 
         showUser("picard")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                 .assertProjectionForResourceDoesntExist("CSV-2 (Canteen Ordering System)");
 
         /**

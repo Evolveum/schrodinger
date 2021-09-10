@@ -79,7 +79,7 @@ public class M12Authorizations extends AbstractLabTest {
         login.login("X000005", "qwerty12345XXXX");
 
         ProfilePage profile = basicPage.profile();
-        profile.selectTabProjections()
+        profile.selectProjectionsPanel()
             .table()
                 .assertTableContainsLinksTextPartially(""); //TODO projections names
 

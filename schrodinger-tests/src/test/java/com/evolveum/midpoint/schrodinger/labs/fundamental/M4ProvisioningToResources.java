@@ -84,7 +84,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         showUser("kirk")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .clickAddProjection()
                         .table()
                             .search()
@@ -142,7 +142,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         changeAdministrativeStatusViaProjectionTab("kirk", "jkirk", "Enabled", CSV_1_RESOURCE_NAME);
 
         showUser("kirk")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .clickAddProjection()
                         .table()
                             .search()
@@ -189,7 +189,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                                     .assertTableContainsText("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
 
         showUser("kirk")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .table()
                         .search()
                             .referencePanelByItemName("Resource")
@@ -258,7 +258,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                     .isSuccess();
 
         showUser("picard")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .clickAddProjection()
                         .table()
                             .search()
@@ -293,7 +293,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
     public void mod04test04AddingANewAttribute() throws IOException {
         ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
                 ((AbstractTableWithPrismView)showUser("kirk")
-                        .selectTabProjections()
+                        .selectProjectionsPanel()
                             .table()
                                 .search()
                                     .textInputPanelByItemName("Name")
@@ -318,7 +318,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
     private void changeAdministrativeStatusViaProjectionTab(String userName, String accountName, String status, String resourceName) {
         ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
                 ((AbstractTableWithPrismView)showUser(userName)
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .table()
                         .search()
                             .textInputPanelByItemName("Name")

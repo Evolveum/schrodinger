@@ -57,8 +57,8 @@ public class UserPage extends FocusPage<UserPage> {
     }
 
     @Override
-    public ProjectionsPanel<UserPage> selectTabProjections() {
-        return super.selectTabProjections();
+    public ProjectionsPanel<UserPage> selectProjectionsPanel() {
+        return super.selectProjectionsPanel();
     }
 
     public UserPage assertName(String expectedValue) {

@@ -257,7 +257,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         PrismFormWithActionButtons projectionForm = showUser("X000158").selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
                 .and()
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .viewProjectionDetails("ablack", "CSV-1");
         projectionForm
                 .assertPropertyInputValues("Groups", "Internal Employees", "Teleportation",
@@ -550,7 +550,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         PrismFormWithActionButtons projectionForm = showUser("X000158").selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects II")
                 .and()
-                .selectTabProjections()
+                .selectProjectionsPanel()
                 .viewProjectionDetails("ablack", "CSV-1");
         projectionForm
                 .assertPropertyInputValues("Groups", "Internal Employees", "Teleportation",

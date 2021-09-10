@@ -118,7 +118,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
                         .isSuccess();
 
         showUser("kirk")
-                    .selectTabProjections()
+                    .selectProjectionsPanel()
                         .clickAddProjection()
                             .table()
                                 .search()
@@ -153,7 +153,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         accountForm.assertPropertyInputValue("fname", "Jim T.");
 
         showUser("kirk")
-                    .selectTabProjections()
+                    .selectProjectionsPanel()
                         .table()
                             .search()
                                 .textInputPanelByItemName("Name")

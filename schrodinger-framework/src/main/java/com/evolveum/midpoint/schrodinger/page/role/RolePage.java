@@ -26,8 +26,8 @@ import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 public class RolePage extends AbstractRolePage {
 
     @Override
-    public ProjectionsPanel<RolePage> selectTabProjections() {
-        return super.selectTabProjections();
+    public ProjectionsPanel<RolePage> selectProjectionsPanel() {
+        return super.selectProjectionsPanel();
     }
 
     @Override

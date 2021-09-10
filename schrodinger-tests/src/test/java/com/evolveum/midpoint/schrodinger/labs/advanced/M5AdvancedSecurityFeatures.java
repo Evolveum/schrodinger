@@ -101,7 +101,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                             .assertObjectXmlContainsText("<t:algorithm>http://www.w3.org/2001/04/xmlenc#aes256-cbc</t:algorithm>");
         UserPage userPage = showUser("picard");
         userPage
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .table()
                         .assertTableObjectsCountEquals(0)
                         .and()
@@ -165,7 +165,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
                     .and()
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionExist("badobi", "CSV-1 (Document Access)")
                     .assertProjectionForResourceDoesntExist("New Corporate Directory");
         assertWholeLastNotificationContains(notificationFile, "Message{to='[ben.adobi@example.com]'");

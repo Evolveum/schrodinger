@@ -224,7 +224,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     }
 
     private Table<ProjectionsPanel<UserPage>> assertContainsProjection(String user, String resourceOid, String accountName) {
-       AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser(user).selectTabProjections().table();
+       AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser(user).selectProjectionsPanel().table();
        Selenide.screenshot(user + "_" + resourceOid + "_" + accountName);
        return table
                     .search()

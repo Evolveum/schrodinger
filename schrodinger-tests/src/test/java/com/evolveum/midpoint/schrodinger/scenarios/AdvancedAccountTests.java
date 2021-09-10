@@ -57,7 +57,7 @@ public class AdvancedAccountTests extends AbstractSchrodingerTest {
                 .updateSearch()
               .and()
               .clickByName(ScenariosCommons.TEST_USER_RAPHAEL_NAME)
-                .selectTabProjections()
+                .selectProjectionsPanel()
                   .clickAddProjection()
                       .table()
                         .search()
@@ -83,7 +83,7 @@ public class AdvancedAccountTests extends AbstractSchrodingerTest {
                 .updateSearch()
               .and()
               .clickByName(ScenariosCommons.TEST_USER_RAPHAEL_NAME)
-                .selectTabProjections()
+                .selectProjectionsPanel()
                   .table()
                     .clickByName(ScenariosCommons.TEST_USER_RAPHAEL_NAME);
 

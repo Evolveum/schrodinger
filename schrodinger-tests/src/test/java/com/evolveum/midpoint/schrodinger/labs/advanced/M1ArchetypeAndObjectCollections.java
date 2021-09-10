@@ -96,7 +96,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     public void mod01test01environmentInitialization() throws IOException {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,  "Internal Employee");
         showUser("kirk")
-                        .selectTabProjections()
+                        .selectProjectionsPanel()
                         .assertProjectionExist("jkirk", "CSV-2 (Canteen Ordering System)")
                         .assertProjectionExist("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                         .assertProjectionExist("jkirk", "CSV-1 (Document Access)");
@@ -107,7 +107,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         assertLastNotificationBodyContains(notificationFile, notificationCheck1);
         assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         showUser("kirk")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .viewProjectionDetails("jkirk", "CSV-1 (Document Access)")
                         .assertPropertyInputValues("Groups", "Internal Employees", "Essential Documents",
                                 "Time Travel", "Teleportation", "Lucky Numbers", "Presidential Candidates Motivation");
@@ -116,18 +116,18 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         assertLastNotificationBodyContains(notificationFile, notificationCheck1);
         assertLastNotificationBodyContains(notificationFile, notificationCheck2);
         showUser("kirk")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                 .viewProjectionDetails("jkirk", "CSV-1 (Document Access)")
                 .assertPropertyInputValues("Groups", "Internal Employees", "Essential Documents");
         Utils.removeAllAssignments(showUser("kirk").selectAssignmentsPanel());
         showUser("kirk")
-                        .selectTabProjections()
+                        .selectProjectionsPanel()
                             .assertProjectionDisabled("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertProjectionDisabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                             .assertProjectionDisabled("jkirk", "CSV-1 (Document Access)");
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Internal Employee");
         showUser("kirk")
-                        .selectTabProjections()
+                        .selectProjectionsPanel()
                             .assertProjectionEnabled("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertProjectionEnabled("cn=Jim Kirk,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)")
                             .assertProjectionEnabled("jkirk", "CSV-1 (Document Access)");
@@ -193,7 +193,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertAssignmentsWithRelationExist("Member", "Active Employees", "Internal Employee")
                     .and()
                 //todo fails because of MID-7009
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionExist("jsmith", "CSV-2")
                     .assertProjectionExist("cn=John Smith,ou=0300,ou=ExAmPLE,dc=example,dc=com", "CSV-3")
                     .assertProjectionExist("smith", "CSV-1");
@@ -285,7 +285,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                 .selectAssignmentsPanel()
                     .assertAssignmentsWithRelationExist("Member", "Inactive Employees")
                     .and()
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionDisabled("cn=Arnold J. Rimmer,ou=ExAmPLE,dc=example,dc=com", HR_RESOURCE_NAME);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);

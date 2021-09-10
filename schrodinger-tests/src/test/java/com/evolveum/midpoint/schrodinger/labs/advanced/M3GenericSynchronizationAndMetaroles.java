@@ -109,7 +109,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .assertPropertyInputValueContainsText("Meal Card Number", "1001")
                         .and()
                     .and()
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .viewProjectionDetails("jkirk", "CSV-2 (Canteen Ordering System)")
                             .assertPropertyInputValue("Meal Card Number", "1001");
 
@@ -305,7 +305,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .selectAssignmentsPanel()
                                 .assertAssignmentsWithRelationExist("Member", "Biomechanic Arm Development", "Internal Employee")
                                 .and()
-                            .selectTabProjections()
+                            .selectProjectionsPanel()
                                 .table()
                                     .assertTableObjectsCountEquals(4); //todo actual result should be 5 when ldap resource is up
         //todo check notification
@@ -338,7 +338,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                         .selectAssignmentsPanel()
                                         .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                         .and()
-                                        .selectTabProjections()
+                                        .selectProjectionsPanel()
         //todo check that a group cn=org-0440,ou=orgStruct,dc=example,dc=com has
         //been created in New Corporate Directory
         ;
@@ -357,7 +357,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .assertChildOrgExists("Investigation")
                                 .showTreeNodeDropDownMenu("Investigation")
                                     .edit()
-                                        .selectTabProjections()
+                                        .selectProjectionsPanel()
                                             .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_2, hrOrgsTargetFile);
@@ -405,7 +405,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
-                                .selectTabProjections()
+                                .selectProjectionsPanel()
                             //todo check that a group cn=org-0470,ou=orgStruct,dc=example,dc=com has
                             //been created in New Corporate Directory
         ;
@@ -432,7 +432,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
-                                .selectTabProjections()
+                                .selectProjectionsPanel()
                             //todo check that a group cn=org-0450,ou=orgStruct,dc=example,dc=com has
                             //been created in New Corporate Directory
         ;
@@ -459,7 +459,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .selectAssignmentsPanel()
                                     .assertAssignmentsWithRelationExist("Member", "LDAP Org Group Metarole")
                                     .and()
-                                .selectTabProjections()
+                                .selectProjectionsPanel()
                             //todo check that a group cn=org-0460,ou=orgStruct,dc=example,dc=com has
                             //been created in New Corporate Directory
         ;
@@ -478,7 +478,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertChildOrgExists("Public Relations")
                             .showTreeNodeDropDownMenu("Public Relations")
                                 .edit()
-                                    .selectTabProjections()
+                                    .selectProjectionsPanel()
                                         .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         basicPage.orgStructure()
@@ -490,7 +490,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertChildOrgExists("Interrogation Specialists")
                             .showTreeNodeDropDownMenu("Interrogation Specialists")
                                 .edit()
-                                    .selectTabProjections()
+                                    .selectProjectionsPanel()
                                         .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         basicPage.orgStructure()
@@ -502,7 +502,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertChildOrgExists("Explosions Department")
                             .showTreeNodeDropDownMenu("Explosions Department")
                                 .edit()
-                                    .selectTabProjections()
+                                    .selectProjectionsPanel()
                                         .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_3, hrTargetFile);
@@ -521,7 +521,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         showUser("000991")
                 .assertActivationStateEquals("Disabled")
-                .selectTabProjections()
+                .selectProjectionsPanel()
                     .assertProjectionDisabled("epresleigh", CSV_1_RESOURCE_NAME)
                     .assertProjectionDisabled("", CSV_2_RESOURCE_NAME)
                     .assertProjectionDisabled("", CSV_3_RESOURCE_NAME)

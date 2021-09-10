@@ -95,7 +95,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Secret Projects I", "Secret Projects II", "Incognito");
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, CSV1_TESTER_ROLE_NAME, CSV3_ADMIN_ROLE_NAME);
 
-        AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser("kirk").selectTabProjections()
+        AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser("kirk").selectProjectionsPanel()
                 .table();
         Selenide.screenshot("kirk_user_projections");
         table.search()

@@ -28,8 +28,8 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
-
-import static com.evolveum.midpoint.schrodinger.util.Utils.setOptionCheckedByName;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.evolveum.midpoint.schrodinger.util.Utils.*;
 
 /**
  * @author skublik
@@ -38,59 +38,87 @@ import static com.evolveum.midpoint.schrodinger.util.Utils.setOptionCheckedByNam
 public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<F> {
 
     public FocusPage checkForce() {
-        setOptionCheckedByName("executeOptions:force", true);
+        activateExecuteOption("Force");
         return this;
     }
 
     public FocusPage checkReconcile() {
-        setOptionCheckedByName("executeOptions:reconcileContainer:container:check", true);
+        activateExecuteOption("Reconcile");
         return this;
     }
 
     public FocusPage checkExecuteAfterAllApprovals() {
-        setOptionCheckedByName("executeOptions:executeAfterAllApprovals", true);
+        activateExecuteOption("Execute after all approvals");
         return this;
     }
 
     public FocusPage checkKeepDisplayingResults() {
-        setOptionCheckedByName("executeOptions:keepDisplayingResultsContainer:container:check", true);
+        activateExecuteOption("Keep displaying results");
         return this;
     }
 
     public FocusPage uncheckForce() {
-        setOptionCheckedByName("executeOptions:force", false);
+        disactivateExecuteOption("Force");
         return this;
     }
 
     public FocusPage uncheckReconcile() {
-        setOptionCheckedByName("executeOptions:reconcileLabel:reconcile", false);
+        disactivateExecuteOption("Reconcile");
         return this;
     }
 
     public FocusPage uncheckExecuteAfterAllApprovals() {
-        setOptionCheckedByName("executeOptions:executeAfterAllApprovals", false);
+        disactivateExecuteOption("Execute after all approvals");
         return this;
     }
 
     public FocusPage uncheckKeepDisplayingResults() {
-        setOptionCheckedByName("executeOptions:keepDisplayingResultsContainer:keepDisplayingResults", false);
+        disactivateExecuteOption("Keep displaying results");
         return this;
     }
 
-    public ProjectionsPanel<F> selectTabProjections() {
-        SelenideElement element = getTabPanel().clickTab("pageAdminFocus.projections");
+    public void activateExecuteOption(String option) {
+        if (isUseTabbedPanel()) {
+            setCheckFormGroupOptionCheckedByValue(option, true);
+        } else {
+            SelenideElement optionButton =
+                    $x(".//a[contains(text(), " + option + ")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            if (optionButton.getAttribute("class").contains("active")) {
+                return;
+            }
+            optionButton.click();
+            optionButton.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
+    }
+
+    public void disactivateExecuteOption(String option) {
+        if (isUseTabbedPanel()) {
+            setCheckFormGroupOptionCheckedByValue(option, false);
+        } else {
+            SelenideElement optionButton =
+                    $x(".//a[contains(text(), " + option + ")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            if (!optionButton.getAttribute("class").contains("active")) {
+                return;
+            }
+            optionButton.click();
+            optionButton.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
+    }
+
+    public ProjectionsPanel<F> selectProjectionsPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Projections");
         Selenide.sleep(2000);
         return new ProjectionsPanel<F>(this, element);
     }
 
-    public ProjectionsPanel<F> selectTabCases() {
-        SelenideElement element = getTabPanel().clickTab("pageAdminFocus.cases");
+    public ProjectionsPanel<F> selectCasesPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Cases");
         Selenide.sleep(2000);
         return new ProjectionsPanel<F>(this, element);
     }
 
 
-    public SummaryPanel<UserPage> summary() {
+    public SummaryPanel<F> summary() {
 
         SelenideElement summaryPanel = $(By.cssSelector("div.info-box-content"));
 
