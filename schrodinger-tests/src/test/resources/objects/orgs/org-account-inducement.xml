@@ -25,5 +25,5 @@
     </inducement>
     <displayName>Test Unit</displayName>
     <identifier>0001</identifier>
-    <orgType>functional</orgType>
+<!--    <orgType>functional</orgType>-->
 </org>
