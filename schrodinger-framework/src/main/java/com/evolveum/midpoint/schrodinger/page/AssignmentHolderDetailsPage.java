@@ -142,6 +142,13 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public boolean isUseTabbedPanel() {
+        try {
+            adminGui()
+                    .form()
+                        .assertPropertyDropdownValue("Enable experimental features", "False");
+            useTabbedPanel = true;
+        } catch (Exception e) {
+        }
         return useTabbedPanel;
     }
 }
