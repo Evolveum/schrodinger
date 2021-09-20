@@ -15,6 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.scenarios;
 
+import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
+import com.evolveum.midpoint.schrodinger.component.common.ProjectionFormPanelWithActionButtons;
+import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -73,9 +76,9 @@ public class AccountTests extends AbstractSchrodingerTest {
                         .addAttributeValue("name", TEST_USER_MIKE_NAME)
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Michelangelo")
                         .addAttributeValue(UserType.F_FAMILY_NAME, "di Lodovico Buonarroti Simoni")
-                        .addPasswordAttributeValue("5ecr3tPassword")
                         .and()
                     .and()
+                .addPasswordAttributeValue("5ecr3tPassword")
                 .checkKeepDisplayingResults()
                     .clickSave()
                     .feedback()
@@ -163,8 +166,7 @@ public class AccountTests extends AbstractSchrodingerTest {
 
     @Test (priority = 6, dependsOnMethods = {ADD_ACCOUNT_DEPENDENCY},groups = TEST_GROUP_BEFORE_USER_DELETION)
     public void test0060modifyAccountPassword(){
-        ListUsersPage users = basicPage.listUsers();
-            users
+        ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>> panel = (ProjectionFormPanelWithActionButtons) basicPage.listUsers()
                 .table()
                     .search()
                     .byName()
@@ -174,11 +176,13 @@ public class AccountTests extends AbstractSchrodingerTest {
                 .clickByName(TEST_USER_MIKE_NAME)
                     .selectProjectionsPanel()
                         .table()
-                        .clickByName(TEST_USER_MIKE_NAME)
-                            .showEmptyAttributes("Password")
-                            .addPasswordAttributeValue("5ecr3t")
-                        .and()
-                    .and()
+                        .clickByName(TEST_USER_MIKE_NAME);
+        panel
+                .selectPasswordPanel()
+                .setPasswordValue("5ecr3t");
+        panel
+                .and()
+                .and()
                 .and()
                 .checkKeepDisplayingResults()
                 .clickSave()

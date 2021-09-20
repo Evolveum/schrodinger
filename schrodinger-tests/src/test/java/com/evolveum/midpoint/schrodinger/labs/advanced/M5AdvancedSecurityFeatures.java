@@ -103,13 +103,10 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         userPage
                 .selectProjectionsPanel()
                     .table()
-                        .assertTableObjectsCountEquals(0)
-                        .and()
-                    .and()
-                .selectBasicPanel()
-                    .form()
-                        .addPasswordAttributeValue("qwerty12345XXXX");
-        userPage.clickSave()
+                        .assertTableObjectsCountEquals(0);
+        userPage
+                .addPasswordAttributeValue("qwerty12345XXXX")
+                .clickSave()
                 .feedback()
                     .assertSuccess();
         basicPage.listRepositoryObjects()
@@ -119,11 +116,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                             .assertObjectXmlContainsText("<t:hashedData>")
                             .assertObjectXmlContainsText("<t:algorithm>http://prism.evolveum.com/xml/ns/public/crypto/algorithm/pbkd-3#PBKDF2WithHmacSHA512</t:algorithm>");
         showUser("badobi")
-                .selectBasicPanel()
-                    .form()
-                        .addPasswordAttributeValue("qwerty12345XXXX")
-                        .and()
-                    .and()
+                .addPasswordAttributeValue("qwerty12345XXXX")
                 .clickSave()
                     .feedback()
                         .assertSuccess();

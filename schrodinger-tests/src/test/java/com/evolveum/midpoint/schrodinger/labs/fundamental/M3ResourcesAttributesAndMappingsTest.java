@@ -110,9 +110,9 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jim")
                     .addAttributeValue(UserType.F_FAMILY_NAME, "Kirk")
                     .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Enabled")
-                    .addPasswordAttributeValue("abc123")
                     .and()
                 .and()
+                .addPasswordAttributeValue("abc123")
                 .clickSave()
                     .feedback()
                         .isSuccess();

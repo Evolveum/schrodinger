@@ -30,6 +30,7 @@ import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.DetailsNavigationPanel;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
+import com.evolveum.midpoint.schrodinger.component.user.UserPasswordPanel;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
@@ -116,6 +117,11 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     public AssignmentsPanel<P> selectAssignmentsPanel() {
         return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("Assignments", "All"));
     }
+
+//
+//    public AssignmentHolderBasicPanel<P> selectBasicPanel() {
+//        return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("Basic"));
+//    }
 
     protected SelenideElement getNavigationPanelSelenideElement(String... panelTitle) {
         if (useTabbedPanel) {

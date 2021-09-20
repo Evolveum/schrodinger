@@ -58,9 +58,9 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .form()
                     .addAttributeValue("name", "jack")
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jack")
-                    .addPasswordAttributeValue("asd123")
                     .and()
                 .and()
+                .addPasswordAttributeValue("asd123")
                 .clickPreview();
         //@formatter:on
 

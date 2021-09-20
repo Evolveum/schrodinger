@@ -288,9 +288,9 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Kathryn")
                         .addAttributeValue(UserType.F_FAMILY_NAME, "Janeway")
                         .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Enabled")
-                        .addPasswordAttributeValue("abc123")
                         .and()
                     .and()
+                .addPasswordAttributeValue("abc123")
                 .clickSave()
                     .feedback()
                         .isSuccess();

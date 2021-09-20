@@ -194,12 +194,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .assertSuccess();
 
         AssignmentsPanel<UserPage> assignmentsTab = showUser("X000089")
-                .selectBasicPanel()
-                    .form()
-                        .addPasswordAttributeValue("qwerty12345XXXX")
-                        .and()
-                    .and()
-                    .selectAssignmentsPanel();
+                .addPasswordAttributeValue("qwerty12345XXXX")
+                .selectAssignmentsPanel();
         Utils.addAssignmentsWithRelation(assignmentsTab, "Approver", "Secret Projects I", "Secret Projects II");
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "Member", true, "Basic Approver");
 
@@ -284,20 +280,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .assertUserMenuExist();
 
         showUser("X000158")
-                .selectBasicPanel()
-                    .form()
-                        .addPasswordAttributeValue("qwerty12345XXXX")
-                        .and()
-                    .and()
+                .addPasswordAttributeValue("qwerty12345XXXX")
                 .clickSave()
                     .feedback()
                         .assertSuccess();
         showUser("X000390")
-                .selectBasicPanel()
-                    .form()
-                        .addPasswordAttributeValue("qwerty12345XXXX")
-                        .and()
-                    .and()
+                .addPasswordAttributeValue("qwerty12345XXXX")
                 .clickSave()
                     .feedback()
                         .assertSuccess();

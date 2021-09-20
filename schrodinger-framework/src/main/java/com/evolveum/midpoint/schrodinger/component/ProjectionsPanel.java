@@ -21,11 +21,13 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
+import com.evolveum.midpoint.schrodinger.component.common.ProjectionFormPanelWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetProjectionModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.page.FocusPage;
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -61,7 +63,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
         return new AbstractTableWithPrismView<ProjectionsPanel<P>>(this, tableBox) {
             @Override
-            public PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> clickByName(String name) {
+            public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> clickByName(String name) {
 
                 SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "label", name));
                 linkElement
@@ -74,7 +76,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                 SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
                         .waitUntil(Condition.appears, MidPoint.TIMEOUT_SHORT_4_S);
 
-                return new PrismFormWithActionButtons<>(this, prismElement);
+                return new ProjectionFormPanelWithActionButtons<>(this, prismElement);
             }
 
             @Override
@@ -154,7 +156,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                     .referencePanelByItemName("Resource")
                         .inputRefName(resourceName, resourceName)
                     .updateSearch();
-        PrismFormWithActionButtons form = table()
+        ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
         String assignmentActualName = form.getParentElement().$x(".//span[@data-s-id='displayName']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getText();
@@ -162,7 +164,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
         return projectionName.equals(assignmentActualName);
     }
 
-    public PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> viewProjectionDetails(String projectionName, String resourceName){
+    public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> viewProjectionDetails(String projectionName, String resourceName){
         Selenide.screenshot("beforeSearch");
         table()
                 .search()
@@ -170,11 +172,10 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                         .inputRefName(resourceName, resourceName)
                     .updateSearch();
         Selenide.screenshot("afterSearch");
-        PrismFormWithActionButtons form = table()
+        ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
-        PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> detailsPanel =
-                new PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>>(table(),
-                        $(Schrodinger.byDataId("valueForm")));
+        ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> detailsPanel =
+                new ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>>(table(), $(Schrodinger.byDataId("valueForm")));
         return detailsPanel;
     }
 
@@ -200,7 +201,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                 .referencePanelByItemName("Resource")
                 .inputRefName(resourceName, resourceName)
                 .updateSearch();
-        PrismFormWithActionButtons form = table()
+        ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
         form.assertPropertyDropdownValue("Administrative status", "Enabled");
         form.clickCancel();
@@ -213,7 +214,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                 .referencePanelByItemName("Resource")
                 .inputRefName(resourceName, resourceName)
                 .updateSearch();
-        PrismFormWithActionButtons form = table()
+        ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
         form.assertPropertyDropdownValue("Administrative status", "Disabled");
         form.clickCancel();

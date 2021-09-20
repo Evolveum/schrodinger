@@ -56,12 +56,9 @@ public class M12Authorizations extends AbstractLabTest {
     public void mod12test01BasicUserAuthorization() {
         addObjectFromFile(ROLE_BASIC_USER_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        showUser("X000005").selectBasicPanel()
-                .form()
-                    .addPasswordAttributeValue("qwerty12345XXXX")
-                    .and()
-                .and()
-            .clickSave()
+        showUser("X000005")
+                .addPasswordAttributeValue("qwerty12345XXXX")
+                .clickSave()
                 .feedback()
                     .isSuccess();
 

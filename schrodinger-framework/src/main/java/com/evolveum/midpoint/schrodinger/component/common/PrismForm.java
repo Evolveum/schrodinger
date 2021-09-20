@@ -64,22 +64,6 @@ public class PrismForm<T> extends Component<T> {
         return this;
     }
 
-    public PrismForm<T> addPasswordAttributeValue(String value) {
-        PrismForm passwordContainer = expandContainerPropertiesPanel("Password")
-                .getPrismContainerPanel("Password")
-                    .getContainerFormFragment();
-
-        boolean existValue = passwordContainer.getParentElement().$x("//a[@data-s-id='changePasswordLink']").exists();
-        if (existValue) {
-            passwordContainer.getParentElement().$x("//a[@data-s-id='changePasswordLink']").click();
-        }
-        passwordContainer.getParentElement().$x("//input[@data-s-id='password1']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        passwordContainer.getParentElement().$x("//input[@data-s-id='password2']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        passwordContainer.getParentElement().$x("//input[@data-s-id='password2']").waitUntil(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-        return this;
-    }
-
     public PrismForm<T> removeAttributeValue(String name, String value) {
         SelenideElement property = findProperty(name);
         if (property != null && property.$(Schrodinger.byDataResourceKey("removeButton")).exists()) {

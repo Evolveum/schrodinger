@@ -26,7 +26,7 @@ public abstract class AbstractTableWithPrismView<T> extends Table<T> {
         super(parent, parentElement);
     }
 
-    public abstract PrismFormWithActionButtons<AbstractTableWithPrismView<T>> clickByName(String name);
+    public abstract <PF extends PrismFormWithActionButtons<AbstractTableWithPrismView<T>>> PF clickByName(String name);
 
     public abstract AbstractTableWithPrismView<T> selectCheckboxByName(String name);
 

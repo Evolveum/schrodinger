@@ -15,9 +15,14 @@
  */
 package com.evolveum.midpoint.schrodinger.page.user;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
+import com.evolveum.midpoint.schrodinger.component.common.PrismContainerPanel;
+import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.user.*;
 import com.evolveum.midpoint.schrodinger.page.FocusPage;
 
@@ -78,6 +83,15 @@ public class UserPage extends FocusPage<UserPage> {
 
     public UserPage assertFullName(String expectedValue) {
         selectBasicPanel().form().assertPropertyInputValue("fullName", expectedValue);
+        return this;
+    }
+
+    public UserPasswordPanel selectPasswordPanel() {
+        return new UserPasswordPanel(this, getNavigationPanelSelenideElement("Password"));
+    }
+
+    public UserPage addPasswordAttributeValue(String value) {
+        selectPasswordPanel().setPasswordValue(value);
         return this;
     }
 }
