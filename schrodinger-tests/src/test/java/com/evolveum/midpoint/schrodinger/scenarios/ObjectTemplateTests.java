@@ -36,6 +36,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
     private static final String COMPONENT_ARCHETYPE = COMPONENT_OBJECTS_DIRECTORY + "archetypes/";
     private static final File FULL_NAME_OBJECT_TEMPLATE_FILE = new File(COMPONENT_OBJECT_TEMPLATE + "object-template-full-name.xml");
     private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-object-template.xml");
+    private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-object-template-1.xml");
     private static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-initial.xml");
     private static final File SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-employee-archetype.xml");
     private static final File EMPLOYEE_ARCHETYPE_FILE = new File(COMPONENT_ARCHETYPE + "archetype-employee.xml");
@@ -120,7 +121,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
         basicPage
                 .listUsers("Employees")
-                    .newUser()
+                    .newObjectButtonClick("New employee")
                         .selectBasicPanel()
                             .form()
                                 .addAttributeValue("Name", "employeeTestUser")
@@ -147,13 +148,13 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         table.clickByName("employeeTestUser")
                 .selectBasicPanel();
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE, true);
+        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE, true);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
         basicPage
                 .listUsers("Employees")
-                    .newUser()
-                        .selectBasicPanel()
+                .newObjectButtonClick("New employee")
+                .selectBasicPanel()
                             .form()
                                 .addAttributeValue("Name", "employeeTestUserWithFullname")
                                 .addAttributeValue("Given name", "Oskar")
