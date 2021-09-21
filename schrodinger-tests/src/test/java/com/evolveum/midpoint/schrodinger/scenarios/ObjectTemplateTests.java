@@ -189,7 +189,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
         basicPage
                 .listUsers("Employees")
-                    .newUser()
+                    .newObjectButtonClick("New employee")
                         .selectBasicPanel()
                             .form()
                             .addAttributeValue("Name", "employeeAfterObjTemplRemove")

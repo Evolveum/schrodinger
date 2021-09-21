@@ -41,17 +41,6 @@ public class ListRolesPage extends AssignmentHolderObjectListPage<RolesPageTable
     }
 
     @Override
-    public RolePage newRole() {
-        SelenideElement mainButton = $(By.xpath("//button[@type='button'][@" + Schrodinger.DATA_S_ID + "='mainButton']"));
-        String expanded = mainButton.getAttribute("aria-haspopup");
-        if (Boolean.getBoolean(expanded)) {
-            return newObjectCollection("New role");
-        }
-        mainButton.click();
-        return new RolePage();
-    }
-
-    @Override
     public RolePage getObjectDetailsPage() {
         return new RolePage();
     }

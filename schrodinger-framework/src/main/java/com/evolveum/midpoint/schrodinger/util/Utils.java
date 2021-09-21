@@ -179,6 +179,10 @@ public class Utils {
         return $(By.className("modal-dialog")).waitUntil(Condition.appear, waitTime);
     }
 
+    public static boolean isModalWindowSelenideElementVisible() {
+        return $(By.className("modal-dialog")).isDisplayed();
+    }
+
     public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue, String tempFilePath) throws IOException {
         String content = FileUtils.readFileToString(resourceXml, "UTF-8");
         int startIndex = content.indexOf(":filePath>") + 10;

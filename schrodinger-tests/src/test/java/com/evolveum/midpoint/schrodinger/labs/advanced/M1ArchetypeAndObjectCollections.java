@@ -142,7 +142,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         loginPage.loginWithReloadLoginPage(getUsername(), getPassword());
 
         basicPage.listUsers()
-                .newObjectCollection("New employee")
+                .newObjectButtonClick("New employee")
                     .selectBasicPanel()
                         .form()
                             .addAttributeValue("Name", "janeway")

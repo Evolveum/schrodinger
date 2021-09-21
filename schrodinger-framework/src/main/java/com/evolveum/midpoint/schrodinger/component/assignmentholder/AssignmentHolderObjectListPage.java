@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -61,12 +60,9 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
         return Integer.valueOf(countString.substring(countString.lastIndexOf(" ")+1));
     }
 
-    public D newObjectCollection(String title) {
-        SelenideElement mainButton = $(Schrodinger.byDataId("buttonToolbar"))
-                .$x(".//i[contains(@class,\"fa-plus\")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-        mainButton.click();
-        $(Schrodinger.byElementAttributeValue("button", "title", title))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+    public D newObjectButtonClick(String title) {
+        table()
+                .newObjectButtonByTitleClick(title);
         return getObjectDetailsPage();
     }
 

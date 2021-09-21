@@ -70,7 +70,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
                 .listUsers(ARCHETYPE_PLURAL_LABEL)
                 .table()
                 .assertButtonToolBarExists()
-                .getToolbarButton(ARCHETYPE_ICON_CSS_STYLE)
+                .getToolbarButtonByCss(ARCHETYPE_ICON_CSS_STYLE)
                 .shouldBe(Condition.visible)
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
@@ -82,7 +82,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
 
         collectionListPage
                 .table()
-                    .newObjectButtonClickPerformed(ARCHETYPE_ICON_CSS_STYLE)
+                    .newObjectButtonByCssClick(ARCHETYPE_ICON_CSS_STYLE)
                         .selectBasicPanel()
                             .form()
                                 .addAttributeValue("name", EMPLOYEE_USER_NAME_VALUE)

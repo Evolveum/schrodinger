@@ -45,14 +45,4 @@ public class ListServicesPage extends AssignmentHolderObjectListPage<ServicesPag
         return ConstantsUtil.OBJECT_SERVICE_BOX_COLOR;
     }
 
-    @Override
-    public ServicePage newService() {
-        SelenideElement mainButton = $(By.xpath("//button[@type='button'][@" + Schrodinger.DATA_S_ID + "='mainButton']"));
-        String expanded = mainButton.getAttribute("aria-haspopup");
-        if (Boolean.getBoolean(expanded)) {
-            return newObjectCollection("New service");
-        }
-        mainButton.click();
-        return new ServicePage();
-    }
 }

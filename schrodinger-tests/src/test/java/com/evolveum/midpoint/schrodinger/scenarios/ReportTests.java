@@ -28,7 +28,7 @@ public class ReportTests extends AbstractSchrodingerTest {
     @Test
     public void test00100createReport() {
         basicPage.listReports()
-        .newObjectCollection("New collection report")
+        .newObjectButtonClick("New collection report")
             .selectBasicPanel()
                 .form()
                     .addAttributeValue("Name", "TestReport")

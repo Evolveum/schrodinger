@@ -47,16 +47,4 @@ public class ListUsersPage extends AssignmentHolderObjectListPage<UsersPageTable
     protected String getTableAdditionalClass(){
         return ConstantsUtil.OBJECT_USER_BOX_COLOR;
     }
-
-    @Override
-    public UserPage newUser() {
-        SelenideElement mainButton = $(Schrodinger.byDataId("buttonToolbar"))
-                .$x(".//i[contains(@class,\"fa-plus\")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-        String expanded = mainButton.getAttribute("aria-haspopup");
-        if (Boolean.getBoolean(expanded)) {
-            return newObjectCollection("New user");
-        }
-        mainButton.click();
-        return new UserPage();
-    }
 }

@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.component.modal.ExportPopupPanel;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import jdk.jshell.execution.Util;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -34,8 +35,6 @@ import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
-import org.testng.Assert;
 
 /**
  * Created by honchar
@@ -97,20 +96,40 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return this;
     }
 
-    public SelenideElement getToolbarButton(String iconCssClass){
+    public SelenideElement getToolbarButtonByCss(String iconCssClass){
         return getButtonToolbar().$(By.cssSelector(iconCssClass));
     }
 
-    public PD newObjectButtonClickPerformed(String iconCssClass){
-        getToolbarButton(iconCssClass)
+    public SelenideElement getToolbarButtonByTitle(String buttonTitle){
+        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
+    }
+
+    public PD newObjectButtonByCssClick(String iconCssClass){
+        getToolbarButtonByCss(iconCssClass)
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
+        if (Utils.isModalWindowSelenideElementVisible()) {
+            Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]");
+            Selenide.sleep(2000);
+        }
+        return getObjectDetailsPage();
+    }
+
+    public PD newObjectButtonByTitleClick(String buttonTitle){
+        getToolbarButtonByTitle(buttonTitle)
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Selenide.sleep(2000);
+        if (Utils.isModalWindowSelenideElementVisible()) {
+            Utils.getModalWindowSelenideElement().$x(".//button[@title, \"" + buttonTitle + "\"]");
+            Selenide.sleep(2000);
+        }
         return getObjectDetailsPage();
     }
 
     public ExportPopupPanel<P> clickExportButton() {
-        getToolbarButton(".fa.fa-download")
+        getToolbarButtonByCss(".fa.fa-download")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
@@ -118,7 +137,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public AssignmentHolderObjectListTable<P, PD> clickRefreshButton() {
-        getToolbarButton(".fa.fa-refresh")
+        getToolbarButtonByCss(".fa.fa-refresh")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
@@ -149,7 +168,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public int countDropdownButtonChildrenButtons(String mainButtonIconCssClass) {
-        SelenideElement mainButtonElement = getToolbarButton(mainButtonIconCssClass)
+        SelenideElement mainButtonElement = getToolbarButtonByCss(mainButtonIconCssClass)
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
         mainButtonElement.click();
         if (mainButtonElement.exists()) {
