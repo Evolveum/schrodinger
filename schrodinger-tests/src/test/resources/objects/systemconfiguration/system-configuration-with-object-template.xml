@@ -396,26 +396,6 @@
                     </collectionRef>
                 </collection>
             </objectCollectionView>
-            <objectCollectionView>
-                <identifier>empls-view</identifier>
-                <displayOrder>10</displayOrder>
-                <type>UserType</type>
-                <collection>
-                    <collectionRef oid="7135e68c-ee53-11e8-8025-170b77da3fd6" relation="org:default" type="c:ArchetypeType">
-                        <!-- Employee -->
-                    </collectionRef>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView>
-                <identifier>ext-view</identifier>
-                <displayOrder>20</displayOrder>
-                <type>UserType</type>
-                <collection>
-                    <collectionRef oid="b97490e6-24aa-11e9-923a-cbe17394eff9" relation="org:default" type="c:ArchetypeType">
-                        <!-- External -->
-                    </collectionRef>
-                </collection>
-            </objectCollectionView>
         </objectCollectionViews>
         <objectDetails>
             <objectDetailsPage>

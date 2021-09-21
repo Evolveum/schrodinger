@@ -508,13 +508,11 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     public UserPage showUser(String userName){
         UserPage user = showUserInTable(userName).clickByName(userName);
-        $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return user;
     }
 
     public RolePage showRole(String roleName){
         RolePage role = showRoleInTable(roleName).clickByName(roleName);
-        $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return role;
     }
 

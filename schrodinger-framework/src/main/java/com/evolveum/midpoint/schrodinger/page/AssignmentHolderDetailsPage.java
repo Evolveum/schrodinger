@@ -55,7 +55,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public void clickOperationButton(String className, String elementId) {
-        if (useTabbedPanel) {
+        if (isUseTabbedPanel()) {
             $(Schrodinger.byDataId(elementId))
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
@@ -124,7 +124,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 //    }
 
     protected SelenideElement getNavigationPanelSelenideElement(String... panelTitle) {
-        if (useTabbedPanel) {
+        if (isUseTabbedPanel()) {
             return getTabPanel().clickTab(panelTitle[0])
                     .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
@@ -142,13 +142,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public boolean isUseTabbedPanel() {
-        try {
-            adminGui()
-                    .form()
-                        .assertPropertyDropdownValue("Enable experimental features", "False");
-            useTabbedPanel = true;
-        } catch (Exception e) {
-        }
-        return useTabbedPanel;
+        $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return !($(Schrodinger.byDataId("navigation")).isDisplayed());
     }
 }
