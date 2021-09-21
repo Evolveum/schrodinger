@@ -105,24 +105,28 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public PD newObjectButtonByCssClick(String iconCssClass){
-        getToolbarButtonByCss(iconCssClass)
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        Selenide.sleep(2000);
+        if (!getToolbarButtonByTitle(iconCssClass).isDisplayed()) {
+            getToolbarButtonByCss(".fa.fa-plus")
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+            Selenide.sleep(2000);
+        }
         if (Utils.isModalWindowSelenideElementVisible()) {
-            Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]");
+            Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]").click();
             Selenide.sleep(2000);
         }
         return getObjectDetailsPage();
     }
 
     public PD newObjectButtonByTitleClick(String buttonTitle){
-        getToolbarButtonByTitle(buttonTitle)
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        Selenide.sleep(2000);
+        if (!getToolbarButtonByTitle(buttonTitle).isDisplayed()) {
+            getToolbarButtonByCss(".fa.fa-plus")
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+            Selenide.sleep(2000);
+        }
         if (Utils.isModalWindowSelenideElementVisible()) {
-            Utils.getModalWindowSelenideElement().$x(".//button[@title, \"" + buttonTitle + "\"]");
+            Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
             Selenide.sleep(2000);
         }
         return getObjectDetailsPage();

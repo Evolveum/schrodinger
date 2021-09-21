@@ -34,11 +34,6 @@ public class ReportPage extends AssignmentHolderDetailsPage<ReportPage> {
         return null;
     }
 
-    @Override
-    public AssignmentHolderBasicPanel<ReportPage> selectBasicPanel() {
-        return new AssignmentHolderBasicPanel<>(this, getNavigationPanelSelenideElement("pageReport.basic.title"));
-    }
-
     public ReportExportPanel selectCollectionReportTabExport() {
         return new ReportExportPanel(this, getNavigationPanelSelenideElement("pageReport.export.title"));
     }
