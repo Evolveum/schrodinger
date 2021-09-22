@@ -242,6 +242,17 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>net.tirasa.connid</groupId>
+                <artifactId>connector-framework</artifactId>
+                <version>1.5.0.18</version>
+            </dependency>
+            <dependency>
+                <groupId>net.tirasa.connid</groupId>
+                <artifactId>connector-framework-internal</artifactId>
+                <version>1.5.0.18</version>
+            </dependency>
+
             <!-- todo remove later, taken from mp project-->
 <!--            <dependency>-->
 <!--                &lt;!&ndash; Resolves dependency conflict in selenium &ndash;&gt;-->
