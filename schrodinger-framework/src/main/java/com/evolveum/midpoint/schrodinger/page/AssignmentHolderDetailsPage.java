@@ -50,7 +50,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public SelenideElement getButtonPanelElement() {
-        return $(Schrodinger.byElementValue("legend", "Object operations"))
+        return $(Schrodinger.byElementValue("legend", "Operations"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
     }
 

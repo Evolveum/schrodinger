@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.common.SummaryPanel;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -81,13 +82,10 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
         if (isUseTabbedPanel()) {
             setCheckFormGroupOptionCheckedByValue(option, true);
         } else {
-            SelenideElement optionButton =
-                    $x(".//a[contains(text(), '" + option + "')]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            if (optionButton.getAttribute("class").contains("active")) {
-                return;
-            }
-            optionButton.click();
-            optionButton.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            optionsButtons.$x(".//button[@data-s-id='buttonContainer']").click();
+            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, true);
         }
     }
 
@@ -95,13 +93,10 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
         if (isUseTabbedPanel()) {
             setCheckFormGroupOptionCheckedByValue(option, false);
         } else {
-            SelenideElement optionButton =
-                    $x(".//a[contains(text(), " + option + ")]").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            if (!optionButton.getAttribute("class").contains("active")) {
-                return;
-            }
-            optionButton.click();
-            optionButton.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            optionsButtons.$x(".//button[@data-s-id='buttonContainer']").click();
+            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, false);
         }
     }
 
