@@ -143,6 +143,6 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 
     public boolean isUseTabbedPanel() {
         $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-        return !($(Schrodinger.byDataId("navigation")).isDisplayed());
+        return !($(Schrodinger.byDataId("div", "navigation")).isDisplayed());
     }
 }
