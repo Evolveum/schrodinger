@@ -22,6 +22,7 @@ import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenid
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.task.*;
 
 import org.openqa.selenium.By;
@@ -127,8 +128,12 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return null;
     }
 
-    public AssignmentHolderBasicPanel<TaskPage> selectSchedulePanel(){
-        return new AssignmentHolderBasicPanel<TaskPage>(this, getNavigationPanelSelenideElement(("Schedule")));
+    public PanelWithContainerWrapper<TaskPage> selectSchedulePanel(){
+        return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement(("Schedule")));
+    }
+
+    public PanelWithContainerWrapper<TaskPage> selectActivityWorkPanel(){
+        return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Activity", "Work"));
     }
 
     public OperationStatisticsPanel selectOperationStatisticsPanel() {
