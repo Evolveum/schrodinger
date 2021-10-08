@@ -104,15 +104,19 @@ public class AccountTests extends AbstractSchrodingerTest {
         listResourcesPage
                 .table()
                 .clickByName(CSV_RESOURCE_NAME)
-                    .clickEditResourceConfiguration()
+                    .selectConnectorConfigurationPanel()
                         .form()
                         .changeAttributeValue(CSV_RESOURCE_ATTR_FILE_PATH, ScenariosCommons.CSV_SOURCE_OLDVALUE, csvTargetFile.getAbsolutePath())
                         .changeAttributeValue(CSV_RESOURCE_ATTR_UNIQUE,"","username")
                     .and()
                 .and()
-                .clickSaveAndTestConnection()
-                .assertIsTestSuccess()
-                .clickOk();
+                .clickSave()
+                .feedback()
+                    .assertSuccess();
+        listResourcesPage
+                .testConnectionClick(CSV_RESOURCE_NAME)
+                .feedback()
+                .assertSuccess();
         refreshResourceSchema(CSV_RESOURCE_NAME);
     }
 

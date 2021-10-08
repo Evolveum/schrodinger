@@ -19,6 +19,8 @@ import static com.codeborne.selenide.Selenide.$;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
+import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import org.openqa.selenium.By;
 
@@ -74,6 +76,10 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
         $(Schrodinger.byDataResourceKey("a", "pageResource.button.refreshSchema")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
+    }
+
+    public PanelWithContainerWrapper<ViewResourcePage> selectConnectorConfigurationPanel() {
+        return new PanelWithContainerWrapper<>(this, getNavigationPanelSelenideElement("Connector configuration"));
     }
 
 }
