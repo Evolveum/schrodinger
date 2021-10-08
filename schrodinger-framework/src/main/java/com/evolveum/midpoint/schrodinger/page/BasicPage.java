@@ -115,7 +115,7 @@ public class BasicPage {
     }
 
     public UserPage newUser() {
-        return newUser("User");
+        return newUser("All users");
     }
 
     public UserPage newUser(String templateTitle) {
@@ -154,7 +154,7 @@ public class BasicPage {
     }
 
     public RolePage newRole() {
-        return newRole("Role");
+        return newRole("All roles");
     }
 
     public RolePage newRole(String templateTitle) {

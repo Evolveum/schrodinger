@@ -68,6 +68,7 @@ public class MemberPanel<T> extends Component<T> {
     public BasicPage newMember(String title, String newMemberType) {
         getParentElement().$x(".//i[@class='fa fa-plus']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         if (Utils.isModalWindowSelenideElementVisible()) {
             FocusSetAssignmentsModal<MemberPanel<T>> newMemberPopup = new FocusSetAssignmentsModal<>(this, Utils.getModalWindowSelenideElement());
             newMemberPopup.getParentElement().$x(".//button[@title='" + title + "']")
