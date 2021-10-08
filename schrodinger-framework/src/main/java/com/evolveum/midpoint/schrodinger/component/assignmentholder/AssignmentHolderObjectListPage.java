@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.assignmentholder;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -63,6 +64,7 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     public D newObjectButtonClick(String title) {
         table()
                 .newObjectButtonByTitleClick(title);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return getObjectDetailsPage();
     }
 

@@ -45,10 +45,7 @@ public class ObjectCollectionPage extends AssignmentHolderDetailsPage {
 
     @Override
     public AssignmentHolderBasicPanel<ObjectCollectionPage> selectBasicPanel() {
-        SelenideElement element = getTabPanel().clickTab("pageObjectCollection.basic.title")
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-
-        return new AssignmentHolderBasicPanel<>(this, element);
+        return super.selectBasicPanel();
     }
 
 }

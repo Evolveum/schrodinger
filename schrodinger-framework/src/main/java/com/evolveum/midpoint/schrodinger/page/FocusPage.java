@@ -20,6 +20,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.SummaryPanel;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -135,4 +136,9 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
         assertion.assertTrue(isActivationState(state), "Activation state doesn't equal to " + state);
         return this;
     }
+
+    public AssignmentHolderBasicPanel<F> selectActivationPanel() {
+        return new AssignmentHolderBasicPanel<>((F) this, getNavigationPanelSelenideElement("Activation"));
+    }
+
 }
