@@ -174,13 +174,13 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
 
     @Test (priority = 5)
     public void test00500createNewRoleMemberObject() {
-        RolePage newRolePage = (RolePage) basicPage.orgStructure()
+        UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create Role type member with Manager relation", "Role");
-        newRolePage.selectBasicPanel()
+                        .newMember("Create User type member with Manager relation", "User");
+        newUserPage.selectBasicPanel()
                     .form()
-                        .addAttributeValue("name", "NewRoleAsOrgManager")
+                        .addAttributeValue("name", "NewUserAsOrgManager")
                         .and()
                     .and()
                 .clickSave()
@@ -197,7 +197,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         memberTable
                 .search()
                     .byName()
-                    .inputValue("NewRoleAsOrgManager")
+                    .inputValue("NewUserAsOrgManager")
                     .updateSearch()
                 .and()
                 .assertTableObjectsCountEquals(1)
