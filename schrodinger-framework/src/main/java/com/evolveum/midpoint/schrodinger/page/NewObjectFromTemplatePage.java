@@ -15,8 +15,8 @@ public class NewObjectFromTemplatePage<T extends AssignmentHolderDetailsPage> ex
         SelenideElement templateButton = $(Schrodinger.byElementValue("span",
                 "class", "compositedButtonLabel", title)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         templateButton.click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return pageToRedirect;
     }
 }
