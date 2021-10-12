@@ -35,21 +35,15 @@ import static com.codeborne.selenide.Selenide.$;
 public class CasePage extends AssignmentHolderDetailsPage {
 
     public ChildrenCasesPanel selectTabChildren(){
-        SelenideElement element = getTabPanel().clickTab("PageCase.childCasesTab");
-
-        return new ChildrenCasesPanel(this, element);
+        return new ChildrenCasesPanel(this, getNavigationPanelSelenideElement("Child cases"));
     }
 
     public OperationRequestPanel selectTabOperationRequest(){
-        SelenideElement element = getTabPanel().clickTab("PageCase.operationRequestTab");
-
-        return new OperationRequestPanel(this, element);
+        return new OperationRequestPanel(this, getNavigationPanelSelenideElement("Operation request"));
     }
 
     public WorkitemsPanel selectTabWorkitems(){
-        SelenideElement element = getTabPanel().clickTab("PageCase.workitemsTab");
-
-        return new WorkitemsPanel(this, element);
+        return new WorkitemsPanel(this, getNavigationPanelSelenideElement("Workitems"));
     }
 
     public TaskPage navigateToTask() {
