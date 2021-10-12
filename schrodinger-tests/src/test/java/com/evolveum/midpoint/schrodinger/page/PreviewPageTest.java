@@ -56,7 +56,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
 
         PreviewPage previewPage = user.selectBasicPanel()
                 .form()
-                    .addAttributeValue("name", "jack")
+                    .addAttributeValue("Name", "jack")
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jack")
                     .and()
                 .and()

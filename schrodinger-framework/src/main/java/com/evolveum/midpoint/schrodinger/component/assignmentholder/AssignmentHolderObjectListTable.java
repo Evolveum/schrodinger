@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.component.modal.ExportPopupPanel;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-import jdk.jshell.execution.Util;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -171,15 +170,13 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return getObjectDetailsPage();
     }
 
-    public int countDropdownButtonChildrenButtons(String mainButtonIconCssClass) {
+    public int countNewObjectButtonsInPopup(String mainButtonIconCssClass) {
         SelenideElement mainButtonElement = getToolbarButtonByCss(mainButtonIconCssClass)
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
         mainButtonElement.click();
-        if (mainButtonElement.exists()) {
-            ElementsCollection childrenButtonCollection = mainButtonElement.parent().parent()
-                    .$(By.cssSelector(".dropdown-menu.auto-width"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .findAll(By.tagName("i"));
+        if (Utils.isModalWindowSelenideElementVisible()) {
+            SelenideElement modal = Utils.getModalWindowSelenideElement();
+            ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");
             return childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
         }
         return 0;
@@ -191,8 +188,8 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return "Name";
     }
 
-    public AssignmentHolderObjectListTable<P, PD> assertNewObjectDropdownButtonsCountEquals(String mainButtonIconCssClass, int expectedButtonsCount) {
-        assertion.assertEquals(expectedButtonsCount, countDropdownButtonChildrenButtons(mainButtonIconCssClass), "The number of the dropdown buttons "
+    public AssignmentHolderObjectListTable<P, PD> assertNewObjectButtonsCountEquals(String mainButtonIconCssClass, int expectedButtonsCount) {
+        assertion.assertEquals(expectedButtonsCount, countNewObjectButtonsInPopup(mainButtonIconCssClass), "The number of the dropdown buttons "
                 + "for the button with '" + mainButtonIconCssClass + "' css class doesn't match to " + expectedButtonsCount);
         return this;
     }

@@ -107,7 +107,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     public void test0040checkNewObjectButtonWithDropdown(){
         basicPage.listUsers()
                 .table()
-                .assertNewObjectDropdownButtonsCountEquals(".fa.fa-plus", 2)
+                .assertNewObjectButtonsCountEquals(".fa.fa-plus", 2)
                 .newObjectCollectionButtonClickPerformed("fa fa-plus", ARCHETYPE_ICON_CSS_STYLE);
     }
 
