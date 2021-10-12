@@ -31,33 +31,28 @@ import com.evolveum.midpoint.schrodinger.page.FocusPage;
  */
 public class UserPage extends FocusPage<UserPage> {
 
-    public UserPersonasPanel selectTabPersonas() {
-        SelenideElement element = getTabPanel().clickTab("pageAdminFocus.personas");
-
+    public UserPersonasPanel selectPersonasPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Personas");
         return new UserPersonasPanel(this, element);
     }
 
-    public UserTasksPanel selectTabTasks() {
-        SelenideElement element = getTabPanel().clickTab("pageAdminFocus.tasks");
-
+    public UserTasksPanel selectTasksPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Cases");
         return new UserTasksPanel(this, element);
     }
 
-    public UserHistoryPanel selectTabHistory() {
-        SelenideElement element = getTabPanel().clickTab("pageAdminFocus.objectHistory");
-
+    public UserHistoryPanel selectHistoryPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("History");
         return new UserHistoryPanel(this, element);
     }
 
-    public UserDelegationsPanel selectTabDelegations() {
-        SelenideElement element = getTabPanel().clickTab("FocusType.delegations");
-
+    public UserDelegationsPanel selectDelegationsPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Delegations");
         return new UserDelegationsPanel(this, element);
     }
 
-    public UserDelegatedToMePanel selectTabDelegatedToMe() {
-        SelenideElement element = getTabPanel().clickTab("FocusType.delegatedToMe");
-
+    public UserDelegatedToMePanel selectDelegatedToMePanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Delegated to me");
         return new UserDelegatedToMePanel(this, element);
     }
 

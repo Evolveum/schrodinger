@@ -30,22 +30,6 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends BasicPage {
 
-    public LoginPage changeLanguage(String countryCode) {
-        Validate.notNull(countryCode, "Country code must not be null");
-
-        $(Schrodinger.byDataId("localeIcon"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        String flagIconCss = "flag-" + countryCode.trim().toLowerCase();
-        $(By.className(flagIconCss))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .parent()
-                .$(By.tagName("a"))
-                .click();
-
-        return this;
-    }
-
     public LoginPage setUsernameValue(String emailValue) {
         $(Schrodinger.byDataId("username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(emailValue);
         return this;

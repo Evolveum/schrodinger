@@ -106,7 +106,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0030createDelegationTest() {
         showUser("DelegateFromUser")
-                .selectTabDelegations()
+                .selectDelegationsPanel()
                     .clickAddDelegation()
                         .table()
                             .search()
@@ -121,7 +121,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .assertSuccess();
 
         showUser("DelegateToUser")
-                .selectTabDelegatedToMe()
+                .selectDelegatedToMePanel()
                     .getDelegationDetailsPanel("DelegateFromUser")
                         .expandDetailsPanel("DelegateFromUser")
                         .assertAssignmentPrivilegesNotSelected()
@@ -132,7 +132,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .assertValidFromPanelDisabled();
 
         showUser("DelegateFromUser")
-                .selectTabDelegations()
+                .selectDelegationsPanel()
                     .getDelegationDetailsPanel("DelegateToUser")
                         .expandDetailsPanel("DelegateToUser")
                         .assertAssignmentPrivilegesNotSelected()
@@ -152,7 +152,7 @@ public class UserTest extends AbstractSchrodingerTest {
         midPoint.formLogin().login(username, password);
 
         showUser("DelegateEndUserRoleFromUser")
-                .selectTabDelegations()
+                .selectDelegationsPanel()
                     .clickAddDelegation()
                         .table()
                             .search()

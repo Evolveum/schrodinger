@@ -25,6 +25,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 
 import com.evolveum.midpoint.schrodinger.component.common.UserMenuPanel;
+import com.evolveum.midpoint.schrodinger.page.login.LoginPage;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
@@ -32,6 +33,7 @@ import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -633,5 +635,19 @@ public class BasicPage {
         return this;
     }
 
+    public BasicPage changeLanguage(String countryCode) {
+        Validate.notNull(countryCode, "Country code must not be null");
 
+        $(Schrodinger.byDataId("localeIcon"))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        String flagIconCss = "flag-" + countryCode.trim().toLowerCase();
+        $(By.className(flagIconCss))
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .parent()
+                .$(By.tagName("a"))
+                .click();
+
+        return this;
+    }
 }
