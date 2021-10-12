@@ -100,7 +100,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                     .clickByName(LOCALIZATION_TEST_USER_NAME_ORIG)
-                        .assertName(LOCALIZATION_TEST_USER_NAME_DE);
+                        .assertElementWithTextExists(LOCALIZATION_TEST_USER_NAME_DE);
     }
 
     @Test
