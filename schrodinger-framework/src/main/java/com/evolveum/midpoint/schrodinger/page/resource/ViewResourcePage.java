@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
@@ -73,7 +74,7 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
     }
 
     public ViewResourcePage refreshSchema() {
-        $(Schrodinger.byDataResourceKey("a", "pageResource.button.refreshSchema")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//span[@title='Refresh schema']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }

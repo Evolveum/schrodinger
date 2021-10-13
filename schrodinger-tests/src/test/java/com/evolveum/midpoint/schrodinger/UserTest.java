@@ -101,6 +101,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                     .clickByName(LOCALIZATION_TEST_USER_NAME_ORIG)
                         .assertElementWithTextExists(LOCALIZATION_TEST_USER_NAME_DE);
+        basicPage.changeLanguage("en");
     }
 
     @Test
