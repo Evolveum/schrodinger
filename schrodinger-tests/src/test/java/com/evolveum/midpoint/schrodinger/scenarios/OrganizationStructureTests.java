@@ -193,7 +193,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
                 .updateSearch()
                 .and()
                 .clickByName(NAME_CSV_RESOURCE_ADVANCED_SYNC)
-                    .clickEditResourceConfiguration()
+                    .getConnectorConfigurationPanel()
                         .form()
                         .changeAttributeValue("File path", "", csvTargetFile.getAbsolutePath())
                         .changeAttributeValue(CSV_RESOURCE_ATTR_UNIQUE,"","login")

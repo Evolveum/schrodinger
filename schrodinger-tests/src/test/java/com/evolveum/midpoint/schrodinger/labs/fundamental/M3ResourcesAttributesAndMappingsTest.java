@@ -65,7 +65,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         PrismForm<ResourceConfigurationPanel> configTab = resourcesList
                 .table()
                 .clickByName(CSV_1_RESOURCE_NAME)
-                    .clickEditResourceConfiguration()
+                    .getConnectorConfigurationPanel()
                     .form();
         // Unique attribute name should be login
         configTab.assertPropertyInputValue(UNIQUE_ATTRIBUTE_NAME, CSV_1_UNIQUE_ATTRIBUTE_NAME);

@@ -16,7 +16,6 @@
 
 package com.evolveum.midpoint.schrodinger;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.codeborne.selenide.testng.BrowserPerClass;
@@ -50,7 +49,6 @@ import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.reports.SchrodingerTextReport;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
@@ -391,7 +389,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .clickByName(resourceName);
             Selenide.screenshot("beforeEditConfiguration");
             ResourceConfigurationPanel resourceConfigurationTab = viewResourcePage
-                    .clickEditResourceConfiguration();
+                    .getConnectorConfigurationPanel();
             Selenide.screenshot("afterEditConfigurationClick");
             Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
             Selenide.screenshot("afterSixSecondsSleep");
@@ -413,7 +411,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                             .updateSearch()
                             .and()
                             .clickByName(resourceName)
-                            .clickEditResourceConfiguration()
+                            .getConnectorConfigurationPanel()
                             .form()
                             .changeAttributeValue(attributeName, oldValue, newValue)
                             .and()
