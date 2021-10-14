@@ -55,9 +55,9 @@ public class UserTest extends AbstractSchrodingerTest {
 
         //@formatter:off
         Map<String, String> attr = new HashMap<>();
-        attr.put("name", "jdoe");
-        attr.put(UserType.F_GIVEN_NAME.getLocalPart(), "john");
-        attr.put(UserType.F_FAMILY_NAME.getLocalPart(), "doe");
+        attr.put("Name", "jdoe");
+        attr.put("Given name", "john");
+        attr.put("Family name", "doe");
         createUser(attr);
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -101,7 +101,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                     .clickByName(LOCALIZATION_TEST_USER_NAME_ORIG)
                         .assertElementWithTextExists(LOCALIZATION_TEST_USER_NAME_DE);
-        basicPage.changeLanguage("en");
+        basicPage.changeLanguage("us");
     }
 
     @Test
