@@ -61,7 +61,7 @@
             <valuePolicyRef oid="00000000-0000-1111-0000-000000000003" relation="org:default" type="c:ValuePolicyType"/>
         </nonce>
     </credentials>
-    <registration>
+    <flow>
         <selfRegistration>
             <name>selfRegistration</name>
             <initialLifecycleState>draft</initialLifecycleState>
@@ -69,7 +69,7 @@
             <additionalAuthenticationName>confirmationLink</additionalAuthenticationName>
             <defaultRole oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
         </selfRegistration>
-    </registration>
+    </flow>
     <credentialsReset>
         <name>userPasswordReset</name>
         <mailReset>
