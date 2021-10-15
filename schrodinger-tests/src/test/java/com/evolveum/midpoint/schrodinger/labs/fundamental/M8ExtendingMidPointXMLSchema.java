@@ -20,7 +20,7 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -100,7 +100,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
-        ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
+        ResourceAccountsPanel<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .search()
                         .byName()
@@ -108,7 +108,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                             .updateSearch()
                         .and()
                     .clickByName(HR_RESOURCE_NAME)
-                        .clickAccountsTab()
+                        .selectAccountsPanel()
                         .clickSearchInResource();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         accountTab.table()

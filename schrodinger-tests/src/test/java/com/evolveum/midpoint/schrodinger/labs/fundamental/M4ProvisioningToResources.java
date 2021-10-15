@@ -178,7 +178,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                         .updateSearch()
                     .and()
                     .clickByName(CSV_3_RESOURCE_NAME)
-                        .clickAccountsTab()
+                        .selectAccountsPanel()
                             .clickSearchInResource()
                                 .table()
                                     .search()

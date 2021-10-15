@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.component.resource;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -32,12 +31,12 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Created by matus on 5/22/2018.
  */
-public class ResourceAccountsTab<T> extends Component<T> {
-    public ResourceAccountsTab(T parent, SelenideElement parentElement) {
+public class ResourceAccountsPanel<T> extends Component<T> {
+    public ResourceAccountsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ResourceTaskQuickAccessDropDown<ResourceAccountsTab<T>> importTask() {
+    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> importTask() {
         SelenideElement importDiv = $(Schrodinger.byDataId("div", "import"));
         importDiv.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
@@ -47,7 +46,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
         return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
     }
 
-    public ResourceTaskQuickAccessDropDown<ResourceAccountsTab<T>> reconciliationTask() {
+    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> reconciliationTask() {
         SelenideElement reconcileDiv = $(Schrodinger.byDataId("div", "reconciliation"));
         reconcileDiv.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
@@ -57,7 +56,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
         return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
     }
 
-    public ResourceTaskQuickAccessDropDown<ResourceAccountsTab<T>> liveSyncTask() {
+    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> liveSyncTask() {
         $(Schrodinger.byElementValue("label", "data-s-id", "label", "Live Sync"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
@@ -74,7 +73,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
         return new ResourceTaskQuickAccessDropDown<>(this, concretElement);
     }
 
-    public ResourceAccountsTab<T> clickSearchInRepository() {
+    public ResourceAccountsPanel<T> clickSearchInRepository() {
 
         $(Schrodinger.byDataId("a", "repositorySearch"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
@@ -85,7 +84,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
         return this;
     }
 
-    public ResourceAccountsTab<T> clickSearchInResource() {
+    public ResourceAccountsPanel<T> clickSearchInResource() {
         $(Schrodinger.byDataId("a", "resourceSearch"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         $(Schrodinger.byDataId("a", "resourceSearch"))
@@ -93,7 +92,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
         return this;
     }
 
-    public ResourceShadowTable<ResourceAccountsTab<T>> table() {
+    public ResourceShadowTable<ResourceAccountsPanel<T>> table() {
 
         SelenideElement element = $(By.cssSelector(".box.boxed-table"))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
@@ -107,7 +106,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
                 .setValue(intent).sendKeys(Keys.ENTER);
     }
 
-    public ProjectionsDropDown<ResourceAccountsTab<T>> clickHeaderActionDropDown() {
+    public ProjectionsDropDown<ResourceAccountsPanel<T>> clickHeaderActionDropDown() {
 
         $(By.tagName("thead"))
                 .$(Schrodinger.byDataId("inlineMenuPanel"))
@@ -116,7 +115,7 @@ public class ResourceAccountsTab<T> extends Component<T> {
 
         SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("ul", "class", "dropdown-menu pull-right"));
 
-        return new ProjectionsDropDown<ResourceAccountsTab<T>>(this, dropDownMenu);
+        return new ProjectionsDropDown<ResourceAccountsPanel<T>>(this, dropDownMenu);
     }
 
 }

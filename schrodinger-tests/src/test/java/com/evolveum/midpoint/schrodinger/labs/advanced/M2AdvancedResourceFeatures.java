@@ -123,7 +123,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .assertTableObjectsCountEquals(0);
 
         showResource(CONTRACTORS_RESOURCE_NAME)
-                .clickAccountsTab()
+                .selectAccountsPanel()
                     .importTask()
                         .clickCreateNew()
                             .selectBasicPanel()

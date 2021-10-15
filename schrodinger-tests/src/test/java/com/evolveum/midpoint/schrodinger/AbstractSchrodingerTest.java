@@ -33,7 +33,7 @@ import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceShadowTable;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
@@ -586,12 +586,12 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
-    public ResourceShadowTable<ResourceAccountsTab<ViewResourcePage>> getShadowTabTable(String resourceName) {
+    public ResourceShadowTable<ResourceAccountsPanel<ViewResourcePage>> getShadowTabTable(String resourceName) {
         return getShadowTabTable(resourceName, null, false);
     }
 
-    public ResourceShadowTable<ResourceAccountsTab<ViewResourcePage>> getShadowTabTable(String resourceName, String intent, boolean useRepository) {
-        ResourceAccountsTab<ViewResourcePage> tab = basicPage.listResources()
+    public ResourceShadowTable<ResourceAccountsPanel<ViewResourcePage>> getShadowTabTable(String resourceName, String intent, boolean useRepository) {
+        ResourceAccountsPanel<ViewResourcePage> tab = basicPage.listResources()
                 .table()
                   .search()
                     .byName()
@@ -599,7 +599,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                         .updateSearch()
                         .and()
                     .clickByName(resourceName)
-                        .clickAccountsTab();
+                        .selectAccountsPanel();
         if (useRepository) {
             tab.clickSearchInRepository();
         } else {

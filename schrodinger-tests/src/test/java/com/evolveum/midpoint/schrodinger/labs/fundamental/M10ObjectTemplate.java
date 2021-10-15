@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionBut
 import com.evolveum.midpoint.schrodinger.component.configuration.ObjectPolicyPanel;
 import com.evolveum.midpoint.schrodinger.component.org.ManagerPanel;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
@@ -166,7 +166,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                         .updateSearch()
                     .and()
                     .clickByName(HR_RESOURCE_NAME)
-                        .clickAccountsTab()
+                        .selectAccountsPanel()
                             .clickSearchInResource()
                                 .table()
                                 .selectCheckboxByName("001212")
@@ -224,10 +224,10 @@ public class M10ObjectTemplate extends AbstractLabTest {
     public void mod10test02AutomaticAssignments() throws IOException {
         importObject(OBJECT_TEMPLATE_USER_FILE, true);
 
-        ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
+        ResourceAccountsPanel<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
-                        .clickAccountsTab()
+                        .selectAccountsPanel()
                             .clickSearchInResource();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         accountTab.table()

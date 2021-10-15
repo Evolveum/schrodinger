@@ -206,7 +206,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                             .updateSearch()
                         .and()
                         .clickByName(HR_RESOURCE_NAME)
-                            .clickAccountsTab()
+                            .selectAccountsPanel()
                                 .importTask()
                                     .clickCreateNew()
                                         .selectBasicPanel()

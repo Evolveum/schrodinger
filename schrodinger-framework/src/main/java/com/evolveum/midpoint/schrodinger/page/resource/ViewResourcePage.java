@@ -20,15 +20,13 @@ import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
-import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 public class ViewResourcePage extends AssignmentHolderDetailsPage {
@@ -48,18 +46,14 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
         return new ResourceWizardPage();
     }
 
-    public ResourceAccountsTab<ViewResourcePage> clickAccountsTab() {
-
-        $(Schrodinger.byDataResourceKey("schrodinger", "PageResource.tab.content.account")).parent()
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        $(By.className("resource-content-selection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    public ResourceAccountsPanel<ViewResourcePage> selectAccountsPanel() {
         SelenideElement tabContent = getNavigationPanelSelenideElement("Accounts")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new ResourceAccountsTab<>(this, tabContent);
+        return new ResourceAccountsPanel<>(this, tabContent);
     }
 
-    public ResourceAccountsTab<ViewResourcePage> clickGenericsTab() {
+    public ResourceAccountsPanel<ViewResourcePage> clickGenericsTab() {
 
         $(Schrodinger.byDataResourceKey("schrodinger", "PageResource.tab.content.generic")).parent()
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
@@ -67,7 +61,7 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
         SelenideElement tabContent = $(By.cssSelector(".tab-pane.active"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new ResourceAccountsTab<>(this, tabContent);
+        return new ResourceAccountsPanel<>(this, tabContent);
     }
 
     public ViewResourcePage refreshSchema() {

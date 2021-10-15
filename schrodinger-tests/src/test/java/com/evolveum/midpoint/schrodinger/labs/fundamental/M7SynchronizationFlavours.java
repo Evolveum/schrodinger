@@ -21,7 +21,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsTab;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -76,10 +76,10 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
         addCsvResourceFromFileAndTestConnection(HR_NO_EXTENSION_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
-        ResourceAccountsTab<ViewResourcePage> accountTab = basicPage.listResources()
+        ResourceAccountsPanel<ViewResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
-                        .clickAccountsTab()
+                        .selectAccountsPanel()
                             .clickSearchInResource();
         accountTab.table()
                 .selectCheckboxByName("001212")
@@ -97,7 +97,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
-                        .clickAccountsTab()
+                        .selectAccountsPanel()
                             .importTask()
                                 .clickCreateNew()
                                     .selectBasicPanel()
