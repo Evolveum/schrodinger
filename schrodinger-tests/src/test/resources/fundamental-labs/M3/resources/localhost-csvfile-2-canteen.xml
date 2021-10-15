@@ -159,7 +159,7 @@
                     <description>This attribute is not used in this training. Hide it.</description>
                     <limitations>
                         <layer>presentation</layer>
-                        <ignore>true</ignore>
+                        <processing>ignore</processing>
                     </limitations>
                 </attribute>
                 <!-- BONUS LAB, part 2 of 2: uncomment the following section -->
