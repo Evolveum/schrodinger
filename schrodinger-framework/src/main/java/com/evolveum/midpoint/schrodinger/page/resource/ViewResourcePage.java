@@ -53,7 +53,7 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
         $(Schrodinger.byDataResourceKey("schrodinger", "PageResource.tab.content.account")).parent()
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         $(By.className("resource-content-selection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-        SelenideElement tabContent = $(By.cssSelector(".tab-pane.active"))
+        SelenideElement tabContent = getNavigationPanelSelenideElement("Accounts")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceAccountsTab<>(this, tabContent);
