@@ -536,7 +536,7 @@ public class BasicPage {
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
         if (!topLevelMenuChevron.has(Condition.cssClass("fa-chevron-down"))) {
             topLevelMenu.click();
-            topLevelMenuChevron.shouldHave(Condition.cssClass("fa-chevron-down")).waitUntil(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
+            topLevelMenuChevron.waitUntil(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
         }
 
         SelenideElement mainMenu = topLevelMenu.$(Schrodinger.byDataResourceKey("span", mainMenuKey), index);
