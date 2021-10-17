@@ -28,8 +28,8 @@ import com.evolveum.midpoint.schrodinger.component.MembersPanel;
 
 public class AbstractRolePage<A extends AbstractRolePage> extends FocusPage<A> {
 
-    public InducementsPanel<A> selectTabInducements() {
-        SelenideElement element = getTabPanel().clickTab("FocusType.inducement");
+    public InducementsPanel<A> selectInducementsPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Inducements");
 
         return new InducementsPanel<A>((A) this, element);
     }

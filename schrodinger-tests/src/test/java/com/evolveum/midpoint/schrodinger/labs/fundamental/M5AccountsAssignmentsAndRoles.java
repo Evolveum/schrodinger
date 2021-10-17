@@ -161,7 +161,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                         .addAttributeValue(RoleType.F_DISPLAY_NAME, "Too Many Secrets")
                     .and()
                 .and()
-                .selectTabInducements();
+                .selectInducementsPanel();
         Utils.addAssignmentsWithDefaultRelationAndSave(tab, true, "Secret Projects I", "Secret Projects II", "Top Secret Projects I");
 
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,"Too Many Secrets");

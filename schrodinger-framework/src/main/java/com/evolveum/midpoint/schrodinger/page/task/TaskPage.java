@@ -74,7 +74,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public TaskPage clickRunNow() {
-        $(Schrodinger.byDataResourceKey("span", "pageTaskEdit.button.runNow")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataResourceKey("span", "Run now")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
