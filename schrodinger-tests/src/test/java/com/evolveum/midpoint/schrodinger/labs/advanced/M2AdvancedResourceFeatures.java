@@ -151,8 +151,8 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         //todo check notification file; password is generated message
 
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Live synchronization task")
+        TaskPage task = basicPage.newTask("Live synchronization task");
+        task
                 .selectBasicPanel()
                     .form()
                         .addAttributeValue("Name", "Contractor DB Synchronization")

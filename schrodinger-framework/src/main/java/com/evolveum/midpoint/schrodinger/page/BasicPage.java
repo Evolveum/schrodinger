@@ -309,18 +309,14 @@ public class BasicPage {
         return new ListTasksPage();
     }
 
-    public TaskPage newTask() {
-        return newTask("Task");
-    }
+//    public TaskPage newTask() {
+//        return newTask("Task");
+//    }
 
     public TaskPage newTask(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.serverTasks", "PageAdmin.menu.top.tasks.new");
-        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
-        if (pageTitleEndsWith("from template")) {
-            NewObjectFromTemplatePage<TaskPage> templatePage = new NewObjectFromTemplatePage<>();
-            return templatePage.clickTemplateButtonWithTitle(templateTitle, new TaskPage());
-        }
-        return new TaskPage();
+        NewObjectFromTemplatePage<TaskPage> templatePage = new NewObjectFromTemplatePage<>();
+        return templatePage.clickTemplateButtonWithTitle(templateTitle, new TaskPage());
     }
 
     public ListReportsPage listReports() {

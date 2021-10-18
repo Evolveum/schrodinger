@@ -47,9 +47,8 @@ public class TaskPageTest extends AbstractSchrodingerTest {
     public void test001createNewTask() {
 
         String name = "NewTest";
-        String handler = "Recompute task";
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask(handler);
+        String handler = "Recomputation task";
+        TaskPage task = basicPage.newTask(handler);
         task.selectBasicPanel()
                 .form()
                     .addAttributeValue("name", name)

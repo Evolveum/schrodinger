@@ -164,8 +164,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     @Test(dependsOnMethods = {"mod07test03RunningAttributeReconciliation"}, groups={"M7"})
     public void mod07test04RunningLiveSync() throws IOException {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Live synchronization task");
+        TaskPage task = basicPage.newTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         task.selectBasicPanel()
                 .form()
@@ -236,8 +235,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     }
 
     private void createReconTask(String reconTaskName, String resource){
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Reconciliation task");
+        TaskPage task = basicPage.newTask("Reconciliation task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         task.selectBasicPanel()
                 .form()

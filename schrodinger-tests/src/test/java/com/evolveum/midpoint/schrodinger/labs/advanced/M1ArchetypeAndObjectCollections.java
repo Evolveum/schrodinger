@@ -222,8 +222,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .table()
                         .assertTableObjectsCountEquals(15);
 
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Live synchronization task");
+        TaskPage task = basicPage.newTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         task.selectBasicPanel()
                 .form()

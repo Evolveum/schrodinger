@@ -141,8 +141,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     @Test(dependsOnMethods = {"mod03test01sequences"}, groups={"advancedM3"})
     public void mod03test04orgStructureSynchronization() throws IOException {
         addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Reconciliation task");
+        TaskPage task = basicPage.newTask("Reconciliation task");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         task.selectBasicPanel()
                 .form()
@@ -237,8 +236,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .and()
                     .clickBack();
 
-        TaskPage hrOrgsSyncTask = basicPage.newTask();
-        task.setHandlerUriForNewTask("Live synchronization task");
+        TaskPage hrOrgsSyncTask = basicPage.newTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         hrOrgsSyncTask.selectBasicPanel()
                 .form()

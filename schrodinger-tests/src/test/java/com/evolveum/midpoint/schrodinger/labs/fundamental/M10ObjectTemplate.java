@@ -203,8 +203,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         showUser("X000998")
                 .assertFullName("David Lister");
 
-        TaskPage task = basicPage.newTask();
-        task.setHandlerUriForNewTask("Recompute task");
+        TaskPage task = basicPage.newTask("Recomputation task");
         task.selectBasicPanel()
                 .form()
                     .addAttributeValue("name", "User Recomputation Task")
