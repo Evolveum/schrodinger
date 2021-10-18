@@ -35,7 +35,7 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
         this.form()
                 .expandContainerPropertiesPanel(OBJECT_COLLECTION_VIEWS_HEADER)
                 .addNewContainerValue(OBJECT_COLLECTION_VIEW_HEADER, NEW_GUI_OBJECT_LIST_VIEW_HEADER)
-                    .getPrismContainerPanel(NEW_GUI_OBJECT_LIST_VIEW_HEADER)
+                    .getPrismContainerPanel("GuiObjectListViewType.details.newValue")
                         .getContainerFormFragment()
                         .addAttributeValue("Identifier", identifier)
                         .setDropDownAttributeValue("Type", type)

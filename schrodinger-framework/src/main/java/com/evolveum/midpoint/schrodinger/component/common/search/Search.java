@@ -132,9 +132,8 @@ public class Search<T> extends Component<T> {
         SelenideElement dropDownButton = getParentElement()
                 .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchContainer']")
                 .$x(".//button[@data-toggle='dropdown']");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         dropDownButton.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         dropDownButton.shouldHave(Condition.attribute("aria-expanded", "true"));
     }
 
