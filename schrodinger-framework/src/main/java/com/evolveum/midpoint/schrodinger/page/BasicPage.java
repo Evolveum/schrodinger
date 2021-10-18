@@ -129,7 +129,7 @@ public class BasicPage {
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new UserPage());
         }
         $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return new UserPage();
     }
 
@@ -141,7 +141,7 @@ public class BasicPage {
     public OrgPage newOrgUnit() {
         clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.new");
         $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return new OrgPage();
     }
 
@@ -153,7 +153,7 @@ public class BasicPage {
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new OrgPage());
         }
         $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return new OrgPage();
     }
 
@@ -174,7 +174,7 @@ public class BasicPage {
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new RolePage());
         }
         $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return new RolePage();
     }
 
@@ -186,7 +186,7 @@ public class BasicPage {
     public ServicePage newService() {
         clickAdministrationMenu("PageAdmin.menu.top.services", "PageAdmin.menu.top.services.new");
         $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return new ServicePage();
     }
 
@@ -197,7 +197,7 @@ public class BasicPage {
             NewObjectFromTemplatePage<ServicePage> templatePage = new NewObjectFromTemplatePage<>();
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new ServicePage());
         }
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return new ServicePage();
     }
 
