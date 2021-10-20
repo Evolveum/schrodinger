@@ -106,9 +106,12 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> showEmptyAttributes(String containerName) {
-        getParentElement().$(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("div", "data-s-id", "showEmptyButton", "data-s-id", "valueContainer", containerName))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
+        SelenideElement showEmptyLink = getPrismContainerPanel(containerName).getContainerFormFragment().getParentElement().$x(".//div[@data-s-id='showEmptyButton']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        if ("Show empty fields".equals(showEmptyLink.getText())) {
+            showEmptyLink.click();
+            showEmptyLink.waitUntil(Condition.text("Hide empty fields"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
         return this;
     }
 
