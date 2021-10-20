@@ -57,6 +57,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 //        Selenide.sleep(getDetailsPageLoadingTimeToWait());
         PD detailsPage = getObjectDetailsPage();
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
         if (detailsPage.isUseTabbedPanel()) {
             detailsPage.getTabPanel();
         } else {
@@ -75,6 +76,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
                 .$(Schrodinger.byDataId("tableContainer"))
                 .$(By.partialLinkText(name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
 
         return getObjectDetailsPage();
     }
@@ -114,6 +116,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
             Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]").click();
             Selenide.sleep(2000);
         }
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
         return getObjectDetailsPage();
     }
 
@@ -128,6 +131,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
             Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
             Selenide.sleep(2000);
         }
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
         return getObjectDetailsPage();
     }
 
