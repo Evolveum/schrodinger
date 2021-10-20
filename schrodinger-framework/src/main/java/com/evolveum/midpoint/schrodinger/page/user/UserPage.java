@@ -81,7 +81,7 @@ public class UserPage extends FocusPage<UserPage> {
         return this;
     }
 
-    public UserPasswordPanel selectPasswordPanel() {
+    public UserPasswordPanel<UserPage> selectPasswordPanel() {
         return new UserPasswordPanel(this, getNavigationPanelSelenideElement("Password"));
     }
 

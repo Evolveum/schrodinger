@@ -28,7 +28,7 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
         super(parent, parentElement);
     }
 
-    public UserPasswordPanel setPasswordValue(String value) {
+    public UserPasswordPanel<T> setPasswordValue(String value) {
 //        PrismForm passwordContainer = form()
 //                .expandContainerPropertiesPanel("Password")
 //                .getPrismContainerPanel("Password")

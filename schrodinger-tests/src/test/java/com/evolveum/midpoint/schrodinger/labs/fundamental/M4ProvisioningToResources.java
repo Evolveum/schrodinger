@@ -117,7 +117,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         accountForm.assertPropertyInputValue("fname", "Jim Tiberius");
 
         showUser("kirk")
-            .selectBasicPanel()
+            .selectActivationPanel()
                 .form()
                     .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Disabled")
                 .and()
@@ -249,6 +249,10 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                     .addAttributeValue(UserType.F_NAME, "picard")
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jean-Luc")
                     .addAttributeValue(UserType.F_FAMILY_NAME, "Picard")
+                .and()
+                .and()
+                .selectActivationPanel()
+                    .form()
                     .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, "Enabled")
                     .and()
                 .and()
