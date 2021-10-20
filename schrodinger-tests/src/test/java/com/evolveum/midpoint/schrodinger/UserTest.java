@@ -147,7 +147,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0040delegateAssignmentPrivileges() {
         basicPage.loggedUser().logout();
-        midPoint.formLogin().login("DelegateEndUserRoleToUser", "password")
+        midPoint.formLogin().login("DelegateEndUserRoleToUser", "pAssword123")
                         .feedback()
                         .assertError();
         midPoint.formLogin().login(username, password);
@@ -170,10 +170,10 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                 .clickSave()
                 .feedback()
-                .assertSuccess();
+                .assertInfo();
 
         basicPage.loggedUser().logout();
-        midPoint.formLogin().login("DelegateEndUserRoleToUser", "password")
+        midPoint.formLogin().login("DelegateEndUserRoleToUser", "pAssword123")
                         .assertUserMenuExist();
     }
 

@@ -44,7 +44,7 @@ public class UserDelegationsPanel extends Component<UserPage> {
 
     public ObjectBrowserModal<UserDelegationsPanel> clickAddDelegation() {
         SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(Schrodinger.byElementAttributeValue("button", "data-toggle", "dropdown"));
+                .$x(".//button[@data-toggle='dropdown']");
         button.click();
         button.$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "menuItemLink",
                 "data-s-resource-key", "AssignmentTablePanel.menu.addDelegation"))
