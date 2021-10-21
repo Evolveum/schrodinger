@@ -33,6 +33,7 @@ import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.user.UserPasswordPanel;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 /**
  * Created by honchar
@@ -142,7 +143,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public boolean isUseTabbedPanel() {
-        $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        Utils.waitForMainPanelOnDetailsPage();
         return !($(Schrodinger.byDataId("div", "navigation")).isDisplayed());
     }
 }

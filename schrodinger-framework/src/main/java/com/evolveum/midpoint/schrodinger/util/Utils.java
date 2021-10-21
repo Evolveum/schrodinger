@@ -272,4 +272,8 @@ public class Utils {
         return notification.substring(subjectStartIndex, notification.indexOf("'", subjectStartIndex));
     }
 
+    public static void waitForMainPanelOnDetailsPage() {
+        $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+    }
+
 }

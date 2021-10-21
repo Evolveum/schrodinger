@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHo
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -41,8 +42,7 @@ public class CasesListTable extends AssignmentHolderObjectListTable<CasesPage, C
 
     @Override
     public CasePage getObjectDetailsPage(){
-        $(Schrodinger.byDataId("mainPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        Utils.waitForMainPanelOnDetailsPage();
         return new CasePage();
     }
 

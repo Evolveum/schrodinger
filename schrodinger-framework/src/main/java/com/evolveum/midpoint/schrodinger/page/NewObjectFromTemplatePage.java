@@ -5,6 +5,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -15,7 +16,7 @@ public class NewObjectFromTemplatePage<T extends AssignmentHolderDetailsPage> ex
         SelenideElement templateButton = $(Schrodinger.byElementValue("span",
                 "class", "compositedButtonLabel", title)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         templateButton.click();
-        $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        Utils.waitForMainPanelOnDetailsPage();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         return pageToRedirect;
     }

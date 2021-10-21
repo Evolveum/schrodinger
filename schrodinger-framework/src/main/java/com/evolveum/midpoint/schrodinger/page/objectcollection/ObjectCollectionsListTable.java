@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 /**
  * Created by Kate Honchar.
@@ -41,8 +42,7 @@ public class ObjectCollectionsListTable extends AssignmentHolderObjectListTable<
 
     @Override
     public ObjectCollectionPage getObjectDetailsPage(){
-        $(Schrodinger.byDataId("mainPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.waitForMainPanelOnDetailsPage();
         return new ObjectCollectionPage();
     }
 }

@@ -75,7 +75,7 @@ public class MemberPanel<T> extends Component<T> {
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
             Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         }
-        $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        Utils.waitForMainPanelOnDetailsPage();
         if ("User".equals(newMemberType)) {
             return new UserPage();
         } else if ("Organization".equals(newMemberType)) {

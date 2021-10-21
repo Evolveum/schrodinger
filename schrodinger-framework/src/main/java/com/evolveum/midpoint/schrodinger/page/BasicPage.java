@@ -32,6 +32,7 @@ import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.By;
@@ -648,7 +649,7 @@ public class BasicPage {
     }
 
     public void waitForDetailsPageIsLoaded() {
-        $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        Utils.waitForMainPanelOnDetailsPage();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 }

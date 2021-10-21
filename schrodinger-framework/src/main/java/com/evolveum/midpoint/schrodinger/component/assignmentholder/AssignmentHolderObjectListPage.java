@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -64,7 +65,7 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     public D newObjectButtonClick(String title) {
         table()
                 .newObjectButtonByTitleClick(title);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.waitForMainPanelOnDetailsPage();
         return getObjectDetailsPage();
     }
 
