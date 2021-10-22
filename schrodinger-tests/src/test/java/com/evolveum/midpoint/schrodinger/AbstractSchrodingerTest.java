@@ -442,6 +442,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             objects.forEach(object -> {
                 try {
                     addObjectService(service, object).setOptions(options).post();
+                    LOG.trace("Object oid=" + object.getOid() + "; name='" + object.getName() + "' is added.");
                 } catch (Exception e) {
                     LOG.error("Unable to add object, {}", e);
                 }

@@ -42,7 +42,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public SelenideElement getChildElement(){
-        return getParentElement().$(Schrodinger.byDataId("div", "0")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+        return getParentElement().$(Schrodinger.byDataId("div", "1")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
     }
 
     public Boolean isSuccess(String idOfChild) {
@@ -52,7 +52,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isSuccess() {
-        return  isSuccess("0");
+        return  isSuccess("1");
     }
 
     public Boolean isWarning(String idOfChild) {
@@ -62,7 +62,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isWarning() {
-        return  isWarning("0");
+        return  isWarning("1");
     }
 
     public Boolean isError(String idOfChild) {
@@ -72,7 +72,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isError() {
-        return  isError("0");
+        return  isError("1");
     }
 
     public Boolean isInfo(String idOfChild) {
@@ -82,7 +82,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isInfo() {
-        return  isInfo("0");
+        return  isInfo("1");
     }
 
     public FeedbackBox<T> clickShowAll() {

@@ -119,7 +119,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                 .clickSave()
                     .feedback()
-                        .assertSuccess();
+                        .assertInfo();
 
         showUser("DelegateToUser")
                 .selectDelegatedToMePanel()
