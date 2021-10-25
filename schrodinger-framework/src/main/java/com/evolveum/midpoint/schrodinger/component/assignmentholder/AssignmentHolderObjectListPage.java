@@ -63,10 +63,8 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     }
 
     public D newObjectButtonClick(String title) {
-        table()
+        return (D) table()
                 .newObjectButtonByTitleClick(title);
-        Utils.waitForMainPanelOnDetailsPage();
-        return getObjectDetailsPage();
     }
 
     public AssignmentHolderObjectListPage<T, D> assertObjectsCountEquals(int expectedCount) {

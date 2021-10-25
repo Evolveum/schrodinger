@@ -106,7 +106,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public PD newObjectButtonByCssClick(String iconCssClass){
-        if (!getToolbarButtonByTitle(iconCssClass).isDisplayed()) {
+        if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
             getToolbarButtonByCss(".fa.fa-plus")
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
@@ -129,9 +129,10 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         }
         if (Utils.isModalWindowSelenideElementVisible()) {
             Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
-            Selenide.sleep(2000);
+        } else {
+            getToolbarButtonByTitle(buttonTitle).click();
         }
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
+        Utils.waitForMainPanelOnDetailsPage();
         return getObjectDetailsPage();
     }
 
