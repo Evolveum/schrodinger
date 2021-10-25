@@ -133,7 +133,7 @@ public class Search<T> extends Component<T> {
                 .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchContainer']")
                 .$x(".//button[@data-toggle='dropdown']");
         dropDownButton.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        dropDownButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        dropDownButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
     }
 
     public InputBox<Search<T>> byFullText() {
