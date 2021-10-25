@@ -141,11 +141,11 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public EnvironmentalPerformancePanel selectEnvironmentalPerformancePanel() {
-        return new EnvironmentalPerformancePanel(this, getNavigationPanelSelenideElement(("Environmental performance")));
+        return new EnvironmentalPerformancePanel(this, getNavigationPanelSelenideElement("Performance", "Environmental performance"));
     }
 
     public InternalPerformancePanel selectInternalPerformanceTab() {
-        return new InternalPerformancePanel(this, getNavigationPanelSelenideElement(("Internal performance")));
+        return new InternalPerformancePanel(this, getNavigationPanelSelenideElement("Performance", "Internal performance"));
     }
 
     public ResultPanel selectResultPanel() {

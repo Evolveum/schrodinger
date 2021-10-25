@@ -64,24 +64,6 @@
             <lastMessageTimestamp>2020-09-07T12:53:44.091+02:00</lastMessageTimestamp>
             <lastMessage>Successfully finished evaluation of mapping mapping in outbound mapping for {.../resource/instance-3}userName in resource:BF:Resource:Man(ManRes) in 1 ms.</lastMessage>
         </environmentalPerformanceInformation>
-        <iterativeTaskInformation>
-            <lastSuccessObjectName>approverUserRelation</lastSuccessObjectName>
-            <lastSuccessObjectDisplayName>User null (approverUserRelation)</lastSuccessObjectDisplayName>
-            <lastSuccessObjectOid>f8f84511-7b47-4fc8-925c-4aa13f0134f5</lastSuccessObjectOid>
-            <lastSuccessEndTimestamp>2020-09-07T12:53:44.678+02:00</lastSuccessEndTimestamp>
-            <lastSuccessDuration>131</lastSuccessDuration>
-            <totalSuccessDuration>2042</totalSuccessDuration>
-            <totalSuccessCount>30</totalSuccessCount>
-            <lastFailureObjectName>ManualResUserTest1</lastFailureObjectName>
-            <lastFailureObjectDisplayName>User null (ManualResUserTest1)</lastFailureObjectDisplayName>
-            <lastFailureObjectOid>ce83801e-0971-4575-a782-b254c2398c79</lastFailureObjectOid>
-            <lastFailureEndTimestamp>2020-09-07T12:53:44.126+02:00</lastFailureEndTimestamp>
-            <lastFailureDuration>60</lastFailureDuration>
-            <totalFailureDuration>175</totalFailureDuration>
-            <totalFailureCount>3</totalFailureCount>
-            <lastFailureExceptionMessage>ObjectAlreadyExistsException: Error processing account(no ID, type 'default', resource:BF:Resource:Man(ManRes)): constraint violation: Found conflicting existing object with attribute {.../resource/instance-3}userName = [ ManualResUserTest1 ]: shadow:4baf6e28-3bd5-42a4-9af6-b2040c8d95cd(ManualResUserTest1)</lastFailureExceptionMessage>
-        </iterativeTaskInformation>
-        <actionsExecutedInformation/>
         <repositoryPerformanceInformation>
             <operation>
                 <name>getVersion</name>
@@ -257,14 +239,6 @@
         </operationsPerformanceInformation>
         <timestamp>2020-09-07T12:53:44.749+02:00</timestamp>
     </operationStats>
-    <workState>
-        <bucket id="3">
-            <sequentialNumber>1</sequentialNumber>
-            <state>complete</state>
-        </bucket>
-        <numberOfBuckets>1</numberOfBuckets>
-        <allWorkComplete>true</allWorkComplete>
-    </workState>
     <expectedTotal>33</expectedTotal>
     <recurrence>single</recurrence>
     <binding>tight</binding>

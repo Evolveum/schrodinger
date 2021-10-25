@@ -79,30 +79,6 @@
             <lastMessageTimestamp>2021-04-13T11:37:09.457+02:00</lastMessageTimestamp>
             <lastMessage>Successfully finished evaluation of mapping mapping in password mapping in projection (account (default) on resource:10000000-9999-9999-0000-a000ff000002(CSV-1 (Document Access))) in 0 ms.</lastMessage>
         </environmentalPerformanceInformation>
-        <iterativeTaskInformation>
-            <part id="21">
-                <processed id="23">
-                    <outcome>
-                        <outcome>success</outcome>
-                    </outcome>
-                    <count>2</count>
-                    <duration>690.75</duration>
-                    <lastItem>
-                        <name>testUser</name>
-                        <type>c:UserType</type>
-                        <oid>4066712b-e3fa-4ce9-a923-a20bdc370a07</oid>
-                        <startTimestamp>2021-04-13T11:37:09.215+02:00</startTimestamp>
-                        <endTimestamp>2021-04-13T11:37:09.489+02:00</endTimestamp>
-                        <operationId>70</operationId>
-                    </lastItem>
-                </processed>
-                <execution id="22">
-                    <startTimestamp>2021-04-13T11:37:08.667+02:00</startTimestamp>
-                    <endTimestamp>2021-04-13T11:37:09.492+02:00</endTimestamp>
-                </execution>
-            </part>
-        </iterativeTaskInformation>
-        <actionsExecutedInformation/>
         <repositoryPerformanceInformation>
             <operation>
                 <name>getObject</name>
@@ -848,42 +824,11 @@
                 <maxTime>6726</maxTime>
             </operation>
         </operationsPerformanceInformation>
-        <workBucketManagementPerformanceInformation>
-            <operation>
-                <name>getWorkBucket.createdNew</name>
-                <count>1</count>
-                <totalTime>19</totalTime>
-                <minTime>19</minTime>
-                <maxTime>19</maxTime>
-            </operation>
-            <operation>
-                <name>completeWorkBucket</name>
-                <count>1</count>
-                <totalTime>34</totalTime>
-                <minTime>34</minTime>
-                <maxTime>34</maxTime>
-            </operation>
-            <operation>
-                <name>getWorkBucket.noMoreBucketsDefinite</name>
-                <count>1</count>
-                <totalTime>3</totalTime>
-                <minTime>3</minTime>
-                <maxTime>3</maxTime>
-            </operation>
-        </workBucketManagementPerformanceInformation>
         <cachingConfiguration>Caching configuration for thread midPointScheduler_Worker-8 on 2021-04-13T11:37:09.584+02:00:
 
             Profiles: []</cachingConfiguration>
         <timestamp>2021-04-13T11:37:09.584+02:00</timestamp>
     </operationStats>
-    <workState>
-        <bucket id="3">
-            <sequentialNumber>1</sequentialNumber>
-            <state>complete</state>
-        </bucket>
-        <numberOfBuckets>1</numberOfBuckets>
-        <allWorkComplete>true</allWorkComplete>
-    </workState>
     <expectedTotal>33</expectedTotal>
     <recurrence>single</recurrence>
     <binding>tight</binding>
