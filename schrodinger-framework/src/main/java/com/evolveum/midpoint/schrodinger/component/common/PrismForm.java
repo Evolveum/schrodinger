@@ -25,10 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.xml.namespace.QName;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -38,6 +35,10 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -51,6 +52,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> addAttributeValue(String name, String value) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
 
 //        getParentElement().$(By.className("prism-properties")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -74,6 +76,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> changeAttributeValue(String name, String oldValue, String newValue) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = getParentElement().$(Schrodinger.byDataResourceKey(name));
 
         getParentElement().$(By.className("prism-properties")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -106,6 +109,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> showEmptyAttributes(String containerName) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement showEmptyLink = getPrismContainerPanel(containerName).getContainerFormFragment().getParentElement().$x(".//div[@data-s-id='showEmptyButton']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         if ("Show empty fields".equals(showEmptyLink.getText())) {
@@ -244,6 +248,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> addAttributeValue(QName name, String value) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
 
         ElementsCollection values = property.$$(By.className("prism-property-value"));
@@ -255,6 +260,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> setPolyStringLocalizedValue(QName name, String locale, String value) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
 
         property
@@ -304,16 +310,19 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> setDropDownAttributeValue(String name, String value) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
         return setDropDownAttributeValue(property, value);
     }
 
     public PrismForm<T> setDropDownAttributeValue(QName name, String value) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
         return setDropDownAttributeValue(property, value);
     }
 
     private PrismForm<T> setDropDownAttributeValue(SelenideElement property, String value) {
+        Utils.waitForAjaxCallFinish();
         ElementsCollection values = property.$$(By.className("prism-property-value"));
         if (values.size() > 0) {
             SelenideElement dropDown = values.first().$(By.tagName("select"));
@@ -392,6 +401,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismForm<T> selectOption(String attributeName, String option) {
+        Utils.waitForAjaxCallFinish();
 
         SelenideElement property = findProperty(attributeName);
 
@@ -492,6 +502,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public ObjectBrowserModal<PrismForm<T>> editRefValue(String attributeName) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(attributeName);
         property.$x(".//button[@" + Schrodinger.DATA_S_ID + "='edit']")
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();

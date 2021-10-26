@@ -21,6 +21,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
@@ -33,6 +34,10 @@ import com.evolveum.midpoint.schrodinger.component.common.CheckFormGroupPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
@@ -276,4 +281,12 @@ public class Utils {
         $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
     }
 
+    public static void waitForAjaxCallFinish() {
+        new WebDriverWait(WebDriverRunner.getWebDriver(), 180).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                return (Boolean) js.executeScript("return jQuery.active == 0");
+            }
+        });
+    }
 }
