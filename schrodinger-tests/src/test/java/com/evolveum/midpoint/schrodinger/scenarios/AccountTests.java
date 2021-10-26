@@ -73,7 +73,7 @@ public class AccountTests extends AbstractSchrodingerTest {
 
         user.selectBasicPanel()
                     .form()
-                        .addAttributeValue("name", TEST_USER_MIKE_NAME)
+                        .addAttributeValue("Name", TEST_USER_MIKE_NAME)
                         .addAttributeValue(UserType.F_GIVEN_NAME, "Michelangelo")
                         .addAttributeValue(UserType.F_FAMILY_NAME, "di Lodovico Buonarroti Simoni")
                         .and()
