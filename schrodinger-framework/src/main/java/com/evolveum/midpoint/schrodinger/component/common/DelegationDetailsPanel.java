@@ -37,8 +37,8 @@ public class DelegationDetailsPanel<T> extends Component<T> {
         super(parent, parentElement);
     }
 
-    public DelegationDetailsPanel<T> expandDetailsPanel(String linkText) {
-        $(By.linkText(linkText)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+    public DelegationDetailsPanel<T> expandDetailsPanel() {
+        $(By.linkText("Current user")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         $(Schrodinger.byDataId("delegationDescription")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
