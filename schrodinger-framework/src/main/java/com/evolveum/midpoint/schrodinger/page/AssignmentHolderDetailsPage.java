@@ -144,6 +144,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 
     public boolean isUseTabbedPanel() {
         Utils.waitForMainPanelOnDetailsPage();
-        return !($(Schrodinger.byDataId("div", "navigation")).isDisplayed());
+        return !($(Schrodinger.byDataId("div", "mainPanel"))
+                .$x(".//div[contains(@class,\"details-panel-navigation\")]").isDisplayed());
     }
 }
