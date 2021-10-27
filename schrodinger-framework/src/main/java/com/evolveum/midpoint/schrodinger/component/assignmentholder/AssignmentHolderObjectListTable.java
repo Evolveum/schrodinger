@@ -107,7 +107,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     public PD newObjectButtonByCssClick(String iconCssClass){
         if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
-            getToolbarButtonByCss(".fa.fa-plus")
+            getToolbarButtonByCss("fa fa-plus")
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
             Selenide.sleep(2000);
@@ -122,7 +122,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     public PD newObjectButtonByTitleClick(String buttonTitle){
         if (!getToolbarButtonByTitle(buttonTitle).isDisplayed()) {
-            getToolbarButtonByCss(".fa.fa-plus")
+            getToolbarButtonByCss("fa fa-plus")
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
             Selenide.sleep(2000);
@@ -137,7 +137,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public ExportPopupPanel<P> clickExportButton() {
-        getToolbarButtonByCss(".fa.fa-download")
+        getToolbarButtonByCss("fa fa-download")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
@@ -145,7 +145,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public AssignmentHolderObjectListTable<P, PD> clickRefreshButton() {
-        getToolbarButtonByCss(".fa.fa-refresh")
+        getToolbarButtonByCss("fa fa-refresh")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
