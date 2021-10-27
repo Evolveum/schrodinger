@@ -69,7 +69,7 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         inputField.selectOptionContainingText(type);
         SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
         confirmButton.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        confirmButton.waitUntil(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);
+        confirmButton.waitUntil(Condition.disappears, MidPoint.TIMEOUT_DEFAULT_2_S);
         return getParent();
     }
 
