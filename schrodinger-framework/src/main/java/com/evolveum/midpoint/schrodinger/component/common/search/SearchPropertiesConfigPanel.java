@@ -38,7 +38,7 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
         getPropertyChoiceElement().selectOption(propertyName);
         getParentElement().$(Schrodinger.byDataId("a", "addButton"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getPropertiesTable().getParentElement().$(byText(propertyName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        getPropertiesTable().getParentElement().$(byText(propertyName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
