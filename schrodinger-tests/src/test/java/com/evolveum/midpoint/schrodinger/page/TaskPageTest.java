@@ -18,13 +18,16 @@ package com.evolveum.midpoint.schrodinger.page;
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsPanel;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +40,15 @@ public class TaskPageTest extends AbstractSchrodingerTest {
     private static final File OPERATION_STATISTICS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/operation-statistics-clean-up.xml");
     private static final File ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/environmental-performance-clean-up.xml");
     private static final File RESULTS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/results-clean-up.xml");
+
+    @BeforeClass(alwaysRun = true)
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+        resetToDefault();
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
+    }
 
     @Override
     protected List<File> getObjectListToImport(){
