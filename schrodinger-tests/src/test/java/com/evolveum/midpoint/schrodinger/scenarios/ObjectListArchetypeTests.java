@@ -35,7 +35,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     private static final File EMPLOYEE_ARCHETYPE_FILE = new File("src/test/resources/objects/archetypes/archetype-employee.xml");
     private static final String ARCHETYPE_OBJECT_NAME = "Employee";
     private static final String ARCHETYPE_PLURAL_LABEL = "Employees";
-    private static final String ARCHETYPE_ICON_CSS_STYLE = ".fa.fa-male";
+    private static final String ARCHETYPE_ICON_CSS_STYLE = "fa fa-male";
     private static final String EMPLOYEE_USER_NAME_VALUE = "TestEmployee";
 
     public static final String OBJECT_LIST_ARCHETYPE_TESTS_GROUP = "ObjectListArchetypeTests";
@@ -107,8 +107,8 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     public void test0040checkNewObjectButtonWithDropdown(){
         basicPage.listUsers()
                 .table()
-                .assertNewObjectButtonsCountEquals(".fa.fa-plus", 2)
-                .newObjectCollectionButtonClickPerformed("fa fa-plus", ARCHETYPE_ICON_CSS_STYLE);
+                .assertNewObjectButtonsCountEquals("fa fa-plus", 2)
+                .newObjectButtonByCssClick(ARCHETYPE_ICON_CSS_STYLE);
     }
 
 }

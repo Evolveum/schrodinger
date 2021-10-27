@@ -98,7 +98,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public SelenideElement getToolbarButtonByCss(String iconCssClass){
-        return getButtonToolbar().$(By.cssSelector(iconCssClass));
+        return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
     }
 
     public SelenideElement getToolbarButtonByTitle(String buttonTitle){
@@ -179,6 +179,11 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         SelenideElement mainButtonElement = getToolbarButtonByCss(mainButtonIconCssClass)
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
         mainButtonElement.click();
+        try {
+            Utils.getModalWindowSelenideElement();
+        } catch (Exception e) {
+            //nothing to do here, the popup can appear or not; depends on configuration;
+        }
         if (Utils.isModalWindowSelenideElementVisible()) {
             SelenideElement modal = Utils.getModalWindowSelenideElement();
             ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");

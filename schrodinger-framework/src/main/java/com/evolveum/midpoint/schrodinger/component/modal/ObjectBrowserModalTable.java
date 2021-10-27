@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.modal;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
@@ -35,8 +36,7 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
     }
 
     public T clickByName(String name){
-        getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getParentElement().$(By.linkText(name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         getParent().getParentElement()
                 .waitUntil(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);
