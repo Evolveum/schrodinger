@@ -528,7 +528,7 @@ public class BasicPage {
 
     private SelenideElement getMainMenuItemElement(String topLevelMenuKey, String mainMenuKey, int index){
         SelenideElement topLevelMenu = $(Schrodinger.byDataResourceKey(topLevelMenuKey));
-        topLevelMenu.shouldBe(Condition.visible);
+        topLevelMenu.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
         if (!topLevelMenuChevron.has(Condition.cssClass("fa-chevron-down"))) {
