@@ -55,9 +55,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     public PD clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        Selenide.sleep(getDetailsPageLoadingTimeToWait());
         PD detailsPage = getObjectDetailsPage();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
         if (detailsPage.isUseTabbedPanel()) {
             detailsPage.getTabPanel();
         } else {
