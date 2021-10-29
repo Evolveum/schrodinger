@@ -119,6 +119,10 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("Assignments", "All"));
     }
 
+    public AssignmentsPanel<P> selectIndirectAssignmentsPanel() {
+        return new AssignmentsPanel<>((P) this, getNavigationPanelSelenideElement("Assignments", "All direct/indirect assignments"));
+    }
+
 //
 //    public AssignmentHolderBasicPanel<P> selectBasicPanel() {
 //        return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("Basic"));

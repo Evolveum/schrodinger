@@ -28,7 +28,6 @@ import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.InducementsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.table.DirectIndirectAssignmentTable;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 import com.evolveum.midpoint.schrodinger.page.archetype.ArchetypePage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
@@ -167,10 +166,9 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true,"Too Many Secrets");
         assertShadowExists(CSV_1_RESOURCE_NAME, "Login", "jkirk");
 
-        DirectIndirectAssignmentTable<AssignmentsPanel<UserPage>> table = showUser("kirk").selectAssignmentsPanel()
-                .selectTypeAllDirectIndirect();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
-        table.assertIndirectAssignmentsExist("Secret Projects I",
+        showUser("kirk")
+                .selectIndirectAssignmentsPanel()
+                .assertAssignmentsWithRelationExist("Default", "Secret Projects I",
                 "Secret Projects II", "Top Secret Projects I", CSV_1_RESOURCE_NAME, CSV_2_RESOURCE_NAME,
                 CSV_3_RESOURCE_NAME);
 
@@ -267,7 +265,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
         PrismForm<AssignmentHolderBasicPanel<ArchetypePage>> archetypePolicyForm = basicPage.listArchetypes()
                 .table()
                     .clickByName(ARCHETYPE_EMPLOYEE_NAME)
-                        .selectTabArchetypePolicy()
+                        .selectArchetypePolicyPanel()
                             .form();
 
         archetypePolicyForm.assertPropertyInputValue("label", ARCHETYPE_EMPLOYEE_LABEL);
