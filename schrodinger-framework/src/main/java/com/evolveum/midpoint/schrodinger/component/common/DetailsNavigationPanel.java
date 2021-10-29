@@ -32,9 +32,15 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
     }
 
     public SelenideElement selectPanelByName(String... name) {
+        SelenideElement nav = null;
         for (String navigationItemName : name) {
-            SelenideElement nav = $(Schrodinger.byElementAttributeValue("span", "data-s-resource-key", navigationItemName))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            if (nav == null) {
+                nav = $(Schrodinger.byElementAttributeValue("span", "data-s-resource-key", navigationItemName))
+                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            } else {
+                nav = nav.parent().parent().$x(".//span[@data-s-resource-key='" + navigationItemName + "']")
+                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            }
             nav.click();
             nav.parent().parent().waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }

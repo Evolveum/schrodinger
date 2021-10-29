@@ -129,6 +129,7 @@ public class Search<T> extends Component<T> {
     }
 
     private void clickDroDownForSearchMode() {
+        Utils.waitForAjaxCallFinish();
         SelenideElement dropDownButton = getParentElement()
                 .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchContainer']")
                 .$x(".//button[@data-toggle='dropdown']");
