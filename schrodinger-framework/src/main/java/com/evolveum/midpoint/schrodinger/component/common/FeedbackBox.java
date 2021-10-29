@@ -82,7 +82,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isInfo() {
-        return  isInfo("1");
+        return  isInfo("0");
     }
 
     public FeedbackBox<T> clickShowAll() {
