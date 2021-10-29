@@ -40,11 +40,12 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
 
     @Override
     public AbstractTable<T> selectCheckboxByName(String name) {
-        getParentElement()
+        SelenideElement checkbox = getParentElement()
                 .$(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$x(".//input[@data-s-id='check']")
-                .click();
+                .$x(".//input[@data-s-id='check']");
+        checkbox.click();
+        checkbox.waitUntil(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return this;
     }
