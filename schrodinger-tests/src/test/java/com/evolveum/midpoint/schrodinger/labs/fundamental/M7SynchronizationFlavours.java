@@ -94,12 +94,14 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
         owner.assertName("X001212");
 
-        basicPage.listResources()
+        TaskPage taskPage = basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()
                             .importTask()
-                                .clickCreateNew()
+                                .clickCreateNew();
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        taskPage
                                     .selectBasicPanel()
                                         .form()
                                             .addAttributeValue("name","Initial import from HR")

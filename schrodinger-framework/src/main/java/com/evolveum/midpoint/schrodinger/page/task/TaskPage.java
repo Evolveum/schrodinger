@@ -15,11 +15,13 @@
  */
 package com.evolveum.midpoint.schrodinger.page.task;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
@@ -55,7 +57,16 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public ProgressPage clickSaveAndRun() {
-        $(Schrodinger.byDataId("saveAndRun")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        if (isUseTabbedPanel()) {
+            $(Schrodinger.byDataId("saveAndRun"))
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+        } else {
+            $(byText("Save & Run"))
+                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+        }
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ProgressPage();
     }
 
