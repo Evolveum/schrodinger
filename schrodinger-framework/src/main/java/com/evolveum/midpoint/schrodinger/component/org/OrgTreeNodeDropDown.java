@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.DropDown;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 /**
  * @author skublik
@@ -37,7 +38,7 @@ public class OrgTreeNodeDropDown<T> extends DropDown<T> {
     public OrgPage edit(){
         getParentElement().$x(".//schrodinger[@"+ Schrodinger.DATA_S_RESOURCE_KEY +"='TreeTablePanel.edit']").parent()
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.waitForMainPanelOnDetailsPage();
         return new OrgPage();
     }
 
