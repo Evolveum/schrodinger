@@ -43,7 +43,7 @@ public class OrgTreeNodeDropDown<T> extends DropDown<T> {
 
     public OrgHierarchyPanel<OrgRootTab> expandAll(){
         getParentElement().$x(".//schrodinger[@"+ Schrodinger.DATA_S_RESOURCE_KEY +"='TreeTablePanel.expandAll']").parent()
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         return (OrgHierarchyPanel<OrgRootTab>) getParent();
     }

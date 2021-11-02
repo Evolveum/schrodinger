@@ -118,9 +118,11 @@ public class OrgHierarchyPanel<T> extends Component<T> {
     public OrgTreeNodeDropDown<OrgHierarchyPanel> showTreeNodeDropDownMenu(String orgName) {
         SelenideElement parentNode = getParentOrgNode(orgName);
         SelenideElement node = parentNode.$x(".//div[@"+Schrodinger.DATA_S_ID+"='node']");
-        SelenideElement menuButton = node.$x(".//span[@" + Schrodinger.DATA_S_ID + "='menu']");
+        SelenideElement menuButton = node.$x(".//button[@data-toggle='dropdown']");
         menuButton.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
-        SelenideElement menu = menuButton.$x(".//ul[@" + Schrodinger.DATA_S_ID + "='dropDownMenu']").waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        menuButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
+
+        SelenideElement menu = node.$x(".//ul[@" + Schrodinger.DATA_S_ID + "=\"dropDownMenu\"]").waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         return new OrgTreeNodeDropDown<OrgHierarchyPanel>(this, menu);
     }

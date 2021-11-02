@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -49,9 +50,14 @@ public class Table<T> extends Component<T> {
     public TableRow<T, Table<T>> rowByColumnLabel(String label, String rowValue) {
         int index = findColumnByLabel(label);
         if (index < 0) {
+            Selenide.screenshot("rowByColumnLabel_returns_null");
             return null;
         }
-        return getTableRowByIndex(index, rowValue);
+        TableRow<T, Table<T>> tableRow = getTableRowByIndex(index, rowValue);
+        if (tableRow == null) {
+            Selenide.screenshot("rowByColumnLabel_returns_null");
+        }
+        return tableRow;
     }
 
     public int findColumnByLabel(String label) {
@@ -123,6 +129,7 @@ public class Table<T> extends Component<T> {
                 return new TableRow(this, row);
             }
         }
+        Selenide.screenshot("getTableRowByIndex_returns_null");
         return null;
     }
 
