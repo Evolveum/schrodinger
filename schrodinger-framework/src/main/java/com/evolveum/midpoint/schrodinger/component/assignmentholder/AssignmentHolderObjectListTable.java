@@ -53,8 +53,9 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public PD clickByName(String name) {
-        getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
+        getParentElement().$x(".//span[@data-s-id='label' and contains(text(), '" + name + "')]")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         PD detailsPage = getObjectDetailsPage();
         if (detailsPage.isUseTabbedPanel()) {
             detailsPage.getTabPanel();

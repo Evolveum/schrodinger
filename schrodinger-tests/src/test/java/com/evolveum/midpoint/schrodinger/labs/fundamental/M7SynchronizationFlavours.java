@@ -244,7 +244,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                     .expandContainerPropertiesPanel("reconciliation")
                     .expandContainerPropertiesPanel("resourceObjects")
                         .addAttributeValue("objectclass", "AccountObjectClass")
-                        .editRefValue("ResourceObjectSetType.resourceRef ")
+                        .editRefValue("resourceRef ")
                             .table()
                             .search()
                                 .byName()

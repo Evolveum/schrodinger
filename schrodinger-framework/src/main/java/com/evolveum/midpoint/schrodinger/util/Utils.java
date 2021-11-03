@@ -278,6 +278,7 @@ public class Utils {
     }
 
     public static void waitForMainPanelOnDetailsPage() {
+        waitForAjaxCallFinish();
         $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
     }
 
