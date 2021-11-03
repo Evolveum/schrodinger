@@ -227,6 +227,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .feedback()
                     .isInfo();
 
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
         showUser("kirk")
                 .assertFullName("Jim Tiberius Kirk");
     }

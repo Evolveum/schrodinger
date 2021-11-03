@@ -129,6 +129,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 //    }
 
     public SelenideElement getNavigationPanelSelenideElement(String... panelTitle) {
+        Utils.waitForAjaxCallFinish();
         if (isUseTabbedPanel()) {
             return getTabPanel().clickTab(panelTitle[0])
                     .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);

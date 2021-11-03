@@ -120,7 +120,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                 .isSuccess();
 
         form = accountTab.table()
-                .clickOnOwnerByName("X001212", "Edit Employee")
+                .clickOnOwnerByName("X001212", "Edit user") //todo should the title be Edit Employee?
                 .selectBasicPanel()
                 .form();
 
