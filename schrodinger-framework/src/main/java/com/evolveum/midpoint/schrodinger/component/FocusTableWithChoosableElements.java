@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -40,13 +41,14 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
 
     @Override
     public AbstractTable<T> selectCheckboxByName(String name) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement checkbox = getParentElement()
                 .$(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//input[@data-s-id='check']");
         checkbox.click();
-        checkbox.waitUntil(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
-
+        checkbox.waitUntil(Condition.checked, MidPoint.TIMEOUT_MEDIUM_6_S);
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 

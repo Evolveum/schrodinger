@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -116,11 +117,13 @@ public class OrgHierarchyPanel<T> extends Component<T> {
     }
 
     public OrgTreeNodeDropDown<OrgHierarchyPanel> showTreeNodeDropDownMenu(String orgName) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement parentNode = getParentOrgNode(orgName);
         SelenideElement node = parentNode.$x(".//div[@"+Schrodinger.DATA_S_ID+"='node']");
         SelenideElement menuButton = node.$x(".//button[@data-toggle='dropdown']");
         menuButton.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
-        menuButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+//        menuButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement menu = node.$x(".//ul[@" + Schrodinger.DATA_S_ID + "=\"dropDownMenu\"]").waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 

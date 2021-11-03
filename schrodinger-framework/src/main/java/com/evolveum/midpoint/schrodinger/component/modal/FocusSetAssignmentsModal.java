@@ -95,6 +95,7 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement addButton = getParentElement().$x(".//a[@data-s-resource-key='userBrowserDialog.button.addButton']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         addButton.click();
+        Utils.waitForAjaxCallFinish();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         if (addButton.isDisplayed()) {
             addButton.click();

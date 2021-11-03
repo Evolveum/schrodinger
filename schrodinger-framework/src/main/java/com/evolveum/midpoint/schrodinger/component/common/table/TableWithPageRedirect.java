@@ -96,6 +96,7 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
      * @param menuItemKey
      */
     private void clickMenuItem(String columnTitleKey, String rowValue, String menuItemKey){
+        Utils.waitForAjaxCallFinish();
         if (columnTitleKey == null && rowValue == null) {
             SelenideElement menuItem = clickAndGetHeaderDropDownMenu()
                     .$(Schrodinger.byDescendantElementAttributeValue("a", Schrodinger.DATA_S_RESOURCE_KEY, menuItemKey))
@@ -108,6 +109,7 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
                     .clickItemByKey(menuItemKey);
 
         }
+        Utils.waitForAjaxCallFinish();
     }
 
     /**

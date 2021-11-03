@@ -97,6 +97,6 @@ public class AbstractLabTest extends AbstractSchrodingerTest {
     }
 
     protected boolean resetToDefaultAfterTests() {
-        return true;
+        return false;
     }
 }

@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRed
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -48,6 +49,7 @@ public class ResourcesPageTable<T> extends TableWithPageRedirect<T> {
 
     @Override
     public ViewResourcePage clickByName(String name) {
+        Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         ViewResourcePage detailsPage = new ViewResourcePage();
