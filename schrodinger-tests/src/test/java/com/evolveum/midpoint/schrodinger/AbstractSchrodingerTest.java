@@ -561,6 +561,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     public ResourceShadowTable assertShadowExists(String resourceName, String searchedItem, String itemValue, String intent,  boolean useRepository){
         ResourceShadowTable table = getShadowTable(resourceName, searchedItem, itemValue, intent, useRepository);
+        Selenide.screenshot(resourceName.replaceAll(" ", "") + "ShadowTable");
         return (ResourceShadowTable) table.assertTableContainsText(itemValue);
     }
 

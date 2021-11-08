@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.user;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
@@ -66,7 +67,7 @@ public class ProjectionsDropDown<T> extends TableHeaderDropDownMenu<T> {
     public ConfirmationModal<ProjectionsDropDown<T>> delete() {
         $(Schrodinger.byElementValue("a", "data-s-id", "menuItemLink", "\n" +
                 "        Delete")).waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
+        Selenide.screenshot("deleteProjection");
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }
 }
