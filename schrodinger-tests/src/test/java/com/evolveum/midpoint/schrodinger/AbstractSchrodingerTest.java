@@ -444,7 +444,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     addObjectService(service, object).setOptions(options).post();
                     LOG.trace("Object oid=" + object.getOid() + "; name='" + object.getName() + "' is added.");
                 } catch (Exception e) {
-                    LOG.error("Unable to add object, {}", e);
+                    LOG.error("Unable to add object oid=" + object.getOid() + "; name='" + object.getName() + "' , {}", e);
                 }
             });
         } catch (CommonException | SchemaException | IOException ex) {
@@ -561,7 +561,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     public ResourceShadowTable assertShadowExists(String resourceName, String searchedItem, String itemValue, String intent,  boolean useRepository){
         ResourceShadowTable table = getShadowTable(resourceName, searchedItem, itemValue, intent, useRepository);
-        Selenide.screenshot(resourceName.replaceAll(" ", "") + "ShadowTable");
         return (ResourceShadowTable) table.assertTableContainsText(itemValue);
     }
 
@@ -608,6 +607,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             tab.clickSearchInResource();
         }
         if (intent != null && !intent.isEmpty()) {
+            Utils.waitForAjaxCallFinish();
             tab.setIntent(intent);
             Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         }
