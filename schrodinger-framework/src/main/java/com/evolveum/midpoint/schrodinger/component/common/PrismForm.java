@@ -29,6 +29,7 @@ import com.codeborne.selenide.*;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import jdk.jshell.execution.Util;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -372,9 +373,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public SelenideElement findProperty(String name) {
-
-//        Selenide.sleep(5000);
-
+        Utils.waitForAjaxCallFinish();
         SelenideElement element = null;
 
         boolean doesElementAttrValueExist = getParentElement().$(Schrodinger.byElementAttributeValue(null, "contains",
@@ -385,11 +384,16 @@ public class PrismForm<T> extends Component<T> {
                     Schrodinger.DATA_S_QNAME, "#" + name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         } else {
-            //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
-            //the first found element on the page. usual byText looks in the parent element
+            doesElementAttrValueExist = getParentElement().$x(".//div[@data-s-resource-key=' "+ name + "']").exists();
+            if (doesElementAttrValueExist) {
+                element = getParentElement().$x(".//div[@data-s-resource-key=' "+ name + "']");
+            } else {
+                //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
+                //the first found element on the page. usual byText looks in the parent element
 //            element = getParentElement().$(By.xpath("//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
 //                    .parent().waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            element = getParentElement().$(byText(name)).parent().parent();
+                element = getParentElement().$(byText(name)).parent().parent();
+            }
         }
 
         return element;
