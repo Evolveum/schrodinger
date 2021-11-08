@@ -102,9 +102,8 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
         return (A) this;
     }
 
-    public <A extends AssignmentsPanel<P>> DirectIndirectAssignmentTable<A> selectTypeAllDirectIndirect() {
-        selectType("showIndirectAssignmentsButton");
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+    public <A extends AssignmentsPanel<P>> DirectIndirectAssignmentTable<A> getAllDirectIndirectTable() {
+        getParent().getNavigationPanelSelenideElement("Assignments", "All direct/indirect assignments");
         SelenideElement table = $(Schrodinger.byDataId("table", "table"));
 
         return new DirectIndirectAssignmentTable<A>((A) this, table);

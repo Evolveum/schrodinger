@@ -309,8 +309,8 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .assertPropertyInputValues("groups", "Internal Employees", "Essential Documents",
                                 "Teleportation", "Time Travel", "Lucky Numbers", "Presidential Candidates Motivation");
 
-        showUser("kirk").selectAssignmentsPanel()
-                .selectTypeAllDirectIndirect()
+        showUser("kirk").selectIndirectAssignmentsPanel()
+                    .getAllDirectIndirectTable()
                     .assertIndirectAssignmentsExist("Secret Projects II");
     }
 
