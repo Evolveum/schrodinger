@@ -243,7 +243,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                 .form()
                     .expandContainerPropertiesPanel("Reconciliation")
                     .expandContainerPropertiesPanel("Resource objects")
-                        .getPrismContainerPanel("resourceObjects")
+                        .getPrismContainerPanel("Resource objects")
                         .getContainerFormFragment()
                         .addAttributeValue("objectclass", "AccountObjectClass")
                         .editRefValue("resourceRef ")
