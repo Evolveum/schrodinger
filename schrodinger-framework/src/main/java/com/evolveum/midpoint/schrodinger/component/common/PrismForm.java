@@ -384,9 +384,9 @@ public class PrismForm<T> extends Component<T> {
                     Schrodinger.DATA_S_QNAME, "#" + name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         } else {
-            doesElementAttrValueExist = getParentElement().$x(".//div[@data-s-resource-key=' "+ name + "']").exists();
+            doesElementAttrValueExist = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']").exists();
             if (doesElementAttrValueExist) {
-                element = getParentElement().$x(".//div[@data-s-resource-key=' "+ name + "']");
+                element = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']");
             } else {
                 //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
                 //the first found element on the page. usual byText looks in the parent element

@@ -42,7 +42,7 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
                         .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             }
             nav.click();
-            nav.parent().parent().waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            nav.parent().parent().waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
         }
         return $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }

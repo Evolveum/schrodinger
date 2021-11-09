@@ -246,7 +246,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                         .getPrismContainerPanel("Resource objects")
                         .getContainerFormFragment()
                         .addAttributeValue("objectclass", "AccountObjectClass")
-                        .editRefValue("resourceRef ")
+                        .editRefValue("resourceRef")
                             .table()
                             .search()
                                 .byName()
