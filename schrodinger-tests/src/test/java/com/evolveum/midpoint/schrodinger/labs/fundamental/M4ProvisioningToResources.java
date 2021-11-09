@@ -15,10 +15,12 @@
  */
 package com.evolveum.midpoint.schrodinger.labs.fundamental;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
@@ -295,6 +297,10 @@ public class M4ProvisioningToResources extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod04test03ModifyingExistingMappings"}, groups={"M4"})
     public void mod04test04AddingANewAttribute() throws IOException {
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.loginWithReloadLoginPage(getUsername(), getPassword());
+
         ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
                 ((AbstractTableWithPrismView)showUser("kirk")
                         .selectProjectionsPanel()

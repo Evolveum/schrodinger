@@ -64,18 +64,18 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
         return new AbstractTableWithPrismView<ProjectionsPanel<P>>(this, tableBox) {
             @Override
             public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> clickByName(String name) {
-
+                Utils.waitForAjaxCallFinish();
                 SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "label", name));
                 linkElement
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-                if (linkElement.isDisplayed() && linkElement.isEnabled()) {
-                    linkElement.click();
-                    Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-                }
+                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
+//                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+//                if (linkElement.isDisplayed() && linkElement.isEnabled()) {
+//                    linkElement.click();
+//                    Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+//                }
 
                 SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
                 return new ProjectionFormPanelWithActionButtons<>(this, prismElement);
             }

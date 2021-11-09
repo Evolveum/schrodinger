@@ -58,7 +58,6 @@ public class UserPage extends FocusPage<UserPage> {
 
     @Override
     public ProjectionsPanel<UserPage> selectProjectionsPanel() {
-        Selenide.screenshot("userProjections");
         return super.selectProjectionsPanel();
     }
 

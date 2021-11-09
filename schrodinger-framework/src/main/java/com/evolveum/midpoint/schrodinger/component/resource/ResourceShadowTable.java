@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -41,9 +42,11 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
 
     @Override
     public AccountPage clickByName(String name) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement link = getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name));
         link.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.waitForAjaxCallFinish();
         $(By.className("page-title")).waitUntil(Condition.textCaseSensitive("Account"), MidPoint.TIMEOUT_LONG_1_M);
 
         return new AccountPage();

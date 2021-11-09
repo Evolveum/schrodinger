@@ -104,6 +104,7 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
     public ProjectionsPanel<F> selectProjectionsPanel() {
         SelenideElement element = getNavigationPanelSelenideElement("Projections");
         Selenide.sleep(2000);
+        Selenide.screenshot("userProjections");
         return new ProjectionsPanel<F>(this, element);
     }
 
