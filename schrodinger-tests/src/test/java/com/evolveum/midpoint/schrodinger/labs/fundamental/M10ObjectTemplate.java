@@ -216,7 +216,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .and()
                 .selectActivityWorkPanel()
                     .form()
-                        .getPrismContainerPanel("objects")
+                        .getPrismContainerPanel("Objects")
                             .getContainerFormFragment()
                             .selectOption("type","User")
                             .and()

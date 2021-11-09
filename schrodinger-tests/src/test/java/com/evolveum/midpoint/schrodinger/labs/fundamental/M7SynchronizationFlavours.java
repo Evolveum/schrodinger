@@ -241,8 +241,8 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
         task.selectActivityWorkPanel()
                 .form()
-                    .expandContainerPropertiesPanel("reconciliation")
-                    .expandContainerPropertiesPanel("resourceObjects")
+                    .expandContainerPropertiesPanel("Reconciliation")
+                    .expandContainerPropertiesPanel("Resource objects")
                         .getPrismContainerPanel("resourceObjects")
                         .getContainerFormFragment()
                         .addAttributeValue("objectclass", "AccountObjectClass")
