@@ -114,18 +114,19 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
-    public boolean containsAssignmentsWithRelation(String relation, String... expectedAssignments) {
-        String relationString = relation.equals("Default") ? "" : ("Relation: " + relation);
+    public boolean containsAssignmentsWithRelation(String targetType, String relation, String... expectedAssignments) {
+        getParent().getNavigationPanelSelenideElement("Assignments", targetType);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         ElementsCollection labels = getParentElement()
                 .$$(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("span", "data-s-id", "label",
-                        "data-s-id", "5", relationString));
-        List<String> indirectAssignments = new ArrayList<String>();
+                        "data-s-id", "5", relation));
+        List<String> assignmentNamesList = new ArrayList<String>();
         for (SelenideElement label : labels) {
             if (!label.getText().isEmpty()) {
-                indirectAssignments.add(label.getText());
+                assignmentNamesList.add(label.getText());
             }
         }
-        return indirectAssignments.containsAll(Arrays.asList(expectedAssignments));
+        return assignmentNamesList.containsAll(Arrays.asList(expectedAssignments));
     }
 
     @Override
@@ -134,8 +135,8 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
-    public AssignmentsPanel<P> assertAssignmentsWithRelationExist(String relation, String... expectedAssignments) {
-        assertion.assertTrue(containsAssignmentsWithRelation(relation, expectedAssignments), "Assignments doesn't exist.");
+    public AssignmentsPanel<P> assertAssignmentsWithRelationExist(String targetType, String relation, String... expectedAssignments) {
+        assertion.assertTrue(containsAssignmentsWithRelation(targetType, relation, expectedAssignments), "Assignments doesn't exist.");
         return this;
     }
 

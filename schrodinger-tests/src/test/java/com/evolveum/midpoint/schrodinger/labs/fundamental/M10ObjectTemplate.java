@@ -253,25 +253,28 @@ public class M10ObjectTemplate extends AbstractLabTest {
         AssignmentsPanel<UserPage> tab = accountTab.table()
                 .clickOnOwnerByName("X001212", "Edit Employee")
                 .selectAssignmentsPanel();
-        tab.assertAssignmentsWithRelationExist("Member", "Human Resources",
-                "Active Employees", "Internal Employee")
-                .assertAssignmentsWithRelationExist("Manager", "Human Resources");
+        tab.assertAssignmentsWithRelationExist("Organization", "Member", "Human Resources",
+                "Active Employees")
+                .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee")
+                .assertAssignmentsWithRelationExist("Organization", "Human Resources");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART1, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000999")
             .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Member", "Java Development",
-                "Active Employees", "Internal Employee");
+                .assertAssignmentsWithRelationExist("Organization", "Member", "Java Development",
+                "Active Employees")
+                .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
 
         showTask("User Recomputation Task").clickRunNow();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         showUser("X000998")
                 .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Member", "Java Development",
-                        "Active Employees", "Internal Employee");
+                .assertAssignmentsWithRelationExist("Organization", "Member", "Java Development",
+                        "Active Employees")
+                .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART2, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -281,7 +284,8 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .form()
                     .assertPropertySelectValue("administrativeStatus", "Disabled");
         user.selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Member", "Inactive Employees", "Internal Employee");
+                .assertAssignmentsWithRelationExist("Organization", "Member", "Inactive Employees")
+                .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART3, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -291,7 +295,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .form()
                 .assertPropertySelectValue("administrativeStatus", "Disabled");
         user.selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Member", "Former Employees");
+                .assertAssignmentsWithRelationExist("Organization", "Member", "Former Employees");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART1, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -302,8 +306,9 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertPropertySelectValue("administrativeStatus", "Enabled");
         showUser("X000998")
                 .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Member", "Java Development",
-                        "Active Employees", "Internal Employee");
+                .assertAssignmentsWithRelationExist("Organization", "Member", "Java Development",
+                        "Active Employees")
+                .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
     }
 
     @Test(dependsOnMethods = {"mod10test02AutomaticAssignments"})
@@ -404,7 +409,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         showUser("kirk")
                 .selectAssignmentsPanel()
-                    .assertAssignmentsWithRelationExist("Member", "Warp Speed Research");
+                    .assertAssignmentsWithRelationExist("Organization","Member", "Warp Speed Research");
         new UserPage().selectProjectionsPanel()
                 .table()
                     .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")

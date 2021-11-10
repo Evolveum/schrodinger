@@ -168,7 +168,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
 
         showUser("kirk")
                 .selectIndirectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Default", "Secret Projects I",
+                .assertAssignmentsWithRelationExist("Role", "Default", "Secret Projects I",
                 "Secret Projects II", "Top Secret Projects I", CSV_1_RESOURCE_NAME, CSV_2_RESOURCE_NAME,
                 CSV_3_RESOURCE_NAME);
 
