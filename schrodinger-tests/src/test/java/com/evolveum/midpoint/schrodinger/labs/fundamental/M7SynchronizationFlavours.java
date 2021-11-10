@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -229,6 +230,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
        Selenide.screenshot(user + "_" + resourceOid + "_" + accountName);
        return table
                     .search()
+                        .resetBasicSearch()
                         .referencePanelByItemName("Resource")
                             .inputRefOid(resourceOid)
                             .updateSearch()
