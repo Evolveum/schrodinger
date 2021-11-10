@@ -275,9 +275,10 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     }
 
     private void deselectDryRun(String taskName) {
-        showTask(taskName).selectBasicPanel()
+        showTask(taskName).selectActivityPanel()
                 .form()
-                    .selectOption("dryRun", "Undefined")
+                    .expandContainerPropertiesPanel("Activity")
+                        .selectOption("executionMode", "None")
                 .and()
             .and()
         .clickSaveAndRun()
