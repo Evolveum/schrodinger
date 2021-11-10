@@ -263,7 +263,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                         .addAttributeValue(TaskType.F_NAME, reconTaskName)
                         .and()
                     .and()
-                .selectActivityWorkPanel()
+                .selectActivityPanel()
                     .form()
                         .expandContainerPropertiesPanel("Activity")
                             .selectOption("executionMode", "Dry run")

@@ -143,6 +143,10 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement(("Schedule")));
     }
 
+    public PanelWithContainerWrapper<TaskPage> selectActivityPanel(){
+        return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Activity"));
+    }
+
     public PanelWithContainerWrapper<TaskPage> selectActivityWorkPanel(){
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Activity", "Work"));
     }
