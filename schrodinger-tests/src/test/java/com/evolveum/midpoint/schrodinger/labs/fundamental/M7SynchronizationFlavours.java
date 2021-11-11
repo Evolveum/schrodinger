@@ -61,6 +61,14 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
+        csv1TargetFile = new File(getTestTargetDir(), CSV_1_FILE_SOURCE_NAME);
+        FileUtils.copyFile(CSV_1_SOURCE_FILE, csv1TargetFile);
+        csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
+        FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
+        csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
+        FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
+        hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
+        FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
     }
 
     @Override
@@ -72,8 +80,9 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     public void mod07test01RunningImportFromResource() throws IOException {
         importObject(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
-        hrTargetFile = new File(getTestTargetDir(), HR_FILE_SOURCE_NAME);
-        FileUtils.copyFile(HR_SOURCE_FILE, hrTargetFile);
+        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_7, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_7, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
+        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_7, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
         addCsvResourceFromFileAndTestConnection(HR_NO_EXTENSION_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
@@ -121,22 +130,21 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod07test01RunningImportFromResource"}, groups={"M7"})
     public void mod07test02RunningAccountReconciliation() throws IOException {
-        csv1TargetFile = new File(getTestTargetDir(), CSV_1_FILE_SOURCE_NAME);
-        FileUtils.copyFile(CSV_1_SOURCE_FILE, csv1TargetFile);
-        csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
-        FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);
-        csv3TargetFile = new File(getTestTargetDir(), CSV_3_FILE_SOURCE_NAME);
-        FileUtils.copyFile(CSV_3_SOURCE_FILE, csv3TargetFile);
-
-        addCsvResourceFromFileAndTestConnection(CSV_1_RESOURCE_FILE_7, CSV_1_RESOURCE_NAME, csv1TargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE_7, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
-        addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_7, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
-
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         createReconTask("CSV-1 Reconciliation", CSV_1_RESOURCE_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+
+        showTask("CSV-1 Reconciliation");
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.screenshot("CSV_1_Reconciliation_Task_1");
+
         deselectDryRun("CSV-1 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+
+        showTask("CSV-1 Reconciliation");
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.screenshot("CSV_1_Reconciliation_Task_2");
+
         assertContainsProjection("X001212", CSV_1_RESOURCE_OID, "jsmith");
 
         createReconTask("CSV-2 Reconciliation", CSV_2_RESOURCE_NAME);
