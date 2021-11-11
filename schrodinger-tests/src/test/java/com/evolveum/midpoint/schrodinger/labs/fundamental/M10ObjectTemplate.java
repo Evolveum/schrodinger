@@ -347,7 +347,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertPropertyEnabled("honorificSuffix");
 
         addObjectFromFile(LOOKUP_EMP_STATUS_FILE);
-        addObjectFromFile(OBJECT_TEMPLATE_USER_FILE_10_3);
+        importObject(OBJECT_TEMPLATE_USER_FILE_10_3, true);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
 
         form = showUser("kirk")
