@@ -128,7 +128,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         basicPage.listUsers(ARCHETYPE_EMPLOYEE_PLURAL_LABEL).assertObjectsCountEquals(14);
     }
 
-    @Test(dependsOnMethods = {"mod07test01RunningImportFromResource"}, groups={"M7"})
+    @Test (dependsOnMethods = {"mod07test01RunningImportFromResource"}, groups={"M7"})
     public void mod07test02RunningAccountReconciliation() throws IOException {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         createReconTask("CSV-1 Reconciliation", CSV_1_RESOURCE_NAME);
@@ -256,6 +256,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                         .getPrismContainerPanel("Resource objects")
                         .getContainerFormFragment()
                         .addAttributeValue("objectclass", "AccountObjectClass")
+                        .addAttributeValue("kind", "Account")
                         .editRefValue("resourceRef")
                             .table()
                             .search()
