@@ -280,9 +280,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         UserPage user = showUser("X000998");
-        user.selectBasicPanel()
-                .form()
-                    .assertPropertySelectValue("administrativeStatus", "Disabled");
+        user.assertActivationStateEquals("Disabled");
         user.selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Organization", "Member", "Inactive Employees")
                 .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
@@ -291,9 +289,8 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         user = showUser("X000998");
-        user.selectBasicPanel()
-                .form()
-                .assertPropertySelectValue("administrativeStatus", "Disabled");
+        user.assertActivationStateEquals("Disabled");
+
         user.selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Organization", "Member", "Former Employees");
 
@@ -301,9 +298,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
 
         user = showUser("X000998");
-        user.selectBasicPanel()
-                .form()
-                .assertPropertySelectValue("administrativeStatus", "Enabled");
+        user.assertActivationStateEquals("Enabled");
         showUser("X000998")
                 .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Organization", "Member", "Java Development",

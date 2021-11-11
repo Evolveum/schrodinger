@@ -19,10 +19,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.common.DropDown;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +62,20 @@ public class DirectIndirectAssignmentTable<T> extends Component<T> {
 
     public DirectIndirectAssignmentTable<T> assertDirectAssignmentsExist(String... expectedAssignments) {
         assertion.assertTrue(containsDirectAssignments(expectedAssignments));
+        return this;
+    }
+
+    public DirectIndirectAssignmentTable<T> assertAssignmentWithRelationExists(String relation, String... expectedAssignments) {
+        ElementsCollection labels = getParentElement()
+                .$$(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("span", "data-s-id", "label",
+                        "data-s-id", "9", relation));
+        List<String> assignmentNamesList = new ArrayList<String>();
+        for (SelenideElement label : labels) {
+            if (!label.getText().isEmpty()) {
+                assignmentNamesList.add(label.getText());
+            }
+        }
+        assertion.assertTrue(assignmentNamesList.containsAll(Arrays.asList(expectedAssignments)), "Assignments doesn't exist.");
         return this;
     }
 
