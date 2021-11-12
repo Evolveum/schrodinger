@@ -256,7 +256,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                         .getPrismContainerPanel("Resource objects")
                         .getContainerFormFragment()
                         .addAttributeValue("objectclass", "AccountObjectClass")
-                        .addAttributeValue("kind", "Account")
+                        .setDropDownAttributeValue("kind", "Account")
                         .addAttributeValue("intent", "default")
                         .editRefValue("resourceRef")
                             .table()
