@@ -106,7 +106,7 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public boolean propertyWithTitleTextExists(String propertyName, String text) {
-        return findProperty(propertyName).$x(".//i[contains(@data-original-title, '" + text + "')]").exists();
+        return findProperty(propertyName).$x(".//i[contains(@title, '" + text + "')]").exists();
     }
 
     public PrismForm<T> showEmptyAttributes(String containerName) {
