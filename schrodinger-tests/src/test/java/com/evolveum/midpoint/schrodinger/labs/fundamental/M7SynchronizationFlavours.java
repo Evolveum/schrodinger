@@ -130,33 +130,22 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
     @Test (dependsOnMethods = {"mod07test01RunningImportFromResource"}, groups={"M7"})
     public void mod07test02RunningAccountReconciliation() throws IOException {
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
         createReconTask("CSV-1 Reconciliation", CSV_1_RESOURCE_NAME);
         Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
-
-        showTask("CSV-1 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
-        Selenide.screenshot("CSV_1_Reconciliation_Task_1");
-
         deselectDryRun("CSV-1 Reconciliation");
         Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
-
-        showTask("CSV-1 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
-        Selenide.screenshot("CSV_1_Reconciliation_Task_2");
-
         assertContainsProjection("X001212", CSV_1_RESOURCE_OID, "jsmith");
 
         createReconTask("CSV-2 Reconciliation", CSV_2_RESOURCE_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
         deselectDryRun("CSV-2 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
         assertContainsProjection("X001212", CSV_2_RESOURCE_OID, "jsmith");
 
         createReconTask("CSV-3 Reconciliation", CSV_3_RESOURCE_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
         deselectDryRun("CSV-3 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
         assertContainsProjection("X001212", CSV_3_RESOURCE_OID, "cn=John Smith,ou=ExAmPLE,dc=example,dc=com");
     }
 
@@ -255,19 +244,19 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                     .expandContainerPropertiesPanel("Resource objects")
                         .getPrismContainerPanel("Resource objects")
                         .getContainerFormFragment()
+                            .editRefValue("resourceRef")
+                                .table()
+                                .search()
+                                    .byName()
+                                    .inputValue(resource)
+                                    .updateSearch()
+                                    .and()
+                                .clickByName(resource)
+                                .and()
+                            .and()
                         .addAttributeValue("objectclass", "AccountObjectClass")
                         .setDropDownAttributeValue("kind", "Account")
                         .addAttributeValue("intent", "default")
-                        .editRefValue("resourceRef")
-                            .table()
-                            .search()
-                                .byName()
-                                .inputValue(resource)
-                                .updateSearch()
-                            .and()
-                            .clickByName(resource)
-                            .and()
-                        .and()
                     .and()
                 .and()
                 .selectBasicPanel()
@@ -287,14 +276,15 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     }
 
     private void deselectDryRun(String taskName) {
-        showTask(taskName).selectActivityPanel()
+        showTask(taskName)
+                .selectActivityPanel()
                 .form()
                     .expandContainerPropertiesPanel("Activity")
-                        .selectOption("executionMode", "None")
-                .and()
-            .and()
-        .clickSaveAndRun()
-            .feedback()
-                .isInfo();
+                        .selectOption("executionMode", "Undefined")
+                        .and()
+                    .and()
+                .clickSaveAndRun()
+                    .feedback()
+                        .isInfo();
     }
 }
