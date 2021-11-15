@@ -189,7 +189,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                             .setDropDownAttributeValue("kind", "Account")
                             .addAttributeValue("intent", "default")
                             .addAttributeValue("objectclass", "AccountObjectClass")
-//                    .selectOption("binding","Tight")
+                    .selectOption("binding","Tight")
                     .and()
                 .and()
             .selectSchedulePanel()
