@@ -189,7 +189,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                             .setDropDownAttributeValue("kind", "Account")
                             .addAttributeValue("intent", "default")
                             .addAttributeValue("objectclass", "AccountObjectClass")
-                    .selectOption("binding","Tight")
+//                    .selectOption("binding","Tight")
                     .and()
                 .and()
             .selectSchedulePanel()
@@ -207,7 +207,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         showUser("X000999")
                 .assertGivenName("Arnold")
                 .assertFamilyName("Rimmer")
-                .selectBasicPanel()
+                .selectActivationPanel()
                     .form()
                         .assertPropertySelectValue("administrativeStatus", "Enabled");
 
@@ -219,14 +219,14 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_3, hrTargetFile);
         Selenide.sleep(20000);
         showUser("X000999")
-                .selectBasicPanel()
+                .selectActivationPanel()
                     .form()
                         .assertPropertySelectValue("administrativeStatus", "Disabled");
 
         FileUtils.copyFile(HR_SOURCE_FILE_7_4_PART_4, hrTargetFile);
         Selenide.sleep(20000);
         showUser("X000999")
-                .selectBasicPanel()
+                .selectActivationPanel()
                     .form()
                         .assertPropertySelectValue("administrativeStatus", "Enabled");
 
