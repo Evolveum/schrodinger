@@ -290,7 +290,7 @@
                         <configuration>
                             <testFailureIgnore>true</testFailureIgnore>
                             <systemPropertyVariables>
-                                <midpoint.home>/opt/midpoint/var</midpoint.home>
+                                <midpoint.home>target/midpoint-home</midpoint.home>
                                 <midpoint.test.folder>target</midpoint.test.folder>
                             </systemPropertyVariables>
                             <properties>
