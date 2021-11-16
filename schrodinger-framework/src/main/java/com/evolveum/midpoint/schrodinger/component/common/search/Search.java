@@ -17,17 +17,13 @@
 package com.evolveum.midpoint.schrodinger.component.common.search;
 
 import com.codeborne.selenide.*;
-
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.InputBox;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
 import com.evolveum.midpoint.schrodinger.util.Utils;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -194,12 +190,11 @@ public class Search<T> extends Component<T> {
 
     public Search<T> resetBasicSearch() {
         choiceBasicSearch();
-        ElementsCollection deleteButtons = getParentElement().$$(Schrodinger.byDataId("removeButton"));
-        for (SelenideElement deleteButton : deleteButtons) {
-            if (deleteButton.isDisplayed()) {
-                deleteButton.click();
-                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
-            }
+        while ($x(".//a[@data-s-id='removeButton']").exists()
+                && $x(".//a[@data-s-id='removeButton']").isDisplayed()) {
+            SelenideElement deleteButton = $x(".//a[@data-s-id='removeButton']");
+            deleteButton.click();
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
         }
         return this;
     }
