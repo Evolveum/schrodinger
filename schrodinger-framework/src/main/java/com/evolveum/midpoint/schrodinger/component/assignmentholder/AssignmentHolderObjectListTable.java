@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.component.modal.ExportPopupPanel;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import jdk.jshell.execution.Util;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -109,13 +110,21 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
             getToolbarButtonByCss("fa fa-plus")
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
-            Selenide.sleep(2000);
+//            Selenide.sleep(2000);
+        } else {
+            getToolbarButtonByCss(iconCssClass).click();
+        }
+        Utils.waitForAjaxCallFinish();
+        try {
+            Utils.getModalWindowSelenideElement();
+        } catch (Error e) {
+            //nothing to do here; the window appears depending on configuration
         }
         if (Utils.isModalWindowSelenideElementVisible()) {
             Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]").click();
-            Selenide.sleep(2000);
+            Utils.waitForAjaxCallFinish();
         }
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
+        Utils.waitForMainPanelOnDetailsPage();
         return getObjectDetailsPage();
     }
 
@@ -180,13 +189,16 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         mainButtonElement.click();
         try {
             Utils.getModalWindowSelenideElement();
-        } catch (Exception e) {
+        } catch (Error e) {
             //nothing to do here, the popup can appear or not; depends on configuration;
         }
         if (Utils.isModalWindowSelenideElementVisible()) {
             SelenideElement modal = Utils.getModalWindowSelenideElement();
             ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");
-            return childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
+            int count = childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
+            modal.$x(".//a[@data-s-id='cancelButton']").click();
+            modal.waitUntil(Condition.disappears, MidPoint.TIMEOUT_LONG_20_S);
+            return count;
         }
         return 0;
     }

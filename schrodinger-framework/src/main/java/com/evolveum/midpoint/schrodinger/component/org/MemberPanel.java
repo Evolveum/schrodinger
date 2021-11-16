@@ -66,18 +66,20 @@ public class MemberPanel<T> extends Component<T> {
     }
 
     public BasicPage newMember(String title, String newMemberType) {
+        Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//i[@class='fa fa-plus']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
         try {
             Utils.getModalWindowSelenideElement();
-        } catch (Exception ex) {
-            //nothing to do here; the window appears depending in configuration
+        } catch (Error ex) {
+            //nothing to do here; the window appears depending on configuration
         }
         if (Utils.isModalWindowSelenideElementVisible()) {
+            Utils.waitForAjaxCallFinish();
             FocusSetAssignmentsModal<MemberPanel<T>> newMemberPopup = new FocusSetAssignmentsModal<>(this, Utils.getModalWindowSelenideElement());
             newMemberPopup.getParentElement().$x(".//button[@title='" + title + "']")
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            newMemberPopup.getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_LONG_20_S);
         }
         Utils.waitForMainPanelOnDetailsPage();
         if ("User".equals(newMemberType)) {
