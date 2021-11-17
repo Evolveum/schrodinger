@@ -239,9 +239,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Selenide.clearBrowserLocalStorage();
         Selenide.close();
 
-        if (resetToDefaultAfterTests()) {
+//        if (resetToDefaultAfterTests()) {
             resetToDefault();
-        }
+//        }
     }
 
     protected void resetToDefault() {
