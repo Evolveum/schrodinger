@@ -151,6 +151,10 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Activity", "Work"));
     }
 
+    public PanelWithContainerWrapper<TaskPage> selectAdvancedOptionsPanel(){
+        return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Advanced options"));
+    }
+
     public OperationStatisticsPanel selectOperationStatisticsPanel() {
         return new OperationStatisticsPanel(this, getNavigationPanelSelenideElement(("Operation statistics")));
     }
