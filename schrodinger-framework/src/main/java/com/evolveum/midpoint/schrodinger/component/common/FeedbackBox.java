@@ -132,7 +132,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public FeedbackBox<T> assertInfo() {
-        assertion.assertTrue(isInfo(), "Feedback panel status is not info.");
+        assertion.assertTrue(isInfo("1"), "Feedback panel status is not info.");
         return this;
     }
 
