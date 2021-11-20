@@ -76,6 +76,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                             .getPrismContainerPanel("Objects")
                                 .getContainerFormFragment()
                                 .selectOption("type","User")
+                                .selectOption("action","None")
                                 .and()
                             .and()
                         .and()
