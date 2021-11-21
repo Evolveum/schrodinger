@@ -50,10 +50,10 @@ public class TaskPageTest extends AbstractSchrodingerTest {
         basicPage = login.loginIfUserIsNotLog(username, password);
     }
 
-    @Override
-    protected List<File> getObjectListToImport(){
-        return Arrays.asList(OPERATION_STATISTICS_CLEANUP_TASK_FILE, ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, RESULTS_CLEANUP_TASK_FILE);
-    }
+//    @Override
+//    protected List<File> getObjectListToImport(){
+//        return Arrays .asList(OPERATION_STATISTICS_CLEANUP_TASK_FILE, ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, RESULTS_CLEANUP_TASK_FILE);
+//    }
 
     @Test
     public void test001createNewTask() {
@@ -103,6 +103,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test002cleanupOperationStatistics() {
+        importObject(OPERATION_STATISTICS_CLEANUP_TASK_FILE, true);
         TaskPage taskPage = basicPage.listTasks()
                 .table()
                     .search()
@@ -127,6 +128,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test003cleanupEnvironmentalPerformance() {
+        importObject(ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, true);
         TaskPage taskPage = basicPage.listTasks()
                 .table()
                     .search()
@@ -156,6 +158,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test004cleanupTaskResults() {
+        importObject(RESULTS_CLEANUP_TASK_FILE, true);
         TaskPage taskPage = basicPage.listTasks()
                 .table()
                     .search()
