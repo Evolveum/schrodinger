@@ -89,7 +89,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                             .and()
                                 .clickSaveAndRun()
                                     .feedback()
-                                    .assertInfo();
+                                    .assertSuccess();
     }
 
 
