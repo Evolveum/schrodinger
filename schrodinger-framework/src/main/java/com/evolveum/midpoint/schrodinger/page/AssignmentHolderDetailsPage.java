@@ -89,7 +89,9 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public AssignmentHolderDetailsPage assertPreviewButtonIsNotVisible() {
-        assertion.assertFalse(getPreviewButton().is(Condition.visible), "Preview button shouldn't be visible.");
+        boolean buttonExists = getButtonPanelElement().$x(".//i[contains(@class,\"fa fa-eye\")]").exists();
+        boolean buttonVisible = buttonExists && getButtonPanelElement().$x(".//i[contains(@class,\"fa fa-eye\")]").isDisplayed();
+        assertion.assertFalse(buttonVisible, "Preview button shouldn't be visible.");
         return this;
     }
 
