@@ -54,7 +54,7 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
 
     @Override
     public ResourceShadowTable<T> selectCheckboxByName(String name) {
-
+        Utils.waitForAjaxCallFinish();
         SelenideElement check = $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name));
         check.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         check.waitUntil(Condition.selected, MidPoint.TIMEOUT_MEDIUM_6_S);

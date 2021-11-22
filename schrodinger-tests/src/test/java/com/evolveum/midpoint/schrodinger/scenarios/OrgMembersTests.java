@@ -28,6 +28,7 @@ import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
@@ -174,6 +175,8 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
 
     @Test (priority = 5)
     public void test00500createNewUserManagerObject() {
+        resetToDefaultAndRelogin();
+        addObjectFromFile(ORG_WITH_MEMBER_FILE, true);
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
@@ -206,6 +209,8 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
 
     @Test (priority = 6)
     public void test00600createNewOrgOwnerObject() {
+        resetToDefaultAndRelogin();
+        addObjectFromFile(ORG_WITH_MEMBER_FILE, true);
         OrgPage newOrgPage = (OrgPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
@@ -223,7 +228,8 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-        memberPanel.selectType("All");
+        memberPanel.selectType("All")
+                .selectRelation("Owner");
         memberTable
                             .search()
                             .byName()
@@ -235,14 +241,16 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 7)
-    public void test00700createNewServiceApproverObject() {
+    public void test00700createNewOrganizationApproverObject() {
+        resetToDefaultAndRelogin();
+        addObjectFromFile(ORG_WITH_MEMBER_FILE, true);
         ServicePage newServicePage = (ServicePage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create Service type member with Member relation", "Service");
+                        .newMember("Create Organization type member with Approver relation", "Service");
         newServicePage.selectBasicPanel()
                     .form()
-                        .addAttributeValue("name", "NewServiceAsOrgMember")
+                        .addAttributeValue("name", "NewOrgAsOrgApprover")
                         .and()
                     .and()
                 .clickSave()
@@ -255,14 +263,20 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .table();
         memberPanel
                 .selectType("All")
-                .selectRelation("Member");
+                .selectRelation("Approver");
         memberTable
                             .search()
                             .byName()
-                            .inputValue("NewServiceAsOrgMember")
+                            .inputValue("NewOrgAsOrgApprover")
                 .updateSearch()
                 .and()
                 .assertTableObjectsCountEquals(1)
-                .assertTableContainsText("Member");
+                .assertTableContainsText("Approver");
+    }
+
+    private void resetToDefaultAndRelogin() {
+        resetToDefault();
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
     }
 }
