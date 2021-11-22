@@ -79,7 +79,7 @@ public class AboutPageTest extends AbstractSchrodingerTest {
         aboutPage
                 .reindexRepositoryObjects()
                 .feedback()
-                .assertInfo();
+                .assertInfo("0");
 
     }
 

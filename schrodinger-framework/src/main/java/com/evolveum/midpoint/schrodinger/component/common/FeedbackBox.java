@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.task.TaskBasicPanel;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -102,7 +103,9 @@ public class FeedbackBox<T> extends Component<T> {
     public TaskBasicPanel clickShowTask() {
 
         $(Schrodinger.byDataId("backgroundTask")).click();
-        SelenideElement taskBasicTab = $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        Utils.waitForMainPanelOnDetailsPage();
+        TaskPage taskPage = new TaskPage();
+        SelenideElement taskBasicTab = taskPage.getNavigationPanelSelenideElement("Basic");
         return new TaskBasicPanel(new TaskPage(), taskBasicTab);
     }
 
