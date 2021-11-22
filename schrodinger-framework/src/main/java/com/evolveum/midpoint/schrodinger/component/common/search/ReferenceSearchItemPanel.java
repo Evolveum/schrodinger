@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -84,7 +85,8 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Relation:")).parent()
                 .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
-        inputField.selectOptionContainingText(relation);
+        inputField.selectOption(relation);
+        inputField.waitUntil(Condition.text(relation), MidPoint.TIMEOUT_MEDIUM_6_S);
         SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
         confirmButton.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         confirmButton.waitUntil(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);

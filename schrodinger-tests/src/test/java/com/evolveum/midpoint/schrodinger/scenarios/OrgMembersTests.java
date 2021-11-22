@@ -173,7 +173,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
     }
 
     @Test (priority = 5)
-    public void test00500createNewRoleMemberObject() {
+    public void test00500createNewUserManagerObject() {
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
