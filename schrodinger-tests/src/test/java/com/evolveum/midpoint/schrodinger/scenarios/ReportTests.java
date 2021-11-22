@@ -51,6 +51,9 @@ public class ReportTests extends AbstractSchrodingerTest {
     @Test
     public void test00200runUsersReport() {
         ReportTable reportTable = basicPage.listReports().table();
+        reportTable
+                .search()
+                    .resetBasicSearch();
         reportTable.runReport("All audit records report");
         basicPage.listReports("Collection reports")
             .table()
