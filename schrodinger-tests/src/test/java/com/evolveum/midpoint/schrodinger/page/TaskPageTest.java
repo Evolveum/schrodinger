@@ -103,7 +103,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test002cleanupOperationStatistics() {
-        importObject(OPERATION_STATISTICS_CLEANUP_TASK_FILE, true);
+        importObject(OPERATION_STATISTICS_CLEANUP_TASK_FILE, true, true);
         TaskPage taskPage = basicPage.listTasks()
                 .table()
                     .search()
@@ -128,7 +128,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test003cleanupEnvironmentalPerformance() {
-        importObject(ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, true);
+        importObject(ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, true, true);
         TaskPage taskPage = basicPage.listTasks()
                 .table()
                     .search()
@@ -158,7 +158,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test004cleanupTaskResults() {
-        importObject(RESULTS_CLEANUP_TASK_FILE, true);
+        importObject(RESULTS_CLEANUP_TASK_FILE, true, true);
         TaskPage taskPage = basicPage.listTasks()
                 .table()
                     .search()
