@@ -273,10 +273,4 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .assertTableObjectsCountEquals(1)
                 .assertTableContainsText("Approver");
     }
-
-    private void resetToDefaultAndRelogin() {
-        resetToDefault();
-        FormLoginPage login = midPoint.formLogin();
-        basicPage = login.loginIfUserIsNotLog(username, password);
-    }
 }

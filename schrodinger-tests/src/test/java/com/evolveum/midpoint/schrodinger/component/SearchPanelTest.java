@@ -270,7 +270,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.search().assertExistSearchItem("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
                 .assertActualOptionOfSelectSearchItem("Scope2", "Subtree");
         table.search().dropDownPanelByItemName("Scope2").inputDropDownValue("One level");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        table.search().updateSearch();
         table.search().assertExistSearchItem("Indirect2").assertHelpTextOfSearchItem("Indirect2", "Indirect help")
                 .assertActualOptionOfSelectSearchItem("Indirect2", "True");
     }

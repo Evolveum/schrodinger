@@ -722,4 +722,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         }
         return lastNotification.substring(activationLinkStart, activationLinkEnd).replace("\n", "");
     }
+
+    protected void resetToDefaultAndRelogin() {
+        resetToDefault();
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
+    }
 }
