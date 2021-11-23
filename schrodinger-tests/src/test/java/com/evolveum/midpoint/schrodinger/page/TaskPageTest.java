@@ -98,7 +98,9 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                             .form();
 
         taskForm.assertPropertyInputValue("name", name)
-                .assertPropertyInputValue("handlerUri", handler);
+                .and()
+                    .and()
+                        .assertPageTitleStartsWith("Edit Recomputation task");
     }
 
     @Test
