@@ -229,7 +229,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
         memberPanel.selectType("All")
-                .selectRelation("Owner");
+                .selectRelation("Owner")
+                .table()
+                .search()
+                .updateSearch();
         memberTable
                             .search()
                             .byName()
