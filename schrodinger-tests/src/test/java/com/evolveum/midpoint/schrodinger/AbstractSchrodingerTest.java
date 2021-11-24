@@ -387,19 +387,27 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .updateSearch()
                     .and()
                     .clickByName(resourceName);
-            Selenide.screenshot("beforeEditConfiguration");
             ResourceConfigurationPanel resourceConfigurationTab = viewResourcePage
                     .getConnectorConfigurationPanel();
-            Selenide.screenshot("afterEditConfigurationClick");
             Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
-            Selenide.screenshot("afterSixSecondsSleep");
 
             resourceConfigurationTab
                     .form()
                     .changeAttributeValue(attributeName, oldValue, newValue)
                     .and()
                     .and()
-                    .clickSaveAndTestConnection()
+                    .clickSave()
+                    .feedback()
+                    .assertSuccess();
+            listResourcesPage
+                    .table()
+                    .search()
+                    .byName()
+                    .inputValue(resourceName)
+                    .updateSearch()
+                    .and()
+                    .clickByName(resourceName)
+                    .clickTestConnection()
                     .assertIsTestSuccess()
                     .clickOk();
         } else {
@@ -416,7 +424,18 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                             .changeAttributeValue(attributeName, oldValue, newValue)
                             .and()
                             .and()
-                            .clickSaveAndTestConnection()
+                            .clickSave()
+                            .feedback()
+                            .assertSuccess();
+            listResourcesPage
+                    .table()
+                    .search()
+                    .byName()
+                    .inputValue(resourceName)
+                    .updateSearch()
+                    .and()
+                    .clickByName(resourceName)
+                    .clickTestConnection()
                             .assertIsTestFailure();
         }
 

@@ -21,7 +21,9 @@ import static com.codeborne.selenide.Selenide.$x;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.resource.TestConnectionModal;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -72,6 +74,12 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
 
     public PanelWithContainerWrapper<ViewResourcePage> selectConnectorConfigurationPanel() {
         return new PanelWithContainerWrapper<>(this, getNavigationPanelSelenideElement("Connector configuration"));
+    }
+
+    public TestConnectionModal<ViewResourcePage> clickTestConnection() {
+        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
     }
 
 }

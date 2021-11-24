@@ -199,7 +199,18 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
                         .changeAttributeValue(CSV_RESOURCE_ATTR_UNIQUE,"","login")
                     .and()
                 .and()
-                .clickSaveAndTestConnection()
+                .clickSave()
+                .feedback()
+                .assertSuccess();
+        listResourcesPage
+                .table()
+                .search()
+                .byName()
+                .inputValue(NAME_CSV_RESOURCE_ADVANCED_SYNC)
+                .updateSearch()
+                .and()
+                .clickByName(NAME_CSV_RESOURCE_ADVANCED_SYNC)
+                .clickTestConnection()
                 .assertIsTestSuccess()
                 .clickOk();
     }
