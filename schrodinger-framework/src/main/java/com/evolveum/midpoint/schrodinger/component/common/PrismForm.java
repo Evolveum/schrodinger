@@ -59,7 +59,7 @@ public class PrismForm<T> extends Component<T> {
 //        getParentElement().$(By.className("prism-properties")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
-        if (values.size() == 1) {
+        if (values.size() >= 1) {
             values.first().$x(".//input[contains(@class,\"form-control\")]").setValue(value);
         }
 
@@ -82,9 +82,9 @@ public class PrismForm<T> extends Component<T> {
 
         getParentElement().$(By.className("prism-properties")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S);
 
-        ElementsCollection values = property.$$(By.className("prism-property-value"));
-        if (values.size() == 1) {
-            values.first().$(By.className("form-control")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S).setValue(newValue);
+        ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
+        if (values.size() >= 1) {
+            values.first().$x(".//input[contains(@class,\"form-control\")]").setValue(newValue);
         }
 
         // todo implement
