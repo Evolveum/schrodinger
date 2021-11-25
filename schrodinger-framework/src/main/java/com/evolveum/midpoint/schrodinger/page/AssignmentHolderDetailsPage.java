@@ -34,6 +34,7 @@ import com.evolveum.midpoint.schrodinger.component.user.UserPasswordPanel;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.ElementClickInterceptedException;
 
 /**
  * Created by honchar
@@ -61,7 +62,12 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
                     .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         } else {
-            getButtonByIconClass(className).click();
+            SelenideElement button = getButtonByIconClass(className);
+            try {
+                button.click();
+            } catch (ElementClickInterceptedException e) {
+                button.parent().click();
+            }
         }
     }
 

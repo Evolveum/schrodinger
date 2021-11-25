@@ -86,8 +86,9 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     }
 
     public FocusSetAssignmentsModal<T> clickCompositedButtonByTitle(String buttonTitle) {
-        getCompositedButtonsPanel().findCompositedButtonByTitle(buttonTitle).getParentElement().click();
-        getParentElement().$x(".//div[@class='box boxed-table']").waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        SelenideElement button = getCompositedButtonsPanel().findCompositedButtonByTitle(buttonTitle).getParentElement();
+        button.click();
+        button.waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         return this;
     }
 

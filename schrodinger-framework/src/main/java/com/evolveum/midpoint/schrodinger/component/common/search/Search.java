@@ -183,7 +183,7 @@ public class Search<T> extends Component<T> {
     }
 
     private SelenideElement getDisplayedPopover() {
-        return $(By.className("search-popover")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return $(By.className("search-popover")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
     }
 
 
