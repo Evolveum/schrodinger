@@ -63,14 +63,14 @@ public class EditResourceConfigurationPage extends BasicPage {
         return new ResourceTimeoutsTab(this, element);
     }
 
-    public ResourceResultsHandlersTab selectTabResultHandlers() {
+    public ResourceResultsHandlersTab<EditResourceConfigurationPage> selectTabResultHandlers() {
         SelenideElement element = findTabPanel().clickTabWithName(RESULTHANDLERS_TAB_NAME);
 
-        return new ResourceResultsHandlersTab(this, element);
+        return new ResourceResultsHandlersTab<>(this, element);
     }
 
     public ListResourcesPage clickSave() {
-        $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+        $(Schrodinger.byDataId("buttons")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//i[contains(@class,\"fa fa-save\")]")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         return new ListResourcesPage();
