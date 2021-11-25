@@ -396,6 +396,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .changeAttributeValue(attributeName, oldValue, newValue)
                     .and()
                     .and()
+                    .selectTabResultHandlers()
+                    .and()
                     .clickSave()
                     .feedback()
                     .assertSuccess();
@@ -423,6 +425,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                             .form()
                             .changeAttributeValue(attributeName, oldValue, newValue)
                             .and()
+                            .and()
+                            .selectTabResultHandlers()
                             .and()
                             .clickSave()
                             .feedback()
