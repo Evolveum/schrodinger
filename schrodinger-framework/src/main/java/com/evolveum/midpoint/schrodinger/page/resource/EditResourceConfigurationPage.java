@@ -70,7 +70,8 @@ public class EditResourceConfigurationPage extends BasicPage {
     }
 
     public ListResourcesPage clickSave() {
-        $x(".//i[contains(@class,\"fa fa-save\")]")
+        $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .$x(".//i[contains(@class,\"fa fa-save\")]")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         return new ListResourcesPage();
     }
