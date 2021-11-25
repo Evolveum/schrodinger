@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -36,7 +37,13 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
     }
 
     public T clickByName(String name){
-        getParentElement().$(By.linkText(name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
+        SelenideElement link = getParentElement().$(By.linkText(name));
+        link.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+//        if (link.exists() && link.isDisplayed()) {
+//            link.click();
+//        }
 
         getParent().getParentElement()
                 .waitUntil(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);

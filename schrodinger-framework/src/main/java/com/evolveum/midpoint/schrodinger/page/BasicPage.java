@@ -501,6 +501,7 @@ public class BasicPage {
 
     public SelenideElement getMenuItemElement(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index){
         SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuKey, mainMenuKey, index);
+        mainMenu.parent().parent().waitUntil(Condition.cssClass("menu-open"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (menuItemKey == null){
             return mainMenu;
         }
