@@ -393,11 +393,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
             resourceConfigurationTab
                     .form()
-                    .changeAttributeValue(attributeName, oldValue, newValue)
-                    .and()
-                    .and()
-                    .selectTabResultHandlers()
-                    .and()
+                    .changeAttributeValue(attributeName, oldValue, newValue);
+            viewResourcePage
+                    .selectBasicPanel();
+            viewResourcePage
                     .clickSave()
                     .feedback()
                     .assertSuccess();
@@ -413,22 +412,21 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .assertIsTestSuccess()
                     .clickOk();
         } else {
-            listResourcesPage
+            ViewResourcePage viewResourcePage = listResourcesPage
                             .table()
                             .search()
                             .byName()
                             .inputValue(resourceName)
                             .updateSearch()
                             .and()
-                            .clickByName(resourceName)
+                            .clickByName(resourceName);
+            viewResourcePage
                             .getConnectorConfigurationPanel()
                             .form()
-                            .changeAttributeValue(attributeName, oldValue, newValue)
-                            .and()
-                            .and()
-                            .selectTabResultHandlers()
-                            .and()
-                            .clickSave()
+                            .changeAttributeValue(attributeName, oldValue, newValue);
+            viewResourcePage
+                    .selectBasicPanel();
+            viewResourcePage.clickSave()
                             .feedback()
                             .assertSuccess();
             listResourcesPage
