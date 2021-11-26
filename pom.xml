@@ -33,7 +33,7 @@
     <groupId>com.evolveum.midpoint</groupId>
     <artifactId>schrodinger</artifactId>
     <packaging>pom</packaging>
-    <version>4.4</version>
+    <version>4.5-SNAPSHOT</version>
     <!-- Notes
             Running GUI tests from Schrodinger module
         mvn clean install  -P build-framework-test
