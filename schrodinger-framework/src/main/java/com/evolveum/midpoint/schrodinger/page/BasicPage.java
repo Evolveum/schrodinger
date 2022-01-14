@@ -69,6 +69,7 @@ import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.openqa.selenium.JavascriptExecutor;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -492,7 +493,9 @@ public class BasicPage {
     }
 
     private void clickMenuItem(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index) {
-        getMenuItemElement(topLevelMenuKey, mainMenuKey, menuItemKey, index).click();
+        SelenideElement menu = getMenuItemElement(topLevelMenuKey, mainMenuKey, menuItemKey, index);
+        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", menu);
+        menu.click();
     }
 
     public SelenideElement getMenuItemElement(String topLevelMenuKey, String mainMenuKey, String menuItemKey) {
@@ -528,16 +531,20 @@ public class BasicPage {
     }
 
     private SelenideElement getMainMenuItemElement(String topLevelMenuKey, String mainMenuKey, int index){
+        Utils.waitForAjaxCallFinish();
         SelenideElement topLevelMenu = $(Schrodinger.byDataResourceKey(topLevelMenuKey));
+        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", topLevelMenu);
         topLevelMenu.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
         if (!topLevelMenuChevron.has(Condition.cssClass("fa-chevron-down"))) {
             topLevelMenu.click();
             topLevelMenuChevron.waitUntil(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
+            Utils.waitForAjaxCallFinish();
         }
 
         SelenideElement mainMenu = topLevelMenu.$(Schrodinger.byDataResourceKey("span", mainMenuKey), index);
+        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
         mainMenu.shouldBe(Condition.visible);
 
         SelenideElement mainMenuLi = mainMenu.parent().parent();
