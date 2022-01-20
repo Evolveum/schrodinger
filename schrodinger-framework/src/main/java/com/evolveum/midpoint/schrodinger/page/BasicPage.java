@@ -513,6 +513,7 @@ public class BasicPage {
         }
 
         SelenideElement menuItem = mainMenu.$(Schrodinger.byDataResourceKey(menuItemKey));
+        menuItem.scrollIntoView(false);
         menuItem.waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return menuItem;
