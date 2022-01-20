@@ -84,7 +84,7 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
             setCheckFormGroupOptionCheckedByValue(option, true);
         } else {
             SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            optionsButtons.$x(".//button[@data-s-id='buttonContainer']").click();
+            optionsButtons.scrollIntoView(false).$x(".//button[@data-s-id='buttonContainer']").click();
             SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, true);
         }

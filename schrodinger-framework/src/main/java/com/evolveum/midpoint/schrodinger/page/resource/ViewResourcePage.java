@@ -44,7 +44,7 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
 
         $(Schrodinger.byElementAttributeValue("span", "title", "Show using wizard")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         $(Schrodinger.byElementAttributeValue("form", "class", "form-horizontal"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return new ResourceWizardPage();
     }
 

@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.component.modal.ExportPopupPanel;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-import jdk.jshell.execution.Util;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
