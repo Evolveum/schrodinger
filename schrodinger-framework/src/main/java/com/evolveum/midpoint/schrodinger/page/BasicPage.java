@@ -493,11 +493,13 @@ public class BasicPage {
     }
 
     private void clickMenuItem(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index) {
+        Utils.waitForAjaxCallFinish();
         SelenideElement menu = getMenuItemElement(topLevelMenuKey, mainMenuKey, menuItemKey, index);
-        if ("false".equals(menu.getAttribute("display"))) {
-            menu.waitUntil(Condition.attribute("display", null), MidPoint.TIMEOUT_MEDIUM_6_S);
+        menu.scrollIntoView(false);
+        if ("false".equals(menu.getAttribute("displayed"))) {
+            menu.scrollIntoView(false);
+            menu.waitUntil(Condition.attribute("displayed", null), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
-        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", menu);
         menu.click();
     }
 
@@ -558,6 +560,7 @@ public class BasicPage {
 
     private void checkCssClass(SelenideElement mainMenuLi, SelenideElement mainMenu, String cssClass) {
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
+            mainMenu.scrollIntoView(false);
             mainMenu.click();
             mainMenuLi.waitUntil(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
         }

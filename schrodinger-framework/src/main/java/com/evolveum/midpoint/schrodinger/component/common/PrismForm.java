@@ -434,7 +434,7 @@ public class PrismForm<T> extends Component<T> {
         SelenideElement panelHeader = getParentElement().$(By.linkText(containerHeaderKey))
                 .parent()
                 .parent();
-        panelHeader.scrollTo();
+        panelHeader.scrollIntoView(false);
         panelHeader.find(By.className("fa-plus-circle"))
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();

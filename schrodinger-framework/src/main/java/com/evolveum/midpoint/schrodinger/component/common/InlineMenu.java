@@ -123,6 +123,7 @@ public class InlineMenu<T> extends Component<T> {
 
     public InlineMenu<T> clickInlineMenuButtonByIconClass(String iconClass) {
         getParentElement().$(By.cssSelector(iconClass))
+                .scrollIntoView(false)
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
