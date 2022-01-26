@@ -82,7 +82,8 @@ public class LoginPageTest extends AbstractLoginPageTest {
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
         String actualUrl = basicPage.getCurrentUrl();
-        Assert.assertTrue(actualUrl.endsWith("/resetPassword"));
+        Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
+                "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
     }
 
     @Test

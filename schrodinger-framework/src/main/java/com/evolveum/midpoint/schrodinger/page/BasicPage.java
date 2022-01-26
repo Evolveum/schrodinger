@@ -495,11 +495,7 @@ public class BasicPage {
     private void clickMenuItem(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index) {
         Utils.waitForAjaxCallFinish();
         SelenideElement menu = getMenuItemElement(topLevelMenuKey, mainMenuKey, menuItemKey, index);
-        menu.scrollIntoView(false);
-        if ("false".equals(menu.getAttribute("displayed"))) {
-            menu.scrollIntoView(false);
-            menu.waitUntil(Condition.attribute("displayed", null), MidPoint.TIMEOUT_MEDIUM_6_S);
-        }
+        scrollToElement(menu);
         menu.click();
     }
 
@@ -515,10 +511,21 @@ public class BasicPage {
         }
 
         SelenideElement menuItem = mainMenu.$(Schrodinger.byDataResourceKey(menuItemKey));
-        menuItem.scrollIntoView(false);
+        scrollToElement(menuItem);
         menuItem.waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return menuItem;
+    }
+
+    public void scrollToElement(SelenideElement element) {
+        int attempt = 0;
+        if (!element.isDisplayed()) {
+            while (!element.isDisplayed() && attempt < 5) {
+                element.scrollIntoView(false);
+                Utils.waitForAjaxCallFinish();
+                attempt++;
+            }
+        }
     }
 
     public SelenideElement getMenuItemElementByMenuLabelText(String topLevelMenuKey, String mainMenuKey, String menuItemLabelText){
@@ -539,7 +546,7 @@ public class BasicPage {
     private SelenideElement getMainMenuItemElement(String topLevelMenuKey, String mainMenuKey, int index){
         Utils.waitForAjaxCallFinish();
         SelenideElement topLevelMenu = $(Schrodinger.byDataResourceKey(topLevelMenuKey));
-        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", topLevelMenu);
+        scrollToElement(topLevelMenu);
         topLevelMenu.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
@@ -560,7 +567,7 @@ public class BasicPage {
 
     private void checkCssClass(SelenideElement mainMenuLi, SelenideElement mainMenu, String cssClass) {
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
-            mainMenu.scrollIntoView(false);
+            scrollToElement(mainMenu);
             mainMenu.click();
             mainMenuLi.waitUntil(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
