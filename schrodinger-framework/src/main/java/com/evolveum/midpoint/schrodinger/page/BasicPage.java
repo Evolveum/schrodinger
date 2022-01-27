@@ -15,36 +15,21 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
-
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
-
-import com.evolveum.midpoint.schrodinger.component.common.UserMenuPanel;
-import com.evolveum.midpoint.schrodinger.page.login.LoginPage;
-import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
-import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
-import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
-
-import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
-
-import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.openqa.selenium.By;
-
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.LoggedUser;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
+import com.evolveum.midpoint.schrodinger.component.common.UserMenuPanel;
 import com.evolveum.midpoint.schrodinger.component.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.archetype.ListArchetypesPage;
 import com.evolveum.midpoint.schrodinger.page.cases.*;
 import com.evolveum.midpoint.schrodinger.page.certification.*;
 import com.evolveum.midpoint.schrodinger.page.configuration.*;
+import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
+import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
@@ -62,14 +47,24 @@ import com.evolveum.midpoint.schrodinger.page.self.HomePage;
 import com.evolveum.midpoint.schrodinger.page.self.ProfilePage;
 import com.evolveum.midpoint.schrodinger.page.self.RequestRolePage;
 import com.evolveum.midpoint.schrodinger.page.service.ListServicesPage;
+import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.FormSubmittablePage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -518,13 +513,11 @@ public class BasicPage {
     }
 
     public void scrollToElement(SelenideElement element) {
-        int attempt = 0;
-        if (!element.isDisplayed()) {
-            while (!element.isDisplayed() && attempt < 5) {
-                element.scrollIntoView(false);
-                Utils.waitForAjaxCallFinish();
-                attempt++;
-            }
+        long endTime = System.currentTimeMillis() + 5000;
+        while (!element.isDisplayed() && System.currentTimeMillis() < endTime) {
+            Utils.waitForAjaxCallFinish();
+            element.scrollIntoView(true);
+            Utils.waitForAjaxCallFinish();
         }
     }
 
