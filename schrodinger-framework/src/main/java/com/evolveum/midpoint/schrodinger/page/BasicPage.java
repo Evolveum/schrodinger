@@ -61,6 +61,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -516,8 +518,14 @@ public class BasicPage {
         long endTime = System.currentTimeMillis() + 5000;
         while (!element.isDisplayed() && System.currentTimeMillis() < endTime) {
             Utils.waitForAjaxCallFinish();
-            element.scrollIntoView(true);
+            element.scrollIntoView(false);
             Utils.waitForAjaxCallFinish();
+        }
+        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(),MidPoint.TIMEOUT_DEFAULT_2_S);
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            element.scrollIntoView(true);
         }
     }
 
