@@ -110,6 +110,7 @@ public class Search<T> extends Component<T> {
         Actions builder = new Actions(WebDriverRunner.getWebDriver());
         builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 

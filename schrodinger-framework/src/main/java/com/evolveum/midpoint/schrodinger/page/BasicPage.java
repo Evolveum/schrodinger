@@ -513,12 +513,9 @@ public class BasicPage {
     }
 
     public void scrollToElement(SelenideElement element) {
-        long endTime = System.currentTimeMillis() + 5000;
-        while (!element.isDisplayed() && System.currentTimeMillis() < endTime) {
-            Utils.waitForAjaxCallFinish();
-            element.scrollIntoView(true);
-            Utils.waitForAjaxCallFinish();
-        }
+        Utils.waitForAjaxCallFinish();
+        element.scrollIntoView("{behavior: 'auto', block: 'center', inline: 'center' }");
+        Utils.waitForAjaxCallFinish();
     }
 
     public SelenideElement getMenuItemElementByMenuLabelText(String topLevelMenuKey, String mainMenuKey, String menuItemLabelText){

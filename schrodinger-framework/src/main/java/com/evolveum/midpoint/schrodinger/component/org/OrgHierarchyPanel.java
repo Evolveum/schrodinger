@@ -49,6 +49,7 @@ public class OrgHierarchyPanel<T> extends Component<T> {
         }
         getParentElement().$(Schrodinger.byElementValue("span", "class", "tree-label", orgName))
                 .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
 
         getParentElement().$(By.xpath("//div[contains(@class,\"tree-node\")][.//span[@class=\"tree-label\"][contains(.,\"" +  orgName + "\")]/..]"))
                 .waitUntil(Condition.cssClass("success"), MidPoint.TIMEOUT_SHORT_4_S);

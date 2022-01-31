@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 
 import com.evolveum.midpoint.schrodinger.component.common.InputBox;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -38,7 +39,8 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
     }
 
     public TableRow<X, T> clickCheckBox() {
-        getParentElement().find("input[type=checkbox]")
+        Utils.waitForAjaxCallFinish();
+        getParentElement().$x(".//input[@type='checkbox']")
                 .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
