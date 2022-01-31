@@ -21,6 +21,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.asserts.Assertion;
 
 /**
@@ -63,4 +64,11 @@ public abstract class Component<T> {
         }
         return null;
     }
+
+    public void scrollToElement(SelenideElement element) {
+        Utils.waitForAjaxCallFinish();
+        element.scrollIntoView("{behavior: 'auto', block: 'center', inline: 'center' }");
+        Utils.waitForAjaxCallFinish();
+    }
+
 }

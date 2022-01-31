@@ -41,6 +41,7 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
                 nav = nav.parent().parent().$x(".//span[@data-s-resource-key='" + navigationItemName + "']")
                         .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             }
+            scrollToElement(nav);
             nav.click();
             nav.parent().parent().waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
         }
