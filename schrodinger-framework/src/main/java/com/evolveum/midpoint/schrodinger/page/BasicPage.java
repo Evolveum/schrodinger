@@ -547,7 +547,7 @@ public class BasicPage {
         }
 
         SelenideElement mainMenu = topLevelMenu.$(Schrodinger.byDataResourceKey("span", mainMenuKey), index);
-        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
+        scrollToElement(mainMenu);
         mainMenu.shouldBe(Condition.visible);
 
         SelenideElement mainMenuLi = mainMenu.parent().parent();

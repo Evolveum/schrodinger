@@ -131,8 +131,9 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
     @Override
     protected SelenideElement getPrismViewPanel() {
+        Utils.waitForAjaxCallFinish();
         return $(Schrodinger.byDataId("div", "valueForm"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .waitUntil(Condition.appears, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     public AssignmentsPanel<P> assertAssignmentsWithRelationExist(String targetType, String relation, String... expectedAssignments) {

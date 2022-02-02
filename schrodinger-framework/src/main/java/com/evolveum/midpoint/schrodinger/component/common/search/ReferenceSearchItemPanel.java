@@ -44,10 +44,12 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         }
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
                 .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
-        SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+//        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
+//                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement popoverForm = getParentElement().$x(".//div[@data-s-id='popoverForm']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        SelenideElement inputField = popoverForm.$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
+                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         if(!oid.equals(inputField.getValue())) {
             inputField.setValue(oid);
         }
