@@ -129,13 +129,13 @@
         <dependency>
             <groupId>com.evolveum.midpoint.client</groupId>
             <artifactId>midpoint-client-api</artifactId>
-            <version>4.3-SNAPSHOT</version>
+            <version>${midpoint.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.evolveum.midpoint.client</groupId>
             <artifactId>midpoint-client-impl-prism</artifactId>
-            <version>4.3-SNAPSHOT</version>
+            <version>${midpoint.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
