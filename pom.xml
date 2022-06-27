@@ -215,7 +215,7 @@
             <dependency>
                 <groupId>com.evolveum.midpoint.tools</groupId>
                 <artifactId>test-ng</artifactId>
-                <version>4.4-SNAPSHOT</version>
+                <version>${midpoint.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.evolveum.midpoint.repo</groupId>
