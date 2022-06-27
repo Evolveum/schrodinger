@@ -213,7 +213,7 @@
                 <version>${testng.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.evolveum.midpoint.tools</groupId>
+                <groupId>com.evolveum.commons</groupId>
                 <artifactId>test-ng</artifactId>
                 <version>${midpoint.version}</version>
             </dependency>
