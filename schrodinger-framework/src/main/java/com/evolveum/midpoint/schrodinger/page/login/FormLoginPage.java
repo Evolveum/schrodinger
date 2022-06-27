@@ -82,7 +82,7 @@ public class FormLoginPage extends LoginPage {
         }
         $(By.name("username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
         $(By.name("password")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
-        $x("//input[@type='submit']").click();
+        $x("//button[@type='submit']").click();
 
         return new BasicPage();
     }
