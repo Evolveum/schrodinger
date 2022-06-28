@@ -93,7 +93,7 @@
             <groupId>com.evolveum.midpoint.gui</groupId>
             <artifactId>admin-gui</artifactId>
             <version>${midpoint.version}</version>
-            <classifier>classes</classifier>
+<!--            <classifier>classes</classifier>-->
             <scope>test</scope>
             <exclusions>
                 <exclusion>
