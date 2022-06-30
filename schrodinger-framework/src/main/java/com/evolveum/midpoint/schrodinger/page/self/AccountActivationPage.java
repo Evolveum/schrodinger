@@ -10,19 +10,19 @@ import static com.codeborne.selenide.Selenide.$;
 public class AccountActivationPage extends BasicPage {
 
     public AccountActivationPage setPasswordValue(String password) {
-        $(Schrodinger.byDataId("password")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                .setValue(password).waitUntil(Condition.value(password), MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(Schrodinger.byDataId("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .setValue(password).shouldBe(Condition.value(password), MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
     }
 
     public AccountActivationPage clickCinfirmPasswordButton() {
-        $(Schrodinger.byDataId("confirm")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.byDataId("confirm")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         return this;
     }
 
     public AccountActivationPage assertActivatedShadowsContainText(String expectedText) {
-        $(Schrodinger.byDataId("activatedShadows")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                .waitUntil(Condition.text(expectedText), MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(Schrodinger.byDataId("activatedShadows")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .shouldBe(Condition.text(expectedText), MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
     }
 }

@@ -104,7 +104,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         addObjectFromFile(ORG_EXAMPLE_APPROVER_POLICY_ROOT);
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         basicPage
@@ -217,7 +217,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .assertInfo();
 
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("X000158").selectAssignmentsPanel(), false, "Secret Projects I");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         basicPage.listAllCases()
                 .table()
                     .clickByName("Approving and executing change of user ")
@@ -233,7 +233,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                         .and()
                                     .assertFeedbackExists();
 
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         basicPage.listAllCases()
                 .table()
                     .clickByName("Approving and executing change of user")
@@ -248,7 +248,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                             .and()
                                         .and()
                                     .assertFeedbackExists();
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         PrismFormWithActionButtons projectionForm = showUser("X000158").selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Member", "Secret Projects I")
@@ -347,7 +347,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .approveButtonClick()
                             .and()
                         .assertFeedbackExists();
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         //todo check notification
         basicPage.loggedUser().logout();

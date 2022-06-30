@@ -179,7 +179,7 @@ public class Table<T> extends Component<T> {
     public Table<T> selectAll() {
 
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
@@ -192,7 +192,7 @@ public class Table<T> extends Component<T> {
 
         // TODO replate catch Throwable with some less generic error
         try {
-            return $(Schrodinger.byElementValue(elementName, elementValue)).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).is(Condition.visible);
+            return $(Schrodinger.byElementValue(elementName, elementValue)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).is(Condition.visible);
         } catch (Throwable t) {
             return false;
         }
@@ -222,7 +222,7 @@ public class Table<T> extends Component<T> {
 
     public int countTableObjects() {
         String countStringValue = $(Schrodinger.bySelfOrAncestorElementAttributeValue("div", "class", "dataTables_info", "data-s-id", "count"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).text();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).text();
         if (countStringValue == null) {
             return 0;
         }

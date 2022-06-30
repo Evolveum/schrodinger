@@ -42,7 +42,7 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
     @Override
     public RepositoryObjectPage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new RepositoryObjectPage();
     }
 
@@ -54,10 +54,10 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
     @Override
     protected TableHeaderDropDownMenu<ListRepositoryObjectsTable> clickHeaderActionDropDown() {
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = $(Schrodinger.byDataId("ul", "dropDownMenu"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new TableHeaderDropDownMenu<ListRepositoryObjectsTable>(this, dropDown);
     }
@@ -72,7 +72,7 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
         showObjectInTableByTypeAndName(type, name)
                 .clickDeleteButton()
                     .clickYes();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         and()
                 .feedback()
                     .assertSuccess();
@@ -91,14 +91,14 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
     }
 
     public ConfirmationModal<ListRepositoryObjectsTable>  clickDeleteButton() {
-        $x(".//a[@data-s-id='delete']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $x(".//a[@data-s-id='delete']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }
 
     public ListRepositoryObjectsTable  clickExportButton() {
-        $x(".//a[@data-s-id='export']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $x(".//a[@data-s-id='export']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 

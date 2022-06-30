@@ -34,7 +34,7 @@ public class RoleCatalogViewTab extends RequestRoleTab {
 
     public OrgHierarchyPanel<RoleCatalogViewTab> getRoleCatalogHierarchyPanel() {
         SelenideElement treePanel = getParentElement().$(Schrodinger.byDataId("div", "treePanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new OrgHierarchyPanel<>(this, treePanel);
     }
 

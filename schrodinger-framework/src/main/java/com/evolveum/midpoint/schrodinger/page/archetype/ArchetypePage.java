@@ -41,7 +41,7 @@ public class ArchetypePage extends AbstractRolePage {
 
     public ArchetypePolicyPanel selectArchetypePolicyPanel() {
         SelenideElement element = getNavigationPanelSelenideElement("Archetype policy")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ArchetypePolicyPanel(this, element);
     }

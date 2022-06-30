@@ -39,7 +39,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
 
     public TableRow<X, T> clickCheckBox() {
         getParentElement().find("input[type=checkbox]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
@@ -49,7 +49,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
             return null;
         }
         getParentElement().$(By.cssSelector("td:nth-child(" + index + ") checkbox"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
@@ -74,7 +74,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
             return this;
         }
         SelenideElement input = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") input"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         InputBox inputBox = new InputBox(this, input);
         inputBox.inputValue(textValue);
         return this;
@@ -86,7 +86,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
             return this;
         }
         SelenideElement select = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") select"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         select.selectOption(textValue);
         return this;
     }
@@ -97,7 +97,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
             return this;
         }
         getParentElement().$(By.cssSelector("td:nth-child(" + index + ") select"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).selectOptionContainingText(selectValue);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).selectOptionContainingText(selectValue);
         return this;
     }
 
@@ -107,7 +107,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
             return null;
         }
         SelenideElement cell = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") div"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return cell;
     }
 

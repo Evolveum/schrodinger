@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class MailNoncePage extends LoginPage {
 
     public MailNoncePage setMail(String mail) {
-        $(Schrodinger.byDataId("email")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(mail);
+        $(Schrodinger.byDataId("email")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(mail);
         $(Schrodinger.byDataId("submit")).click();
         return  this;
     }

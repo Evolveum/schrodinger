@@ -38,7 +38,7 @@ public class CasesPanel<P extends FocusPage> extends Component<P> {
 
     public TableWithPageRedirect<CasesPanel<P>> table() {
         return new TableWithPageRedirect<CasesPanel<P>>(this,
-                $(Schrodinger.byDataId("taskTable")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)) {
+                $(Schrodinger.byDataId("taskTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)) {
             @Override
             public CasePage clickByName(String name) {
                 return new CasePage();

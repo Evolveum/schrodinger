@@ -229,7 +229,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .assertTableObjectsCountEquals(15);
 
         TaskPage task = basicPage.newTask("Live synchronization task");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         task.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Synchronization")
@@ -257,7 +257,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertInfo();
 
        FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_1, hrTargetFile);
-       Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+       Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage
                 .listUsers()
@@ -270,7 +270,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertTableObjectsCountEquals(1);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage
                 .listUsers()
@@ -283,7 +283,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertTableObjectsCountEquals(1);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_3, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("Arnold J.")
                 .assertActivationStateEquals("Disabled")
@@ -294,7 +294,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                     .assertProjectionDisabled("cn=Arnold J. Rimmer,ou=ExAmPLE,dc=example,dc=com", HR_RESOURCE_NAME);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("Arnold J.")
                 .assertActivationStateEquals("Enabled");

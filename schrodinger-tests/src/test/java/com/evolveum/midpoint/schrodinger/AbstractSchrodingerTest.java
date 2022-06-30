@@ -18,8 +18,6 @@ package com.evolveum.midpoint.schrodinger;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.ex.ElementNotFound;
-import com.codeborne.selenide.testng.BrowserPerClass;
-import com.codeborne.selenide.testng.annotations.Report;
 import com.evolveum.midpoint.client.api.ObjectAddService;
 import com.evolveum.midpoint.client.api.exception.CommonException;
 import com.evolveum.midpoint.client.impl.prism.RestPrismObjectAddService;
@@ -48,7 +46,7 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
-import com.evolveum.midpoint.schrodinger.reports.SchrodingerTextReport;
+//import com.evolveum.midpoint.schrodinger.reports.SchrodingerTextReport;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
@@ -82,8 +80,8 @@ import static com.codeborne.selenide.Selenide.$;
 @ActiveProfiles("default")
 @SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestPropertySource(properties = { "server.port=8180", "midpoint.schrodinger=true" })
-@Listeners({ BrowserPerClass.class, SchrodingerTextReport.class })
-@Report
+//@Listeners({ BrowserPerClass.class, SchrodingerTextReport.class }) TODO fix
+//@Report   TODO fix
 public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContextTests {
 
     public static final String PROPERTY_NAME_MIDPOINT_HOME = "-Dmidpoint.home";
@@ -237,7 +235,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 //        basicPage.loggedUser().logoutIfUserIsLogin();
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
-        Selenide.close();
+        Selenide.closeWebDriver(); //todo or closeWindow?
 
         if (resetToDefaultAfterTests()) {
             resetToDefault();
@@ -389,7 +387,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .clickByName(resourceName);
             ResourceConfigurationPanel resourceConfigurationTab = viewResourcePage
                     .getConnectorConfigurationPanel();
-            Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+            Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
             resourceConfigurationTab
                     .form()
@@ -630,7 +628,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         if (intent != null && !intent.isEmpty()) {
             Utils.waitForAjaxCallFinish();
             tab.setIntent(intent);
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         }
         return tab.table();
     }

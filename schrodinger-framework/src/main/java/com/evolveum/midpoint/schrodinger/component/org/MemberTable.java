@@ -49,10 +49,10 @@ public class MemberTable<T> extends AssignmentHolderObjectListTable<T, Assignmen
     protected TableHeaderDropDownMenu<MemberTable<T>> clickHeaderActionDropDown() {
         SelenideElement dropDownButton = $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown",
                 "class", "sortableLabel"));
-        dropDownButton.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        dropDownButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = dropDownButton.parent().$x(".//ul[@"+Schrodinger.DATA_S_ID+"='dropDownMenu']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new TableHeaderDropDownMenu<MemberTable<T>>(this, dropDown);
     }

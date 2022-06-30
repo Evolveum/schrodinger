@@ -32,11 +32,11 @@ public class ForgetPasswordSecurityQuestionsPage {
 
     public MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage> getPasswordQuestionsPanel(){
         SelenideElement element = $(Schrodinger.byDataId("questionAnswerPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage>(this, element);
     }
 
     public void clickSendButton() {
-        $(Schrodinger.byDataId("send")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("send")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
 }

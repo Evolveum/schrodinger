@@ -63,7 +63,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
         addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE, true);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
@@ -96,7 +96,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                         .deleteObject("Object template", "Full name template");
 
         addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         Map<String, String> attributesMap = new HashMap<>();
         attributesMap.put("Name", "userWithoutFullname2");
@@ -113,7 +113,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
     public void test00300createArchetypeObjectTemplateExists() {
         addObjectFromFile(EMPLOYEE_ARCHETYPE_FILE, true);
         addObjectFromFile(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE, true);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
@@ -149,7 +149,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                 .selectBasicPanel();
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
         addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE, true);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage
                 .listUsers("Employees")
@@ -186,7 +186,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                 .deleteObject("Object template", "Full name template");
 
         addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage
                 .listUsers("Employees")

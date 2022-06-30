@@ -21,10 +21,10 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
         getParentElement()
                 .$(Schrodinger.byDataId("tableContainer"))
                 .$(By.partialLinkText(name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }
@@ -44,9 +44,9 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
 //                    getParentElement()
 //                            .$(Schrodinger.byDataId("tableContainer"))
 //                            .$(By.partialLinkText(name))
-//                            .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//                            .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }
@@ -57,9 +57,9 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
 //                    getParentElement()
 //                            .$(Schrodinger.byDataId("tableContainer"))
 //                            .$(By.partialLinkText(name))
-//                            .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//                            .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }

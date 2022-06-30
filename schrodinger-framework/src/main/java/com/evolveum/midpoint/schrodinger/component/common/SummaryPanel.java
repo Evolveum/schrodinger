@@ -59,7 +59,7 @@ public class SummaryPanel<T> extends Component<T> {
 
     public SummaryBox<SummaryPanel<T>> summaryBox() {
 
-        SelenideElement summaryBox = $(Schrodinger.byDataId("summaryTagBox")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement summaryBox = $(Schrodinger.byDataId("summaryTagBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new SummaryBox<>(this, summaryBox);
 

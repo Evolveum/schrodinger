@@ -30,35 +30,35 @@ import static com.codeborne.selenide.Selenide.$x;
 public class SelfRegistrationPage extends LoginPage {
 
     public SelfRegistrationPage setGivenName(String value) {
-        $(By.name("contentArea:staticForm:firstName:input")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        $(By.name("contentArea:staticForm:firstName:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         return  this;
     }
 
     public SelfRegistrationPage setFamilyName(String value) {
-        $(By.name("contentArea:staticForm:lastName:input")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        $(By.name("contentArea:staticForm:lastName:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         return  this;
     }
 
     public SelfRegistrationPage setEmail(String value) {
-        $(By.name("contentArea:staticForm:email:input")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        $(By.name("contentArea:staticForm:email:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         return  this;
     }
 
     public SelfRegistrationPage setPassword(String value) {
-        $(Schrodinger.byDataId("password1")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        $(Schrodinger.byDataId("password2")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        $(Schrodinger.byDataId("password1")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        $(Schrodinger.byDataId("password2")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         return  this;
     }
 
     public SelfRegistrationPage setCaptcha() {
-        SelenideElement captcha = $x(".//input[@data-s-id='text']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement captcha = $x(".//input[@data-s-id='text']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         //todo we need to set any value, it will be ignored during the test
         captcha.setValue("1234");
         return  this;
     }
 
     public SelfRegistrationPage submit() {
-        $(Schrodinger.byDataId("text")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue("text");
+        $(Schrodinger.byDataId("text")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue("text");
         $(Schrodinger.byDataId("submitRegistration")).click();
         return this;
     }

@@ -59,7 +59,7 @@ public class M11SystemConfiguration extends AbstractLabTest {
     public void mod11test02ConfiguringDeploymentInformation() {
         addObjectFromFile(OBJECT_TEMPLATE_USER_FILE_11);
         addObjectFromFile(SYSTEM_CONFIGURATION_FILE_11_2);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
         loginPage.loginWithReloadLoginPage(getUsername(), getPassword());
@@ -97,7 +97,7 @@ public class M11SystemConfiguration extends AbstractLabTest {
         addObjectFromFile(ARCHETYPE_EMPLOYEE_FILE);
         addObjectFromFile(ARCHETYPE_EXTERNAL_FILE);
         addObjectFromFile(SYSTEM_CONFIGURATION_FILE_11_3);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();

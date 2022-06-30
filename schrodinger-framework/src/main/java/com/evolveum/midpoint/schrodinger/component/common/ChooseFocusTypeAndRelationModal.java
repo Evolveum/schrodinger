@@ -44,7 +44,7 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
 
     public ChooseFocusTypeAndRelationModal<T> setType(String type) {
         getParentElement().$x(".//div[@data-s-id='type']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
                 .selectOption(type);
         return this;
@@ -52,7 +52,7 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
 
     public String getType() {
         return getParentElement().$x(".//div[@data-s-id='type']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
                 .getSelectedOption().getText();
     }
@@ -60,12 +60,12 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
     public ChooseFocusTypeAndRelationModal<T> setRelation(String relation) {
         if (getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected")).exists()) {
             getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         }
         SelenideElement relationButton = getParentElement()
                 .$x(".//button[@class='multiselect dropdown-toggle btn btn-default']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String relationButtonTitle = relationButton.getAttribute("title");
         if (relation.equals(relationButtonTitle)) {
             return this;
@@ -73,10 +73,10 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
         relationButton
                 .click();
         getParentElement().$(By.partialLinkText(relationButtonTitle))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         getParentElement().$(By.partialLinkText(relation))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return this;
     }
@@ -84,9 +84,9 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
     public BasicPage clickOk() {
         String selectedType = getType();
         getParentElement().$(Schrodinger.byDataId("ok"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         if ("User".equals(selectedType)) {
             return new UserPage();
         } else if ("Organization".equals(selectedType)) {
@@ -102,7 +102,7 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
     }
 
     public T clickCancel() {
-        getParentElement().$(Schrodinger.byDataId("cancel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$(Schrodinger.byDataId("cancel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return getParent();
     }

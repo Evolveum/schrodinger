@@ -33,15 +33,15 @@ public class CredentialsPage extends BasicPage {
 
     public PasswordTab passwordTab() {
         TabPanel<CredentialsPage> tabPanel = new TabPanel<>(this,
-                $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("tabPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         return new PasswordTab(this,
-                tabPanel.clickTab("PageSelfCredentials.tabs.password").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                tabPanel.clickTab("PageSelfCredentials.tabs.password").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public CredentialsPage save() {
         $(Schrodinger.byDataId("save"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 }

@@ -59,7 +59,7 @@ public class CleanupPoliciesTest extends AbstractSchrodingerTest {
                             .and()
                         .clickByName("Cleanup")
                             .clickRunNow();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M.getSeconds());
         basicPage
                 .listTasks()
                 .table()

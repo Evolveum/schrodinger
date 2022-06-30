@@ -88,7 +88,7 @@ public class InternalConfigurationPanel extends Component<InternalsConfiguration
 
     public InternalConfigurationPanel clickUpdate() {
         $(Schrodinger.byDataId("updateInternalsConfig"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 }

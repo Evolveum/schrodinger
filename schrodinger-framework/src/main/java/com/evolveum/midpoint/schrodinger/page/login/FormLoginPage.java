@@ -36,8 +36,8 @@ import static com.codeborne.selenide.Selenide.*;
 public class FormLoginPage extends LoginPage {
 
     public SelfRegistrationPage register() {
-        $(Schrodinger.byDataId("selfRegistration")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        $(byText("Self Registration")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        $(Schrodinger.byDataId("selfRegistration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(byText("Self Registration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return new SelfRegistrationPage();
     }
 
@@ -80,8 +80,8 @@ public class FormLoginPage extends LoginPage {
         if (StringUtils.isNotEmpty(locale)){
             changeLanguage(locale);
         }
-        $(By.name("username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
-        $(By.name("password")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
+        $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
+        $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
         $x("//button[@type='submit']").click();
 
         return new BasicPage();
@@ -89,7 +89,7 @@ public class FormLoginPage extends LoginPage {
 
 
     public FeedbackBox<? extends FormLoginPage> feedback() {
-        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
         return new FeedbackBox<>(this, feedback);
     }
 
@@ -99,7 +99,7 @@ public class FormLoginPage extends LoginPage {
 
     public FormLoginPage assertSignInButtonTitleMatch(String title) {
         assertion.assertTrue(Objects.equals(title, $(By.cssSelector(".btn.btn-primary"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .getValue()), "Sign in button title doesn't equal to " + title);
         return this;
     }

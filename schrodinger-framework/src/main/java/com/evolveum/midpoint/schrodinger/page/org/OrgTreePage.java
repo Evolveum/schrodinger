@@ -47,7 +47,7 @@ public class OrgTreePage extends BasicPage {
 
     private TabPanel getTabPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "tabs"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new TabPanel<>(this, tabPanelElement);
     }
 

@@ -55,13 +55,13 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 
     public SelenideElement getButtonPanelElement() {
         return $(Schrodinger.byElementValue("legend", "Operations"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
     }
 
     public void clickOperationButton(String className, String elementId) {
         if (isUseTabbedPanel()) {
             $(Schrodinger.byDataId(elementId))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         } else {
             SelenideElement button = getButtonByIconClass(className);
@@ -76,7 +76,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 
     public SelenideElement getButtonByIconClass(String className) {
         return getButtonPanelElement().$x(".//i[contains(@class,\"" + className + "\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     public BasicPage clickBack() {
@@ -86,13 +86,13 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 
     public ProgressPage clickSave() {
         clickOperationButton("fa fa-save", "save");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ProgressPage();
     }
 
     public PreviewPage clickPreview() {
         clickOperationButton("fa fa-eye", "previewChanges");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         feedback().isSuccess();
         return new PreviewPage();
     }
@@ -110,15 +110,15 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 
     public TabPanel getTabPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "tabPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
-        tabPanelElement.waitUntil(Condition.appear, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        tabPanelElement.shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_20_S);
         return new TabPanel<>(this, tabPanelElement);
     }
 
     public DetailsNavigationPanel<AssignmentHolderDetailsPage<P>> getNavigationPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "navigation"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
-        tabPanelElement.waitUntil(Condition.appear, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        tabPanelElement.shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_20_S);
         return new DetailsNavigationPanel<>(this, tabPanelElement);
     }
 
@@ -143,7 +143,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         Utils.waitForAjaxCallFinish();
         if (isUseTabbedPanel()) {
             return getTabPanel().clickTab(panelTitle[0])
-                    .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
             return getNavigationPanel().selectPanelByName(panelTitle);
         }
@@ -152,7 +152,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     public ObjectBrowserModal<AssignmentHolderDetailsPage<P>> changeArchetype() {
         if ($(Schrodinger.byDataResourceKey("PageAdminObjectDetails.button.changeArchetype")).exists()) {
             $(Schrodinger.byDataResourceKey("PageAdminObjectDetails.button.changeArchetype"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             return new ObjectBrowserModal<AssignmentHolderDetailsPage<P>>(this, getModalWindowSelenideElement());
         }
         return null;

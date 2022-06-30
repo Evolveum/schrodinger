@@ -47,7 +47,7 @@ public class Search<T> extends Component<T> {
             nameElement = getItemByName("Name");
         }
         SelenideElement nameInput = nameElement.parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new TextInputSearchItemPanel(this, nameInput);
     }
 
@@ -106,10 +106,10 @@ public class Search<T> extends Component<T> {
 
     public Search<T> updateSearch(){
         SelenideElement simpleSearchButton = getParentElement().$x(".//button[@" + Schrodinger.DATA_S_ID + "='searchButtonBeforeDropdown']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         Actions builder = new Actions(WebDriverRunner.getWebDriver());
         builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
@@ -117,10 +117,10 @@ public class Search<T> extends Component<T> {
         clickDroDownForSearchMode();
         try {
             SelenideElement basicLink = getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Basic')]");
-            basicLink.waitUntil(Condition.appears, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-            basicLink.waitWhile(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
+            basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            basicLink.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
         } catch (Throwable t) {
-            getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+            getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         }
     }
 
@@ -129,46 +129,46 @@ public class Search<T> extends Component<T> {
         SelenideElement dropDownButton = getParentElement()
                 .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchContainer']")
                 .$x(".//button[@data-toggle='dropdown']");
-        dropDownButton.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        dropDownButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
+        dropDownButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        dropDownButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
     }
 
     public InputBox<Search<T>> byFullText() {
         clickDroDownForSearchMode();
         try {
             SelenideElement basicLink = getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Full text')]");
-            basicLink.waitUntil(Condition.appears, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-            basicLink.waitWhile(Condition.appears, MidPoint.TIMEOUT_MEDIUM_6_S);
+            basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S);
         } catch (Throwable t) {
             // all is ok, fullText search is already selected option, check is provided next in next row
         }
 
         // we assume fulltext is enabled in systemconfig, else error is thrown here:
-        SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new InputBox<> (this, fullTextField);
     }
 
     public Search<T> addSearchItemByNameLinkClick(String name) {
         choiceBasicSearch();
-        getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement popover = getDisplayedPopover();
         popover.$(Schrodinger.byElementValue("a", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public Search<T> addSearchItemByAddButtonClick(String name) {
         choiceBasicSearch();
-        getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement popover = getDisplayedPopover();
         popover.$(Schrodinger.byElementValue("a", name))            //click checkbox next to search attribute
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent().$(By.tagName("input")).click();
-        popover.$x(".//a[@"+Schrodinger.DATA_S_ID+"='add']").waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click(); //click Add button
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        popover.$x(".//a[@"+Schrodinger.DATA_S_ID+"='add']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click(); //click Add button
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
@@ -183,7 +183,7 @@ public class Search<T> extends Component<T> {
     }
 
     private SelenideElement getDisplayedPopover() {
-        return $(By.className("search-popover")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        return $(By.className("search-popover")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
     }
 
 
@@ -194,7 +194,7 @@ public class Search<T> extends Component<T> {
                 && $x(".//a[@data-s-id='removeButton']").isDisplayed()) {
             SelenideElement deleteButton = $x(".//a[@data-s-id='removeButton']");
             deleteButton.click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         }
         return this;
     }

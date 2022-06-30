@@ -38,7 +38,7 @@ public class ObjectCollectionPage extends AssignmentHolderDetailsPage {
                 .form()
                 .findProperty("Filter")
                 .$(Schrodinger.byDataId("configureButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new SearchPropertiesConfigPanel<>(this, Utils.getModalWindowSelenideElement());
     }

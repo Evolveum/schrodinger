@@ -153,11 +153,11 @@ public class ImportObjectPage extends BasicPage {
 
     public ImportObjectPage setEditorXmlText(String text) {
         SelenideElement xmlButton = $(byText("XML"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String xmlButtonClass = xmlButton.getAttribute("class");
         if (StringUtils.isNotEmpty(xmlButtonClass) && !xmlButtonClass.contains("active")) {
             xmlButton.click();
-            xmlButton.waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            xmlButton.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         SelenideElement aceEditor = $(By.className("ace_text-input"));
         aceEditor.setValue(text);

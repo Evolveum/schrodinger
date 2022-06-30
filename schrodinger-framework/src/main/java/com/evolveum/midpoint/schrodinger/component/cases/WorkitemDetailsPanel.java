@@ -45,27 +45,27 @@ public class WorkitemDetailsPanel<P> extends Component<P> {
     public WorkitemDetailsPanel<P> approveButtonClick(){
         getParentElement()
                 .$(Schrodinger.byDataId("workItemApproveButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
     public WorkitemDetailsPanel<P> rejectButtonClick(){
         getParentElement()
                 .$(Schrodinger.byDataId("workItemRejectButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
     public ForwardWorkitemModal forwardButtonClick(){
         getParentElement()
                 .$(Schrodinger.byDataId("workItemForwardButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         ForwardWorkitemModal<P> forwardWorkitemModal = new ForwardWorkitemModal<P>(getParent(), Utils.getModalWindowSelenideElement());
         return forwardWorkitemModal;
@@ -78,22 +78,22 @@ public class WorkitemDetailsPanel<P> extends Component<P> {
     public void claimButtonClick(){
         getParentElement()
                 .$(Schrodinger.byDataId("workItemClaimButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
     }
 
     public WorkitemDetailsPanel<P> assertApproverElementValueMatches(String approver){
         assertion.assertTrue(getParentElement()
                 .$(Schrodinger.byDataId("approver"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(byText(approver))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .is(Condition.visible));
         return this;
     }
 
     public WorkitemDetailsPanel<P> setComment(String comment) {
-        $(By.tagName("textarea")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+        $(By.tagName("textarea")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .setValue(comment);
         return this;
     }

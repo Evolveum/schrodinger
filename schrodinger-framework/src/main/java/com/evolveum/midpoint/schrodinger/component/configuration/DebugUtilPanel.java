@@ -53,12 +53,12 @@ public class DebugUtilPanel extends Component<InternalsConfigurationPage> {
 
     private SelenideElement getDetailedDebugDumpElement() {
         return $(Schrodinger.byDataId("detailedDebugDump")).$x("//input[@data-s-id='check']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public DebugUtilPanel clickUpdate() {
         $(Schrodinger.byDataId("saveDebugUtil"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 }

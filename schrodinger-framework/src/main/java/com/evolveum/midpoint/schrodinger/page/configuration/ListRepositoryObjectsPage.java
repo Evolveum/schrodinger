@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class ListRepositoryObjectsPage extends BasicPage {
 
     public ListRepositoryObjectsTable table() {
-        return new ListRepositoryObjectsTable(this, $(Schrodinger.byDataId("table")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new ListRepositoryObjectsTable(this, $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
 }

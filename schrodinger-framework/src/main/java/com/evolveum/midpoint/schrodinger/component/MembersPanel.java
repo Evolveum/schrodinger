@@ -34,6 +34,6 @@ public class MembersPanel<T> extends Component<T> {
     }
 
     public MemberPanel<MembersPanel<T>> membersPanel() {
-        return new MemberPanel<>(this, $(Schrodinger.byDataId("form")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new MemberPanel<>(this, $(Schrodinger.byDataId("form")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

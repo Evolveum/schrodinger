@@ -52,10 +52,10 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
     protected SelenideElement clickAndGetHeaderDropDownMenu() {
 
         SelenideElement inlineMenuPanel = getParentElement().$x(".//div[@data-s-id='inlineMenuPanel']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         inlineMenuPanel.click();
         SelenideElement dropDownMenu = inlineMenuPanel.$x(".//ul[@data-s-id='dropDownMenu']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
 
         return dropDownMenu;
     }
@@ -100,9 +100,9 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
         if (columnTitleKey == null && rowValue == null) {
             SelenideElement menuItem = clickAndGetHeaderDropDownMenu()
                     .$(Schrodinger.byDescendantElementAttributeValue("a", Schrodinger.DATA_S_RESOURCE_KEY, menuItemKey))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             menuItem.click();
-            menuItem.waitUntil(Condition.disappears, MidPoint.TIMEOUT_SHORT_4_S);
+            menuItem.shouldBe(Condition.disappear, MidPoint.TIMEOUT_SHORT_4_S);
         } else {
             rowByColumnResourceKey(columnTitleKey, rowValue)
                     .getInlineMenu()

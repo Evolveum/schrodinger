@@ -36,7 +36,7 @@ public class DropDown<T> extends Component<T> {
 
         getParentElement()
                 .$(Schrodinger.byElementAttributeValue("option", "value", option))
-                .waitUntil(Condition.selected, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.selected, MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 }

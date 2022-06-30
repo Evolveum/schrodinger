@@ -55,7 +55,7 @@ public class M12Authorizations extends AbstractLabTest {
     @Test
     public void mod12test01BasicUserAuthorization() {
         addObjectFromFile(ROLE_BASIC_USER_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         showUser("X000005")
                 .addPasswordAttributeValue("qwerty12345XXXX")
                 .clickSave()
@@ -90,7 +90,7 @@ public class M12Authorizations extends AbstractLabTest {
         login.login(getUsername(), getPassword());
 
         addObjectFromFile(ROLE_BASIC_USER_FILE_12_1);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         login.login("X000005", "qwerty12345ZZZZ");

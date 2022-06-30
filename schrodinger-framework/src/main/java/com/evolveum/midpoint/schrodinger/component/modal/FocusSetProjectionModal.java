@@ -42,7 +42,7 @@ public class FocusSetProjectionModal<T> extends ModalBox<T> {
     public T clickAdd() {
 
         $(Schrodinger.byDataResourceKey("userBrowserDialog.button.addButton"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this.getParent();
     }

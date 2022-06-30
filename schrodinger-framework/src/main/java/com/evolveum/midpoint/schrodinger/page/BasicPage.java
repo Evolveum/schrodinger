@@ -64,6 +64,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -122,11 +124,11 @@ public class BasicPage {
 
     public UserPage newUser(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.users", "PageAdmin.menu.top.users.new");
-        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
-        if ($(Schrodinger.byDataId("template")).isDisplayed()) {
-            NewObjectFromTemplatePage<UserPage> templatePage = new NewObjectFromTemplatePage<>();
-            return templatePage.clickTemplateButtonWithTitle(templateTitle, new UserPage());
-        }
+//        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+//        if ($(Schrodinger.byDataId("template")).isDisplayed()) {
+//            NewObjectFromTemplatePage<UserPage> templatePage = new NewObjectFromTemplatePage<>();
+//            return templatePage.clickTemplateButtonWithTitle(templateTitle, new UserPage());
+//        }
         waitForDetailsPageIsLoaded();
         return new UserPage();
     }
@@ -144,7 +146,7 @@ public class BasicPage {
 
     public OrgPage newOrgUnit(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.new");
-        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (pageTitleEndsWith("from template")) {
             NewObjectFromTemplatePage<OrgPage> templatePage = new NewObjectFromTemplatePage<>();
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new OrgPage());
@@ -164,7 +166,7 @@ public class BasicPage {
 
     public RolePage newRole(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.roles", "PageAdmin.menu.top.roles.new");
-        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (pageTitleEndsWith("from template")) {
             NewObjectFromTemplatePage<RolePage> templatePage = new NewObjectFromTemplatePage<>();
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new RolePage());
@@ -186,7 +188,7 @@ public class BasicPage {
 
     public ServicePage newService(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.services", "PageAdmin.menu.top.services.new");
-        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (pageTitleEndsWith("from template")) {
             NewObjectFromTemplatePage<ServicePage> templatePage = new NewObjectFromTemplatePage<>();
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new ServicePage());
@@ -309,7 +311,7 @@ public class BasicPage {
 
     public TaskPage newTask(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.serverTasks", "PageAdmin.menu.top.tasks.new");
-        getPageTitleElement().waitUntil(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if ($(Schrodinger.byDataId("template")).isDisplayed()) {
             NewObjectFromTemplatePage<TaskPage> templatePage = new NewObjectFromTemplatePage<>();
             return templatePage.clickTemplateButtonWithTitle(templateTitle, new TaskPage());
@@ -475,7 +477,7 @@ public class BasicPage {
 
     public FeedbackBox<? extends BasicPage> feedback() {
         SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
         return new FeedbackBox<>(this, feedback);
     }
 
@@ -502,14 +504,14 @@ public class BasicPage {
 
     public SelenideElement getMenuItemElement(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index){
         SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuKey, mainMenuKey, index);
-        mainMenu.parent().parent().waitUntil(Condition.cssClass("menu-open"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        mainMenu.parent().parent().shouldBe(Condition.cssClass("menu-open"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (menuItemKey == null){
             return mainMenu;
         }
 
         SelenideElement menuItem = mainMenu.$(Schrodinger.byDataResourceKey(menuItemKey));
         scrollToElement(menuItem);
-        menuItem.waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        menuItem.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return menuItem;
     }
@@ -521,7 +523,7 @@ public class BasicPage {
             element.scrollIntoView(false);
             Utils.waitForAjaxCallFinish();
         }
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(),MidPoint.TIMEOUT_DEFAULT_2_S);
+        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_DEFAULT_2_S);
         try {
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
@@ -548,12 +550,12 @@ public class BasicPage {
         Utils.waitForAjaxCallFinish();
         SelenideElement topLevelMenu = $(Schrodinger.byDataResourceKey(topLevelMenuKey));
         scrollToElement(topLevelMenu);
-        topLevelMenu.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        topLevelMenu.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
         if (!topLevelMenuChevron.has(Condition.cssClass("fa-chevron-down"))) {
             topLevelMenu.click();
-            topLevelMenuChevron.waitUntil(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
+            topLevelMenuChevron.shouldBe(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
             Utils.waitForAjaxCallFinish();
         }
 
@@ -570,7 +572,7 @@ public class BasicPage {
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
             scrollToElement(mainMenu);
             mainMenu.click();
-            mainMenuLi.waitUntil(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
+            mainMenuLi.shouldBe(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
     }
 
@@ -582,7 +584,7 @@ public class BasicPage {
 
     public SelenideElement getMainHeaderPanelElement() {
         return $(Schrodinger.byDataId("header", "mainHeader"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public BasicPage assertMainHeaderPanelStyleMatch(String styleToCompare) {
@@ -593,7 +595,7 @@ public class BasicPage {
 
     public SelenideElement getPageTitleElement() {
         return $(Schrodinger.byDataId("span", "pageTitle"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public BasicPage assertPageTitleStartsWith(String titleStartText) {
@@ -616,9 +618,9 @@ public class BasicPage {
 
     public UserMenuPanel clickUserMenu() {
         if(userMenuExists()) {
-            SelenideElement userMenu = $(".dropdown.user.user-menu").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            SelenideElement userMenu = $(".dropdown.user.user-menu").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             userMenu.$(By.cssSelector(".dropdown-toggle")).click();
-            SelenideElement userMenuPanel = userMenu.$(By.cssSelector(".user-footer")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            SelenideElement userMenuPanel = userMenu.$(By.cssSelector(".user-footer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             return new UserMenuPanel(this, userMenuPanel);
         }
         return null;
@@ -659,11 +661,11 @@ public class BasicPage {
         Validate.notNull(countryCode, "Country code must not be null");
 
         $(Schrodinger.byDataId("localeIcon"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         String flagIconCss = "flag-" + countryCode.trim().toLowerCase();
         $(By.className(flagIconCss))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent()
                 .$(By.tagName("a"))
                 .click();
@@ -673,6 +675,6 @@ public class BasicPage {
 
     public void waitForDetailsPageIsLoaded() {
         Utils.waitForMainPanelOnDetailsPage();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
     }
 }

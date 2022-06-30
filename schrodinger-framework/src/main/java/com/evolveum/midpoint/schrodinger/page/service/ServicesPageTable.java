@@ -42,10 +42,10 @@ public class ServicesPageTable extends AssignmentHolderObjectListTable<ListServi
     protected TableHeaderDropDownMenu<ServicesPageTable> clickHeaderActionDropDown() {
         //todo looks like the same code for all tables
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = $(Schrodinger.byDataId("ul", "dropDownMenu"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new TableHeaderDropDownMenu<ServicesPageTable>(this, dropDown);
     }

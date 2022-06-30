@@ -51,7 +51,7 @@ public class PrismForm<T> extends Component<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
 
-//        getParentElement().$(By.className("prism-properties")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S);
+//        getParentElement().$(By.className("prism-properties")).shouldBe(Condition.appear,MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
         if (values.size() >= 1) {
@@ -66,7 +66,7 @@ public class PrismForm<T> extends Component<T> {
         SelenideElement property = findProperty(name);
         if (property != null && property.$(Schrodinger.byDataResourceKey("removeButton")).exists()) {
             property.$(Schrodinger.byDataResourceKey("removeButton"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         }
         return this;
     }
@@ -75,7 +75,7 @@ public class PrismForm<T> extends Component<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = getParentElement().$(Schrodinger.byDataResourceKey(name));
 
-        getParentElement().$(By.className("prism-properties")).waitUntil(Condition.appears,MidPoint.TIMEOUT_MEDIUM_6_S);
+        getParentElement().$(By.className("prism-properties")).shouldBe(Condition.appear,MidPoint.TIMEOUT_MEDIUM_6_S);
 
         ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
         if (values.size() >= 1) {
@@ -107,10 +107,10 @@ public class PrismForm<T> extends Component<T> {
     public PrismForm<T> showEmptyAttributes(String containerName) {
         Utils.waitForAjaxCallFinish();
         SelenideElement showEmptyLink = getPrismContainerPanel(containerName).getContainerFormFragment().getParentElement().$x(".//div[@data-s-id='showEmptyButton']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         if ("Show empty fields".equals(showEmptyLink.getText())) {
             showEmptyLink.click();
-            showEmptyLink.waitUntil(Condition.text("Hide empty fields"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            showEmptyLink.shouldBe(Condition.text("Hide empty fields"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         return this;
     }
@@ -118,7 +118,7 @@ public class PrismForm<T> extends Component<T> {
     public Boolean inputAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
@@ -131,7 +131,7 @@ public class PrismForm<T> extends Component<T> {
     public Boolean inputAttributeValueContains(String name, String expectedPartialValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.parent().$x(".//input[@data-s-id='input']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
@@ -143,7 +143,7 @@ public class PrismForm<T> extends Component<T> {
 
     public Boolean textareaAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
-        SelenideElement value = property.parent().$x(".//textarea[@data-s-id='input']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement value = property.parent().$x(".//textarea[@data-s-id='input']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
@@ -155,7 +155,7 @@ public class PrismForm<T> extends Component<T> {
 
     public Boolean textareaAttributeValueContains(String name, String expectedPartialValue) {
         SelenideElement property = findProperty(name);
-        SelenideElement value = property.parent().$x(".//textarea[@data-s-id='input']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement value = property.parent().$x(".//textarea[@data-s-id='input']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
@@ -170,7 +170,7 @@ public class PrismForm<T> extends Component<T> {
     public Boolean compareInputAttributeValueInNewContainer(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.parent().parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String valueElement = value.getValue();
 
         if (!valueElement.isEmpty()) {
@@ -261,21 +261,21 @@ public class PrismForm<T> extends Component<T> {
 
         property
                 .$(By.className("fa-language"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         SelenideElement localeInput =
                 property
                         .$(Schrodinger.byDataId("fullDataContainer"))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                         .$(Schrodinger.byElementAttributeValue("input", "value", locale));
         boolean localeInputExists = localeInput.exists();
         if (!localeInputExists){
             SelenideElement localeDropDown =
                     property
                     .$(Schrodinger.byDataId("languagesList"))
-                            .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .$(By.tagName("select"))
-                            .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             if (localeDropDown != null){
                 localeDropDown.selectOption(locale);
 
@@ -289,7 +289,7 @@ public class PrismForm<T> extends Component<T> {
             localeInput =
                     property
                             .$(Schrodinger.byDataId("fullDataContainer"))
-                            .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                             .$(Schrodinger.byElementAttributeValue("input", "value", locale))
                             .shouldBe(Condition.visible);
         }
@@ -363,7 +363,7 @@ public class PrismForm<T> extends Component<T> {
         Selenide.sleep(5000);
 
         return  getParentElement().$(Schrodinger.byElementAttributeValue("div", "contains",
-                Schrodinger.DATA_S_QNAME, "#" + name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                Schrodinger.DATA_S_QNAME, "#" + name)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
     }
 
@@ -376,7 +376,7 @@ public class PrismForm<T> extends Component<T> {
 
         if (doesElementAttrValueExist) {
             element = getParentElement().$(Schrodinger.byElementAttributeValue(null, "contains",
-                    Schrodinger.DATA_S_QNAME, "#" + name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    Schrodinger.DATA_S_QNAME, "#" + name)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         } else {
             doesElementAttrValueExist = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']").exists();
@@ -385,8 +385,8 @@ public class PrismForm<T> extends Component<T> {
             } else {
                 //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
                 //the first found element on the page. usual byText looks in the parent element
-//            element = getParentElement().$(By.xpath("//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-//                    .parent().waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+//            element = getParentElement().$(By.xpath("//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+//                    .parent().shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
                 element = getParentElement().$(byText(name)).parent().parent();
             }
         }
@@ -405,14 +405,14 @@ public class PrismForm<T> extends Component<T> {
         SelenideElement property = findProperty(attributeName);
 
         property.$(By.xpath(".//select[contains(@class,\"form-control\")]"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
 
         return this;
     }
 
     public PrismForm<T> expandContainerPropertiesPanel(String containerHeaderKey){
         SelenideElement panelHeader = getParentElement().$(Schrodinger.byElementAttributeValue("a", "data-s-resource-key", containerHeaderKey))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent()
                 .parent();
 
@@ -421,7 +421,7 @@ public class PrismForm<T> extends Component<T> {
             headerChevron.click();
             panelHeader
                     .$(Schrodinger.byElementAttributeValue("i", "class","fa fa-caret-down fa-lg"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         }
         panelHeader
                 .parent()
@@ -436,17 +436,17 @@ public class PrismForm<T> extends Component<T> {
                 .parent();
         panelHeader.scrollIntoView(false);
         panelHeader.find(By.className("fa-plus-circle"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
 
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         SelenideElement newContainerElement = panelHeader
                 .parent()
                 .parent()
                 .$(Schrodinger.byElementValue("a", newContainerHeaderKey));
 
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         newContainerElement.scrollTo();
         newContainerElement.screenshot();
@@ -463,7 +463,7 @@ public class PrismForm<T> extends Component<T> {
                 .parent()
                 .parent()
                 .find(By.className("prism-properties"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
     }
 
@@ -472,10 +472,10 @@ public class PrismForm<T> extends Component<T> {
         if  (getParentElement().$(Schrodinger.byElementAttributeValue("a", "data-s-resource-key", parentContainerHeraderKey))
                 .is(Condition.exist)) {
             parentContainerPanel = getParentElement().$(Schrodinger.byElementAttributeValue("a", "data-s-resource-key", parentContainerHeraderKey))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
             parentContainerPanel = getParentElement().$(By.linkText(parentContainerHeraderKey))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         }
         if (parentContainerPanel == null){
             return this;
@@ -504,8 +504,8 @@ public class PrismForm<T> extends Component<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(attributeName);
         property.$x(".//button[@" + Schrodinger.DATA_S_ID + "='edit']")
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         ObjectBrowserModal objectBrowserModal = new ObjectBrowserModal<>(this, Utils.getModalWindowSelenideElement());
 
         return objectBrowserModal;

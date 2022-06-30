@@ -35,13 +35,13 @@ public class AccountPage extends BasicPage {
 
     public BasicPage clickBack() {
         $(Schrodinger.byDataResourceKey("pageAccount.button.back"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new BasicPage();
     }
 
     public ProgressPage clickSave() {
-        $(Schrodinger.byDataId("save")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("save")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new ProgressPage();
     }
 

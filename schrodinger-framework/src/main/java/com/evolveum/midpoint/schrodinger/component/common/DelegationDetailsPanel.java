@@ -38,43 +38,43 @@ public class DelegationDetailsPanel<T> extends Component<T> {
     }
 
     public DelegationDetailsPanel<T> expandDetailsPanel() {
-        $(By.linkText("Current user")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        $(Schrodinger.byDataId("delegationDescription")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(By.linkText("Current user")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("delegationDescription")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
     public DelegationDetailsPanel<T> clickHeaderCheckbox(){
-        SelenideElement checkBox = $(Schrodinger.byDataId("headerRow")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        SelenideElement checkBox = $(Schrodinger.byDataId("headerRow")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .find(Schrodinger.byDataId("selected"));
         String checkedAttr = checkBox.getAttribute("checked");
         checkBox.click();
         if (checkedAttr == null || !checkedAttr.equals("checked")) {
-            checkBox.waitUntil(Condition.attribute("checked", "checked"), MidPoint.TIMEOUT_DEFAULT_2_S);
+            checkBox.shouldBe(Condition.attribute("checked", "checked"), MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
-            checkBox.waitUntil(Condition.attribute("checked", null), MidPoint.TIMEOUT_DEFAULT_2_S);
+            checkBox.shouldBe(Condition.attribute("checked", null), MidPoint.TIMEOUT_DEFAULT_2_S);
         }
         return this;
     }
 
     public String getDescriptionValue() {
-        return $(Schrodinger.byDataId("delegationDescription")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        return $(Schrodinger.byDataId("delegationDescription")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .getText();
     }
 
     public DelegationDetailsPanel<T> setDescriptionValue(String descriptionValue) {
-        $(Schrodinger.byDataId("delegationDescription")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $(Schrodinger.byDataId("delegationDescription")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .setValue(descriptionValue);
         return this;
     }
 
     public boolean isDescriptionEnabled() {
-        return $(Schrodinger.byDataId("delegationDescription")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        return $(Schrodinger.byDataId("delegationDescription")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .isEnabled();
     }
 
     public DateTimePanel<DelegationDetailsPanel<T>> getValidFromPanel() {
         return new DateTimePanel<>(this,
-                $(Schrodinger.byDataId("delegationValidFrom")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("delegationValidFrom")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public boolean isValidFromPanelEnabled () {
@@ -92,19 +92,19 @@ public class DelegationDetailsPanel<T> extends Component<T> {
 
     public DelegationDetailsPanel<T> setValidFromValue(String date, String hours, String minutes, DateTimePanel.AmOrPmChoice amOrPmChoice) {
         DateTimePanel<DelegationDetailsPanel<T>> validFromPanel = new DateTimePanel<>(this,
-                $(Schrodinger.byDataId("delegationValidFrom")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("delegationValidFrom")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         validFromPanel.setDateTimeValue(date, hours, minutes, amOrPmChoice);
         return this;
     }
 
     public DateTimePanel<DelegationDetailsPanel<T>> getValidToPanel() {
         return new DateTimePanel<>(this,
-                $(Schrodinger.byDataId("delegationValidTo")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("delegationValidTo")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public DelegationDetailsPanel<T> setValidToValue(String date, String hours, String minutes, DateTimePanel.AmOrPmChoice amOrPmChoice) {
         DateTimePanel<DelegationDetailsPanel<T>> validFromPanel = new DateTimePanel<>(this,
-                $(Schrodinger.byDataId("delegationValidTo")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("delegationValidTo")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         validFromPanel.setDateTimeValue(date, hours, minutes, amOrPmChoice);
         return this;
     }
@@ -116,7 +116,7 @@ public class DelegationDetailsPanel<T> extends Component<T> {
 
     public boolean isAssignmentPrivilegesSelected() {
         if ($(Schrodinger.byDataId("assignmentPrivilegesCheckbox")).exists()) {
-            return $(Schrodinger.byDataId("assignmentPrivilegesCheckbox")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+            return $(Schrodinger.byDataId("assignmentPrivilegesCheckbox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .isSelected();
         }
         return false;
@@ -128,7 +128,7 @@ public class DelegationDetailsPanel<T> extends Component<T> {
     }
 
     public boolean isAssignmentLimitationsSelected() {
-        return $(Schrodinger.byDataId("allowTransitive")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        return $(Schrodinger.byDataId("allowTransitive")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .isSelected();
     }
 
@@ -138,7 +138,7 @@ public class DelegationDetailsPanel<T> extends Component<T> {
     }
 
     public boolean isApprovalWorkItemsSelected() {
-        return $(Schrodinger.byDataId("approvalWorkItems")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        return $(Schrodinger.byDataId("approvalWorkItems")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .isSelected();
     }
 
@@ -148,7 +148,7 @@ public class DelegationDetailsPanel<T> extends Component<T> {
     }
 
     public boolean isCertificationWorkItemsSelected() {
-        return $(Schrodinger.byDataId("certificationWorkItems")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        return $(Schrodinger.byDataId("certificationWorkItems")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .isSelected();
     }
 

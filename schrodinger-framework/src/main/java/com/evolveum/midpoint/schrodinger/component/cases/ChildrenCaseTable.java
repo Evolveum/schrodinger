@@ -35,7 +35,7 @@ public class ChildrenCaseTable extends TableWithPageRedirect<CasePage> {
     @Override
     public CasePage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new CasePage();
     }
 
@@ -55,7 +55,7 @@ public class ChildrenCaseTable extends TableWithPageRedirect<CasePage> {
         getParentElement()
                 .$(Schrodinger.byDataId("tableContainer"))
                 .$(By.partialLinkText(name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return new CasePage();
     }

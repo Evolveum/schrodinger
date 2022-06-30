@@ -38,27 +38,27 @@ public class ResourceAccountsPanel<T> extends Component<T> {
 
     public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> importTask() {
         SelenideElement importDiv = $(Schrodinger.byDataId("div", "import"));
-        importDiv.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        importDiv.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         SelenideElement dropDownElement = importDiv.lastChild().lastChild()
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
     }
 
     public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> reconciliationTask() {
         SelenideElement reconcileDiv = $(Schrodinger.byDataId("div", "reconciliation"));
-        reconcileDiv.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        reconcileDiv.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         SelenideElement dropDownElement = reconcileDiv.lastChild().lastChild()
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
     }
 
     public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> liveSyncTask() {
         $(Schrodinger.byElementValue("label", "data-s-id", "label", "Live Sync"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         ElementsCollection dropDownElement = $$(By.cssSelector(".dropdown-menu.pull-right"));
 
@@ -76,32 +76,32 @@ public class ResourceAccountsPanel<T> extends Component<T> {
     public ResourceAccountsPanel<T> clickSearchInRepository() {
 
         $(Schrodinger.byDataId("a", "repositorySearch"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         $(Schrodinger.byDataId("a", "repositorySearch"))
-                .waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_1_M);
+                .shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_1_M);
 
         return this;
     }
 
     public ResourceAccountsPanel<T> clickSearchInResource() {
         $(Schrodinger.byDataId("a", "resourceSearch"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         $(Schrodinger.byDataId("a", "resourceSearch"))
-                .waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_1_M);
+                .shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_1_M);
         return this;
     }
 
     public ResourceShadowTable<ResourceAccountsPanel<T>> table() {
 
         SelenideElement element = $(By.cssSelector(".box.boxed-table"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceShadowTable<>(this, element);
     }
 
     public void setIntent(String intent) {
-        $(Schrodinger.byDataId("div", "intent")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+        $(Schrodinger.byDataId("div", "intent")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .$(Schrodinger.byDataId("input", "input"))
                 .setValue(intent);
     }
@@ -110,7 +110,7 @@ public class ResourceAccountsPanel<T> extends Component<T> {
 
         $(By.tagName("thead"))
                 .$(Schrodinger.byDataId("inlineMenuPanel"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
 
         SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("ul", "class", "dropdown-menu pull-right"));

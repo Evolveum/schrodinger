@@ -28,7 +28,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class SecurityQuestionsPage extends LoginPage {
 
     public SecurityQuestionsPage setUsername(String username) {
-        $(Schrodinger.byDataId("username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
+        $(Schrodinger.byDataId("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
         $(Schrodinger.byDataId("showQuestions")).click();
         return  this;
     }
@@ -41,13 +41,13 @@ public class SecurityQuestionsPage extends LoginPage {
 
     public BasicPage submit() {
         $(Schrodinger.byDataId("insideForm")).click();
-        $x("//button[@type='submit']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x("//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new BasicPage();
     }
 
     public MyPasswordQuestionsPanel<SecurityQuestionsPage> getPasswordQuestionsPanel() {
         return new MyPasswordQuestionsPanel<>(this,
-                $(Schrodinger.byDataId("questionAnswerPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("questionAnswerPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
 //    public SecurityQuestionsPage register() {
@@ -74,8 +74,8 @@ public class SecurityQuestionsPage extends LoginPage {
 //        if (StringUtils.isNotEmpty(locale)){
 //            changeLanguage(locale);
 //        }
-//        $(By.name("username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
-//        $(By.name("password")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
+//        $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
+//        $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
 //        $x("//input[@type='submit']").click();
 //
 //        return new BasicPage();
@@ -83,7 +83,7 @@ public class SecurityQuestionsPage extends LoginPage {
 //
 //
 //    public FeedbackBox<? extends SecurityQuestionsPage> feedback() {
-//        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+//        SelenideElement feedback = $(By.cssSelector("div.feedbackContainer")).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
 //        return new FeedbackBox<>(this, feedback);
 //    }
 

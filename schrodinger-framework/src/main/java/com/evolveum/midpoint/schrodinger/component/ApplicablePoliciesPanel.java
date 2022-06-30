@@ -16,13 +16,13 @@ public class ApplicablePoliciesPanel<T extends FocusPage> extends Component<T> {
     }
 
     public ApplicablePoliciesPanel<T> selectPolicyByName(String name) {
-        $(byText(name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+        $(byText(name)).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .find(By.tagName("input")).setSelected(true);
         return this;
     }
 
     public ApplicablePoliciesPanel<T> deselectPolicyByName(String name) {
-        $(byText(name)).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+        $(byText(name)).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .find(By.tagName("input")).setSelected(false);
         return this;
     }

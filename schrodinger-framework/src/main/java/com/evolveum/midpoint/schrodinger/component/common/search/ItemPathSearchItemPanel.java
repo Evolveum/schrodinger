@@ -34,11 +34,11 @@ public class ItemPathSearchItemPanel<T> extends Component<T> {
     }
 
     public ItemPathPanel<ItemPathSearchItemPanel<T>> getItemPathPopupPanel() {
-        return new ItemPathPanel<>(this, $(Schrodinger.byDataId("itemPath")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new ItemPathPanel<>(this, $(Schrodinger.byDataId("itemPath")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public T confirm() {
-        getParentElement().$x(".//a[@data-s-id='confirmButton']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getParentElement().$x(".//a[@data-s-id='confirmButton']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return getParent();
     }
 }

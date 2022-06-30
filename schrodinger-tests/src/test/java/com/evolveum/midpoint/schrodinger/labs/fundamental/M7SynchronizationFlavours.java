@@ -110,7 +110,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                         .selectAccountsPanel()
                             .importTask()
                                 .clickCreateNew();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         taskPage
                                     .selectBasicPanel()
                                         .form()
@@ -120,7 +120,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                                     .clickSaveAndRun()
                                         .feedback()
                                             .isInfo();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S); // the time for the task to be finished
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds()); // the time for the task to be finished
 //todo fix test page
 //        showTask("Initial import from HR")
 //                .selectTabOperationStatistics()
@@ -131,21 +131,21 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
     @Test (dependsOnMethods = {"mod07test01RunningImportFromResource"}, groups={"M7"})
     public void mod07test02RunningAccountReconciliation() throws IOException {
         createReconTask("CSV-1 Reconciliation", CSV_1_RESOURCE_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         deselectDryRun("CSV-1 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         assertContainsProjection("X001212", CSV_1_RESOURCE_OID, "jsmith");
 
         createReconTask("CSV-2 Reconciliation", CSV_2_RESOURCE_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         deselectDryRun("CSV-2 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         assertContainsProjection("X001212", CSV_2_RESOURCE_OID, "jsmith");
 
         createReconTask("CSV-3 Reconciliation", CSV_3_RESOURCE_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         deselectDryRun("CSV-3 Reconciliation");
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         assertContainsProjection("X001212", CSV_3_RESOURCE_OID, "cn=John Smith,ou=ExAmPLE,dc=example,dc=com");
     }
 
@@ -163,9 +163,9 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod07test03RunningAttributeReconciliation"}, groups={"M7"})
     public void mod07test04RunningLiveSync() throws IOException {
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         TaskPage task = basicPage.newTask("Live synchronization task");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         task.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Synchronization")
@@ -251,7 +251,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
     private void createReconTask(String reconTaskName, String resource){
         TaskPage task = basicPage.newTask("Reconciliation task");
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         task.selectActivityWorkPanel()
                 .form()
                     .expandContainerPropertiesPanel("Reconciliation")

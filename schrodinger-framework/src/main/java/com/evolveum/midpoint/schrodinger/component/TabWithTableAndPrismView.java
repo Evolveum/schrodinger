@@ -37,13 +37,13 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
 
     public <T extends TabWithTableAndPrismView<P>> AbstractTableWithPrismView<T> table() {
 
-        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new AbstractTableWithPrismView<T>((T) this, tableBox) {
             @Override
             public PrismFormWithActionButtons<AbstractTableWithPrismView<T>> clickByName(String name) {
                 $(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
                 SelenideElement prismElement = getPrismViewPanel();
 
@@ -53,7 +53,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
             @Override
             public AbstractTableWithPrismView<T> selectCheckboxByName(String name) {
                 $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
                 return this;
             }
@@ -61,8 +61,8 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
             @Override
             public AbstractTableWithPrismView<T> selectHeaderCheckbox() {
                 $(By.tagName("thead")).$x(".//input[@data-s-id='check']")
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
                 return this;
             }
 
@@ -75,8 +75,8 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
             @Override
             public AbstractTableWithPrismView<T> clickHeaderActionButton(String actionButtonStyle) {
                 $(By.tagName("thead")).$x(".//i[@class='" + actionButtonStyle + "']")
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
                 return this;
             }
         };

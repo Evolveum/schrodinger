@@ -38,7 +38,7 @@ public class OrgTreeNodeDropDown<T> extends DropDown<T> {
     public OrgPage edit(){
         Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//schrodinger[@"+ Schrodinger.DATA_S_RESOURCE_KEY +"='TreeTablePanel.edit']").parent()
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForMainPanelOnDetailsPage();
         return new OrgPage();
     }
@@ -46,16 +46,16 @@ public class OrgTreeNodeDropDown<T> extends DropDown<T> {
     public OrgHierarchyPanel<OrgRootTab> expandAll(){
         Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//schrodinger[@"+ Schrodinger.DATA_S_RESOURCE_KEY +"='TreeTablePanel.expandAll']").parent()
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         return (OrgHierarchyPanel<OrgRootTab>) getParent();
     }
 
     public T collapseAll(){
         Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//schrodinger[@"+ Schrodinger.DATA_S_RESOURCE_KEY +"='TreeTablePanel.collapseAll']").parent()
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         return getParent();
     }
 }

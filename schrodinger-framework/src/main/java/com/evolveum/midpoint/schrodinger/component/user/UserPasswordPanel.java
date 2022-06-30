@@ -38,10 +38,10 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
         if (existValue) {
             getParentElement().$x("//a[@data-s-id='changePasswordLink']").click();
         }
-        getParentElement().$x("//input[@data-s-id='password1']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        getParentElement().$x("//input[@data-s-id='password2']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        getParentElement().$x("//input[@data-s-id='password2']").waitUntil(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        getParentElement().$x("//input[@data-s-id='password1']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        getParentElement().$x("//input[@data-s-id='password2']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        getParentElement().$x("//input[@data-s-id='password2']").shouldBe(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 

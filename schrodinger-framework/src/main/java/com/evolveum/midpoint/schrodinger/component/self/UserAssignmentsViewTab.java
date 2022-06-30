@@ -34,8 +34,8 @@ public class UserAssignmentsViewTab extends RequestRoleTab {
     }
 
     public UserAssignmentsViewTab selectAvailableRelation(String relationName) {
-        $(Schrodinger.byDataId("sourceUserRelations")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(byText(relationName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("sourceUserRelations")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .$(byText(relationName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 }

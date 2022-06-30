@@ -48,7 +48,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
         $(By.tagName("thead"))
                 .$(Schrodinger.byDataId("inlineMenuPanel"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
 
         SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("ul", "class", "dropdown-menu pull-right"));
@@ -67,15 +67,15 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                 Utils.waitForAjaxCallFinish();
                 SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "label", name));
                 linkElement
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
-//                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
+//                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 //                if (linkElement.isDisplayed() && linkElement.isEnabled()) {
 //                    linkElement.click();
-//                    Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+//                    Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 //                }
 
                 SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
                 return new ProjectionFormPanelWithActionButtons<>(this, prismElement);
             }
@@ -85,7 +85,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
                 $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
                         .$(By.tagName("input"))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
                 return this;
             }
@@ -94,8 +94,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
             public AbstractTableWithPrismView<ProjectionsPanel<P>> selectHeaderCheckbox() {
                 $(Schrodinger.byFollowingSiblingEnclosedValue("th", "class", "check", "data-s-id", "3", ""))
                         .$(By.tagName("input"))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
                 return this;
             }
 
@@ -109,8 +109,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
             @Override
             public AbstractTableWithPrismView<ProjectionsPanel<P>> clickHeaderActionButton(String actionButtonStyle) {
                 $(Schrodinger.byDescendantElementAttributeValue("th", "class", actionButtonStyle))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
                 return this;
             }
         };
@@ -125,10 +125,10 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 //            public PrismForm<AbstractTable<ProjectionsTab>> clickByName(String name) {
 //
 //                $(Schrodinger.byElementValue("span", "data-s-id", "name", name))
-//                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 //
 //                SelenideElement prismElement = $(By.cssSelector(".container-fluid.prism-object"))
-//                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+//                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 //
 //                return new PrismForm<>(this, prismElement);
 //            }
@@ -137,7 +137,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 //            public AbstractTable<ProjectionsTab> selectCheckboxByName(String name) {
 //
 //                $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name))
-//                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 //
 //                return this;
 //            }
@@ -146,8 +146,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
     public FocusSetProjectionModal<ProjectionsPanel<P>> clickAddProjection() {
         $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new FocusSetProjectionModal<ProjectionsPanel<P>>(this, Utils.getModalWindowSelenideElement());
     }
 
@@ -160,7 +160,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
         ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
         String assignmentActualName = form.getParentElement().$x(".//span[@data-s-id='displayName']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getText();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getText();
         form.clickCancel();
         return projectionName.equals(assignmentActualName);
     }
@@ -225,7 +225,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
     @Override
     protected SelenideElement getPrismViewPanel() {
         return $(Schrodinger.byDataId("div", "itemDetails"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
 }

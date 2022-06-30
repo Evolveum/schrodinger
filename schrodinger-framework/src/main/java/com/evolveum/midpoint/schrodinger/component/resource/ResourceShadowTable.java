@@ -44,10 +44,10 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     public AccountPage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
         SelenideElement link = getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name));
-        link.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        link.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         Utils.waitForAjaxCallFinish();
-        $(By.className("page-title")).waitUntil(Condition.textCaseSensitive("Account"), MidPoint.TIMEOUT_LONG_1_M);
+        $(By.className("page-title")).shouldBe(Condition.textCaseSensitive("Account"), MidPoint.TIMEOUT_LONG_1_M);
 
         return new AccountPage();
     }
@@ -56,8 +56,8 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     public ResourceShadowTable<T> selectCheckboxByName(String name) {
         Utils.waitForAjaxCallFinish();
         SelenideElement check = $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name));
-        check.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        check.waitUntil(Condition.selected, MidPoint.TIMEOUT_MEDIUM_6_S);
+        check.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        check.shouldBe(Condition.selected, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return this;
     }
@@ -69,12 +69,12 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     public UserPage clickOnOwnerByName(String name, String expectedUserPageTitle) {
 
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         if (StringUtils.isNotEmpty(expectedUserPageTitle)) {
             $(Schrodinger.byDataId("span", "pageTitle"))
-                    .waitUntil(Condition.text(expectedUserPageTitle), MidPoint.TIMEOUT_MEDIUM_6_S);
+                    .shouldBe(Condition.text(expectedUserPageTitle), MidPoint.TIMEOUT_MEDIUM_6_S);
         } else {
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         }
         return new UserPage();
     }
@@ -82,10 +82,10 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     @Override
     protected TableHeaderDropDownMenu<ResourceShadowTable<T>> clickHeaderActionDropDown() {
         $(Schrodinger.byElementAttributeValue("button", "data-toggle", "dropdown"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         SelenideElement cog = $(Schrodinger.byElementAttributeValue("ul","role","menu"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new TableHeaderDropDownMenu<>(this, cog);
     }

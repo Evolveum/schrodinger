@@ -17,13 +17,13 @@ public class MultiCompositedButtonPanel<T> extends Component<T> {
 
     public CompositedButtonPanel<MultiCompositedButtonPanel<T>> findCompositedButtonByTitle(String buttonTitle) {
         SelenideElement button = $(Schrodinger.byElementAttributeValue("button", "title", buttonTitle))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new CompositedButtonPanel<>(this, button);
     }
 
     public CompositedButtonPanel<MultiCompositedButtonPanel<T>> findCompositedButtonByLabel(String buttonLabel) {
         SelenideElement button = $(Schrodinger.byElementValue("span", "class", "compositedButtonLabel", buttonLabel))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new CompositedButtonPanel<>(this, button);
     }
 

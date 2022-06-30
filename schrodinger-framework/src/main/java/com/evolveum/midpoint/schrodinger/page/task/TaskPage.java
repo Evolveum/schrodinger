@@ -59,46 +59,46 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     public ProgressPage clickSaveAndRun() {
         if (isUseTabbedPanel()) {
             $(Schrodinger.byDataId("saveAndRun"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         } else {
             $(byText("Save & Run"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         }
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ProgressPage();
     }
 
     public TaskPage clickResume() {
         if (isUseTabbedPanel()) {
             $(Schrodinger.byDataResourceKey("span", "pageTaskEdit.button.resume"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         } else {
-            $(Schrodinger.byDataId("taskButtonsContainer")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+            $(Schrodinger.byDataId("taskButtonsContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                     .$x(".//span[text()='Resume']")
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         }
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public TaskPage resumeStopRefreshing() {
 
-        $(Schrodinger.byElementAttributeValue("span", "title", "Resume refreshing")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byElementAttributeValue("span", "title", "Resume refreshing")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
 
     public TaskPage clickRunNow() {
-        $(Schrodinger.byElementAttributeValue("span", "title", "Run now")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byElementAttributeValue("span", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
 
     public TaskPage clickSuspend() {
-        $(Schrodinger.byDataResourceKey("span", "pageTaskEdit.button.suspend")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataResourceKey("span", "pageTaskEdit.button.suspend")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
@@ -108,31 +108,31 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
     public TaskPage downloadReport() {
         $(Schrodinger.byDataResourceKey("PageTask.download.report"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
     public ConfirmationModal<TaskPage> cleanupEnvironmentalPerformanceInfo() {
         $(By.cssSelector(".fa.fa-area-chart"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new ConfirmationModal<TaskPage>(this, getModalWindowSelenideElement());
     }
 
     public ConfirmationModal<TaskPage> cleanupResults() {
         $(By.cssSelector(".fa.fa-list-alt"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new ConfirmationModal<TaskPage>(this, getModalWindowSelenideElement());
     }
 
     public TaskPage refreshNow() {
         $(Schrodinger.byDataResourceKey("autoRefreshPanel.refreshNow"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
     public TaskPage resumeRefreshing() {
         $(Schrodinger.byDataResourceKey("autoRefreshPanel.resumeRefreshing"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
@@ -185,8 +185,8 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     public TaskPage setHandlerUriForNewTask(String handler) {
         SelenideElement handlerElement = $(Schrodinger.byDataResourceKey("a", "TaskHandlerSelectorPanel.selector.header"));
         selectBasicPanel().form().addAttributeValue("handlerUri", handler);
-//        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        handlerElement.waitWhile(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
+//        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        handlerElement.shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
     }
 }

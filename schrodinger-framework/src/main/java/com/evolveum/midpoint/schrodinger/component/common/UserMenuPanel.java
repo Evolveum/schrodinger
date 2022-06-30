@@ -37,10 +37,10 @@ public class UserMenuPanel<BP extends BasicPage> extends Component<BP> {
     public LoginPage clickLogout() {
         getParentElement()
                 .$(Schrodinger.byDataId("logoutForm"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(Schrodinger.byElementAttributeValue("input", "type", "submit"))
                 .click();
-        $(Schrodinger.byElementAttributeValue("input", "name", "username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byElementAttributeValue("input", "name", "username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new LoginPage();
     }
 }

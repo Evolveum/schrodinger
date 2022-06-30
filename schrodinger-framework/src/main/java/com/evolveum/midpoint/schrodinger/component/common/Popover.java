@@ -34,7 +34,7 @@ public class Popover<T> extends Component<T> {
 
     public Popover<T> inputValue(String input) {
         SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='textInput']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         if(!input.equals(inputField.getValue())) {
             inputField.setValue(input);
         }
@@ -42,18 +42,18 @@ public class Popover<T> extends Component<T> {
     }
 
     public Popover<T> inputRefOid(String oid) {
-        getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']").waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(oid);
+        getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(oid);
 
         return this;
     }
 
     public Popover<T> inputValueWithEnter(String input) {
         SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='textInput']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         if(!input.equals(inputField.getValue())) {
             inputField.setValue(input);
             inputField.sendKeys(Keys.ENTER);
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         }
         return this;
     }
@@ -61,7 +61,7 @@ public class Popover<T> extends Component<T> {
     public T updateSearch() {
         SelenideElement button = getParentElement().parent().$x(".//a[@"+Schrodinger.DATA_S_ID+"='update']");
         button.click();
-        button.waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
+        button.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return this.getParent();
     }

@@ -37,16 +37,16 @@ public class ClockPanel extends Component<InternalsConfigurationPage> {
     public void changeTime(String date, String hours, String minutes, DateTimePanel.AmOrPmChoice amOrPmChoice) {
         DateTimePanel<ClockPanel> dateTimePanel = getOffsetPanel();
         dateTimePanel.setDateTimeValue(date, hours, minutes, amOrPmChoice);
-        $(Schrodinger.byDataId("save")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("save")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
 
     public DateTimePanel<ClockPanel> getOffsetPanel() {
         return new DateTimePanel<>(this,
-                $(Schrodinger.byDataId("offset")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("offset")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public void resetTime() {
-        $(Schrodinger.byDataId("reset")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("reset")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
 
 }

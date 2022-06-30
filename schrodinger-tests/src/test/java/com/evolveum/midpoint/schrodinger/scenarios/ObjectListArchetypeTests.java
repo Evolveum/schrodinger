@@ -72,7 +72,7 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
                 .assertButtonToolBarExists()
                 .getToolbarButtonByCss(ARCHETYPE_ICON_CSS_STYLE)
                 .shouldBe(Condition.visible)
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
     }
 

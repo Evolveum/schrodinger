@@ -34,7 +34,7 @@ public class MyPasswordQuestionsPanel<T> extends Component<T> {
     }
 
     public MyPasswordQuestionsPanel<T> setMyPasswordTFValue(String value) {
-        $(Schrodinger.byDataId("answerTF")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        $(Schrodinger.byDataId("answerTF")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         return this;
     }
 }

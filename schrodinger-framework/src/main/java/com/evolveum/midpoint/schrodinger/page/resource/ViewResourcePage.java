@@ -35,22 +35,22 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
 
     public ResourceConfigurationPanel getConnectorConfigurationPanel() {
         SelenideElement element=  getNavigationPanelSelenideElement("Connector configuration")
-              .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+              .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
 
         return new ResourceConfigurationPanel(new EditResourceConfigurationPage(), element);
     }
 
     public ResourceWizardPage clickShowUsingWizard() {
 
-        $(Schrodinger.byElementAttributeValue("span", "title", "Show using wizard")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byElementAttributeValue("span", "title", "Show using wizard")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         $(Schrodinger.byElementAttributeValue("form", "class", "form-horizontal"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return new ResourceWizardPage();
     }
 
     public ResourceAccountsPanel<ViewResourcePage> selectAccountsPanel() {
         SelenideElement tabContent = getNavigationPanelSelenideElement("Accounts")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceAccountsPanel<>(this, tabContent);
     }
@@ -58,16 +58,16 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
     public ResourceAccountsPanel<ViewResourcePage> clickGenericsTab() {
 
         $(Schrodinger.byDataResourceKey("schrodinger", "PageResource.tab.content.generic")).parent()
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        $(By.className("resource-content-selection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(By.className("resource-content-selection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         SelenideElement tabContent = $(By.cssSelector(".tab-pane.active"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceAccountsPanel<>(this, tabContent);
     }
 
     public ViewResourcePage refreshSchema() {
-        $x(".//span[@title='Refresh schema']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//span[@title='Refresh schema']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
@@ -77,8 +77,8 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
     }
 
     public TestConnectionModal<ViewResourcePage> clickTestConnection() {
-        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
-//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
     }
 

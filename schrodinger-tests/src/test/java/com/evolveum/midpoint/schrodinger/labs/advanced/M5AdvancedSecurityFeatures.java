@@ -73,10 +73,10 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
         addObjectFromFile(INITIAL_IMPORT_FROM_CONTRACTORS_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         addObjectFromFile(CONTRACTORS_SYNCHRONIZATION_TASK_FILE);
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_ORG_TASK_FILE);
 
@@ -201,7 +201,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                         .assertSuccess();
 
         FileUtils.copyFile(HR_SOURCE_5_1_FILE, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000980")
                 .selectAssignmentsPanel()

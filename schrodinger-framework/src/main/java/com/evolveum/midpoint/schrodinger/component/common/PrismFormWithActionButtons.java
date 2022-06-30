@@ -33,7 +33,7 @@ public class PrismFormWithActionButtons<T> extends PrismForm<T> {
     public T clickDone() {
 
         $(Schrodinger.byDataResourceKey("div", "MultivalueContainerListPanel.doneButton"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this.getParent();
     }
@@ -41,15 +41,15 @@ public class PrismFormWithActionButtons<T> extends PrismForm<T> {
     public T clickCancel() {
 
         $(Schrodinger.byDataResourceKey("div", "MultivalueContainerListPanel.cancelButton"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_MEDIUM_6_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getParentElement().shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this.getParent();
     }
 
     public PrismFormWithActionButtons<T> selectFormTabByName(String tabName) {
         if (getFormTabbedPanelId() != null) {
             TabPanel<PrismFormWithActionButtons<T>> tabPanel = new TabPanel<PrismFormWithActionButtons<T>>(this,
-                    $(Schrodinger.byDataId(getFormTabbedPanelId())).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
+                    $(Schrodinger.byDataId(getFormTabbedPanelId())).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
             tabPanel.clickTabWithName(tabName);
         }
         return this;

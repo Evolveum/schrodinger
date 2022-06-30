@@ -76,19 +76,19 @@ public class DateTimePanel<T> extends Component<T> {
     }
 
     public SelenideElement findDate() {
-        return getParentElement().$(Schrodinger.byDataId("date")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getParentElement().$(Schrodinger.byDataId("date")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public SelenideElement findHours() {
-        return getParentElement().$(Schrodinger.byDataId("hours")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getParentElement().$(Schrodinger.byDataId("hours")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public SelenideElement findMinutes() {
-        return getParentElement().$(Schrodinger.byDataId("minutes")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getParentElement().$(Schrodinger.byDataId("minutes")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public SelenideElement findAmOrPmChoice() {
-        return getParentElement().$(Schrodinger.byDataId("amOrPmChoice")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getParentElement().$(Schrodinger.byDataId("amOrPmChoice")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public DateTimePanel<T> assertDateValueEquals(String expectedValue) {

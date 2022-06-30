@@ -36,6 +36,6 @@ public class LoggedInUsersPanel extends Component<InternalsConfigurationPage> {
     }
 
     public Table<LoggedInUsersPanel> table() {
-        return new Table<>(this, $(Schrodinger.byDataId("table")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new Table<>(this, $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

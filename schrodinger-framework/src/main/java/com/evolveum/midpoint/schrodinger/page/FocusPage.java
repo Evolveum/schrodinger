@@ -83,9 +83,9 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
         if (isUseTabbedPanel()) {
             setCheckFormGroupOptionCheckedByValue(option, true);
         } else {
-            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             optionsButtons.scrollIntoView(false).$x(".//button[@data-s-id='buttonContainer']").click();
-            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, true);
         }
     }
@@ -94,9 +94,9 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
         if (isUseTabbedPanel()) {
             setCheckFormGroupOptionCheckedByValue(option, false);
         } else {
-            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             optionsButtons.$x(".//button[@data-s-id='buttonContainer']").click();
-            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, false);
         }
     }
@@ -124,7 +124,7 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
 
     public boolean isActivationState(String state) {
 
-        SelenideElement summaryPanel = $(Schrodinger.byDataId("span", "summaryTagLabel")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement summaryPanel = $(Schrodinger.byDataId("span", "summaryTagLabel")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         if (state != null || !(state.isEmpty())) {
             return state.equals(summaryPanel.getText());

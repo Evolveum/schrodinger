@@ -36,7 +36,7 @@ public class WorkitemsPanel extends Component<CasePage> {
     }
 
     public WorkitemsTabTable table() {
-        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).waitUntil(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new WorkitemsTabTable(this, tableBox);
     }
 }

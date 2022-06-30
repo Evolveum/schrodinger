@@ -27,8 +27,8 @@ public class RepositoryObjectPage extends BasicPage {
 
     public String getObjectXmlText() {
 //        Utils.setCheckFormGroupOptionCheckedById("switchToPlainText", true);
-        $(By.name("switchToPlainText:container:check")).setSelected(true).waitUntil(Condition.selected, MidPoint.TIMEOUT_SHORT_4_S);
-        $(Schrodinger.byDataId("plainTextarea")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(By.name("switchToPlainText:container:check")).setSelected(true).shouldBe(Condition.selected, MidPoint.TIMEOUT_SHORT_4_S);
+        $(Schrodinger.byDataId("plainTextarea")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String xml = $(Schrodinger.byDataId("plainTextarea")).getValue();
         return xml == null ? "" : xml;
     }

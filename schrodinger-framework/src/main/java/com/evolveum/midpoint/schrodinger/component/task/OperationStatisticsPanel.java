@@ -64,7 +64,7 @@ public class OperationStatisticsPanel extends Component<TaskPage> {
 
     public Table<OperationStatisticsPanel> getSynchronizationSituationTransitionsTable() {
         Table<OperationStatisticsPanel> table = new Table<>(this,
-                $(Schrodinger.byDataId("synchronizationSituationTransitions")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("synchronizationSituationTransitions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         return table;
     }
 

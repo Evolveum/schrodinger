@@ -70,15 +70,15 @@ public class EditResourceConfigurationPage extends BasicPage {
     }
 
     public ListResourcesPage clickSave() {
-        $(Schrodinger.byDataId("buttons")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+        $(Schrodinger.byDataId("buttons")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//i[contains(@class,\"fa fa-save\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         return new ListResourcesPage();
     }
 
     public TestConnectionModal<EditResourceConfigurationPage> clickTestConnection() {
-        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).waitUntil(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
-//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
     }
 

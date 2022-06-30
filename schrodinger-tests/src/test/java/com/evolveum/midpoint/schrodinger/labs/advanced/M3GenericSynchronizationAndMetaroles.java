@@ -95,7 +95,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
 
         addObjectFromFile(SEQUENCE_MEALCARD_FILE);
         addObjectFromFile(ROLE_INTERNAL_EMPLOYEE_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         showUser("kirk")
                 .checkReconcile()
@@ -114,7 +114,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .assertPropertyInputValue("Meal Card Number", "1001");
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         showRole("Internal Employee")
@@ -124,7 +124,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .recompute()
                                 .clickYes();
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M.getSeconds());
         basicPage.listUsers()
                 .table()
                     .search()
@@ -142,7 +142,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
     public void mod03test04orgStructureSynchronization() throws IOException {
         addCsvResourceFromFileAndTestConnection(HR_ORG_RESOURCE_FILE, HR_ORGS_RESOURCE_NAME, hrOrgsTargetFile.getAbsolutePath());
         TaskPage task = basicPage.newTask("Reconciliation task");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         task.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Org Reconciliation")
@@ -237,7 +237,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                     .clickBack();
 
         TaskPage hrOrgsSyncTask = basicPage.newTask("Live synchronization task");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         hrOrgsSyncTask.selectBasicPanel()
                 .form()
                     .addAttributeValue(TaskType.F_NAME, "HR Orgs Synchronization")
@@ -266,7 +266,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                         .assertInfo();
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_4_UPDATE_1, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         //TODO check notification
 
         basicPage
@@ -289,7 +289,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .clickBack();
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_4_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage
                 .listUsers("Employees")
@@ -314,7 +314,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         addObjectFromFile(OBJECT_TEMPLATE_EXAMPLE_USER);
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000993")
                 .selectAssignmentsPanel()
@@ -344,7 +344,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         //todo check notification
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_1, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -359,7 +359,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                             .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_2, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -370,7 +370,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .assertChildOrgExists("Private Investigation");
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_3, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -381,7 +381,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .assertChildOrgExists("Private Investigation");
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_2, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("000992")
                 .selectAssignmentsPanel()
@@ -465,7 +465,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         //todo check notification
 
         FileUtils.copyFile(HR_ORG_SOURCE_FILE_LAB_3_5_UPDATE_4, hrOrgsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -504,7 +504,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                         .assertProjectionExist("ExAmPLE, Inc. HR Organization Structure Source", "Investigation");
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_3, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("000993")
                 .selectAssignmentsPanel()
@@ -515,7 +515,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         ;
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_3_5_UPDATE_4, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("000991")
                 .assertActivationStateEquals("Disabled")

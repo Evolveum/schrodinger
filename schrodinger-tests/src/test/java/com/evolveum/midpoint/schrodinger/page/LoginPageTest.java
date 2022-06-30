@@ -50,11 +50,11 @@ public class LoginPageTest extends AbstractLoginPageTest {
         FormLoginPage login = midPoint.formLogin();
         open("/login");
         open("/");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelfRegistrationPage registrationPage = login.register();
         registrationPage.setGivenName("Test").setFamilyName("User")
                 .setEmail("test.user@evolveum.com").setPassword("5ecr3t").setCaptcha().submit();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         basicPage.feedback().isSuccess();
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         String linkTag = "link='";
@@ -70,10 +70,10 @@ public class LoginPageTest extends AbstractLoginPageTest {
     public void test030resetPasswordMailNonce() throws IOException, InterruptedException {
         basicPage.loggedUser().logoutIfUserIsLogin();
 
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         FormLoginPage login = midPoint.formLogin();
         open("/login");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
         login.forgotPassword()
                 .setEmailValue(MAIL_OF_ENABLED_USER)
@@ -91,7 +91,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         open("/login");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
         login.loginWithReloadLoginPage("administrator", "5ecr3t");
         addObjectFromFile(SEC_QUES_RESET_PASS_SECURITY_POLICY);
@@ -106,7 +106,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setMyPasswordTFValue("10")
                 .and()
                 .clickSendButton();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         String actualUrl = basicPage.getCurrentUrl();
         LOG.info("LoginPageTest actualUrl = " + actualUrl);
         Selenide.screenshot("resetPassowordSecurityQuestion");
@@ -118,7 +118,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         open("/login");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
 
         login.changeLanguage("de");

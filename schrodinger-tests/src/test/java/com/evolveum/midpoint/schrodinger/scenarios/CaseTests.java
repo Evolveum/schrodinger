@@ -136,7 +136,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .and()
                 .assertFeedbackExists();
 
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         allRequestsPage = basicPage.listAllRequests();
         CasePage casePage = allRequestsPage
@@ -181,7 +181,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .clickByName(ASSIGNING_ROLE_CASE_NAME + REJECT_WORKITEM_TEST_USER_NAME)
                 .rejectButtonClick();
 
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         allRequestsPage = basicPage.listAllRequests();
         CasePage casePage = allRequestsPage
                 .table()
@@ -206,7 +206,7 @@ public class CaseTests extends AbstractSchrodingerTest {
         createUserAndAssignRoleWithApprovement(FORWARD_WORKITEM_TEST_USER_NAME);
 
         createUser(FORWARD_WORKITEM_TO_USER_NAME);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         AllRequestsPage allRequestsPage = basicPage.listAllRequests();
         ChildrenCaseTable childrenCaseTable = allRequestsPage
@@ -245,7 +245,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .feedback()
                 .assertSuccess();
 
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.listAllRequests()
                 .table()

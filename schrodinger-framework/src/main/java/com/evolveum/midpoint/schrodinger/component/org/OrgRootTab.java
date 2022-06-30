@@ -38,19 +38,19 @@ public class OrgRootTab extends Component<OrgTreePage> {
 
     public OrgHierarchyPanel<OrgRootTab> getOrgHierarchyPanel() {
         SelenideElement treePanel = getParentElement().$(Schrodinger.byDataId("div", "treePanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new OrgHierarchyPanel<>(this, treePanel);
     }
 
     public MemberPanel<OrgRootTab> getMemberPanel() {
         SelenideElement memberPanel = getParentElement().$(Schrodinger.byDataId("div", "memberPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new MemberPanel<>(this, memberPanel);
     }
 
     public ManagerPanel<OrgRootTab> getManagerPanel() {
         SelenideElement memberPanel = getParentElement().$(Schrodinger.byDataId("div", "managerContainer"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ManagerPanel<>(this, memberPanel);
     }
 }

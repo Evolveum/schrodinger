@@ -34,7 +34,7 @@ public class InputTable<T> extends Component<T>{
     public InputTable<T> addAttributeValue(String attributeName, String attributeValue){
 
         SelenideElement element = $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","text",null,null,attributeName))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(attributeValue);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(attributeValue);
 
         return this;
     }
@@ -43,7 +43,7 @@ public class InputTable<T> extends Component<T>{
     public InputTable<T> clickCheckBox(String attributeName){
 
     $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","checkbox",null,null,attributeName))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }

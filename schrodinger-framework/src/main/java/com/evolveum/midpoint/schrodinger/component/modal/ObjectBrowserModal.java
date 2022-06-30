@@ -39,13 +39,13 @@ public class ObjectBrowserModal<T> extends ModalBox<T> {
 
     public ObjectBrowserModalTable<T, ObjectBrowserModal<T>> table(){
         SelenideElement box = $(Schrodinger.byElementAttributeValue("div", "class","box boxed-table"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ObjectBrowserModalTable<T, ObjectBrowserModal<T>>(this, box);
     }
 
     public T clickAddButton() {
-        $(Schrodinger.byDataId("addButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $(Schrodinger.byDataId("addButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return getParent();
     }

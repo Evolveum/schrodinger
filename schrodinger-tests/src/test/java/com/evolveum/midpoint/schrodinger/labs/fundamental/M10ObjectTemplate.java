@@ -118,7 +118,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         importObject(HR_IMPORT_TASK_FILE);
         showTask("Initial import from HR")
                 .clickRunNow();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M.getSeconds());
 
         importObject(HR_SYNCHRONIZATION_TASK_FILE);
 
@@ -198,7 +198,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertFullName("John Smith");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000998")
                 .assertFullName("David Lister");
@@ -227,7 +227,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .feedback()
                     .isInfo();
 
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M.getSeconds());
         showUser("kirk")
                 .assertFullName("Jim Tiberius Kirk");
     }
@@ -241,7 +241,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()
                             .clickSearchInResource();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         accountTab.table()
                 .selectCheckboxByName("001212")
                     .clickImport()
@@ -259,7 +259,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertAssignmentsWithRelationExist("Organization", "Human Resources");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000999")
             .selectAssignmentsPanel()
@@ -268,7 +268,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
 
         showTask("User Recomputation Task").clickRunNow();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000998")
                 .selectAssignmentsPanel()
@@ -277,7 +277,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART2, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         UserPage user = showUser("X000998");
         user.assertActivationStateEquals("Disabled");
@@ -286,7 +286,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertAssignmentsWithRelationExist("Role", "Member",  "Internal Employee");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART3, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         user = showUser("X000998");
         user.assertActivationStateEquals("Disabled");
@@ -295,7 +295,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertAssignmentsWithRelationExist("Organization", "Member", "Former Employees");
 
         FileUtils.copyFile(HR_SOURCE_FILE_10_2_PART1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         user = showUser("X000998");
         user.assertActivationStateEquals("Enabled");
@@ -348,7 +348,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         addObjectFromFile(LOOKUP_EMP_STATUS_FILE);
         importObject(OBJECT_TEMPLATE_USER_FILE_10_3, true);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         form = showUser("kirk")
                 .selectBasicPanel()
@@ -366,9 +366,9 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
     @Test(dependsOnMethods = {"mod10test03LookupTablesAndAttributeOverrides"})
     public void mod10test04FinishingManagerMapping() throws IOException {
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         showTask("User Recomputation Task").clickRunNow();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         OrgRootTab rootTab = basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure");
@@ -456,7 +456,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
 
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_10_4, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 //        importObject(CSV_3_RESOURCE_FILE_10_4, true);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 //        changeResourceAttribute(CSV_3_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csv3TargetFile.getAbsolutePath(), true);
 
         showUser("kirk").checkReconcile()
@@ -479,7 +479,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         notificationFile.createNewFile();
 
         addObjectFromFile(SYSTEM_CONFIGURATION_FILE_10);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage.notifications()
                 .setRedirectToFile(notificationFile.getAbsolutePath())
@@ -489,7 +489,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .isSuccess();
 
         FileUtils.copyFile(HR_SOURCE_FILE_11_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         String notification = Utils.readBodyOfLastNotification(notificationFile);
 

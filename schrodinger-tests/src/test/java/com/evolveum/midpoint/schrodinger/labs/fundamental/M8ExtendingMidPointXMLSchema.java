@@ -110,7 +110,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()
                         .clickSearchInResource();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         accountTab.table()
                 .selectCheckboxByName("001212")
                         .clickImport()
@@ -147,7 +147,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                     .isSuccess();
 
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jsmith");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         PrismForm<AccountPage> accountForm = shadow.form();
         Selenide.sleep(1000);
         accountForm.assertPropertyInputValue("dep", "Human Resources");

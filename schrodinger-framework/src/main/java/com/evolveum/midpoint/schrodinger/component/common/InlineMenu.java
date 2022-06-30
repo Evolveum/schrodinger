@@ -111,20 +111,20 @@ public class InlineMenu<T> extends Component<T> {
     public InlineMenu<T> clickItemByKey(String itemKey) {
         SelenideElement element = getParentElement().find("div.btn-group ul.dropdown-menu li a schrodinger[data-s-resource-key=" + itemKey + "]");
         element.parent().click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public InlineMenu<T> clickInlineMenuButtonByTitle(String title) {
         getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", title))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
     public InlineMenu<T> clickInlineMenuButtonByIconClass(String iconClass) {
         getParentElement().$(By.cssSelector(iconClass))
                 .scrollIntoView(false)
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 }

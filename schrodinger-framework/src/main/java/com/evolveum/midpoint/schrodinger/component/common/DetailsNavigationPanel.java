@@ -36,14 +36,14 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
         for (String navigationItemName : name) {
             if (nav == null) {
                 nav = $(Schrodinger.byElementAttributeValue("span", "data-s-resource-key", navigationItemName))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             } else {
                 nav = nav.parent().parent().$x(".//span[@data-s-resource-key='" + navigationItemName + "']")
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             }
             nav.click();
-            nav.parent().parent().waitUntil(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
+            nav.parent().parent().shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
         }
-        return $(Schrodinger.byDataId("mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return $(Schrodinger.byDataId("mainPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 }

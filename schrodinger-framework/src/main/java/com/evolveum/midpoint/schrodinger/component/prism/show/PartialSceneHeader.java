@@ -82,7 +82,7 @@ public class PartialSceneHeader extends Component<ScenePanel> {
             page = new OrgPage();
         }
         getNameLink().click();
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         return page;
     }

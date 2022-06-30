@@ -44,10 +44,10 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement checkbox = getParentElement()
                 .$(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//input[@data-s-id='check']");
         checkbox.click();
-        checkbox.waitUntil(Condition.checked, MidPoint.TIMEOUT_MEDIUM_6_S);
+        checkbox.shouldBe(Condition.checked, MidPoint.TIMEOUT_MEDIUM_6_S);
         Utils.waitForAjaxCallFinish();
         return this;
     }
@@ -64,7 +64,7 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
     public Search<FocusTableWithChoosableElements<T>> search() {
         SelenideElement searchElement = getParentElement().$x(".//div[contains(@class, \"form-inline\") "
                 + "and contains(@class, \"pull-right\") and contains(@class, \"search-form\")]")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new Search<FocusTableWithChoosableElements<T>>(this, searchElement);
     }

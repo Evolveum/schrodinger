@@ -41,19 +41,19 @@ public class ResourceWizardPage extends BasicPage {
 
     public ConfigurationWizardStep selectConfigurationStep() {
         clickOnWizardTab("Configuration");
-        SelenideElement tabElement = $(Schrodinger.byDataId("configuration")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tabElement = $(Schrodinger.byDataId("configuration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ConfigurationWizardStep(this, tabElement);
     }
 
     public SchemaWizardStep selectSchemaStep() {
         clickOnWizardTab("Schema");
-        SelenideElement tabElement = $(Schrodinger.byDataId("tabPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tabElement = $(Schrodinger.byDataId("tabPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new SchemaWizardStep(this, tabElement);
     }
 
     public boolean isReadonlyMode() {
         return $(By.className("wizard"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .exists();
     }
 

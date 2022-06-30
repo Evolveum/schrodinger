@@ -32,24 +32,24 @@ public class ThreadsPanel extends Component<InternalsConfigurationPage> {
     }
 
     public ThreadsPanel showAllThreads() {
-        $(Schrodinger.byDataId("showAllThreads")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("showAllThreads")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
     public ThreadsPanel showTasksThreads() {
-        $(Schrodinger.byDataId("showTasksThreads")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("showTasksThreads")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
     public ThreadsPanel recordTasksThreads() {
-        $(Schrodinger.byDataId("recordTasksThreads")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("recordTasksThreads")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
     public ThreadsPanel stopAllThreads() {
-        $(Schrodinger.byDataId("deactivateServiceThreads")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("deactivateServiceThreads")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
     public ThreadsPanel startAllThreads() {
-        $(Schrodinger.byDataId("reactivateServiceThreads")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("reactivateServiceThreads")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 }

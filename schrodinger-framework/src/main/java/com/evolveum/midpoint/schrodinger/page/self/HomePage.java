@@ -37,20 +37,20 @@ public class HomePage extends BasicPage {
 
     public QuickSearch<HomePage> search() {
         SelenideElement searchElement = $(By.cssSelector("div.quicksearch-panel"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new QuickSearch<HomePage>(this, searchElement);
     }
 
     public TableWithPageRedirect<HomePage> myRequestsTable() {
-        SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+        SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//table[@data-s-id='table']");
         return new TableWithPageRedirect<HomePage>(HomePage.this, table) {
             @Override
             public CasePage clickByName(String name) {
                 getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                        .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-                $(Schrodinger.byDataId("summaryBox")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                $(Schrodinger.byDataId("summaryBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
                 return new CasePage();
             }
 

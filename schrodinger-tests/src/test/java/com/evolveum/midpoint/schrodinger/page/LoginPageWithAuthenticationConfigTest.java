@@ -129,7 +129,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
                 .submit()
                 .feedback()
                 .assertSuccess();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S.getSeconds());
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
 //        String usernameTag = "username='";
         String linkTag = "link='";
@@ -157,7 +157,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         importObject(BULK_TASK);
         basicPage.listTasks().table().clickByName("Add archetype"); //.clickRunNow(); the task is running after import, no need to click run now button
         screenshot("addArchetypeBulkActionTask");
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M.getSeconds());
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         open("/");

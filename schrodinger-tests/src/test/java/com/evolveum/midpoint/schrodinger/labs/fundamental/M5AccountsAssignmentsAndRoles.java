@@ -217,7 +217,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
     public void mod05test06InactiveAssignment() {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Too Many Secrets");
         AccountPage shadow = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         PrismForm<AccountPage> accountForm = shadow.form();
         accountForm.assertPropertyInputValues("groups", "Internal Employees",
                         "Essential Documents", "Lucky Numbers", "Teleportation",

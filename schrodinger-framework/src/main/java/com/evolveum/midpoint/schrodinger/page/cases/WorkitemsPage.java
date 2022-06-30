@@ -30,6 +30,6 @@ import static com.codeborne.selenide.Selenide.$;
 public class WorkitemsPage extends BasicPage {
 
     public WorkitemsTable<WorkitemsPage> table() {
-        return new WorkitemsTable<>(this, $(Schrodinger.byDataId("workitemsTable")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new WorkitemsTable<>(this, $(Schrodinger.byDataId("workitemsTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

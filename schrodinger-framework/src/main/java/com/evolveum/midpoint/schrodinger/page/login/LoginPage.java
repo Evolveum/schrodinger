@@ -31,16 +31,16 @@ import static com.codeborne.selenide.Selenide.$;
 public class LoginPage extends BasicPage {
 
     public LoginPage setUsernameValue(String emailValue) {
-        $(Schrodinger.byDataId("username")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(emailValue);
+        $(Schrodinger.byDataId("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(emailValue);
         return this;
     }
 
     public LoginPage setEmailValue(String emailValue) {
-        $(Schrodinger.byDataId("email")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(emailValue);
+        $(Schrodinger.byDataId("email")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(emailValue);
         return this;
     }
 
     public void clickSubmitButton() {
-        $(Schrodinger.byDataId("submitButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("submitButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
 }

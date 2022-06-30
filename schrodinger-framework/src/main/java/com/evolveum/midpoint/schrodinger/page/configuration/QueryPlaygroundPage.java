@@ -59,7 +59,7 @@ public class QueryPlaygroundPage extends BasicPage {
 
     public QueryPlaygroundPage setQuerySampleValue(QueryPlaygroundSample sample){
         $(Schrodinger.byDataId("querySample"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(By.tagName("select"))
                 .selectOption(sample.getQuerySampleId());
         return this;
@@ -69,7 +69,7 @@ public class QueryPlaygroundPage extends BasicPage {
         // Use in object list button redirects to the object list page
         // according to the selected query sample type
         $(Schrodinger.byDataId("useInObjectList"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
     }
 }

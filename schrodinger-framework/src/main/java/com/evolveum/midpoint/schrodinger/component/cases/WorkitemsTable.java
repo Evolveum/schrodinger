@@ -36,7 +36,7 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T> {
     @Override
     public WorkitemPage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new WorkitemPage();
     }
 
@@ -54,7 +54,7 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T> {
     public WorkitemsTable<T> approveWorkitemByName(String itemName) {
         rowByColumnLabel("Name", itemName)
                 .getParentElement().$x(".//i[@class='fa fa-check ']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         return this;
     }

@@ -37,26 +37,26 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
     public SearchPropertiesConfigPanel<T> addPropertyToTable(String propertyName) {
         getPropertyChoiceElement().selectOption(propertyName);
         getParentElement().$(Schrodinger.byDataId("a", "addButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getPropertiesTable().getParentElement().$(byText(propertyName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
     public SearchPropertiesConfigPanel<T> removePropertyFromTable(String propertyName) {
         TableRow rowToDelete = getPropertiesTable().rowByColumnResourceKey("SearchPropertiesConfigPanel.table.column.property", propertyName);
         rowToDelete.getInlineMenu().clickInlineMenuButtonByTitle("Delete");
-        getPropertiesTable().getParentElement().$(byText(propertyName)).waitUntil(Condition.disappear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.disappear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
     private SelenideElement getPropertyChoiceElement(){
         return getParentElement().$(Schrodinger.bySelfOrAncestorElementAttributeValue("select",
                 "class", "form-control input-sm", "data-s-id", "propertyChoice"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public Table<SearchPropertiesConfigPanel> getPropertiesTable() {
-        SelenideElement tableElement = getParentElement().$(By.tagName("table")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tableElement = getParentElement().$(By.tagName("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         Table propertiesTable = new Table(this, tableElement);
         return propertiesTable;
     }
@@ -107,8 +107,8 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
 
     public T confirmConfiguration() {
         getParentElement().$(Schrodinger.byDataId("okButton"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        getParentElement().shouldBe(Condition.disappear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return getParent();
     }
 

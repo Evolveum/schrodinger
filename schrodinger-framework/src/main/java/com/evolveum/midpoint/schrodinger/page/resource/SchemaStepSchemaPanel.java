@@ -39,24 +39,24 @@ public class SchemaStepSchemaPanel extends PanelWithContainerWrapper<SchemaWizar
     public SchemaStepSchemaPanel clickObjectClass(String objectClassName) {
         $(Schrodinger.bySelfOrDescendantElementAttributeValue("div", "class", "box box-solid box-primary",
                 "class", "box-title"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(By.linkText(objectClassName))
                 .click();
-        $(Schrodinger.byDataId("objectClassInfoContainer")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataId("objectClassInfoContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
     public boolean isObjectClassPresent(String objectClassName) {
         return $(Schrodinger.bySelfOrDescendantElementAttributeValue("div", "class", "box box-solid box-primary",
                 "class", "box-title"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(By.linkText(objectClassName))
                 .exists();
     }
 
     public Table<SchemaStepSchemaPanel> getAttributesTable() {
         return new Table<SchemaStepSchemaPanel>(this,
-                $(Schrodinger.byDataId("attributeTable")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("attributeTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public SchemaStepSchemaPanel assertObjectClassPresent(String objectClassName) {

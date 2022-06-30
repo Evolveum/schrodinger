@@ -36,14 +36,14 @@ public class CacheManagementPanel extends Component<InternalsConfigurationPage> 
     }
 
     public CacheManagementPanel clearCaches() {
-        $(Schrodinger.byDataId("clearCaches")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataId("clearCaches")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public CacheManagementPanel dumpContent() {
-        $(Schrodinger.byDataId("dumpContent")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataId("dumpContent")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 }

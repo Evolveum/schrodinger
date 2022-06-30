@@ -35,7 +35,7 @@ public class ChildrenCasesPanel extends Component<CasePage> {
     }
 
     public ChildrenCaseTable table(){
-        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).waitUntil(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ChildrenCaseTable(getParent(), tableBox);
     }
 }

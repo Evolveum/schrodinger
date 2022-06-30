@@ -39,7 +39,7 @@ public class RequestRoleItemsPanel extends Component<RequestRoleTab> {
 
     public RequestRoleItemsPanel addItemToCart(String itemName) {
         $(Schrodinger.byElementValue("div", "class", "inner-label", itemName))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent()
                 .parent()
                 .$(Schrodinger.byElementAttributeValue("span", "class", "shopping-cart-item-button-add"))
@@ -49,12 +49,12 @@ public class RequestRoleItemsPanel extends Component<RequestRoleTab> {
 
     public AssignmentDetailsPage clickPropertiesLink(String itemName) {
         $(Schrodinger.byElementValue("div", "class", "inner-label", itemName))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent()
                 .parent()
                 .$(Schrodinger.byElementAttributeValue("span", "class", "shopping-cart-item-button-details"))
                 .click();
-        $(byText("Assignment details")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(byText("Assignment details")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new AssignmentDetailsPage();
 
     }

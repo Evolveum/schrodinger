@@ -31,14 +31,14 @@ public class BulkActionsPage extends BasicPage {
 
     public BulkActionsPage insertOneLineTextIntoEditor(String text){
         $(Schrodinger.byElementAttributeValue("textarea", "class", "ace_text-input"))
-                .waitUntil(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .sendKeys(text);
         return this;
     }
 
     public BulkActionsPage startButtonClick(){
         $(Schrodinger.byDataId("a", "start"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return this;
     }

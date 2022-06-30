@@ -36,7 +36,7 @@ public class TableHeaderDropDownMenu<T> extends DropDown<T> {
 
     protected T clickByDataResourceKey(String key) {
         $(Schrodinger.byDataResourceKey(key))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this.getParent();
     }

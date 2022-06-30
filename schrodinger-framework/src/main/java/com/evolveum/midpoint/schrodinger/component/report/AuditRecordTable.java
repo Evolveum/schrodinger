@@ -42,15 +42,15 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
     @Override
     public AuditLogViewerDetailsPage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new AuditLogViewerDetailsPage();
     }
 
     public AuditLogViewerDetailsPage clickByRowColumnNumber(int rowNumber, int columnNumber) {
         getCell(rowNumber, columnNumber)
                 .$(By.tagName("a")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new AuditLogViewerDetailsPage();
     }
 
@@ -78,12 +78,12 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
 
     public void checkTextInColumn(int row, int column, String name) {
         $(By.cssSelector(".box.boxed-table"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         getCell(row, column).shouldHave(Condition.text(name));
     }
 
     public SelenideElement getCell(int row, int column) {
-        SelenideElement tbody = getParentElement().$(Schrodinger.byElementAttributeValue("tbody", "data-s-id", "body")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tbody = getParentElement().$(Schrodinger.byElementAttributeValue("tbody", "data-s-id", "body")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         ElementsCollection rowsElement = tbody.findAll(By.tagName("tr"));
         SelenideElement rowElement = rowsElement.get(row > 0 ? (row-1) : row);
         ElementsCollection columnsElement = rowElement.findAll(By.tagName("td"));

@@ -38,13 +38,13 @@ public class EnvironmentalPerformancePanel extends Component<TaskPage> {
 
     public Table<EnvironmentalPerformancePanel> getMappingsEvaluationInformationTable() {
         SelenideElement tableElement = $(Schrodinger.byDataId("mappingsStatisticsLines"))
-                .$x(".//table[@data-s-id='table']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .$x(".//table[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new Table<EnvironmentalPerformancePanel>(this, tableElement);
     }
 
     public Table<EnvironmentalPerformancePanel> getNotificationsInformationTable() {
         SelenideElement tableElement = $(Schrodinger.byDataId("notificationsStatisticsLines"))
-                .$x(".//table[@data-s-id='table']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .$x(".//table[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new Table<EnvironmentalPerformancePanel>(this, tableElement);
     }
 

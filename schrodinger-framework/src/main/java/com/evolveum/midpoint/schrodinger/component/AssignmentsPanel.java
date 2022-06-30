@@ -50,18 +50,18 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
     public <A extends AssignmentsPanel<P>> FocusSetAssignmentsModal<A> clickAddAssignment(String title) {
         getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement modalElement = getNewAssignmentModal();
         FocusSetAssignmentsModal<A> modal = new FocusSetAssignmentsModal<A>((A) this, modalElement);
         if (modal.compositedIconsExist()) {
             modal.clickCompositedButtonByTitle(title);
         }
-        modalElement.$x(".//div[@data-s-id='tabsPanel']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        modalElement.$x(".//div[@data-s-id='tabsPanel']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new FocusSetAssignmentsModal<A>((A) this, modalElement);
     }
 
     private SelenideElement getCompositedIconsPopupPanel(SelenideElement modalElement) {
-        return modalElement.$x(".//div[@data-s-id='compositedButtons']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return modalElement.$x(".//div[@data-s-id='compositedButtons']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     private SelenideElement getNewAssignmentModal() {
@@ -111,12 +111,12 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
     protected void selectType(String resourceKey) {
         $(Schrodinger.byDataId("div", resourceKey)).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
     }
 
     public boolean containsAssignmentsWithRelation(String targetType, String relation, String... expectedAssignments) {
         getParent().getNavigationPanelSelenideElement("Assignments", targetType);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         ElementsCollection labels = getParentElement()
                 .$$(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("span", "data-s-id", "label",
                         "data-s-id", "5", relation));
@@ -132,7 +132,7 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
     @Override
     protected SelenideElement getPrismViewPanel() {
         return $(Schrodinger.byDataId("div", "valueForm"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public AssignmentsPanel<P> assertAssignmentsWithRelationExist(String targetType, String relation, String... expectedAssignments) {

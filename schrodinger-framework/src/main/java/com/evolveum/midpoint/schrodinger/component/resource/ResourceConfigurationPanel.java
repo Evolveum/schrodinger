@@ -34,7 +34,7 @@ public class ResourceConfigurationPanel extends PanelWithContainerWrapper<EditRe
 
 //    public PrismForm<ResourceConfigurationPanel> form() {
 //        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "class", "tab-content"))
-//                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 //        return new PrismForm<>(this, element);
 //    }
 }

@@ -112,12 +112,12 @@ public class RequestRolePage extends BasicPage {
 
     private TabPanel<RequestRolePage> getTabPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "viewsTabPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new TabPanel<>(this, tabPanelElement);
     }
 
     public RequestRolePage setRequestingForUser(String userName) {
-        $(Schrodinger.byDataId("userSelectionButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+        $(Schrodinger.byDataId("userSelectionButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         ObjectBrowserModal<RequestRolePage> objectBrowserModal = new ObjectBrowserModal<>(this, Utils.getModalWindowSelenideElement());
         objectBrowserModal
@@ -130,7 +130,7 @@ public class RequestRolePage extends BasicPage {
                     .selectCheckboxByName(userName)
                     .and()
                 .clickAddButton();
-        $(Schrodinger.byDataId("userSelectionButton")).waitUntil(Condition.text(userName), MidPoint.TIMEOUT_MEDIUM_6_S);
+        $(Schrodinger.byDataId("userSelectionButton")).shouldBe(Condition.text(userName), MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
     }
 

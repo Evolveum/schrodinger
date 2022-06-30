@@ -154,7 +154,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         PrismForm<AccountPage> accountForm = showShadow(CSV_1_RESOURCE_NAME, "Login", "kirk")
                 .form();
 
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         accountForm.assertPropertyInputValue("fname", "Jim T.");
 
         showUser("kirk")

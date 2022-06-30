@@ -77,7 +77,7 @@ public class InternalsConfigurationPage extends BasicPage {
 
     protected TabPanel findTabPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "tabPanel"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new TabPanel<>(this, tabPanelElement);
     }
 }

@@ -28,6 +28,8 @@ import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -42,10 +44,10 @@ public class TasksPageTable extends AssignmentHolderObjectListTable<ListTasksPag
     protected TableHeaderDropDownMenu<TasksPageTable> clickHeaderActionDropDown() {
         //todo looks like the same code for all tables
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = $(Schrodinger.byDataId("ul", "dropDownMenu"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new TableHeaderDropDownMenu<TasksPageTable>(this, dropDown);
     }
@@ -56,7 +58,7 @@ public class TasksPageTable extends AssignmentHolderObjectListTable<ListTasksPag
     }
 
     @Override
-    public long getDetailsPageLoadingTimeToWait() {
+    public Duration getDetailsPageLoadingTimeToWait() {
         return MidPoint.TIMEOUT_MEDIUM_6_S;
     }
 

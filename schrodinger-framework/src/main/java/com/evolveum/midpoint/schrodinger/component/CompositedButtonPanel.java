@@ -12,22 +12,22 @@ public class CompositedButtonPanel<T> extends Component<T> {
 
     public String getBasicIconCss() {
         return getParentElement().$x(".//i[@data-s-id='basicIcon']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getAttribute("class");
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getAttribute("class");
     }
 
     public String getTopRightLayerIconCss() {
         return getParentElement().$x(".//i[contains(@class,\"top-right-layer\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getAttribute("class");
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getAttribute("class");
     }
 
     public String getBottomRightLayerIconCss() {
         return getParentElement().$x(".//i[contains(@class,\"bottom-right-layer\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getAttribute("class");
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getAttribute("class");
     }
 
     public String getLabelValue() {
         return getParentElement().$x(".//span[@class=\"compositedButtonLabel\")]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getValue();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).getValue();
     }
 
     public void assertBasicIconCssEquals(String expectedValue) {

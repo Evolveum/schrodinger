@@ -57,7 +57,7 @@ public class ProjectionsDropDown<T> extends TableHeaderDropDownMenu<T> {
 
 //    public FocusSetProjectionModal<T> addProjection() {
 //        $(Schrodinger.byElementValue("a", "data-s-id", "menuItemLink", "\n" +
-//                "        Add projection")).waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//                "        Add projection")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 //
 //        SelenideElement actualModal = $(Schrodinger.byElementAttributeValue("div", "aria-labelledby", "Choose object"));
 //
@@ -66,7 +66,7 @@ public class ProjectionsDropDown<T> extends TableHeaderDropDownMenu<T> {
 
     public ConfirmationModal<ProjectionsDropDown<T>> delete() {
         $(Schrodinger.byElementValue("a", "data-s-id", "menuItemLink", "\n" +
-                "        Delete")).waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                "        Delete")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.screenshot("deleteProjection");
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }

@@ -38,7 +38,7 @@ public class AssignmentsListPage extends BasicPage {
      * @return
      */
     public BasicPage clickRequestButton() {
-        $(Schrodinger.byDataId("request")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("request")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         if (feedback().isSuccess()) {
             return new RequestRolePage();
         } else {
@@ -47,7 +47,7 @@ public class AssignmentsListPage extends BasicPage {
     }
 
     public RequestRolePage clickCancelButton() {
-        $(Schrodinger.byDataId("back")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new RequestRolePage();
     }
 
@@ -55,7 +55,7 @@ public class AssignmentsListPage extends BasicPage {
         if (userNames == null) {
             return this;
         }
-        $(Schrodinger.byDataId("userSelectionButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $(Schrodinger.byDataId("userSelectionButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         ObjectBrowserModal<RequestRoleTab> userSelectionModal = new ObjectBrowserModal(this, Utils.getModalWindowSelenideElement());
         ObjectBrowserModalTable<RequestRoleTab, ObjectBrowserModal<RequestRoleTab>> table = userSelectionModal.table();
@@ -74,7 +74,7 @@ public class AssignmentsListPage extends BasicPage {
     }
 
     public AssignmentsListPage setRequestComment(String comment) {
-        $(Schrodinger.byDataId("description")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $(Schrodinger.byDataId("description")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .setValue(comment);
         return this;
     }

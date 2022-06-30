@@ -97,7 +97,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         addResourceFromFileAndTestConnection(OPENLDAP_CORPORATE_RESOURCE_FILE, HR_RESOURCE_NAME);
 
         addObjectFromFile(INITIAL_IMPORT_FROM_HR_TASK_FILE);
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M);
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_1_M.getSeconds());
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         addObjectFromFile(OBJECT_COLLECTION_EMP_WITHOUT_TELEPHONE_FILE);
@@ -175,7 +175,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .isInfo();
 
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE_UPDATE_1, contractorsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.listUsers("Externals")
                 .table()
@@ -190,7 +190,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertTableContainsColumnWithValue("UserType.familyName", "Anderson");
 
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE_UPDATE_2, contractorsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         basicPage.listUsers("Externals")
                 .table()
@@ -205,7 +205,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertTableContainsColumnWithValue("UserType.familyName", "Anderson");
 
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE, contractorsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("aanderson")
                 .selectBasicPanel()
@@ -217,7 +217,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         //todo in labs desc: delete the row for Raymond Shelteron. BUT there is no such user. Elisabeth Smith is deleted instead
         FileUtils.copyFile(CONTRACTORS_SOURCE_FILE_UPDATE_3, contractorsTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("rshelteron")
                 .selectBasicPanel()
@@ -256,7 +256,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .assertProjectionExist("arimmer1", "CSV-1 (Document Access)");
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_2_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000997")
                 .selectAssignmentsPanel()
@@ -268,7 +268,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertProjectionExist("cn=Ann Dewries,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_2_UPDATE_2, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000997")
                 .selectProjectionsPanel()
@@ -277,7 +277,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertProjectionExist("cn=Ann De Wries2,ou=0110,ou=0100,ou=ExAmPLE,dc=example,dc=com", "CSV-3 (LDAP)");
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_2_UPDATE_3, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("X000997")
                 .selectProjectionsPanel()
@@ -309,7 +309,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
         FileUtils.copyFile(CSV_2_AFTER_MODIFY_SCRIPT_FILE, csv2AfterModifyScript);
 
         FileUtils.copyFile(HR_SOURCE_FILE_LAB_2_4_UPDATE_1, hrTargetFile);
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
         showUser("kkochanski")
                 .selectAssignmentsPanel()
@@ -359,7 +359,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
          * </trigger>
          */
 
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_LONG_3_M.getSeconds());
 
         showUser("picard")
                 .selectProjectionsPanel()

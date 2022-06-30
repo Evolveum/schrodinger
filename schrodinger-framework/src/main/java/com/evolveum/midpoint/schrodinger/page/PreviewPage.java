@@ -42,7 +42,7 @@ public class PreviewPage extends BasicPage {
     }
 
     public ProgressPage clickSave() {
-        $(Schrodinger.byDataId("save")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("save")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new ProgressPage();
     }
 

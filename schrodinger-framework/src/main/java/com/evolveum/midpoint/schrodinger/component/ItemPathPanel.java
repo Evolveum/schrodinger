@@ -31,30 +31,30 @@ public class ItemPathPanel<T> extends Component<T> {
     }
 
     public ItemPathPanel<T> setNamespaceValue(String value) {
-        getParentElement().$x(".//div[@data-s-id='namespace']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x(".//div[@data-s-id='namespace']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(Schrodinger.byDataId("input"))
                 .selectOption(value);
         return this;
     }
 
     public ItemPathPanel<T> setAttributeValue(String value) {
-        getParentElement().$x(".//div[@data-s-id='definition']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x(".//div[@data-s-id='definition']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(Schrodinger.byDataId("input"))
                 .setValue(value);
         return this;
     }
 
     public ItemPathPanel<T> clickPlusButton() {
-        getParentElement().$x(".//div[@data-s-id='plus']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x(".//div[@data-s-id='plus']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public ItemPathPanel<T> clickMinusButton() {
-        getParentElement().$x(".//div[@data-s-id='minus']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x(".//div[@data-s-id='minus']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 

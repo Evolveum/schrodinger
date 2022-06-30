@@ -45,37 +45,37 @@ public class AboutPage extends BasicPage {
 
     public AboutPage repositorySelfTest() {
         $(Schrodinger.byDataResourceKey("PageAbout.button.testRepository")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public AboutPage checkAndRepairOrgClosureConsistency() {
         $(Schrodinger.byDataResourceKey("PageAbout.button.testRepositoryCheckOrgClosure")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public AboutPage reindexRepositoryObjects() {
         $(Schrodinger.byDataResourceKey("PageAbout.button.reindexRepositoryObjects")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public AboutPage provisioningSelfTest() {
         $(Schrodinger.byDataResourceKey("PageAbout.button.testProvisioning")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public AboutPage cleanupActivitiProcesses() {
         $(Schrodinger.byDataResourceKey("PageAbout.button.checkWorkflowProcesses")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public AboutPage clearCssJsCache() {
         $(Schrodinger.byDataResourceKey("PageAbout.button.clearCssJsCache")).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
@@ -149,13 +149,13 @@ public class AboutPage extends BasicPage {
 
 
     public ConfirmationModal<FormLoginPage> clickSwitchToFactoryDefaults() {
-        $(Schrodinger.byDataResourceKey("PageAbout.button.factoryDefault")).waitUntil(Condition.visible,MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataResourceKey("PageAbout.button.factoryDefault")).shouldBe(Condition.visible,MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ConfirmationModal<>(new FormLoginPage(), Utils.getModalWindowSelenideElement());
     }
 
     public String getSystemProperty(String propertyNameUserHome) {
-        SelenideElement propertiesTable = $(Schrodinger.byElementValue("h3","System properties")).waitUntil(Condition.appear,MidPoint.TIMEOUT_DEFAULT_2_S).parent().$(By.cssSelector(".table.table-striped"));
+        SelenideElement propertiesTable = $(Schrodinger.byElementValue("h3","System properties")).shouldBe(Condition.appear,MidPoint.TIMEOUT_DEFAULT_2_S).parent().$(By.cssSelector(".table.table-striped"));
 
         ReadOnlyTable readOnlyTable = new ReadOnlyTable(this,propertiesTable);
         return readOnlyTable.getParameterValue(propertyNameUserHome);

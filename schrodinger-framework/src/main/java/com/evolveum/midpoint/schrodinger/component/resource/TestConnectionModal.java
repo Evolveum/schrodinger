@@ -98,7 +98,7 @@ public class TestConnectionModal<T> extends ModalBox<T> {
 
     public boolean isTestSuccess() {
         boolean isSuccess = false;
-        $(Schrodinger.byDataId("div", "messagesPanel")).waitUntil(Condition.appears, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
+        $(Schrodinger.byDataId("div", "messagesPanel")).shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
 //        Boolean isSuccess = feedbackConnectorInitialization().isSuccess()
 //                && feedbackConnectorConfiguration().isSuccess()
 //                && feedbackConnectorConnection().isSuccess()
@@ -109,7 +109,7 @@ public class TestConnectionModal<T> extends ModalBox<T> {
 
         for (SelenideElement element : detailBoxes) {
 
-            element.waitUntil(Condition.appears, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
+            element.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
 
             String attr = element.attr("class");
 
@@ -132,12 +132,12 @@ public class TestConnectionModal<T> extends ModalBox<T> {
 
         boolean isFailure = false;
 
-        $(Schrodinger.byDataId("div", "messagesPanel")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+        $(Schrodinger.byDataId("div", "messagesPanel")).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
 
         ElementsCollection detailBoxes = $$(Schrodinger.byDataId("div", MODAL_FEEDBACK_BOX_ID));
 
         for (SelenideElement element : detailBoxes) {
-            element.waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+            element.shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
 
             String attr = element.attr("class");
 
@@ -159,7 +159,7 @@ public class TestConnectionModal<T> extends ModalBox<T> {
     public T clickOk() {
 
         $(Schrodinger.byDataId("ok"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this.getParent();
     }
@@ -167,7 +167,7 @@ public class TestConnectionModal<T> extends ModalBox<T> {
     public T clickClose() {
 
         $(Schrodinger.byElementAttributeValue("a", "class", "w_close"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this.getParent();
     }

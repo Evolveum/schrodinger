@@ -69,7 +69,7 @@ public class ResultPanel extends Component<TaskPage> {
     }
 
     public Table<ResultPanel> getResultsTable() {
-        return new Table<>(this, $(Schrodinger.byDataId("operationResult")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new Table<>(this, $(Schrodinger.byDataId("operationResult")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public ResultPanel assertOperationValueByTokenMatch(String tokenValue, String expectedValue) {

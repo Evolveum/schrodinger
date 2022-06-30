@@ -49,7 +49,7 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
             tableStyle.append(additionalTableClass);
         }
         SelenideElement box = $(By.cssSelector(".box.boxed-table"))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return box;
     }
 

@@ -48,12 +48,12 @@ public class OrgHierarchyPanel<T> extends Component<T> {
             expandAllIfNeeded(orgName);
         }
         getParentElement().$(Schrodinger.byElementValue("span", "class", "tree-label", orgName))
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         getParentElement().$(By.xpath("//div[contains(@class,\"tree-node\")][.//span[@class=\"tree-label\"][contains(.,\"" +  orgName + "\")]/..]"))
-                .waitUntil(Condition.cssClass("success"), MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldBe(Condition.cssClass("success"), MidPoint.TIMEOUT_SHORT_4_S);
 
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
@@ -62,9 +62,9 @@ public class OrgHierarchyPanel<T> extends Component<T> {
         if (!existExpandButton) {
             showTreeNodeDropDownMenu(orgName).expandAll();
         } else {
-            getParentElement().$(By.cssSelector(".tree-junction-collapsed")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+            getParentElement().$(By.cssSelector(".tree-junction-collapsed")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         }
     }
 
@@ -114,8 +114,8 @@ public class OrgHierarchyPanel<T> extends Component<T> {
         SelenideElement node = getParentElement().$(By.cssSelector(".tree-node.success"));
         SelenideElement expandButton = node.$x(".//a[@" + Schrodinger.DATA_S_ID + "='junction']");
         if (expandButton.has(Condition.cssClass("tree-junction-collapsed"))) {
-            expandButton.waitUntil(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-            expandButton.waitWhile(Condition.cssClass("tree-junction-collapsed"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            expandButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            expandButton.shouldBe(Condition.cssClass("tree-junction-collapsed"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         return this;
     }
@@ -125,11 +125,11 @@ public class OrgHierarchyPanel<T> extends Component<T> {
         SelenideElement parentNode = getParentOrgNode(orgName);
         SelenideElement node = parentNode.$x(".//div[@"+Schrodinger.DATA_S_ID+"='node']");
         SelenideElement menuButton = node.$x(".//button[@data-toggle='dropdown']");
-        menuButton.waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
-//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
-//        menuButton.waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
+        menuButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
+//        menuButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
 
-        SelenideElement menu = node.$x(".//ul[@" + Schrodinger.DATA_S_ID + "=\"dropDownMenu\"]").waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        SelenideElement menu = node.$x(".//ul[@" + Schrodinger.DATA_S_ID + "=\"dropDownMenu\"]").shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         return new OrgTreeNodeDropDown<OrgHierarchyPanel>(this, menu);
     }

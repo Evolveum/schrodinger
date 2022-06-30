@@ -49,7 +49,7 @@ public class RequestRoleTab extends Component<RequestRolePage> {
 
     public RequestRoleItemsPanel getItemsPanel() {
         SelenideElement itemsElement = $(Schrodinger.byDataId("div", "shoppingCartItemsPanel"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new RequestRoleItemsPanel(this, itemsElement);
     }
 
@@ -57,7 +57,7 @@ public class RequestRoleTab extends Component<RequestRolePage> {
         if (userNames == null) {
             return this;
         }
-        $(Schrodinger.byDataId("userSelectionButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $(Schrodinger.byDataId("userSelectionButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         ObjectBrowserModal<RequestRoleTab> userSelectionModal = new ObjectBrowserModal(this, Utils.getModalWindowSelenideElement());
         ObjectBrowserModalTable<RequestRoleTab, ObjectBrowserModal<RequestRoleTab>> table = userSelectionModal.table();
@@ -76,19 +76,19 @@ public class RequestRoleTab extends Component<RequestRolePage> {
     }
 
     public RequestRoleTab setRelation(String relationValue) {
-        $(Schrodinger.byDataId("relation")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $(Schrodinger.byDataId("relation")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .selectOption(relationValue);
         return this;
     }
 
     public RequestRoleTab addAll() {
-        $(Schrodinger.byDataId("addAllButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("addAllButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
     public AssignmentsListPage goToShoppingCart() {
         $(Schrodinger.byDataId("goToShoppingCart")).shouldBe(Condition.visible).click();
-        $(Schrodinger.byDataResourceKey("PageAssignmentsList.title")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.byDataResourceKey("PageAssignmentsList.title")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new AssignmentsListPage();
     }
 }

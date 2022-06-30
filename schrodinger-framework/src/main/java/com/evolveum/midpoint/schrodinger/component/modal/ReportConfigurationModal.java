@@ -30,8 +30,8 @@ public class ReportConfigurationModal<T> extends ModalBox<T>{
     }
 
     public T runReport() {
-        getParentElement().$x("//a[@data-s-id='runReport']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        getParentElement().$x("//a[@data-s-id='runReport']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return getParent();
     }
 }

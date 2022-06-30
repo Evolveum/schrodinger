@@ -33,8 +33,8 @@ public class CheckFormGroupPanel<T> extends Component<T> {
 
     public void setOptionCheckedById(boolean checked) {
         getParentElement().$x(".//input[@data-s-id='check']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setSelected(checked);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setSelected(checked);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
     }
 
 }

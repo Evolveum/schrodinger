@@ -39,9 +39,9 @@ public abstract class AbstractTable<T> extends Table<T> {
 
     public AbstractTable<T> selectHeaderCheckBox(){
         $(By.tagName("thead"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
         .$(Schrodinger.byElementAttributeValue("input", "type", "checkbox"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }

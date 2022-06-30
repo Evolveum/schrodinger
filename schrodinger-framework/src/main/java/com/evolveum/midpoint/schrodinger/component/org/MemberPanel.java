@@ -50,17 +50,17 @@ public class MemberPanel<T> extends Component<T> {
 
     public ChooseFocusTypeAndRelationModal<MemberPanel<T>> newMember() {
         SelenideElement mainButton = $(By.xpath("//a[@data-s-id='button'][@title='New']"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent();
         if (!mainButton.$x(".//div[@data-s-id='additionalButton']").is(Condition.exist)) {
             mainButton.click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
             return new ChooseFocusTypeAndRelationModal<>(this, Utils.getModalWindowSelenideElement());
         } else {
             mainButton.click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
             mainButton.$x(".//div[@title='Create  member ']")
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
             return new ChooseFocusTypeAndRelationModal<>(this, Utils.getModalWindowSelenideElement());
         }
     }
@@ -68,7 +68,7 @@ public class MemberPanel<T> extends Component<T> {
     public BasicPage newMember(String title, String newMemberType) {
         Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//i[@class='fa fa-plus']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
         try {
             Utils.getModalWindowSelenideElement();
         } catch (Error ex) {
@@ -78,8 +78,8 @@ public class MemberPanel<T> extends Component<T> {
             Utils.waitForAjaxCallFinish();
             FocusSetAssignmentsModal<MemberPanel<T>> newMemberPopup = new FocusSetAssignmentsModal<>(this, Utils.getModalWindowSelenideElement());
             newMemberPopup.getParentElement().$x(".//button[@title='" + title + "']")
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-            newMemberPopup.getParentElement().waitUntil(Condition.disappears, MidPoint.TIMEOUT_LONG_20_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+            newMemberPopup.getParentElement().shouldBe(Condition.disappear, MidPoint.TIMEOUT_LONG_20_S);
         }
         Utils.waitForMainPanelOnDetailsPage();
         if ("User".equals(newMemberType)) {
@@ -102,26 +102,26 @@ public class MemberPanel<T> extends Component<T> {
 
     public FocusSetAssignmentsModal<MemberPanel<T>> assignMember(String title) {
         getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement modalElement = Utils.getModalWindowSelenideElement();
         FocusSetAssignmentsModal<MemberPanel<T>> modal = new FocusSetAssignmentsModal(this, modalElement);
         if (modal.compositedIconsExist()) {
             modal.clickCompositedButtonByTitle(title);
         }
-        modalElement.$x(".//div[@data-s-id='tabsPanel']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        modalElement.$x(".//div[@data-s-id='tabsPanel']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return modal;
     }
 
     public MemberPanel<T> selectType(String type) {
         getParentElement().$x(".//select[@name='memberContainer:memberTable:items:itemsTable:box:header:searchForm:search:form:typePanel:searchItemContainer:searchItemField:input']")
-                .waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(type);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(type);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public MemberPanel<T> selectRelation(String relation) {
         table().search().dropDownPanelByItemName("Relation").inputDropDownValue(relation);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 

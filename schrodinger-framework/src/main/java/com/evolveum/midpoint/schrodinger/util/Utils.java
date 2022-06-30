@@ -45,6 +45,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -60,24 +61,24 @@ public class Utils {
     }
 
     public static void setOptionCheckedByName(String optionName, boolean checked) {
-        SelenideElement checkBox = $(By.name(optionName)).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
-        checkBox.setSelected(checked).waitUntil(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement checkBox = $(By.name(optionName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        checkBox.setSelected(checked).shouldBe(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public static void setOptionCheckedById(String id, boolean checked) {
-        SelenideElement checkBox = $(Schrodinger.byDataId(id)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement checkBox = $(Schrodinger.byDataId(id)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         checkBox.setSelected(checked);
     }
 
     public static void setCheckFormGroupOptionCheckedById(String id, boolean checked) {
         CheckFormGroupPanel checkBoxGroup = new CheckFormGroupPanel(null,
-                $(Schrodinger.byDataId(id)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId(id)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         checkBoxGroup.setOptionCheckedById(checked);
     }
 
     public static void setCheckFormGroupOptionCheckedByTitleResourceKey(String titleResourceKey, boolean checked) {
         CheckFormGroupPanel checkBoxGroup = new CheckFormGroupPanel(null,
-                $(Schrodinger.byDataResourceKey(titleResourceKey)).parent().parent().waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataResourceKey(titleResourceKey)).parent().parent().shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         checkBoxGroup.setOptionCheckedById(checked);
     }
 
@@ -89,10 +90,10 @@ public class Utils {
         CheckFormGroupPanel checkBoxGroup;
         if (parentPanel == null) {
             checkBoxGroup = new CheckFormGroupPanel(null,
-                    $(withText(value)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                    $(withText(value)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         } else {
             checkBoxGroup = new CheckFormGroupPanel(null,
-                    parentPanel.$(withText(value)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                    parentPanel.$(withText(value)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         }
         checkBoxGroup.setOptionCheckedById(checked);
     }
@@ -191,8 +192,8 @@ public class Utils {
         return getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_20_S);
     }
 
-    public static SelenideElement getModalWindowSelenideElement(long waitTime) {
-        return $(By.className("modal-dialog")).waitUntil(Condition.appear, waitTime);
+    public static SelenideElement getModalWindowSelenideElement(Duration waitTime) {
+        return $(By.className("modal-dialog")).shouldBe(Condition.appear, waitTime);
     }
 
     public static boolean isModalWindowSelenideElementVisible() {
@@ -279,11 +280,11 @@ public class Utils {
 
     public static void waitForMainPanelOnDetailsPage() {
         waitForAjaxCallFinish();
-        $(Schrodinger.byDataId("div", "mainPanel")).waitUntil(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        $(Schrodinger.byDataId("div", "mainPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
     }
 
     public static void waitForAjaxCallFinish() {
-        new WebDriverWait(WebDriverRunner.getWebDriver(), 180).until(new ExpectedCondition<Boolean>() {
+        new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 return (Boolean) js.executeScript("return jQuery.active == 0");

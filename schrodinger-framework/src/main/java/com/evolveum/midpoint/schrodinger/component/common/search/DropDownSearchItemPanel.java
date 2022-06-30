@@ -35,7 +35,7 @@ public class DropDownSearchItemPanel<T> extends Component<T> {
             return getParent();
         }
         SelenideElement inputField = getParentElement().parent().$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         inputField.selectOptionContainingText(value);
         return getParent();
     }

@@ -39,11 +39,11 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public SelenideElement getChildElement(String id){
-        return getParentElement().$(Schrodinger.byDataId("div", id)).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+        return getParentElement().$(Schrodinger.byDataId("div", id)).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
     }
 
     public SelenideElement getChildElement(){
-        return getParentElement().$(Schrodinger.byDataId("div", "0")).waitUntil(Condition.appears, MidPoint.TIMEOUT_LONG_1_M);
+        return getParentElement().$(Schrodinger.byDataId("div", "0")).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
     }
 
     public Boolean isSuccess(String idOfChild) {
@@ -110,8 +110,8 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public CasePage clickShowCase() {
-        getParentElement().$x(".//a[@data-s-id='case']").waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        $(Schrodinger.byDataId("summaryBox")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        getParentElement().$x(".//a[@data-s-id='case']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.byDataId("summaryBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new CasePage();
     }
 
@@ -160,7 +160,7 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public FeedbackBox<T> assertMessageExists(String messageText) {
-        assertion.assertTrue($(By.linkText(messageText)).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists());
+        assertion.assertTrue($(By.linkText(messageText)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists());
         return this;
     }
 }

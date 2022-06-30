@@ -39,20 +39,20 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
     public T clickByName(String name){
         Utils.waitForAjaxCallFinish();
         SelenideElement link = getParentElement().$(By.linkText(name));
-        link.waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        link.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 //        if (link.exists() && link.isDisplayed()) {
 //            link.click();
 //        }
 
         getParent().getParentElement()
-                .waitUntil(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);
+                .shouldBe(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);
         return getParent().getParent();
     }
 
     public ObjectBrowserModalTable<T, M> selectCheckboxByName(String name) {
         $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 

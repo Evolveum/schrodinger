@@ -35,6 +35,8 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRed
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import java.time.Duration;
+
 /**
  * Created by honchar
  */
@@ -55,7 +57,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     public PD clickByName(String name) {
         Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//span[@data-s-id='label' and contains(text(), '" + name + "')]")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         PD detailsPage = getObjectDetailsPage();
         if (detailsPage.isUseTabbedPanel()) {
             detailsPage.getTabPanel();
@@ -65,7 +67,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return detailsPage;
     }
 
-    public long getDetailsPageLoadingTimeToWait() {
+    public Duration getDetailsPageLoadingTimeToWait() {
         return MidPoint.TIMEOUT_DEFAULT_2_S;
     }
 
@@ -74,8 +76,8 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         getParentElement()
                 .$(Schrodinger.byDataId("tableContainer"))
                 .$(By.partialLinkText(name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S); //todo remove after mid-7275 fix
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds()); //todo remove after mid-7275 fix
 
         return getObjectDetailsPage();
     }
@@ -91,7 +93,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     public AssignmentHolderObjectListTable<P, PD> selectAll() {
 
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
@@ -107,7 +109,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     public PD newObjectButtonByCssClick(String iconCssClass){
         if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
 //            Selenide.sleep(2000);
         } else {
@@ -130,7 +132,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     public PD newObjectButtonByTitleClick(String buttonTitle){
         if (!getToolbarButtonByTitle(buttonTitle).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
             Selenide.sleep(2000);
         }
@@ -145,7 +147,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     public ExportPopupPanel<P> clickExportButton() {
         getToolbarButtonByCss("fa fa-download")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
         return new ExportPopupPanel<>(getParent(), Utils.getModalWindowSelenideElement());
@@ -153,7 +155,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     public AssignmentHolderObjectListTable<P, PD> clickRefreshButton() {
         getToolbarButtonByCss("fa fa-refresh")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);
         return this;
@@ -163,28 +165,28 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         SelenideElement mainButtonElement = getButtonToolbar()
                 .$(Schrodinger.bySelfOrDescendantElementAttributeValue("button", "data-s-id", "mainButton",
                         "class", mainButtonIconCssClass))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         if (!mainButtonElement.parent().$x(".//div[@data-s-id='additionalButton']").exists() ||
                 "false".equals(mainButtonElement.getAttribute("aria-expanded"))) {
             mainButtonElement.click();
-            Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+            Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
             mainButtonElement
-                    .waitUntil(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_SHORT_4_S);
+                    .shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_SHORT_4_S);
         }
         if (StringUtils.isNotEmpty(objCollectionButtonIconCssClass)
                 && mainButtonElement.parent().parent().$x(".//div[@data-s-id='additionalButton']").exists()) {
             mainButtonElement.parent()
                     .$(By.cssSelector(objCollectionButtonIconCssClass))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                     .click();
-            Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S);
+            Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
         }
         return getObjectDetailsPage();
     }
 
     public int countNewObjectButtonsInPopup(String mainButtonIconCssClass) {
         SelenideElement mainButtonElement = getToolbarButtonByCss(mainButtonIconCssClass)
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         mainButtonElement.click();
         try {
             Utils.getModalWindowSelenideElement();
@@ -196,7 +198,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
             ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");
             int count = childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
             modal.$x(".//a[@data-s-id='cancelButton']").click();
-            modal.waitUntil(Condition.disappears, MidPoint.TIMEOUT_LONG_20_S);
+            modal.shouldBe(Condition.disappear, MidPoint.TIMEOUT_LONG_20_S);
             return count;
         }
         return 0;

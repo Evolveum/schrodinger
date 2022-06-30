@@ -30,7 +30,7 @@ public class FormSubmittablePage {
 
     public FormSubmittablePage() {
 
-        this.element = $(Schrodinger.byDataId("dynamicForm")).waitUntil(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        this.element = $(Schrodinger.byDataId("dynamicForm")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
     }
 

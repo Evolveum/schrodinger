@@ -90,7 +90,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         addObjectFromFile(INCOGNITO_ROLE_FILE);
         addObjectFromFile(INTERNAL_EMPLOYEE_ROLE_FILE);
 
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Secret Projects I", "Secret Projects II", "Incognito");
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, CSV1_TESTER_ROLE_NAME, CSV3_ADMIN_ROLE_NAME);

@@ -49,8 +49,8 @@ public class CasePage extends AssignmentHolderDetailsPage {
     public TaskPage navigateToTask() {
         if ($(Schrodinger.byDataResourceKey("PageCase.navigateToTask")).exists()) {
             $(Schrodinger.byDataResourceKey("PageCase.navigateToTask"))
-                    .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-            $(By.cssSelector(".info-box-icon.summary-panel-task")).waitUntil(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+            $(By.cssSelector(".info-box-icon.summary-panel-task")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
             return new TaskPage();
         }
         return null;

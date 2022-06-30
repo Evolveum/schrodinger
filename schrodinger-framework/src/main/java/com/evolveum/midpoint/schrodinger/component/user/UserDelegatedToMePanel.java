@@ -40,6 +40,6 @@ public class UserDelegatedToMePanel extends Component<UserPage> {
     public DelegationDetailsPanel<UserDelegatedToMePanel> getDelegationDetailsPanel(String delegatedFromUser) {
         return new DelegationDetailsPanel<>(this,
                 $(By.linkText(delegatedFromUser))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

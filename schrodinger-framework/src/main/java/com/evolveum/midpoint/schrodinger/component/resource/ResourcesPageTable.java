@@ -51,7 +51,7 @@ public class ResourcesPageTable<T> extends TableWithPageRedirect<T> {
     public ViewResourcePage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         ViewResourcePage detailsPage = new ViewResourcePage();
         if (detailsPage.isUseTabbedPanel()) {
             detailsPage.getTabPanel();

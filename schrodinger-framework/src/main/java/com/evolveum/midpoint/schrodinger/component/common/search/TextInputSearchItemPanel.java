@@ -38,7 +38,7 @@ public class TextInputSearchItemPanel<T extends Search> extends Component<T> {
             return getParent();
         }
         SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         if(!input.equals(inputField.getValue())) {
             inputField.setValue(input);
         }

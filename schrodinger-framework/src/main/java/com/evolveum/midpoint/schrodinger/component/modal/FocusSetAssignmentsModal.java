@@ -37,45 +37,45 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
 
     public FocusSetAssignmentsModal<T> selectType(String option) {
         SelenideElement tabElement = $(Schrodinger.byElementValue("a", "class", "tab-label", option))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         String classActive = tabElement.attr("class");
 
         tabElement.click();
         if (!classActive.contains("active")) {
-            tabElement.waitUntil(Condition.attribute("class", classActive + " active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            tabElement.shouldBe(Condition.attribute("class", classActive + " active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         return this;
     }
 
     public FocusSetAssignmentsModal<T> selectKind(String option) {
         $(By.name("mainPopup:content:popupBody:kindContainer:kind:input"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
 
         return this;
     }
 
     public FocusSetAssignmentsModal<T> selectIntent(String option) {
         $(By.name("mainPopup:content:popupBody:intentContainer:intent:input"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
 
         return this;
     }
 
     public FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>> table() {
         SelenideElement resourcesBox = getParentElement().$x(".//div[@class='box boxed-table']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>>(this, resourcesBox);
     }
 
     public FocusSetAssignmentsModal<T> setRelation(String relation) {
         getParentElement().$x(".//select[@data-s-id='select']")
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).selectOption(relation);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).selectOption(relation);
         return this;
     }
 
     public MultiCompositedButtonPanel<FocusSetAssignmentsModal<T>> getCompositedButtonsPanel() {
-        SelenideElement buttonsPanel = $(Schrodinger.byDataId("compositedButtons")).waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        SelenideElement buttonsPanel = $(Schrodinger.byDataId("compositedButtons")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         return new MultiCompositedButtonPanel<>(this, buttonsPanel);
     }
 
@@ -88,19 +88,19 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     public FocusSetAssignmentsModal<T> clickCompositedButtonByTitle(String buttonTitle) {
         SelenideElement button = getCompositedButtonsPanel().findCompositedButtonByTitle(buttonTitle).getParentElement();
         button.click();
-        button.waitUntil(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        button.shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         return this;
     }
 
     public T clickAdd() {
         Utils.waitForAjaxCallFinish();
-        SelenideElement addButton = getParentElement().$x(".//a[@data-s-resource-key='userBrowserDialog.button.addButton']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement addButton = getParentElement().$x(".//a[@data-s-resource-key='userBrowserDialog.button.addButton']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         addButton.click();
         Utils.waitForAjaxCallFinish();
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         if (addButton.isDisplayed()) {
             addButton.click();
-            Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S);
+            Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         }
         return this.getParent();
     }

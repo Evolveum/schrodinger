@@ -34,22 +34,22 @@ public class ExportPopupPanel<T> extends ModalBox<T> {
         return new Table<>(this,
                 getParentElement().$(Schrodinger.bySelfOrDescendantElementAttributeValue("div", "data-s-id", "table",
                         "style", "float: left; padding-bottom: 5px;"))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public ExportPopupPanel<T> setReportName(String reportName) {
-        getParentElement().$x("//div[@data-s-id='name']").waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x("//div[@data-s-id='name']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .setValue(reportName);
         return this;
     }
 
     public T exportSelectedColumns() {
-        $(Schrodinger.byDataId("export")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("export")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return getParent();
     }
 
     public T cancel() {
-        $(Schrodinger.byDataId("cancelButton")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byDataId("cancelButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return getParent();
     }
 

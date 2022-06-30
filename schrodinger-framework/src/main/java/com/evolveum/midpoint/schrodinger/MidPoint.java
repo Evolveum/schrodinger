@@ -23,26 +23,28 @@ import com.evolveum.midpoint.schrodinger.component.LoggedUser;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.login.SamlSelectPage;
 
+import java.time.Duration;
+
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class MidPoint {
 
-    public static final long TIMEOUT_DEFAULT_2_S = 2000;
+    public static final Duration TIMEOUT_DEFAULT_2_S = Duration.ofSeconds(2000);
 
-    public static final long TIMEOUT_SHORT_4_S = 4000;
+    public static final Duration TIMEOUT_SHORT_4_S = Duration.ofSeconds(4000);
 
-    public static final long TIMEOUT_MEDIUM_6_S = 6000;
+    public static final Duration TIMEOUT_MEDIUM_6_S = Duration.ofSeconds(6000);
 
-    public static final long TIMEOUT_LONG_1_M = 60000;
+    public static final Duration TIMEOUT_LONG_1_M = Duration.ofSeconds(60000);
 
-    public static final long TIMEOUT_LONG_30_S = 30000;
+    public static final Duration TIMEOUT_LONG_30_S = Duration.ofSeconds(30000);
 
-    public static final long TIMEOUT_LONG_20_S = 20000;
+    public static final Duration TIMEOUT_LONG_20_S = Duration.ofSeconds(20000);
 
-    public static final long TIMEOUT_MEDIUM_LONG_3_M = 180000;
+    public static final Duration TIMEOUT_MEDIUM_LONG_3_M = Duration.ofSeconds(180000);
 
-    public static final long TIMEOUT_EXTRA_LONG_10_M = 600000;
+    public static final Duration TIMEOUT_EXTRA_LONG_10_M = Duration.ofSeconds(600000);
 
     private static EnvironmentConfiguration configuration;
 

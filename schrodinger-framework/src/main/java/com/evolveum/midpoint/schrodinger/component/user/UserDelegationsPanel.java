@@ -43,29 +43,29 @@ public class UserDelegationsPanel extends Component<UserPage> {
     }
 
     public ObjectBrowserModal<UserDelegationsPanel> clickAddDelegation() {
-        SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//button[@data-toggle='dropdown']");
         button.click();
         button.$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "menuItemLink",
                 "data-s-resource-key", "AssignmentTablePanel.menu.addDelegation"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new ObjectBrowserModal<>(this, Utils.getModalWindowSelenideElement());
     }
 
     public ConfirmationModal<UserDelegationsPanel> clickDeleteDelegation() {
-        SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$(Schrodinger.byElementAttributeValue("button", "data-toggle", "dropdown"));
         button.click();
         button.$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "menuItemLink",
                 "data-s-resource-key", "AssignmentTablePanel.menu.unassign"))
-                .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }
 
     public UserDelegationsPanel clickAllDelegationsCheckBox() {
-        SelenideElement checkbox = $(Schrodinger.byDataId("assignmentsCheckAll")).waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement checkbox = $(Schrodinger.byDataId("assignmentsCheckAll")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         checkbox.click();
         return this;
     }
@@ -73,6 +73,6 @@ public class UserDelegationsPanel extends Component<UserPage> {
     public DelegationDetailsPanel<UserDelegationsPanel> getDelegationDetailsPanel(String delegateToUser) {
         return new DelegationDetailsPanel<>(this,
                 $(By.linkText(delegateToUser))
-                        .waitUntil(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

@@ -15,12 +15,12 @@
  */
 package com.evolveum.midpoint.schrodinger.reports;
 
-import com.codeborne.selenide.testng.TextReport;
+//import com.codeborne.selenide.testng.TextReport;
 
-public class SchrodingerTextReport extends TextReport {
+public class SchrodingerTextReport { // extends TextReport { //todo fix
 
     public SchrodingerTextReport() {
         super();
-        this.report = new SchrodingerSimpleReport();
+//        this.report = new SchrodingerSimpleReport();
     }
 }

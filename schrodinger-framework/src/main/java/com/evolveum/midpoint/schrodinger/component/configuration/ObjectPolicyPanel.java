@@ -38,10 +38,10 @@ public class ObjectPolicyPanel extends TabWithTableAndPrismView<SystemPage> {
 
     public PrismFormWithActionButtons<ObjectPolicyPanel> clickAddObjectPolicy() {
         SelenideElement plusButton = $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus"));
-        plusButton.waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        plusButton.waitWhile(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        plusButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        plusButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         SelenideElement prismElement = $(Schrodinger.byDataId("div", "itemDetails"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new PrismFormWithActionButtons(this, prismElement);
     }
@@ -49,6 +49,6 @@ public class ObjectPolicyPanel extends TabWithTableAndPrismView<SystemPage> {
     @Override
     protected SelenideElement getPrismViewPanel() {
         return $(Schrodinger.byDataId("div", "itemDetails"))
-                .waitUntil(Condition.appears, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 }
