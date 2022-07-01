@@ -20,6 +20,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
@@ -286,8 +287,14 @@ public class Utils {
     public static void waitForAjaxCallFinish() {
         new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                return (Boolean) js.executeScript("return jQuery.active == 0");
+                JavascriptExecutor executor = (JavascriptExecutor)driver;
+                if((Boolean) executor.executeScript("return window.jQuery != undefined")){
+                    while(!(Boolean) executor.executeScript("return jQuery.active == 0")){
+                        Selenide.sleep(1000);
+                    }
+                    return true;
+                }
+                return true;
             }
         });
     }
