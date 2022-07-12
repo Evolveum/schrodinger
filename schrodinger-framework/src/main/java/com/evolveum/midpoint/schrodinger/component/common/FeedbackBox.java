@@ -46,14 +46,9 @@ public class FeedbackBox<T> extends Component<T> {
         return getParentElement().$(Schrodinger.byDataId("div", "0")).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
     }
 
-    public Boolean isSuccess(String idOfChild) {
-
-        return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-success")).exists();
-
-    }
-
     public Boolean isSuccess() {
-        return  isSuccess("0");
+        return getParentElement().getAttribute("class") != null
+                && getParentElement().getAttribute("class").contains("card-success");
     }
 
     public Boolean isWarning(String idOfChild) {
@@ -63,23 +58,21 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isWarning() {
-        return  isWarning("0");
+        return getParentElement().getAttribute("class") != null
+                && getParentElement().getAttribute("class").contains("card-warning");
     }
 
     public Boolean isError(String idOfChild) {
-
         return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-danger")).exists();
-
     }
 
     public Boolean isError() {
-        return  isError("0");
+        return getParentElement().getAttribute("class") != null
+                && getParentElement().getAttribute("class").contains("card-danger");
     }
 
     public Boolean isInfo(String idOfChild) {
-
         return getChildElement(idOfChild).$(By.cssSelector("div.feedback-message.box.box-solid.box-info")).exists();
-
     }
 
     public Boolean isInfo() {
@@ -139,21 +132,29 @@ public class FeedbackBox<T> extends Component<T> {
         return this;
     }
 
+    @Deprecated
     public FeedbackBox<T> assertSuccess(String idOfChild) {
-        assertion.assertTrue(isSuccess(idOfChild), "Feedback panel status is not success.");
+        assertion.assertTrue(isSuccess(), "Feedback panel status is not success.");
         return this;
     }
 
+    /**
+     * should be reviewed
+     * @param idOfChild
+     * @return
+     */
+    @Deprecated
     public FeedbackBox<T> assertError(String idOfChild) {
         assertion.assertTrue(isError(idOfChild), "Feedback panel status is not error.");
         return this;
     }
 
-    public FeedbackBox<T> assertWarning(String idOfChild) {
-        assertion.assertTrue(isWarning(idOfChild), "Feedback panel status is not warning.");
-        return this;
-    }
-
+    /**
+     * should be reviewed
+     * @param idOfChild
+     * @return
+     */
+    @Deprecated
     public FeedbackBox<T> assertInfo(String idOfChild) {
         assertion.assertTrue(isInfo(idOfChild), "Feedback panel status is not info.");
         return this;

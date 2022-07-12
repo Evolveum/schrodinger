@@ -91,10 +91,10 @@ public class Utils {
         CheckFormGroupPanel checkBoxGroup;
         if (parentPanel == null) {
             checkBoxGroup = new CheckFormGroupPanel(null,
-                    $(withText(value)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                    $(withText(value)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent());
         } else {
             checkBoxGroup = new CheckFormGroupPanel(null,
-                    parentPanel.$(withText(value)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                    parentPanel.$(withText(value)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent());
         }
         checkBoxGroup.setOptionCheckedById(checked);
     }
