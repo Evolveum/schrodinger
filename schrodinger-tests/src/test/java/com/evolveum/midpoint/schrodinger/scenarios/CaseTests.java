@@ -268,10 +268,10 @@ public class CaseTests extends AbstractSchrodingerTest {
     private SelenideElement getCaseMenuItemElement(String menuIdentifier, boolean checkByLabelText){
         SelenideElement casesMenuItemElement;
         if (!checkByLabelText) {
-            casesMenuItemElement = basicPage.getMenuItemElement(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_KEY,
+            casesMenuItemElement = basicPage.getMenuItemElement(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
                     ConstantsUtil.MENU_TOP_CASES, menuIdentifier);
         } else {
-            casesMenuItemElement = basicPage.getMenuItemElementByMenuLabelText(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_KEY,
+            casesMenuItemElement = basicPage.getMenuItemElementByMenuLabelText(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
                     ConstantsUtil.MENU_TOP_CASES, menuIdentifier);
         }
         return casesMenuItemElement;

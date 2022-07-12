@@ -41,7 +41,7 @@ public class SecurityQuestionsPage extends LoginPage {
 
     public BasicPage submit() {
         $(Schrodinger.byDataId("insideForm")).click();
-        $x("//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new BasicPage();
     }
 
@@ -76,7 +76,7 @@ public class SecurityQuestionsPage extends LoginPage {
 //        }
 //        $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
 //        $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
-//        $x("//input[@type='submit']").click();
+//        $x(".//input[@type='submit']").click();
 //
 //        return new BasicPage();
 //    }

@@ -64,8 +64,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -453,15 +451,15 @@ public class BasicPage {
     }
 
     private void clickSelfServiceMenu(String mainMenuKey, String menuItemKey) {
-        clickMenuItem("PageAdmin.menu.selfService", mainMenuKey, menuItemKey);
+        clickMenuItem(ConstantsUtil.SELF_SERVICE_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey);
     }
 
     private void clickAdministrationMenu(String mainMenuKey, String menuItemKey) {
-        clickMenuItem(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_KEY, mainMenuKey, menuItemKey);
+        clickMenuItem(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey);
     }
 
     public BasicPage assertAdministrationMenuItemIconClassEquals(String mainMenuKey, String menuItemKey, String expectedIconClass){
-        SelenideElement menuItem = getMenuItemElement(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_KEY, mainMenuKey, menuItemKey);
+        SelenideElement menuItem = getMenuItemElement(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey);
         assertion.assertEquals(expectedIconClass, menuItem.parent().$(By.tagName("i")).getAttribute("class"),
                 "Menu item icon (menu item key is '" + menuItemKey + "') doesn't match to value '" + expectedIconClass + "'.");
         return this;
@@ -472,7 +470,7 @@ public class BasicPage {
     }
 
     private void clickConfigurationMenu(String mainMenuKey, String menuItemKey, int index) {
-        clickMenuItem("PageAdmin.menu.top.configuration", mainMenuKey, menuItemKey, index);
+        clickMenuItem(ConstantsUtil.CONFIGURATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey, index);
     }
 
     public FeedbackBox<? extends BasicPage> feedback() {
@@ -487,29 +485,29 @@ public class BasicPage {
         return this;
     }
 
-    private void clickMenuItem(String topLevelMenuKey, String mainMenuKey, String menuItemKey) {
-        clickMenuItem(topLevelMenuKey, mainMenuKey, menuItemKey, 0);
+    private void clickMenuItem(String topLevelMenuValue, String mainMenuKey, String menuItemKey) {
+        clickMenuItem(topLevelMenuValue, mainMenuKey, menuItemKey, 0);
     }
 
-    private void clickMenuItem(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index) {
+    private void clickMenuItem(String topLevelMenuValue, String mainMenuKey, String menuItemKey, int index) {
         Utils.waitForAjaxCallFinish();
-        SelenideElement menu = getMenuItemElement(topLevelMenuKey, mainMenuKey, menuItemKey, index);
+        SelenideElement menu = getMenuItemElement(topLevelMenuValue, mainMenuKey, menuItemKey, index);
         scrollToElement(menu);
         menu.click();
     }
 
-    public SelenideElement getMenuItemElement(String topLevelMenuKey, String mainMenuKey, String menuItemKey) {
-        return getMenuItemElement(topLevelMenuKey, mainMenuKey, menuItemKey, 0);
+    public SelenideElement getMenuItemElement(String topLevelMenuValue, String mainMenuKey, String menuItemKey) {
+        return getMenuItemElement(topLevelMenuValue, mainMenuKey, menuItemKey, 0);
     }
 
-    public SelenideElement getMenuItemElement(String topLevelMenuKey, String mainMenuKey, String menuItemKey, int index){
-        SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuKey, mainMenuKey, index);
+    public SelenideElement getMenuItemElement(String topLevelMenuValue, String mainMenuKey, String menuItemKey, int index){
+        SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuValue, mainMenuKey, index);
         mainMenu.parent().parent().shouldBe(Condition.cssClass("menu-open"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (menuItemKey == null){
             return mainMenu;
         }
 
-        SelenideElement menuItem = mainMenu.$(Schrodinger.byDataResourceKey(menuItemKey));
+        SelenideElement menuItem = $(Schrodinger.byDataResourceKey(menuItemKey));
         scrollToElement(menuItem);
         menuItem.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
@@ -531,8 +529,8 @@ public class BasicPage {
         }
     }
 
-    public SelenideElement getMenuItemElementByMenuLabelText(String topLevelMenuKey, String mainMenuKey, String menuItemLabelText){
-        SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuKey, mainMenuKey);
+    public SelenideElement getMenuItemElementByMenuLabelText(String topLevelMenuValue, String mainMenuKey, String menuItemLabelText){
+        SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuValue, mainMenuKey);
         if (StringUtils.isEmpty(menuItemLabelText)){
             return mainMenu;
         }
@@ -542,13 +540,13 @@ public class BasicPage {
         return menuItem;
     }
 
-    private SelenideElement getMainMenuItemElement(String topLevelMenuKey, String mainMenuKey) {
-        return getMainMenuItemElement(topLevelMenuKey, mainMenuKey, 0);
+    private SelenideElement getMainMenuItemElement(String topLevelMenuValue, String mainMenuKey) {
+        return getMainMenuItemElement(topLevelMenuValue, mainMenuKey, 0);
     }
 
-    private SelenideElement getMainMenuItemElement(String topLevelMenuKey, String mainMenuKey, int index){
+    private SelenideElement getMainMenuItemElement(String topLevelMenuValue, String mainMenuKey, int index){
         Utils.waitForAjaxCallFinish();
-        SelenideElement topLevelMenu = $(Schrodinger.byDataResourceKey(topLevelMenuKey));
+        SelenideElement topLevelMenu = $x(".//span[@data-s-id='name' and contains(text(), '" + topLevelMenuValue + "')]");
         scrollToElement(topLevelMenu);
         topLevelMenu.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
@@ -559,7 +557,7 @@ public class BasicPage {
             Utils.waitForAjaxCallFinish();
         }
 
-        SelenideElement mainMenu = topLevelMenu.$(Schrodinger.byDataResourceKey("span", mainMenuKey), index);
+        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("p", "data-s-resource-key", mainMenuKey));
         ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
         mainMenu.shouldBe(Condition.visible);
 

@@ -166,12 +166,12 @@ public class ImportObjectPage extends BasicPage {
     }
 
     public ImportObjectPage clickImportFileButton() {
-        $(".main-button-bar").$x("//a[@data-s-id='importFileButton']").click();
+        $(".main-button-bar").$x(".//a[@data-s-id='importFileButton']").click();
         return this;
     }
 
     public ImportObjectPage clickImportXmlButton() {
-        $(".main-button-bar").$x("//a[@data-s-id='importXmlButton']").click();
+        $(".main-button-bar").$x(".//a[@data-s-id='importXmlButton']").click();
         return this;
     }
 

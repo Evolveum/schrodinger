@@ -52,7 +52,7 @@ public class DebugUtilPanel extends Component<InternalsConfigurationPage> {
     }
 
     private SelenideElement getDetailedDebugDumpElement() {
-        return $(Schrodinger.byDataId("detailedDebugDump")).$x("//input[@data-s-id='check']")
+        return $(Schrodinger.byDataId("detailedDebugDump")).$x(".//input[@data-s-id='check']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 

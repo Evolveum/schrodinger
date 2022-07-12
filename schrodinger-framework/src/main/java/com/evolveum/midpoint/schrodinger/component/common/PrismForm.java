@@ -385,7 +385,7 @@ public class PrismForm<T> extends Component<T> {
             } else {
                 //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
                 //the first found element on the page. usual byText looks in the parent element
-//            element = getParentElement().$(By.xpath("//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+//            element = getParentElement().$(By.xpath(".//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
 //                    .parent().shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
                 element = getParentElement().$(byText(name)).parent().parent();
             }

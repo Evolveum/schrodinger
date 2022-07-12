@@ -41,7 +41,7 @@ public class ListReportsPage extends AssignmentHolderObjectListPage<ReportTable,
     }
 
     public ReportPage newReport() {
-        SelenideElement mainButton = $(By.xpath("//button[@type='button'][@" + Schrodinger.DATA_S_ID + "='mainButton']"));
+        SelenideElement mainButton = $(By.xpath(".//button[@type='button'][@" + Schrodinger.DATA_S_ID + "='mainButton']"));
         mainButton.click();
         return new ReportPage();
     }

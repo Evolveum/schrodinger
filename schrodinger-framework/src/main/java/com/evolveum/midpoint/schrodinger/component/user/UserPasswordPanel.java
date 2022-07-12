@@ -34,13 +34,13 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
 //                .getPrismContainerPanel("Password")
 //                .getContainerFormFragment();
 
-        boolean existValue = getParentElement().$x("//a[@data-s-id='changePasswordLink']").exists();
+        boolean existValue = getParentElement().$x(".//a[@data-s-id='changePasswordLink']").exists();
         if (existValue) {
-            getParentElement().$x("//a[@data-s-id='changePasswordLink']").click();
+            getParentElement().$x(".//a[@data-s-id='changePasswordLink']").click();
         }
-        getParentElement().$x("//input[@data-s-id='password1']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        getParentElement().$x("//input[@data-s-id='password2']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        getParentElement().$x("//input[@data-s-id='password2']").shouldBe(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
+        getParentElement().$x(".//input[@data-s-id='password1']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        getParentElement().$x(".//input[@data-s-id='password2']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        getParentElement().$x(".//input[@data-s-id='password2']").shouldBe(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }

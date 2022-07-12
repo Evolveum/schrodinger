@@ -191,7 +191,7 @@ public class Schrodinger {
         if (element == null) {
             element = "*";
         }
-        return By.xpath("//" + element + "[@" + attr + "='" + value + "']");
+        return By.xpath(".//" + element + "[@" + attr + "='" + value + "']");
     }
 
     /**
@@ -219,7 +219,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        return By.xpath("//" + element + "[" + function + "(@" + attr + ",'" + value + "')]");
+        return By.xpath(".//" + element + "[" + function + "(@" + attr + ",'" + value + "')]");
     }
 
     /**
@@ -281,7 +281,7 @@ public class Schrodinger {
             enclosingElement = ".";
         }
 
-        return By.xpath("//" + element + "[@" + attr + "=\"" + attrValue + "\"][contains(" + enclosingElement + ",\"" + enclosedText + "\")]/..");
+        return By.xpath(".//" + element + "[@" + attr + "=\"" + attrValue + "\"][contains(" + enclosingElement + ",\"" + enclosedText + "\")]/..");
     }
 
     /**
@@ -332,7 +332,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        return By.xpath("//" + element + "[@" + attr + "=\"" + attrValue + "\" and ancestor-or-self::*[@" + ancestorAttr + "=\"" + ancestorAttrValue + "\"]]");
+        return By.xpath(".//" + element + "[@" + attr + "=\"" + attrValue + "\" and ancestor-or-self::*[@" + ancestorAttr + "=\"" + ancestorAttrValue + "\"]]");
     }
 
     /**
@@ -372,7 +372,7 @@ public class Schrodinger {
         if (element == null) {
             element = "*";
         }
-        StringBuilder xpathBuilder = new StringBuilder("//").append(element).append("[");
+        StringBuilder xpathBuilder = new StringBuilder(".//").append(element).append("[");
 
         if(attr!=null){
             if(!attr.isEmpty()){
@@ -443,7 +443,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        return By.xpath("//" + element + "[@" + attr + "=\"" + attrValue + "\" and descendant-or-self::*[@" + descendantAttr + "=\"" + descendantAttrValue + "\"]]");
+        return By.xpath(".//" + element + "[@" + attr + "=\"" + attrValue + "\" and descendant-or-self::*[@" + descendantAttr + "=\"" + descendantAttrValue + "\"]]");
     }
 
     /**
@@ -467,7 +467,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        return By.xpath("//" + element + "[descendant-or-self::*[@" + descendantAttr + "=\"" + descendantAttrValue + "\"]]");
+        return By.xpath(".//" + element + "[descendant-or-self::*[@" + descendantAttr + "=\"" + descendantAttrValue + "\"]]");
     }
 
     /**
@@ -501,7 +501,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        return By.xpath("//" + element + "[@" + attr + "=\"" + attrValue + "\" and following-sibling::*[@" + siblingAttr + "=\"" + siblingAttrValue + "\" and descendant-or-self::*[contains(.,\"" + siblingEnclosedText + "\")]]]");
+        return By.xpath(".//" + element + "[@" + attr + "=\"" + attrValue + "\" and following-sibling::*[@" + siblingAttr + "=\"" + siblingAttrValue + "\" and descendant-or-self::*[contains(.,\"" + siblingEnclosedText + "\")]]]");
     }
 
 
@@ -540,7 +540,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        StringBuilder xpathBuilder = new StringBuilder("//").append(element).append("[");
+        StringBuilder xpathBuilder = new StringBuilder(".//").append(element).append("[");
 
         if (attr != null) {
             if (!attr.isEmpty()){
@@ -597,7 +597,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        StringBuilder xpathBuilder = new StringBuilder("//").append(element).append("[ancestor::*[");
+        StringBuilder xpathBuilder = new StringBuilder(".//").append(element).append("[ancestor::*[");
 
         if (ancestorAttr != null) {
             xpathBuilder.append("@").append(ancestorAttr).append("=\"").append(ancestorAttrValue)
@@ -645,7 +645,7 @@ public class Schrodinger {
             element = "*";
         }
 
-        StringBuilder xpathBuilder = new StringBuilder("//").append(element).append("[ancestor::*[");
+        StringBuilder xpathBuilder = new StringBuilder(".//").append(element).append("[ancestor::*[");
 
         if (ancestorAttr != null) {
             xpathBuilder.append("@").append(ancestorAttr).append("=\"").append(ancestorAttrValue)

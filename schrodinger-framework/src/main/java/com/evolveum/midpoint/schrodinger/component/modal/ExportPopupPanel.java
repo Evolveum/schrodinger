@@ -38,7 +38,7 @@ public class ExportPopupPanel<T> extends ModalBox<T> {
     }
 
     public ExportPopupPanel<T> setReportName(String reportName) {
-        getParentElement().$x("//div[@data-s-id='name']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x(".//div[@data-s-id='name']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .setValue(reportName);
         return this;
     }
