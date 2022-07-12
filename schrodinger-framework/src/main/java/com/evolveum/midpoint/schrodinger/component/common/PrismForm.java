@@ -247,9 +247,9 @@ public class PrismForm<T> extends Component<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
 
-        ElementsCollection values = property.$$(By.className("prism-property-value"));
+        ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
         if (values.size() == 1) {
-            values.first().$(By.className("form-control")).setValue(value);
+            values.first().$x(".//*[contains(@class, \"form-control\")]").setValue(value);
         }
         // todo implement
         return this;
