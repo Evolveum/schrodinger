@@ -30,21 +30,21 @@ import java.time.Duration;
  */
 public class MidPoint {
 
-    public static final Duration TIMEOUT_DEFAULT_2_S = Duration.ofSeconds(2000);
+    public static final Duration TIMEOUT_DEFAULT_2_S = Duration.ofMillis(2000);
 
-    public static final Duration TIMEOUT_SHORT_4_S = Duration.ofSeconds(4000);
+    public static final Duration TIMEOUT_SHORT_4_S = Duration.ofMillis(4000);
 
-    public static final Duration TIMEOUT_MEDIUM_6_S = Duration.ofSeconds(6000);
+    public static final Duration TIMEOUT_MEDIUM_6_S = Duration.ofMillis(6000);
 
-    public static final Duration TIMEOUT_LONG_1_M = Duration.ofSeconds(60000);
+    public static final Duration TIMEOUT_LONG_1_M = Duration.ofMillis(60000);
 
-    public static final Duration TIMEOUT_LONG_30_S = Duration.ofSeconds(30000);
+    public static final Duration TIMEOUT_LONG_30_S = Duration.ofMillis(30000);
 
-    public static final Duration TIMEOUT_LONG_20_S = Duration.ofSeconds(20000);
+    public static final Duration TIMEOUT_LONG_20_S = Duration.ofMillis(20000);
 
-    public static final Duration TIMEOUT_MEDIUM_LONG_3_M = Duration.ofSeconds(180000);
+    public static final Duration TIMEOUT_MEDIUM_LONG_3_M = Duration.ofMillis(180000);
 
-    public static final Duration TIMEOUT_EXTRA_LONG_10_M = Duration.ofSeconds(600000);
+    public static final Duration TIMEOUT_EXTRA_LONG_10_M = Duration.ofMillis(600000);
 
     private static EnvironmentConfiguration configuration;
 
