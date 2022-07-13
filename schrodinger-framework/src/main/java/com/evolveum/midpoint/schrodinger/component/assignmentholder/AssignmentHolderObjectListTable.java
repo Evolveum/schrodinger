@@ -84,7 +84,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public Search<? extends AssignmentHolderObjectListTable<P, PD>> search() {
-        SelenideElement searchElement = getParentElement().$(By.cssSelector(".form-inline.pull-right.search-form"));
+        SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form.d-flex.flex-wrap.justify-content-end.gap-1.align-items-start"));
 
         return new Search<>(this, searchElement);
     }
