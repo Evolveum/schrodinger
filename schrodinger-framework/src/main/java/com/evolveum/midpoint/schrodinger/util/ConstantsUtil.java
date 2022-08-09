@@ -56,4 +56,5 @@ public class ConstantsUtil {
     public static final String COLLECTION_HEADER = "Collection";
 
     public static final String BOXED_TABLE_CSS = "card card-outline";
+    public static final String BOXED_TABLE_CSS_SELECTOR = ".card.card-outline";
 }

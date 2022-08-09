@@ -21,12 +21,12 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
+import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by matus on 5/22/2018.
@@ -85,8 +85,10 @@ public class ResourceAccountsPanel<T> extends Component<T> {
     }
 
     public ResourceAccountsPanel<T> clickSearchInResource() {
-        $(Schrodinger.byDataId("a", "resourceSearch"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement resourceSearch = $(Schrodinger.byDataId("a", "resourceSearch"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        sleep(500);
+        resourceSearch.click();
         $(Schrodinger.byDataId("a", "resourceSearch"))
                 .shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_1_M);
         return this;
@@ -94,7 +96,7 @@ public class ResourceAccountsPanel<T> extends Component<T> {
 
     public ResourceShadowTable<ResourceAccountsPanel<T>> table() {
 
-        SelenideElement element = $(By.cssSelector(".box.boxed-table"))
+        SelenideElement element = $(Schrodinger.byDataId("div", "itemsTable"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceShadowTable<>(this, element);
