@@ -38,14 +38,8 @@ public class Search<T> extends Component<T> {
     }
 
     public TextInputSearchItemPanel<Search<T>> byName() {
-        choiceBasicSearch();
-
-        SelenideElement nameElement = getItemByName("Name");
-        if (nameElement == null){
-            addSearchItemByNameLinkClick("Name");
-            nameElement = getItemByName("Name");
-        }
-        SelenideElement nameInput = nameElement.parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
+        SelenideElement nameElement = getItemSearchElement("Name", true);
+        SelenideElement nameInput = nameElement.find(Schrodinger.byDataId("input", "input"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new TextInputSearchItemPanel(this, nameInput);
     }
@@ -93,11 +87,6 @@ public class Search<T> extends Component<T> {
     private SelenideElement getItemSearchElement(String itemName, boolean addIfAbsent) {
         choiceBasicSearch();
 
-//        SelenideElement searchField = getParentElement()
-//                .find(Schrodinger.byPrecedingSiblingEnclosedValue("div", Schrodinger.DATA_S_ID, "searchItemField",
-//                        Schrodinger.DATA_S_RESOURCE_KEY, itemName, itemName));
-//        SelenideElement typeDropdown = searchField.find(Schrodinger.byDataId(itemType, "input"));
-
         SelenideElement itemElement = getItemByName(itemName);
         if (itemElement == null && addIfAbsent){
             addSearchItemByNameLinkClick(itemName);
@@ -120,16 +109,7 @@ public class Search<T> extends Component<T> {
             sleep(1000);
             return;
         }
-        clickDroDownForSearchMode();
-        try {
-            SelenideElement basicLink = getParentElement().find(Schrodinger.bySchrodingerDataResourceKey("SearchBoxModeType.BASIC")).parent();
-                    //$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Basic')]");
-            basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-            basicLink.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
-        } catch (Throwable t) {
-            //TODO why this?
-            getParentElement().$x(".//button[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        }
+        selectSearchType("SearchBoxModeType.BASIC");
     }
 
     private boolean isBasicSearch() {
@@ -147,26 +127,28 @@ public class Search<T> extends Component<T> {
     }
 
     public InputBox<Search<T>> byFullText() {
-        clickDroDownForSearchMode();
-        try {
-            SelenideElement basicLink = getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Full text')]");
-            basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-            basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S);
-        } catch (Throwable t) {
-            // all is ok, fullText search is already selected option, check is provided next in next row
-        }
+        selectSearchType("SearchBoxModeType.FULLTEXT");
 
         // we assume fulltext is enabled in systemconfig, else error is thrown here:
         SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new InputBox<> (this, fullTextField);
     }
 
+    private void selectSearchType(String resourceKey) {
+        clickDroDownForSearchMode();
+        try {
+            SelenideElement searchTypeSelection = getParentElement().find(Schrodinger.bySchrodingerDataResourceKey(resourceKey)).parent();
+            searchTypeSelection.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            searchTypeSelection.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
+            sleep(1000);
+        } catch (Throwable t) {
+            //TODO how to properly handle?
+            t.printStackTrace();
+        }
+
+    }
+
     public Search<T> addSearchItemByNameLinkClick(String name) {
-//        choiceBasicSearch();
-//        getParentElement().find(Schrodinger.byDataId("button", "more"))
-//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-//                .click();
-//        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement popover = getMorePopover();
         popover.$(Schrodinger.byElementValue("a", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
@@ -176,11 +158,6 @@ public class Search<T> extends Component<T> {
     }
 
     public Search<T> addSearchItemByAddButtonClick(String name) {
-//        choiceBasicSearch();
-//        getParentElement().find(Schrodinger.byDataId("button", "more"))
-//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-//                .click();
-//        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement popover = getMorePopover();
         popover.$(Schrodinger.byElementValue("a", name))            //click checkbox next to search attribute
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
