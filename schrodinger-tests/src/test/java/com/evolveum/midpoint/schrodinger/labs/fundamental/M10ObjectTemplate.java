@@ -382,9 +382,11 @@ public class M10ObjectTemplate extends AbstractLabTest {
                 .assertContainsManager("John Wicks");
 
         rootTab.getMemberPanel()
-                .selectType("User")
+//                .selectType("User")
                 .table()
                     .search()
+                        .byType("User")
+                        .updateSearch()
                         .resetBasicSearch()
                     .and()
                 .clickByName("X000158");

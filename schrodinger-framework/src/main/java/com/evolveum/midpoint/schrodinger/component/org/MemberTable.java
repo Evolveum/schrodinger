@@ -26,9 +26,9 @@ import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModa
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.screenshot;
 
 /**
  * @author skublik
@@ -71,6 +71,11 @@ public class MemberTable<T> extends AssignmentHolderObjectListTable<T, Assignmen
 
     public ConfirmationModal<MemberTable<T>> recompute(String columnTitleKey, String rowValue){
         return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "abstractRoleMemberPanel.menu.recompute");
+    }
+
+    @Override
+    public MemberSearch<T> search() {
+        return new MemberSearch<>(this, findSearchElement());
     }
 
 }

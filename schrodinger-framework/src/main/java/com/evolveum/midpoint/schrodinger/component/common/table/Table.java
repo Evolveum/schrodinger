@@ -217,7 +217,7 @@ public class Table<T> extends Component<T> {
     }
 
     public int countTableObjects() {
-        String countStringValue = $(Schrodinger.bySelfOrAncestorElementAttributeValue("div", "class", "dataTables_info", "data-s-id", "count"))
+        String countStringValue = $(Schrodinger.bySelfOrAncestorElementAttributeValue("span", "class", "align-middle", Schrodinger.DATA_S_ID, "count"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).text();
         if (countStringValue == null) {
             return 0;

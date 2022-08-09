@@ -92,13 +92,16 @@ public class Search<T> extends Component<T> {
 
     private SelenideElement getItemSearchElement(String itemName, boolean addIfAbsent) {
         choiceBasicSearch();
+
+//        SelenideElement searchField = getParentElement()
+//                .find(Schrodinger.byPrecedingSiblingEnclosedValue("div", Schrodinger.DATA_S_ID, "searchItemField",
+//                        Schrodinger.DATA_S_RESOURCE_KEY, itemName, itemName));
+//        SelenideElement typeDropdown = searchField.find(Schrodinger.byDataId(itemType, "input"));
+
         SelenideElement itemElement = getItemByName(itemName);
         if (itemElement == null && addIfAbsent){
             addSearchItemByNameLinkClick(itemName);
             itemElement = getItemByName(itemName);
-        }
-        if (itemElement == null){
-            return null;
         }
         return itemElement;
     }
@@ -108,19 +111,30 @@ public class Search<T> extends Component<T> {
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         Actions builder = new Actions(WebDriverRunner.getWebDriver());
         builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
         return this;
     }
 
     private void choiceBasicSearch() {
+        if (isBasicSearch()) {
+            sleep(1000);
+            return;
+        }
         clickDroDownForSearchMode();
         try {
-            SelenideElement basicLink = getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Basic')]");
+            SelenideElement basicLink = getParentElement().find(Schrodinger.bySchrodingerDataResourceKey("SearchBoxModeType.BASIC")).parent();
+                    //$x(".//a[@"+Schrodinger.DATA_S_ID+"='menuItemLink' and contains(text(), 'Basic')]");
             basicLink.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
             basicLink.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
         } catch (Throwable t) {
-            getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            //TODO why this?
+            getParentElement().$x(".//button[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         }
+    }
+
+    private boolean isBasicSearch() {
+        SelenideElement searchButton = getParentElement().find(Schrodinger.byDataId("span", "searchButtonLabel"));
+        return searchButton.getText() != null && searchButton.getText().equals("Basic");
     }
 
     private void clickDroDownForSearchMode() {
@@ -148,21 +162,26 @@ public class Search<T> extends Component<T> {
     }
 
     public Search<T> addSearchItemByNameLinkClick(String name) {
-        choiceBasicSearch();
-        getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        SelenideElement popover = getDisplayedPopover();
+//        choiceBasicSearch();
+//        getParentElement().find(Schrodinger.byDataId("button", "more"))
+//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+//                .click();
+//        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        SelenideElement popover = getMorePopover();
         popover.$(Schrodinger.byElementValue("a", name))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public Search<T> addSearchItemByAddButtonClick(String name) {
-        choiceBasicSearch();
-        getParentElement().$x(".//a[@"+Schrodinger.DATA_S_ID+"='more']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        SelenideElement popover = getDisplayedPopover();
+//        choiceBasicSearch();
+//        getParentElement().find(Schrodinger.byDataId("button", "more"))
+//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+//                .click();
+//        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        SelenideElement popover = getMorePopover();
         popover.$(Schrodinger.byElementValue("a", name))            //click checkbox next to search attribute
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent().$(By.tagName("input")).click();
@@ -171,10 +190,19 @@ public class Search<T> extends Component<T> {
         return this;
     }
 
+    private SelenideElement getMorePopover() {
+        choiceBasicSearch();
+        getParentElement().find(Schrodinger.byDataId("button", "more"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        return getDisplayedPopover();
+    }
+
     public SelenideElement getItemByName(String name) {
-        ElementsCollection items = getParentElement().findAll(By.className("search-item"));
+        ElementsCollection items = getParentElement().findAll(Schrodinger.byDataId("searchItemContainer"));
         for (SelenideElement item : items) {
-            if (item.$(byText(name)).exists()) {
+            if (item.$(Schrodinger.byElementValue("div", name)).exists()) {
                 return item;
             }
         }

@@ -84,9 +84,12 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public Search<? extends AssignmentHolderObjectListTable<P, PD>> search() {
-        SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form"));
-
+        SelenideElement searchElement = findSearchElement();
         return new Search<>(this, searchElement);
+    }
+
+    protected SelenideElement findSearchElement() {
+        return getParentElement().$(By.cssSelector(".search-panel-form"));
     }
 
     @Override
@@ -154,7 +157,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public AssignmentHolderObjectListTable<P, PD> clickRefreshButton() {
-        getToolbarButtonByCss("fa fa-refresh")
+        getToolbarButtonByCss("fa fa-sync-alt")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(2000);

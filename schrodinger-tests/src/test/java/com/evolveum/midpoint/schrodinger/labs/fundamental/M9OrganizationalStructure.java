@@ -160,8 +160,12 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .selectOrgInTree("Warp Speed Research")
                         .and()
                     .getMemberPanel()
-                        .selectType("User")
+//                        .selectType("User")
                         .table()
+                            .search()
+                                .byType("User")
+                            .updateSearch()
+                        .and()
                             .assertTableContainsText("kirk");
 
         showUser("kirk").selectAssignmentsPanel()
@@ -190,9 +194,13 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .selectOrgInTree("Warp Speed Research")
                         .and()
                     .getMemberPanel()
-                        .selectType("User")
+//                        .selectType("User")
                             .table()
-                            .assertTableDoesntContainText("kirk");
+                                .search()
+                                    .byType("User")
+                                .updateSearch()
+                            .and()
+                                .assertTableDoesntContainText("kirk");
 
         basicPage.orgStructure()
                 .selectTabWithRootOrg("ExAmPLE, Inc. - Functional Structure")
@@ -249,8 +257,12 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .selectOrgInTree("Warp Speed Research")
                         .and()
                     .getMemberPanel()
-                        .selectType("User")
+//                        .selectType("User")
                             .table()
+                                .search()
+                                    .byType("User")
+                                .updateSearch()
+                            .and()
                             .assertTableContainsText("kirk");
 
         AccountPage accountPage = showShadow(CSV_1_RESOURCE_NAME, "Login", "jkirk");

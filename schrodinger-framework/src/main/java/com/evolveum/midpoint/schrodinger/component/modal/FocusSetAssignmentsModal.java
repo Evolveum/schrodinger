@@ -64,8 +64,9 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     }
 
     public FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>> table() {
-        SelenideElement resourcesBox = getParentElement().find(Schrodinger.byElementAttributeValue("div", "class", ConstantsUtil.BOXED_TABLE_CSS))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement resourcesBox = getParentElement().find(Schrodinger.byDataId("div", "itemsTable"));
+//        SelenideElement resourcesBox = getParentElement().find(Schrodinger.byElementAttributeValue("div", "class", ConstantsUtil.BOXED_TABLE_CSS))
+//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new FocusTableWithChoosableElements<>(this, resourcesBox);
     }
 

@@ -33,6 +33,7 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.testng.annotations.Test;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
@@ -134,13 +135,14 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                     .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                         .getMemberPanel()
                             .table()
-                                .clickRefreshButton()
                                 .search()
-                                .byName()
-                                .inputValue("UniqueNameUserForMemberTest")
+                                    .byName()
+                                    .inputValue("UniqueNameUserForMemberTest")
                                 .updateSearch()
-                            .and();
-        Selenide.screenshot("test00300assignExistingUserAsMember_membersPanel");
+                            .and()
+                        .clickRefreshButton();
+        Selenide.screenshot("test00300assignExistingUserAsMember_membersPanel_" + System.currentTimeMillis());
+
         membersTable
                     .assertTableContainsText("UniqueNameUserForMemberTest");
     }
@@ -162,9 +164,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .selectRelation("Approver")
+//                        .selectRelation("Approver")
                         .table()
                             .search()
+                                .byRelation("Approver")
                             .byName()
                             .inputValue("NewUserAsOrgApprover")
                             .updateSearch()
@@ -194,16 +197,19 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-        memberPanel
-                .selectType("All")
-                .selectRelation("Manager");
+//        memberPanel
+//                .selectType("Focus")
+//                .selectRelation("Manager");
         memberTable
                 .search()
+                    .byType("All")
+                    .byRelation("Manager")
                     .byName()
-                    .inputValue("NewUserAsOrgManager")
-                    .updateSearch()
-                .and()
-                .assertTableObjectsCountEquals(1)
+                        .inputValue("NewUserAsOrgManager")
+                    .updateSearch();
+
+        memberTable
+                    .assertTableObjectsCountEquals(1)
                 .assertTableContainsText("Manager");
     }
 
@@ -228,19 +234,23 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-        memberPanel.selectType("All")
-                .selectRelation("Owner")
-                .table()
-                .search()
-                .updateSearch();
+//        memberPanel
+////                .selectType("All")
+////                .selectRelation("Owner")
+//                .table()
+//                .search()
+//
+//                .updateSearch();
         memberTable
-                            .search()
-                            .byName()
-                            .inputValue("NewOrgAsOrgOwner")
-                .updateSearch()
+                .search()
+                    .byType("All")
+                    .byRelation("Owner")
+                    .byName()
+                        .inputValue("NewOrgAsOrgOwner")
+                    .updateSearch()
                 .and()
-                .assertTableObjectsCountEquals(1)
-                .assertTableContainsText("Owner");
+                    .assertTableObjectsCountEquals(1)
+                    .assertTableContainsText("Owner");
     }
 
     @Test (priority = 7)
@@ -264,13 +274,15 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-        memberPanel
-                .selectType("All")
-                .selectRelation("Approver");
+//        memberPanel
+//                .selectType("All")
+//                .selectRelation("Approver");
         memberTable
-                            .search()
-                            .byName()
-                            .inputValue("NewOrgAsOrgApprover")
+                .search()
+                    .byType("All")
+                    .byRelation("Approver")
+                    .byName()
+                        .inputValue("NewOrgAsOrgApprover")
                 .updateSearch()
                 .and()
                 .assertTableObjectsCountEquals(1)
