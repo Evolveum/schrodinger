@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2021 Evolveum
+ * Copyright (c) 2022 Evolveum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,47 +15,54 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
-
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.TestConnectionModal;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import static com.codeborne.selenide.Selenide.$;
 
-public class ViewResourcePage extends AssignmentHolderDetailsPage {
+public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
+
+    public PanelWithContainerWrapper<ResourcePage> selectConnectorConfigurationPanel() {
+        return new PanelWithContainerWrapper<>(this, getNavigationPanelSelenideElement("Connector configuration"));
+    }
+
+    public ResourcePage refreshSchema() {
+        $(Schrodinger.byElementAttributeValue("a", "title", "Refresh schema"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+
+        return this;
+    }
 
     public ResourceConfigurationPanel getConnectorConfigurationPanel() {
         SelenideElement element=  getNavigationPanelSelenideElement("Connector configuration")
-              .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
 
         return new ResourceConfigurationPanel(new EditResourceConfigurationPage(), element);
     }
 
-    public ResourceWizardPage clickShowUsingWizard() {
-
-        $(Schrodinger.byElementAttributeValue("span", "title", "Show using wizard")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        $(Schrodinger.byElementAttributeValue("form", "class", "form-horizontal"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
-        return new ResourceWizardPage();
+    public TestConnectionModal<ResourcePage> clickTestConnection() {
+        $(Schrodinger.byElementAttributeValue("a", "title", "Test connection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
+//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
+        return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
     }
 
-    public ResourceAccountsPanel<ViewResourcePage> selectAccountsPanel() {
+    public ResourceAccountsPanel<ResourcePage> selectAccountsPanel() {
         SelenideElement tabContent = getNavigationPanelSelenideElement("Accounts")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceAccountsPanel<>(this, tabContent);
     }
 
-    public ResourceAccountsPanel<ViewResourcePage> clickGenericsTab() {
+    public ResourceAccountsPanel<ResourcePage> clickGenericsTab() {
 
         $(Schrodinger.byDataResourceKey("schrodinger", "PageResource.tab.content.generic")).parent()
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
@@ -66,20 +73,8 @@ public class ViewResourcePage extends AssignmentHolderDetailsPage {
         return new ResourceAccountsPanel<>(this, tabContent);
     }
 
-    public ViewResourcePage refreshSchema() {
-        $x(".//span[@title='Refresh schema']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
-        return this;
+    public SchemaStepSchemaPanel selectSchemaPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Schema");
+        return new SchemaStepSchemaPanel(this, element);
     }
-
-    public PanelWithContainerWrapper<ViewResourcePage> selectConnectorConfigurationPanel() {
-        return new PanelWithContainerWrapper<>(this, getNavigationPanelSelenideElement("Connector configuration"));
-    }
-
-    public TestConnectionModal<ViewResourcePage> clickTestConnection() {
-        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
-//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
-        return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
-    }
-
 }

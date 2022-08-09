@@ -40,7 +40,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
-import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
@@ -63,7 +63,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -355,10 +354,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     // TODO workaround -> factory reset during clean up seems to leave some old cached information breaking the resource until version change
-    public ViewResourcePage refreshResourceSchema(String resourceName) {
+    public ResourcePage refreshResourceSchema(String resourceName) {
 
         ListResourcesPage listResourcesPage = basicPage.listResources();
-        ViewResourcePage resourcePage = listResourcesPage
+        ResourcePage resourcePage = listResourcesPage
                 .table()
                 .clickByName(resourceName)
                 .refreshSchema();
@@ -377,7 +376,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         ListResourcesPage listResourcesPage = basicPage.listResources();
 
         if (shouldBeSuccess) {
-            ViewResourcePage viewResourcePage = listResourcesPage
+            ResourcePage viewResourcePage = listResourcesPage
                     .table()
                     .search()
                     .byName()
@@ -410,7 +409,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .assertIsTestSuccess()
                     .clickOk();
         } else {
-            ViewResourcePage viewResourcePage = listResourcesPage
+            ResourcePage viewResourcePage = listResourcesPage
                             .table()
                             .search()
                             .byName()
@@ -554,7 +553,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
-    public ViewResourcePage showResource(String resourceName){
+    public ResourcePage showResource(String resourceName){
         return basicPage.listResources()
                 .table()
                     .search()
@@ -606,12 +605,12 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
-    public ResourceShadowTable<ResourceAccountsPanel<ViewResourcePage>> getShadowTabTable(String resourceName) {
+    public ResourceShadowTable<ResourceAccountsPanel<ResourcePage>> getShadowTabTable(String resourceName) {
         return getShadowTabTable(resourceName, null, false);
     }
 
-    public ResourceShadowTable<ResourceAccountsPanel<ViewResourcePage>> getShadowTabTable(String resourceName, String intent, boolean useRepository) {
-        ResourceAccountsPanel<ViewResourcePage> tab = basicPage.listResources()
+    public ResourceShadowTable<ResourceAccountsPanel<ResourcePage>> getShadowTabTable(String resourceName, String intent, boolean useRepository) {
+        ResourceAccountsPanel<ResourcePage> tab = basicPage.listResources()
                 .table()
                   .search()
                     .byName()

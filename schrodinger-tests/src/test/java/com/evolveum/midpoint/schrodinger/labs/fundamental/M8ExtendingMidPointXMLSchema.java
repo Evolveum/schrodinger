@@ -22,7 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
-import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
@@ -100,7 +100,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
         addCsvResourceFromFileAndTestConnection(CSV_2_RESOURCE_FILE, CSV_2_RESOURCE_NAME, csv2TargetFile.getAbsolutePath());
         addCsvResourceFromFileAndTestConnection(CSV_3_RESOURCE_FILE_8, CSV_3_RESOURCE_NAME, csv3TargetFile.getAbsolutePath());
 
-        ResourceAccountsPanel<ViewResourcePage> accountTab = basicPage.listResources()
+        ResourceAccountsPanel<ResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .search()
                         .byName()

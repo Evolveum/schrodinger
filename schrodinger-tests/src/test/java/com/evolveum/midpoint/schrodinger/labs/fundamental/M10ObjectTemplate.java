@@ -29,7 +29,7 @@ import com.evolveum.midpoint.schrodinger.component.org.ManagerPanel;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
-import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
@@ -236,7 +236,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
     public void mod10test02AutomaticAssignments() throws IOException {
         importObject(OBJECT_TEMPLATE_USER_FILE, true);
 
-        ResourceAccountsPanel<ViewResourcePage> accountTab = basicPage.listResources()
+        ResourceAccountsPanel<ResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()

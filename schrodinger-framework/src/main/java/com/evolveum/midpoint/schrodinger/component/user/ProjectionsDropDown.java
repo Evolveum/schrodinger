@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Created by matus on 5/2/2018.
@@ -65,9 +66,12 @@ public class ProjectionsDropDown<T> extends TableHeaderDropDownMenu<T> {
 //    }
 
     public ConfirmationModal<ProjectionsDropDown<T>> delete() {
-        $(Schrodinger.byElementValue("a", "data-s-id", "menuItemLink", "\n" +
-                "        Delete")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Selenide.screenshot("deleteProjection");
+        SelenideElement deleteAction = getParentElement()
+                .find(Schrodinger.bySchrodingerDataResourceKey("pageAdminFocus.button.delete"))
+                .parent()
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        deleteAction.click();
+        Selenide.screenshot("deleteProjection_" + System.currentTimeMillis());
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }
 }

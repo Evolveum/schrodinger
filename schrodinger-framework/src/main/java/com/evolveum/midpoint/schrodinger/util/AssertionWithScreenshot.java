@@ -27,7 +27,7 @@ public class AssertionWithScreenshot extends Assertion {
     @Override
     public void onAssertFailure(IAssert<?> var1, AssertionError var2) {
         String fileName = screenshotFileName != null ? screenshotFileName : generateScreenshotName();
-        Selenide.screenshot(fileName);
+        Selenide.screenshot(fileName + "_" + System.currentTimeMillis());
         super.onAssertFailure(var1, var2);
         throw new AssertionError(var2.getMessage() + ", screenshot is created " + fileName + ".png");
     }

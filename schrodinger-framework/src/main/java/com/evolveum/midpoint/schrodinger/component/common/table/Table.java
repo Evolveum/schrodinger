@@ -85,20 +85,16 @@ public class Table<T> extends Component<T> {
     }
 
     public int findColumnByResourceKey(String key) {
-        ElementsCollection headers = getParentElement().findAll("thead th div span[data-s-id=label]");
+        ElementsCollection headers = getParentElement().findAll(Schrodinger.byDataId("th", "header"));
         if (headers == null) {
             return -1;
         }
         int index = 1;
-        for (SelenideElement header : headers) {
-            String headerResourceKey = header.getAttribute("data-s-resource-key");
-            if (headerResourceKey == null) {
-                index++;
-                continue;
-            }
 
-            if (Objects.equals(headerResourceKey, key)) {
-                break;
+        for (SelenideElement header : headers) {
+            SelenideElement headerWithKey = header.find((Schrodinger.bySchrodingerDataResourceKey(key)));
+            if (headerWithKey.exists()) {
+                return index;
             }
             index++;
         }
@@ -165,13 +161,13 @@ public class Table<T> extends Component<T> {
     }
 
     public Search<? extends Table<T>> search() {
-        SelenideElement searchElement = getParentElement().$(By.cssSelector(".form-inline.pull-right.search-form"));
+        SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form"));
 
         return new Search<>(this, searchElement);
     }
 
     public <P extends Table<T>> Paging<P> paging() {
-        SelenideElement pagingElement = getParentElement().$x(".//div[@class='boxed-table-footer-paging']");
+        SelenideElement pagingElement = getParentElement().$x(".//a[@ " + Schrodinger.DATA_S_ID + "='paging']");
 
         return new Paging(this, pagingElement);
     }

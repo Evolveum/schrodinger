@@ -24,18 +24,14 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-/**
- * Created by matus on 5/2/2018.
- */
 public class FocusSetProjectionModal<T> extends ModalBox<T> {
+
     public FocusSetProjectionModal(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
     public FocusTableWithChoosableElements<FocusSetProjectionModal<T>> table() {
-        SelenideElement resourcesBox = getParentElement().$x(".//div[contains(@class, \"box\") "
-                + "and contains(@class, \"boxed-table\")]");
-
+        SelenideElement resourcesBox = getParentElement().find(Schrodinger.byDataId("itemsTable"));
         return new FocusTableWithChoosableElements<>(this, resourcesBox);
     }
 

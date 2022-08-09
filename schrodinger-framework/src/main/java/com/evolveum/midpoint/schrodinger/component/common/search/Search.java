@@ -26,8 +26,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -105,7 +104,7 @@ public class Search<T> extends Component<T> {
     }
 
     public Search<T> updateSearch(){
-        SelenideElement simpleSearchButton = getParentElement().$x(".//button[@" + Schrodinger.DATA_S_ID + "='searchButtonBeforeDropdown']")
+        SelenideElement simpleSearchButton = getParentElement().$x(".//button[@" + Schrodinger.DATA_S_ID + "='searchButton']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         Actions builder = new Actions(WebDriverRunner.getWebDriver());
         builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
@@ -127,7 +126,7 @@ public class Search<T> extends Component<T> {
     private void clickDroDownForSearchMode() {
         Utils.waitForAjaxCallFinish();
         SelenideElement dropDownButton = getParentElement()
-                .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchContainer']")
+                .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchButtonPanel']")
                 .$x(".//button[@data-toggle='dropdown']");
         dropDownButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         dropDownButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);

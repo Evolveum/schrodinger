@@ -21,6 +21,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
 import com.evolveum.midpoint.schrodinger.component.MultiCompositedButtonPanel;
+import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -63,13 +64,13 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     }
 
     public FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>> table() {
-        SelenideElement resourcesBox = getParentElement().$x(".//div[@class='box boxed-table']")
+        SelenideElement resourcesBox = getParentElement().find(Schrodinger.byElementAttributeValue("div", "class", ConstantsUtil.BOXED_TABLE_CSS))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new FocusTableWithChoosableElements<FocusSetAssignmentsModal<T>>(this, resourcesBox);
+        return new FocusTableWithChoosableElements<>(this, resourcesBox);
     }
 
     public FocusSetAssignmentsModal<T> setRelation(String relation) {
-        getParentElement().$x(".//select[@data-s-id='select']")
+        getParentElement().find(Schrodinger.byDataId("relation"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S).selectOption(relation);
         return this;
     }

@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -45,7 +46,7 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
         SelenideElement checkbox = getParentElement()
                 .$(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                .$x(".//input[@data-s-id='check']");
+                .find(Schrodinger.byDataId("input", "check"));
         checkbox.click();
         checkbox.shouldBe(Condition.checked, MidPoint.TIMEOUT_MEDIUM_6_S);
         Utils.waitForAjaxCallFinish();
@@ -62,8 +63,7 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
 
     @Override
     public Search<FocusTableWithChoosableElements<T>> search() {
-        SelenideElement searchElement = getParentElement().$x(".//div[contains(@class, \"form-inline\") "
-                + "and contains(@class, \"pull-right\") and contains(@class, \"search-form\")]")
+        SelenideElement searchElement = getParentElement().find(By.cssSelector(".search-panel-form"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new Search<FocusTableWithChoosableElements<T>>(this, searchElement);

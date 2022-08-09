@@ -15,8 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.component.assignmentholder;
 
-import static com.codeborne.selenide.Selenide.$;
-
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
@@ -36,6 +34,8 @@ import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import java.time.Duration;
+
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by honchar
@@ -84,17 +84,17 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public Search<? extends AssignmentHolderObjectListTable<P, PD>> search() {
-        SelenideElement searchElement = getParentElement().$(By.cssSelector(".form-inline.pull-right.search-form"));
+        SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form"));
 
         return new Search<>(this, searchElement);
     }
 
     @Override
     public AssignmentHolderObjectListTable<P, PD> selectAll() {
-
-        $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
+        SelenideElement headercheckbox = $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"));
+        sleep(1000);
+        headercheckbox.click();
+        headercheckbox.shouldBe(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 

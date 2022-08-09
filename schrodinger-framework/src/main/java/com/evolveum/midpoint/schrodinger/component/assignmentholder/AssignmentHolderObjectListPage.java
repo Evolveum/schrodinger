@@ -42,13 +42,14 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     public abstract D getObjectDetailsPage();
 
     protected SelenideElement getTableBoxElement(){
-        StringBuilder tableStyle = new StringBuilder(".box.boxed-table");
+        StringBuilder tableStyle = new StringBuilder(".card.card-outline");
         String additionalTableClass = getTableAdditionalClass();
         if (StringUtils.isNotEmpty(additionalTableClass)){
             tableStyle.append(".");
             tableStyle.append(additionalTableClass);
         }
-        SelenideElement box = $(By.cssSelector(".table.table-hover"))
+//        SelenideElement box = $(By.cssSelector(".table.table-hover"))
+        SelenideElement box = $(By.cssSelector(tableStyle.toString()))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return box;
     }

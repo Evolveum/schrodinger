@@ -30,9 +30,9 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar.
  */
-public class SchemaStepSchemaPanel extends PanelWithContainerWrapper<SchemaWizardStep> {
+public class SchemaStepSchemaPanel extends PanelWithContainerWrapper<ResourcePage> {
 
-    public SchemaStepSchemaPanel(SchemaWizardStep parent, SelenideElement parentElement) {
+    public SchemaStepSchemaPanel(ResourcePage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 

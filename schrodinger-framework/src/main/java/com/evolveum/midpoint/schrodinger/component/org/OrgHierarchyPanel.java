@@ -129,7 +129,7 @@ public class OrgHierarchyPanel<T> extends Component<T> {
 //        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 //        menuButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
 
-        SelenideElement menu = node.$x(".//ul[@" + Schrodinger.DATA_S_ID + "=\"dropDownMenu\"]").shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        SelenideElement menu = node.$x(".//div[@" + Schrodinger.DATA_S_ID + "=\"dropDownMenu\"]").shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         return new OrgTreeNodeDropDown<OrgHierarchyPanel>(this, menu);
     }

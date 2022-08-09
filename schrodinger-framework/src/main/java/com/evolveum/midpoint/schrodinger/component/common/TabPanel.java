@@ -66,12 +66,12 @@ public class TabPanel<T> extends Component<T> {
         link.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         SelenideElement li = link.parent();
         if (li.getAttribute("class").contains("active")) {
-            return li.parent().parent().$(By.cssSelector(".tab-pane.active"));
+            return li.parent().parent().parent().$(By.cssSelector(".tab-pane.active"));
         }
         link.click();
-        li.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        link.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
 
-        return li.parent().parent().$(By.cssSelector(".tab-pane.active"));
+        return li.parent().parent().parent().$(By.cssSelector(".tab-pane.active"));
     }
 
     public SelenideElement getActiveTab() {

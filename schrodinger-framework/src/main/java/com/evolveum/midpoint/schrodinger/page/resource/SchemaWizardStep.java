@@ -31,9 +31,9 @@ public class SchemaWizardStep extends Component<ResourceWizardPage> {
         return new TabPanel<>(this, getParentElement());
     }
 
-    public SchemaStepSchemaPanel selectSchemaTab() {
-        return new SchemaStepSchemaPanel(this, getTabPanel().clickTabWithName("Schema"));
-    }
+//    public SchemaStepSchemaPanel selectSchemaTab() {
+//        return new SchemaStepSchemaPanel(this, getTabPanel().clickTabWithName("Schema"));
+//    }
 
     public SchemaStepXmlPanel selectXmlTab() {
         return new SchemaStepXmlPanel(this, getTabPanel().clickTabWithName("XML"));

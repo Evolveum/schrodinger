@@ -16,30 +16,21 @@
 package com.evolveum.midpoint.schrodinger.component.resource;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.search.Search;
-import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
-import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-/**
- * Created by matus on 4/25/2018.
- */
-public class ResourcesPageTable<T> extends TableWithPageRedirect<T> {
-    public ResourcesPageTable(T parent, SelenideElement parentElement) {
-        super(parent, parentElement);
-    }
+public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListResourcesPage, ResourcePage> {
 
-    @Override
-    public TableWithPageRedirect<T> selectCheckboxByName(String name) {
-        return this;
+    public ResourcesPageTable(ListResourcesPage parent, SelenideElement parentElement) {
+        super(parent, parentElement);
     }
 
     @Override
@@ -48,23 +39,22 @@ public class ResourcesPageTable<T> extends TableWithPageRedirect<T> {
     }
 
     @Override
-    public ViewResourcePage clickByName(String name) {
+    public ResourcePage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
-        getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
+        getParentElement().$(Schrodinger.byElementValue("span", Schrodinger.DATA_S_ID, "label", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        ViewResourcePage detailsPage = new ViewResourcePage();
+        ResourcePage detailsPage = new ResourcePage();
+        //TODO what is this?
         if (detailsPage.isUseTabbedPanel()) {
             detailsPage.getTabPanel();
         } else {
             detailsPage.getNavigationPanel();
         }
-        return new ViewResourcePage();
+        return new ResourcePage();
     }
 
     @Override
-    public Search<ResourcesPageTable<T>> search() {
-        SelenideElement searchElement = getParentElement().$(By.cssSelector(".form-inline.pull-right.search-form"));
-
-        return new Search<>(this, searchElement);
+    public ResourcePage getObjectDetailsPage() {
+        return new ResourcePage();
     }
 }

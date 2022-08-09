@@ -34,15 +34,13 @@ public class QuickSearch<T> extends Component<T> {
 
     public QuickSearch<T> inputValue(String name) {
         $(Schrodinger.byElementAttributeValue("input", "name", "searchInput")).setValue(name);
-
         return this;
     }
 
     //TODO rethink
     public Table clickSearch() {
-        $(Schrodinger.byElementAttributeValue("button", "data-s-id", "searchButton"))
+        $(Schrodinger.byElementAttributeValue("button", Schrodinger.DATA_S_ID, "searchButton"))
                 .click();
-
         return new Table("null", null);
     }
 
@@ -51,7 +49,6 @@ public class QuickSearch<T> extends Component<T> {
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement dropDown = $(Schrodinger.byElementAttributeValue("ul", "role", "menu"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-
         return new QuickSearchDropDown<>(this, dropDown);
     }
 }
