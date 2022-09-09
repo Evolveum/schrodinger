@@ -521,7 +521,7 @@ public class BasicPage {
             element.scrollIntoView(false);
             Utils.waitForAjaxCallFinish();
         }
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_DEFAULT_2_S);
+        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
         try {
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
@@ -625,7 +625,7 @@ public class BasicPage {
     }
 
     public boolean userMenuExists() {
-        return $(".dropdown.user.user-menu").exists();
+        return $(".main-header.navbar").exists();
     }
 
     public BasicPage assertElementWithTextExists(String text) {
