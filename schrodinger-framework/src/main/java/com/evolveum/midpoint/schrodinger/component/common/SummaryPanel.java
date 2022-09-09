@@ -91,7 +91,7 @@ public class SummaryPanel<T> extends Component<T> {
     }
 
     public SummaryPanel<T> assertSummaryTagWithTextExists(String summaryTagText) {
-        List<SelenideElement> summaryTagElements = $$(Schrodinger.byDataId("summaryTag"));
+        List<SelenideElement> summaryTagElements = $$(Schrodinger.byDataId("summaryTagLabel"));
         boolean exists = false;
         if (summaryTagText != null) {
             for (SelenideElement el : summaryTagElements) {

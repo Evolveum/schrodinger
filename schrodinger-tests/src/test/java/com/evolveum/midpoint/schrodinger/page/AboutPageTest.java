@@ -27,8 +27,8 @@ public class AboutPageTest extends AbstractSchrodingerTest {
 
     private static final String VERSION_EXPECTED = "4.6-SNAPSHOT"; // Static value, should be changed each version change.
     private static final String HIBERNATE_DIALECT_EXPECTED = "org.hibernate.dialect.H2Dialect";
-    private static final String CONNID_VERSION_EXPECTED = "1.5.0.18"; // Static value, should be changed each version change.
-    private static final String REINDEX_REPO_TASK_CATEGORY_EXPECTED = "Utility task";
+    private static final String CONNID_VERSION_EXPECTED = "1.5.1.7"; // Static value, should be changed each version change.
+    private static final String UTILITY_TASK_EXPECTED = "Utility task";
     private static final String REINDEX_REPO_TASK_DISPLAY_NAME_EXPECTED = "Reindex repository objects";
 
     private static final String PROPERTY_JVM_NAME_XMX = "-Xmx";
@@ -75,50 +75,25 @@ public class AboutPageTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    public void test0070reindexRepositoryObjectsFeedbackInfo() {
-        aboutPage
-                .reindexRepositoryObjects()
-                .feedback()
-                .assertInfo("0");
-
-    }
-
-    @Test
-    public void test0080checkReindexRepositoryObjectsCategory() {
+    public void test0070checkReindexRepositoryObjectsCategory() {
         aboutPage
                 .reindexRepositoryObjects()
                     .feedback()
+                        .assertInfo()
                         .clickShowTask()
                             .and()
                             .summary()
-                                .assertSummaryTagWithTextExists(REINDEX_REPO_TASK_CATEGORY_EXPECTED);
-    }
-
-    @Test
-    public void test0090checkReindexRepositoryObjectsDisplayName() {
-        // @formatter:off
-        aboutPage
-                        .reindexRepositoryObjects()
-                            .feedback()
-                                .clickShowTask()
-                                    .and()
-                                        .summary()
-                                        .assertDisplayNameEquals(REINDEX_REPO_TASK_DISPLAY_NAME_EXPECTED);
-        // @formatter:on
+                                .assertSummaryTagWithTextExists(UTILITY_TASK_EXPECTED)
+                                .assertDisplayNameEquals(REINDEX_REPO_TASK_DISPLAY_NAME_EXPECTED);
     }
 
     @Test (enabled = false)
-    public void test0100checkJVMPropertiesMidpointHome(){
+    public void test0080checkJVMPropertiesMidpointHome(){
         aboutPage.assertJVMPropertyValueIsNotEmpty(AbstractSchrodingerTest.PROPERTY_NAME_MIDPOINT_HOME);
     }
 
     @Test
-    public void test0110checkJVMPropertiesXmx(){
-        aboutPage.assertJVMPropertyValueIsNotEmpty(PROPERTY_JVM_NAME_XMX);
-    }
-
-    @Test
-    public void test0120checkSystemProperty(){
+    public void test0090checkSystemProperty(){
         aboutPage.assertSystemPropertyValueIsNotEmpty(AbstractSchrodingerTest.PROPERTY_NAME_USER_HOME);
     }
 }
