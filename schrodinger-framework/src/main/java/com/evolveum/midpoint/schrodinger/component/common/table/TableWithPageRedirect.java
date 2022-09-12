@@ -33,6 +33,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.screenshot;
 
 /**
  * Created by matus on 5/2/2018.
@@ -51,10 +52,10 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
 
     protected SelenideElement clickAndGetHeaderDropDownMenu() {
 
-        SelenideElement inlineMenuPanel = getParentElement().$x(".//div[@data-s-id='inlineMenuPanel']")
+        SelenideElement inlineMenuPanel = getParentElement().find(Schrodinger.byDataId("div", "inlineMenuPanel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         inlineMenuPanel.click();
-        SelenideElement dropDownMenu = inlineMenuPanel.$x(".//ul[@data-s-id='dropDownMenu']")
+        SelenideElement dropDownMenu = inlineMenuPanel.find(Schrodinger.byDataId("div", "dropDownMenu"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
 
         return dropDownMenu;

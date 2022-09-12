@@ -25,12 +25,13 @@ import static com.codeborne.selenide.Selenide.$;
  * Created by matus on 5/10/2018.
  */
 public class QuickSearchDropDown<T> extends DropDown<T> {
+
     public QuickSearchDropDown(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
     public T clickUsers(){
-        $(Schrodinger.byElementValue("a","Users"))
+        $(Schrodinger.byDataResourceKey("SearchType.USERS")).parent()
                 .click();
 
         return this.getParent();

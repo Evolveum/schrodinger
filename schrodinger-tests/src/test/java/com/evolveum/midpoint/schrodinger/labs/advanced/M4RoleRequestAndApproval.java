@@ -123,8 +123,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .selectCheckboxByName("Metarole - Request Approval by User Manager(s)")
                                     .and()
                                 .clickAdd()
-                                .selectType("All")
+//                                .selectType("All")
                                 .table()
+                                    .search()
+                                        .byType("All")
+                                    .updateSearch()
+                                .and()
                                     .assertTableContainsText("Metarole - Request Additional Approval by Big Brother")
                                     .assertTableContainsText("Metarole - Request Approval by Role Approver(s)")
                                     .assertTableContainsText("Metarole - Request Approval by Security Officer for Non-employees")
@@ -375,8 +379,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                     .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
                     .and()
                 .getMemberPanel()
-                    .selectType("Role")
+//                    .selectType("Role")
                     .table()
+                        .search()
+                            .byType("Role")
+                        .updateSearch()
+                    .and()
                         .assertTableObjectsCountEquals(0);
 
         basicPage.loggedUser().logout();
@@ -439,8 +447,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .selectOrgInTree("Application Bundles")
                             .and()
                         .getMemberPanel()
-                            .selectType("Role")
+//                            .selectType("Role")
                             .table()
+                                .search()
+                                    .byType("Role")
+                                .updateSearch()
+                            .and()
                                 .assertTableContainsText("Secret Projects I")
                                 .assertTableContainsText("Secret Projects II")
                                 .assertTableContainsText("Secret Operations");
@@ -566,8 +578,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                 .and()
                 .assertFeedbackExists();
         memberPanel
-                .selectRelation("Any")
+//                .selectRelation("Any")
                 .table()
+                    .search()
+                        .byRelation("Any")
+                    .updateSearch()
+                .and()
                     .clickRefreshButton()
                     .assertTableContainsLinksTextPartially("administrator");
 
@@ -588,8 +604,12 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                     .selectCheckboxByName("Metarole - Role Modification Approval by Security Officer")
                                     .and()
                                 .clickAdd()
-                                .selectType("All")
+//                                .selectType("All")
                                 .table()
+                                    .search()
+                                        .byType("All")
+                                    .updateSearch()
+                                .and()
                                     .assertTableContainsText("Metarole - Role Modification Approval by Role Owner(s)")
                                     .assertTableContainsText("Metarole - Role Modification Approval by Security Officer")
                                     .assertTableObjectsCountEquals(6);

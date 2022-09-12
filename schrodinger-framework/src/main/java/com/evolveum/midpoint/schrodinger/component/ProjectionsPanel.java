@@ -33,7 +33,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -51,9 +51,10 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
 
-        SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("ul", "class", "dropdown-menu pull-right"));
-
-        return new ProjectionsDropDown<ProjectionsPanel<P>>(this, dropDownMenu);
+        sleep(100);
+        SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("div", "class", "dropdown-menu pull-right show"));
+        screenshot("expanded_projection_menu_" + System.currentTimeMillis());
+        return new ProjectionsDropDown<>(this, dropDownMenu);
     }
 
 
@@ -145,7 +146,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 //    }
 
     public FocusSetProjectionModal<ProjectionsPanel<P>> clickAddProjection() {
-        $(Schrodinger.byElementAttributeValue("i", "class", "fa fa-plus"))
+        $(Schrodinger.byElementAttributeValue("i", "class", " fa fa-plus")).parent()
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new FocusSetProjectionModal<ProjectionsPanel<P>>(this, Utils.getModalWindowSelenideElement());

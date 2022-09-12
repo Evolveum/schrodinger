@@ -19,30 +19,48 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
+import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourcesPageTable;
+import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ListResourcesPage extends BasicPage {
+public class ListResourcesPage extends AssignmentHolderObjectListPage<ResourcesPageTable, ResourcePage> {
 
-    public ResourcesPageTable<ListResourcesPage> table() {
-        SelenideElement table = $(By.cssSelector(".box.boxed-table.object-resource-box")).shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new ResourcesPageTable<>(this, table);
+    public ResourcesPageTable table() {
+        return new ResourcesPageTable(this, getTableBoxElement());
+    }
+
+    @Override
+    public ResourcePage getObjectDetailsPage() {
+        return new ResourcePage();
+    }
+
+    @Override
+    protected String getTableAdditionalClass(){
+        return ConstantsUtil.OBJECT_RESOURCE_BOX_COLOR;
     }
 
     public ListResourcesPage testConnectionClick(String resourceName){
-        table().search()
+        ResourcesPageTable p = (ResourcesPageTable) table().search()
                     .byName()
                     .inputValue(resourceName)
                     .updateSearch()
-                .and()
-            .clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
+                .and();
+
+        sleep(1000);
+            p.clickMenuItemButton("ObjectType.name", resourceName, ".fa.fa-question");
         $(By.cssSelector("div.feedbackContainer")).shouldBe(Condition.appear, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
         if (feedback().isError()) {
             if (feedback().getParentElement().$x(".//a[@data-s-id='showAll']").exists()) {

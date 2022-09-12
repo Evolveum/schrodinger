@@ -94,9 +94,14 @@ public class AboutPage extends BasicPage {
 
     // NOTE not sure if using xpath is the best way around this
     public String hibernateDialect() {
-        SelenideElement additionalDetailsBox = $(By.cssSelector("div.box.box-danger"));
+        SelenideElement additionalDetailsBox = $(By.cssSelector(".card.card-danger.card-outline"));
 
-        return additionalDetailsBox.find(By.xpath("/html/body/div[2]/div/section/div[2]/div[1]/div[2]/div/div[2]/div[2]/table/tbody/tr[4]/td[2]")).getText();
+        //4th row
+        SelenideElement dialectRow = additionalDetailsBox.find(Schrodinger.byDataId("tr", "3"));
+        return dialectRow.find(Schrodinger.bySchrodingerDataId("detailValue")).parent().getText();
+
+
+//        return additionalDetailsBox.find(By.xpath("/html/body/div[2]/div/section/div[2]/div[1]/div[2]/div/div[2]/div[2]/table/tbody/tr[4]/td[2]")).getText();
     }
 
     public String connIdFrameworkVersion() {

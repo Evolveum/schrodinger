@@ -502,7 +502,6 @@ public class BasicPage {
 
     public SelenideElement getMenuItemElement(String topLevelMenuValue, String mainMenuKey, String menuItemKey, int index){
         SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuValue, mainMenuKey, index);
-        mainMenu.parent().parent().shouldBe(Condition.cssClass("menu-open"), MidPoint.TIMEOUT_MEDIUM_6_S);
         if (menuItemKey == null){
             return mainMenu;
         }
@@ -521,7 +520,7 @@ public class BasicPage {
             element.scrollIntoView(false);
             Utils.waitForAjaxCallFinish();
         }
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_DEFAULT_2_S);
+        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
         try {
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (Exception e) {
@@ -567,6 +566,10 @@ public class BasicPage {
     }
 
     private void checkCssClass(SelenideElement mainMenuLi, SelenideElement mainMenu, String cssClass) {
+        //if no submenu, then no menu-open class is here
+        if (!mainMenu.find(Schrodinger.byDataId("arrow")).exists()) {
+            return;
+        }
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
             scrollToElement(mainMenu);
             mainMenu.click();
@@ -625,7 +628,7 @@ public class BasicPage {
     }
 
     public boolean userMenuExists() {
-        return $(".dropdown.user.user-menu").exists();
+        return $(".main-header.navbar").exists();
     }
 
     public BasicPage assertElementWithTextExists(String text) {

@@ -54,7 +54,7 @@ public class FormLoginPage extends LoginPage {
 
     public BasicPage loginIfUserIsNotLog(String username, String password){
         open("/login");
-        Selenide.sleep(5000);
+        Selenide.sleep(1000);
         if(!userMenuExists()) {
             return login(username, password);
         }

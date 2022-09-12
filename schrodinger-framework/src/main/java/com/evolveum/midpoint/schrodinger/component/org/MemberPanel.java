@@ -35,8 +35,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * @author skublik
@@ -67,7 +66,7 @@ public class MemberPanel<T> extends Component<T> {
 
     public BasicPage newMember(String title, String newMemberType) {
         Utils.waitForAjaxCallFinish();
-        getParentElement().$x(".//i[@class='fa fa-plus']")
+        getParentElement().find(By.cssSelector(".fa.fa-plus"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
         try {
             Utils.getModalWindowSelenideElement();
@@ -112,18 +111,29 @@ public class MemberPanel<T> extends Component<T> {
         return modal;
     }
 
-    public MemberPanel<T> selectType(String type) {
-        getParentElement().$x(".//select[@name='memberContainer:memberTable:items:itemsTable:box:header:searchForm:search:form:typePanel:searchItemContainer:searchItemField:input']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(type);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        return this;
-    }
+//    public MemberPanel<T> selectType(String type) {
+////        table().search().dropDownPanelByItemName("Type")
+////        SelenideElement searchField = getParentElement()
+////                .find(Schrodinger.byPrecedingSiblingEnclosedValue("div", Schrodinger.DATA_S_ID, "searchItemField",
+////                        Schrodinger.DATA_S_RESOURCE_KEY, "Type", "Type"));
+////        SelenideElement typeDropdown = searchField.find(Schrodinger.byDataId("select", "input"));
+//
+//        table().search().dropDownPanelByItemName("Type").inputDropDownValue(type);
+//
+////                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
+////                .selectOption(type);
+//        screenshot("Type_dropdown_" + System.currentTimeMillis());
+////        getParentElement().$x(".//select[@name='memberContainer:memberTable:items:itemsTable:box:header:searchForm:search:form:typePanel:searchItemContainer:searchItemField:input']")
+////                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(type);
+//        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+//        return this;
+//    }
 
-    public MemberPanel<T> selectRelation(String relation) {
-        table().search().dropDownPanelByItemName("Relation").inputDropDownValue(relation);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        return this;
-    }
+//    public MemberPanel<T> selectRelation(String relation) {
+//        table().search().dropDownPanelByItemName("Relation").inputDropDownValue(relation);
+//        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+//        return this;
+//    }
 
     public MemberTable<MemberPanel<T>> table() {
         SelenideElement table = getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='memberTable']");

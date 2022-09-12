@@ -39,92 +39,92 @@ import static com.evolveum.midpoint.schrodinger.util.Utils.setOptionCheckedByNam
 public class ImportObjectPage extends BasicPage {
 
     public ImportObjectPage checkProtectedByEncryption() {
-        setOptionCheckedByName("importOptions:protectedByEncryption", true);
+        setOptionCheckedByName("importOptions:protectedByEncryption:check", true);
         return this;
     }
 
     public ImportObjectPage checkFetchResourceSchema() {
-        setOptionCheckedByName("importOptions:fetchResourceSchema", true);
+        setOptionCheckedByName("importOptions:fetchResourceSchema:check", true);
         return this;
     }
 
     public ImportObjectPage checkKeepOid() {
-        setOptionCheckedByName("importOptions:keepOid", true);
+        setOptionCheckedByName("importOptions:keepOid:check", true);
         return this;
     }
 
     public ImportObjectPage checkOverwriteExistingObject() {
-        setOptionCheckedByName("importOptions:overwriteExistingObject", true);
+        setOptionCheckedByName("importOptions:overwriteExistingObject:check", true);
         return this;
     }
 
     public ImportObjectPage checkReferentialIntegrity() {
-        setOptionCheckedByName("importOptions:referentialIntegrity", true);
+        setOptionCheckedByName("importOptions:referentialIntegrity:check", true);
         return this;
     }
 
     public ImportObjectPage checkSummarizeSuccesses() {
-        setOptionCheckedByName("importOptions:summarizeSuccesses", true);
+        setOptionCheckedByName("importOptions:summarizeSuccesses:check", true);
         return this;
     }
 
     public ImportObjectPage checkValidateDynamicSchema() {
-        setOptionCheckedByName("importOptions:validateDynamicSchema", true);
+        setOptionCheckedByName("importOptions:validateDynamicSchema:check", true);
         return this;
     }
 
     public ImportObjectPage checkValidateStaticSchema() {
-        setOptionCheckedByName("importOptions:validateStaticSchema", true);
+        setOptionCheckedByName("importOptions:validateStaticSchema:check", true);
         return this;
     }
 
     public ImportObjectPage checkSummarizeErrors() {
-        setOptionCheckedByName("importOptions:summarizeErrors", true);
+        setOptionCheckedByName("importOptions:summarizeErrors:check", true);
         return this;
     }
 
     public ImportObjectPage uncheckProtectedByEncryption() {
-        setOptionCheckedByName("importOptions:protectedByEncryption", false);
+        setOptionCheckedByName("importOptions:protectedByEncryption:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckFetchResourceSchema() {
-        setOptionCheckedByName("importOptions:fetchResourceSchema", false);
+        setOptionCheckedByName("importOptions:fetchResourceSchema:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckKeepOid() {
-        setOptionCheckedByName("importOptions:keepOid", false);
+        setOptionCheckedByName("importOptions:keepOid:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckOverwriteExistingObject() {
-        setOptionCheckedByName("importOptions:overwriteExistingObject", false);
+        setOptionCheckedByName("importOptions:overwriteExistingObject:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckReferentialIntegrity() {
-        setOptionCheckedByName("importOptions:referentialIntegrity", false);
+        setOptionCheckedByName("importOptions:referentialIntegrity:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckSummarizeSuccesses() {
-        setOptionCheckedByName("importOptions:summarizeSuccesses", false);
+        setOptionCheckedByName("importOptions:summarizeSuccesses:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckValidateDynamicSchema() {
-        setOptionCheckedByName("importOptions:validateDynamicSchema", false);
+        setOptionCheckedByName("importOptions:validateDynamicSchema:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckValidateStaticSchema() {
-        setOptionCheckedByName("importOptions:validateStaticSchema", false);
+        setOptionCheckedByName("importOptions:validateStaticSchema:check", false);
         return this;
     }
 
     public ImportObjectPage uncheckSummarizeErrors() {
-        setOptionCheckedByName("importOptions:summarizeErrors", false);
+        setOptionCheckedByName("importOptions:summarizeErrors:check", false);
         return this;
     }
 

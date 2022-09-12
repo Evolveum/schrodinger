@@ -42,7 +42,6 @@ public class ConfirmationModal<T> extends ModalBox<T> {
     }
 
     public T clickNo() {
-
         $(Schrodinger.byDataResourceKey("a", "confirmationDialog.no"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 

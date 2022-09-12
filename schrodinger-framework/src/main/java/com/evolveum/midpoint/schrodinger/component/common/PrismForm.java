@@ -117,7 +117,7 @@ public class PrismForm<T> extends Component<T> {
 
     public Boolean inputAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
-        SelenideElement value = property.parent().$(By.xpath(".//input[contains(@class,\"form-control\")]"))
+        SelenideElement value = property.$(By.xpath(".//input[contains(@class,\"form-control\")]"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         String valueElement = value.getValue();
 
@@ -369,20 +369,14 @@ public class PrismForm<T> extends Component<T> {
 
     public SelenideElement findProperty(String name) {
         Utils.waitForAjaxCallFinish();
-        SelenideElement element = null;
+        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue(null, "contains",
+                Schrodinger.DATA_S_QNAME, "#" + name));
 
-        boolean doesElementAttrValueExist = getParentElement().$(Schrodinger.byElementAttributeValue(null, "contains",
-                Schrodinger.DATA_S_QNAME, "#" + name)).exists();
-
-        if (doesElementAttrValueExist) {
-            element = getParentElement().$(Schrodinger.byElementAttributeValue(null, "contains",
-                    Schrodinger.DATA_S_QNAME, "#" + name)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-
+        if (element.exists()) {
+            element = element.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         } else {
-            doesElementAttrValueExist = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']").exists();
-            if (doesElementAttrValueExist) {
-                element = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']");
-            } else {
+            element = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']");
+            if (!element.exists()) {
                 //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
                 //the first found element on the page. usual byText looks in the parent element
 //            element = getParentElement().$(By.xpath(".//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
@@ -390,7 +384,6 @@ public class PrismForm<T> extends Component<T> {
                 element = getParentElement().$(byText(name)).parent().parent();
             }
         }
-
         return element;
     }
 

@@ -33,6 +33,7 @@ public class MidPoint {
     public static final Duration TIMEOUT_DEFAULT_2_S = Duration.ofMillis(2000);
 
     public static final Duration TIMEOUT_SHORT_4_S = Duration.ofMillis(4000);
+    public static final Duration TIMEOUT_EXTRA_SHORT_1_S = Duration.ofMillis(1000);
 
     public static final Duration TIMEOUT_MEDIUM_6_S = Duration.ofMillis(6000);
 

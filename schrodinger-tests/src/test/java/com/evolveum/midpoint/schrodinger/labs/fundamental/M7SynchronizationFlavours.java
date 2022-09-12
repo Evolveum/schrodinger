@@ -22,8 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
-import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
-import com.evolveum.midpoint.schrodinger.page.resource.ViewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
@@ -86,7 +85,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
         addCsvResourceFromFileAndTestConnection(HR_NO_EXTENSION_RESOURCE_FILE, HR_RESOURCE_NAME, hrTargetFile.getAbsolutePath());
 
-        ResourceAccountsPanel<ViewResourcePage> accountTab = basicPage.listResources()
+        ResourceAccountsPanel<ResourcePage> accountTab = basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()

@@ -73,20 +73,17 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
         // Password attribute name should be password
         configTab.assertPropertyInputValue(PASSWORD_ATTRIBUTE_NAME, CSV_1_PASSWORD_ATTRIBUTE_NAME);
 
-        SchemaStepSchemaPanel schemaStepSchemaTab = basicPage.listResources()
-                .table()
-                    .clickByName(CSV_1_RESOURCE_NAME)
-                        .clickShowUsingWizard()
-                        .assertReadonlyMode()
-                            .selectConfigurationStep()
-                            .and()
-                            .selectSchemaStep()
-                                .selectSchemaTab()
-                                .assertObjectClassPresent(CSV_1_ACCOUNT_OBJECT_CLASS_LINK)
-                                .clickObjectClass(CSV_1_ACCOUNT_OBJECT_CLASS_LINK);
-        //check resource attributes are present
-        CSV_1_RESOURCE_ATTRIBUTES.forEach(attr ->
-                schemaStepSchemaTab.getAttributesTable().assertTableContainsText(attr));
+
+        //TODO uncomment when schema panel is added
+//        SchemaStepSchemaPanel schemaStepSchemaTab = basicPage.listResources()
+//                .table()
+//                    .clickByName(CSV_1_RESOURCE_NAME)
+//                        .selectSchemaPanel()
+//                                .assertObjectClassPresent(CSV_1_ACCOUNT_OBJECT_CLASS_LINK)
+//                                .clickObjectClass(CSV_1_ACCOUNT_OBJECT_CLASS_LINK);
+//        //check resource attributes are present
+//        CSV_1_RESOURCE_ATTRIBUTES.forEach(attr ->
+//                schemaStepSchemaTab.getAttributesTable().assertTableContainsText(attr));
 
         addObjectFromFile(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
 
