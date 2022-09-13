@@ -44,16 +44,16 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
     public abstract D getObjectDetailsPage();
 
     protected SelenideElement getTableBoxElement(){
-//        StringBuilder tableStyle = new StringBuilder(".box.boxed-table");
-//        String additionalTableClass = getTableAdditionalClass();
-//        if (StringUtils.isNotEmpty(additionalTableClass)){
-//            tableStyle.append(".");
-//            tableStyle.append(additionalTableClass);
-//        }
+        StringBuilder tableStyle = new StringBuilder(ConstantsUtil.BOXED_TABLE_CSS_SELECTOR);
+        String additionalTableClass = getTableAdditionalClass();
+        if (StringUtils.isNotEmpty(additionalTableClass)){
+            tableStyle.append(".");
+            tableStyle.append(additionalTableClass);
+        }
 //        SelenideElement box = $(By.cssSelector(".table.table-hover"))
-//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-//        return box;
-        return $x(".//div[@data-s-id='table']");
+        SelenideElement box = $(By.cssSelector(tableStyle.toString()))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return box;
     }
 
     protected String getTableAdditionalClass(){

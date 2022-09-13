@@ -84,17 +84,19 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public Search<? extends AssignmentHolderObjectListTable<P, PD>> search() {
-        SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form.d-flex.flex-wrap.justify-content-end.gap-1.align-items-start"));
+        SelenideElement searchElement = findSearchElement();
 
         return new Search<>(this, searchElement);
     }
 
+    protected SelenideElement findSearchElement() {
+        return getParentElement().$(By.cssSelector(".search-panel-form"));
+    }
+
     @Override
     public AssignmentHolderObjectListTable<P, PD> selectAll() {
-        SelenideElement headercheckbox = $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"));
-        sleep(1000);
-        headercheckbox.click();
-        headercheckbox.shouldBe(Condition.checked, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
 
