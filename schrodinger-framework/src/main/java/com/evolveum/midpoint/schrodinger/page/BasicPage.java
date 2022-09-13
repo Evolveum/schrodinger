@@ -494,6 +494,7 @@ public class BasicPage {
         SelenideElement menu = getMenuItemElement(topLevelMenuValue, mainMenuKey, menuItemKey, index);
         scrollToElement(menu);
         menu.click();
+        Utils.waitForAjaxCallFinish();
     }
 
     public SelenideElement getMenuItemElement(String topLevelMenuValue, String mainMenuKey, String menuItemKey) {
