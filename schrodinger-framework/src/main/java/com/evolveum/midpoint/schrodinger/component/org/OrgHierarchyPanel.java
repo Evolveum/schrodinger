@@ -51,7 +51,7 @@ public class OrgHierarchyPanel<T> extends Component<T> {
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         getParentElement().$(By.xpath(".//div[contains(@class,\"tree-node\")][.//span[@class=\"tree-label\"][contains(.,\"" +  orgName + "\")]/..]"))
-                .shouldBe(Condition.cssClass("success"), MidPoint.TIMEOUT_SHORT_4_S);
+                .shouldHave(Condition.cssClass("success"), MidPoint.TIMEOUT_SHORT_4_S);
 
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
