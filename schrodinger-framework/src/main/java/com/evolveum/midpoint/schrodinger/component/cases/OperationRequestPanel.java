@@ -38,7 +38,7 @@ public class OperationRequestPanel extends Component<CasePage> {
     public boolean changesAreApplied(){
         return $(Schrodinger.byDataId("operationRequestCasePanel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(By.className("box-success"))
+                .$(By.className("card-success"))
                 .$(byText("Changes applied (successfully or not)"))
                 .is(Condition.visible);
     }
@@ -46,7 +46,7 @@ public class OperationRequestPanel extends Component<CasePage> {
     public boolean changesAreRejected(){
         return $(Schrodinger.byDataId("operationRequestCasePanel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(By.className("box-danger"))
+                .$(By.className("card-danger"))
                 .$(byText("Changes rejected"))
                 .is(Condition.visible);
     }

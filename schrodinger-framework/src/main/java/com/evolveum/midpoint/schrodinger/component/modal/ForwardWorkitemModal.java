@@ -29,7 +29,7 @@ public class ForwardWorkitemModal<T> extends ModalBox<T> {
     }
 
     public ObjectBrowserModalTable<T, ForwardWorkitemModal<T>> table(){
-        SelenideElement box = $(Schrodinger.byElementAttributeValue("div", "class","box boxed-table"))
+        SelenideElement box = $(Schrodinger.byDataId("div", "itemsTable"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ObjectBrowserModalTable<T, ForwardWorkitemModal<T>>(this, box);

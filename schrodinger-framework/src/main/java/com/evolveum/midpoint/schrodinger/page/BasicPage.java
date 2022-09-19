@@ -64,6 +64,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -567,7 +568,7 @@ public class BasicPage {
 
     private void checkCssClass(SelenideElement mainMenuLi, SelenideElement mainMenu, String cssClass) {
         //if no submenu, then no menu-open class is here
-        if (!mainMenu.find(Schrodinger.byDataId("arrow")).exists()) {
+        if (!mainMenuLi.find(Schrodinger.byDataId("submenu")).find(byClassName("nav-item")).exists()) {
             return;
         }
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
@@ -647,8 +648,8 @@ public class BasicPage {
     }
 
     public BasicPage assertMenuItemActive(SelenideElement menuItemElement) {
-        SelenideElement menuItemLi = menuItemElement.parent().parent();
-        assertion.assertTrue(menuItemLi.has(Condition.cssClass("active")), "Menu item should be active");
+        SelenideElement menuItemLink = menuItemElement.parent();
+        assertion.assertTrue(menuItemLink.has(Condition.cssClass("active")), "Menu item should be active");
         return this;
     }
 

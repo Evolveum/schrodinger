@@ -37,8 +37,7 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
     }
 
     public FocusSetAssignmentsModal<T> selectType(String option) {
-        SelenideElement tabElement = $(Schrodinger.byElementValue("a", "class", "tab-label", option))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tabElement = getParentElement().find(Schrodinger.bySchrodingerDataResourceKey("ObjectTypes.ROLE")).parent().shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         String classActive = tabElement.attr("class");
 

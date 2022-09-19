@@ -21,6 +21,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.cases.ChildrenCaseTable;
 
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -35,7 +36,7 @@ public class ChildrenCasesPanel extends Component<CasePage> {
     }
 
     public ChildrenCaseTable table(){
-        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable")).shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ChildrenCaseTable(getParent(), tableBox);
     }
 }
