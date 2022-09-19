@@ -64,10 +64,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.codeborne.selenide.Selectors.byClassName;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -638,6 +636,11 @@ public class BasicPage {
         return this;
     }
 
+    public BasicPage assertElementWithValueExists(String value) {
+        assertion.assertTrue($(byValue(value)).exists(), "Element with value '" + value + "' doesn't exist on the page.");
+        return this;
+    }
+
     public BasicPage assertUserMenuExist() {
         assertion.assertTrue(userMenuExists(), "User should be logged in, user menu should be visible.");
         return this;
@@ -663,14 +666,14 @@ public class BasicPage {
     public BasicPage changeLanguage(String countryCode) {
         Validate.notNull(countryCode, "Country code must not be null");
 
-        $(Schrodinger.byDataId("localeIcon"))
+        $(Schrodinger.bySchrodingerDataId("locale"))
+                .parent()
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-        String flagIconCss = "flag-" + countryCode.trim().toLowerCase();
+        String flagIconCss = "fi-" + countryCode.trim().toLowerCase();
         $(By.className(flagIconCss))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent()
-                .$(By.tagName("a"))
                 .click();
 
         return this;

@@ -260,47 +260,29 @@ public class PrismForm<T> extends Component<T> {
         SelenideElement property = findProperty(name);
 
         property
-                .$(By.className("fa-language"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+            .$(By.className("fa-language"))
+            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+            .click();
+        SelenideElement localeDropDown =
+            property
+            .$(Schrodinger.byDataId("languagesList"))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+            .$(By.tagName("select"))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        if (localeDropDown != null){
+            localeDropDown.selectOption(locale);
+
+            property
+                .$(Schrodinger.byDataId("languageEditor"))
+                .$(By.className("fa-plus-circle"))
+                .shouldBe(Condition.visible)
                 .click();
-        SelenideElement localeInput =
-                property
-                        .$(Schrodinger.byDataId("fullDataContainer"))
-                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                        .$(Schrodinger.byElementAttributeValue("input", "value", locale));
-        boolean localeInputExists = localeInput.exists();
-        if (!localeInputExists){
-            SelenideElement localeDropDown =
-                    property
-                    .$(Schrodinger.byDataId("languagesList"))
-                            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .$(By.tagName("select"))
-                            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-            if (localeDropDown != null){
-                localeDropDown.selectOption(locale);
-
-                property
-                        .$(Schrodinger.byDataId("languageEditor"))
-                        .$(By.className("fa-plus-circle"))
-                        .shouldBe(Condition.visible)
-                        .click();
-            }
-
-            localeInput =
-                    property
-                            .$(Schrodinger.byDataId("fullDataContainer"))
-                            .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                            .$(Schrodinger.byElementAttributeValue("input", "value", locale))
-                            .shouldBe(Condition.visible);
         }
 
-        localeInput
-                .parent()
-                .parent()
-                .$(Schrodinger.byDataId("translation"))
-                .shouldBe(Condition.visible)
-                .$(By.className("form-control"))
-                .setValue(value);
+        property.$(Schrodinger.byDataId("translation"))
+        .shouldBe(Condition.visible)
+        .$(By.className("form-control"))
+        .setValue(value);
 
         return this;
     }

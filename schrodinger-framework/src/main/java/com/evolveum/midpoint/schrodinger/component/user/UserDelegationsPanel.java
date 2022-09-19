@@ -32,6 +32,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -46,9 +47,11 @@ public class UserDelegationsPanel extends Component<UserPage> {
         SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//button[@data-toggle='dropdown']");
         button.click();
-        button.$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "menuItemLink",
-                "data-s-resource-key", "AssignmentTablePanel.menu.addDelegation"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+
+        button.parent()
+                .find(Schrodinger.bySchrodingerDataResourceKey("AssignmentTablePanel.menu.addDelegation"))
+                .parent()
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new ObjectBrowserModal<>(this, Utils.getModalWindowSelenideElement());
     }

@@ -38,10 +38,9 @@ public class ObjectBrowserModal<T> extends ModalBox<T> {
     }
 
     public ObjectBrowserModalTable<T, ObjectBrowserModal<T>> table(){
-        SelenideElement box = $(Schrodinger.byElementAttributeValue("div", "class","box boxed-table"))
+        SelenideElement box = $(Schrodinger.byDataId("div", "itemsTable"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-
-        return new ObjectBrowserModalTable<T, ObjectBrowserModal<T>>(this, box);
+        return new ObjectBrowserModalTable<>(this, box);
     }
 
     public T clickAddButton() {

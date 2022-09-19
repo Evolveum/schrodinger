@@ -29,11 +29,10 @@ import static com.codeborne.selenide.Selenide.$;
 public class LoggedUser {
 
     public FormLoginPage logout() {
-        SelenideElement userMenu =  $(".dropdown.user.user-menu");
-
-        userMenu.$(By.cssSelector(".dropdown-toggle")).click();
-        userMenu.$(By.cssSelector(".user-footer"))
-                .$(Schrodinger.byElementAttributeValue("input", "type", "submit")).click();
+        $(Schrodinger.byDataId("logoutForm"))
+                .find(By.cssSelector(".fas.fa-power-off"))
+                .parent()
+                .click();
 
         //todo implement
 

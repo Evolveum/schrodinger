@@ -87,9 +87,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .feedback()
                         .assertSuccess();
 
-        basicPage.loggedUser().logout();
-        FormLoginPage loginPage = midPoint.formLogin();
-        loginPage.loginWithReloadLoginPage(getUsername(), getPassword(), LOCALIZATION_VALUE);
+        basicPage.changeLanguage(LOCALIZATION_VALUE);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -100,7 +98,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                     .clickByName(LOCALIZATION_TEST_USER_NAME_ORIG)
-                        .assertElementWithTextExists(LOCALIZATION_TEST_USER_NAME_DE);
+                        .assertElementWithValueExists(LOCALIZATION_TEST_USER_NAME_DE);
         basicPage.changeLanguage("us");
     }
 
