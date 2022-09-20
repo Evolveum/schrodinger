@@ -33,7 +33,7 @@ public class QuickSearch<T> extends Component<T> {
     }
 
     public QuickSearch<T> inputValue(String name) {
-        $(Schrodinger.byElementAttributeValue("input", "name", "searchInput")).setValue(name);
+        $(Schrodinger.byDataId("input", "searchInput")).setValue(name);
         return this;
     }
 
