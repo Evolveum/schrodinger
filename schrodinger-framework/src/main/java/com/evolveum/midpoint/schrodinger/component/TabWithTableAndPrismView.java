@@ -37,7 +37,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
 
     public <T extends TabWithTableAndPrismView<P>> AbstractTableWithPrismView<T> table() {
 
-        SelenideElement tableBox = $(By.cssSelector(".box.boxed-table")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new AbstractTableWithPrismView<T>((T) this, tableBox) {
             @Override

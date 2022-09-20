@@ -50,24 +50,32 @@ public class Table<T> extends Component<T> {
     public TableRow<T, Table<T>> rowByColumnLabel(String label, String rowValue) {
         int index = findColumnByLabel(label);
         if (index < 0) {
-            Selenide.screenshot("rowByColumnLabel_returns_null");
+            Selenide.screenshot("rowByColumnLabel_returns_null_" + System.currentTimeMillis());
             return null;
         }
         TableRow<T, Table<T>> tableRow = getTableRowByIndex(index, rowValue);
         if (tableRow == null) {
-            Selenide.screenshot("rowByColumnLabel_returns_null");
+            Selenide.screenshot("rowByColumnLabel_returns_null_" + System.currentTimeMillis());
         }
         return tableRow;
     }
 
     public int findColumnByLabel(String label) {
-        ElementsCollection headers = getParentElement().findAll("thead th div span[data-s-id=label]");
+        ElementsCollection headers = getParentElement().findAll("thead th[data-s-id=header]");
         if (headers == null) {
             return -1;
         }
         int index = 1;
         for (SelenideElement header : headers) {
-            String value = header.text();
+            SelenideElement hasHeader = header.find(Schrodinger.byDataId("span", "label"));
+            SelenideElement hasSearchableHeader = header.find(Schrodinger.bySchrodingerDataId("label"));
+            String value = null;
+            if (hasHeader.exists()) {
+                value = hasHeader.text();
+            } else if (hasSearchableHeader.exists()) {
+                value = hasSearchableHeader.parent().text();
+            }
+
             if (value == null) {
                 index++;
                 continue;
