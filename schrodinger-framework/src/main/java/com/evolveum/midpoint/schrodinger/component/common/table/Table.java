@@ -175,7 +175,7 @@ public class Table<T> extends Component<T> {
     }
 
     public <P extends Table<T>> Paging<P> paging() {
-        SelenideElement pagingElement = getParentElement().$x(".//a[@ " + Schrodinger.DATA_S_ID + "='paging']");
+        SelenideElement pagingElement = getParentElement().$x(".//div[@ " + Schrodinger.DATA_S_ID + "='paging']");
 
         return new Paging(this, pagingElement);
     }

@@ -20,6 +20,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.selector.ByAttribute;
 import com.evolveum.midpoint.schrodinger.SchrodingerException;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -37,31 +38,31 @@ public class Paging<T> extends Component<T> {
     }
 
     public Paging<T> first() {
-        getParentElement().$x(".//a[text()='<<']").click();
+        getParentElement().$(Schrodinger.byDataId("a", "firstLink")).click();
         Selenide.sleep(1000);
         return this;
     }
 
     public Paging<T> previous() {
-        getParentElement().$x(".//a[text()='<']").click();
+        getParentElement().$(Schrodinger.byDataId("a", "previousLink")).click();
         Selenide.sleep(1000);
         return this;
     }
 
     public Paging<T> next() {
-        getParentElement().$x(".//a[text()='>']").click();
+        getParentElement().$(Schrodinger.byDataId("a", "nextLink")).click();
         Selenide.sleep(1000);
         return this;
     }
 
     public Paging<T> last() {
-        getParentElement().$x(".//a[text()='>>']").click();
+        getParentElement().$(Schrodinger.byDataId("a", "lastLink")).click();
         Selenide.sleep(1000);
         return this;
     }
 
     private void moveThroughPages(int offsetFromActual) {
-        SelenideElement ul = getParentElement().$(By.cssSelector(".pagination.pagination-sm.no-margin.pull-right"));
+        SelenideElement ul = getParentElement().find(Schrodinger.byDataId("pagination"));
 
         ElementsCollection col = ul.$$x(".//li");
         SelenideElement active = col.find(Condition.cssClass("active"));
@@ -105,16 +106,11 @@ public class Paging<T> extends Component<T> {
 
         SelenideElement parent = getParentElement();
 
-        SelenideElement button = parent.$(By.cssSelector(".btn.btn-default.dropdown-toggle"));
-        button.click();
+        SelenideElement pagingSize = parent.parent().$(By.ByCssSelector.className("paging-size"));
 
-        button.parent().$(By.className("dropdown-menu")).$$x(".//a").first().click();
 
-        SelenideElement popover = parent.$$(By.className("popover-title"))
-                .findBy(Condition.text("Page size")).parent(); //todo fix localization
-
-        popover.$(By.tagName("input")).setValue(Integer.toString(size));
-        popover.$(By.tagName("button")).click();
+        pagingSize.$(By.tagName("input")).setValue(Integer.toString(size));
+        pagingSize.$(By.tagName("a"), 2).shouldHave(Condition.cssClass("btn-primary")).click();
         Selenide.sleep(2000);
         return this;
     }
