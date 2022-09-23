@@ -44,14 +44,10 @@ public class ReportTable extends AssignmentHolderObjectListTable<ListReportsPage
     public ReportPage getObjectDetailsPage() {
         return new ReportPage();
     }
-
-    public ReportConfigurationModal runJasperReport(String report) {
+    
+    public ReportConfigurationModal runReport(String report) {
         clickMenuItemButton("ObjectType.name", report, ".fa.fa-play");
         return new ReportConfigurationModal<>(getParent(), Utils.getModalWindowSelenideElement());
-    }
-
-    public void runReport(String report) {
-        clickMenuItemButton("ObjectType.name", report, ".fa.fa-play");
     }
 
     public ReportPage editReport(String report) {

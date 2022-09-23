@@ -194,12 +194,18 @@ public class Search<T> extends Component<T> {
 
     public Search<T> resetBasicSearch() {
         choiceBasicSearch();
-        while ($x(".//a[@data-s-id='removeButton']").exists()
-                && $x(".//a[@data-s-id='removeButton']").isDisplayed()) {
-            SelenideElement deleteButton = $x(".//a[@data-s-id='removeButton']");
-            deleteButton.click();
-            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        ElementsCollection collection = getParentElement().findAll(Schrodinger.byDataId("removeButton"));
+        for (SelenideElement searchPropertyPanel : collection) {
+            if (searchPropertyPanel.exists()) {
+                searchPropertyPanel.click();
+            }
         }
+//        while ($x(".//a[@data-s-id='removeButton']").exists()
+//                && $x(".//a[@data-s-id='removeButton']").isDisplayed()) {
+//            SelenideElement deleteButton = $x(".//a[@data-s-id='removeButton']");
+//            deleteButton.click();
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
+//        }
         return this;
     }
 

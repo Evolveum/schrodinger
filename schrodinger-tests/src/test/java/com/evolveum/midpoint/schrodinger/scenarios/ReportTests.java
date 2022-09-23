@@ -54,7 +54,9 @@ public class ReportTests extends AbstractSchrodingerTest {
         reportTable
                 .search()
                     .resetBasicSearch();
-        reportTable.runReport("All audit records report");
+        reportTable
+                .runReport("All audit records report") //model is shown
+                .runReport(); //confirm report run
         basicPage.listReports("Collection reports")
             .table()
                 .search()

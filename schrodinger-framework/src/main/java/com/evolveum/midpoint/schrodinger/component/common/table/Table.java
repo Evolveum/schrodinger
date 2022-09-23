@@ -133,7 +133,7 @@ public class Table<T> extends Component<T> {
                 return new TableRow(this, row);
             }
         }
-        Selenide.screenshot("getTableRowByIndex_returns_null");
+        Selenide.screenshot("getTableRowByIndex_returns_null_" + System.currentTimeMillis());
         return null;
     }
 
