@@ -46,13 +46,14 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
     public ProjectionsDropDown<ProjectionsPanel<P>> clickHeaderActionDropDown() {
 
-        $(By.tagName("thead"))
+        SelenideElement inlineMenu = $(By.tagName("thead"))
                 .$(Schrodinger.byDataId("inlineMenuPanel"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+
+        inlineMenu.click();
 
         sleep(100);
-        SelenideElement dropDownMenu = $(Schrodinger.byElementAttributeValue("div", "class", "dropdown-menu pull-right show"));
+        SelenideElement dropDownMenu = inlineMenu.$(Schrodinger.byDataId("div", "dropDownMenu"));
         screenshot("expanded_projection_menu_" + System.currentTimeMillis());
         return new ProjectionsDropDown<>(this, dropDownMenu);
     }

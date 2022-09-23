@@ -194,11 +194,11 @@ public class Utils {
     }
 
     public static SelenideElement getModalWindowSelenideElement(Duration waitTime) {
-        return $(By.className("modal-dialog")).shouldBe(Condition.appear, waitTime);
+        return $(Schrodinger.byDataId("mainPopup")).shouldBe(Condition.appear, waitTime);
     }
 
     public static boolean isModalWindowSelenideElementVisible() {
-        return $(By.className("modal-dialog")).isDisplayed();
+        return $(Schrodinger.byDataId("mainPopup")).find(Schrodinger.byDataId("div", "overlay")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).has(Condition.cssClass("show"));//.isDisplayed();
     }
 
     public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue, String tempFilePath) throws IOException {

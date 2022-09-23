@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Created by matus on 5/9/2018.
@@ -32,8 +33,10 @@ public class ConfirmationModal<T> extends ModalBox<T> {
     }
 
     public T clickYes() {
-        $(Schrodinger.byDataResourceKey("a", "confirmationDialog.yes"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement yesButton = $(Schrodinger.byDataResourceKey("a", "confirmationDialog.yes"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        sleep(500); //wait a bit, so we are sure that the popup is loaded properly
+        yesButton.click();
 
         $(Schrodinger.byDataResourceKey("a", "confirmationDialog.yes"))
                 .shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
