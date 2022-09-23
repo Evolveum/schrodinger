@@ -64,7 +64,7 @@
     <properties>
         <selenium.version>4.1.1</selenium.version>
         <testng.version>7.6.1</testng.version>
-        <project.source.version>17</project.source.version>
+        <project.source.version>11</project.source.version>
         <commons.io.version>2.9.0</commons.io.version>
         <slf4j.version>1.7.30</slf4j.version>
         <surefire.version>3.0.0-M6</surefire.version>
