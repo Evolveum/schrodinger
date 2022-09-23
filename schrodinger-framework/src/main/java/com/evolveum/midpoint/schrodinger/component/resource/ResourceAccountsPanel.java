@@ -57,20 +57,15 @@ public class ResourceAccountsPanel<T> extends Component<T> {
     }
 
     public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> liveSyncTask() {
-        $(Schrodinger.byElementValue("label", "data-s-id", "label", "Live Sync"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement liveSyncButton = getParentElement()
+                .find(Schrodinger.byDataId("liveSync"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        ElementsCollection dropDownElement = $$(By.cssSelector(".dropdown-menu.pull-right"));
+        liveSyncButton.find(By.tagName("button")).click();
 
-        SelenideElement concretElement = null;
-
-        for (SelenideElement element : dropDownElement) {
-            if (element.isDisplayed()) {
-                concretElement = element;
-                break;
-            }
-        }
-        return new ResourceTaskQuickAccessDropDown<>(this, concretElement);
+        SelenideElement dropDownMenu = liveSyncButton.find(Schrodinger.byDataId("dropDownMenu"))
+                .shouldHave(Condition.cssClass("show"));
+        return new ResourceTaskQuickAccessDropDown<>(this, dropDownMenu);
     }
 
     public ResourceAccountsPanel<T> clickSearchInRepository() {

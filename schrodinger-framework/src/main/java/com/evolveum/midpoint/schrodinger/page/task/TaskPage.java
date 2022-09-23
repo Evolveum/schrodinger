@@ -71,22 +71,17 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public TaskPage clickResume() {
-        if (isUseTabbedPanel()) {
-            $(Schrodinger.byDataResourceKey("span", "pageTaskEdit.button.resume"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        } else {
-            $(Schrodinger.byDataId("taskButtonsContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                    .$x(".//span[text()='Resume']")
+        $(Schrodinger.byDataId("taskButtonsContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                    .$x(".//a[text()='Resume']")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
-        }
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
 
     public TaskPage resumeStopRefreshing() {
 
-        $(Schrodinger.byElementAttributeValue("span", "title", "Resume refreshing")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byElementAttributeValue("a", "title", "Resume refreshing")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }

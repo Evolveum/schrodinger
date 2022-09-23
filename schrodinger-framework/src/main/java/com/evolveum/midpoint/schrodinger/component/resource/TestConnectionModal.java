@@ -115,7 +115,7 @@ public class TestConnectionModal<T> extends ModalBox<T> {
 
             if (attr != null && !attr.isEmpty()) {
 
-                if (attr.contains("box-success")) {
+                if (attr.contains("card-success")) {
                     isSuccess = true;
                 } else {
                     isSuccess = false;
@@ -143,7 +143,7 @@ public class TestConnectionModal<T> extends ModalBox<T> {
 
             if (attr != null && !attr.isEmpty()) {
 
-                if (attr.contains("box-danger")) {
+                if (attr.contains("card-danger")) {
                     isFailure = true;
                     break;
                 }
