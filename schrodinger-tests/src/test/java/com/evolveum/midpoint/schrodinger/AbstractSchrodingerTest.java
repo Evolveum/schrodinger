@@ -46,7 +46,6 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
-//import com.evolveum.midpoint.schrodinger.reports.SchrodingerTextReport;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
@@ -71,8 +70,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.codeborne.selenide.Selenide.$;
-
 /**
  * Created by Viliam Repan (lazyman).
  */
@@ -87,7 +84,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     public static final String SYSTEM_PROPERTY_NAME_MIDPOINT_HOME = "midpoint.home";
     public static final String PROPERTY_NAME_USER_HOME = "user.home";
     public static final String PROPERTY_NAME_FILE_SEPARATOR = "file.separator";
-    private static final File SYSTEM_CONFIG_INITIAL = new File("src/test/resources/objects/systemconfiguration/system-configuration-initial.xml");
 
     protected static final String CSV_RESOURCE_ATTR_UNIQUE = "Unique attribute name";
 
