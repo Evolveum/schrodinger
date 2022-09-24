@@ -293,14 +293,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected String fetchTestHomeDir() {
-        String home;
-        if (startMidpoint) {
-            home = fetchMidpointHome();
-        } else {
-            String testFolderPath = System.getProperty("midpoint.home");
-            home = StringUtils.isNotEmpty(testFolderPath) ? testFolderPath : "target";
-        }
-        return home;
+        return fetchMidpointHome();
     }
 
     protected String fetchMidpointHome() {
@@ -330,11 +323,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
         String home = fetchTestHomeDir();
         File parentDir = new File(home, "schrodinger");
-        parentDir.mkdir();
+        if (!parentDir.exists()) {
+            LOG.info("Creating schrodinger directory: {}", parentDir.getAbsolutePath());
+            if (!parentDir.mkdir()) {
+                LOG.error("Creating schrodinger directory in {} failed", home);
+                throw new IOException("Cannot create schrodinger directory");
+            }
+        }
         testTargetDir = new File(parentDir, dir);
 
         if (testTargetDir.mkdir()) {
-
+            LOG.debug("Created directory: {}", testTargetDir);
             return testTargetDir;
         } else {
             if (testTargetDir.exists()) {
