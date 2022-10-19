@@ -45,7 +45,7 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
 //            link.click();
 //        }
 
-        getParent().getParentElement()
+        link
                 .shouldBe(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);
         return getParent().getParent();
     }

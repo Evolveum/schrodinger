@@ -39,7 +39,7 @@ public class ObjectBrowserModal<T> extends ModalBox<T> {
 
     public ObjectBrowserModalTable<T, ObjectBrowserModal<T>> table(){
         SelenideElement box = $(Schrodinger.byDataId("div", "itemsTable"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new ObjectBrowserModalTable<>(this, box);
     }
 
