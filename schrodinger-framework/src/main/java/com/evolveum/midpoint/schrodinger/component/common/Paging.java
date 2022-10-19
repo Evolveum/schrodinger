@@ -109,7 +109,7 @@ public class Paging<T> extends Component<T> {
         SelenideElement pagingSize = parent.parent().$(By.ByCssSelector.className("paging-size"));
 
 
-        pagingSize.$(By.tagName("input")).setValue(Integer.toString(size));
+        pagingSize.$x(".//select[@data-s-id=''size]").selectOption(size);
         pagingSize.$(By.tagName("a"), 2).shouldHave(Condition.cssClass("btn-primary")).click();
         Selenide.sleep(2000);
         return this;

@@ -90,6 +90,7 @@ public class Search<T> extends Component<T> {
         SelenideElement itemElement = getItemByName(itemName);
         if (itemElement == null && addIfAbsent){
             addSearchItemByNameLinkClick(itemName);
+            Utils.waitForAjaxCallFinish();
             itemElement = getItemByName(itemName);
         }
         return itemElement;

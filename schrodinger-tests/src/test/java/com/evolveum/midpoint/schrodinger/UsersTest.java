@@ -52,7 +52,7 @@ public class UsersTest extends AbstractSchrodingerTest {
                 .table()
                 .paging();
 
-        paging.pageSize(5);
+        paging.pageSize(10);
         Selenide.sleep(3000);
 
         paging

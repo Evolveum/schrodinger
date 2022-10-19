@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -34,6 +35,7 @@ public class TextInputSearchItemPanel<T extends Search> extends Component<T> {
     }
 
     public T inputValue(String input) {
+        Utils.waitForAjaxCallFinish();
         if (getParentElement() == null){
             return getParent();
         }
