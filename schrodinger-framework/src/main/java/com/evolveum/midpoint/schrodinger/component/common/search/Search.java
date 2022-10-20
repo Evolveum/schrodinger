@@ -155,6 +155,7 @@ public class Search<T> extends Component<T> {
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 
@@ -163,7 +164,7 @@ public class Search<T> extends Component<T> {
         popover.$(Schrodinger.byElementValue("a", name))            //click checkbox next to search attribute
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent().$(By.tagName("input")).click();
-        popover.$x(".//a[@"+Schrodinger.DATA_S_ID+"='add']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click(); //click Add button
+        popover.$x(".//a[@"+Schrodinger.DATA_S_ID+"='addButton']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click(); //click Add button
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
@@ -199,6 +200,7 @@ public class Search<T> extends Component<T> {
         for (SelenideElement searchPropertyPanel : collection) {
             if (searchPropertyPanel.exists()) {
                 searchPropertyPanel.click();
+                Utils.waitForAjaxCallFinish();
             }
         }
 //        while ($x(".//a[@data-s-id='removeButton']").exists()
