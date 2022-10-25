@@ -38,9 +38,10 @@ public class Search<T> extends Component<T> {
     }
 
     public TextInputSearchItemPanel<Search<T>> byName() {
+        Utils.waitForAjaxCallFinish();
         SelenideElement nameElement = getItemSearchElement("Name", true);
         SelenideElement nameInput = nameElement.find(Schrodinger.byDataId("input", "input"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new TextInputSearchItemPanel(this, nameInput);
     }
 
@@ -98,7 +99,7 @@ public class Search<T> extends Component<T> {
 
     public Search<T> updateSearch(){
         SelenideElement simpleSearchButton = getParentElement().$x(".//button[@" + Schrodinger.DATA_S_ID + "='searchButton']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         Actions builder = new Actions(WebDriverRunner.getWebDriver());
         builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
@@ -139,7 +140,7 @@ public class Search<T> extends Component<T> {
         clickDroDownForSearchMode();
         try {
             SelenideElement searchTypeSelection = getParentElement().find(Schrodinger.bySchrodingerDataResourceKey(resourceKey)).parent();
-            searchTypeSelection.shouldBe(Condition.appear, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            searchTypeSelection.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
             searchTypeSelection.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
             sleep(1000);
         } catch (Throwable t) {
@@ -152,7 +153,7 @@ public class Search<T> extends Component<T> {
     public Search<T> addSearchItemByNameLinkClick(String name) {
         SelenideElement popover = getMorePopover();
         popover.$(Schrodinger.byElementValue("a", name))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         Utils.waitForAjaxCallFinish();
@@ -162,9 +163,9 @@ public class Search<T> extends Component<T> {
     public Search<T> addSearchItemByAddButtonClick(String name) {
         SelenideElement popover = getMorePopover();
         popover.$(Schrodinger.byElementValue("a", name))            //click checkbox next to search attribute
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent().$(By.tagName("input")).click();
-        popover.$x(".//a[@"+Schrodinger.DATA_S_ID+"='addButton']").shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click(); //click Add button
+        popover.$x(".//a[@"+Schrodinger.DATA_S_ID+"='addButton']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click(); //click Add button
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }

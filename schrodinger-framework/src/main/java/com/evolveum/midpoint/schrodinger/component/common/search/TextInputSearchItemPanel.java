@@ -40,7 +40,7 @@ public class TextInputSearchItemPanel<T extends Search> extends Component<T> {
             return getParent();
         }
         SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                .shouldBe(Condition.editable, MidPoint.TIMEOUT_MEDIUM_6_S);
         if(!input.equals(inputField.getValue())) {
             inputField.setValue(input);
             Utils.waitForAjaxCallFinish();

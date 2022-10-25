@@ -225,7 +225,7 @@ public class BasicPage {
     }
 
     public AllRequestsPage listAllRequests() {
-        clickAdministrationMenu(ConstantsUtil.MENU_TOP_CASES, ConstantsUtil.MENU_ALL_REQUESTS_MENU_ITEM_LABEL_TEXT);
+        clickAdministrationMenu(ConstantsUtil.MENU_TOP_CASES, ConstantsUtil.MENU_ALL_REQUESTS_MENU_ITEM_RESOURCE_KEY);
         return new AllRequestsPage();
     }
 
