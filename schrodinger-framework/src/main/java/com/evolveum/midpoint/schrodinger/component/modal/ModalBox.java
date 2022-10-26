@@ -17,6 +17,8 @@ package com.evolveum.midpoint.schrodinger.component.modal;
 
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import org.apache.commons.collections4.CollectionUtils;
+import org.openqa.selenium.By;
 
 /**
  * Created by matus on 4/26/2018.
@@ -24,5 +26,19 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 public class ModalBox<T> extends Component<T> {
     public ModalBox(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
+    }
+
+    /**
+     * waits for 20 seconds for modal popup content to be hidden
+     * @return true if popup content is empty
+     */
+    public boolean waitToBeHidden() {
+        long end = System.currentTimeMillis() + 10000;
+        while (System.currentTimeMillis() < end) {
+            if (CollectionUtils.isEmpty(getParentElement().findElements(By.xpath(".//*")))) {
+                return true;
+            }
+        }
+        return false;
     }
 }

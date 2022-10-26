@@ -78,7 +78,8 @@ public class MemberPanel<T> extends Component<T> {
             FocusSetAssignmentsModal<MemberPanel<T>> newMemberPopup = new FocusSetAssignmentsModal<>(this, Utils.getModalWindowSelenideElement());
             newMemberPopup.getParentElement().$x(".//button[@title='" + title + "']")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-            newMemberPopup.getParentElement().shouldBe(Condition.disappear, MidPoint.TIMEOUT_LONG_20_S);
+            Utils.waitForAjaxCallFinish();
+            newMemberPopup.waitToBeHidden();
         }
         Utils.waitForMainPanelOnDetailsPage();
         if ("User".equals(newMemberType)) {
