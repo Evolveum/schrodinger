@@ -160,8 +160,8 @@ public class CaseTests extends AbstractSchrodingerTest {
     public void test130rejectCaseAction() {
         createUserAndAssignRoleWithApprovement(REJECT_WORKITEM_TEST_USER_NAME);
 
-        AllRequestsPage allRequestsPage = basicPage.listAllRequests();
-        ChildrenCaseTable childrenCaseTable = allRequestsPage
+        AllCasesPage allCasesPage = basicPage.listAllCases();
+        ChildrenCaseTable childrenCaseTable = allCasesPage
                 .table()
                 .search()
                 .byName()
@@ -182,8 +182,8 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .rejectButtonClick();
 
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        allRequestsPage = basicPage.listAllRequests();
-        CasePage casePage = allRequestsPage
+        allCasesPage = basicPage.listAllCases();
+        CasePage casePage = allCasesPage
                 .table()
                 .search()
                 .byName()
@@ -208,7 +208,7 @@ public class CaseTests extends AbstractSchrodingerTest {
         createUser(FORWARD_WORKITEM_TO_USER_NAME);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
-        AllRequestsPage allRequestsPage = basicPage.listAllRequests();
+        AllCasesPage allRequestsPage = basicPage.listAllCases();
         ChildrenCaseTable childrenCaseTable = allRequestsPage
                 .table()
                 .search()
@@ -247,7 +247,7 @@ public class CaseTests extends AbstractSchrodingerTest {
 
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
-        basicPage.listAllRequests()
+        basicPage.listAllCases()
                 .table()
                     .search()
                         .byName()
