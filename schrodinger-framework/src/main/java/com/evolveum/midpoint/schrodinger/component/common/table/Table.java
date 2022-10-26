@@ -100,7 +100,7 @@ public class Table<T> extends Component<T> {
         int index = 1;
 
         for (SelenideElement header : headers) {
-            SelenideElement headerWithKey = header.find((Schrodinger.bySchrodingerDataResourceKey(key)));
+            SelenideElement headerWithKey = header.find((Schrodinger.byDataResourceKey(key)));
             if (headerWithKey.exists()) {
                 return index;
             }

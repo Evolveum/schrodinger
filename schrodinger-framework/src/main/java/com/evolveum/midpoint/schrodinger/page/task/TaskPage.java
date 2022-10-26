@@ -18,6 +18,7 @@ package com.evolveum.midpoint.schrodinger.page.task;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.Condition;
@@ -108,7 +109,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public ConfirmationModal<TaskPage> cleanupEnvironmentalPerformanceInfo() {
-        $(By.cssSelector(".fa.fa-area-chart"))
+        $x(".//i[contains(@class, \"fa fa-chart-area\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new ConfirmationModal<TaskPage>(this, getModalWindowSelenideElement());
     }
