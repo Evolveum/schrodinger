@@ -200,7 +200,7 @@
         </userDashboardLink>
         <objectCollectionViews>
             <objectCollectionView>
-                <identifier>user-search-config</identifier>
+                <identifier>allUsers</identifier>
                 <searchBoxConfiguration>
                     <searchItems>
                         <searchItem id="881">

@@ -52,7 +52,7 @@ public class DateIntervalSearchItemPanel<T> extends Component<T> {
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        return getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='popoverPanel']")
+        return getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='popover']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 

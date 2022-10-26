@@ -27,6 +27,7 @@ import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
@@ -138,9 +139,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0040booleanAttributeSearch() {
+        logoutLoginToRefreshSearch();
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
-        search.resetBasicSearch();
+//        search.resetBasicSearch();
         table.assertTableObjectsCountNotEquals(1);
         search.dropDownPanelByItemName(REQUESTABLE_ATTRIBUTE)
                 .inputDropDownValue("True")
@@ -150,9 +152,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0050enumAttributeSearch() {
+        logoutLoginToRefreshSearch();
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
-        search.resetBasicSearch();
+//        search.resetBasicSearch();
         table.assertTableObjectsCountNotEquals(1);
         search.dropDownPanelByItemName(ADMINISTRATIVE_STATUS_ATTRIBUTE)
                 .inputDropDownValue("Disabled")
@@ -162,9 +165,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0060referenceAttributeByOidSearch() {
+        logoutLoginToRefreshSearch();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
-        search.resetBasicSearch();
+//        search.resetBasicSearch();
         table.assertTableObjectsCountNotEquals(1);
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefOid("332fd5e-sdf7-4322-9ff3-1848cd6ed4aa")
@@ -175,9 +179,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0070referenceAttributeByTypeSearch() {
+        logoutLoginToRefreshSearch();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
-        search.resetBasicSearch();
+//        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefType("Organization")
                 .updateSearch();
@@ -187,9 +192,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0080referenceAttributeByRelationSearch() {
+        logoutLoginToRefreshSearch();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
-        search.resetBasicSearch();
+//        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefRelation("Manager")
                 .updateSearch();
@@ -199,9 +205,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0090referenceAttributeByNameSearch() {
+        logoutLoginToRefreshSearch();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
-        search.resetBasicSearch();
+//        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefName("roleMembershipByName", "roleMembershipByNameSearch")
                 .updateSearch();
@@ -297,4 +304,9 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.search().assertDoesntExistSearchItem("Indirect2");
     }
 
+    private void logoutLoginToRefreshSearch() {
+        basicPage.loggedUser().logout();
+        FormLoginPage loginPage = midPoint.formLogin();
+        loginPage.login(getUsername(), getPassword());
+    }
 }
