@@ -25,11 +25,50 @@
                 oid="00000000-0000-0000-0000-000000000120">
     <name>Default Security Policy</name>
     <authentication>
-        <mailAuthentication>
+        <modules>
+            <mailNonce>
+                <name>confirmationLink</name>
+                <description>Additional mail authnetication</description>
+                <credentialName>mailNonce</credentialName>
+            </mailNonce>
+            <securityQuestionsForm id="16">
+                <name>SecQ</name>
+                <description>
+                    This is interactive, form-based authentication by using security questions.
+                </description>
+                <credentialName>securityQuestionsForm</credentialName>
+            </securityQuestionsForm>
+            <loginForm>
+                <name>loginForm</name>
+            </loginForm>
+        </modules>
+        <sequence>
             <name>confirmationLink</name>
-            <displayName>Additional mail authnetication</displayName>
-            <mailNonce>mailNonce</mailNonce>
-        </mailAuthentication>
+            <channel>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#selfRegistration</channelId>
+                <urlSuffix>selfRegistration</urlSuffix>
+            </channel>
+            <module>
+                <name>confirmationLink</name>
+                <order>10</order>
+                <necessity>sufficient</necessity>
+            </module>
+        </sequence>
+        <sequence>
+            <name>admin-gui-default</name>
+            <displayName>Default gui sequence</displayName>
+            <channel>
+                <default>true</default>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channelId>
+                <urlSuffix>gui-default</urlSuffix>
+            </channel>
+            <module>
+                <name>loginForm</name>
+                <order>1</order>
+                <necessity>sufficient</necessity>
+            </module>
+        </sequence>
+        <ignoredLocalPath>/actuator/health</ignoredLocalPath>
     </authentication>
     <credentials>
         <password>
@@ -66,15 +105,12 @@
             <name>selfRegistration</name>
             <initialLifecycleState>draft</initialLifecycleState>
             <displayName>Self Registration</displayName>
-            <additionalAuthenticationName>confirmationLink</additionalAuthenticationName>
+            <additionalAuthenticationSequence>confirmationLink</additionalAuthenticationSequence>
             <defaultRole oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
         </selfRegistration>
     </flow>
     <credentialsReset>
         <name>userPasswordReset</name>
-        <mailReset>
-            <name>Reset password using mail</name>
-            <additionalAuthenticationName>confirmationLink</additionalAuthenticationName>
-        </mailReset>
+        <authenticationSequenceName>confirmationLink</authenticationSequenceName>
     </credentialsReset>
 </securityPolicy>

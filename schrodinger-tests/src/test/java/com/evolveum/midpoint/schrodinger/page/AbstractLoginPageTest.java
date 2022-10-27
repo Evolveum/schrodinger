@@ -78,7 +78,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
                 notificationFile.getAbsolutePath(), fetchTestHomeDir()), true);
         basicPage.infrastructure();
         SystemPage systemPage = new SystemPage();
-        PrismForm<InfrastructurePanel> infrastructureForm = systemPage.infrastructureTab().form();
+        PrismForm<InfrastructurePanel> infrastructureForm = systemPage.infrastructurePanel().form();
         infrastructureForm.expandContainerPropertiesPanel("Infrastructure");
         infrastructureForm.showEmptyAttributes("Infrastructure");
         infrastructureForm.addAttributeValue("Public http url pattern", getConfiguration().getBaseUrl());

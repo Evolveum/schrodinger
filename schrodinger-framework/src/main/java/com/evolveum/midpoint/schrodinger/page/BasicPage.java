@@ -387,52 +387,54 @@ public class BasicPage {
 
     public SystemPanel system() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.basic");
-        return new SystemPage().systemTab();
+        return new SystemPage().systemPanel();
     }
 
     public ObjectPolicyPanel objectPolicy() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.objectPolicy");
-        return new SystemPage().objectPolicyTab();
+        return new SystemPage().objectPolicyPanel();
     }
 
     public NotificationsPanel notifications() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.notifications");
-        return new SystemPage().notificationsTab();
+        return new SystemPage().notificationsPanel();
     }
 
     public LoggingPanel logging() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.logging");
-        return new SystemPage().loggingTab();
+        return new SystemPage().loggingPanel();
     }
 
     public ProfilingPanel profiling() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.profiling");
-        return new SystemPage().profilingTab();
+        return new SystemPage().profilingPanel();
     }
 
     public AdminGuiPanel adminGui() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.adminGui");
-        return new SystemPage().adminGuiTab();
+        return new SystemPage().adminGuiPanel();
     }
 
     public DeploymentInformationPanel deploymentInformation() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.deploymentInformation");
-        return new SystemPage().deploymentInformationTab();
+        return new SystemPage().deploymentInformationPanel();
     }
 
     public InfrastructurePanel infrastructure() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.infrastructure");
-        return new SystemPage().infrastructureTab();
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", null);
+        return new SystemPage()
+                .panelSelectionButtonClick("System configuration")
+                .infrastructurePanel();
     }
 
     public RoleManagementPanel roleManagement() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.roleManagement");
-        return new SystemPage().roleManagementTab();
+        return new SystemPage().roleManagementPanel();
     }
 
     public CleanupPolicyPanel cleanupPolicy() {
         clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.cleanupPolicy");
-        return new SystemPage().cleanupPolicyTab();
+        return new SystemPage().cleanupPolicyPanel();
     }
 
     public InternalsConfigurationPage internalsConfiguration() {
