@@ -36,50 +36,60 @@ public class SystemPage extends AssignmentHolderDetailsPage {
     }
 
     public SystemPanel systemPanel() {
-        return new SystemPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.system.title"));
+        panelSelectionButtonClick("System configuration");
+        return new SystemPanel(this, getNavigationPanelSelenideElement("System"));
     }
 
     public ObjectPolicyPanel objectPolicyPanel() {
-        return new ObjectPolicyPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.objectPolicy.title"));
+        panelSelectionButtonClick("Policies");
+        return new ObjectPolicyPanel(this, getNavigationPanelSelenideElement("Object policies"));
     }
 
     public NotificationsPanel notificationsPanel() {
-        return new NotificationsPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.notifications.title"));
+        panelSelectionButtonClick("Notifications");
+        return new NotificationsPanel(this, getNavigationPanelSelenideElement("Notifications"));
     }
 
     public LoggingPanel loggingPanel() {
-        return new LoggingPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.logging.title"));
+        panelSelectionButtonClick("Logging");
+        return new LoggingPanel(this, getNavigationPanelSelenideElement("Logging"));
     }
 
     public ProfilingPanel profilingPanel() {
-        return new ProfilingPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.profiling.title"));
+        panelSelectionButtonClick("Profiling");
+        return new ProfilingPanel(this, getNavigationPanelSelenideElement("Profiling"));
     }
 
     public AdminGuiPanel adminGuiPanel() {
-        return new AdminGuiPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.adminGui.title"));
+        panelSelectionButtonClick("Admin GUI configuration");
+        return new AdminGuiPanel(this, getNavigationPanelSelenideElement("Basic"));
     }
 
     public DeploymentInformationPanel deploymentInformationPanel() {
-        return new DeploymentInformationPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.deploymentInformation.title"));
+        panelSelectionButtonClick("System configuration");
+        return new DeploymentInformationPanel(this, getNavigationPanelSelenideElement("Deployment"));
     }
 
     public InfrastructurePanel infrastructurePanel() {
+        panelSelectionButtonClick("System configuration");
         return new InfrastructurePanel(this, getNavigationPanelSelenideElement("Infrastructure"));
     }
 
     public RoleManagementPanel roleManagementPanel(){
-        return new RoleManagementPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.roleManagement.title"));
+        panelSelectionButtonClick("Role management");
+        return new RoleManagementPanel(this, getNavigationPanelSelenideElement("Basic"));
     }
 
     public InternalsConfigurationPanel internalsConfigurationsPanel(){
-        return new InternalsConfigurationPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.internals.title"));
+        return new InternalsConfigurationPanel(this, getNavigationPanelSelenideElement("Internals configuration"));
     }
 
     public CleanupPolicyPanel cleanupPolicyPanel() {
-        return new CleanupPolicyPanel(this, getNavigationPanelSelenideElement("pageSystemConfiguration.cleanupPolicy.title"));
+        panelSelectionButtonClick("Policies");
+        return new CleanupPolicyPanel(this, getNavigationPanelSelenideElement("Cleanup policy"));
     }
 
-    public SystemPage panelSelectionButtonClick(String panelTitle) {
+    private SystemPage panelSelectionButtonClick(String panelTitle) {
         Utils.waitForAjaxCallFinish();
         $x(".//span[@class='compositedButtonLabel' and contains(text(), '" + panelTitle + "')]")
                 .shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S).click();

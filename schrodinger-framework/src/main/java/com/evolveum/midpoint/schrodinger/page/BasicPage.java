@@ -366,17 +366,17 @@ public class BasicPage {
     }
 
     public AboutPage aboutPage() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.about", null);
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.about");
         return new AboutPage();
     }
 
     public BulkActionsPage bulkActions() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.bulkActions", null);
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.bulkActions");
         return new BulkActionsPage();
     }
 
     public ImportObjectPage importObject() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.importObject", null);
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.importObject");
         return new ImportObjectPage();
     }
 
@@ -386,54 +386,53 @@ public class BasicPage {
     }
 
     public SystemPanel system() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.basic");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().systemPanel();
     }
 
     public ObjectPolicyPanel objectPolicy() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.objectPolicy");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().objectPolicyPanel();
     }
 
     public NotificationsPanel notifications() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.notifications");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().notificationsPanel();
     }
 
     public LoggingPanel logging() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.logging");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().loggingPanel();
     }
 
     public ProfilingPanel profiling() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.profiling");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().profilingPanel();
     }
 
     public AdminGuiPanel adminGui() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.adminGui");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().adminGuiPanel();
     }
 
     public DeploymentInformationPanel deploymentInformation() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.deploymentInformation");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().deploymentInformationPanel();
     }
 
     public InfrastructurePanel infrastructure() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", null);
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage()
-                .panelSelectionButtonClick("System configuration")
                 .infrastructurePanel();
     }
 
     public RoleManagementPanel roleManagement() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.roleManagement");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().roleManagementPanel();
     }
 
     public CleanupPolicyPanel cleanupPolicy() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic", "PageAdmin.menu.top.configuration.cleanupPolicy");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.basic");
         return new SystemPage().cleanupPolicyPanel();
     }
 
@@ -443,7 +442,7 @@ public class BasicPage {
     }
 
     public QueryPlaygroundPage queryPlayground() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.repoQuery", null);
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.repoQuery");
         return new QueryPlaygroundPage();
     }
 
@@ -464,6 +463,10 @@ public class BasicPage {
         assertion.assertEquals(expectedIconClass, menuItem.parent().$(By.tagName("i")).getAttribute("class"),
                 "Menu item icon (menu item key is '" + menuItemKey + "') doesn't match to value '" + expectedIconClass + "'.");
         return this;
+    }
+
+    private void clickConfigurationMenu(String mainMenuKey) {
+        clickConfigurationMenu(mainMenuKey, null);
     }
 
     private void clickConfigurationMenu(String mainMenuKey, String menuItemKey) {
