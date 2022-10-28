@@ -47,6 +47,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -298,4 +301,32 @@ public class Utils {
             }
         });
     }
+
+    public static String getPropertyString(String key) {
+        return getPropertyString(key, null);
+    }
+
+    public static String getPropertyString(String key, String defaultValue) {
+        String lang = System.getProperty("language");
+        if (StringUtils.isEmpty(lang)) {
+            lang = "en";
+        }
+
+        String val = (defaultValue == null) ? key : defaultValue;
+        ResourceBundle bundleMP;
+        ResourceBundle bundleSch;
+        try {
+            bundleMP = ResourceBundle.getBundle("localization/Midpoint", new Locale(lang));
+            bundleSch = ResourceBundle.getBundle("localization/schema", new Locale(lang));
+        } catch (MissingResourceException e) {
+            return (defaultValue != null) ? defaultValue : key;
+        }
+        if (bundleMP != null && bundleMP.containsKey(key)) {
+            val = bundleMP.getString(key);
+        } else if (bundleSch != null && bundleSch.containsKey(key)) {
+            val = bundleSch.getString(key);
+        }
+        return val;
+    }
+
 }

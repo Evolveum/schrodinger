@@ -70,6 +70,7 @@ public class MidPoint {
             System.setProperty(configuration.getDriver().getDriver(), configuration.getDriverLocation());
         }
         System.setProperty("selenide.browser", configuration.getDriver().name().toLowerCase());
+        System.setProperty("language", configuration.getLanguage());
 
         Configuration.timeout = 6000L;
     }

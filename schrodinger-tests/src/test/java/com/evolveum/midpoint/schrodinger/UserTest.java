@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
@@ -52,7 +53,6 @@ public class UserTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0010createUser() {
-
         //@formatter:off
         Map<String, String> attr = new HashMap<>();
         attr.put("Name", "jdoe");

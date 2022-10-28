@@ -216,7 +216,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             config.driverLocation(getConfigurationPropertyValue("webdriverLocation"));
         }
         config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")));
-
+        config.language(getConfigurationPropertyValue("language"));
         String urlPropertyName = startMidpoint ? "base_url" :  "base_url_mp_already_started";
         config.baseUrl(getConfigurationPropertyValue(urlPropertyName));
 
