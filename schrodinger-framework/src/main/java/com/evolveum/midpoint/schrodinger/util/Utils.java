@@ -307,7 +307,7 @@ public class Utils {
     }
 
     public static String getPropertyString(String key, String defaultValue) {
-        String lang = System.getProperty("language");
+        String lang = System.getProperty("locale");
         if (StringUtils.isEmpty(lang)) {
             lang = "en";
         }

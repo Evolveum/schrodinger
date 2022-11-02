@@ -91,7 +91,8 @@ public class SystemPage extends AssignmentHolderDetailsPage {
 
     private SystemPage panelSelectionButtonClick(String panelTitle) {
         Utils.waitForAjaxCallFinish();
-        $x(".//span[@class='compositedButtonLabel' and contains(text(), '" + panelTitle + "')]")
+        String translatedTitle = Utils.getPropertyString(panelTitle);
+        $x(".//span[@class='compositedButtonLabel' and contains(text(), '" + translatedTitle + "')]")
                 .shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
         return this;

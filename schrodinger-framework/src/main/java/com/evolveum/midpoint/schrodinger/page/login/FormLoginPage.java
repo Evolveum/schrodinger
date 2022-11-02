@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -53,10 +54,14 @@ public class FormLoginPage extends LoginPage {
     }
 
     public BasicPage loginIfUserIsNotLog(String username, String password){
+        return loginIfUserIsNotLog(username, password, null);
+    }
+
+    public BasicPage loginIfUserIsNotLog(String username, String password, String locale){
         open("/login");
         Selenide.sleep(1000);
         if(!userMenuExists()) {
-            return login(username, password);
+            return login(username, password, locale);
         }
         return new BasicPage();
     }
@@ -102,5 +107,15 @@ public class FormLoginPage extends LoginPage {
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .getValue()), "Sign in button title doesn't equal to " + title);
         return this;
+    }
+
+    public FormLoginPage setLanguage(String lang) {
+        $(Schrodinger.byDataId("locale")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        Utils.waitForAjaxCallFinish();
+        SelenideElement localesMenu = $(Schrodinger.byDataId("localesMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        localesMenu.$x(".//a[@data-s-id='localesIcon' and contains(@class, 'fi-" + lang + "')]").click();
+        Selenide.sleep(2000);
+        Utils.waitForAjaxCallFinish();
+        return FormLoginPage.this;
     }
 }

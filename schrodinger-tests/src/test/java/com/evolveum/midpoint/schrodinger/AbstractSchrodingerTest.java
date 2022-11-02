@@ -202,7 +202,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         }
 
         FormLoginPage login = midPoint.formLogin();
-        basicPage = login.loginIfUserIsNotLog(username, password);
+        String locale = getConfigurationPropertyValue("locale");
+        basicPage = login.loginIfUserIsNotLog(username, password, locale);
     }
 
     protected EnvironmentConfiguration buildEnvironmentConfiguration() throws IOException {
@@ -216,7 +217,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             config.driverLocation(getConfigurationPropertyValue("webdriverLocation"));
         }
         config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")));
-        config.language(getConfigurationPropertyValue("language"));
+        config.locale(getConfigurationPropertyValue("locale"));
         String urlPropertyName = startMidpoint ? "base_url" :  "base_url_mp_already_started";
         config.baseUrl(getConfigurationPropertyValue(urlPropertyName));
 

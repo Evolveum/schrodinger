@@ -17,8 +17,6 @@ package com.evolveum.midpoint.schrodinger;
 
 import org.apache.commons.lang3.Validate;
 
-import java.util.Locale;
-
 /**
  * Created by Viliam Repan (lazyman).
  */
@@ -36,7 +34,7 @@ public class EnvironmentConfiguration {
 
     private String remoteWebdriverUrl;
 
-    private String language;
+    private String locale;
 
     public EnvironmentConfiguration driver(final WebDriver driver) {
         Validate.notNull(driver, "Web driver must not be null");
@@ -96,12 +94,12 @@ public class EnvironmentConfiguration {
         return remoteWebdriverUrl;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getLocale() {
+        return locale;
     }
 
-    public void language(String language) {
-        this.language = language;
+    public void locale(String locale) {
+        this.locale = locale;
     }
 
     public void validate() {
