@@ -60,7 +60,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
     private static final File CSV_3_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "csv-3-lab-1-initial.csv");
     private static final File HR_SOURCE_FILE = new File(ADVANCED_LABS_SOURCES_DIRECTORY + "source-lab-1-initial.csv");
 
-    String notificationCheck1 = "User: Jim Kirk (kirk, oid ca233e9a-f474-1ed7-9a22-1nkdea34bb50)";
+    String notificationCheck1 = "User: Jim Kirk (kirk, oid 95988300-5b63-11ed-9b6a-0242ac120002)";
     String notificationCheck2 = "The user record was modified. Modified attributes are:";
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })

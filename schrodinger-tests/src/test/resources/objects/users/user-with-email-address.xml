@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<user oid="f3bbfd5e-f237-4772-94sd-18gr3d6e4gaa"
-      xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>searchByEmailAddressUser</name>
     <emailAddress>testEmailAddress@test.com</emailAddress>
 </user>

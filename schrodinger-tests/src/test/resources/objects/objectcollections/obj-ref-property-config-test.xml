@@ -16,7 +16,7 @@
   -->
 
 <objectCollection xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-                  oid="04kk454k-0llm-3320-3401-0lgll32slr37">
+                  oid="95987bb2-5b63-11ed-9b6a-0242ac120002">
     <name>ObjRefAttributeConfigTest</name>
     <type>UserType</type>
 </objectCollection>

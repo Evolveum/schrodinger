@@ -16,7 +16,7 @@
   -->
 
 <objectCollection xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-                  oid="04kflg4k-0llm-3k40-3401-0lgpr43slr37">
+                  oid="95987842-5b63-11ed-9b6a-0242ac120002">
     <name>FilterTestUsers</name>
     <type>UserType</type>
 </objectCollection>

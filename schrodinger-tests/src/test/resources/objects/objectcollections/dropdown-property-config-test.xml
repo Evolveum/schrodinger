@@ -16,7 +16,7 @@
   -->
 
 <objectCollection xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-                  oid="03rrv54k-l2lm-3320-3oh1-0lgll32slr37">
+                  oid="959875ea-5b63-11ed-9b6a-0242ac120002">
     <name>DropdownPropertyConfigTest</name>
     <type>UserType</type>
 </objectCollection>

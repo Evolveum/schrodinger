@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<user oid="abebabaf-c001-f00d-1111-222233330001"
-      xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
+<user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
     <name>ceresnickova</name>
     <fullName>Ing. Mária Žofia Ľudmila Čerešničková</fullName>
     <givenName>Mária Žofia Ľudmila</givenName>

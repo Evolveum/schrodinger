@@ -33,7 +33,7 @@
                 </display>
                 <type>UserType</type>
                 <collection>
-                    <collectionRef oid="kk3pk98e-f587-4b11-b92b-723251dbb299" relation="org:default" type="c:ObjectCollectionType">
+                    <collectionRef oid="95988080-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:ObjectCollectionType">
                     </collectionRef>
                 </collection>
             </objectCollectionView>
@@ -47,7 +47,7 @@
                 </display>
                 <type>UserType</type>
                 <collection>
-                    <collectionRef oid="kker398e-ff47-4b11-b92b-74ff21dbb299" relation="org:default" type="c:ObjectCollectionType">
+                    <collectionRef oid="95987f18-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:ObjectCollectionType">
                     </collectionRef>
                 </collection>
             </objectCollectionView>

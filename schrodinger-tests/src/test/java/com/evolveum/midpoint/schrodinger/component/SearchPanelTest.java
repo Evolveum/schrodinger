@@ -75,7 +75,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final String REQUESTABLE_ATTRIBUTE = "Requestable";
     private static final String ADMINISTRATIVE_STATUS_ATTRIBUTE = "Administrative status";
     private static final String ROLE_MEMBERSHIP_ATTRIBUTE = "Role membership";
-    private static final String REF_SEARCH_FIELD_VALUE = "roleMembershipByNameSearch; Oid:33fd485e-kk21-43g2-94sd-18dgrw6ed4aa; Relation:default; RoleType";
+    private static final String REF_SEARCH_FIELD_VALUE = "roleMembershipByNameSearch; Oid:95986f96-5b63-11ed-9b6a-0242ac120002; Relation:default; RoleType";
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -171,7 +171,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 //        search.resetBasicSearch();
         table.assertTableObjectsCountNotEquals(1);
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
-                .inputRefOid("332fd5e-sdf7-4322-9ff3-1848cd6ed4aa")
+                .inputRefOid("959870f4-5b63-11ed-9b6a-0242ac120002")
                 .updateSearch();
         table.assertTableObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByOid");

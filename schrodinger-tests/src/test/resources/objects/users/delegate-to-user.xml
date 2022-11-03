@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<user oid="rk3okjde-f921-4ols-9okd-2jokc86ed4aa"
-      xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>DelegateToUser</name>
 </user>
 

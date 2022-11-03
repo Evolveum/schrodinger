@@ -15,9 +15,9 @@
   ~ limitations under the License.
   -->
 
-<user oid="ffd2fd5e-f7f7-4322-94sd-1848cd6ed4aa" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
     <name>testUserWithRoleMembershipSearchByOid</name>
-    <roleMembershipRef oid="332fd5e-sdf7-4322-9ff3-1848cd6ed4aa" relation="org:default" type="c:RoleType"/>
+    <roleMembershipRef oid="959870f4-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:RoleType"/>
 </user>
 

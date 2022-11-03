@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<role oid="90kd1d5e-o097-4ols-nkm2-a88ko26ed4aa"
+<role oid="95986b18-5b63-11ed-9b6a-0242ac120002"
       xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
       xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>DelegableEndUserRole</name>

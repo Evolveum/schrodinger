@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<user oid="44633kfe-f237-4ols-943k-a9fno06ed4aa" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
     <name>DropdownPropertyConfigUser</name>
     <activation>

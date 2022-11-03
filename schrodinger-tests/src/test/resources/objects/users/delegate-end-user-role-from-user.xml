@@ -15,15 +15,14 @@
   ~ limitations under the License.
   -->
 
-<user oid="r3sscjde-fpwe-4ols-94sd-4r67n23ed4aa"
-      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+<user xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
       xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>DelegateEndUserRoleFromUser</name>
     <assignment>
-        <targetRef oid="90kd1d5e-o097-4ols-nkm2-a88ko26ed4aa" type="c:RoleType"/>
+        <targetRef oid="95986b18-5b63-11ed-9b6a-0242ac120002" type="c:RoleType"/>
     </assignment>
-    <roleMembershipRef oid="90kd1d5e-o097-4ols-nkm2-a88ko26ed4aa" relation="org:default" type="c:RoleType">
+    <roleMembershipRef oid="95986b18-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:RoleType">
     </roleMembershipRef>
     <credentials>
         <password>

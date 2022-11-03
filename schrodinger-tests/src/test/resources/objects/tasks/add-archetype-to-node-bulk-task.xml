@@ -18,8 +18,7 @@
       xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
       xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      oid="fe765e75-55ba-48fb-a1d0-f36916106cfa">
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <name>Add archetype</name>
         <extension>
             <scext:executeScript xmlns:scext="http://midpoint.evolveum.com/xml/ns/public/model/scripting/extension-3">

@@ -15,13 +15,13 @@
   ~ limitations under the License.
   -->
 
-<org oid="33f5585e-kk21-43g2-94sd-18gsrw6ed4aa" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+<org oid="959874aa-5b63-11ed-9b6a-0242ac120002" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
     <name>orgMembershipByTypeSearch</name>
     <assignment>
-        <targetRef oid="33f5585e-kk21-43g2-94sd-18gsrw6ed4fg" relation="org:default" type="c:OrgType"/>
+        <targetRef oid="9598736a-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:OrgType"/>
     </assignment>
-    <roleMembershipRef oid="33f5585e-kk21-43g2-94sd-18gsrw6ed4fg" relation="org:default" type="c:OrgType"/>
-    <parentOrgRef oid="33f5585e-kk21-43g2-94sd-18gsrw6ed4fg" relation="org:default" type="c:OrgType"/>
+    <roleMembershipRef oid="9598736a-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:OrgType"/>
+    <parentOrgRef oid="9598736a-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:OrgType"/>
 </org>
 

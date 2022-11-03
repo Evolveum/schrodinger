@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<user oid="b6e2a7b3-2444-4853-bf6a-201960a636df"
-      xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
+<user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
     <name>botticelli</name>
     <fullName>Alessandro di Mariano di Vanni Filipepi</fullName>
     <givenName>Alessandro</givenName>

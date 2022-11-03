@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<user oid="fb0f945e-f7f7-4ea2-9494-1848cd6ed4ad"
-      xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'
+<user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'
       xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
       xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3">

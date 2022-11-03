@@ -18,7 +18,7 @@
       xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
       xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
-oid="ca233e9a-f474-1ed7-9a22-1nkdea34bb50">
+oid="95988300-5b63-11ed-9b6a-0242ac120002">
     <name>kirk</name>
     <givenName>Jim</givenName>
     <familyName>Kirk</familyName>

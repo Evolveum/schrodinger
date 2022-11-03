@@ -14,8 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<role oid="00000001-0001-0001-0001-000000000001"
-      xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3">
     <name>Role with admin approver</name>

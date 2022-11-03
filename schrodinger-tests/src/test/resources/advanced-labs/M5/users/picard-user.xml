@@ -16,7 +16,7 @@
   -->
 <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
       xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
-oid="12433e9a-f4me-1ed7-9a22-1nkdea3423mm">
+oid="95988d32-5b63-11ed-9b6a-0242ac120002">
     <name>picard</name>
     <givenName>Jean-Luc</givenName>
     <familyName>Picard</familyName>

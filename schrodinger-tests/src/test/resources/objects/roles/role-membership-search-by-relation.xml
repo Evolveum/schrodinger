@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<role oid="fee2gd5e-f447-df72-94sd-143b3d6ed4aa"
+<role oid="9598722a-5b63-11ed-9b6a-0242ac120002"
       xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>roleSearchByRelationTest</name>
 </role>
