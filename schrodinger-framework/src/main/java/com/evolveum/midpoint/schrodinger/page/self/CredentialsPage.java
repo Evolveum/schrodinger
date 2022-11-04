@@ -37,11 +37,4 @@ public class CredentialsPage extends BasicPage {
         return new PasswordTab(this,
                 tabPanel.clickTab("PageSelfCredentials.tabs.password").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
-
-    public CredentialsPage save() {
-        $(Schrodinger.byDataId("save"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        return this;
-    }
 }

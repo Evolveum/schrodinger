@@ -34,7 +34,6 @@ public class PasswordTab extends Component<CredentialsPage> {
 
     public ChangePasswordPanel<PasswordTab> changePasswordPanel() {
         return new ChangePasswordPanel<>(this, getParentElement()
-                .$(Schrodinger.byElementAttributeValue("div", "class", "tab-content"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

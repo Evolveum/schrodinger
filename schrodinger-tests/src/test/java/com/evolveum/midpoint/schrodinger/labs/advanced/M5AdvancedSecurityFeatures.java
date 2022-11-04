@@ -194,9 +194,8 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                             .setOldPasswordValue("qwerty12345XXXX")
                             .setNewPasswordValue("qwerty12345BAD")
                             .setRepeatPasswordValue("qwerty12345BAD")
-                            .and()
-                        .and()
-                    .save()
+                            .changePassword()
+                        .and().and()
                     .feedback()
                         .assertSuccess();
 

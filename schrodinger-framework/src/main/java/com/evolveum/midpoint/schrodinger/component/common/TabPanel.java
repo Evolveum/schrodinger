@@ -22,6 +22,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -39,8 +40,9 @@ public class TabPanel<T> extends Component<T> {
     }
 
     public SelenideElement clickTab(String resourceKey) {
+        String translatedLabel = Utils.getPropertyString(resourceKey);
         SelenideElement link = getParentElement()
-                .$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "class", "tab-label", "data-s-resource-key", resourceKey))
+                .$x(".//a[@data-s-id='link' and contains(text(), '" + translatedLabel + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return verifyAndFetchActiveTab(link);

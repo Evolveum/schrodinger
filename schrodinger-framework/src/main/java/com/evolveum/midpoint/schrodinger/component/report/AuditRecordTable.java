@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRed
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -77,9 +78,13 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
     }
 
     public void checkTextInColumn(int row, int column, String name) {
-        $(By.cssSelector(".box.boxed-table"))
+        $(By.cssSelector(".table.table-hover"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        getCell(row, column).shouldHave(Condition.text(name));
+        if (StringUtils.isEmpty(name)) {
+            getCell(row, column).shouldBe(Condition.empty);
+        } else {
+            getCell(row, column).shouldHave(Condition.text(name));
+        }
     }
 
     public SelenideElement getCell(int row, int column) {

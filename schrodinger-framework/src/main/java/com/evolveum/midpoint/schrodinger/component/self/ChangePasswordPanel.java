@@ -16,15 +16,18 @@
 package com.evolveum.midpoint.schrodinger.component.self;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
+import com.evolveum.midpoint.schrodinger.page.self.CredentialsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class ChangePasswordPanel<T> extends Component<T> {
 
@@ -33,7 +36,7 @@ public class ChangePasswordPanel<T> extends Component<T> {
     }
 
     public ChangePasswordPanel<T> setOldPasswordValue(String value) {
-        getParentElement().$(Schrodinger.byDataId("oldPassword"))
+        getParentElement().$(Schrodinger.byDataId("currentPassword"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .setValue(value);
         return this;
@@ -66,7 +69,7 @@ public class ChangePasswordPanel<T> extends Component<T> {
     }
 
     public Table<ChangePasswordPanel<T>> accountsTable() {
-        return new Table<>(this, $(Schrodinger.byDataId("accounts")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+        return new Table<>(this, $(Schrodinger.byDataId("individualSystemsTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public ChangePasswordPanel<T> assertPasswordPropagationResultSuccess(String userName) {
@@ -83,6 +86,14 @@ public class ChangePasswordPanel<T> extends Component<T> {
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         TableRow row = accountsTable.rowByColumnResourceKey("ChangePasswordPanel.resourceName", resourceValue);
         row.clickColumnByName("Name", "i");
+        return this;
+    }
+
+    public ChangePasswordPanel<T> changePassword() {
+        Selenide.sleep(3000);
+        $(Schrodinger.byDataId("changePassword"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(3000);
         return this;
     }
 }

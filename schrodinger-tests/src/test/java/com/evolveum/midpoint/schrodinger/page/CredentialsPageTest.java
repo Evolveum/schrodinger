@@ -45,11 +45,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                         .setOldPasswordValue("password")
                         .setNewPasswordValue("password1")
                         .setRepeatPasswordValue("password1")
-                        .and()
-                    .and()
-                .save()
-                    .passwordTab()
-                        .changePasswordPanel()
+                        .changePassword()
                             .assertPasswordPropagationResultSuccess("CredentialsPageTestUser")
                             .and()
                         .and()
@@ -72,9 +68,9 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                         .setOldPasswordValue("wrongPassword")
                         .setNewPasswordValue("passwordNew")
                         .setRepeatPasswordValue("passwordNew")
+                .changePassword()
                 .and()
-                    .and()
-                .save()
+                .and()
                 .feedback()
                 .assertError();
         basicPage.loggedUser().logout();
@@ -97,9 +93,9 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                         .setOldPasswordValue("password1")
                         .setNewPasswordValue("passwordNew1")
                         .setRepeatPasswordValue("passwordNew2")
+                .changePassword()
                 .and()
-                    .and()
-                .save()
+                .and()
                 .feedback()
                 .assertError();
         basicPage.loggedUser().logout();
