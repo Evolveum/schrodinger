@@ -16,9 +16,12 @@
 
 package com.evolveum.midpoint.schrodinger.component;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -40,12 +43,10 @@ public class LoggedUser {
     }
 
     public FormLoginPage logoutIfUserIsLogin() {
-        if($(".dropdown.user.user-menu").exists()) {
-            SelenideElement userMenu = $(".dropdown.user.user-menu");
-
-            userMenu.$(By.cssSelector(".dropdown-toggle")).click();
-            userMenu.$(By.cssSelector(".user-footer"))
-                    .$(Schrodinger.byElementAttributeValue("input", "type", "submit")).click();
+        if($(Schrodinger.byDataId("logoutForm")).exists()) {
+            $(Schrodinger.byDataId("logoutForm")).click();
+            Utils.waitForAjaxCallFinish();
+            $(Schrodinger.byDataId("logoutForm")).shouldBe(Condition.hidden, MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         return new FormLoginPage();
     }

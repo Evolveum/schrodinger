@@ -76,9 +76,9 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         }
         importObject(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
                 notificationFile.getAbsolutePath(), fetchTestHomeDir()), true);
-        basicPage.infrastructure();
+//        basicPage.infrastructure();
         SystemPage systemPage = new SystemPage();
-        PrismForm<InfrastructurePanel> infrastructureForm = systemPage.infrastructurePanel().form();
+        PrismForm<InfrastructurePanel> infrastructureForm = basicPage.infrastructure().form();
         infrastructureForm.expandContainerPropertiesPanel("Infrastructure");
         infrastructureForm.showEmptyAttributes("Infrastructure");
         infrastructureForm.addAttributeValue("Public http url pattern", getConfiguration().getBaseUrl());
@@ -124,7 +124,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
 
         login
                 .feedback()
-                .assertError("0");
+                .assertError();
     }
 
     @Test
