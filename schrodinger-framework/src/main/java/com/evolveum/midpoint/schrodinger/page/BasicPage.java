@@ -671,7 +671,7 @@ public class BasicPage {
     public BasicPage changeLanguage(String countryCode) {
         Validate.notNull(countryCode, "Country code must not be null");
 
-        $(Schrodinger.byDataId("locale")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.byDataId("locale")).parent().shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
         SelenideElement localesMenu = $(Schrodinger.byDataId("localesMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String flagIconCss = "fi-" + countryCode.trim().toLowerCase();
