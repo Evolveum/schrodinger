@@ -121,11 +121,11 @@ public class BasicPage {
 
     public UserPage newUser(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.users", "PageAdmin.menu.top.users.new");
-//        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
-//        if ($(Schrodinger.byDataId("template")).isDisplayed()) {
-//            NewObjectFromTemplatePage<UserPage> templatePage = new NewObjectFromTemplatePage<>();
-//            return templatePage.clickTemplateButtonWithTitle(templateTitle, new UserPage());
-//        }
+        getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        if ($(Schrodinger.byDataId("template")).exists() && $(Schrodinger.byDataId("template")).isDisplayed()) {
+            NewObjectFromTemplatePage<UserPage> templatePage = new NewObjectFromTemplatePage<>();
+            return templatePage.clickTemplateButtonWithTitle(templateTitle, new UserPage());
+        }
         waitForDetailsPageIsLoaded();
         return new UserPage();
     }

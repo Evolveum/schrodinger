@@ -52,7 +52,7 @@ abstract public class TabWithTableAndPrismView<P> extends Component<P> {
 
             @Override
             public AbstractTableWithPrismView<T> selectCheckboxByName(String name) {
-                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
+                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "word-break-longer-text check", "data-s-id", "3", name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
                 return this;

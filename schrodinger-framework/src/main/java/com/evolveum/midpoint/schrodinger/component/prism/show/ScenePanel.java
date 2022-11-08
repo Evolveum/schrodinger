@@ -40,7 +40,7 @@ public class ScenePanel<T> extends Component<T> {
     }
 
     public ScenePanel<T> assertExpanded() {
-        SelenideElement minimizeButton = getParentElement().$(Schrodinger.byDataId("a", "minimizeButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement minimizeButton = getParentElement().$(Schrodinger.byDataId("button", "minimizeButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement icon = minimizeButton.$(By.tagName("i"));
         icon.shouldHave(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
