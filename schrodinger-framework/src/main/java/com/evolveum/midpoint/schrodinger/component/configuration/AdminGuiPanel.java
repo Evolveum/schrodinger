@@ -21,6 +21,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -32,9 +33,8 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
     }
 
     public SystemPage addNewObjectCollection(String identifier, String type, String objectCollectionType, String objectCollectionName) {
-        this.form()
-                .expandContainerPropertiesPanel(OBJECT_COLLECTION_VIEWS_HEADER)
-                .addNewContainerValue(OBJECT_COLLECTION_VIEW_HEADER, NEW_GUI_OBJECT_LIST_VIEW_HEADER)
+        objectCollectionViewsPanel()
+                .clickAddButton()
                     .getPrismContainerPanel("GuiObjectListViewType.details.newValue")
                         .getContainerFormFragment()
                         .addAttributeValue("Identifier", identifier)
@@ -65,5 +65,10 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
                 .and()
                 .clickSave();
         return getParent();
+    }
+
+    public ObjectCollectionViewsPanel objectCollectionViewsPanel() {
+        String titleTranslated = Utils.getPropertyString("ObjectCollectionViewsContentPanel.label");
+        return new ObjectCollectionViewsPanel(getParent(), getParent().getNavigationPanelSelenideElement(titleTranslated));
     }
 }
