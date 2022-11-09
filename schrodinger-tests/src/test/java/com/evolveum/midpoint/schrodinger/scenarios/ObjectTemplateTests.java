@@ -121,7 +121,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
         basicPage
                 .listUsers("Employees")
-                    .newObjectButtonClick("New employee")
+                    .newObjectButtonClick("New employee")       //fails here because of MID-8254
                         .selectBasicPanel()
                             .form()
                                 .addAttributeValue("Name", "employeeTestUser")
