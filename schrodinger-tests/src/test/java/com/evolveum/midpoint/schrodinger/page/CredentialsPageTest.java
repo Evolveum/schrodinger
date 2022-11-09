@@ -49,7 +49,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                             .assertPasswordPropagationResultSuccess("CredentialsPageTestUser")
                             .and()
                         .and()
-                .feedback()
+                .toast()
                 .assertSuccess();
         basicPage.loggedUser().logout();
         midPoint.formLogin()
@@ -71,7 +71,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .changePassword()
                 .and()
                 .and()
-                .feedback()
+                .toast()
                 .assertError();
         basicPage.loggedUser().logout();
         midPoint.formLogin()
@@ -96,7 +96,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .changePassword()
                 .and()
                 .and()
-                .feedback()
+                .toast()
                 .assertError();
         basicPage.loggedUser().logout();
         midPoint.formLogin()

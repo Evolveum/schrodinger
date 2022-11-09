@@ -17,14 +17,16 @@
 package com.evolveum.midpoint.schrodinger.component;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.Toast;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -32,6 +34,11 @@ import static com.codeborne.selenide.Selenide.$;
 public class LoggedUser {
 
     public FormLoginPage logout() {
+        //sometimes Toast component covers logout button; therefore, we try to close all toast message panels at first
+        ElementsCollection toasts = $$x(".//div[contains(@class, \"toast\") and contains(@class, \"bg-\")]");
+        if (!toasts.isEmpty()) {
+            toasts.asFixedIterable().forEach(toast -> toast.$x(".//button[contains(@class, 'close')]").click());
+        }
         $(Schrodinger.byDataId("logoutForm"))
                 .find(By.cssSelector(".fas.fa-power-off"))
                 .parent()

@@ -22,6 +22,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.LoggedUser;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
+import com.evolveum.midpoint.schrodinger.component.common.Toast;
 import com.evolveum.midpoint.schrodinger.component.common.UserMenuPanel;
 import com.evolveum.midpoint.schrodinger.component.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.archetype.ListArchetypesPage;
@@ -487,12 +488,24 @@ public class BasicPage {
 
     public FeedbackBox<? extends BasicPage> feedback() {
         SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         return new FeedbackBox<>(this, feedback);
     }
 
     public BasicPage assertFeedbackExists() {
         assertion.assertTrue($x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
+                .is(Condition.visible), "Feedback message box is absent");
+        return this;
+    }
+
+    public Toast<? extends BasicPage> toast() {
+        SelenideElement toast = $x(".//div[contains(@class, \"toast\") and contains(@class, \"bg-\")]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        return new Toast<>(this, toast);
+    }
+
+    public BasicPage assertToastExists() {
+        assertion.assertTrue($x(".//div[contains(@class, \"toast\") and contains(@class, \"bg-\")]")
                 .is(Condition.visible), "Feedback message box is absent");
         return this;
     }
