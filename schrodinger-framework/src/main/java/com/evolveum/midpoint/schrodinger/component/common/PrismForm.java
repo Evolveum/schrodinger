@@ -487,8 +487,15 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismContainerPanel<PrismForm<T>> getPrismContainerPanel(String containerName) {
-        SelenideElement containerPanel = getParentElement().$x(".//a[@class='prism-title'][@data-s-resource-key='" +
-                        Utils.getPropertyString(containerName) + "']")
+        SelenideElement panel = null;
+        try {
+            panel = getParentElement().$x(".//a[@class='prism-title'][@data-s-resource-key='" +
+                    containerName + "']").should(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
+        } catch (Exception e) {
+            panel = getParentElement().$x(".//a[@class='prism-title'][@data-s-resource-key='" +
+                    Utils.getPropertyString(containerName) + "']").should(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
+        SelenideElement containerPanel = panel
                 .parent()
                 .parent()
                 .parent();
