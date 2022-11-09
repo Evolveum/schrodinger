@@ -59,7 +59,7 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     }
 
     public ConfirmationModal<UsersPageTable> enableUser(String columnTitleKey, String rowValue) {
-        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "pageUsers.menu.enable");
+        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "FocusListInlineMenuHelper.menu.enable");
     }
 
     public ConfirmationModal<UsersPageTable> disableUser() {
@@ -67,7 +67,7 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     }
 
     public ConfirmationModal<UsersPageTable> disableUser(String columnTitleKey, String rowValue) {
-        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "pageUsers.menu.disable");
+        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "FocusListInlineMenuHelper.menu.disable");
     }
 
     public ConfirmationModal<UsersPageTable> reconcileUser() {
@@ -75,7 +75,7 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     }
 
     public ConfirmationModal<UsersPageTable> reconcileUser(String columnTitleKey, String rowValue) {
-        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "pageUsers.menu.reconcile");
+        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "FocusListInlineMenuHelper.menu.reconcile");
     }
 
     public ConfirmationModal<UsersPageTable> unlockUser() {
@@ -91,7 +91,7 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     }
 
     public ConfirmationModal<UsersPageTable> deleteUser(String columnTitleKey, String rowValue) {
-        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "MainObjectListPanel.menu.delete");
+        return clickMenuItemWithConfirmation(columnTitleKey, rowValue, "FocusListInlineMenuHelper.menu.delete");
     }
 
     public ConfirmationModal<UsersPageTable> mergeUser() {

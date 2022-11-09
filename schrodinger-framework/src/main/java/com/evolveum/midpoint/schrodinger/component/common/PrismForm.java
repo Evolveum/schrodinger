@@ -487,7 +487,8 @@ public class PrismForm<T> extends Component<T> {
     }
 
     public PrismContainerPanel<PrismForm<T>> getPrismContainerPanel(String containerName) {
-        SelenideElement containerPanel = getParentElement().$x(".//a[@class='prism-title'][@data-s-resource-key='" + containerName + "']")
+        SelenideElement containerPanel = getParentElement().$x(".//a[@class='prism-title'][@data-s-resource-key='" +
+                        Utils.getPropertyString(containerName) + "']")
                 .parent()
                 .parent()
                 .parent();

@@ -85,7 +85,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Tab
             @Override
             public AbstractTableWithPrismView<ProjectionsPanel<P>> selectCheckboxByName(String name) {
 
-                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
+                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "word-break-longer-text check", "data-s-id", "3", name))
                         .$(By.tagName("input"))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
