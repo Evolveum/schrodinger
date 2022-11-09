@@ -65,12 +65,12 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
         //check archetype pluralLabel
         basicPage
                 .listUsers(ARCHETYPE_PLURAL_LABEL)
-                .assertAdministrationMenuItemIconClassEquals("PageAdmin.menu.top.users", ARCHETYPE_PLURAL_LABEL, "fa fa-male");
+                .assertAdministrationMenuItemIconClassContains("PageAdmin.menu.top.users", ARCHETYPE_PLURAL_LABEL, "fa fa-male");
         basicPage
                 .listUsers(ARCHETYPE_PLURAL_LABEL)
                 .table()
                 .assertButtonToolBarExists()
-                .getToolbarButtonByCss(ARCHETYPE_ICON_CSS_STYLE)
+                .getToolbarButtonByCss(ARCHETYPE_ICON_CSS_STYLE)        //fails here because of MID-8254
                 .shouldBe(Condition.visible)
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 

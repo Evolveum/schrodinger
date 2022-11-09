@@ -465,6 +465,14 @@ public class BasicPage {
         return this;
     }
 
+    public BasicPage assertAdministrationMenuItemIconClassContains(String mainMenuKey, String menuItemKey, String expectedIconClass){
+        SelenideElement menuItem = getMenuItemElement(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey);
+        assertion.assertTrue(menuItem.parent().$(By.tagName("i")).getAttribute("class") != null &&
+                        menuItem.parent().$(By.tagName("i")).getAttribute("class").contains(expectedIconClass),
+                "Menu item icon (menu item key is '" + menuItemKey + "') doesn't match to value '" + expectedIconClass + "'.");
+        return this;
+    }
+
     private void clickConfigurationMenu(String mainMenuKey) {
         clickConfigurationMenu(mainMenuKey, null);
     }
