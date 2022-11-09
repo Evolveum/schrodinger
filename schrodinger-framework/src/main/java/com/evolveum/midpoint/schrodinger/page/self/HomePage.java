@@ -36,8 +36,8 @@ import static com.codeborne.selenide.Selenide.$;
 public class HomePage extends BasicPage {
 
     public QuickSearch<HomePage> search() {
-        SelenideElement searchElement = $(By.cssSelector("div.quicksearch-panel"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement searchElement = $(Schrodinger.byDataId("searchPanel"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new QuickSearch<HomePage>(this, searchElement);
     }
