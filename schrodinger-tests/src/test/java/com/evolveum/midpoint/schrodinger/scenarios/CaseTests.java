@@ -195,7 +195,7 @@ public class CaseTests extends AbstractSchrodingerTest {
         casePage
                         .selectTabChildren()
                         .table()
-                        .assertCurrentTableContains("div", "closed")
+                        .assertCurrentTableContains("div", "closed")    //fails here because of MID-8272
                         .and()
                 .selectTabOperationRequest()
                 .assertChangesAreRejected();
@@ -247,7 +247,7 @@ public class CaseTests extends AbstractSchrodingerTest {
 
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
-        basicPage.listAllCases()
+        childrenCaseTable = basicPage.listAllCases()
                 .table()
                     .search()
                         .byName()
@@ -256,7 +256,13 @@ public class CaseTests extends AbstractSchrodingerTest {
                     .and()
                     .clickByPartialName(REQUEST_CASE_NAME + FORWARD_WORKITEM_TEST_USER_NAME)
                         .selectTabChildren()
-                            .table()
+                            .table();
+        childrenCaseTable
+                .search()
+                .byName()
+                .inputValue("")
+                .updateSearch();
+        childrenCaseTable
                             .clickByPartialName(ASSIGNING_ROLE_CASE_NAME + FORWARD_WORKITEM_TEST_USER_NAME)
                                 .selectTabWorkitems()
                                     .table()

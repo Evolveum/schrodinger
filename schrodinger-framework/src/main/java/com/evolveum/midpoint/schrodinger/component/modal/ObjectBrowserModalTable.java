@@ -38,15 +38,9 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
 
     public T clickByName(String name){
         Utils.waitForAjaxCallFinish();
-        SelenideElement link = getParentElement().$(By.linkText(name));
+        SelenideElement link = getParentElement().$x(".//a[@data-s-id='link' and contains(text(), " + name + ")]");
         link.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
-//        if (link.exists() && link.isDisplayed()) {
-//            link.click();
-//        }
-
-        link
-                .shouldBe(Condition.hidden, MidPoint.TIMEOUT_LONG_20_S);
+        Utils.waitForAjaxCallFinish();
         return getParent().getParent();
     }
 
