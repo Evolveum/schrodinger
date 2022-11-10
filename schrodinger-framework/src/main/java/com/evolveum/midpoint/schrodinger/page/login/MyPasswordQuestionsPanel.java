@@ -15,12 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.page.login;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -33,8 +30,8 @@ public class MyPasswordQuestionsPanel<T> extends Component<T> {
         super(parent, parentElement);
     }
 
-    public MyPasswordQuestionsPanel<T> setMyPasswordTFValue(String value) {
-        $(Schrodinger.byDataId("answerTF")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+    public MyPasswordQuestionsPanel<T> setAnswerValue(String value) {
+        getParentElement().setValue(value);
         return this;
     }
 }

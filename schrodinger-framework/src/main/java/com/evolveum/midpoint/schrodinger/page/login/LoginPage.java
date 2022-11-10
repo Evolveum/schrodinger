@@ -43,4 +43,8 @@ public class LoginPage extends BasicPage {
     public void clickSubmitButton() {
         $(Schrodinger.byDataId("submitButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
+
+    public void clickShowQuestionsButton() {
+        $(Schrodinger.byDataId("showQuestions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+    }
 }

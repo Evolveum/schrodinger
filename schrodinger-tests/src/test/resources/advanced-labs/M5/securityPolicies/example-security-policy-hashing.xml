@@ -36,7 +36,7 @@
    <credentialsReset>
       <mailReset>
          <name>Reset password using mail</name>
-         <additionalAuthenticationName>confirmationLink</additionalAuthenticationName>
+         <additionalAuthenticationSequence>confirmationLink</additionalAuthenticationSequence>
       </mailReset>
    </credentialsReset>
    -->

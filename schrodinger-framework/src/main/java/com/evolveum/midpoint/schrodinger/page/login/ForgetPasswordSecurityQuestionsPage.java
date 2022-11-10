@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by honchar.
@@ -31,12 +32,12 @@ public class ForgetPasswordSecurityQuestionsPage {
 
 
     public MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage> getPasswordQuestionsPanel(){
-        SelenideElement element = $(Schrodinger.byDataId("questionAnswerPanel"))
+        SelenideElement element = $(Schrodinger.byDataId("questionAnswer"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage>(this, element);
     }
 
     public void clickSendButton() {
-        $(Schrodinger.byDataId("send")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
 }

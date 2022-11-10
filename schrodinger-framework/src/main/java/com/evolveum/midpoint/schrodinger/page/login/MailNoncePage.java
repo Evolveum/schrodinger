@@ -24,7 +24,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class MailNoncePage extends LoginPage {
+public class MailNoncePage extends FormLoginPage {
 
     public MailNoncePage setMail(String mail) {
         $(Schrodinger.byDataId("email")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(mail);
@@ -32,7 +32,7 @@ public class MailNoncePage extends LoginPage {
         return  this;
     }
 
-    protected static String getBasePath() {
+    public static String getBasePath() {
         return "/emailNonce";
     }
 }

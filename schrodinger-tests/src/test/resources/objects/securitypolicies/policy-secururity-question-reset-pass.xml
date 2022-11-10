@@ -32,6 +32,9 @@
             <httpBasic>
                 <name>httpBasic</name>
             </httpBasic>
+            <securityQuestionsForm>
+                <name>secQ</name>
+            </securityQuestionsForm>
         </modules>
         <sequence>
             <name>admin-gui-default</name>
@@ -73,6 +76,19 @@
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
+        <sequence>
+            <name>securityQuestion</name>
+            <channel>
+                <default>true</default>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#resetPassword</channelId>
+                <urlSuffix>resetPassword-default</urlSuffix>
+            </channel>
+            <module>
+                <name>secQ</name>
+                <order>1</order>
+                <necessity>sufficient</necessity>
+            </module>
+        </sequence>
         <ignoredLocalPath>/actuator/health</ignoredLocalPath>
     </authentication>
     <credentials>
@@ -110,14 +126,12 @@
             <name>selfRegistration</name>
             <initialLifecycleState>draft</initialLifecycleState>
             <displayName>Self Registration</displayName>
-            <additionalAuthenticationName>selfRegistrationAuth</additionalAuthenticationName>
+            <additionalAuthenticationSequence>selfRegistrationAuth</additionalAuthenticationSequence>
             <defaultRole oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
         </selfRegistration>
     </flow>
     <credentialsReset>
         <name>userPasswordReset</name>
-        <securityQuestionReset>
-            <name>Reset password using security question</name>
-        </securityQuestionReset>
+        <authenticationSequenceName>securityQuestion</authenticationSequenceName>
     </credentialsReset>
 </securityPolicy>

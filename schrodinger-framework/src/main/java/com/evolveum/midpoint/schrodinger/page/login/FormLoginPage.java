@@ -42,11 +42,17 @@ public class FormLoginPage extends LoginPage {
         return new SelfRegistrationPage();
     }
 
-    public LoginPage forgotPassword() {
-        $(Schrodinger.byDataId("forgetpassword")).click();
+    public FormLoginPage forgotPassword() {
+        Utils.waitForAjaxCallFinish();
+        Selenide.sleep(2000);
+        $(Schrodinger.byDataId("forgotPassword")).click();
+        Selenide.sleep(2000);
+        Utils.waitForAjaxCallFinish();
         String url = getCurrentUrl();
         if (url.endsWith(SecurityQuestionsPage.getBasePath())) {
-            return new SecurityQuestionsPage();
+            SecurityQuestionsPage page = new SecurityQuestionsPage();
+            page.waitForSubmitButtonToBeVisible();
+            return page;
         } else if (url.endsWith(MailNoncePage.getBasePath())) {
             return new MailNoncePage();
         }
@@ -90,6 +96,11 @@ public class FormLoginPage extends LoginPage {
         $x(".//button[@type='submit']").click();
 
         return new BasicPage();
+    }
+
+    public FormLoginPage waitForSubmitButtonToBeVisible() {
+        $x(".//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        return this;
     }
 
 

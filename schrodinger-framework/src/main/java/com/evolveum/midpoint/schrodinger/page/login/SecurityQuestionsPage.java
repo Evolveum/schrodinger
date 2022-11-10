@@ -25,7 +25,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class SecurityQuestionsPage extends LoginPage {
+public class SecurityQuestionsPage extends FormLoginPage {
 
     public SecurityQuestionsPage setUsername(String username) {
         $(Schrodinger.byDataId("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
@@ -87,7 +87,13 @@ public class SecurityQuestionsPage extends LoginPage {
 //        return new FeedbackBox<>(this, feedback);
 //    }
 
-    protected static String getBasePath() {
+    public static String getBasePath() {
         return "/securityquestions";
     }
+
+    public FormLoginPage waitForSubmitButtonToBeVisible() {
+        $x(".//a[@data-s-id='showQuestions']").shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+        return this;
+    }
+
 }
