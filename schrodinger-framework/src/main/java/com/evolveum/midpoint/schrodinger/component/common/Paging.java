@@ -71,7 +71,8 @@ public class Paging<T> extends Component<T> {
         index = index + offsetFromActual;
         if (index < 2 || index > col.size() - 2) {
             // it's <<, <, >, >>
-            throw new SchrodingerException("Can't move through paging, page doesn't exist");
+            Selenide.screenshot("PageDoesntExist.png");
+            throw new SchrodingerException("Can't move through paging, page doesn't exist. Please, see screenshot PageDoesntExist.png");
         }
 
         col.get(index).$x(".//a").click();
@@ -106,11 +107,10 @@ public class Paging<T> extends Component<T> {
 
         SelenideElement parent = getParentElement();
 
-        SelenideElement pagingSize = parent.parent().$(By.ByCssSelector.className("paging-size"));
+        SelenideElement pagingSize = parent.parent().$x(".//div[contains(@class, 'paging-size')]");
 
 
-        pagingSize.$x(".//select[@data-s-id=''size]").selectOption(size);
-        pagingSize.$(By.tagName("a"), 2).shouldHave(Condition.cssClass("btn-primary")).click();
+        pagingSize.$x(".//select[@data-s-id='size']").selectOption("" + size);
         Selenide.sleep(2000);
         return this;
     }
