@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 
@@ -142,7 +143,8 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public FeedbackBox<T> assertMessageExists(String messageText) {
-        assertion.assertTrue($(By.linkText(messageText)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists());
+        assertion.assertTrue($(Schrodinger.byDataId("detailsBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .$(byText(messageText)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists());
         return this;
     }
 }
