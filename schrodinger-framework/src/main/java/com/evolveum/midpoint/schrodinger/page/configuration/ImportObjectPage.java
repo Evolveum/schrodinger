@@ -160,7 +160,7 @@ public class ImportObjectPage extends BasicPage {
             xmlButton.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         SelenideElement aceEditor = $(By.className("ace_text-input"));
-        aceEditor.setValue(text);
+        aceEditor.sendKeys(text);
 
         return this;
     }

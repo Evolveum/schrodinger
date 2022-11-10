@@ -40,7 +40,7 @@ public class ImportTest extends AbstractSchrodingerTest {
                 .checkKeepOid()
                 .checkOverwriteExistingObject()
                 .getObjectsFromEmbeddedEditor()
-                .setEditorXmlText(xml);
+                .setEditorXmlText(xml.replaceAll("\n", " "));
 
         importObject.clickImportXmlButton()
                 .feedback()
