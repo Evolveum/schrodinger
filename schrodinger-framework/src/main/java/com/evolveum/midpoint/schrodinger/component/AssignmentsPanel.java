@@ -142,7 +142,7 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
 
     public AssignmentsPanel<P> assertAssignmentsCountLabelEquals(String expectedValue) {
         SelenideElement el = $(By.partialLinkText("Assignments"));
-        assertion.assertEquals(el.$x(".//small[@data-s-id='count']").getText(), expectedValue, "Assignments count label doesn't equal to expected value");
+        assertion.assertEquals(el.$x(".//span[@data-s-id='count']").getText(), expectedValue, "Assignments count label doesn't equal to expected value");
         return this;
     }
 }
