@@ -118,8 +118,9 @@ public class LoginPageTest extends AbstractLoginPageTest {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         open("/login");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
         open("/");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
 
         login.changeLanguage("de");
         login.assertSignInButtonTitleMatch("Anmelden");
