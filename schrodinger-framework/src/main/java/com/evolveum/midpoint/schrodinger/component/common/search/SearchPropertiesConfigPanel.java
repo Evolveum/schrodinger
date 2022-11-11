@@ -36,7 +36,9 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
     }
 
     public SearchPropertiesConfigPanel<T> addPropertyToTable(String propertyName) {
+        Utils.waitForAjaxCallFinish();
         getPropertyChoiceElement().selectOption(propertyName);
+        Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byDataId("a", "addButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
