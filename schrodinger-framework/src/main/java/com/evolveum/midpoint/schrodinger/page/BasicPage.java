@@ -689,12 +689,36 @@ public class BasicPage {
         return this;
     }
 
-    public BasicPage changeLanguage(String countryCode) {
+    public BasicPage changeLanguageBeforeLogin(String countryCode) {
         Validate.notNull(countryCode, "Country code must not be null");
 
         Utils.waitForAjaxCallFinish();
         $(Schrodinger.byDataId("locale")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//a[@data-toggle=\"dropdown\"]").click();
+        Utils.waitForAjaxCallFinish();
+        SelenideElement localesMenu = $(Schrodinger.byDataId("localesMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        String flagIconCss = "fi-" + countryCode.trim().toLowerCase();
+        localesMenu.$x(".//span[@data-s-id='localesIcon' and contains(@class, '" + flagIconCss + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
+        Selenide.sleep(2000);
+        Utils.waitForAjaxCallFinish();
+
+        return this;
+    }
+
+    public BasicPage changeLanguageAfterLogin(String countryCode) {
+        return changeLanguageAfterLogin("us", countryCode);
+    }
+
+    public BasicPage changeLanguageAfterLogin(String currentCountryCode, String countryCode) {
+        Validate.notNull(countryCode, "Country code must not be null");
+
+        Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byDataId("mainHeader"))
+                .$x(".//span[@data-s-id='icon' and contains(@class, 'fi-" + currentCountryCode + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
         Utils.waitForAjaxCallFinish();
         SelenideElement localesMenu = $(Schrodinger.byDataId("localesMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String flagIconCss = "fi-" + countryCode.trim().toLowerCase();

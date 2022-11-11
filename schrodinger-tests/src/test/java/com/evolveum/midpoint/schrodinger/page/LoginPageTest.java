@@ -122,7 +122,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
 
-        login.changeLanguage("de");
+        login.changeLanguageBeforeLogin("de");
         login.assertSignInButtonTitleMatch("Anmelden");
     }
 

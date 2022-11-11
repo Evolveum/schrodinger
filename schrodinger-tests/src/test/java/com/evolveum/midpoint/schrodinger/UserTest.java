@@ -87,7 +87,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .feedback()
                         .assertSuccess();
 
-        basicPage.changeLanguage(LOCALIZATION_VALUE);
+        basicPage.changeLanguageAfterLogin(LOCALIZATION_VALUE);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
@@ -99,7 +99,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                     .clickByName(LOCALIZATION_TEST_USER_NAME_ORIG)
                         .assertElementWithValueExists(LOCALIZATION_TEST_USER_NAME_DE);
-        basicPage.changeLanguage("us");
+        basicPage.changeLanguageAfterLogin("de", "us");
     }
 
     @Test

@@ -89,7 +89,7 @@ public class FormLoginPage extends LoginPage {
 
     public BasicPage login(String username, String password, String locale) {
         if (StringUtils.isNotEmpty(locale)){
-            changeLanguage(locale);
+            changeLanguageBeforeLogin(locale);
         }
         $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
         $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
