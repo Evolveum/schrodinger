@@ -35,15 +35,6 @@ public class LoginPage extends BasicPage {
         return this;
     }
 
-    public LoginPage setEmailValue(String emailValue) {
-        $(Schrodinger.byDataId("email")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(emailValue);
-        return this;
-    }
-
-    public void clickSubmitButton() {
-        $(Schrodinger.byDataId("submitButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-    }
-
     public void clickShowQuestionsButton() {
         $(Schrodinger.byDataId("showQuestions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
     }
