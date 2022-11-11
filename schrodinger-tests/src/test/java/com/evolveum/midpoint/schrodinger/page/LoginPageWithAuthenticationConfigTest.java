@@ -55,13 +55,12 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         login.login("bad_username", "secret");
 
         FeedbackBox feedback = login.feedback();
-        feedback.assertError("0");
+        feedback.assertError();
 
 
         login.login("bad_username", "secret");
         feedback
-                .assertError("0")
-                .assertError("1");
+                .assertError();
     }
 
     @Test
@@ -129,7 +128,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
                 .submit()
                 .feedback()
                 .assertSuccess();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S.getSeconds());
+        Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S.toMillis());
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
 //        String usernameTag = "username='";
         String linkTag = "link='";
@@ -163,7 +162,6 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         open("/");
         unsuccessfulLogin("enabled_user", "5ecr3t");
         login.loginWithReloadLoginPage("administrator", "5ecr3t");
-        FeedbackBox feedback = login.feedback();
         basicPage.loggedUser().logoutIfUserIsLogin();
     }
 

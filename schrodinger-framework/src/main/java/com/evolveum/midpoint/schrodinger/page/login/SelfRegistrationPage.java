@@ -19,6 +19,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -31,22 +32,33 @@ public class SelfRegistrationPage extends LoginPage {
 
     public SelfRegistrationPage setGivenName(String value) {
         $(By.name("contentArea:staticForm:firstName:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        $(By.name("contentArea:staticForm:firstName:input")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         return  this;
     }
 
     public SelfRegistrationPage setFamilyName(String value) {
         $(By.name("contentArea:staticForm:lastName:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        $(By.name("contentArea:staticForm:lastName:input")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         return  this;
     }
 
     public SelfRegistrationPage setEmail(String value) {
         $(By.name("contentArea:staticForm:email:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        $(By.name("contentArea:staticForm:email:input")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         return  this;
     }
 
     public SelfRegistrationPage setPassword(String value) {
+        Utils.waitForAjaxCallFinish();
         $(Schrodinger.byDataId("password1")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byDataId("password1")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         $(Schrodinger.byDataId("password2")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byDataId("password2")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         return  this;
     }
 
@@ -54,11 +66,14 @@ public class SelfRegistrationPage extends LoginPage {
         SelenideElement captcha = $x(".//input[@data-s-id='text']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         //todo we need to set any value, it will be ignored during the test
         captcha.setValue("1234");
+        Utils.waitForAjaxCallFinish();
         return  this;
     }
 
     public SelfRegistrationPage submit() {
         $(Schrodinger.byDataId("text")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue("text");
+        Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byDataId("text")).shouldHave(Condition.value("text"), MidPoint.TIMEOUT_DEFAULT_2_S);
         $(Schrodinger.byDataId("submitRegistration")).click();
         return this;
     }

@@ -41,7 +41,7 @@ public class SecurityQuestionsPage extends FormLoginPage {
 
     public BasicPage submit() {
         $(Schrodinger.byDataId("insideForm")).click();
-        $x(".//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return new BasicPage();
     }
 
