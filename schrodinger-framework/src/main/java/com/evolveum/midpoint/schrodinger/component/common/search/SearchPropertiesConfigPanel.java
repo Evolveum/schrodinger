@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -51,7 +52,7 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
 
     private SelenideElement getPropertyChoiceElement(){
         return getParentElement().$(Schrodinger.bySelfOrAncestorElementAttributeValue("select",
-                "class", "form-control input-sm", "data-s-id", "propertyChoice"))
+                "class", "form-control form-control-sm", "data-s-id", "propertyChoice"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
@@ -108,7 +109,7 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
     public T confirmConfiguration() {
         getParentElement().$(Schrodinger.byDataId("okButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getParentElement().shouldBe(Condition.disappear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.isModalWindowSelenideElementVisible();
         return getParent();
     }
 

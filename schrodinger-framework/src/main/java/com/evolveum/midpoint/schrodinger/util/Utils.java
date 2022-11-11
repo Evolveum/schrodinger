@@ -201,7 +201,7 @@ public class Utils {
     }
 
     public static boolean isModalWindowSelenideElementVisible() {
-        return $(Schrodinger.byDataId("mainPopup")).find(Schrodinger.byDataId("div", "overlay")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).has(Condition.cssClass("show"));//.isDisplayed();
+        return $(Schrodinger.byDataId("mainPopup")).find(Schrodinger.byDataId("div", "overlay")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).has(Condition.cssClass("show"));//.isDisplayed();
     }
 
     public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue, String tempFilePath) throws IOException {
