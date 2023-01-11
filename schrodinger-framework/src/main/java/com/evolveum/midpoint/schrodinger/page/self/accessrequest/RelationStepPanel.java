@@ -16,11 +16,66 @@
 
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 
-public class RelationStepPanel extends WizardStepPanel<RequestAccessPage> {
+import javax.management.relation.Role;
+import java.util.Objects;
+
+public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage> {
+
+    public static final int DEFAULT_RELATION_INDEX = 1;
+    public static final int MANAGER_RELATION_INDEX = 2;
+    public static final int APPROVER_RELATION_INDEX = 3;
+    public static final int OWNER_RELATION_INDEX = 4;
+
 
     public RelationStepPanel(RequestAccessPage parent) {
         super(parent);
     }
+
+    public RoleCatalogStepPanel selectDefaultRelation() {
+        if (!isRelationSelected(DEFAULT_RELATION_INDEX)) {
+            selectTileByNumber(DEFAULT_RELATION_INDEX);
+        }
+        return new RoleCatalogStepPanel(getParent());
+    }
+
+    public RoleCatalogStepPanel selectOwnerRelation() {
+        if (!isRelationSelected(OWNER_RELATION_INDEX)) {
+            selectTileByNumber(OWNER_RELATION_INDEX);
+        }
+        return new RoleCatalogStepPanel(getParent());
+    }
+
+    public RoleCatalogStepPanel selectApproverRelation() {
+        if (!isRelationSelected(APPROVER_RELATION_INDEX)) {
+            selectTileByNumber(APPROVER_RELATION_INDEX);
+        }
+        return new RoleCatalogStepPanel(getParent());
+    }
+
+    public RoleCatalogStepPanel selectManagerRelation() {
+        if (!isRelationSelected(MANAGER_RELATION_INDEX)) {
+            selectTileByNumber(MANAGER_RELATION_INDEX);
+        }
+        return new RoleCatalogStepPanel(getParent());
+    }
+
+    public RoleCatalogStepPanel selectRelationByLabel(String label) {
+        selectTileByLabel(label);
+        return new RoleCatalogStepPanel(getParent());
+    }
+
+    private boolean isRelationSelected(String label) {
+        SelenideElement tile = findTileByLabel(label);
+        return tile != null && Objects.requireNonNullElse(tile.getAttribute("class"), "").contains("active");
+    }
+   private boolean isRelationSelected(int number) {
+       SelenideElement tile = findTileByNumber(number);
+       return tile != null && Objects.requireNonNullElse(tile.getAttribute("class"), "").contains("active");
+    }
+
+
 }

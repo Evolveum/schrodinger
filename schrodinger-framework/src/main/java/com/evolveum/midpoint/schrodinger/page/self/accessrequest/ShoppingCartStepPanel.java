@@ -16,25 +16,11 @@
 
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
-import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 
-public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAccessPage> {
+public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
 
-    private static final int MYSELF_TILE_INDEX = 1;
-    private static final int GROUP_TILE_INDEX = 2;
-
-    public PersonOfInterestStepPanel(RequestAccessPage parent) {
+    public ShoppingCartStepPanel(RequestAccessPage parent) {
         super(parent);
-    }
-
-    public WizardStepPanel<RequestAccessPage> selectMyself() {
-        selectTileByNumber(MYSELF_TILE_INDEX);
-        return new RelationStepPanel(getParent());
-    }
-
-    public WizardStepPanel<RequestAccessPage> selectGroup() {
-        selectTileByNumber(GROUP_TILE_INDEX);
-        return new RelationStepPanel(getParent());
     }
 }

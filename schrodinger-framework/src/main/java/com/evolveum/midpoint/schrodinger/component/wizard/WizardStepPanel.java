@@ -36,26 +36,6 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    public WizardStepPanel selectTileByNumber(int tileNumber) {
-        Utils.waitForAjaxCallFinish();
-        ElementsCollection collection = getStepPanelContentElement().$$x(".//div[@data-s-id='tile']");
-        if (collection.size() >= tileNumber) {
-            collection.get(tileNumber - 1).click();
-            Utils.waitForAjaxCallFinish();
-        }
-        clickNextButton();
-        return this;
-    }
-
-    public WizardStepPanel selectTileByLabel(String tileLabel) {
-        $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue(
-                "div", "data-s-id", "tile", "data-s-id", "title", tileLabel))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
-        Utils.waitForAjaxCallFinish();
-        clickNextButton();
-        return this;
-    }
-
     public void clickNextButton() {
         $(Schrodinger.byDataId("next")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
