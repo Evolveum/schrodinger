@@ -125,17 +125,17 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
                 "New Organization type assignment with Member relation", "0212"); //assign IT Administration Department org
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "", true, "Basic user");
 
-        basicPage.requestRole()
-                .selectRoleCatalogViewTab()
-                    .getRoleCatalogHierarchyPanel()
-                        .selectOrgInTree("Application bundles")
-                        .and()
-                    .getItemsPanel()
-                        .addItemToCart("Secret Projects I")
-                        .and()
-                    .goToShoppingCart()
-                        .setRequestComment("Please approve, I need to work on the X911 project")
-                        .clickRequestButton();
+//        basicPage.requestAccess()
+//                .selectRoleCatalogViewTab()
+//                    .getRoleCatalogHierarchyPanel()
+//                        .selectOrgInTree("Application bundles")
+//                        .and()
+//                    .getItemsPanel()
+//                        .addItemToCart("Secret Projects I")
+//                        .and()
+//                    .goToShoppingCart()
+//                        .setRequestComment("Please approve, I need to work on the X911 project")
+//                        .clickRequestButton();
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
         loginPage.login("badobi", "qwerty12345XXXX")

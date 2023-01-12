@@ -47,6 +47,8 @@ import com.evolveum.midpoint.schrodinger.page.self.CredentialsPage;
 import com.evolveum.midpoint.schrodinger.page.self.HomePage;
 import com.evolveum.midpoint.schrodinger.page.self.ProfilePage;
 import com.evolveum.midpoint.schrodinger.page.self.RequestRolePage;
+import com.evolveum.midpoint.schrodinger.page.self.accessrequest.PersonOfInterestStepPanel;
+import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RequestAccessPage;
 import com.evolveum.midpoint.schrodinger.page.service.ListServicesPage;
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
@@ -79,23 +81,23 @@ public class BasicPage {
     protected AssertionWithScreenshot assertion = new AssertionWithScreenshot();
 
     public HomePage home() {
-        clickSelfServiceMenu("PageAdmin.menu.selfDashboard", null);
+        clickSelfServiceMenu(null, "PageAdmin.menu.selfDashboard");
         return new HomePage();
     }
 
     public ProfilePage profile() {
-        clickSelfServiceMenu("PageAdmin.menu.profile", null);
+        clickSelfServiceMenu(null, "PageAdmin.menu.profile");
         return new ProfilePage();
     }
 
     public CredentialsPage credentials() {
-        clickSelfServiceMenu("PageAdmin.menu.credentials", null);
+        clickSelfServiceMenu(null, "PageAdmin.menu.credentials");
         return new CredentialsPage();
     }
 
-    public RequestRolePage requestRole() {
-        clickSelfServiceMenu("PageAdmin.menu.request", null);
-        return new RequestRolePage();
+    public PersonOfInterestStepPanel requestAccess() {
+        clickSelfServiceMenu(null, "PageRequestAccess.title");
+        return new PersonOfInterestStepPanel(new RequestAccessPage());
     }
 
     public DashboardPage dashboard() {
@@ -534,9 +536,7 @@ public class BasicPage {
 
         SelenideElement menuItem = $(Schrodinger.byDataResourceKey(menuItemKey));
         scrollToElement(menuItem);
-        menuItem.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-
-        return menuItem;
+        return menuItem.parent();
     }
 
     public void scrollToElement(SelenideElement element) {
@@ -582,6 +582,9 @@ public class BasicPage {
             Utils.waitForAjaxCallFinish();
         }
 
+        if (StringUtils.isEmpty(mainMenuKey)) {
+            return topLevelMenu;
+        }
         SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("p", "data-s-resource-key", mainMenuKey));
         ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
         mainMenu.shouldBe(Condition.visible);

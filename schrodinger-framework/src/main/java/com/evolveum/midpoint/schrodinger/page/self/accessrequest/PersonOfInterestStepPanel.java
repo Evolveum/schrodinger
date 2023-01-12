@@ -28,7 +28,7 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
         super(parent);
     }
 
-    public WizardStepPanel<RequestAccessPage> selectMyself() {
+    public RelationStepPanel selectMyself() {
         selectTileByNumber(MYSELF_TILE_INDEX);
         return new RelationStepPanel(getParent());
     }

@@ -36,14 +36,25 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    public void clickNextButton() {
+    protected void clickNextButton() {
+        if (isLastStep()) {
+            return;
+        }
         $(Schrodinger.byDataId("next")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
     }
 
-    public void clickBackButton() {
+    protected void clickBackButton() {
         $(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
+    }
+
+    protected boolean isLastStep() {
+        return false;
+    }
+
+    protected boolean isFirstStep() {
+        return false;
     }
 
 }

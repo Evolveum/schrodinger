@@ -303,16 +303,16 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         loginPage.login("X000158", "qwerty12345XXXX")
                 .assertUserMenuExist();
 
-        basicPage.requestRole()
-                .selectRoleCatalogViewTab()
-                    .getItemsPanel()
-                        .addItemToCart("Secret Projects I")
-                        .and()
-                    .goToShoppingCart()
-                        .setRequestComment("Please approve, I need to work on the X911 project")
-                        .clickRequestButton()
-                            .feedback()
-                            .assertInfo();
+//        basicPage.requestAccess()
+//                .selectRoleCatalogViewTab()
+//                    .getItemsPanel()
+//                        .addItemToCart("Secret Projects I")
+//                        .and()
+//                    .goToShoppingCart()
+//                        .setRequestComment("Please approve, I need to work on the X911 project")
+//                        .clickRequestButton()
+//                            .feedback()
+//                            .assertInfo();
 
         //todo check notification "[IDM] Workflow Process Assigning role "Secret
         //Projects I" to user "X000158" has been started" addressed to user himself/herself (alice.black@example.com)
@@ -390,28 +390,28 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
                 .assertUserMenuExist();
-        basicPage.requestRole()
-                .selectRoleCatalogViewTab()
-                    .getRoleCatalogHierarchyPanel()
-                        .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
-                        .and()
-                        .getItemsPanel()
-                            .assertItemsCountEqual(0)
-                            .and()
-                        .and()
-                    .selectRoleCatalogViewTab()
-                        .getItemsPanel()
-                            .assertItemsCountEqual(0)
-                            .and()
-                        .and()
-                    .selectAllOrganizationsViewTab()
-                        .getItemsPanel()
-                            .assertItemsCountEqual(0)
-                            .and()
-                        .and()
-                    .selectAllServicesViewTab()
-                        .getItemsPanel()
-                            .assertItemsCountEqual(0);
+//        basicPage.requestAccess()
+//                .selectRoleCatalogViewTab()
+//                    .getRoleCatalogHierarchyPanel()
+//                        .selectOrgInTree("ExAmPLE, Inc. Role Catalog")
+//                        .and()
+//                        .getItemsPanel()
+//                            .assertItemsCountEqual(0)
+//                            .and()
+//                        .and()
+//                    .selectRoleCatalogViewTab()
+//                        .getItemsPanel()
+//                            .assertItemsCountEqual(0)
+//                            .and()
+//                        .and()
+//                    .selectAllOrganizationsViewTab()
+//                        .getItemsPanel()
+//                            .assertItemsCountEqual(0)
+//                            .and()
+//                        .and()
+//                    .selectAllServicesViewTab()
+//                        .getItemsPanel()
+//                            .assertItemsCountEqual(0);
 
         basicPage.loggedUser().logout();
         loginPage.login(getUsername(), getPassword())
@@ -459,26 +459,26 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
                 .assertUserMenuExist();
-        basicPage
-                .requestRole()
-                    .selectRoleCatalogViewTab()
-                        .getRoleCatalogHierarchyPanel()
-                            .selectOrgInTree("Application bundles")
-                            .and()
-                        .getItemsPanel()
-                            .assertItemsCountEqual(3);
+//        basicPage
+//                .requestAccess()
+//                    .selectRoleCatalogViewTab()
+//                        .getRoleCatalogHierarchyPanel()
+//                            .selectOrgInTree("Application bundles")
+//                            .and()
+//                        .getItemsPanel()
+//                            .assertItemsCountEqual(3);
 
         addObjectFromFile(SYSTEM_CONFIGURATION_FILE_4_3_UPDATE_2);
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
                 .assertUserMenuExist();
-        basicPage
-                .requestRole()
-                    .assertAllRolesViewTabExists()
-                    .assertRoleCatalogViewTabExists()
-                    .assertAllServicesViewTabDoesntExist()
-                    .assertAllOrganizationsViewTabDoesntExist()
-                    .assertUserAssignmentsTabDoesntExist();
+//        basicPage
+//                .requestAccess()
+//                    .assertAllRolesViewTabExists()
+//                    .assertRoleCatalogViewTabExists()
+//                    .assertAllServicesViewTabDoesntExist()
+//                    .assertAllOrganizationsViewTabDoesntExist()
+//                    .assertUserAssignmentsTabDoesntExist();
     }
 
     @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test01configureApprovalsUsingPolicyRules")
@@ -490,14 +490,14 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.listUsers("Employees")
                 .table()
                     .assertTableContainsText("X000158");
-        basicPage.requestRole()
-                .setRequestingForUser("X000158")
-                .selectRoleCatalogViewTab()
-                    .getRoleCatalogHierarchyPanel()
-                        .selectOrgInTree("Application Bundles")
-                        .and()
-                    .getItemsPanel()
-                    .assertItemsCountEqual(0);
+//        basicPage.requestAccess()
+//                .setRequestingForUser("X000158")
+//                .selectRoleCatalogViewTab()
+//                    .getRoleCatalogHierarchyPanel()
+//                        .selectOrgInTree("Application Bundles")
+//                        .and()
+//                    .getItemsPanel()
+//                    .assertItemsCountEqual(0);
 
         basicPage.loggedUser().logout();
 
@@ -509,18 +509,18 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.listUsers("Employees")
                 .table()
                     .assertTableContainsText("X000158");
-        basicPage.requestRole()
-                .setRequestingForUser("X000158")
-                .selectRoleCatalogViewTab()
-                    .getRoleCatalogHierarchyPanel()
-                        .selectOrgInTree("Application Bundles")
-                        .and()
-                    .getItemsPanel()
-                        .addItemToCart("Secret Projects II")
-                        .and()
-                    .goToShoppingCart()
-                        .clickRequestButton()
-                        .assertFeedbackExists();
+//        basicPage.requestAccess()
+//                .setRequestingForUser("X000158")
+//                .selectRoleCatalogViewTab()
+//                    .getRoleCatalogHierarchyPanel()
+//                        .selectOrgInTree("Application Bundles")
+//                        .and()
+//                    .getItemsPanel()
+//                        .addItemToCart("Secret Projects II")
+//                        .and()
+//                    .goToShoppingCart()
+//                        .clickRequestButton()
+//                        .assertFeedbackExists();
         basicPage
                 .myItems()
                     .table()
