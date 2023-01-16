@@ -535,6 +535,9 @@ public class BasicPage {
         }
 
         SelenideElement menuItem = $(Schrodinger.byDataResourceKey(menuItemKey));
+        if (!menuItem.exists()) {
+            menuItem = $(Schrodinger.byDataResourceKey(Utils.getPropertyString(menuItemKey)));
+        }
         scrollToElement(menuItem);
         return menuItem.parent();
     }
@@ -585,23 +588,22 @@ public class BasicPage {
         if (StringUtils.isEmpty(mainMenuKey)) {
             return topLevelMenu;
         }
-        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("p", "data-s-resource-key", mainMenuKey));
+        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("li", "data-s-resource-key", mainMenuKey));
         ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
         mainMenu.shouldBe(Condition.visible);
 
-        SelenideElement mainMenuLi = mainMenu.parent().parent();
-        checkCssClass(mainMenuLi, mainMenu, "menu-open");
+        checkCssClass(mainMenu, "menu-open");
         return mainMenu;
     }
 
-    private void checkCssClass(SelenideElement mainMenuLi, SelenideElement mainMenu, String cssClass) {
+    private void checkCssClass(SelenideElement mainMenuLi, String cssClass) {
         //if no submenu, then no menu-open class is here
         if (!mainMenuLi.find(Schrodinger.byDataId("submenu")).find(byClassName("nav-item")).exists()) {
             return;
         }
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
-            scrollToElement(mainMenu);
-            mainMenu.click();
+            scrollToElement(mainMenuLi);
+            mainMenuLi.click();
             mainMenuLi.shouldBe(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
     }

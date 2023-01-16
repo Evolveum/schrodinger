@@ -33,5 +33,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .clickSubmitButton()
                 .feedback()
                 .assertSuccess();
+        showUser("administrator")
+                .selectAssignmentsPanel()
+                .assertAssignmentsWithRelationExist("Role", "Member", "End user");
     }
 }
