@@ -30,6 +30,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .selectAllRolesMenu()
                 .addItemToCart("End user")
                 .navigateToShoppingCartPanel()
-                .clickSubmitButton();
+                .clickSubmitButton()
+                .feedback()
+                .assertSuccess();
     }
 }

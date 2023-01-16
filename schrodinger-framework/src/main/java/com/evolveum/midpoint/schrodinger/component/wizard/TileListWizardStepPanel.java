@@ -54,8 +54,8 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
     }
 
     public SelenideElement findTileByLabel(String tileLabel) {
-        return $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue(
-                "div", "data-s-id", "tile", "data-s-id", "title", tileLabel))
+        return $(Schrodinger.byElementValue(
+                "div", "data-s-id", "tile", tileLabel))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 }

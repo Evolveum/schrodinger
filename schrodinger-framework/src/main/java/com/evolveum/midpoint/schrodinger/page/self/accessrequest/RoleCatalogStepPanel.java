@@ -47,7 +47,10 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
     }
 
     private RoleCatalogStepPanel selectMenuByLabel(String label) {
-        $x(".//div[@data-s-id='link' and contains(text(), '" + label + "')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        $x(".//div[@data-s-id='link' " +
+                "and descendant-or-self::*[contains(., '" + label + "')]]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
+//                "and contains(text(), '" + label + "')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         Utils.waitForAjaxCallFinish();
         return RoleCatalogStepPanel.this;
     }

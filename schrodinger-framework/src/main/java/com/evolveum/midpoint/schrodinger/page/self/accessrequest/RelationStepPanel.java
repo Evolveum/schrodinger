@@ -38,6 +38,8 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
     public RoleCatalogStepPanel selectDefaultRelation() {
         if (!isRelationSelected(DEFAULT_RELATION_INDEX)) {
             selectTileByNumber(DEFAULT_RELATION_INDEX);
+        } else {
+            clickNextButton();
         }
         return new RoleCatalogStepPanel(getParent());
     }
