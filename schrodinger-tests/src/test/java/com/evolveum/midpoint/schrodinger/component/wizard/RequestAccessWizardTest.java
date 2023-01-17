@@ -19,10 +19,20 @@ package com.evolveum.midpoint.schrodinger.component.wizard;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
+    private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
+
+    @Override
+    protected List<File> getObjectListToImport(){
+        return List.of(USERS);
+    }
     @Test
-    public void test0010requestEndUserRole() {
+    public void test0010requestEndUserRoleForLoggedInUser() {
         basicPage
                 .requestAccess()
                 .selectMyself()
@@ -35,6 +45,28 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         showUser("administrator")
                 .selectAssignmentsPanel()
+                .assertAssignmentsWithRelationExist("Role", "Member", "End user");
+    }
+
+   @Test
+    public void test0020requestEndUserRoleForUserGroup() {
+        basicPage
+                .requestAccess()
+                .selectGroup("ra_wizard_user_1", "ra_wizard_user_2")
+                .selectDefaultRelation()
+                .selectAllRolesMenu()
+                .addItemToCart("End user")
+                .navigateToShoppingCartPanel()
+                .clickSubmitButton()
+                .feedback()
+                .assertSuccess();
+        showUser("ra_wizard_user_1")
+                .selectAssignmentsPanel()
+                .selectTypeRole()
+                .assertAssignmentsWithRelationExist("Role", "Member", "End user");
+        showUser("ra_wizard_user_2")
+                .selectAssignmentsPanel()
+                .selectTypeRole()
                 .assertAssignmentsWithRelationExist("Role", "Member", "End user");
     }
 }

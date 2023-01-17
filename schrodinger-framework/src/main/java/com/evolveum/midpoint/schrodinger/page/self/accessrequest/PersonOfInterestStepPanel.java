@@ -16,8 +16,18 @@
 
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
+import com.codeborne.selenide.Condition;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
+import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModalTable;
+import com.evolveum.midpoint.schrodinger.component.self.RequestRoleTab;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+import jdk.jshell.execution.Util;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAccessPage> {
 
@@ -33,8 +43,39 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
         return new RelationStepPanel(getParent());
     }
 
-    public WizardStepPanel<RequestAccessPage> selectGroup() {
-        selectTileByNumber(GROUP_TILE_INDEX);
+    public RelationStepPanel selectGroup(String... userNames) {
+        selectTileByNumber(GROUP_TILE_INDEX, false);
+        new DefineGroupOfUsersPanel(getParent())
+                .selectUserGroupByButtonClick(userNames)
+                .clickNextButton();
         return new RelationStepPanel(getParent());
+    }
+
+    public class DefineGroupOfUsersPanel extends TileListWizardStepPanel<RequestAccessPage> {
+
+        public DefineGroupOfUsersPanel(RequestAccessPage parent) {
+            super(parent);
+        }
+
+        public DefineGroupOfUsersPanel selectUserGroupByButtonClick(String... userNames) {
+            if (userNames == null) {
+                return this;
+            }
+            getParentElement().$(Schrodinger.byDataId("selectManually")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            Utils.waitForAjaxCallFinish();
+
+            ObjectBrowserModal<DefineGroupOfUsersPanel> userSelectionModal = new ObjectBrowserModal(this, Utils.getModalWindowSelenideElement());
+            ObjectBrowserModalTable<DefineGroupOfUsersPanel, ObjectBrowserModal<DefineGroupOfUsersPanel>> table = userSelectionModal.table();
+            for (String userName : userNames) {
+                table.search()
+                        .byName()
+                        .inputValue(userName)
+                        .updateSearch()
+                        .and()
+                        .selectCheckboxByName(userName);
+            }
+            userSelectionModal.clickAddButton();
+            return this;
+        }
     }
 }

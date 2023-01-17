@@ -36,7 +36,7 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    protected void clickNextButton() {
+    public void clickNextButton() {
         if (isLastStep()) {
             return;
         }
@@ -44,7 +44,7 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         Utils.waitForAjaxCallFinish();
     }
 
-    protected void clickBackButton() {
+    public void clickBackButton() {
         $(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
     }

@@ -32,9 +32,15 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
     }
 
     public WizardStepPanel selectTileByNumber(int tileNumber) {
+        return selectTileByNumber(tileNumber, true);
+    }
+
+    public WizardStepPanel selectTileByNumber(int tileNumber, boolean clickNextButton) {
         Utils.waitForAjaxCallFinish();
         findTileByNumber(tileNumber).click();
-        clickNextButton();
+        if (clickNextButton) {
+            clickNextButton();
+        }
         return this;
     }
 
