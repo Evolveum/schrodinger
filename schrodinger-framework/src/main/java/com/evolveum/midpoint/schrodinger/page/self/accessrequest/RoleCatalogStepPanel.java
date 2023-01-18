@@ -19,8 +19,12 @@ package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+
+import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -42,8 +46,20 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return selectMenuByLabel("All services");
     }
 
-    public RoleCatalogStepPanel selectRolesOfTeammateMenu() {
-        return selectMenuByLabel("Roles of teammate");
+    public RoleCatalogStepPanel selectRolesOfTeammateMenu(String teammateName) {
+        selectMenuByLabel("Roles of teammate");
+        RolesOfTeammatePanel panel = new RolesOfTeammatePanel(getParent(), getParentElement().$x(".//ul[@data-s-id='container']"));
+        panel.clickManualButton()
+                .table()
+                .clickByName(teammateName);
+        return RoleCatalogStepPanel.this;
+    }
+
+    public boolean assertAccessesPanelContainsItems(String... itemLabels) {
+        if (itemLabels == null) {
+            return false;
+        }
+        return Arrays.stream(itemLabels).allMatch(item -> findTileByLabel(item) != null);
     }
 
     private RoleCatalogStepPanel selectMenuByLabel(String label) {
@@ -67,6 +83,19 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
     public ShoppingCartStepPanel navigateToShoppingCartPanel() {
         clickNextButton();
         return new ShoppingCartStepPanel(getParent());
+    }
+
+    private static class RolesOfTeammatePanel extends Component<RequestAccessPage> {
+
+        public RolesOfTeammatePanel(RequestAccessPage parent, SelenideElement parentElement) {
+            super(parent, parentElement);
+        }
+
+        public ObjectBrowserModal clickManualButton() {
+            getParentElement().$x(".//a[data-s-id='manual']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            Utils.waitForAjaxCallFinish();
+            return new ObjectBrowserModal(RolesOfTeammatePanel.this, Utils.getModalWindowSelenideElement());
+        }
     }
 
 }
