@@ -45,7 +45,7 @@ public class ObjectBrowserModal<T> extends ModalBox<T> {
     }
 
     public T clickAddButton() {
-        getParentElement().$x(".//*[@data-s-id='addButton']").shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
+        getParentElement().$x(".//a[@data-s-resource-key='userBrowserDialog.button.addButton']").shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
         return getParent();

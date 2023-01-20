@@ -78,27 +78,27 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
     }
 
     public <A extends AssignmentsPanel<P>> A selectTypeAll() {
-        selectType("allAssignments");
+        selectType("All");
         return (A) this;
     }
 
     public <A extends AssignmentsPanel<P>> A selectTypeRole() {
-        selectType("roleTypeAssignments");
+        selectType("Role");
         return (A) this;
     }
 
     public <A extends AssignmentsPanel<P>> A selectTypeOrg() {
-        selectType("orgTypeAssignments");
+        selectType("Organization");
         return (A) this;
     }
 
     public <A extends AssignmentsPanel<P>> A selectTypeService() {
-        selectType("serviceAssignments");
+        selectType("Service");
         return (A) this;
     }
 
     public <A extends AssignmentsPanel<P>> A selectTypeResource() {
-        selectType("resourceAssignments");
+        selectType("Resource");
         return (A) this;
     }
 
@@ -110,7 +110,7 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Tab
     }
 
     protected void selectType(String resourceKey) {
-        $(Schrodinger.byDataId("div", resourceKey)).click();
+        $(Schrodinger.byDataResourceKey("span", resourceKey)).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
     }
 

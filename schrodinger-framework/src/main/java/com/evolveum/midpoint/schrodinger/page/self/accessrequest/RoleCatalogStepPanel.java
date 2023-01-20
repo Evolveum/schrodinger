@@ -92,7 +92,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         }
 
         public ObjectBrowserModal clickManualButton() {
-            getParentElement().$x(".//a[data-s-id='manual']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+            getParentElement().$x(".//a[@data-s-id='manual']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
             Utils.waitForAjaxCallFinish();
             return new ObjectBrowserModal(RolesOfTeammatePanel.this, Utils.getModalWindowSelenideElement());
         }

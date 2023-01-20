@@ -40,7 +40,9 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         if (isLastStep()) {
             return;
         }
-        $(Schrodinger.byDataId("next")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "next",
+                        "data-s-id", "nextLabel"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
     }
 

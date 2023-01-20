@@ -21,4 +21,18 @@
     <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
         <name>ra_wizard_user_2</name>
     </user>
+    <user xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:org='http://midpoint.evolveum.com/xml/ns/public/common/org-3'
+          xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
+        <name>ra_wizard_user_with_assignments</name>
+        <assignment id="1">
+            <targetRef oid="9538ab18-5a63-12ed-9b6a-0242ac120002" relation="org:default" type="c:RoleType">
+            </targetRef>
+            <activation>
+                <effectiveStatus>enabled</effectiveStatus>
+            </activation>
+        </assignment>
+        <roleMembershipRef oid="9538ab18-5a63-12ed-9b6a-0242ac120002" relation="org:default" type="c:RoleType">
+        </roleMembershipRef>
+    </user>
 </objects>

@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.modal;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -24,6 +25,8 @@ import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
+
+import java.util.Iterator;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -38,9 +41,20 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> 
 
     public T clickByName(String name){
         Utils.waitForAjaxCallFinish();
-        SelenideElement link = getParentElement().$x(".//a[@data-s-id='link' and contains(text(), " + name + ")]");
-        link.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        Utils.waitForAjaxCallFinish();
+        ElementsCollection links = getParentElement().$$x(".//a[@data-s-id='link']");
+        Iterator<SelenideElement> it = links.iterator();
+        SelenideElement linkToClick = null;
+        while (it.hasNext()) {
+            SelenideElement el = it.next();
+            if (name.equals(el.getText())) {
+                linkToClick = el;
+                break;
+            }
+        }
+        if (linkToClick != null && linkToClick.exists()) {
+            linkToClick.click();
+            Utils.waitForAjaxCallFinish();
+        }
         return getParent().getParent();
     }
 
