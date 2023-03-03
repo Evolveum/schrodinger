@@ -14,7 +14,7 @@ public class NewObjectFromTemplatePage<T extends AssignmentHolderDetailsPage> ex
 
     public T clickTemplateButtonWithTitle(String title, T pageToRedirect) {
         SelenideElement templateButton = $(Schrodinger.byElementValue("span",
-                "class", "compositedButtonLabel", title)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                "class", "text-capitalize", title)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         templateButton.click();
         Utils.waitForMainPanelOnDetailsPage();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
