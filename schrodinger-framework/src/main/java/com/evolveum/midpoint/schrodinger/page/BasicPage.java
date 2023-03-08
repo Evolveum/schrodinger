@@ -684,7 +684,7 @@ public class BasicPage {
 
     public BasicPage assertMenuItemActive(SelenideElement menuItemElement) {
         SelenideElement menuItemLink = menuItemElement.parent();
-        assertion.assertTrue(menuItemLink.has(Condition.cssClass("active")), "Menu item should be active");
+        assertion.assertTrue(menuItemElement.has(Condition.cssClass("active")), "Menu item should be active");
         return this;
     }
 
