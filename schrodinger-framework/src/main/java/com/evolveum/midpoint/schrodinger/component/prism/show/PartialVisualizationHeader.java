@@ -27,24 +27,21 @@ import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import org.apache.commons.lang3.ObjectUtils;
-import org.testng.Assert;
-
 import static com.codeborne.selenide.Selenide.$;
 
-public class PartialSceneHeader extends Component<ScenePanel> {
+public class PartialVisualizationHeader extends Component<VisualizationPanel> {
 
-    public PartialSceneHeader(ScenePanel parent, SelenideElement parentElement) {
+    public PartialVisualizationHeader(VisualizationPanel parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public PartialSceneHeader assertChangeTypeEquals(String expectedValue) {
+    public PartialVisualizationHeader assertChangeTypeEquals(String expectedValue) {
         SelenideElement element = $(Schrodinger.byDataId("changeType"));
         assertion.assertEquals(expectedValue, element.getText(), "Unexpected change type");
         return this;
     }
 
-    public PartialSceneHeader assertChangedObjectNameEquals(String expectedValue) {
+    public PartialVisualizationHeader assertChangedObjectNameEquals(String expectedValue) {
         SelenideElement element;
         if (isLink()) {
             element = getNameLink();
@@ -55,7 +52,7 @@ public class PartialSceneHeader extends Component<ScenePanel> {
         return this;
     }
 
-    public PartialSceneHeader assertChangedObjectTypeEquals(String expectedValue) {
+    public PartialVisualizationHeader assertChangedObjectTypeEquals(String expectedValue) {
         SelenideElement element = $(Schrodinger.byDataId("objectType"));
         assertion.assertEquals(expectedValue, element.getText(), "Unexpected change object type");
         return this;
@@ -92,12 +89,12 @@ public class PartialSceneHeader extends Component<ScenePanel> {
         return element.exists();
     }
 
-    public PartialSceneHeader assertIsLink() {
+    public PartialVisualizationHeader assertIsLink() {
         assertion.assertTrue(isLink(), "Link is expected.");
         return this;
     }
 
-    public PartialSceneHeader assertIsNotLink() {
+    public PartialVisualizationHeader assertIsNotLink() {
         assertion.assertFalse(isLink(), "Link is not expected.");
         return this;
     }

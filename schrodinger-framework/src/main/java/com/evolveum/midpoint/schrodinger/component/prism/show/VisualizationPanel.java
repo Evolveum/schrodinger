@@ -22,32 +22,30 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ScenePanel<T> extends Component<T> {
+public class VisualizationPanel<T> extends Component<T> {
 
-    public ScenePanel(T parent, SelenideElement parentElement) {
+    public VisualizationPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ScenePanel<T> assertExpanded() {
-        SelenideElement minimizeButton = getParentElement().$(Schrodinger.byDataId("button", "minimizeButton")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    public VisualizationPanel<T> assertExpanded() {
+        SelenideElement minimizeButton = getParentElement().$(Schrodinger.byDataId("a", "minimize")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement icon = minimizeButton.$(By.tagName("i"));
         icon.shouldHave(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
-    public ScenePanel<T> expandScenePanel() {
-        SelenideElement minimizeButton = getParentElement().$x(".//a[@data-s-id='minimizeButton']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    public VisualizationPanel<T> expandVisualizationPanel() {
+        SelenideElement minimizeButton = getParentElement().$x(".//a[@data-s-id='minimize']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement icon = minimizeButton.$(By.tagName("i"));
         if (!icon.has(Condition.cssClass("fa-chevron-down"))) {
             minimizeButton.click();
@@ -56,20 +54,25 @@ public class ScenePanel<T> extends Component<T> {
         return this;
     }
 
-    public List<ScenePanel> objectDeltas() {
+    public VisualizationItemsPanel<VisualizationPanel<T>> getObjectItemsDeltaPanel() {
+        return new VisualizationItemsPanel<>(VisualizationPanel.this, getParentElement().$(Schrodinger.byDataId("items")));
+    }
+
+    @Deprecated
+    public List<VisualizationPanel> objectDeltas() {
         ElementsCollection collection = $(Schrodinger.byDataId("body")).$$(Schrodinger.byDataId("partialScene"));
-        List<ScenePanel> partialScenes = new ArrayList<>(collection.size());
-        collection.forEach(element -> partialScenes.add(new ScenePanel<>(this, element)));
-        return partialScenes;
+        List<VisualizationPanel> partialPanel = new ArrayList<>(collection.size());
+        collection.forEach(element -> partialPanel.add(new VisualizationPanel<>(this, element)));
+        return partialPanel;
     }
 
-    public PartialSceneHeader header() {
+    public PartialVisualizationHeader header() {
         SelenideElement element = $(Schrodinger.byDataId("headerPanel"));
-        return new PartialSceneHeader(this, element);
+        return new PartialVisualizationHeader(this, element);
     }
 
-    public ScenePanel<T> assertDeltasSizeEquals(int expectedSize) {
-        assertion.assertEquals(expectedSize, objectDeltas().size());
+    public VisualizationPanel<T> assertItemsDeltasSizeEquals(int expectedSize) {
+        assertion.assertEquals(expectedSize, getObjectItemsDeltaPanel().getVisualizationItemsCount());
         return this;
     }
 

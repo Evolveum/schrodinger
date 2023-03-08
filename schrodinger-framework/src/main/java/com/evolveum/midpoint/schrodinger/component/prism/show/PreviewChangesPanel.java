@@ -19,24 +19,23 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.PreviewPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PreviewChangesTab extends Component<PreviewPage> {
+public class PreviewChangesPanel extends Component<PreviewPage> {
 
-    public PreviewChangesTab(PreviewPage parent, SelenideElement parentElement) {
+    public PreviewChangesPanel(PreviewPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ScenePanel<PreviewChangesTab> primaryDeltas() {
-        SelenideElement primaryDeltas = $(Schrodinger.byDataId("primaryDeltas"));
-        return new ScenePanel<>(this, primaryDeltas);
+    public VisualizationPanel<PreviewChangesPanel> primaryDeltas() {
+        SelenideElement primaryDeltas = $(Schrodinger.byDataId("primary"));
+        return new VisualizationPanel<>(this, primaryDeltas);
     }
 
-    public ScenePanel<PreviewChangesTab> secondaryDeltas() {
+    public VisualizationPanel<PreviewChangesPanel> secondaryDeltas() {
         SelenideElement secondaryDeltas = $(Schrodinger.byDataId("secondaryDeltas"));
-        return new ScenePanel<>(this, secondaryDeltas);
+        return new VisualizationPanel<>(this, secondaryDeltas);
     }
 }

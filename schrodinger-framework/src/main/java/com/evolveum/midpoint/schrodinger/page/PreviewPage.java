@@ -20,25 +20,55 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
-import com.evolveum.midpoint.schrodinger.component.prism.show.PreviewChangesTab;
+import com.evolveum.midpoint.schrodinger.component.prism.show.PreviewChangesPanel;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class PreviewPage extends BasicPage {
 
-    public PreviewChangesTab selectPanelByName(String name) {
-        SelenideElement element = findTabPanel().clickTabWithName(name);
-        return new PreviewChangesTab(this, element);
+    public PreviewChangesPanel selectPanelForCurrentUser() {
+        return selectPanelByName(null);
     }
 
-    protected TabPanel findTabPanel() {
-        SelenideElement tabPanelElement = $(Schrodinger.byDataId("tabbedPanel"));
-        return new TabPanel<>(this, tabPanelElement);
+    public PreviewChangesPanel selectPanelByName(String name) {
+        SelenideElement element;
+        if (isTabPanelDisplayed() && StringUtils.isNotEmpty(name)) {
+            element = findTabPanelIfExists().clickTabWithName(name);
+        } else {
+            element = $x(".//form[@data-s-id='mainForm']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
+        return new PreviewChangesPanel(this, element);
+    }
+
+    private TabPanel findTabPanelIfExists() {
+        if (isTabPanelDisplayed()) {
+            SelenideElement tabPanelElement = $(Schrodinger.byDataId("tabbedPanel"));
+            return new TabPanel<>(this, tabPanelElement);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Starting from 4.7, preview changes page contains tabbed panel only in case, when more than one object is to be
+     * changed (e.g. adding delegation to another user + some changes for currently opened user object). Therefore
+     * it's necessary to check at first if tabbed panel is displayed before getting a preview changes panel
+     * @return
+     */
+    public boolean isTabPanelDisplayed() {
+        try {
+            $(Schrodinger.byDataId("tabbedPanel"));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public ProgressPage clickSave() {

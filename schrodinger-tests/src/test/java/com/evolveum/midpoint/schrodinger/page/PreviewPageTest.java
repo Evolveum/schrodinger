@@ -27,8 +27,8 @@ import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 
 import org.testng.annotations.Test;
 
-import com.evolveum.midpoint.schrodinger.component.prism.show.PreviewChangesTab;
-import com.evolveum.midpoint.schrodinger.component.prism.show.ScenePanel;
+import com.evolveum.midpoint.schrodinger.component.prism.show.PreviewChangesPanel;
+import com.evolveum.midpoint.schrodinger.component.prism.show.VisualizationPanel;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
@@ -64,13 +64,13 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .clickPreview();
         //@formatter:on
 
-        ScenePanel<PreviewChangesTab> primaryDeltaScene = previewPage.selectPanelByName("jack").primaryDeltas();
+        VisualizationPanel<PreviewChangesPanel> primaryDeltaScene = previewPage.selectPanelForCurrentUser().primaryDeltas();
         primaryDeltaScene
                 .assertExpanded()
-                .assertDeltasSizeEquals(3);
+                .assertItemsDeltasSizeEquals(2);
 
-        List<ScenePanel> deltas = primaryDeltaScene.objectDeltas();
-        ScenePanel<ScenePanel> primaryDelta = deltas.get(0);
+        List<VisualizationPanel> deltas = primaryDeltaScene.objectDeltas();
+        VisualizationPanel<VisualizationPanel> primaryDelta = deltas.get(0);
 
         primaryDelta.header()
                 .assertChangeTypeEquals("Add")
@@ -98,13 +98,13 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .clickPreview();
         //@formatter:on
 
-        ScenePanel<PreviewChangesTab> primaryDeltaScene = previewPage.selectPanelByName("jack").primaryDeltas();
+        VisualizationPanel<PreviewChangesPanel> primaryDeltaScene = previewPage.selectPanelForCurrentUser().primaryDeltas();
         primaryDeltaScene
                 .assertExpanded()
-                .assertDeltasSizeEquals(1);
+                .assertItemsDeltasSizeEquals(1);
 
-        List< ScenePanel> deltas = primaryDeltaScene.objectDeltas();
-        ScenePanel<ScenePanel> primaryDelta = deltas.get(0);
+        List<VisualizationPanel> deltas = primaryDeltaScene.objectDeltas();
+        VisualizationPanel<VisualizationPanel> primaryDelta = deltas.get(0);
 
         primaryDelta.header()
                 .assertChangeTypeEquals("Modify")
@@ -155,14 +155,14 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .and()
                 .clickPreview();
 
-        ScenePanel<PreviewChangesTab> primaryDeltaScene = previewPage
-                .selectPanelByName("jack")
+        VisualizationPanel<PreviewChangesPanel> primaryDeltaScene = previewPage
+                .selectPanelForCurrentUser()
                     .primaryDeltas();
         primaryDeltaScene
                 .assertExpanded()
-                .assertDeltasSizeEquals(1);
+                .assertItemsDeltasSizeEquals(1);
 
-        ScenePanel<ScenePanel> primaryDelta = primaryDeltaScene.objectDeltas().get(0);
+        VisualizationPanel<VisualizationPanel> primaryDelta = primaryDeltaScene.objectDeltas().get(0);
 
         primaryDelta.header()
                 .assertChangeTypeEquals("Modify")
