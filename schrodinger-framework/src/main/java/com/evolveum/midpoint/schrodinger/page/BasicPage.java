@@ -721,13 +721,13 @@ public class BasicPage {
 
         Utils.waitForAjaxCallFinish();
         $(Schrodinger.byDataId("mainHeader"))
-                .$x(".//span[@data-s-id='icon' and contains(@class, 'fi-" + currentCountryCode + "')]")
+                .$x(".//i[@data-s-id='icon' and contains(@class, 'fi-" + currentCountryCode + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         Utils.waitForAjaxCallFinish();
         SelenideElement localesMenu = $(Schrodinger.byDataId("localesMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String flagIconCss = "fi-" + countryCode.trim().toLowerCase();
-        localesMenu.$x(".//span[@data-s-id='localesIcon' and contains(@class, '" + flagIconCss + "')]")
+        localesMenu.$x(".//i[@data-s-id='localesIcon' and contains(@class, '" + flagIconCss + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         Selenide.sleep(2000);
