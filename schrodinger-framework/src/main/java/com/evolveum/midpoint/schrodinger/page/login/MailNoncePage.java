@@ -28,7 +28,7 @@ public class MailNoncePage extends FormLoginPage {
 
     public MailNoncePage setMail(String mail) {
         $(Schrodinger.byDataId("email")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(mail);
-        $(Schrodinger.byDataId("submit")).click();
+        $(Schrodinger.byDataId("submitIdentifier")).click();
         return  this;
     }
 

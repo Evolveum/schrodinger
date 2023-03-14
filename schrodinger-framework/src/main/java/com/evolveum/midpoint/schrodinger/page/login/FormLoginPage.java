@@ -45,7 +45,7 @@ public class FormLoginPage extends LoginPage {
     public FormLoginPage forgotPassword() {
         Utils.waitForAjaxCallFinish();
         Selenide.sleep(2000);
-        $(Schrodinger.byDataId("forgotPassword")).click();
+        $(Schrodinger.byDataId("resetPassword")).click();
         Selenide.sleep(2000);
         Utils.waitForAjaxCallFinish();
         String url = getCurrentUrl();
@@ -94,7 +94,7 @@ public class FormLoginPage extends LoginPage {
         $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
         $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
         $x(".//button[@type='submit']").click();
-
+        Utils.waitForAjaxCallFinish();
         return new BasicPage();
     }
 
