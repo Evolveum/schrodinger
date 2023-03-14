@@ -64,15 +64,12 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .clickPreview();
         //@formatter:on
 
-        VisualizationPanel<PreviewChangesPanel> primaryDeltaScene = previewPage.selectPanelForCurrentUser().primaryDeltas();
-        primaryDeltaScene
+        VisualizationPanel<PreviewChangesPanel> primaryDeltaPanel = previewPage.selectPanelForCurrentUser().primaryDeltas();
+        primaryDeltaPanel
                 .assertExpanded()
                 .assertItemsDeltasSizeEquals(2);
 
-        List<VisualizationPanel> deltas = primaryDeltaScene.objectDeltas();
-        VisualizationPanel<VisualizationPanel> primaryDelta = deltas.get(0);
-
-        primaryDelta.header()
+        primaryDeltaPanel.header()
                 .assertChangeTypeEquals("Add")
                 .assertChangedObjectNameEquals("jack")
                 .assertIsNotLink();
@@ -98,15 +95,12 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .clickPreview();
         //@formatter:on
 
-        VisualizationPanel<PreviewChangesPanel> primaryDeltaScene = previewPage.selectPanelForCurrentUser().primaryDeltas();
-        primaryDeltaScene
+        VisualizationPanel<PreviewChangesPanel> primaryDeltaPanel = previewPage.selectPanelForCurrentUser().primaryDeltas();
+        primaryDeltaPanel
                 .assertExpanded()
                 .assertItemsDeltasSizeEquals(1);
 
-        List<VisualizationPanel> deltas = primaryDeltaScene.objectDeltas();
-        VisualizationPanel<VisualizationPanel> primaryDelta = deltas.get(0);
-
-        primaryDelta.header()
+        primaryDeltaPanel.header()
                 .assertChangeTypeEquals("Modify")
                 .assertChangedObjectNameEquals("jack")
                 .assertIsLink();
@@ -155,16 +149,14 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .and()
                 .clickPreview();
 
-        VisualizationPanel<PreviewChangesPanel> primaryDeltaScene = previewPage
+        VisualizationPanel<PreviewChangesPanel> primaryDeltaPanel = previewPage
                 .selectPanelForCurrentUser()
                     .primaryDeltas();
-        primaryDeltaScene
+        primaryDeltaPanel
                 .assertExpanded()
                 .assertItemsDeltasSizeEquals(1);
 
-        VisualizationPanel<VisualizationPanel> primaryDelta = primaryDeltaScene.objectDeltas().get(0);
-
-        primaryDelta.header()
+        primaryDeltaPanel.header()
                 .assertChangeTypeEquals("Modify")
                 .assertChangedObjectNameEquals("jack")
                 .assertIsNotLink();

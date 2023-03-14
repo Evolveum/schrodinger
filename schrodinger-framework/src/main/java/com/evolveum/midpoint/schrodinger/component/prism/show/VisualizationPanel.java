@@ -55,15 +55,7 @@ public class VisualizationPanel<T> extends Component<T> {
     }
 
     public VisualizationItemsPanel<VisualizationPanel<T>> getObjectItemsDeltaPanel() {
-        return new VisualizationItemsPanel<>(VisualizationPanel.this, getParentElement().$(Schrodinger.byDataId("items")));
-    }
-
-    @Deprecated
-    public List<VisualizationPanel> objectDeltas() {
-        ElementsCollection collection = $(Schrodinger.byDataId("body")).$$(Schrodinger.byDataId("partialScene"));
-        List<VisualizationPanel> partialPanel = new ArrayList<>(collection.size());
-        collection.forEach(element -> partialPanel.add(new VisualizationPanel<>(this, element)));
-        return partialPanel;
+        return new VisualizationItemsPanel<>(VisualizationPanel.this, getParentElement().$(Schrodinger.byDataId("itemsTable")));
     }
 
     public PartialVisualizationHeader header() {

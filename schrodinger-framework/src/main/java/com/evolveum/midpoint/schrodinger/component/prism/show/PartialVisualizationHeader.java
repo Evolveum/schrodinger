@@ -86,7 +86,7 @@ public class PartialVisualizationHeader extends Component<VisualizationPanel> {
 
     public boolean isLink() {
         SelenideElement element = getNameLink();
-        return element.exists();
+        return element.exists() && element.getTagName().equals("a");
     }
 
     public PartialVisualizationHeader assertIsLink() {
