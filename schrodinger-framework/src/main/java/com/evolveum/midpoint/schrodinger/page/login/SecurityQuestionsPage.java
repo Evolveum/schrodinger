@@ -19,6 +19,7 @@ import com.codeborne.selenide.*;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -30,12 +31,15 @@ public class SecurityQuestionsPage extends FormLoginPage {
     public SecurityQuestionsPage setUsername(String username) {
         $(Schrodinger.byDataId("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
         $(Schrodinger.byDataId("showQuestions")).click();
+        Utils.waitForAjaxCallFinish();
         return  this;
     }
 
     public SecurityQuestionsPage setAnswer(int index, String value) {
+        Utils.waitForAjaxCallFinish();
         ElementsCollection col = $$(Schrodinger.byDataId("questionAnswer"));
-        col.get(index).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        col.get(index).sendKeys(value);
         return this;
     }
 

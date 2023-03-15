@@ -105,7 +105,7 @@ public class FormLoginPage extends LoginPage {
 
 
     public FeedbackBox<? extends FormLoginPage> feedback() {
-        SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, 'feedback-message')]").shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
+        SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, 'feedback-message')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
         return new FeedbackBox<>(this, feedback);
     }
 
