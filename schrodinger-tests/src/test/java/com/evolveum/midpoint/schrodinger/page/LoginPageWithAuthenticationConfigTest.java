@@ -89,6 +89,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         TimeUnit.SECONDS.sleep(6);
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
+        Selenide.sleep(5000);
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"));
     }

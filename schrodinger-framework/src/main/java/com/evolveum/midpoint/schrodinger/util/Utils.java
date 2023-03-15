@@ -251,7 +251,7 @@ public class Utils {
         if (!notifications.contains(bodyTag)) {
             return "";
         }
-        String body = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.lastIndexOf("'"));
+        String body = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.indexOf(Utils.getPropertyString("PageBase.nonActiveSubscriptionMessage")));
         return body;
     }
 
