@@ -38,6 +38,7 @@ public class FormLoginPage extends LoginPage {
 
     public SelfRegistrationPage register() {
         $(Schrodinger.byDataId("selfRegistration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        Utils.waitForAjaxCallFinish();
         $(byText("Self Registration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return new SelfRegistrationPage();
     }

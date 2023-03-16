@@ -108,7 +108,7 @@
             </description>
             <channel>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#selfRegistration</channelId>
-                <urlSuffix>selfReg</urlSuffix>
+                <urlSuffix>registration</urlSuffix>
             </channel>
             <module>
                 <name>registrationMail</name>

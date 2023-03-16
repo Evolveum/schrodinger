@@ -119,7 +119,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         FormLoginPage login = midPoint.formLogin();
         open("/login");
         open("/");
-        TimeUnit.SECONDS.sleep(2);
+        Selenide.sleep(2000);
         SelfRegistrationPage registrationPage = login.register();
         registrationPage
                 .setGivenName("Test")
@@ -138,7 +138,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         int end = notification.indexOf("'", start);
         String link = notification.substring(start, end);
         open(link);
-
+        Selenide.sleep(3000);
         new RegistrationFinishPage().assertSuccessPanelExists();
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/registration/result"));
