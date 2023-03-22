@@ -30,10 +30,10 @@
                 <name>internalLoginForm</name>
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
-            <loginForm>
-                <name>internalLoginForm2</name>
-                <description>Internal username/password authentication, default user password, login form</description>
-            </loginForm>
+<!--            <loginForm>-->
+<!--                <name>internalLoginForm2</name>-->
+<!--                <description>Internal username/password authentication, default user password, login form</description>-->
+<!--            </loginForm>-->
             <securityQuestionsForm>
                 <name>SecQ</name>
                 <description>

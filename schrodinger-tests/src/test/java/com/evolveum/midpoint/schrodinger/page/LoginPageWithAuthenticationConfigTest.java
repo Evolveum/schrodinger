@@ -109,7 +109,28 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
             .setAnswer(0, "10")
             .submit();
         String actualUrl = basicPage.getCurrentUrl();
-        Assert.assertTrue(actualUrl.endsWith("/resetPassword"));
+        String urlSuffix = getUrlSuffix(actualUrl);
+        Assert.assertTrue(urlSuffix.equals("/resetPassword"));
+    }
+
+    private String getUrlSuffix(String url) {
+        int slashIndex = -1;
+        int questionIndex = -1;
+        String suffix = "";
+        if (url.contains("/")) {
+            slashIndex = url.lastIndexOf("/");
+        }
+        if (url.contains("?")) {
+            questionIndex = url.lastIndexOf("?");
+        }
+        if (slashIndex > 0) {
+            if (questionIndex > slashIndex) {
+                suffix = url.substring(slashIndex, questionIndex);
+            } else {
+                suffix = url.substring(slashIndex);
+            }
+        }
+        return suffix;
     }
 
     @Test

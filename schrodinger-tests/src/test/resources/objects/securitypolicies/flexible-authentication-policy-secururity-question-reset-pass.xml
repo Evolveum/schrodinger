@@ -59,11 +59,11 @@
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>
-            <module>
-                <name>internalLoginForm2</name>
-                <order>20</order>
-                <necessity>sufficient</necessity>
-            </module>
+<!--            <module>-->
+<!--                <name>internalLoginForm2</name>-->
+<!--                <order>20</order>-->
+<!--                <necessity>sufficient</necessity>-->
+<!--            </module>-->
         </sequence>
         <sequence>
             <name>admin-gui-emergency</name>
