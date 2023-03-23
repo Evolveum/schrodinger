@@ -329,4 +329,14 @@ public class Utils {
         return val;
     }
 
+    public static void setValueToElementAndFireBlurEvent(SelenideElement element, String value) {
+        element.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        element.sendKeys(value);
+        String answerInputId = element.getAttribute("id");
+        Selenide.sleep(2000);
+        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("return document.getElementById(\"" + answerInputId + "\").blur();");
+        Selenide.sleep(2000);
+
+    }
+
 }

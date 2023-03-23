@@ -20,6 +20,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.JavascriptExecutor;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -39,7 +40,9 @@ public class SecurityQuestionsPage extends FormLoginPage {
         Utils.waitForAjaxCallFinish();
         ElementsCollection col = $$(Schrodinger.byDataId("questionAnswer"));
         Utils.waitForAjaxCallFinish();
-        col.get(index).sendKeys(value);
+        Selenide.sleep(2000);
+        SelenideElement answerInput = col.get(index);
+        Utils.setValueToElementAndFireBlurEvent(answerInput, value);
         return this;
     }
 
