@@ -27,35 +27,35 @@
     <authentication>
         <modules>
             <mailNonce>
-                <name>confirmationLink</name>
+                <identifier>confirmationLink</identifier>
                 <description>Additional mail authnetication</description>
                 <credentialName>mailNonce</credentialName>
             </mailNonce>
             <securityQuestionsForm id="16">
-                <name>SecQ</name>
+                <identifier>SecQ</identifier>
                 <description>
                     This is interactive, form-based authentication by using security questions.
                 </description>
                 <credentialName>securityQuestionsForm</credentialName>
             </securityQuestionsForm>
             <loginForm>
-                <name>loginForm</name>
+                <identifier>loginForm</identifier>
             </loginForm>
         </modules>
         <sequence>
-            <name>confirmationLink</name>
+            <identifier>confirmationLink</identifier>
             <channel>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#selfRegistration</channelId>
                 <urlSuffix>registration</urlSuffix>
             </channel>
             <module>
-                <name>confirmationLink</name>
+                <identifier>confirmationLink</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>admin-gui-default</name>
+            <identifier>admin-gui-default</identifier>
             <displayName>Default gui sequence</displayName>
             <channel>
                 <default>true</default>
@@ -63,8 +63,23 @@
                 <urlSuffix>gui-default</urlSuffix>
             </channel>
             <module>
-                <name>loginForm</name>
+                <identifier>loginForm</identifier>
                 <order>1</order>
+                <necessity>sufficient</necessity>
+            </module>
+        </sequence>
+        <sequence>
+            <identifier>userPasswordResetAuth</identifier>
+            <description>
+                Just a nonce mail to validate e-mail address.
+            </description>
+            <channel>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#resetPassword</channelId>
+                <urlSuffix>resetPassword</urlSuffix>
+            </channel>
+            <module>
+                <identifier>confirmationLink</identifier>
+                <order>10</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
@@ -109,4 +124,8 @@
             <defaultRole oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
         </selfRegistration>
     </flow>
+    <credentialsReset>
+        <name>userPasswordReset</name>
+        <authenticationSequenceName>userPasswordResetAuth</authenticationSequenceName>
+    </credentialsReset>
 </securityPolicy>
