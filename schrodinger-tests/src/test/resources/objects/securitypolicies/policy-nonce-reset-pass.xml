@@ -45,8 +45,8 @@
         <sequence>
             <name>confirmationLink</name>
             <channel>
-                <channelId>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#selfRegistration</channelId>
-                <urlSuffix>selfRegistration</urlSuffix>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#selfRegistration</channelId>
+                <urlSuffix>registration</urlSuffix>
             </channel>
             <module>
                 <name>confirmationLink</name>
@@ -109,8 +109,4 @@
             <defaultRole oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
         </selfRegistration>
     </flow>
-    <credentialsReset>
-        <name>userPasswordReset</name>
-        <authenticationSequenceName>confirmationLink</authenticationSequenceName>
-    </credentialsReset>
 </securityPolicy>

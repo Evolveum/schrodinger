@@ -63,7 +63,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         new RegistrationConfirmationPage()
                 .assertSuccessPanelExists();
         String actualUrl = basicPage.getCurrentUrl();
-        Assert.assertTrue(actualUrl.endsWith("/registration"));
+        Assert.assertTrue(actualUrl.endsWith("/registration/result"));
     }
 
     @Test
