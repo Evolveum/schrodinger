@@ -43,7 +43,7 @@
             </loginForm>
         </modules>
         <sequence>
-            <identifier>confirmationLink</identifier>
+            <identifier>registration</identifier>
             <channel>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#selfRegistration</channelId>
                 <urlSuffix>registration</urlSuffix>
@@ -120,7 +120,7 @@
             <name>selfRegistration</name>
             <initialLifecycleState>draft</initialLifecycleState>
             <displayName>Self Registration</displayName>
-            <additionalAuthenticationSequence>confirmationLink</additionalAuthenticationSequence>
+            <additionalAuthenticationSequence>registration</additionalAuthenticationSequence>
             <defaultRole oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
         </selfRegistration>
     </flow>

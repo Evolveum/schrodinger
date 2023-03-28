@@ -86,7 +86,7 @@
             <module>
                 <name>secQ</name>
                 <order>1</order>
-                <necessity>sufficient</necessity>
+                <necessity>required</necessity>
             </module>
         </sequence>
         <ignoredLocalPath>/actuator/health</ignoredLocalPath>

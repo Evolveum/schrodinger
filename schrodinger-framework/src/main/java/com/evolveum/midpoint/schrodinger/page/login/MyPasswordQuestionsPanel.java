@@ -18,6 +18,7 @@ package com.evolveum.midpoint.schrodinger.page.login;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -31,7 +32,7 @@ public class MyPasswordQuestionsPanel<T> extends Component<T> {
     }
 
     public MyPasswordQuestionsPanel<T> setAnswerValue(String value) {
-        getParentElement().setValue(value);
+        Utils.setValueToElementAndFireBlurEvent(getParentElement(), value);
         return this;
     }
 }

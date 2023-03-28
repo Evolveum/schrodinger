@@ -29,7 +29,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -173,4 +175,8 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     }
 
     protected abstract File getSecurityPolicyMailNonceResetPass();
+
+    protected void clearNotificationFile() throws FileNotFoundException {
+        new PrintWriter(notificationFile.getAbsolutePath()).close();
+    }
 }

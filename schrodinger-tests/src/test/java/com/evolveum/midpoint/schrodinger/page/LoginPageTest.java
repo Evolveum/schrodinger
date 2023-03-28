@@ -64,6 +64,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .assertSuccessPanelExists();
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/registration/result"));
+        clearNotificationFile();
     }
 
     @Test
@@ -83,6 +84,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
                 "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
+        clearNotificationFile();
     }
 
     @Test
