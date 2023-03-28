@@ -92,6 +92,8 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         Selenide.sleep(5000);
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"));
+        clearNotificationFile();
+        clearBrowserCookies();
     }
 
     @Test
@@ -111,6 +113,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         String actualUrl = basicPage.getCurrentUrl();
         String urlSuffix = getUrlSuffix(actualUrl);
         Assert.assertTrue(urlSuffix.equals("/resetPassword"));
+        clearBrowserCookies();
     }
 
     private String getUrlSuffix(String url) {
@@ -163,6 +166,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         new RegistrationFinishPage().assertSuccessPanelExists();
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/registration/result"));
+        clearNotificationFile();
     }
 
     @Test
