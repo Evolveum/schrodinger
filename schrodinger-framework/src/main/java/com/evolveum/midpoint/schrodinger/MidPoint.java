@@ -71,6 +71,7 @@ public class MidPoint {
         }
         System.setProperty("selenide.browser", configuration.getDriver().name().toLowerCase());
         System.setProperty("locale", configuration.getLocale());
+        System.setProperty("chromeoptions.args", "--remote-allow-origins=*");
 
         Configuration.timeout = 6000L;
     }
