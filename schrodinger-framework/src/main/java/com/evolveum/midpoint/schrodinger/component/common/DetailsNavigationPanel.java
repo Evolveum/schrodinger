@@ -37,10 +37,12 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
         for (String navigationItemName : name) {
             String translatedNavigationName = Utils.getPropertyString(navigationItemName);
             if (nav == null) {
-                nav = $(Schrodinger.byElementAttributeValue("span", "data-s-resource-key", translatedNavigationName))
+                nav = getParentElement().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
+                                " and contains(text(), '" + translatedNavigationName + "')]")
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             } else {
-                nav = nav.parent().parent().$x(".//span[@data-s-resource-key='" + translatedNavigationName + "']")
+                nav = nav.parent().parent().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
+                                " and contains(text(), '" + translatedNavigationName + "')]")
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             }
             nav.click();
