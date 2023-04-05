@@ -282,6 +282,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
         String screenshotName = "NotSuccessfulImport" + System.currentTimeMillis();
         if (!isSuccess) {
+            feedback.clickShowAll();
             Selenide.sleep(2000);
             Selenide.screenshot(screenshotName);
         }
