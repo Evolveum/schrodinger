@@ -147,4 +147,17 @@ public class FeedbackBox<T> extends Component<T> {
                 .$(byText(messageText)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists());
         return this;
     }
+
+    public String getFeedbackMessage() {
+        try {
+            SelenideElement messageElement = getParentElement().$x(".//h3[@data-s-id='message']")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+            if (messageElement.exists()) {
+                return messageElement.getText();
+            }
+        } catch (Exception e) {
+            //nothing to do
+        }
+        return "";
+    }
 }

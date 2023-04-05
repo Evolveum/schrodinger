@@ -263,7 +263,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
         FeedbackBox<? extends BasicPage> feedback = importPage
                 .getObjectsFromFile()
-                    .chooseFile(source)
+                .chooseFile(source)
+                .checkOverwriteExistingObject()
                         .clickImportFileButton()
                             .feedback();
 
@@ -279,7 +280,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         if (!isSuccess && ignoreWarning) {
             isSuccess = feedback.isWarning();
         }
-        Assert.assertTrue(isSuccess);
+        Assert.assertTrue(isSuccess, feedback.getFeedbackMessage());
     }
 
    protected void importObject(File source, boolean overrideExistingObject) {
