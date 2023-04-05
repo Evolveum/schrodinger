@@ -48,11 +48,11 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isSuccess() {
-        return containsClass("success");
+        return containsClass("card-success");
     }
 
     public Boolean isWarning() {
-        return containsClass("warning");
+        return containsClass("card-warning");
     }
 
     public Boolean isError(String idOfChild) {
@@ -60,11 +60,11 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public Boolean isError() {
-        return containsClass("danger");
+        return containsClass("card-danger");
     }
 
     public Boolean isInfo() {
-        return containsClass("info");
+        return containsClass("card-info");
     }
 
     private Boolean containsClass(String cssClass) {
