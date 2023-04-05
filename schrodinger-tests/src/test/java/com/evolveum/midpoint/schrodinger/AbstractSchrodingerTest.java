@@ -267,7 +267,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .checkOverwriteExistingObject()
                         .clickImportFileButton()
                             .feedback();
-
         boolean isSuccess = false;
         try {
             isSuccess = feedback.isSuccess();
@@ -280,7 +279,13 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         if (!isSuccess && ignoreWarning) {
             isSuccess = feedback.isWarning();
         }
-        Assert.assertTrue(isSuccess, feedback.getFeedbackMessage());
+
+        String screenshotName = "NotSuccessfulImport" + System.currentTimeMillis();
+        if (!isSuccess) {
+            Selenide.sleep(2000);
+            Selenide.screenshot(screenshotName);
+        }
+        Assert.assertTrue(isSuccess, feedback.getFeedbackMessage() + "; screenshot: " + screenshotName);
     }
 
    protected void importObject(File source, boolean overrideExistingObject) {
