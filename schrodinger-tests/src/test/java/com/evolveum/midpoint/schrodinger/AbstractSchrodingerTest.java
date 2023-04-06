@@ -244,6 +244,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         aboutPage
                 .clickSwitchToFactoryDefaults()
                 .clickYes();
+        Selenide.sleep(60000); //todo go to task page and wait the task to be finished
     }
 
     /**
