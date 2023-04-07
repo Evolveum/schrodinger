@@ -519,7 +519,7 @@ public class BasicPage {
     private void clickMenuItem(String topLevelMenuValue, String mainMenuKey, String menuItemKey, int index) {
         Utils.waitForAjaxCallFinish();
         SelenideElement menu = getMenuItemElement(topLevelMenuValue, mainMenuKey, menuItemKey, index);
-        scrollToElement(menu);
+        Utils.scrollToElement(menu);
         menu.click();
         Utils.waitForAjaxCallFinish();
     }
@@ -538,23 +538,8 @@ public class BasicPage {
         if (!menuItem.exists()) {
             menuItem = $(Schrodinger.byDataResourceKey(Utils.getPropertyString(menuItemKey)));
         }
-        scrollToElement(menuItem);
+        Utils.scrollToElement(menuItem);
         return menuItem.parent();
-    }
-
-    public void scrollToElement(SelenideElement element) {
-        long endTime = System.currentTimeMillis() + 5000;
-        while (!element.isDisplayed() && System.currentTimeMillis() < endTime) {
-            Utils.waitForAjaxCallFinish();
-            element.scrollIntoView(false);
-            Utils.waitForAjaxCallFinish();
-        }
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(element));
-        } catch (Exception e) {
-            element.scrollIntoView(true);
-        }
     }
 
     public SelenideElement getMenuItemElementByMenuLabelText(String topLevelMenuValue, String mainMenuKey, String menuItemLabelText){
@@ -575,7 +560,7 @@ public class BasicPage {
     private SelenideElement getMainMenuItemElement(String topLevelMenuValue, String mainMenuKey, int index){
         Utils.waitForAjaxCallFinish();
         SelenideElement topLevelMenu = $x(".//span[@data-s-id='name' and contains(text(), '" + topLevelMenuValue + "')]");
-        scrollToElement(topLevelMenu);
+        Utils.scrollToElement(topLevelMenu);
         topLevelMenu.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
@@ -602,7 +587,7 @@ public class BasicPage {
             return;
         }
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
-            scrollToElement(mainMenuLi);
+            Utils.scrollToElement(mainMenuLi);
             mainMenuLi.click();
             mainMenuLi.shouldBe(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
         }

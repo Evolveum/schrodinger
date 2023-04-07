@@ -38,13 +38,13 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
             String translatedNavigationName = Utils.getPropertyString(navigationItemName);
             if (nav == null) {
                 nav = getParentElement().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
-                                " and contains(text(), '" + translatedNavigationName + "')]")
-                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                                " and contains(text(), '" + translatedNavigationName + "')]");
             } else {
                 nav = nav.parent().parent().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
-                                " and contains(text(), '" + translatedNavigationName + "')]")
-                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                                " and contains(text(), '" + translatedNavigationName + "')]");
             }
+            Utils.scrollToElement(nav);
+            nav.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             nav.click();
             nav.parent().parent().shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
         }

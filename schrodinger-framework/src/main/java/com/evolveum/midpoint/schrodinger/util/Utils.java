@@ -37,6 +37,7 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -336,6 +337,21 @@ public class Utils {
         ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("return document.getElementById(\"" + answerInputId + "\").blur();");
         Selenide.sleep(2000);
 
+    }
+
+    public static void scrollToElement(SelenideElement element) {
+        long endTime = System.currentTimeMillis() + 5000;
+        while (!element.isDisplayed() && System.currentTimeMillis() < endTime) {
+            Utils.waitForAjaxCallFinish();
+            element.scrollIntoView(false);
+            Utils.waitForAjaxCallFinish();
+        }
+        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (Exception e) {
+            element.scrollIntoView(true);
+        }
     }
 
 }
