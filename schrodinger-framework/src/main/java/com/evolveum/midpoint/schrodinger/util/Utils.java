@@ -36,6 +36,7 @@ import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -340,17 +341,23 @@ public class Utils {
     }
 
     public static void scrollToElement(SelenideElement element) {
-        long endTime = System.currentTimeMillis() + 5000;
-        while (!element.isDisplayed() && System.currentTimeMillis() < endTime) {
-            Utils.waitForAjaxCallFinish();
-            element.scrollIntoView(false);
-            Utils.waitForAjaxCallFinish();
+        if (element == null) {
+            return;
         }
-        WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(element));
-        } catch (Exception e) {
-            element.scrollIntoView(true);
+        long endTime = System.currentTimeMillis() + 5000;
+        while (System.currentTimeMillis() < endTime) {
+            try {
+                WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
+                Utils.waitForAjaxCallFinish();
+                element.scrollIntoView(false);//"{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+                WebElement clickableElement = wait.until(ExpectedConditions.elementToBeClickable(element));
+                if (clickableElement != null && clickableElement.isDisplayed()) {
+                    break;
+                }
+                Utils.waitForAjaxCallFinish();
+            } catch (Exception e) {
+                element.scrollIntoView(true);
+            }
         }
     }
 
