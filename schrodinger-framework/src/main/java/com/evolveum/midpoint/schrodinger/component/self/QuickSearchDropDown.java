@@ -31,7 +31,7 @@ public class QuickSearchDropDown<T> extends DropDown<T> {
     }
 
     public T clickUsers(){
-        $(Schrodinger.byDataResourceKey("SearchType.USERS")).parent()
+        $(Schrodinger.byDataResourceKey("SearchType.USERS"))
                 .click();
 
         return this.getParent();

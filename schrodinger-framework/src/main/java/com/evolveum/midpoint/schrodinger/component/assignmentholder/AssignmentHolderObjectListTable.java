@@ -200,6 +200,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
             ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");
             int count = childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
             modal.$x(".//a[@data-s-id='cancelButton']").click();
+            Utils.waitForAjaxCallFinish();
             modal.shouldBe(Condition.disappear, MidPoint.TIMEOUT_LONG_20_S);
             return count;
         }

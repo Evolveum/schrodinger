@@ -139,7 +139,7 @@ public class Search<T> extends Component<T> {
     private void selectSearchType(String resourceKey) {
         clickDroDownForSearchMode();
         try {
-            SelenideElement searchTypeSelection = getParentElement().$x(".//*[@data-s-resource-key='" + resourceKey + "']").parent();
+            SelenideElement searchTypeSelection = getParentElement().$x(".//*[@data-s-resource-key='" + resourceKey + "']");
             searchTypeSelection.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
             searchTypeSelection.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
             sleep(1000);

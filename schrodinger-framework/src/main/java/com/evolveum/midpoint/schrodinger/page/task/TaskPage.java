@@ -28,6 +28,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.task.*;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -63,9 +64,10 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
         } else {
-            $(byText("Save & Run"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
+            SelenideElement button = $(byText("Save & Run"))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            Utils.scrollToElement(button);
+            button.click();
         }
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ProgressPage();

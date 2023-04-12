@@ -72,6 +72,7 @@ public class PolyStringTests extends AbstractSchrodingerTest {
         usersPage
                        .table()
                             .search()
+                                .resetBasicSearch()
                                 .byName()
                                 .inputValue(TEST_USER_JOZKO_NAME)
                             .updateSearch()

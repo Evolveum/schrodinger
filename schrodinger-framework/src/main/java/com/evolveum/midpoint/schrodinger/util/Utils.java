@@ -198,11 +198,23 @@ public class Utils {
     }
 
     public static SelenideElement getModalWindowSelenideElement(Duration waitTime) {
-        return $(Schrodinger.byDataId("mainPopup")).shouldBe(Condition.appear, waitTime);
+        return $(Schrodinger.byDataId("mainPopup"))
+                .find(Schrodinger.byDataId("div", "overlay"))
+                .shouldBe(Condition.appear, waitTime);
     }
 
     public static boolean isModalWindowSelenideElementVisible() {
-        return $(Schrodinger.byDataId("mainPopup")).find(Schrodinger.byDataId("div", "overlay")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).has(Condition.cssClass("show"));//.isDisplayed();
+        SelenideElement modal = null;
+        try {
+            modal = $(Schrodinger.byDataId("mainPopup"))
+                    .find(Schrodinger.byDataId("div", "overlay"));
+        } catch (Exception ex) {
+            return false;
+        }
+        if (modal.exists() && modal.isDisplayed() && modal.has(Condition.cssClass("show"))) {
+            return true;
+        }
+        return false;
     }
 
     public static File changeResourceFilePathInXml(File resourceXml, String newFilePathValue, String tempFilePath) throws IOException {
