@@ -457,6 +457,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             final List<String> options = new ArrayList<>();
             if (overwrite) {
                 options.add("overwrite");
+                options.add("raw");
             }
             objects.forEach(object -> {
                 try {
