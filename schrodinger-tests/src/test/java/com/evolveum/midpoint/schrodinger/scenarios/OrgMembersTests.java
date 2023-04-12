@@ -94,6 +94,11 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         orgTreePage
                 .selectTabWithRootOrg(ORG_NAME)
                     .getMemberPanel()
+                        .table()
+                            .search()
+                            .byRelation("Member")
+                        .and()
+                        .and()
                     .assignMember()
                         .table()
                             .search()
@@ -103,7 +108,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .and()
                         .selectCheckboxByName(USER_NAME)
                     .and()
-                    .setRelation("Member")
+//                    .setRelation("Member")
                     .clickAdd();
         orgTreePage = basicPage.orgStructure();
         orgTreePage
@@ -118,6 +123,11 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         basicPage.orgStructure()
                     .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                         .getMemberPanel()
+                            .table()
+                                .search()
+                                .byRelation("Member")
+                                .and()
+                            .and()
                         .assignMember()
                             .table()
                                 .search()   // the goal is to check search on the parent
@@ -127,7 +137,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .and()
                             .selectCheckboxByName("UniqueNameUserForMemberTest")
                         .and()
-                        .setRelation("Member")
+//                        .setRelation("Member")
                         .clickAdd();
 
         AssignmentHolderObjectListTable<MemberPanel<OrgRootTab>, AssignmentHolderDetailsPage> membersTable =
