@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
@@ -62,9 +63,9 @@ public class ResourceAccountsPanel<T> extends Component<T> {
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         liveSyncButton.find(By.tagName("button")).click();
-
-        SelenideElement dropDownMenu = liveSyncButton.find(Schrodinger.byDataId("dropDownMenu"))
-                .shouldHave(Condition.cssClass("show"));
+        Utils.waitForAjaxCallFinish();
+        SelenideElement dropDownMenu = liveSyncButton.$x(".//div[@data-s-id='dropDownMenu']")
+                .shouldHave(Condition.cssClass("show"), MidPoint.TIMEOUT_MEDIUM_6_S);
         return new ResourceTaskQuickAccessDropDown<>(this, dropDownMenu);
     }
 

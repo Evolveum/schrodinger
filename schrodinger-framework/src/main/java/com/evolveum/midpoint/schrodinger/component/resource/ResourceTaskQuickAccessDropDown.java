@@ -43,15 +43,12 @@ public class ResourceTaskQuickAccessDropDown<T> extends DropDown<T> {
     }
 
     public TaskPage clickCreateNew() {
-
-        ElementsCollection elements = $$(Schrodinger.byElementValue("a", "data-s-id", "menuItemLink", "Create new"));
-        for (SelenideElement element : elements) {
-
-            if (element.isDisplayed()) {
-                element.click();
-                break;
-            }
-        }
+        String newTaskKey = "ResourceContentResourcePanel.newTask";
+        getParentElement()
+                .$x(".//a[@data-s-id='menuItemLink' and contains(text(), '" + Utils.getPropertyString(newTaskKey) + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
         Utils.waitForMainPanelOnDetailsPage();
         return new TaskPage();
     }
