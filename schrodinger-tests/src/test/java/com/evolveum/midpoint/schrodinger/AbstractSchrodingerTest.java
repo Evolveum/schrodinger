@@ -699,7 +699,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected boolean resetToDefaultAfterTests() {
-        return false;
+        return true;
     }
 
     public void assertLastNotificationBodyStartsWith(File notificationFile, String text) throws IOException {

@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
  */
 public class AboutPageTest extends AbstractSchrodingerTest {
 
-    private static final String VERSION_EXPECTED = "4.7-SNAPSHOT"; // Static value, should be changed each version change.
+    private static final String VERSION_EXPECTED = "4.8-SNAPSHOT"; // Static value, should be changed each version change.
     private static final String HIBERNATE_DIALECT_EXPECTED = "org.hibernate.dialect.H2Dialect";
     private static final String CONNID_VERSION_EXPECTED = "1.5.1.10"; // Static value, should be changed each version change.
     private static final String UTILITY_TASK_EXPECTED = "Utility task";
