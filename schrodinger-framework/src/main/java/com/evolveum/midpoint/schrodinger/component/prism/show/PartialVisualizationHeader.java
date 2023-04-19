@@ -43,11 +43,11 @@ public class PartialVisualizationHeader extends Component<VisualizationPanel> {
 
     public PartialVisualizationHeader assertChangedObjectNameEquals(String expectedValue) {
         SelenideElement element;
-        if (isLink()) {
+//        if (isLink()) {
             element = getNameLink();
-        } else {
-            element = getNameLabel();
-        }
+//        } else {
+//            element = getNameLabel();
+//        }
         assertion.assertEquals(expectedValue, element.getText(), "Unexpected object name.");
         return this;
     }
