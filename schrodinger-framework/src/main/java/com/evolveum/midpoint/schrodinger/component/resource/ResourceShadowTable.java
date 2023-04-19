@@ -43,7 +43,7 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     @Override
     public AccountPage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
-        SelenideElement link = getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name));
+        SelenideElement link = getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "title", name));
         link.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         Utils.waitForAjaxCallFinish();
