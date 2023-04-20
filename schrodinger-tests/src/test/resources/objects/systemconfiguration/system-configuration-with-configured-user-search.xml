@@ -203,13 +203,15 @@
                 <identifier>allUsers</identifier>
                 <searchBoxConfiguration>
                     <searchItems>
-                        <searchItem id="881">
-                            <c:path xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3">c:employeeNumber</c:path>
+                        <searchItem>
+                            <path>c:employeeNumber</path>
                             <displayName>By employee number</displayName>
+                            <visibleByDefault>true</visibleByDefault>
                         </searchItem>
-                        <searchItem id="882">
-                            <c:path xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3">c:emailAddress</c:path>
+                        <searchItem>
+                            <path>c:emailAddress</path>
                             <displayName>By email</displayName>
+                            <visibleByDefault>true</visibleByDefault>
                         </searchItem>
                     </searchItems>
                 </searchBoxConfiguration>
