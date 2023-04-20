@@ -21,6 +21,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byText;
@@ -44,11 +45,10 @@ public class OperationRequestPanel extends Component<CasePage> {
     }
 
     public boolean changesAreRejected(){
-        return $(Schrodinger.byDataId("operationRequestCasePanel"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(By.className("card-danger"))
-                .$(byText("Changes rejected"))
-                .is(Condition.visible);
+        SelenideElement header = $(Schrodinger.byDataId("operationRequestCasePanel"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return Utils.elementContainsCssClass(header, "card-outline-left-danger") &&
+                header.$(byText("Changes rejected")).is(Condition.visible);
     }
 
     public OperationRequestPanel assertChangesAreApplied() {

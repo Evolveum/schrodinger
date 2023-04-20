@@ -373,4 +373,12 @@ public class Utils {
         }
     }
 
+    public static boolean elementContainsCssClass(SelenideElement element, String cssClass) {
+        if (element == null || !element.exists()) {
+            return false;
+        }
+        String cssClassStr = element.getAttribute("class");
+        return cssClassStr != null && cssClassStr.contains(cssClass);
+    }
+
 }
