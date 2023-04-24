@@ -353,18 +353,17 @@ public class PrismForm<T> extends Component<T> {
         Utils.waitForAjaxCallFinish();
         SelenideElement element = null;
         try {
-            element = getParentElement().$x(".//*[contains(@data-s-qname, \"#" + name + "\")")
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            ElementsCollection properties = getParentElement().$$x(".//*[@data-s-id='property']");
+            element = properties.stream().filter(e ->
+                    e.getAttribute("data-s-qname") != null && e.getAttribute("data-s-qname").contains("#" + name))
+                    .findFirst()
+                    .orElse(null);
         } catch (Exception e) {
             element = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']");
         } finally {
-                if (element == null || !element.exists()) {
-                    //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
-                    //the first found element on the page. usual byText looks in the parent element
-//            element = getParentElement().$(By.xpath(".//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-//                    .parent().shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-                    element = getParentElement().$(byText(name)).parent().parent();
-                }
+            if (element == null || !element.exists()) {
+                element = getParentElement().$(byText(name)).parent().parent();
+            }
         }
         return element;
     }
