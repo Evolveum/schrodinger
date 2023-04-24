@@ -351,20 +351,20 @@ public class PrismForm<T> extends Component<T> {
 
     public SelenideElement findProperty(String name) {
         Utils.waitForAjaxCallFinish();
-        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue(null, "contains",
-                Schrodinger.DATA_S_QNAME, "#" + name));
-
-        if (element.exists()) {
-            element = element.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        } else {
+        SelenideElement element = null;
+        try {
+            element = getParentElement().$x(".//*[contains(@data-s-qname, \"#" + name + "\")")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        } catch (Exception e) {
             element = getParentElement().$x(".//div[@data-s-resource-key='" + name + "']");
-            if (!element.exists()) {
-                //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
-                //the first found element on the page. usual byText looks in the parent element
+        } finally {
+                if (element == null || !element.exists()) {
+                    //the problem with xpath is that it looks not in the parent element but on the whole page, so we get
+                    //the first found element on the page. usual byText looks in the parent element
 //            element = getParentElement().$(By.xpath(".//span[@data-s-id=\"label\"][contains(.,\"" + name + "\")]/..")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
 //                    .parent().shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-                element = getParentElement().$(byText(name)).parent().parent();
-            }
+                    element = getParentElement().$(byText(name)).parent().parent();
+                }
         }
         return element;
     }
