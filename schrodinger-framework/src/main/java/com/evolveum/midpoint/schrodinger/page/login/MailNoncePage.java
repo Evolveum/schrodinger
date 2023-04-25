@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.self.ChangePasswordPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -34,5 +35,9 @@ public class MailNoncePage extends FormLoginPage {
 
     public static String getBasePath() {
         return "/emailNonce";
+    }
+
+    public ChangePasswordPanel<MailNoncePage> getChangePasswordPanel() {
+        return new ChangePasswordPanel<>(this, $(Schrodinger.byDataId("mainForm")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 }

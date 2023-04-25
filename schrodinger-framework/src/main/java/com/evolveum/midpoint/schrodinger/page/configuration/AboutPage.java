@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selectors.byText;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -92,16 +93,14 @@ public class AboutPage extends BasicPage {
     }
 
 
-    // NOTE not sure if using xpath is the best way around this
-    public String hibernateDialect() {
-        SelenideElement additionalDetailsBox = $(By.cssSelector(".card.card-danger.card-outline"));
-
-        //4th row
-        SelenideElement dialectRow = additionalDetailsBox.find(Schrodinger.byDataId("tr", "3"));
-        return dialectRow.find(Schrodinger.bySchrodingerDataId("detailValue")).parent().getText();
-
-
-//        return additionalDetailsBox.find(By.xpath("/html/body/div[2]/div/section/div[2]/div[1]/div[2]/div/div[2]/div[2]/table/tbody/tr[4]/td[2]")).getText();
+    public boolean isNativeRepositoryImplementation() {
+        try {
+            SelenideElement row = $(byText("Implementation name")).parent();
+            row.should(Condition.text("Native"));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public String connIdFrameworkVersion() {
@@ -191,8 +190,9 @@ public class AboutPage extends BasicPage {
         return this;
     }
 
-    public AboutPage assertHibernateDialectValueEquals(String expectedHibernateDialectValue) {
-        assertion.assertEquals(expectedHibernateDialectValue, hibernateDialect(), "Hibernate dialect value doesn't match");
+
+    public AboutPage assertRepositoryImplementationIsNative() {
+        assertion.assertTrue(isNativeRepositoryImplementation(), "Repository implementation isn't Native");
         return this;
     }
 

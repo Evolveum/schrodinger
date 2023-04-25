@@ -48,6 +48,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/objects/archetypes/archetype-node-group-gui.xml");
 
     protected static final String NAME_OF_ENABLED_USER = "enabled_user";
+    protected static final String PASSWORD_OF_ENABLED_USER = "5ecr3t";
     protected static final String MAIL_OF_ENABLED_USER = "enabled_user@evolveum.com";
 
     private static final File ENABLED_USER = new File("src/test/resources/objects/users/enabled-user.xml");

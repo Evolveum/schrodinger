@@ -115,20 +115,22 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .and()
                 .clickSendButton();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-
-        TimeUnit.SECONDS.sleep(6);
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
-        TimeUnit.SECONDS.sleep(6);
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
                 "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
         clearNotificationFile();
 
-        //todo update the test with the check that reset password process ended up successfully
-//        String actualUrl = basicPage.getCurrentUrl();
-//        LOG.info("LoginPageTest actualUrl = " + actualUrl);
-//        Selenide.screenshot("resetPassowordSecurityQuestion");
+        securityQuestionsPage
+                .getChangePasswordPanel()
+                .setOldPasswordValue(PASSWORD_OF_ENABLED_USER)
+                .setNewPasswordValue("newPassword")
+                .setRepeatPasswordValue("newPassword")
+                .changePassword();
+
+        login.loginWithReloadLoginPage(NAME_OF_ENABLED_USER, "newPassword").assertUserMenuExist();
     }
 
     @Test

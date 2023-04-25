@@ -20,7 +20,9 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.self.ChangePasswordPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.checkerframework.checker.units.qual.C;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -39,5 +41,9 @@ public class ForgetPasswordSecurityQuestionsPage {
 
     public void clickSendButton() {
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+    }
+
+    public ChangePasswordPanel<ForgetPasswordSecurityQuestionsPage> getChangePasswordPanel() {
+        return new ChangePasswordPanel<>(this, $(Schrodinger.byDataId("mainForm")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 }
