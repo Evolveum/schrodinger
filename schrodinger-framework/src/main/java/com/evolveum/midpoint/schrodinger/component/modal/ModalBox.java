@@ -35,7 +35,7 @@ public class ModalBox<T> extends Component<T> {
     public boolean waitToBeHidden() {
         long end = System.currentTimeMillis() + 10000;
         while (System.currentTimeMillis() < end) {
-            if (CollectionUtils.isEmpty(getParentElement().findElements(By.xpath(".//*")))) {
+            if (!getParentElement().exists()) {
                 return true;
             }
         }
