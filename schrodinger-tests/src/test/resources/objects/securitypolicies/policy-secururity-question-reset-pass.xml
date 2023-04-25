@@ -32,6 +32,10 @@
             <httpBasic>
                 <name>httpBasic</name>
             </httpBasic>
+            <mailNonce>
+                <identifier>mailNonce</identifier>
+                <credentialName>mailNonce</credentialName>
+            </mailNonce>
             <securityQuestionsForm>
                 <name>secQ</name>
             </securityQuestionsForm>
@@ -77,7 +81,7 @@
             </module>
         </sequence>
         <sequence>
-            <name>securityQuestion</name>
+            <name>passwordResetSeq</name>
             <channel>
                 <default>true</default>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#resetPassword</channelId>
@@ -86,6 +90,11 @@
             <module>
                 <name>secQ</name>
                 <order>1</order>
+                <necessity>required</necessity>
+            </module>
+            <module>
+                <name>mailNonce</name>
+                <order>2</order>
                 <necessity>required</necessity>
             </module>
         </sequence>
@@ -132,6 +141,6 @@
     </flow>
     <credentialsReset>
         <name>userPasswordReset</name>
-        <authenticationSequenceName>securityQuestion</authenticationSequenceName>
+        <authenticationSequenceName>passwordResetSeq</authenticationSequenceName>
     </credentialsReset>
 </securityPolicy>

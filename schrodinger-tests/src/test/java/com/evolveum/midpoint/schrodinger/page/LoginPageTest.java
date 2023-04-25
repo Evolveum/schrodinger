@@ -60,6 +60,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         String linkTag = "link='";
         String link = notification.substring(notification.indexOf(linkTag) + linkTag.length(), notification.lastIndexOf("'"));
         open(link);
+        TimeUnit.SECONDS.sleep(6);
         new RegistrationConfirmationPage()
                 .assertSuccessPanelExists();
         String actualUrl = basicPage.getCurrentUrl();
@@ -69,10 +70,13 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
     @Test
     public void test030resetPasswordMailNonce() throws IOException, InterruptedException {
+        clearBrowser();
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         FormLoginPage login = midPoint.formLogin();
+        open("/login");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/login");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
@@ -80,7 +84,9 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setMail(MAIL_OF_ENABLED_USER);
         TimeUnit.SECONDS.sleep(6);
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
+        TimeUnit.SECONDS.sleep(6);
         open(link);
+        TimeUnit.SECONDS.sleep(6);
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
                 "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
@@ -88,7 +94,8 @@ public class LoginPageTest extends AbstractLoginPageTest {
     }
 
     @Test
-    public void test031resetPassowordSecurityQuestion() {
+    public void test031resetPasswordSecurityQuestionAndMailNonce() throws InterruptedException, IOException {
+        clearBrowser();
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         open("/login");
@@ -108,6 +115,15 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .and()
                 .clickSendButton();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+
+        TimeUnit.SECONDS.sleep(6);
+        String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
+        open(link);
+        TimeUnit.SECONDS.sleep(6);
+        String actualUrl = basicPage.getCurrentUrl();
+        Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
+                "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
+        clearNotificationFile();
 
         //todo update the test with the check that reset password process ended up successfully
 //        String actualUrl = basicPage.getCurrentUrl();

@@ -226,13 +226,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         LOG.info("Finished tests from class {}", getClass().getName());
 
 //        basicPage.loggedUser().logoutIfUserIsLogin();
-        Selenide.clearBrowserCookies();
-        Selenide.clearBrowserLocalStorage();
+        clearBrowser();
         Selenide.closeWebDriver(); //todo or closeWindow?
 
         if (resetToDefaultAfterTests()) {
             resetToDefault();
         }
+    }
+
+    public void clearBrowser() {
+        Selenide.clearBrowserCookies();
+        Selenide.clearBrowserLocalStorage();
     }
 
     protected void resetToDefault() {
