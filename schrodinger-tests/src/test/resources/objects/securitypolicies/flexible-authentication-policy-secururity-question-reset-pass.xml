@@ -27,46 +27,41 @@
     <authentication>
         <modules>
             <loginForm>
-                <name>internalLoginForm</name>
+                <identifier>internalLoginForm</identifier>
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
             <loginForm>
-                <name>internalLoginForm2</name>
+                <identifier>internalLoginForm2</identifier>
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
             <securityQuestionsForm>
-                <name>SecQ</name>
+                <identifier>SecQ</identifier>
                 <description>
                     This is interactive, form-based authentication by using security questions.
                 </description>
                 <credentialName>userQuestions</credentialName>
             </securityQuestionsForm>
             <mailNonce>
-                <name>registrationMail</name>
+                <identifier>registrationMail</identifier>
                 <description>Authentication based on mail message with a nonce. Used for user registration.</description>
                 <credentialName>mailNonce</credentialName>
             </mailNonce>
         </modules>
         <sequence>
-            <name>admin-gui-default</name>
+            <identifier>admin-gui-default</identifier>
             <channel>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channelId>
                 <default>true</default>
                 <urlSuffix>defaultGui</urlSuffix>
             </channel>
             <module>
-                <name>internalLoginForm</name>
+                <identifier>internalLoginForm</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>
-<!--            <module>-->
-<!--                <name>internalLoginForm2</name>-->
-<!--                <order>20</order>-->
-<!--                <necessity>sufficient</necessity>-->
-<!--            </module>-->
         </sequence>
         <sequence>
-            <name>admin-gui-emergency</name>
+            <identifier>admin-gui-emergency</identifier>
             <description>
                 Special GUI authentication sequence that is using just the internal user password.
                 It is used only in emergency. It allows to skip SAML authentication cycles, e.g. in case
@@ -81,13 +76,13 @@
                 <!-- Superuser -->
             </requireAssignmentTarget>
             <module>
-                <name>internalLoginForm</name>
+                <identifier>internalLoginForm</identifier>
                 <order>30</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>userPasswordResetAuth</name>
+            <identifier>userPasswordResetAuth</identifier>
             <description>
                 Just a nonce mail to validate e-mail address.
             </description>
@@ -96,13 +91,13 @@
                 <urlSuffix>resetPassword</urlSuffix>
             </channel>
             <module>
-                <name>SecQ</name>
+                <identifier>SecQ</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>selfRegistrationAuth</name>
+            <identifier>selfRegistrationAuth</identifier>
             <description>
                 Just a nonce mail to validate e-mail address.
             </description>
@@ -111,13 +106,13 @@
                 <urlSuffix>registration</urlSuffix>
             </channel>
             <module>
-                <name>registrationMail</name>
+                <identifier>registrationMail</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>admin-gui-default-node</name>
+            <identifier>admin-gui-default-node</identifier>
             <channel>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channelId>
                 <default>true</default>
@@ -126,7 +121,7 @@
             <requireAssignmentTarget oid="00000000-0000-0000-0000-000000000004" relation="org:default" type="c:RoleType"/>
             <nodeGroup oid="05b6933a-b7fc-4543-b8fa-fd8b278ff9ee" relation="org:default" type="c:ArchetypeType"/>
             <module>
-                <name>internalLoginForm</name>
+                <identifier>internalLoginForm</identifier>
                 <order>30</order>
                 <necessity>sufficient</necessity>
             </module>

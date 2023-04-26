@@ -125,7 +125,6 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
         securityQuestionsPage
                 .getChangePasswordPanel()
-                .setOldPasswordValue(PASSWORD_OF_ENABLED_USER)
                 .setNewPasswordValue("newPassword")
                 .setRepeatPasswordValue("newPassword")
                 .changePassword();

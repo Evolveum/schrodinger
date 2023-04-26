@@ -27,21 +27,21 @@
     <authentication>
         <modules>
             <loginForm>
-                <name>loginForm</name>
+                <identifier>loginForm</identifier>
             </loginForm>
             <httpBasic>
-                <name>httpBasic</name>
+                <identifier>httpBasic</identifier>
             </httpBasic>
             <mailNonce>
                 <identifier>mailNonce</identifier>
                 <credentialName>mailNonce</credentialName>
             </mailNonce>
             <securityQuestionsForm>
-                <name>secQ</name>
+                <identifier>secQ</identifier>
             </securityQuestionsForm>
         </modules>
         <sequence>
-            <name>admin-gui-default</name>
+            <identifier>admin-gui-default</identifier>
             <displayName>Default gui sequence</displayName>
             <channel>
                 <default>true</default>
@@ -49,51 +49,51 @@
                 <urlSuffix>gui-default</urlSuffix>
             </channel>
             <module>
-                <name>loginForm</name>
+                <identifier>loginForm</identifier>
                 <order>1</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>rest-default</name>
+            <identifier>rest-default</identifier>
             <channel>
                 <default>true</default>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#rest</channelId>
                 <urlSuffix>rest-default</urlSuffix>
             </channel>
             <module>
-                <name>httpBasic</name>
+                <identifier>httpBasic</identifier>
                 <order>1</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>actuator-default</name>
+            <identifier>actuator-default</identifier>
             <channel>
                 <default>true</default>
                 <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#actuator</channelId>
                 <urlSuffix>actuator-default</urlSuffix>
             </channel>
             <module>
-                <name>httpBasic</name>
+                <identifier>httpBasic</identifier>
                 <order>1</order>
                 <necessity>sufficient</necessity>
             </module>
         </sequence>
         <sequence>
-            <name>passwordResetSeq</name>
+            <identifier>passwordResetSeq</identifier>
             <channel>
                 <default>true</default>
-                <channelId>http://midpoint.evolveum.com/xml/ns/public/gui/channels-3#resetPassword</channelId>
-                <urlSuffix>resetPassword-default</urlSuffix>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#resetPassword</channelId>
+                <urlSuffix>resetPassword</urlSuffix>
             </channel>
             <module>
-                <name>secQ</name>
+                <identifier>secQ</identifier>
                 <order>1</order>
                 <necessity>required</necessity>
             </module>
             <module>
-                <name>mailNonce</name>
+                <identifier>mailNonce</identifier>
                 <order>2</order>
                 <necessity>required</necessity>
             </module>
