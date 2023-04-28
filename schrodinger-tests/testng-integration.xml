@@ -85,10 +85,6 @@
     <test name="LoginPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
             <class name="com.evolveum.midpoint.schrodinger.page.LoginPageTest"/>
-        </classes>
-    </test>
-    <test name="LoginPageWithAuthenticationConfigTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
-        <classes>
             <class name="com.evolveum.midpoint.schrodinger.page.LoginPageWithAuthenticationConfigTest"/>
         </classes>
     </test>
@@ -147,25 +143,4 @@
             <class name="com.evolveum.midpoint.schrodinger.scenarios.ObjectTemplateTests"/>
         </classes>
     </test>
-    <test name="fundamental-labs" preserve-order="true" parallel="false" verbose="3" enabled="true">
-        <classes>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M3ResourcesAttributesAndMappingsTest"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M4ProvisioningToResources"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M5AccountsAssignmentsAndRoles"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M6ConfiguringMultipleAccountTypes"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M7SynchronizationFlavours"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M8ExtendingMidPointXMLSchema"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M9OrganizationalStructure"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M10ObjectTemplate"/>
-            <class name="com.evolveum.midpoint.schrodinger.labs.fundamental.M11SystemConfiguration"/>
-        </classes>
-    </test>
-<!--    <test name="advanced-labs" preserve-order="true" parallel="false" verbose="3" enabled="true">-->
-<!--        <classes>-->
-<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M1ArchetypeAndObjectCollections"/>-->
-<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M2AdvancedResourceFeatures"/>-->
-<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M3GenericSynchronizationAndMetaroles"/>-->
-<!--            <class name="com.evolveum.midpoint.schrodinger.labs.advanced.M4RoleRequestAndApproval"/>-->
-<!--        </classes>-->
-<!--    </test>-->
 </suite>

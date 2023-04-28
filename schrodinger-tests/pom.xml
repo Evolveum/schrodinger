@@ -21,8 +21,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Notes
-        Running GUI tests from Schrodinger module
-    mvn clean install  -P build-framework-test
+
+    Running basic GUI tests from Schrodinger module
+    mvn clean install
+
+    For running tests for fundamental labs
+    mvn clean install -P fundamental-labs
+
+    For running tests for advanced labs
+    mvn clean install -P advanced-labs
+
+    For running tests for flexible authentication modules
+    mvn clean install -P flexible-authentication
+
+    For running all tests, so basic GUI tests, tests for fundamental labs,
+    tests for advanced labs and tests for flexible authentication modules
+    mvn clean install -P all-tests
     -->
     <parent>
         <artifactId>schrodinger</artifactId>
@@ -52,15 +66,29 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.evolveum.midpoint</groupId>
             <artifactId>schrodinger-framework</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.evolveum.prism</groupId>
+            <artifactId>prism-api</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide-core</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -76,6 +104,7 @@
             <groupId>com.evolveum.midpoint.infra</groupId>
             <artifactId>schema</artifactId>
             <version>${midpoint.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.evolveum.commons</groupId>
@@ -83,10 +112,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.evolveum.commons</groupId>
+            <artifactId>util</artifactId>
+            <version>${midpoint.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.evolveum.midpoint.gui</groupId>
             <artifactId>admin-gui</artifactId>
             <version>${midpoint.version}</version>
-<!--            <classifier>classes</classifier>-->
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -134,6 +168,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.evolveum.midpoint.repo</groupId>
@@ -155,11 +190,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-report-plugin</artifactId>
-            <version>3.0.0-M5</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -174,9 +205,9 @@
                             <goal>analyze-only</goal>
                         </goals>
                         <configuration>
-                            <!--                            <ignoredDependencies>-->
-                            <!--                                <ignoredDependency>org.hibernate:hibernate-core</ignoredDependency>-->
-                            <!--                            </ignoredDependencies>-->
+                            <ignoredDependencies>
+                                <ignoredDependency>com.evolveum.midpoint.repo:repo-sql-impl</ignoredDependency>
+                            </ignoredDependencies>
                         </configuration>
                     </execution>
                 </executions>
@@ -214,18 +245,6 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>testng-integration.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <properties>
-                        <property>
-                            <name>suitename</name>
-                            <value>Unit</value>
-                        </property>
-<!--                        <property>-->
-<!--                            <name>listener</name>-->
-<!--                            <value>-->
-<!--                                com.evolveum.midpoint.tools.testng.TestListener,com.evolveum.midpoint.tools.testng.RetryListener-->
-<!--                            </value>-->
-<!--                        </property>-->
-                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -242,56 +261,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.0.0</version>
             </plugin>
         </plugins>
     </reporting>
     <profiles>
         <profile>
-            <id>configless</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
-                        <configuration>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <midpoint.home>target/midpoint-home</midpoint.home>
-                                <midpoint.test.folder>target</midpoint.test.folder>
-                            </systemPropertyVariables>
-                            <properties>
-                                <property>
-                                    <name>testnames</name>
-                                    <value>UserPhotoTests,OrganizationStructureTests,UserAccountTests,OrgMembersTests,PolyStringTests,PostAuthenticationTests,SynchronizationTests,ObjectListArchetypeTests,CaseTests,UserTest,UsersTest,QueryPlaygroundPageTest,InternalsConfigurationPageTest,LoginPageTest,LoginPageWithAuthenticationConfigTest,AboutPageTest,BulkActionsTest,ImportTest,HomePageTest,TaskPageTest,FilterConfigPanelTest,SearchPanelTest,AssignmentPanelTest,CredentialsPageTest,ReportTests,ObjectTemplateTests</value>
-                                </property>
-                            </properties>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>fundamental-labs</id>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
                         <configuration>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <midpoint.home>target/midpoint-home</midpoint.home>
-                                <midpoint.test.folder>target</midpoint.test.folder>
-                            </systemPropertyVariables>
-                            <properties>
-                                <property>
-                                    <name>testnames</name>
-                                    <value>fundamental-labs</value>
-                                </property>
-                            </properties>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng-fundamental-labs.xml</suiteXmlFile>
+                            </suiteXmlFiles>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -302,21 +286,26 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
                         <configuration>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <midpoint.home>target/midpoint-home</midpoint.home>
-                                <midpoint.test.folder>target</midpoint.test.folder>
-                            </systemPropertyVariables>
-                            <properties>
-                                <property>
-                                    <name>testnames</name>
-                                    <value>advanced-labs</value>
-                                </property>
-                            </properties>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng-advanced-labs.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>flexible-authentication</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng-flexible-authentication.xml</suiteXmlFile>
+                            </suiteXmlFiles>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -327,34 +316,14 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
                         <configuration>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <midpoint.home>target/midpoint-home</midpoint.home>
-                                <midpoint.test.folder>target</midpoint.test.folder>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>build-framework-test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
-                        <configuration>
-                            <testFailureIgnore>true</testFailureIgnore>
-                            <systemPropertyVariables>
-                                <midpoint.home>target/midpoint-home</midpoint.home>
-                                <midpoint.test.folder>target</midpoint.test.folder>
-                            </systemPropertyVariables>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng-integration.xml</suiteXmlFile>
+                                <suiteXmlFile>testng-fundamental-labs.xml</suiteXmlFile>
+                                <suiteXmlFile>testng-advanced-labs.xml</suiteXmlFile>
+                                <suiteXmlFile>testng-flexible-authentication.xml</suiteXmlFile>
+                            </suiteXmlFiles>
                         </configuration>
                     </plugin>
                 </plugins>

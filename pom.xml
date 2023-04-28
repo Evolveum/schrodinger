@@ -62,13 +62,13 @@
     </modules>
 
     <properties>
-        <selenium.version>4.1.1</selenium.version>
-        <testng.version>7.6.1</testng.version>
+        <selenium.version>4.9.0</selenium.version>
+        <selenide.version>6.13.1</selenide.version>
+        <testng.version>7.7.1</testng.version>
         <project.source.version>11</project.source.version>
         <commons.io.version>2.9.0</commons.io.version>
-        <slf4j.version>1.7.30</slf4j.version>
-        <surefire.version>3.0.0-M6</surefire.version>
-<!--        <spring.security.saml2.version>2.0.0.M30</spring.security.saml2.version>-->
+        <slf4j.version>1.7.36</slf4j.version>
+        <surefire.version>3.0.0</surefire.version>
         <quartz.version>2.3.2.e3</quartz.version>
         <hibernate.version>5.5.3.Final</hibernate.version>
         <!--
@@ -84,7 +84,7 @@
         <h2.version>1.4.193</h2.version>
         <guava.version>31.1-jre</guava.version>
         <midpoint.version>4.8-SNAPSHOT</midpoint.version>
-        <connid.version>1.5.1.7</connid.version>
+        <connid.version>1.5.1.10</connid.version>
     </properties>
 
     <scm>
@@ -173,7 +173,23 @@
             <dependency>
                 <groupId>com.codeborne</groupId>
                 <artifactId>selenide</artifactId>
-                <version>6.6.5</version>
+                <version>${selenide.version}</version>
+                <exclusions>
+                    <!-- Excluding to exclude commons-logging lower -->
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-all</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.codeborne</groupId>
+                <artifactId>selenide-core</artifactId>
+                <version>${selenide.version}</version>
                 <exclusions>
                     <!-- Excluding to exclude commons-logging lower -->
                     <exclusion>
@@ -274,7 +290,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>3.10.1</version>
                     <configuration>
                         <source>${project.source.version}</source>
                         <target>${project.source.version}</target>
@@ -283,60 +299,4 @@
             </plugins>
         </pluginManagement>
     </build>
-    <profiles>
-        <profile>
-            <id>all-tests</id>
-            <modules>
-                <module>schrodinger-framework</module>
-                <module>schrodinger-tests</module>
-            </modules>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>configless</id>
-            <modules>
-                <module>schrodinger-framework</module>
-                <module>schrodinger-tests</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>fundamental-labs</id>
-            <modules>
-                <module>schrodinger-framework</module>
-                <module>schrodinger-tests</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>advanced-labs</id>
-            <modules>
-                <module>schrodinger-framework</module>
-                <module>schrodinger-tests</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>build-framework-test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${surefire.version}</version>
-                    </plugin>
-                </plugins>
-            </build>
-            <modules>
-                <module>schrodinger-framework</module>
-                <module>schrodinger-tests</module>
-            </modules>
-        </profile>
-    </profiles>
-
 </project>
