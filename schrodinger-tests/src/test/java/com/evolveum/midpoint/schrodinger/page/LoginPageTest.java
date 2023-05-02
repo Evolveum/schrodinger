@@ -105,8 +105,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         importObject(SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         basicPage.loggedUser().logoutIfUserIsLogin();
         login.forgotPassword()
-                .setUsernameValue(NAME_OF_ENABLED_USER)
-//                .setEmailValue(MAIL_OF_ENABLED_USER)
+                .setUsernameValue(NAME_OF_RESET_PASSWORD_TEST_USER)
                 .clickShowQuestionsButton();
         ForgetPasswordSecurityQuestionsPage securityQuestionsPage = new ForgetPasswordSecurityQuestionsPage();
         securityQuestionsPage
@@ -129,7 +128,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setRepeatPasswordValue("newPassword")
                 .changePassword();
 
-        login.loginWithReloadLoginPage(NAME_OF_ENABLED_USER, "newPassword").assertUserMenuExist();
+        login.loginWithReloadLoginPage(NAME_OF_RESET_PASSWORD_TEST_USER, "newPassword").assertUserMenuExist();
     }
 
     @Test

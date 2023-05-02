@@ -48,10 +48,12 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/objects/archetypes/archetype-node-group-gui.xml");
 
     protected static final String NAME_OF_ENABLED_USER = "enabled_user";
+    protected static final String NAME_OF_RESET_PASSWORD_TEST_USER = "resetPasswordTestUser";
     protected static final String PASSWORD_OF_ENABLED_USER = "5ecr3t";
     protected static final String MAIL_OF_ENABLED_USER = "enabled_user@evolveum.com";
 
     private static final File ENABLED_USER = new File("src/test/resources/objects/users/enabled-user.xml");
+    private static final File RESET_PASSWORD_TEST_USER = new File("src/test/resources/objects/users/reset-password-test-user.xml");
     private static final File DISABLED_USER = new File("src/test/resources/objects/users/disabled-user.xml");
     private static final File ENABLED_USER_WITHOUT_AUTHORIZATIONS = new File("src/test/resources/objects/users/enabled-user-without-authorizations.xml");
     private static final Logger LOG = LoggerFactory.getLogger(AbstractLoginPageTest.class);
@@ -65,6 +67,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         System.setProperty("midpoint.schrodinger","true");
 
         importObject(ENABLED_USER, true);
+        importObject(RESET_PASSWORD_TEST_USER, true);
         importObject(DISABLED_USER, true);
         importObject(ENABLED_USER_WITHOUT_AUTHORIZATIONS, true);
         importObject(MAIL_NONCE_VALUE_POLICY, true);
