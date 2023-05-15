@@ -46,7 +46,6 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.self.CredentialsPage;
 import com.evolveum.midpoint.schrodinger.page.self.HomePage;
 import com.evolveum.midpoint.schrodinger.page.self.ProfilePage;
-import com.evolveum.midpoint.schrodinger.page.self.RequestRolePage;
 import com.evolveum.midpoint.schrodinger.page.self.accessrequest.PersonOfInterestStepPanel;
 import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RequestAccessPage;
 import com.evolveum.midpoint.schrodinger.page.service.ListServicesPage;
@@ -64,8 +63,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -379,6 +376,7 @@ public class BasicPage {
     }
 
     public ImportObjectPage importObject() {
+        Selenide.sleep(1000);
         clickConfigurationMenu("PageAdmin.menu.top.configuration.importObject");
         return new ImportObjectPage();
     }
@@ -643,8 +641,12 @@ public class BasicPage {
         return null;
     }
 
+    public SelenideElement getUserMenu() {
+        return $(".main-header.navbar");
+    }
+
     public boolean userMenuExists() {
-        return $(".main-header.navbar").exists();
+        return getUserMenu().exists();
     }
 
     public BasicPage assertElementWithTextExists(String text) {

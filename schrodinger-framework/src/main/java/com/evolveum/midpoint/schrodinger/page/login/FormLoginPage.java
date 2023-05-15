@@ -36,6 +36,8 @@ import static com.codeborne.selenide.Selenide.*;
  */
 public class FormLoginPage extends LoginPage {
 
+    private static final String EMERGENCY_PATH = "/auth/emergency";
+
     public SelfRegistrationPage register() {
         $(Schrodinger.byDataId("selfRegistration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
@@ -68,9 +70,27 @@ public class FormLoginPage extends LoginPage {
         open("/login");
         Selenide.sleep(1000);
         if(!userMenuExists()) {
+            if (!isOnLoginPage()) {
+                open(EMERGENCY_PATH);
+                Selenide.sleep(1000);
+            }
             return login(username, password, locale);
         }
         return new BasicPage();
+    }
+
+    private boolean isOnLoginPage() {
+        SelenideElement box = $(".login-card-body");
+        if (!box.exists()) {
+            return false;
+        }
+        SelenideElement titleBox = box.$(".login-box-msg");
+        if (!titleBox.exists()) {
+            return false;
+        }
+
+        String title = titleBox.getAttribute("data-s-resource-key");
+        return "PageLogin.loginToYourAccount".equals(title);
     }
 
     public BasicPage loginWithReloadLoginPage(String username, String password) {
@@ -81,6 +101,10 @@ public class FormLoginPage extends LoginPage {
         open("/login");
         Selenide.sleep(5000);
 
+        if (isOnLoginPage()) {
+            open(EMERGENCY_PATH);
+            Selenide.sleep(1000);
+        }
         return login(username, password, locale);
     }
 
@@ -130,4 +154,15 @@ public class FormLoginPage extends LoginPage {
         Utils.waitForAjaxCallFinish();
         return FormLoginPage.this;
     }
+
+    public void assertErrorText(String errorText) {
+        String text = $x(".//div[@class='feedback-message card card-danger']")
+                .shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .text();
+
+        assertion.assertTrue(
+                text != null && text.contains(errorText),
+                "Expected error text:'" + errorText + "', but was:'" + text + "'");
+    }
+
 }
