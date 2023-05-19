@@ -31,17 +31,17 @@
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
             <oidc>
-                <name>oidcAzure</name>
+                <name>oidcIdp</name>
                 <client>
-                    <registrationId>azure</registrationId>
+                    <registrationId>idpServer</registrationId>
                     <scope>profile</scope>
-                    <clientName>Azure</clientName>
+                    <clientName>IDP Server</clientName>
                     <clientId>||clientId||</clientId>
                     <clientSecret>
                         <clearValue>||clientSecret||</clearValue>
                     </clientSecret>
                     <clientAuthenticationMethod>clientSecretBasic</clientAuthenticationMethod>
-                    <nameOfUsernameAttribute>wrong_attribute_name</nameOfUsernameAttribute>
+                    <nameOfUsernameAttribute>preferred_username</nameOfUsernameAttribute>
                     <openIdProvider>
                         <issuerUri>||issuerUri||</issuerUri>
                     </openIdProvider>
@@ -59,7 +59,7 @@
                 <urlSuffix>defaultGui</urlSuffix>
             </channel>
             <module>
-                <identifier>oidcAzure</identifier>
+                <identifier>oidcIdp</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.flexible.authentication.azure;
+package com.evolveum.midpoint.schrodinger.flexible.authentication.oidc;
 
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.flexible.authentication.AbstractOidcAuthModuleTest;
+import com.evolveum.midpoint.schrodinger.flexible.authentication.util.AzureUtils;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -56,15 +56,11 @@ public class AzureOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
         return AzureUtils.getUsernameWithSuffix(super.getNonExistUsername());
     }
 
-    @Override
-    @Test(enabled = false)
-    public void test004SuccessLoginAndLogoutPrivateKeyJWT() throws Exception {
-        super.test004SuccessLoginAndLogoutPrivateKeyJWT();
+    protected String getDisabledUserFilePath() {
+        return USER_FILE_PREFIX + getServerPrefix() + "-" + DISABLED_USER_FILE_SUFFIX;
     }
 
-    @Override
-    @Test(enabled = false)
-    public void test005SuccessLoginAndLogoutPrivateKeyJWTByKeyStore() throws Exception {
-        super.test005SuccessLoginAndLogoutPrivateKeyJWTByKeyStore();
+    protected String getEnabledUserFilePath() {
+        return USER_FILE_PREFIX + getServerPrefix() + "-" + ENABLED_USER_FILE_SUFFIX;
     }
 }

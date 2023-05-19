@@ -18,8 +18,10 @@
 <suite name="flexible-authentication" parallel="false" verbose="1">
     <test name="Oidc" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
-            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.azure.AzureOidcAuthModuleTest"/>
-            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.azure.AzureSamlAuthModuleTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.oidc.AzureOidcAuthModuleTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.saml.AzureSamlAuthModuleTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.oidc.KeycloakOidcAuthModuleTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.saml.KeycloakSamlAuthModuleTest"/>
         </classes>
     </test>
 </suite>

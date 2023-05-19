@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.flexible.authentication;
+package com.evolveum.midpoint.schrodinger.flexible.authentication.saml;
 
+import com.evolveum.midpoint.schrodinger.flexible.authentication.AbstractRemoteAuthModuleTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -23,14 +24,22 @@ import java.io.IOException;
 public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModuleTest {
 
     private static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/saml/";
-    private static final String SECURITY_POLICY_METADATA_URL_SUFFIX = "-metadata-url.xml";
-    private static final String SECURITY_POLICY_PATH_TO_XML_SUFFIX = "-path-to-xml.xml";
-    private static final String SECURITY_POLICY_XML_FILE_SUFFIX = "-xml-file.xml";
-    private static final String SECURITY_POLICY_SIGNING_SUFFIX = "-signing.xml";
-    private static final String SECURITY_POLICY_SIGNING_KEYSTORE_SUFFIX = "-signing-keystore.xml";
-    private static final String SECURITY_POLICY_DECRYPTION_SUFFIX = "-decryption.xml";
-    private static final String SECURITY_POLICY_DECRYPTION_KEYSTORE_SUFFIX = "-decryption-keystore.xml";
-    private static final String SECURITY_POLICY_WRONG_ATTRIBUTE_NAME = "-wrong-attribute-name.xml";
+    private static final File SECURITY_POLICY_METADATA_URL_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "metadata-url.xml");
+    private static final File SECURITY_POLICY_PATH_TO_XML_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "path-to-xml.xml");
+    private static final File SECURITY_POLICY_XML_FILE_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "xml-file.xml");
+    private static final File SECURITY_POLICY_SIGNING_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "signing.xml");
+    private static final File SECURITY_POLICY_SIGNING_KEYSTORE_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "signing-keystore.xml");
+    private static final File SECURITY_POLICY_DECRYPTION_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "decryption.xml");
+    private static final File SECURITY_POLICY_DECRYPTION_KEYSTORE_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "decryption-keystore.xml");
+    private static final File SECURITY_POLICY_WRONG_ATTRIBUTE_NAME_FILE =
+            new File(BASE_DIR_FOR_SECURITY_FILES + "wrong-attribute-name.xml");
 
     private static final String ENTITY_ID_KEY = "entityId";
     private static final String METADATA_URL_KEY = "metadataUrl";
@@ -71,11 +80,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     protected void applyBasicSecurityPolicy() throws IOException {
         applyBasicSecurityPolicy(
-                getBasicSecurityPolicy(
-                        new File(
-                                BASE_DIR_FOR_SECURITY_FILES +
-                                        getServerPrefix() +
-                                        SECURITY_POLICY_METADATA_URL_SUFFIX)));
+                getBasicSecurityPolicy(SECURITY_POLICY_METADATA_URL_FILE));
     }
 
 
@@ -103,10 +108,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     @Test
     public void test002SuccessLoginAndLogoutPathToXmlFile() throws Exception {
-        String securityContent = getSecurityPolicy(new File(
-                BASE_DIR_FOR_SECURITY_FILES +
-                        getServerPrefix() +
-                        SECURITY_POLICY_PATH_TO_XML_SUFFIX));
+        String securityContent = getSecurityPolicy(SECURITY_POLICY_PATH_TO_XML_FILE);
         securityContent = securityContent.replace(createTag(ENTITY_ID_KEY), getProperty(ENTITY_ID_KEY));
         securityContent = securityContent.replace(createTag(PATH_TO_FILE_KEY), getProperty(PATH_TO_FILE_KEY));
 
@@ -117,10 +119,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     @Test
     public void test003SuccessLoginAndLogoutXml() throws Exception {
-        String securityContent = getSecurityPolicy(new File(
-                BASE_DIR_FOR_SECURITY_FILES +
-                        getServerPrefix() +
-                        SECURITY_POLICY_XML_FILE_SUFFIX));
+        String securityContent = getSecurityPolicy(SECURITY_POLICY_XML_FILE_FILE);
         securityContent = securityContent.replace(createTag(ENTITY_ID_KEY), getProperty(ENTITY_ID_KEY));
         securityContent = securityContent.replace(createTag(XML_FILE_KEY), getProperty(XML_FILE_KEY));
 
@@ -131,10 +130,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     @Test
     public void test004SuccessLoginAndLogoutSigningAuthRequest() throws Exception {
-        String securityContent = getSecurityPolicy(new File(
-                BASE_DIR_FOR_SECURITY_FILES +
-                        getServerPrefix() +
-                        SECURITY_POLICY_SIGNING_SUFFIX));
+        String securityContent = getSecurityPolicy(SECURITY_POLICY_SIGNING_FILE);
         securityContent = securityContent.replace(
                 createTag(ENTITY_ID_KEY),
                 getProperty(addSigningPrefix(ENTITY_ID_KEY)));
@@ -149,10 +145,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     @Test
     public void test005SuccessLoginAndLogoutSigningKeystore() throws Exception {
-        String securityContent = super.getSecurityPolicy(new File(
-                BASE_DIR_FOR_SECURITY_FILES +
-                        getServerPrefix() +
-                        SECURITY_POLICY_SIGNING_KEYSTORE_SUFFIX));
+        String securityContent = super.getSecurityPolicy(SECURITY_POLICY_SIGNING_KEYSTORE_FILE);
         securityContent = securityContent.replace(
                 createTag(ENTITY_ID_KEY),
                 getProperty(addSigningPrefix(ENTITY_ID_KEY)));
@@ -179,10 +172,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     @Test
     public void test006SuccessLoginAndLogoutDecryptionAssertion() throws Exception {
-        String securityContent = getSecurityPolicy(new File(
-                BASE_DIR_FOR_SECURITY_FILES +
-                        getServerPrefix() +
-                        SECURITY_POLICY_DECRYPTION_SUFFIX));
+        String securityContent = getSecurityPolicy(SECURITY_POLICY_DECRYPTION_FILE);
         securityContent = securityContent.replace(
                 createTag(addDecryptionPrefix(PRIVATE_KEY_KEY)),
                 getProperty(addDecryptionPrefix(PRIVATE_KEY_KEY)));
@@ -205,10 +195,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
 
     @Test
     public void test007SuccessLoginAndLogoutDecryptionAssertionKeystore() throws Exception {
-        String securityContent = getSecurityPolicy(new File(
-                BASE_DIR_FOR_SECURITY_FILES +
-                        getServerPrefix() +
-                        SECURITY_POLICY_DECRYPTION_KEYSTORE_SUFFIX));
+        String securityContent = getSecurityPolicy(SECURITY_POLICY_DECRYPTION_KEYSTORE_FILE);
         securityContent = securityContent.replace(
                 createTag(addDecryptionPrefix(KEY_STORE_PATH_KEY)),
                 getProperty(addDecryptionPrefix(KEY_STORE_PATH_KEY)));
@@ -235,11 +222,7 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
     @Test
     public void test008WrongAttributeName() throws Exception {
         applyBasicSecurityPolicy(
-                getBasicSecurityPolicy(
-                        new File(
-                                BASE_DIR_FOR_SECURITY_FILES +
-                                        getServerPrefix() +
-                                        SECURITY_POLICY_WRONG_ATTRIBUTE_NAME)));
+                getBasicSecurityPolicy(SECURITY_POLICY_WRONG_ATTRIBUTE_NAME_FILE));
 
         failLoginAndLogout(
                 getNonExistUsername(),

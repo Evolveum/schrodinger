@@ -31,32 +31,33 @@
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
             <saml2>
-                <name>samlAzure</name>
+                <name>samlIdp</name>
                 <serviceProvider>
-                    <entityId>azureSigning</entityId>
-                    <aliasForPath>azure</aliasForPath>
+                    <entityId>sp-schrodinger-singing</entityId>
+                    <aliasForPath>sp-schrodinger</aliasForPath>
                     <signRequests>true</signRequests>
                     <identityProvider>
                         <entityId>||entityId||</entityId>
                         <metadata>
                             <metadataUrl>||metadataUrl||</metadataUrl>
                         </metadata>
-                        <linkText>Azure</linkText>
+                        <linkText>IDP Server</linkText>
                         <authenticationRequestBinding>urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</authenticationRequestBinding>
                         <nameOfUsernameAttribute>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</nameOfUsernameAttribute>
                     </identityProvider>
                     <keys>
-                        <activeKeyStoreKey>
-                            <keyStorePath>||signing.keyStorePath||</keyStorePath>
-                            <keyStorePassword>
-                                <clearValue>||signing.keyStorePassword||</clearValue>
-                            </keyStorePassword>
-                            <keyPassword>
-                                <clearValue>||signing.keyPassword||</clearValue>
-                            </keyPassword>
-                            <keyAlias>||signing.keyAlias||</keyAlias>
+                        <activeSimpleKey>
+                            <privateKey>
+                                <clearValue>||signing.privateKey||</clearValue>
+                            </privateKey>
+                            <passphrase>
+                                <clearValue>||signing.passphrase||</clearValue>
+                            </passphrase>
+                            <certificate>
+                                <clearValue>||signing.certificate||</clearValue>
+                            </certificate>
                             <type>signing</type>
-                        </activeKeyStoreKey>
+                        </activeSimpleKey>
                     </keys>
                 </serviceProvider>
             </saml2>
@@ -72,7 +73,7 @@
                 <urlSuffix>defaultGui</urlSuffix>
             </channel>
             <module>
-                <identifier>samlAzure</identifier>
+                <identifier>samlIdp</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>

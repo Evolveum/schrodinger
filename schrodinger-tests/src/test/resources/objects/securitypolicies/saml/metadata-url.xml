@@ -30,23 +30,37 @@
                 <identifier>internalLoginForm</identifier>
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
-            <oidc>
-                <name>oidcAzure</name>
-                <client>
-                    <registrationId>azure</registrationId>
-                    <scope>profile</scope>
-                    <clientName>Azure</clientName>
-                    <clientId>||clientId||</clientId>
-                    <clientSecret>
-                        <clearValue>||clientSecret||</clearValue>
-                    </clientSecret>
-                    <clientAuthenticationMethod>clientSecretBasic</clientAuthenticationMethod>
-                    <nameOfUsernameAttribute>preferred_username</nameOfUsernameAttribute>
-                    <openIdProvider>
-                        <issuerUri>||issuerUri||</issuerUri>
-                    </openIdProvider>
-                </client>
-            </oidc>
+            <saml2>
+                <name>samlIdp</name>
+                <serviceProvider>
+                    <entityId>sp-schrodinger</entityId>
+                    <aliasForPath>sp-schrodinger</aliasForPath>
+                    <signRequests>false</signRequests>
+                    <identityProvider>
+                        <entityId>||entityId||</entityId>
+                        <metadata>
+                            <metadataUrl>||metadataUrl||</metadataUrl>
+                        </metadata>
+                        <linkText>IDP Server</linkText>
+                        <authenticationRequestBinding>urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</authenticationRequestBinding>
+                        <nameOfUsernameAttribute>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</nameOfUsernameAttribute>
+                    </identityProvider>
+                    <keys>
+                        <activeSimpleKey>
+                            <privateKey>
+                                <clearValue>||signing.privateKey||</clearValue>
+                            </privateKey>
+                            <passphrase>
+                                <clearValue>||signing.passphrase||</clearValue>
+                            </passphrase>
+                            <certificate>
+                                <clearValue>||signing.certificate||</clearValue>
+                            </certificate>
+                            <type>signing</type>
+                        </activeSimpleKey>
+                    </keys>
+                </serviceProvider>
+            </saml2>
             <httpBasic>
                 <identifier>httpBasic</identifier>
             </httpBasic>
@@ -59,7 +73,7 @@
                 <urlSuffix>defaultGui</urlSuffix>
             </channel>
             <module>
-                <identifier>oidcAzure</identifier>
+                <identifier>samlIdp</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>

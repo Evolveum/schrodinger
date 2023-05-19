@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.flexible.authentication.azure;
+package com.evolveum.midpoint.schrodinger.flexible.authentication.util;
 
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;

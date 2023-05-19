@@ -35,9 +35,9 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTest {
-    private static final String USER_FILE_PREFIX = "src/test/resources/objects/users/";
-    private static final String ENABLED_USER_FILE_SUFFIX = "-enabled-user.xml";
-    private static final String DISABLED_USER_FILE_SUFFIX = "-disabled-user.xml";
+    protected static final String USER_FILE_PREFIX = "src/test/resources/objects/users/";
+    protected static final String ENABLED_USER_FILE_SUFFIX = "enabled-user.xml";
+    protected static final String DISABLED_USER_FILE_SUFFIX = "disabled-user.xml";
 
     private static final String USER_PASSWORD_KEY = "userPassword";
 
@@ -55,11 +55,11 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
         this.properties = loadProperties(getPropertyFile());
 
         addObjectFromFile(
-                new File(USER_FILE_PREFIX + getServerPrefix() + ENABLED_USER_FILE_SUFFIX),
+                new File(getEnabledUserFilePath()),
                 true);
 
         addObjectFromFile(
-                new File(USER_FILE_PREFIX + getServerPrefix() + DISABLED_USER_FILE_SUFFIX),
+                new File(getDisabledUserFilePath()),
                 true);
 
         basicPage.loggedUser().logoutIfUserIsLogin();
@@ -68,6 +68,14 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
         Selenide.closeWindow();
+    }
+
+    protected String getDisabledUserFilePath() {
+        return USER_FILE_PREFIX + DISABLED_USER_FILE_SUFFIX;
+    }
+
+    protected String getEnabledUserFilePath() {
+        return USER_FILE_PREFIX + ENABLED_USER_FILE_SUFFIX;
     }
 
     protected abstract File getPropertyFile();

@@ -31,17 +31,17 @@
                 <description>Internal username/password authentication, default user password, login form</description>
             </loginForm>
             <saml2>
-                <name>samlAzure</name>
+                <name>samlIdp</name>
                 <serviceProvider>
-                    <entityId>azure</entityId>
-                    <aliasForPath>azure</aliasForPath>
+                    <entityId>sp-schrodinger</entityId>
+                    <aliasForPath>sp-schrodinger</aliasForPath>
                     <signRequests>false</signRequests>
                     <identityProvider>
                         <entityId>||entityId||</entityId>
                         <metadata>
-                            <xml>||xml||</xml>
+                            <pathToFile>||pathToFile||</pathToFile>
                         </metadata>
-                        <linkText>Azure</linkText>
+                        <linkText>IDP Server</linkText>
                         <authenticationRequestBinding>urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</authenticationRequestBinding>
                         <nameOfUsernameAttribute>http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name</nameOfUsernameAttribute>
                     </identityProvider>
@@ -73,7 +73,7 @@
                 <urlSuffix>defaultGui</urlSuffix>
             </channel>
             <module>
-                <identifier>samlAzure</identifier>
+                <identifier>samlIdp</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
             </module>

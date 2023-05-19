@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.flexible.authentication.azure;
+package com.evolveum.midpoint.schrodinger.flexible.authentication.saml;
 
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.flexible.authentication.AbstractSamlAuthModuleTest;
+import com.evolveum.midpoint.schrodinger.flexible.authentication.util.AzureUtils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -50,5 +50,13 @@ public class AzureSamlAuthModuleTest extends AbstractSamlAuthModuleTest {
     @Override
     protected String getNonExistUsername() {
         return AzureUtils.getUsernameWithSuffix(super.getNonExistUsername());
+    }
+
+    protected String getDisabledUserFilePath() {
+        return USER_FILE_PREFIX + getServerPrefix() + "-" + DISABLED_USER_FILE_SUFFIX;
+    }
+
+    protected String getEnabledUserFilePath() {
+        return USER_FILE_PREFIX + getServerPrefix() + "-" + ENABLED_USER_FILE_SUFFIX;
     }
 }
