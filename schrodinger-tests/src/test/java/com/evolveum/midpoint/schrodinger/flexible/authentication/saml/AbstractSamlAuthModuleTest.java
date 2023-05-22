@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModuleTest {
 
-    private static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/saml/";
+    private static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/authentication/saml/";
     private static final File SECURITY_POLICY_METADATA_URL_FILE =
             new File(BASE_DIR_FOR_SECURITY_FILES + "metadata-url.xml");
     private static final File SECURITY_POLICY_PATH_TO_XML_FILE =

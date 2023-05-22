@@ -39,7 +39,7 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
     protected static final String ENABLED_USER_FILE_SUFFIX = "enabled-user.xml";
     protected static final String DISABLED_USER_FILE_SUFFIX = "disabled-user.xml";
 
-    private static final String USER_PASSWORD_KEY = "userPassword";
+    private static final String USER_PASSWORD_KEY = "midpointUserPassword";
 
     private static final String ENABLED_USER_NAME = "enabled_user";
     private static final String DISABLED_USER_NAME = "disabled_user";
@@ -97,10 +97,13 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
     }
 
     protected void successLoginAndLogout() {
+        successLoginAndLogout(getEnabledUserName());
+    }
+
+    protected void successLoginAndLogout(String username) {
         try {
             open("/");
 
-            String username = getEnabledUserName();
             String password = getUserPassword();
             login(username, password);
 

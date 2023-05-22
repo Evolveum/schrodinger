@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public abstract class AbstractOidcAuthModuleTest extends AbstractRemoteAuthModuleTest {
 
-    private static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/oidc/";
+    private static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/authentication/oidc/";
     private static final File SECURITY_POLICY_ISSUER_URI_FILE =
             new File (BASE_DIR_FOR_SECURITY_FILES + "issuer-uri.xml");
     private static final File SECURITY_POLICY_ALL_URI_CONFIG_FILE =
