@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.7.3</version>
+        <version>3.0.6</version>
         <!-- This parent also declares dependencies listed here:
         https://docs.spring.io/spring-boot/docs/2.5.2/reference/html/dependency-versions.html#dependency-versions
         Or for current version of Spring Boot:
@@ -66,11 +66,9 @@
         <selenide.version>6.13.1</selenide.version>
         <testng.version>7.7.1</testng.version>
         <project.source.version>11</project.source.version>
-        <commons.io.version>2.9.0</commons.io.version>
-        <slf4j.version>1.7.36</slf4j.version>
+        <commons.io.version>2.11.0</commons.io.version>
         <surefire.version>3.0.0</surefire.version>
         <quartz.version>2.3.2.e3</quartz.version>
-        <hibernate.version>5.5.3.Final</hibernate.version>
         <!--
         Default Spring Boot 2.4.3 uses H2 1.4.200 but that one has NPE bug:
         https://github.com/h2database/h2database/issues/1808
