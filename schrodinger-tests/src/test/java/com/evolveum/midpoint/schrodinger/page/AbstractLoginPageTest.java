@@ -141,7 +141,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         auditingSuccessfulLogin("administrator");
     }
 
-    protected void auditingSuccessfulLogin(String username) {
+    private void auditingSuccessfulLogin(String username) {
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable auditRecordsTable = auditLogViewer.table();
         auditRecordsTable.checkInitiator(1, username);

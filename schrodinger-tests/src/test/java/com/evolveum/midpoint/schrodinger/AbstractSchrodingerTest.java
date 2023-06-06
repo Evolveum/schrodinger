@@ -46,6 +46,7 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
@@ -72,7 +73,7 @@ import java.util.*;
  */
 @ActiveProfiles("default")
 @SpringBootTest(classes = MidPointSpringApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestPropertySource(properties = { "server.port=8180", "midpoint.schrodinger=true" })
+@TestPropertySource(properties = {"server.port=8180", "midpoint.schrodinger=true"})
 //@Listeners({ BrowserPerClass.class, SchrodingerTextReport.class }) TODO fix
 //@Report   TODO fix
 public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContextTests {
@@ -100,6 +101,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected BasicPage basicPage;
 
+    protected static AssertionWithScreenshot assertion = new AssertionWithScreenshot();
+
     private boolean startMidpoint = true;
 
     public EnvironmentConfiguration getConfiguration() {
@@ -116,9 +119,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     private Properties props = null;
 
-    @Autowired protected PrismContext prismContext;
+    @Autowired
+    protected PrismContext prismContext;
 
-    protected List<File> getObjectListToImport(){
+    protected List<File> getObjectListToImport() {
         return new ArrayList<>();
     }
 
@@ -215,7 +219,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         }
         config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")));
         config.locale(getConfigurationPropertyValue("locale"));
-        String urlPropertyName = startMidpoint ? "base_url" :  "base_url_mp_already_started";
+        String urlPropertyName = startMidpoint ? "base_url" : "base_url_mp_already_started";
         config.baseUrl(getConfigurationPropertyValue(urlPropertyName));
 
         return config;
@@ -255,6 +259,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
      * use this method in case you need to test object importing through Import object page
      * or you need to import object inside the test
      * In case if you need to add an object before the test, use repoAddObjectFromFile(File file, OperationResult operationResult)
+     *
      * @param source
      * @param overrideExistingObject
      */
@@ -270,8 +275,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .getObjectsFromFile()
                 .chooseFile(source)
                 .checkOverwriteExistingObject()
-                        .clickImportFileButton()
-                            .feedback();
+                .clickImportFileButton()
+                .feedback();
         boolean isSuccess = false;
         try {
             isSuccess = feedback.isSuccess();
@@ -294,7 +299,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Assert.assertTrue(isSuccess, feedback.getFeedbackMessage() + "; screenshot: " + screenshotName);
     }
 
-   protected void importObject(File source, boolean overrideExistingObject) {
+    protected void importObject(File source, boolean overrideExistingObject) {
         importObject(source, overrideExistingObject, false);
     }
 
@@ -415,22 +420,22 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .clickOk();
         } else {
             ResourcePage viewResourcePage = listResourcesPage
-                            .table()
-                            .search()
-                            .byName()
-                            .inputValue(resourceName)
-                            .updateSearch()
-                            .and()
-                            .clickByName(resourceName);
+                    .table()
+                    .search()
+                    .byName()
+                    .inputValue(resourceName)
+                    .updateSearch()
+                    .and()
+                    .clickByName(resourceName);
             viewResourcePage
-                            .getConnectorConfigurationPanel()
-                            .form()
-                            .changeAttributeValue(attributeName, oldValue, newValue);
+                    .getConnectorConfigurationPanel()
+                    .form()
+                    .changeAttributeValue(attributeName, oldValue, newValue);
             viewResourcePage
                     .selectBasicPanel();
             viewResourcePage.clickSave()
-                            .feedback()
-                            .assertSuccess();
+                    .feedback()
+                    .assertSuccess();
             listResourcesPage
                     .table()
                     .search()
@@ -440,7 +445,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                     .and()
                     .clickByName(resourceName)
                     .clickTestConnection()
-                            .assertIsTestFailure();
+                    .assertIsTestFailure();
         }
 
     }
@@ -452,25 +457,42 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void addObjectFromFile(File file, boolean overwrite) {
         try {
             List<PrismObject<?>> objects = prismContext.parserFor(file).parseObjects();
-            RestPrismServiceBuilder builder = RestPrismServiceBuilder.create();
-            RestPrismService service = builder
-                    .baseUrl(getConfigurationPropertyValue(startMidpoint ? "base_url" : "base_url_mp_already_started") + "/ws/rest")
-                    .username(getConfigurationPropertyValue("username"))
-                    .password(getConfigurationPropertyValue("password"))
-                    .build();
-            final List<String> options = new ArrayList<>();
-            if (overwrite) {
-                options.add("overwrite");
-                options.add("raw");
+            addObjects(objects, overwrite);
+        } catch (CommonException | SchemaException | IOException ex) {
+            LOG.error("Unable to add object, {}", ex);
+        }
+    }
+
+    private void addObjects(List<PrismObject<?>> objects, boolean overwrite) throws IOException, CommonException {
+        RestPrismServiceBuilder builder = RestPrismServiceBuilder.create();
+        RestPrismService service = builder
+                .baseUrl(getConfigurationPropertyValue(startMidpoint ? "base_url" : "base_url_mp_already_started") + "/ws/rest")
+                .username(getConfigurationPropertyValue("username"))
+                .password(getConfigurationPropertyValue("password"))
+                .build();
+        final List<String> options = new ArrayList<>();
+        if (overwrite) {
+            options.add("overwrite");
+            options.add("raw");
+        }
+        objects.forEach(object -> {
+            try {
+                addObjectService(service, object).setOptions(options).post();
+                LOG.trace("Object oid=" + object.getOid() + "; name='" + object.getName() + "' is added.");
+            } catch (Exception e) {
+                LOG.error("Unable to add object oid=" + object.getOid() + "; name='" + object.getName() + "' , {}", e);
             }
-            objects.forEach(object -> {
-                try {
-                    addObjectService(service, object).setOptions(options).post();
-                    LOG.trace("Object oid=" + object.getOid() + "; name='" + object.getName() + "' is added.");
-                } catch (Exception e) {
-                    LOG.error("Unable to add object oid=" + object.getOid() + "; name='" + object.getName() + "' , {}", e);
-                }
-            });
+        });
+    }
+
+    protected void addObjectFromString(String object) {
+        addObjectFromString(object, false);
+    }
+
+    protected void addObjectFromString(String object, boolean overwrite) {
+        try {
+            PrismObject<?> prismObject = prismContext.parseObject(object);
+            addObjects(List.of(prismObject), overwrite);
         } catch (CommonException | SchemaException | IOException ex) {
             LOG.error("Unable to add object, {}", ex);
         }
@@ -515,26 +537,35 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         addObjectFromFile(Utils.changeResourceFilePathInXml(resourceXml, newFilePathValue, fetchTestHomeDir()));
         basicPage
                 .listResources()
-                    .testConnectionClick(resourceName)
+                .testConnectionClick(resourceName)
                 .feedback()
-                    .assertSuccess();
+                .assertSuccess();
     }
 
     public void addResourceFromFileAndTestConnection(File resourceXml, String resourceName) throws IOException {
         addObjectFromFile(resourceXml);
         basicPage
                 .listResources()
-                    .testConnectionClick(resourceName)
+                .testConnectionClick(resourceName)
                 .feedback()
-                    .assertSuccess();
+                .assertSuccess();
     }
 
-    public UserPage showUser(String userName){
+    public void addResourceAndTestConnection(String resource, String resourceName) throws IOException {
+        addObjectFromString(resource);
+        basicPage
+                .listResources()
+                .testConnectionClick(resourceName)
+                .feedback()
+                .assertSuccess();
+    }
+
+    public UserPage showUser(String userName) {
         UserPage user = showUserInTable(userName).clickByName(userName);
         return user;
     }
 
-    public RolePage showRole(String roleName){
+    public RolePage showRole(String roleName) {
         RolePage role = showRoleInTable(roleName).clickByName(roleName);
         return role;
     }
@@ -559,40 +590,40 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
-    public ResourcePage showResource(String resourceName){
+    public ResourcePage showResource(String resourceName) {
         return basicPage.listResources()
                 .table()
-                    .search()
-                        .byName()
-                        .inputValue(resourceName)
-                        .updateSearch()
-                    .and()
-                    .clickByName(resourceName);
+                .search()
+                .byName()
+                .inputValue(resourceName)
+                .updateSearch()
+                .and()
+                .clickByName(resourceName);
     }
 
-    public AccountPage showShadow(String resourceName, String searchedItem, String itemValue){
+    public AccountPage showShadow(String resourceName, String searchedItem, String itemValue) {
         return showShadow(resourceName, searchedItem, itemValue, null, false);
     }
 
-    public AccountPage showShadow(String resourceName, String searchedItem, String itemValue, String intent, boolean useRepository){
+    public AccountPage showShadow(String resourceName, String searchedItem, String itemValue, String intent, boolean useRepository) {
         return getShadowTable(resourceName, searchedItem, itemValue, intent, useRepository)
                 .clickByName(itemValue);
     }
 
-    public ResourceShadowTable assertShadowExists(String resourceName, String searchedItem, String itemValue){
+    public ResourceShadowTable assertShadowExists(String resourceName, String searchedItem, String itemValue) {
         return assertShadowExists(resourceName, searchedItem, itemValue, null, false);
     }
 
-    public ResourceShadowTable assertShadowExists(String resourceName, String searchedItem, String itemValue, String intent,  boolean useRepository){
+    public ResourceShadowTable assertShadowExists(String resourceName, String searchedItem, String itemValue, String intent, boolean useRepository) {
         ResourceShadowTable table = getShadowTable(resourceName, searchedItem, itemValue, intent, useRepository);
         return (ResourceShadowTable) table.assertTableContainsText(itemValue);
     }
 
-    public ResourceShadowTable assertShadowDoesntExist(String resourceName, String searchedItem, String itemValue){
+    public ResourceShadowTable assertShadowDoesntExist(String resourceName, String searchedItem, String itemValue) {
         return assertShadowDoesntExist(resourceName, searchedItem, itemValue, null, false);
     }
 
-    public ResourceShadowTable assertShadowDoesntExist(String resourceName, String searchedItem, String itemValue, String intent,  boolean useRepository){
+    public ResourceShadowTable assertShadowDoesntExist(String resourceName, String searchedItem, String itemValue, String intent, boolean useRepository) {
         ResourceShadowTable table = getShadowTable(resourceName, searchedItem, itemValue, intent, useRepository);
         return (ResourceShadowTable) table.assertTableDoesntContainText(itemValue);
     }
@@ -618,13 +649,13 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     public ResourceShadowTable<ResourceAccountsPanel<ResourcePage>> getShadowTabTable(String resourceName, String intent, boolean useRepository) {
         ResourceAccountsPanel<ResourcePage> tab = basicPage.listResources()
                 .table()
-                  .search()
-                    .byName()
-                        .inputValue(resourceName)
-                        .updateSearch()
-                        .and()
-                    .clickByName(resourceName)
-                        .selectAccountsPanel();
+                .search()
+                .byName()
+                .inputValue(resourceName)
+                .updateSearch()
+                .and()
+                .clickByName(resourceName)
+                .selectAccountsPanel();
         if (useRepository) {
             tab.clickSearchInRepository();
         } else {
@@ -662,11 +693,11 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void createUser(Map<String, String> newUserAttributesMap) {
         PrismForm<PanelWithContainerWrapper<UserPage>> form = basicPage
                 .newUser()
-                    .selectBasicPanel()
-                        .form();
+                .selectBasicPanel()
+                .form();
         newUserAttributesMap.forEach((key, attr) -> form.addAttributeValue(key, newUserAttributesMap.get(key)));
         form
-                    .and()
+                .and()
                 .and()
                 .clickSave()
                 .feedback()
@@ -675,15 +706,20 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected String getConfigurationPropertyValue(String propertyName) throws IOException {
         if (props == null) {
-            props = new Properties();
-            InputStream is = new FileInputStream(new File(SCHRODINGER_PROPERTIES));
-            props.load(is);
+            props = loadProperties(new File(SCHRODINGER_PROPERTIES));
         }
         String headlessStart = System.getProperty(propertyName);
         if (headlessStart == null) {
             headlessStart = props.getProperty(propertyName);
         }
         return headlessStart;
+    }
+
+    protected Properties loadProperties(File propertiesFile) throws IOException {
+        Properties properties = new Properties();
+        InputStream is = new FileInputStream(propertiesFile);
+        properties.load(is);
+        return properties;
     }
 
     protected File getExtensionSchemaFile() {
