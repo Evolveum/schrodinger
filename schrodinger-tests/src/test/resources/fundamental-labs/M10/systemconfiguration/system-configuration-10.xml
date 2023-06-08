@@ -14,9 +14,18 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<systemConfiguration xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" oid="00000000-0000-0000-0000-000000000001" version="1">
+<systemConfiguration xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                     xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                     xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+                     xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                     xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+                     xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+                     xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+                     oid="00000000-0000-0000-0000-000000000001" version="1">
     <name>SystemConfiguration</name>
-    <globalSecurityPolicyRef xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="00000000-0000-0000-0000-000000000120" relation="org:default" type="tns:SecurityPolicyType">
+    <globalSecurityPolicyRef xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                             oid="00000000-0000-0000-0000-000000000120" relation="org:default"
+                             type="tns:SecurityPolicyType">
     </globalSecurityPolicyRef>
     <logging>
         <classLogger>
@@ -59,7 +68,9 @@
             <level>INFO</level>
             <package>com.evolveum.midpoint.model.impl.lens.Clockwork</package>
         </classLogger>
-        <appender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xsi:type="c:FileAppenderConfigurationType">
+        <appender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                  xsi:type="c:FileAppenderConfigurationType">
             <pattern>%date [%X{subsystem}] [%thread] %level \(%logger\): %msg%n</pattern>
             <name>MIDPOINT_LOG</name>
             <fileName>${midpoint.home}/log/midpoint.log</fileName>
@@ -68,7 +79,9 @@
             <maxFileSize>100MB</maxFileSize>
             <append>true</append>
         </appender>
-        <appender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xsi:type="c:FileAppenderConfigurationType">
+        <appender xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                  xsi:type="c:FileAppenderConfigurationType">
             <pattern>%date %level: %msg%n</pattern>
             <name>MIDPOINT_PROFILE_LOG</name>
             <fileName>${midpoint.home}/log/midpoint-profile.log</fileName>
@@ -85,7 +98,8 @@
         </auditing>
     </logging>
     <defaultObjectPolicyConfiguration>
-        <objectTemplateRef oid="10000000-9999-9999-0000-a000fe000001" relation="org:default" type="c:ObjectTemplateType">
+        <objectTemplateRef oid="10000000-9999-9999-0000-a000fe000001" relation="org:default"
+                           type="c:ObjectTemplateType">
         </objectTemplateRef>
         <type>c:UserType</type>
     </defaultObjectPolicyConfiguration>
@@ -167,8 +181,10 @@
                 <cssClass>fa fa-user</cssClass>
             </icon>
             <color>green</color>
-            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfProfile</authorization>
-            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfProfile
+            </authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll
+            </authorization>
         </userDashboardLink>
         <userDashboardLink>
             <targetUrl>/self/credentials</targetUrl>
@@ -178,8 +194,10 @@
                 <cssClass>fa fa-shield</cssClass>
             </icon>
             <color>blue</color>
-            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfCredentials</authorization>
-            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfCredentials
+            </authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll
+            </authorization>
         </userDashboardLink>
         <userDashboardLink>
             <targetUrl>/admin/users</targetUrl>
@@ -197,7 +215,8 @@
                 <cssClass>fa fa-database</cssClass>
             </icon>
             <color>purple</color>
-            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#resources</authorization>
+            <authorization>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#resources
+            </authorization>
         </userDashboardLink>
         <objectCollectionViews>
             <objectCollectionView>
@@ -213,7 +232,8 @@
                 <displayOrder>1000</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000344" relation="org:default" type="c:ObjectCollectionType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000344" relation="org:default"
+                                   type="c:ObjectCollectionType">
                         <!-- My cases -->
                     </collectionRef>
                 </collection>
@@ -229,7 +249,8 @@
                 <displayOrder>1010</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000340" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000340" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Manual provisioning case -->
                     </collectionRef>
                 </collection>
@@ -245,7 +266,8 @@
                 <displayOrder>1020</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000341" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000341" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Operation request -->
                     </collectionRef>
                 </collection>
@@ -261,7 +283,8 @@
                 <displayOrder>1030</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000342" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000342" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Approval case -->
                     </collectionRef>
                 </collection>
@@ -271,7 +294,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000501" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000501" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Reconciliation task -->
                     </collectionRef>
                 </collection>
@@ -281,7 +305,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000502" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000502" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Recomputation task -->
                     </collectionRef>
                 </collection>
@@ -291,7 +316,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000503" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000503" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Import task -->
                     </collectionRef>
                 </collection>
@@ -301,7 +327,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000504" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000504" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Live synchronization task -->
                     </collectionRef>
                 </collection>
@@ -311,7 +338,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000505" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000505" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Asynchronous update task -->
                     </collectionRef>
                 </collection>
@@ -321,7 +349,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000506" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000506" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Cleanup task -->
                     </collectionRef>
                 </collection>
@@ -331,7 +360,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000507" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000507" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Report task -->
                     </collectionRef>
                 </collection>
@@ -341,7 +371,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000508" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000508" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Single bulk action task -->
                     </collectionRef>
                 </collection>
@@ -351,7 +382,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000509" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000509" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Iterative bulk action task -->
                     </collectionRef>
                 </collection>
@@ -361,7 +393,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000520" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000520" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Certification-related task -->
                     </collectionRef>
                 </collection>
@@ -371,7 +404,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000521" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000521" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Approval-related task -->
                     </collectionRef>
                 </collection>
@@ -381,7 +415,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000528" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000528" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Utility task -->
                     </collectionRef>
                 </collection>
@@ -391,7 +426,8 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000529" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="00000000-0000-0000-0000-000000000529" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- System task -->
                     </collectionRef>
                 </collection>
@@ -401,7 +437,8 @@
                 <displayOrder>10</displayOrder>
                 <type>UserType</type>
                 <collection>
-                    <collectionRef oid="7135e68c-ee53-11e8-8025-170b77da3fd6" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="7135e68c-ee53-11e8-8025-170b77da3fd6" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- Employee -->
                     </collectionRef>
                 </collection>
@@ -411,7 +448,8 @@
                 <displayOrder>20</displayOrder>
                 <type>UserType</type>
                 <collection>
-                    <collectionRef oid="b97490e6-24aa-11e9-923a-cbe17394eff9" relation="org:default" type="c:ArchetypeType">
+                    <collectionRef oid="b97490e6-24aa-11e9-923a-cbe17394eff9" relation="org:default"
+                                   type="c:ArchetypeType">
                         <!-- External -->
                     </collectionRef>
                 </collection>
@@ -420,109 +458,124 @@
         <objectDetails>
             <objectDetailsPage>
                 <type>c:TaskType</type>
-                <container>
+                <panel>
+                    <identifier>advanced-options-panel</identifier>
                     <display>
                         <label>Advanced options</label>
                     </display>
-                    <displayOrder>150</displayOrder>
-                    <item>
-                        <c:path>cleanupAfterCompletion</c:path>
-                    </item>
-                    <item>
-                        <c:path>threadStopAction</c:path>
-                    </item>
-                    <item>
-                        <c:path>binding</c:path>
-                    </item>
-                    <item>
-                        <c:path>dependent</c:path>
-                    </item>
-                </container>
-                <container>
+                    <panelType>formPanel</panelType>
+                    <container>
+                        <identifier>advanced-options-panel</identifier>
+                        <displayOrder>150</displayOrder>
+                        <item>
+                            <c:path>cleanupAfterCompletion</c:path>
+                        </item>
+                        <item>
+                            <c:path>threadStopAction</c:path>
+                        </item>
+                        <item>
+                            <c:path>binding</c:path>
+                        </item>
+                        <item>
+                            <c:path>dependent</c:path>
+                        </item>
+                    </container>
+                </panel>
+                <panel>
+                    <identifier>operational-attributes-state-panel</identifier>
                     <display>
                         <label>Operational attributes (state)</label>
                     </display>
-                    <displayOrder>900</displayOrder>
-                    <item>
-                        <c:path>executionStatus</c:path>
-                    </item>
-                    <item>
-                        <c:path>node</c:path>
-                    </item>
-                    <item>
-                        <c:path>nodeAsObserved</c:path>
-                    </item>
-                    <item>
-                        <c:path>resultStatus</c:path>
-                    </item>
-                    <item>
-                        <c:path>result</c:path>
-                    </item>
-                    <item>
-                        <c:path>nextRunStartTimestamp</c:path>
-                    </item>
-                    <item>
-                        <c:path>nextRetryTimestamp</c:path>
-                    </item>
-                    <item>
-                        <c:path>unpauseAction</c:path>
-                    </item>
-                    <item>
-                        <c:path>taskIdentifier</c:path>
-                    </item>
-                    <item>
-                        <c:path>parent</c:path>
-                    </item>
-                    <item>
-                        <c:path>waitingReason</c:path>
-                    </item>
-                    <item>
-                        <c:path>stateBeforeSuspend</c:path>
-                    </item>
-                    <item>
-                        <c:path>category</c:path>
-                    </item>
-                    <item>
-                        <c:path>handlerUri</c:path>
-                    </item>
-                    <item>
-                        <c:path>otherHandlersUriStack</c:path>
-                    </item>
-                    <item>
-                        <c:path>channel</c:path>
-                    </item>
-                    <item>
-                        <c:path>subtaskRef</c:path>
-                    </item>
-                    <item>
-                        <c:path>dependentTaskRef</c:path>
-                    </item>
-                    <item>
-                        <c:path>lastRunStartTimestamp</c:path>
-                    </item>
-                    <item>
-                        <c:path>lastRunFinishTimestamp</c:path>
-                    </item>
-                    <item>
-                        <c:path>completionTimestamp</c:path>
-                    </item>
-                </container>
-                <container>
+                    <panelType>formPanel</panelType>
+                    <container>
+                        <identifier>operational-attributes-state-panel</identifier>
+                        <displayOrder>900</displayOrder>
+                        <item>
+                            <c:path>executionStatus</c:path>
+                        </item>
+                        <item>
+                            <c:path>node</c:path>
+                        </item>
+                        <item>
+                            <c:path>nodeAsObserved</c:path>
+                        </item>
+                        <item>
+                            <c:path>resultStatus</c:path>
+                        </item>
+                        <item>
+                            <c:path>result</c:path>
+                        </item>
+                        <item>
+                            <c:path>nextRunStartTimestamp</c:path>
+                        </item>
+                        <item>
+                            <c:path>nextRetryTimestamp</c:path>
+                        </item>
+                        <item>
+                            <c:path>unpauseAction</c:path>
+                        </item>
+                        <item>
+                            <c:path>taskIdentifier</c:path>
+                        </item>
+                        <item>
+                            <c:path>parent</c:path>
+                        </item>
+                        <item>
+                            <c:path>waitingReason</c:path>
+                        </item>
+                        <item>
+                            <c:path>stateBeforeSuspend</c:path>
+                        </item>
+                        <item>
+                            <c:path>category</c:path>
+                        </item>
+                        <item>
+                            <c:path>handlerUri</c:path>
+                        </item>
+                        <item>
+                            <c:path>otherHandlersUriStack</c:path>
+                        </item>
+                        <item>
+                            <c:path>channel</c:path>
+                        </item>
+                        <item>
+                            <c:path>subtaskRef</c:path>
+                        </item>
+                        <item>
+                            <c:path>dependentTaskRef</c:path>
+                        </item>
+                        <item>
+                            <c:path>lastRunStartTimestamp</c:path>
+                        </item>
+                        <item>
+                            <c:path>lastRunFinishTimestamp</c:path>
+                        </item>
+                        <item>
+                            <c:path>completionTimestamp</c:path>
+                        </item>
+                    </container>
+                </panel>
+                <panel>
+                    <identifier>operational-attributes-progress-panel</identifier>
                     <display>
                         <label>Operational attributes (progress)</label>
                     </display>
-                    <visibility>hidden</visibility>
-                    <displayOrder>910</displayOrder>
-                    <item>
-                        <c:path>progress</c:path>
-                    </item>
-                    <item>
-                        <c:path>expectedTotal</c:path>
-                    </item>
-                    <item>
-                        <c:path>stalledSince</c:path>
-                    </item>
-                </container>
+                    <panelType>formPanel</panelType>
+                    <container>
+                        <identifier>operational-attributes-progress-panel</identifier>
+                        <visibility>hidden</visibility>
+                        <displayOrder>910</displayOrder>
+                        <item>
+                            <c:path>progress</c:path>
+                        </item>
+                        <item>
+                            <c:path>expectedTotal</c:path>
+                        </item>
+                        <item>
+                            <c:path>stalledSince</c:path>
+                        </item>
+                    </container>
+                </panel>
             </objectDetailsPage>
         </objectDetails>
     </adminGuiConfiguration>
@@ -597,7 +650,9 @@
             </class>
             <class>
                 <name>java.lang.String</name>
-                <description>String operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
+                <description>String operations are generally safe. But Groovy is adding execute() method which is very
+                    dangerous.
+                </description>
                 <decision>allow</decision>
                 <method>
                     <name>execute</name>
@@ -614,7 +669,9 @@
             </class>
             <class>
                 <name>java.util.List</name>
-                <description>List operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
+                <description>List operations are generally safe. But Groovy is adding execute() method which is very
+                    dangerous.
+                </description>
                 <decision>allow</decision>
                 <method>
                     <name>execute</name>
@@ -623,7 +680,9 @@
             </class>
             <class>
                 <name>java.util.ArrayList</name>
-                <description>List operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
+                <description>List operations are generally safe. But Groovy is adding execute() method which is very
+                    dangerous.
+                </description>
                 <decision>allow</decision>
                 <method>
                     <name>execute</name>
@@ -698,15 +757,18 @@
                     <value>idm@example.com</value>
                 </recipientExpression>
                 <subjectExpression>
-                    <script><code>
-                        if (event.isSuccess())
-                        tmpText = "[IDM] SUCCESS: User " + event.getChangeType() + " operation succeeded for "
-                        else if (event.isFailure())
-                        tmpText = "[IDM] ERROR: User " + event.getChangeType() + " operation failed for "
-                        else  tmpText = "[IDM] IN PROGRESS: User " + event.getChangeType() + " operation in progress for "
+                    <script>
+                        <code>
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: User " + event.getChangeType() + " operation succeeded for "
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: User " + event.getChangeType() + " operation failed for "
+                            else tmpText = "[IDM] IN PROGRESS: User " + event.getChangeType() + " operation in progress
+                            for "
 
-                        tmpText + requestee?.getName()?.getOrig()
-                    </code></script>
+                            tmpText + requestee?.getName()?.getOrig()
+                        </code>
+                    </script>
                 </subjectExpression>
                 <transport>mail</transport>
             </simpleUserNotifier>
@@ -718,21 +780,24 @@
                     <value>idm@example.com</value>
                 </recipientExpression>
                 <subjectExpression>
-                    <script><code>
-                        import com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowKindType;
+                    <script>
+                        <code>
+                            import com.evolveum.midpoint.xml.ns._public.common.common_3.ShadowKindType;
 
-                        if (event?.isShadowKind(ShadowKindType.ACCOUNT)) tmpObject = 'account '
-                        else tmpObject = 'resource object (not account) '
+                            if (event?.isShadowKind(ShadowKindType.ACCOUNT)) tmpObject = 'account '
+                            else tmpObject = 'resource object (not account) '
 
-                        if (event.isSuccess())
-                        tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
-                        else if (event.isFailure())
-                        tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
-                        else  tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
+                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in
+                            progress"
 
-                        if (tmpObject == 'account ') return tmpText + ' for ' + requestee?.getName()?.getOrig()
-                        else return tmpText
-                    </code></script>
+                            if (tmpObject == 'account ') return tmpText + ' for ' + requestee?.getName()?.getOrig()
+                            else return tmpText
+                        </code>
+                    </script>
                 </subjectExpression>
                 <transport>mail</transport>
             </simpleResourceObjectNotifier>
@@ -750,17 +815,20 @@
                     <value>idm-bcc@example.com</value>
                 </bccExpression>
                 <subjectExpression>
-                    <script><code>
-                        tmpObject = 'Role '
+                    <script>
+                        <code>
+                            tmpObject = 'Role '
 
-                        if (event.isSuccess())
-                        tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
-                        else if (event.isFailure())
-                        tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
-                        else  tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
+                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in
+                            progress"
 
-                        return tmpText
-                    </code></script>
+                            return tmpText
+                        </code>
+                    </script>
                 </subjectExpression>
                 <transport>mail</transport>
             </simpleFocalObjectNotifier>
@@ -773,17 +841,20 @@
                     <value>idm@example.com</value>
                 </recipientExpression>
                 <subjectExpression>
-                    <script><code>
-                        tmpObject = 'Organization '
+                    <script>
+                        <code>
+                            tmpObject = 'Organization '
 
-                        if (event.isSuccess())
-                        tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
-                        else if (event.isFailure())
-                        tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
-                        else  tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in progress"
+                            if (event.isSuccess())
+                            tmpText = "[IDM] SUCCESS: " + tmpObject + event?.getChangeType() + " operation succeeded"
+                            else if (event.isFailure())
+                            tmpText = "[IDM] ERROR: " + tmpObject + event?.getChangeType() + " operation failed"
+                            else tmpText = "[IDM] IN PROGRESS: " + tmpObject + event?.getChangeType() + " operation in
+                            progress"
 
-                        return tmpText
-                    </code></script>
+                            return tmpText
+                        </code>
+                    </script>
                 </subjectExpression>
                 <transport>mail</transport>
             </simpleFocalObjectNotifier>
@@ -817,7 +888,9 @@
                     <value>administrator@example.com</value>
                 </recipientExpression>
                 <subjectExpression>
-                    <script><code>"[IDM] New account created by IDM for user: " + requestee?.getName()?.getOrig()</code></script>
+                    <script>
+                        <code>"[IDM] New account created by IDM for user: " + requestee?.getName()?.getOrig()</code>
+                    </script>
                 </subjectExpression>
                 <transport>mail</transport>
             </accountPasswordNotifier>
