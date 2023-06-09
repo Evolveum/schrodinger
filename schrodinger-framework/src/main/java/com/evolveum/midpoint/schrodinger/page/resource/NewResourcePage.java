@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$x;
  */
 public class NewResourcePage extends BasicPage {
 
-    private ResourceWizardPage createResourceFromScratch(String resourceTitle) {
+    public ResourceWizardPage createResourceFromScratch(String resourceTitle) {
         $x(".//div[@data-s-id='panelHeader']")
                 .$x(".//div[@data-s-id='type']")
                 .$x(".//select[@data-s-id='input']")
@@ -39,7 +39,7 @@ public class NewResourcePage extends BasicPage {
         return new ResourceWizardPage();
     }
 
-    private BasicInformationWizardStep createResourceFromTemplate(String templateTitle) {
+    public BasicInformationWizardStep createResourceFromTemplate(String templateTitle) {
         $x(".//div[@data-s-id='panelHeader']")
                 .$x(".//div[@data-s-id='type']")
                 .$x(".//select[@data-s-id='input']")

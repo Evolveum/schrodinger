@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.evolveum.midpoint.schrodinger;
+package com.evolveum.midpoint.schrodinger.scenarios;
 
+import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
 
 import org.apache.commons.io.FileUtils;

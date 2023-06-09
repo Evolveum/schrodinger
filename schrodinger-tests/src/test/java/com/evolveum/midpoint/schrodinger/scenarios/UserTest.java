@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evolveum.midpoint.schrodinger;
+package com.evolveum.midpoint.schrodinger.scenarios;
 
 import java.io.File;
 import java.util.Arrays;
@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.Test;
 
