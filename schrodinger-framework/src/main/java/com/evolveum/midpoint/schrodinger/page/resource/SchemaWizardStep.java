@@ -15,25 +15,20 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource;
 
-import com.codeborne.selenide.SelenideElement;
-
-import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
+import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
+
 /**
  * Created by honchar.
  */
-public class SchemaWizardStep extends Component<ResourceWizardPage> {
-    public SchemaWizardStep(ResourceWizardPage parent, SelenideElement parentElement) {
-        super(parent, parentElement);
+public class SchemaWizardStep extends WizardStepPanel<ResourceWizardPage> {
+    public SchemaWizardStep(ResourceWizardPage parent) {
+        super(parent);
     }
 
     public TabPanel<SchemaWizardStep> getTabPanel() {
         return new TabPanel<>(this, getParentElement());
     }
-
-//    public SchemaStepSchemaPanel selectSchemaTab() {
-//        return new SchemaStepSchemaPanel(this, getTabPanel().clickTabWithName("Schema"));
-//    }
 
     public SchemaStepXmlPanel selectXmlTab() {
         return new SchemaStepXmlPanel(this, getTabPanel().clickTabWithName("XML"));

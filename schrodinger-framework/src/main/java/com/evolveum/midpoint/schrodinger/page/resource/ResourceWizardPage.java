@@ -20,18 +20,17 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by honchar.
  */
-public class ResourceWizardPage extends BasicPage {
+public class ResourceWizardPage extends WizardPage {
 
     public void clickOnWizardTab(String tabName){
         $(By.linkText(tabName))
@@ -39,16 +38,21 @@ public class ResourceWizardPage extends BasicPage {
                 .click();
     }
 
+    public BasicInformationWizardStep selectBasicStep() {
+        clickOnWizardTab("Basic information");
+        return new BasicInformationWizardStep(this);
+    }
+
     public ConfigurationWizardStep selectConfigurationStep() {
         clickOnWizardTab("Configuration");
         SelenideElement tabElement = $(Schrodinger.byDataId("configuration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new ConfigurationWizardStep(this, tabElement);
+        return new ConfigurationWizardStep(this);
     }
 
     public SchemaWizardStep selectSchemaStep() {
         clickOnWizardTab("Schema");
         SelenideElement tabElement = $(Schrodinger.byDataId("tabPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new SchemaWizardStep(this, tabElement);
+        return new SchemaWizardStep(this);
     }
 
     public boolean isReadonlyMode() {
