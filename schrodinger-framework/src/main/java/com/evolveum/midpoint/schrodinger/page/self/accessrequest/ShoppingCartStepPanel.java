@@ -34,9 +34,4 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
         Utils.waitForAjaxCallFinish();
         return getParent();
     }
-
-    @Override
-    protected boolean isLastStep() {
-        return true;
-    }
 }

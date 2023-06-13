@@ -39,7 +39,7 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
         Utils.waitForAjaxCallFinish();
         findTileByNumber(tileNumber).click();
         if (clickNextButton) {
-            clickNextButton();
+            next();
         }
         return this;
     }
@@ -47,7 +47,7 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
     public WizardStepPanel selectTileByLabel(String tileLabel) {
         findTileByLabel(tileLabel).click();
         Utils.waitForAjaxCallFinish();
-        clickNextButton();
+        next();
         return this;
     }
 

@@ -39,9 +39,8 @@ public class CreateHrResource extends AbstractTrainingTest {
         basicPage
                 .newResource()
                 .createResourceFromScratch("CSV Connector")
-                .selectBasicStep()
                 .name("HR")
-                .clickNextButton();
+                .next();
 
     }
 }

@@ -16,9 +16,9 @@
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.SchrodingerException;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -36,27 +36,28 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    public void clickNextButton() {
-        if (isLastStep()) {
-            return;
+    public <WSP extends WizardStepPanel<W>> WSP next() {
+        if (!NextStepAction.class.isAssignableFrom(this.getClass())) {
+            throw new SchrodingerException("Current wizard step doesn't support next step action.");
         }
         $(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "next",
                         "data-s-id", "nextLabel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
+
+        NextStepAction<WSP> currentStep = (NextStepAction<WSP>) this;
+        return currentStep.next();
     }
 
-    public void clickBackButton() {
+    public <WSP extends WizardStepPanel<W>> WSP back() {
+        if (!PreviousStepAction.class.isAssignableFrom(this.getClass())) {
+            throw new SchrodingerException("Current wizard step doesn't support back action.");
+        }
         $(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
-    }
 
-    protected boolean isLastStep() {
-        return false;
-    }
-
-    protected boolean isFirstStep() {
-        return false;
+        PreviousStepAction<WSP> currentStep = (PreviousStepAction<WSP>) this;
+        return currentStep.back();
     }
 
 }
