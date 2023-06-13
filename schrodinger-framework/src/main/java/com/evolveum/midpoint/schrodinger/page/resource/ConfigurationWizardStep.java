@@ -19,14 +19,13 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 
 /**
  * Created by honchar.
  */
-public class ConfigurationWizardStep extends WizardStepPanel<ResourceWizardPage> {
-        public ConfigurationWizardStep(ResourceWizardPage parent) {
-            super(parent);
+public class ConfigurationWizardStep extends Component<ResourceWizardPage> {
+        public ConfigurationWizardStep(ResourceWizardPage parent, SelenideElement parentElement) {
+            super(parent, parentElement);
         }
 
         public TabPanel<ConfigurationWizardStep> getTabPanel() {

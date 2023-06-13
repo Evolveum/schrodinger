@@ -15,40 +15,10 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource;
 
-import com.codeborne.selenide.Condition;
-import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.util.Utils;
-
-import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class NewResourcePage extends BasicPage {
-
-    public ResourceWizardPage createResourceFromScratch(String resourceTitle) {
-        $x(".//div[@data-s-id='panelHeader']")
-                .$x(".//div[@data-s-id='type']")
-                .$x(".//select[@data-s-id='input']")
-                .selectOption("From scratch");
-        Utils.waitForAjaxCallFinish();
-        $x(".//div[@data-s-id='tile' and contains(text(), '" + resourceTitle + "')]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        return new ResourceWizardPage();
-    }
-
-    public BasicInformationWizardStep createResourceFromTemplate(String templateTitle) {
-        $x(".//div[@data-s-id='panelHeader']")
-                .$x(".//div[@data-s-id='type']")
-                .$x(".//select[@data-s-id='input']")
-                .selectOption("From template");
-        Utils.waitForAjaxCallFinish();
-        $x(".//div[@data-s-id='tile' and contains(text(), '" + templateTitle + "')]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        ResourceWizardPage page = new ResourceWizardPage();
-        return page.selectBasicStep();
-    }
 }

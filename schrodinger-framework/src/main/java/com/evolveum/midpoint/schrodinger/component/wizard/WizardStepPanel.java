@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -23,7 +24,6 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class WizardStepPanel<W extends WizardPage> extends Component<W> {
     public static final String ID_CONTENT_BODY = "contentBody";
@@ -49,14 +49,6 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
     public void clickBackButton() {
         $(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
-    }
-
-    private SelenideElement getMainHeaderElement() {
-        return $x(".//h2[@data-s-id='text']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-    }
-
-    private SelenideElement getSubHeaderElement() {
-        return $x(".//h5[@data-s-id='subText']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     protected boolean isLastStep() {
