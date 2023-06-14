@@ -84,6 +84,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
 
     @Override
     public ShoppingCartStepPanel next() {
+        clickNext();
         return new ShoppingCartStepPanel(getParent());
     }
 

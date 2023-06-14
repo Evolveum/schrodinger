@@ -82,6 +82,7 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
 
     @Override
     public RoleCatalogStepPanel next() {
+        clickNext();
         return new RoleCatalogStepPanel(getParent());
     }
 }

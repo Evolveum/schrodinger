@@ -15,14 +15,15 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
-import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.ConfigurationStepConfigurationPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.ConfigurationStepConnectorPoolPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.ConfigurationStepResultsHandlersPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.ConfigurationStepTimeoutsPanel;
+
+import static com.codeborne.selenide.Selenide.$x;
 
 public class ConfigurationWizardStep extends WizardStepPanel<ResourceWizardPage>
         implements NextStepAction<DiscoveryWizardStep>, PreviousStepAction<BasicInformationWizardStep> {
@@ -30,8 +31,20 @@ public class ConfigurationWizardStep extends WizardStepPanel<ResourceWizardPage>
         super(parent);
     }
 
+    public ConfigurationWizardStep filePath(String value) {
+        getFormPanel().addAttributeValue("filePath", value);
+        return this;
+    }
+
+    private PrismForm getFormPanel() {
+        SelenideElement formElement = $x(".//div[@data-s-id='formContainer']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new PrismForm(ConfigurationWizardStep.this, formElement);
+    }
+
     @Override
     public DiscoveryWizardStep next() {
+        clickNext();
         return new DiscoveryWizardStep(getParent());
     }
 

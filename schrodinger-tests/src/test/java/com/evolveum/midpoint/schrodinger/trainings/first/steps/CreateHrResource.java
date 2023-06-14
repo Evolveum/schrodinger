@@ -36,11 +36,17 @@ public class CreateHrResource extends AbstractTrainingTest {
 
     @Test
     public void createHrResource() {
+        String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
                 .newResource()
-                .createResourceFromScratch("CSV Connector")
+                .createResourceFromScratch("CsvConnector")
                 .name("HR")
+                .next()
+                .filePath(csvFilePath)
+                .next()
+                .uniqueAttributeName("empNumber")
                 .next();
+        //todo assert feedback is success
 
     }
 }

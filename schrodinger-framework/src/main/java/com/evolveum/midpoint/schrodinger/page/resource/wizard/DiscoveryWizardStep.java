@@ -53,6 +53,7 @@ public class DiscoveryWizardStep extends WizardStepPanel<ResourceWizardPage>
 
     @Override
     public SchemaWizardStep next() {
+        clickNext();
         return new SchemaWizardStep(getParent());
     }
 

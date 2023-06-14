@@ -47,13 +47,14 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
 
     public RelationStepPanel selectGroup(String... userNames) {
         selectTileByNumber(GROUP_TILE_INDEX, false);
-        return new DefineGroupOfUsersPanel(getParent())
-                .selectUserGroupByButtonClick(userNames)
-                .next();
+        new DefineGroupOfUsersPanel(getParent())
+                .selectUserGroupByButtonClick(userNames);
+        return next();
     }
     
     @Override
     public RelationStepPanel next() {
+        clickNext();
         return new RelationStepPanel(getParent());
     }
 
