@@ -29,6 +29,12 @@ public class SchemaWizardStep extends WizardStepPanel<ResourceWizardPage>
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new Table(SchemaWizardStep.this, table);
     }
+
+    public void createResource() {
+        $x(".//a[@data-s-id='submit']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+    }
     @Override
     public DiscoveryWizardStep back() {
         return new DiscoveryWizardStep(getParent());
