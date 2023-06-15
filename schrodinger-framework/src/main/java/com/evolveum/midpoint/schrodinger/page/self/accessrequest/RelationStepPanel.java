@@ -19,9 +19,6 @@ package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
-
-import javax.management.relation.Role;
 import java.util.Objects;
 
 public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage>
@@ -67,7 +64,7 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
     }
 
     public RoleCatalogStepPanel selectRelationByLabel(String label) {
-        selectTileByLabel(label);
+        selectTileByLabelAndMoveToNext(label);
         return new RoleCatalogStepPanel(getParent());
     }
 

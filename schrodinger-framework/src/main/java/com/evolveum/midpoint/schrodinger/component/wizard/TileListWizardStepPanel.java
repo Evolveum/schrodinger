@@ -44,10 +44,15 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
         return this;
     }
 
+    public WizardStepPanel selectTileByLabelAndMoveToNext(String tileLabel) {
+        selectTileByLabel(tileLabel);
+        clickNext();
+        return this;
+    }
+
     public WizardStepPanel selectTileByLabel(String tileLabel) {
         findTileByLabel(tileLabel).click();
         Utils.waitForAjaxCallFinish();
-        clickNext();
         return this;
     }
 

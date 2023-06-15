@@ -15,12 +15,23 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 
-public class ObjectTypeManagerPanel extends Component<ResourceWizardPage> {
+import static com.codeborne.selenide.Selenide.$x;
 
-    public ObjectTypeManagerPanel(ResourceWizardPage parent, SelenideElement parentElement) {
+public class ObjectTypeManagerPanel extends Component<ResourceWizardResultStep> {
+
+    public ObjectTypeManagerPanel(ResourceWizardResultStep parent, SelenideElement parentElement) {
         super(parent, parentElement);
+    }
+
+    public ResourceWizardResultStep exitWizard() {
+        $x(".//a[contains(text(), 'Exit wizard')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return getParent();
     }
 }

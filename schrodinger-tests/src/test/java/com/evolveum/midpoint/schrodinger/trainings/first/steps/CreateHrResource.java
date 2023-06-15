@@ -45,8 +45,15 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .filePath(csvFilePath)
                 .next()
                 .uniqueAttributeName("empNumber")
-                .next();
-        //todo assert feedback is success
+                .next()
+                .createResource()
+                .assertResourceIsCreated()
+                // todo NOTE: all accounts are with `kind=unknown` so far
+                .previewResourceData()
+                .assertTableContainsObjects(20)
+                .assertTableColumnContainsValue("status", "Former")
+                .exitWizard()
+                .goToResource();
 
     }
 }

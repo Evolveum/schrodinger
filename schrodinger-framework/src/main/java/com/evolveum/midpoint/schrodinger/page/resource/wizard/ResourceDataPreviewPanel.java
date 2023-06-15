@@ -15,12 +15,39 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 
-public class ResourceDataPreviewPanel extends Component<ResourceWizardPage> {
+import static com.codeborne.selenide.Selenide.$x;
 
-    public ResourceDataPreviewPanel(ResourceWizardPage parent, SelenideElement parentElement) {
+public class ResourceDataPreviewPanel extends Component<ResourceWizardResultStep> {
+
+    public ResourceDataPreviewPanel(ResourceWizardResultStep parent, SelenideElement parentElement) {
         super(parent, parentElement);
+    }
+
+    public ResourceDataPreviewPanel assertTableContainsObjects(int objectCount) {
+        getResourceObjectsTable().assertTableObjectsCountEquals(objectCount);
+        return ResourceDataPreviewPanel.this;
+    }
+
+    public ResourceDataPreviewPanel assertTableColumnContainsValue(String columnName, String value) {
+        getResourceObjectsTable().assertTableContainsColumnWithValue(columnName, value);
+        return ResourceDataPreviewPanel.this;
+    }
+
+    private Table<ResourceDataPreviewPanel> getResourceObjectsTable() {
+        return new Table<>(ResourceDataPreviewPanel.this,
+                $x(".//div[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+    }
+
+    public ResourceWizardResultStep exitWizard() {
+        $x(".//a[contains(text(), 'Exit wizard')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return getParent();
     }
 }

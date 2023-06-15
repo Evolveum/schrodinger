@@ -19,6 +19,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 
 import static com.codeborne.selenide.Selenide.$x;
@@ -33,12 +34,12 @@ public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWi
 
     public ResourceDataPreviewPanel previewResourceData() {
         selectTileByLabel("Preview resource data");
-        return new ResourceDataPreviewPanel(getParent(), getChoicePanelElement());
+        return new ResourceDataPreviewPanel(ResourceWizardResultStep.this, getChoicePanelElement());
     }
 
     public ObjectTypeManagerPanel configureObjectTypes() {
         selectTileByLabel("Configure Object Types");
-        return new ObjectTypeManagerPanel(getParent(), getChoicePanelElement());
+        return new ObjectTypeManagerPanel(ResourceWizardResultStep.this, getChoicePanelElement());
     }
 
     public ResourcePage goToResource() {
@@ -46,8 +47,11 @@ public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWi
         return new ResourcePage();
     }
 
-    public void exitWizard() {
-
+    public ListResourcesPage exitWizard() {
+        $x(".//a[contains(text(), 'Exit wizard')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return new ListResourcesPage();
     }
 
     private SelenideElement getChoicePanelElement() {
