@@ -38,6 +38,7 @@ public class SchemaWizardStep extends WizardStepPanel<ResourceWizardPage>
     }
     @Override
     public DiscoveryWizardStep back() {
+        clickBack();
         return new DiscoveryWizardStep(getParent());
     }
 }

@@ -59,6 +59,7 @@ public class DiscoveryWizardStep extends WizardStepPanel<ResourceWizardPage>
 
     @Override
     public ConfigurationWizardStep back() {
+        clickBack();
         return new ConfigurationWizardStep(getParent());
     }
 

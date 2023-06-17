@@ -50,6 +50,7 @@ public class ConfigurationWizardStep extends WizardStepPanel<ResourceWizardPage>
 
     @Override
     public BasicInformationWizardStep back() {
+        clickBack();
         return new BasicInformationWizardStep(getParent());
     }
  }

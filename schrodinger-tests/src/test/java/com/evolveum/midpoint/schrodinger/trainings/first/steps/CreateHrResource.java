@@ -53,7 +53,9 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .assertTableContainsObjects(20)
                 .assertTableColumnContainsValue("status", "Former")
                 .exitWizard()
-                .goToResource();
+                .goToResource()
+                .switchToDevelopmentMode()
+                .selectSchemaHandlingPanel();
 
     }
 }
