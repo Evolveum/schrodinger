@@ -77,10 +77,14 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .next()
                 .saveSettings()
                 .goToResource()
-                .selectAccountsPanel();
-        //. click *Reclassify*
-        //. click *Refresh* icon in a while
-        //.. accounts starting with `8` should be now hidden (they will not have intent `default` but `kind=unknown` and `intent=unknown`)
+                .selectAccountsPanel()
+                .reclassify()
+                .refresh()
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8000")
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8001")
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8002")
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8003");
+
         //. click *Configure Synchronization*
         //.. click *Add simple reaction* to fill this configuration:
 

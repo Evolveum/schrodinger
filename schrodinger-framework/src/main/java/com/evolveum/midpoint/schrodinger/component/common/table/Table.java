@@ -133,7 +133,6 @@ public class Table<T> extends Component<T> {
                 return new TableRow(this, row);
             }
         }
-        Selenide.screenshot("getTableRowByIndex_returns_null_" + System.currentTimeMillis());
         return null;
     }
 
@@ -224,6 +223,14 @@ public class Table<T> extends Component<T> {
         return $(Schrodinger.byDataId("buttonToolbar"));
     }
 
+    public SelenideElement getToolbarButtonByTitle(String buttonTitle){
+        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
+    }
+
+    public SelenideElement getToolbarButtonByCss(String iconCssClass){
+        return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
+    }
+
     public int countTableObjects() {
         String countStringValue = $(Schrodinger.bySelfOrAncestorElementAttributeValue("span", "class", "align-middle", Schrodinger.DATA_S_ID, "count"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).text();
@@ -312,6 +319,12 @@ public class Table<T> extends Component<T> {
 
     public Table<T> assertTableContainsColumnWithValue(String columnResourceKey, String value) {
         assertion.assertNotNull(rowByColumnResourceKey(columnResourceKey, value), "Table doesn't contain value '" + value +
+                "' in column with resource key '" + columnResourceKey + "'.");
+        return this;
+    }
+
+    public Table<T> assertTableDoesntContainColumnWithValue(String columnResourceKey, String value) {
+        assertion.assertNull(rowByColumnResourceKey(columnResourceKey, value), "Table shouldn't contain value '" + value +
                 "' in column with resource key '" + columnResourceKey + "'.");
         return this;
     }

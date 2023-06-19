@@ -100,14 +100,6 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return this;
     }
 
-    public SelenideElement getToolbarButtonByCss(String iconCssClass){
-        return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
-    }
-
-    public SelenideElement getToolbarButtonByTitle(String buttonTitle){
-        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
-    }
-
     public PD newObjectButtonByCssClick(String iconCssClass){
         if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")

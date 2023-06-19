@@ -394,7 +394,7 @@ public class Utils {
                 .orElse(null);
     }
 
-    private static boolean elementContainsTextCaseInsensitive(SelenideElement el, String text) {
+    public static boolean elementContainsTextCaseInsensitive(SelenideElement el, String text) {
         try {
             return el.shouldHave(Condition.text(text)).exists();
         } catch (Exception e) {

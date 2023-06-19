@@ -20,6 +20,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
+import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -87,6 +89,41 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         resourceSearch.click();
         $(Schrodinger.byDataId("a", "resourceSearch"))
                 .shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_1_M);
+        return this;
+    }
+
+    public ResourceAccountsPanel<T> reclassify() {
+        toolbarButtonClickByTitle("ResourceCategorizedPanel.button.reclassify");
+        return new ConfirmationModal<>(ResourceAccountsPanel.this,
+                Utils.getModalWindowSelenideElement())
+                .clickYes();
+    }
+
+    public ResourceAccountsPanel<T> refresh() {
+        toolbarButtonClickByTitle("MainObjectListPanel.refresh");
+        return ResourceAccountsPanel.this;
+    }
+
+    /**
+     *
+     * @param title can be a key or a translated title
+     */
+    private void toolbarButtonClickByTitle(String title) {
+        String translated = Utils.getPropertyString(title);
+        table()
+                .getToolbarButtonByTitle(translated)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+    }
+
+    public ResourceAccountsPanel<T> assertTableContainsColumnWithValue(String columnResourceKey, String value) {
+        table().assertTableContainsColumnWithValue(columnResourceKey, value);
+        return this;
+    }
+
+    public ResourceAccountsPanel<T> assertTableDoesntContainColumnWithValue(String columnResourceKey, String value) {
+        table().assertTableDoesntContainColumnWithValue(columnResourceKey, value);
         return this;
     }
 
