@@ -38,7 +38,7 @@ public class NewResourcePage extends BasicPage {
                 .$x(".//select[@data-s-id='input']")
                 .selectOption("From scratch");
         Utils.waitForAjaxCallFinish();
-        SelenideElement tile = findResourceTileElement(resourceTitle);
+        SelenideElement tile = Utils.findTileElementByTitle(resourceTitle);
         if (tile == null) {
             throw new SchrodingerException("Connector selection element with title " + resourceTitle
                     + " is not found on the page.");
@@ -63,14 +63,5 @@ public class NewResourcePage extends BasicPage {
         ResourceWizardPage page = new ResourceWizardPage();
         page.assertBasicStep();
         return new BasicInformationWizardStep(page);
-    }
-
-    private SelenideElement findResourceTileElement(String title) {
-        ElementsCollection tiles = $$x(".//div[@data-s-id='tile']");
-        return tiles
-                .stream()
-                .filter(t -> t.$x(".//*[contains(text(), '" + title + "')]").exists())
-                .findFirst()
-                .orElse(null);
     }
 }

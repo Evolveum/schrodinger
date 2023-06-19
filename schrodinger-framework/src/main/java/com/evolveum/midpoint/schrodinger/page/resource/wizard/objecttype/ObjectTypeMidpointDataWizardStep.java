@@ -21,18 +21,16 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ObjectTypeMidpointDataWizardStep extends WizardStepPanel<ResourceWizardPage>
+public class ObjectTypeMidpointDataWizardStep extends WizardStepPanel<ObjectTypeWizardPage>
         implements PreviousStepAction<ObjectTypeResourceDataWizardStep> {
 
-    public ObjectTypeMidpointDataWizardStep(ResourceWizardPage parent) {
+    public ObjectTypeMidpointDataWizardStep(ObjectTypeWizardPage parent) {
         super(parent);
     }
 
@@ -55,12 +53,12 @@ public class ObjectTypeMidpointDataWizardStep extends WizardStepPanel<ResourceWi
         return new PrismForm<>(ObjectTypeMidpointDataWizardStep.this, formElement);
     }
 
-    public ResourcePage saveSettings() {
+    public ObjectTypeWizardPage saveSettings() {
         $(Schrodinger.byDataId("submit"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
-        return new ResourcePage();
+        return new ObjectTypeWizardPage();
     }
 
     @Override

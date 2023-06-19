@@ -20,31 +20,34 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
+import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ResourceDataPreviewPanel extends Component<ResourceWizardResultStep> {
+public class ResourceDataPreviewPanel<W extends WizardPage, T extends TileListWizardStepPanel<W>>
+        extends Component<T> {
 
-    public ResourceDataPreviewPanel(ResourceWizardResultStep parent, SelenideElement parentElement) {
+    public ResourceDataPreviewPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ResourceDataPreviewPanel assertTableContainsObjects(int objectCount) {
+    public ResourceDataPreviewPanel<W, T> assertTableContainsObjects(int objectCount) {
         getResourceObjectsTable().assertTableObjectsCountEquals(objectCount);
         return ResourceDataPreviewPanel.this;
     }
 
-    public ResourceDataPreviewPanel assertTableColumnContainsValue(String columnName, String value) {
+    public ResourceDataPreviewPanel<W, T> assertTableColumnContainsValue(String columnName, String value) {
         getResourceObjectsTable().assertTableContainsColumnWithValue(columnName, value);
         return ResourceDataPreviewPanel.this;
     }
 
-    private Table<ResourceDataPreviewPanel> getResourceObjectsTable() {
+    private Table<ResourceDataPreviewPanel<W, T>> getResourceObjectsTable() {
         return new Table<>(ResourceDataPreviewPanel.this,
                 $x(".//div[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
-    public ResourceWizardResultStep exitWizard() {
+    public T exitWizard() {
         $x(".//a[contains(text(), 'Exit wizard')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();

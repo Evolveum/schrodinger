@@ -19,13 +19,13 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.TabWithTableAndPrismView;
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardStep;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class SchemaHandlingPanel extends Component<ResourcePage> {
 
@@ -33,13 +33,15 @@ public class SchemaHandlingPanel extends Component<ResourcePage> {
         super(parent, parentElement);
     }
 
-    public void addNewObjectType() {
+    public ObjectTypeBasicInformationWizardStep addNewObjectType() {
         String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
         String titleTranslated = Utils.getPropertyString(addNewObjectTypeKey);
         $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
-
+        Utils.waitForAjaxCallFinish();
+        ObjectTypeWizardPage objectTypeWizardPage = new ObjectTypeWizardPage();
+        return new ObjectTypeBasicInformationWizardStep(objectTypeWizardPage);
     }
 
 }

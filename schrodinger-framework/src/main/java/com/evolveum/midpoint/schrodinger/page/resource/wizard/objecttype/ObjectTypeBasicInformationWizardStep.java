@@ -21,14 +21,13 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ObjectTypeBasicInformationWizardStep extends WizardStepPanel<ResourceWizardPage>
+public class ObjectTypeBasicInformationWizardStep extends WizardStepPanel<ObjectTypeWizardPage>
         implements NextStepAction<ObjectTypeResourceDataWizardStep> {
-    public ObjectTypeBasicInformationWizardStep(ResourceWizardPage parent) {
+    public ObjectTypeBasicInformationWizardStep(ObjectTypeWizardPage parent) {
         super(parent);
     }
 

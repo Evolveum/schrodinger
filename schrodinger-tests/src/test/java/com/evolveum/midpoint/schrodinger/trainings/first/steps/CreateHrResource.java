@@ -55,7 +55,16 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .exitWizard()
                 .goToResource()
                 .switchToDevelopmentMode()
-                .selectSchemaHandlingPanel();
+                .selectSchemaHandlingPanel()
+                .addNewObjectType()
+                .displayName("HR Person")
+                .kind("Account")
+                .setDefault("True")
+                .next()
+                .objectClass("AccountObjectClass")
+                .next()
+                .type("User")
+                .saveSettings();
 
     }
 }

@@ -36,7 +36,7 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    public void clickNext() {
+    protected void clickNext() {
         if (!NextStepAction.class.isAssignableFrom(this.getClass())) {
             throw new SchrodingerException("Current wizard step doesn't support next step action.");
         }

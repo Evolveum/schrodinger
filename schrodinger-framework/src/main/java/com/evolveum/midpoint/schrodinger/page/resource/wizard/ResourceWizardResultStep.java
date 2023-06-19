@@ -32,9 +32,9 @@ public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWi
         super(page);
     }
 
-    public ResourceDataPreviewPanel previewResourceData() {
+    public ResourceDataPreviewPanel<ResourceWizardPage, ResourceWizardResultStep> previewResourceData() {
         selectTileByLabel("Preview resource data");
-        return new ResourceDataPreviewPanel(ResourceWizardResultStep.this, getChoicePanelElement());
+        return new ResourceDataPreviewPanel<>(ResourceWizardResultStep.this, getChoicePanelElement());
     }
 
     public ObjectTypeManagerPanel configureObjectTypes() {
