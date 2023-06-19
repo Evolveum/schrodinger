@@ -64,7 +64,25 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .objectClass("AccountObjectClass")
                 .next()
                 .type("User")
-                .saveSettings();
+                .saveSettings()
+                .previewDataOfObjectType()
+                .assertTableColumnContainsValue("Identifiers", "empNumber: 8000")
+                .assertTableColumnContainsValue("Identifiers", "empNumber: 8001")
+                .assertTableColumnContainsValue("Identifiers", "empNumber: 8002")
+                .assertTableColumnContainsValue("Identifiers", "empNumber: 8003")
+                .exitWizard()
+                .configureBasicAttributes()
+                .next()
+                .filter("attributes/empNumber not startsWith \"8\"")
+                .next()
+                .saveSettings()
+                .goToResource()
+                .selectAccountsPanel();
+        //. click *Reclassify*
+        //. click *Refresh* icon in a while
+        //.. accounts starting with `8` should be now hidden (they will not have intent `default` but `kind=unknown` and `intent=unknown`)
+        //. click *Configure Synchronization*
+        //.. click *Add simple reaction* to fill this configuration:
 
     }
 }

@@ -38,6 +38,7 @@ public class ResourceDataPreviewPanel<W extends WizardPage, T extends TileListWi
     }
 
     public ResourceDataPreviewPanel<W, T> assertTableColumnContainsValue(String columnName, String value) {
+        getResourceObjectsTable().paging().pageSize(100);
         getResourceObjectsTable().assertTableContainsColumnWithValue(columnName, value);
         return ResourceDataPreviewPanel.this;
     }

@@ -53,12 +53,12 @@ public class ObjectTypeMidpointDataWizardStep extends WizardStepPanel<ObjectType
         return new PrismForm<>(ObjectTypeMidpointDataWizardStep.this, formElement);
     }
 
-    public ObjectTypeWizardPage saveSettings() {
+    public ObjectTypeWizardChoiceStep saveSettings() {
         $(Schrodinger.byDataId("submit"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
-        return new ObjectTypeWizardPage();
+        return new ObjectTypeWizardChoiceStep(getParent());
     }
 
     @Override

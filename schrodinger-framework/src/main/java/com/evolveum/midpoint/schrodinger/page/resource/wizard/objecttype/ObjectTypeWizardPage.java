@@ -10,8 +10,14 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class ObjectTypeWizardPage extends WizardPage {
 
+    public ObjectTypeWizardChoiceStep objectTypeWizardChoicePanel() {
+        return new ObjectTypeWizardChoiceStep(ObjectTypeWizardPage.this);
+    }
+
     public SelenideElement getChoicePanelElement() {
         return $(Schrodinger.byDataId("choicePanel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
+
+
 }

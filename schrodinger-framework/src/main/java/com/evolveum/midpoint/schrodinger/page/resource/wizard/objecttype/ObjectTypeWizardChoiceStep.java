@@ -24,9 +24,9 @@ import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPrevie
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 
-public class ObjectTypeWizardStep extends TileListWizardStepPanel<ObjectTypeWizardPage> {
+public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTypeWizardPage> {
 
-    public ObjectTypeWizardStep(ObjectTypeWizardPage parent) {
+    public ObjectTypeWizardChoiceStep(ObjectTypeWizardPage parent) {
         super(parent);
     }
 
@@ -36,11 +36,10 @@ public class ObjectTypeWizardStep extends TileListWizardStepPanel<ObjectTypeWiza
         return new ObjectTypeBasicInformationWizardStep(getParent());
     }
 
-    public ResourceDataPreviewPanel<ObjectTypeWizardPage, ObjectTypeWizardStep> previewDataOfObjectType() {
+    public ResourceDataPreviewPanel<ObjectTypeWizardPage, ObjectTypeWizardChoiceStep> previewDataOfObjectType() {
         SelenideElement tile = Utils.findTileElementByTitle("ResourceObjectTypePreviewTileType.PREVIEW_DATA");
         clickTile(tile);
-
-        return new ResourceDataPreviewPanel<>(ObjectTypeWizardStep.this, getParent().getChoicePanelElement());
+        return new ResourceDataPreviewPanel<>(ObjectTypeWizardChoiceStep.this, getParent().getChoicePanelElement());
     }
     public void configureMappings() {
         SelenideElement tile = Utils.findTileElementByTitle("ResourceObjectTypePreviewTileType.ATTRIBUTE_MAPPING");
