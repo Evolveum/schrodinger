@@ -85,6 +85,27 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8002")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8003")
                 .configureSynchronization()
-                .addSimpleReaction();
+                .addSimpleReaction()
+                .name("unmatched-add")
+                .situation("Unmatched")
+                .action("Add focus")
+                .and()
+                .addSimpleReaction()
+                .name("unlinked-link")
+                .situation("Unlinked")
+                .action("Link")
+                .and()
+                .addSimpleReaction()
+                .name("linked-synchronize")
+                .situation("Linked")
+                .action("Synchronize")
+                .and()
+                .addSimpleReaction()
+                .name("deleted-inactivate")
+                .situation("Deleted")
+                .action("Inactivate focus")
+                .and()
+                .saveSynchronizationSettings();
+
     }
 }

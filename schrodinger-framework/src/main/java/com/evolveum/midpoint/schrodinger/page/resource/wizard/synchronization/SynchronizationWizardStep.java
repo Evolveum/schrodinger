@@ -15,7 +15,13 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 
+import com.evolveum.midpoint.schrodinger.component.common.table.EditableRowTable;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
 
@@ -30,11 +36,18 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         return new MainConfigurationWizardStep<>(SynchronizationWizardStep.this);
     }
 
-    public SynchronizationWizardStep<T> addSimpleReaction() {
+    public ListOfReactionsTable<SynchronizationWizardStep<T>> addSimpleReaction() {
         table()
                 .getToolbarButtonByTitle("SynchronizationReactionTable.newObject.simple")
                 .click();
-        return SynchronizationWizardStep.this;
+        Utils.waitForAjaxCallFinish();
+        return new ListOfReactionsTable<>(SynchronizationWizardStep.this, $(Schrodinger.byDataId("table")));
     }
 
+    public T saveSynchronizationSettings() {
+        String titleTranslated = Utils.getPropertyString("SynchronizationReactionTableWizardPanel.saveButton");
+        $x(".//a[@title=\"" + titleTranslated + "\"]").click();
+        Utils.waitForAjaxCallFinish();
+        return getParent();
+    }
 }

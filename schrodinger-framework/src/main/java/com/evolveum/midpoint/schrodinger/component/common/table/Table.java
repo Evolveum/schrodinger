@@ -156,16 +156,24 @@ public class Table<T> extends Component<T> {
     }
 
     public String getTableCellValue(String columnResourceKey, int rowIndex) {
+        SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
+        if (element == null) {
+            return null;
+        }
+        return element.getText();
+    }
+
+    protected SelenideElement getTableCellElement(String columnResourceKey, int rowIndex) {
         int columnIndex = findColumnByResourceKey(columnResourceKey);
         ElementsCollection rows = getParentElement().findAll("tbody tr");
         if (rowIndex > rows.size()) {
             return null;
         }
         SelenideElement element = rows.get(rowIndex -1).find("td:nth-child(" + (columnIndex) + ")");
-        if (element == null) {
+        if (!element.exists()) {
             return null;
         }
-        return element.getText();
+        return element;
     }
 
     public Search<? extends Table<T>> search() {
@@ -355,6 +363,23 @@ public class Table<T> extends Component<T> {
             }
         }
         return this;
+    }
+
+    public int rowsCount() {
+        return getParentElement()
+                .findAll("tbody tr")
+                .size();
+
+    }
+
+    public TableRow<T, Table<T>> getTableRow(int rowIndex) {
+        ElementsCollection rows = getParentElement()
+                .findAll("tbody tr");
+        int rowsSize = rows.size();
+        if (rowIndex > rowsSize) {
+            return null;
+        }
+        return new TableRow(this, rows.get(rowIndex - 1));
     }
 
 }
