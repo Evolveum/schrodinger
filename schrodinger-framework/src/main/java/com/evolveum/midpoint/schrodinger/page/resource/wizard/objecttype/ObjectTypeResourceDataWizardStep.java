@@ -15,17 +15,11 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
+import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 
-import static com.codeborne.selenide.Selenide.$x;
-
-public class ObjectTypeResourceDataWizardStep extends WizardStepPanel<ObjectTypeWizardPage>
+public class ObjectTypeResourceDataWizardStep extends PrismFormWizardStepPanel<ObjectTypeWizardPage>
         implements NextStepAction<ObjectTypeMidpointDataWizardStep>,
         PreviousStepAction<ObjectTypeBasicInformationWizardStep> {
 
@@ -64,12 +58,6 @@ public class ObjectTypeResourceDataWizardStep extends WizardStepPanel<ObjectType
     public ObjectTypeResourceDataWizardStep classificationCondition (String value) {
         getFormPanel().addAttributeValue("Classification condition", value);
         return ObjectTypeResourceDataWizardStep.this;
-    }
-
-    private PrismForm<ObjectTypeResourceDataWizardStep> getFormPanel() {
-        SelenideElement formElement = $x(".//div[@data-s-id='form']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new PrismForm<>(ObjectTypeResourceDataWizardStep.this, formElement);
     }
 
     @Override

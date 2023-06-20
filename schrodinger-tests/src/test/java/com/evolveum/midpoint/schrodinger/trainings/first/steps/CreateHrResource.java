@@ -83,10 +83,8 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8000")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8001")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8002")
-                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8003");
-
-        //. click *Configure Synchronization*
-        //.. click *Add simple reaction* to fill this configuration:
-
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8003")
+                .configureSynchronization()
+                .addSimpleReaction();
     }
 }

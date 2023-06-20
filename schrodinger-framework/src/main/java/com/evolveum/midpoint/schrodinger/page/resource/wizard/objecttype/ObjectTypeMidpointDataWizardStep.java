@@ -16,18 +16,15 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
+import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
-public class ObjectTypeMidpointDataWizardStep extends WizardStepPanel<ObjectTypeWizardPage>
+public class ObjectTypeMidpointDataWizardStep extends PrismFormWizardStepPanel<ObjectTypeWizardPage>
         implements PreviousStepAction<ObjectTypeResourceDataWizardStep> {
 
     public ObjectTypeMidpointDataWizardStep(ObjectTypeWizardPage parent) {
@@ -45,12 +42,6 @@ public class ObjectTypeMidpointDataWizardStep extends WizardStepPanel<ObjectType
                 .clickByName(archetypeName);
         Utils.waitForAjaxCallFinish();
         return ObjectTypeMidpointDataWizardStep.this;
-    }
-
-    private PrismForm<ObjectTypeMidpointDataWizardStep> getFormPanel() {
-        SelenideElement formElement = $x(".//div[@data-s-id='form']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new PrismForm<>(ObjectTypeMidpointDataWizardStep.this, formElement);
     }
 
     public ObjectTypeWizardChoiceStep saveSettings() {

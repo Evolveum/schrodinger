@@ -25,10 +25,10 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WizardStepPanel<W extends WizardPage> extends Component<W> {
+public class WizardStepPanel<T> extends Component<T> {
     public static final String ID_CONTENT_BODY = "contentBody";
 
-    public WizardStepPanel(W parent) {
+    public WizardStepPanel(T parent) {
         super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
@@ -46,7 +46,7 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         Utils.waitForAjaxCallFinish();
     }
 
-    public <WSP extends WizardStepPanel<W>> WSP clickBack() {
+    public <WSP extends WizardStepPanel<T>> WSP clickBack() {
         if (!PreviousStepAction.class.isAssignableFrom(this.getClass())) {
             throw new SchrodingerException("Current wizard step doesn't support back action.");
         }

@@ -26,6 +26,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -224,7 +225,8 @@ public class Table<T> extends Component<T> {
     }
 
     public SelenideElement getToolbarButtonByTitle(String buttonTitle){
-        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
+        String titleTranslated = Utils.getPropertyString(buttonTitle);
+        return getButtonToolbar().$x(".//a[@title='" + titleTranslated + "']");
     }
 
     public SelenideElement getToolbarButtonByCss(String iconCssClass){

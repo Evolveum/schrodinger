@@ -21,11 +21,12 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
+import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ConfigurationWizardStep extends WizardStepPanel<ResourceWizardPage>
+public class ConfigurationWizardStep extends PrismFormWizardStepPanel<ResourceWizardPage>
         implements NextStepAction<DiscoveryWizardStep>, PreviousStepAction<BasicInformationWizardStep> {
     public ConfigurationWizardStep(ResourceWizardPage parent) {
         super(parent);
@@ -34,12 +35,6 @@ public class ConfigurationWizardStep extends WizardStepPanel<ResourceWizardPage>
     public ConfigurationWizardStep filePath(String value) {
         getFormPanel().addAttributeValue("filePath", value);
         return this;
-    }
-
-    private PrismForm getFormPanel() {
-        SelenideElement formElement = $x(".//div[@data-s-id='formContainer']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new PrismForm(ConfigurationWizardStep.this, formElement);
     }
 
     @Override
