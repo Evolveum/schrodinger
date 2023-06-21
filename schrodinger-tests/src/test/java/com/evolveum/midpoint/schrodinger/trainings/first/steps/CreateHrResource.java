@@ -51,7 +51,8 @@ public class CreateHrResource extends AbstractTrainingTest {
                 // todo NOTE: all accounts are with `kind=unknown` so far
                 .previewResourceData()
                 .assertTableContainsObjects(20)
-                .assertTableColumnContainsValue("status", "Former")
+                //todo ask Ivan where to go to check Former status? resource data preview table doesn't contain this column
+//                .assertTableColumnContainsValue("status", "Former")
                 .exitWizard()
                 .goToResource()
                 .switchToDevelopmentMode()

@@ -30,10 +30,14 @@ public class PrismFormWizardStepPanel<T> extends WizardStepPanel<T> {
         super(parent);
     }
 
-    protected PrismForm<PrismFormWizardStepPanel> getFormPanel() {
-        SelenideElement formElement = $(Schrodinger.byDataId("div", "valueForm"))
+    protected PrismForm<PrismFormWizardStepPanel<T>> getFormPanel() {
+        SelenideElement formElement = $(Schrodinger.byDataId("div", getFormElementId()))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new PrismForm<>(PrismFormWizardStepPanel.this, formElement);
+    }
+
+    protected String getFormElementId() {
+        return "form";
     }
 
 }

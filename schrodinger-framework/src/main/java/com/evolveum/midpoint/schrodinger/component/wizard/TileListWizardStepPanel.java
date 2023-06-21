@@ -23,7 +23,9 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPanel<W> {
 
@@ -64,9 +66,18 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
         return null;
     }
 
-    public SelenideElement findTileByLabel(String tileLabel) {
-        return $(Schrodinger.byElementValue(
-                "div", "data-s-id", "tile", tileLabel))
+    public SelenideElement findTileByCssClass(int cssClass) {
+        return $x(".//div[@data-s-id='tile' and contains(@class, '" + cssClass + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    public SelenideElement findTileByKey(String tileLabelKey) {
+        return findTileByLabel(Utils.getPropertyString(tileLabelKey));
+    }
+
+    public SelenideElement findTileByLabel(String tileLabel) {
+        return $(byText(tileLabel));
+//        return $x(".//div[@data-s-id='tile' and contains(text(), '" + tileLabel + "')]")
+//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 }

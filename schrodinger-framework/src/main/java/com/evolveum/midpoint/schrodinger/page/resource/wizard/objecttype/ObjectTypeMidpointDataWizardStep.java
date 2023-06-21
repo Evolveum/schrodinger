@@ -57,4 +57,9 @@ public class ObjectTypeMidpointDataWizardStep extends PrismFormWizardStepPanel<O
         clickBack();
         return new ObjectTypeResourceDataWizardStep(getParent());
     }
+
+    @Override
+    protected String getFormElementId() {
+        return "formContainer";
+    }
 }

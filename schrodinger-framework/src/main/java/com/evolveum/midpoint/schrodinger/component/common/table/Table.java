@@ -272,7 +272,7 @@ public class Table<T> extends Component<T> {
     }
 
     public Table<T> assertTableObjectsCountEquals(int expectedObjectsCount) {
-        assertion.assertEquals(countTableObjects(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
+        assertion.assertEquals(rowsCount(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
         return this;
     }
 

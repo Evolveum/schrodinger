@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;

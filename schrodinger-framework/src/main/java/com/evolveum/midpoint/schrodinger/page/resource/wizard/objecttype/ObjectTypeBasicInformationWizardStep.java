@@ -65,5 +65,8 @@ public class ObjectTypeBasicInformationWizardStep extends PrismFormWizardStepPan
         return new ObjectTypeResourceDataWizardStep(getParent());
     }
 
-
+    @Override
+    protected String getFormElementId() {
+        return "formContainer";
+    }
 }

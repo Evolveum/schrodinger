@@ -28,7 +28,7 @@ public class ObjectTypeResourceDataWizardStep extends PrismFormWizardStepPanel<O
     }
 
     public ObjectTypeResourceDataWizardStep objectClass(String value) {
-        getFormPanel().selectOption("Object class", value);
+        getFormPanel().addAttributeValue("Object class", value);
         return ObjectTypeResourceDataWizardStep.this;
     }
 
@@ -70,5 +70,10 @@ public class ObjectTypeResourceDataWizardStep extends PrismFormWizardStepPanel<O
     public ObjectTypeBasicInformationWizardStep back() {
         clickBack();
         return new ObjectTypeBasicInformationWizardStep(getParent());
+    }
+
+    @Override
+    protected String getFormElementId() {
+        return "formContainer";
     }
 }

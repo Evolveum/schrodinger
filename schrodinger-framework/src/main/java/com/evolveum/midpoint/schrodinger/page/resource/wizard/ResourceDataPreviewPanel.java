@@ -22,6 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -39,6 +40,7 @@ public class ResourceDataPreviewPanel<W extends WizardPage, T extends TileListWi
 
     public ResourceDataPreviewPanel<W, T> assertTableColumnContainsValue(String columnName, String value) {
         getResourceObjectsTable().paging().pageSize(100);
+        Utils.waitForAjaxCallFinish();
         getResourceObjectsTable().assertTableContainsColumnWithValue(columnName, value);
         return ResourceDataPreviewPanel.this;
     }
