@@ -20,7 +20,6 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import jdk.jshell.execution.Util;
 
 import static com.codeborne.selenide.Selenide.$;
 

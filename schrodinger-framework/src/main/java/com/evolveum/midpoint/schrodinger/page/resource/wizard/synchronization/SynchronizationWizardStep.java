@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 
-import com.evolveum.midpoint.schrodinger.component.common.table.EditableRowTable;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -31,14 +31,14 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
 
     public MainConfigurationWizardStep<SynchronizationWizardStep<T>> addReaction() {
         table()
-                .getToolbarButtonByTitle("SynchronizationReactionTable.newObject")
+                .getToolbarButtonByTitleKey("SynchronizationReactionTable.newObject")
                 .click();
         return new MainConfigurationWizardStep<>(SynchronizationWizardStep.this);
     }
 
     public ListOfReactionsTable<SynchronizationWizardStep<T>> addSimpleReaction() {
         table()
-                .getToolbarButtonByTitle("SynchronizationReactionTable.newObject.simple")
+                .getToolbarButtonByTitleKey("SynchronizationReactionTable.newObject.simple")
                 .click();
         Utils.waitForAjaxCallFinish();
         return new ListOfReactionsTable<>(SynchronizationWizardStep.this, $(Schrodinger.byDataId("table")));

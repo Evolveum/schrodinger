@@ -15,16 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
-
-import static com.codeborne.selenide.Selenide.$x;
 
 public class ConfigurationWizardStep extends PrismFormWizardStepPanel<ResourceWizardPage>
         implements NextStepAction<DiscoveryWizardStep>, PreviousStepAction<BasicInformationWizardStep> {

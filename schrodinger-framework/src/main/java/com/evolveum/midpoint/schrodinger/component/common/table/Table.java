@@ -232,9 +232,13 @@ public class Table<T> extends Component<T> {
         return $(Schrodinger.byDataId("buttonToolbar"));
     }
 
+    public SelenideElement getToolbarButtonByTitleKey(String titleKey){
+        String title = Utils.getPropertyString(titleKey);
+        return getToolbarButtonByTitle(title);
+    }
+
     public SelenideElement getToolbarButtonByTitle(String buttonTitle){
-        String titleTranslated = Utils.getPropertyString(buttonTitle);
-        return getButtonToolbar().$x(".//a[@title='" + titleTranslated + "']");
+        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
     }
 
     public SelenideElement getToolbarButtonByCss(String iconCssClass){

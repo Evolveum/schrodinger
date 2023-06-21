@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
@@ -112,9 +113,8 @@ public class ResourceAccountsPanel<T> extends Component<T> {
      * @param title can be a key or a translated title
      */
     private void toolbarButtonClickByTitle(String title) {
-        String translated = Utils.getPropertyString(title);
         table()
-                .getToolbarButtonByTitle(translated)
+                .getToolbarButtonByTitleKey(title)
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
@@ -149,8 +149,9 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         return new ObjectTypeBasicInformationWizardStep(new ObjectTypeWizardPage());
     }
 
-    public void configureMappings() {
+    public MappingsWizardStep<ResourceAccountsPanel<T>> configureMappings() {
         clickButton("ResourceObjectTypePreviewTileType.ATTRIBUTE_MAPPING");
+        return new MappingsWizardStep<>(ResourceAccountsPanel.this);
     }
 
     public SynchronizationWizardStep<ResourceAccountsPanel<T>> configureSynchronization() {
