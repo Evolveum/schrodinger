@@ -33,16 +33,16 @@ public class EditableRowTable<T> extends Table<T>{
 
     public EditableRowTable<T> setInputValue(String columnResourceKey, String attributeValue, int rowIndex){
         SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
-        if (element != null) {
-            element.setValue(attributeValue);
+        if (element != null && element.exists()) {
+            element.$x(".//input").setValue(attributeValue);
         }
         return EditableRowTable.this;
     }
 
     public EditableRowTable<T> setDropdownValue(String columnResourceKey, String attributeValue, int rowIndex){
         SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
-        if (element != null) {
-            element.selectOption(attributeValue);
+        if (element != null && element.exists()) {
+            element.$x(".//select").selectOption(attributeValue);
         }
         return EditableRowTable.this;
     }

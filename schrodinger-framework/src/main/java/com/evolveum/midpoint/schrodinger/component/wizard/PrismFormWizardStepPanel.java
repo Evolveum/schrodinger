@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class PrismFormWizardStepPanel<T> extends WizardStepPanel<T> {
 
     public PrismFormWizardStepPanel(T parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     protected PrismForm<PrismFormWizardStepPanel<T>> getFormPanel() {

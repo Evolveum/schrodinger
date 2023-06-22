@@ -101,8 +101,12 @@ public class Table<T> extends Component<T> {
         int index = 1;
 
         for (SelenideElement header : headers) {
-            SelenideElement headerWithKey = header.find((Schrodinger.byDataResourceKey(key)));
-            if (headerWithKey.exists()) {
+            SelenideElement headerElement = header.find((Schrodinger.byDataResourceKey(key)));
+            if (headerElement.exists()) {
+                return index;
+            }
+            headerElement = header.$(byText(key));
+            if (headerElement.exists()) {
                 return index;
             }
             index++;

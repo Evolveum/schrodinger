@@ -17,21 +17,25 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MappingsWizardStep<T> extends WizardStepPanel<T> {
 
     public MappingsWizardStep(T parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId("tabTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public InboundMappingsPanel<MappingsWizardStep<T>> inboundMappings() {
         String linkText = Utils.getPropertyString("AttributeMappingsTableWizardPanel.inboundTable");
-        $x(".//a[@data-s-id='link' and contains(text(), \"" + linkText + "\")]")
+        getParentElement().$(By.partialLinkText(linkText))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
@@ -47,10 +51,13 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
         return new OutboundMappingsPanel<>(MappingsWizardStep.this);
     }
 
+    protected SelenideElement getContentPanelElement() {
+        return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
     public T saveMappings() {
         String buttonTitle = Utils.getPropertyString("AttributeMappingsTableWizardPanel.saveButton");
-        getStepPanelContentElement()
-                .$x(".//a[@title=\"" + buttonTitle + "\"]")
+        $x(".//a[@title=\"" + buttonTitle + "\"]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return getParent();

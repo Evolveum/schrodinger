@@ -46,6 +46,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -387,11 +388,7 @@ public class Utils {
     public static SelenideElement findTileElementByTitle(String title) {
         String translateTitle = getPropertyString(title);
         ElementsCollection tiles = $$x(".//div[@data-s-id='tile']");
-        return tiles
-                .stream()
-                .filter(t -> elementContainsTextCaseInsensitive(t, translateTitle))
-                .findFirst()
-                .orElse(null);
+        return tiles.findBy(Condition.text(translateTitle));
     }
 
     public static boolean elementContainsTextCaseInsensitive(SelenideElement el, String text) {

@@ -29,8 +29,10 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPanel<W> {
 
+    protected static final String ID_CONTENT_BODY = "choicePanel";
+
     public TileListWizardStepPanel(W parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public WizardStepPanel selectTileByNumber(int tileNumber) {
@@ -59,7 +61,7 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
     }
 
     public SelenideElement findTileByNumber(int tileNumber) {
-        ElementsCollection collection = getStepPanelContentElement().$$x(".//div[@data-s-id='tile']");
+        ElementsCollection collection = getContentPanelElement().$$x(".//div[@data-s-id='tile']");
         if (collection.size() >= tileNumber) {
             return collection.get(tileNumber - 1);
         }
@@ -76,8 +78,6 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
     }
 
     public SelenideElement findTileByLabel(String tileLabel) {
-        return $(byText(tileLabel));
-//        return $x(".//div[@data-s-id='tile' and contains(text(), '" + tileLabel + "')]")
-//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return getParentElement().$(byText(tileLabel));
     }
 }

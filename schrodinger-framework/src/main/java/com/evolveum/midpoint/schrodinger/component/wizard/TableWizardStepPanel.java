@@ -22,11 +22,13 @@ import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class TableWizardStepPanel<T> extends WizardStepPanel<T> {
 
     public TableWizardStepPanel(T parent) {
-        super(parent);
+        super(parent, $x(".//div[contains(@class, \"card\")]").shouldBe(Condition.visible,
+                MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     protected Table<TableWizardStepPanel<T>> table() {

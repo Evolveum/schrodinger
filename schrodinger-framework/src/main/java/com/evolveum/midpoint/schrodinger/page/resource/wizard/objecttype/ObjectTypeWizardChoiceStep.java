@@ -83,6 +83,7 @@ public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTy
     }
 
     private void clickTile(SelenideElement tile) {
+        Utils.scrollToElement(tile);
         tile.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
     }

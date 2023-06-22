@@ -184,14 +184,11 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         SelenideElement buttonsContainer = $(Schrodinger.byDataId("topButtonsContainer"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         ElementsCollection buttons = buttonsContainer.$$x(".//a");
-        SelenideElement button = buttons
-                .stream()
-                .filter(b -> Utils.elementContainsTextCaseInsensitive(b, translatedTitle))
-                .findFirst()
-                .orElse(null);
-        if (button == null) {
+        SelenideElement button = buttons.findBy(Condition.text(translatedTitle));
+        if (!button.exists()) {
             return;
         }
+        Utils.scrollToElement(button);
         button.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();

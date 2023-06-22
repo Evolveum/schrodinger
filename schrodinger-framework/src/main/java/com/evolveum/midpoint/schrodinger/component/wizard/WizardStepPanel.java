@@ -27,13 +27,13 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import static com.codeborne.selenide.Selenide.$;
 
 public class WizardStepPanel<T> extends Component<T> {
-    public static final String ID_CONTENT_BODY = "contentBody";
+    protected static final String ID_CONTENT_BODY = "contentBody";
 
-    public WizardStepPanel(T parent) {
-        super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
+    public WizardStepPanel(T parent, SelenideElement parentElement) {
+        super(parent, parentElement);
     }
 
-    public SelenideElement getStepPanelContentElement() {
+    protected SelenideElement getContentPanelElement() {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
