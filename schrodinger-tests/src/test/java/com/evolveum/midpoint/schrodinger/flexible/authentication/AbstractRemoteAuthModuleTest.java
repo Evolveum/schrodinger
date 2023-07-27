@@ -54,6 +54,8 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
+        addObjectFromFile(DEFAULT_SECURITY_POLICY_FILE, true);
+
         super.beforeClass();
 
         this.properties = loadProperties(getPropertyFile());
@@ -66,7 +68,6 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
                 new File(getDisabledUserFilePath()),
                 true);
 
-        addObjectFromFile(DEFAULT_SECURITY_POLICY_FILE, true);
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         basicPage.getUserMenu().shouldBe(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);
