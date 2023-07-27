@@ -22,10 +22,12 @@ import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import static com.codeborne.selenide.Selenide.$;
+
 public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
 
     public ShoppingCartStepPanel(RequestAccessPage parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public RequestAccessPage clickSubmitButton() {
@@ -33,10 +35,5 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
                 .click();
         Utils.waitForAjaxCallFinish();
         return getParent();
-    }
-
-    @Override
-    protected boolean isLastStep() {
-        return true;
     }
 }

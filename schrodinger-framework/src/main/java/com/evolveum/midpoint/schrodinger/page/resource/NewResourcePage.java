@@ -15,10 +15,53 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.SchrodingerException;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.BasicInformationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardPage;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class NewResourcePage extends BasicPage {
+
+    public BasicInformationWizardStep createResourceFromScratch(String resourceTitle) {
+        $x(".//div[@data-s-id='panelHeader']")
+                .$x(".//div[@data-s-id='type']")
+                .$x(".//select[@data-s-id='input']")
+                .selectOption("From scratch");
+        Utils.waitForAjaxCallFinish();
+        SelenideElement tile = Utils.findTileElementByTitle(resourceTitle);
+        if (tile == null) {
+            throw new SchrodingerException("Connector selection element with title " + resourceTitle
+                    + " is not found on the page.");
+        }
+        tile
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        ResourceWizardPage page = new ResourceWizardPage();
+        page.assertBasicStep();
+        return new BasicInformationWizardStep(page);
+    }
+
+    public BasicInformationWizardStep createResourceFromTemplate(String templateTitle) {
+        $x(".//div[@data-s-id='panelHeader']")
+                .$x(".//div[@data-s-id='type']")
+                .$x(".//select[@data-s-id='input']")
+                .selectOption("From template");
+        Utils.waitForAjaxCallFinish();
+        $x(".//div[@data-s-id='tile' and contains(text(), '" + templateTitle + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        ResourceWizardPage page = new ResourceWizardPage();
+        page.assertBasicStep();
+        return new BasicInformationWizardStep(page);
+    }
 }

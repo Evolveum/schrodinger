@@ -13,32 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.SchrodingerException;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WizardStepPanel<W extends WizardPage> extends Component<W> {
-    public static final String ID_CONTENT_BODY = "contentBody";
+public class WizardStepPanel<T> extends Component<T> {
+    protected static final String ID_CONTENT_BODY = "contentBody";
 
-    public WizardStepPanel(W parent) {
-        super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
+    public WizardStepPanel(T parent, SelenideElement parentElement) {
+        super(parent, parentElement);
     }
 
-    public SelenideElement getStepPanelContentElement() {
+    protected SelenideElement getContentPanelElement() {
         return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    public void clickNextButton() {
-        if (isLastStep()) {
-            return;
+    protected void clickNext() {
+        if (!NextStepAction.class.isAssignableFrom(this.getClass())) {
+            throw new SchrodingerException("Current wizard step doesn't support next step action.");
         }
         $(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "next",
                         "data-s-id", "nextLabel"))
@@ -46,17 +47,15 @@ public class WizardStepPanel<W extends WizardPage> extends Component<W> {
         Utils.waitForAjaxCallFinish();
     }
 
-    public void clickBackButton() {
+    public <WSP extends WizardStepPanel<T>> WSP clickBack() {
+        if (!PreviousStepAction.class.isAssignableFrom(this.getClass())) {
+            throw new SchrodingerException("Current wizard step doesn't support back action.");
+        }
         $(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
-    }
 
-    protected boolean isLastStep() {
-        return false;
-    }
-
-    protected boolean isFirstStep() {
-        return false;
+        PreviousStepAction<WSP> currentStep = (PreviousStepAction<WSP>) this;
+        return currentStep.back();
     }
 
 }

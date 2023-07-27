@@ -100,14 +100,6 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return this;
     }
 
-    public SelenideElement getToolbarButtonByCss(String iconCssClass){
-        return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
-    }
-
-    public SelenideElement getToolbarButtonByTitle(String buttonTitle){
-        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
-    }
-
     public PD newObjectButtonByCssClick(String iconCssClass){
         if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
@@ -132,7 +124,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     public PD newObjectButtonByTitleClick(String buttonTitle){
-        if (!getToolbarButtonByTitle(buttonTitle).isDisplayed()) {
+        if (!getToolbarButtonByTitleKey(buttonTitle).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                     .click();
@@ -141,7 +133,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         if (Utils.isModalWindowSelenideElementVisible()) {
             Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
         } else {
-            getToolbarButtonByTitle(buttonTitle).click();
+            getToolbarButtonByTitleKey(buttonTitle).click();
         }
         Utils.waitForMainPanelOnDetailsPage();
         return getObjectDetailsPage();

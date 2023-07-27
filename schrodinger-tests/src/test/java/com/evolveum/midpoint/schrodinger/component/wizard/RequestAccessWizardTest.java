@@ -39,7 +39,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .selectDefaultRelation()
                 .selectAllRolesMenu()
                 .addItemToCart("End user")
-                .navigateToShoppingCartPanel()
+                .next()
                 .clickSubmitButton()
                 .feedback()
                 .assertSuccess();
@@ -56,7 +56,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .selectDefaultRelation()
                 .selectAllRolesMenu()
                 .addItemToCart("End user")
-                .navigateToShoppingCartPanel()
+                .next()
                 .clickSubmitButton()
                 .feedback()
                 .assertSuccess();
@@ -78,7 +78,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                .selectManagerRelation()
                .selectRolesOfTeammateMenu("ra_wizard_user_with_assignments")
                .addItemToCart("ra_role_to_assign")
-               .navigateToShoppingCartPanel()
+               .next()
                .clickSubmitButton()
                .feedback()
                .assertSuccess();

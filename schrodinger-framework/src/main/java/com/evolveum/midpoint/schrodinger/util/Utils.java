@@ -17,11 +17,9 @@ package com.evolveum.midpoint.schrodinger.util;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$x;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.*;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
@@ -48,6 +46,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -379,6 +378,25 @@ public class Utils {
         }
         String cssClassStr = element.getAttribute("class");
         return cssClassStr != null && cssClassStr.contains(cssClass);
+    }
+
+    /**
+     *
+     * @param title can be either title key or title value
+     * @return
+     */
+    public static SelenideElement findTileElementByTitle(String title) {
+        String translateTitle = getPropertyString(title);
+        ElementsCollection tiles = $$x(".//div[@data-s-id='tile']");
+        return tiles.findBy(Condition.text(translateTitle));
+    }
+
+    public static boolean elementContainsTextCaseInsensitive(SelenideElement el, String text) {
+        try {
+            return el.shouldHave(Condition.text(text)).exists();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

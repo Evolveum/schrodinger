@@ -20,7 +20,13 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
+import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -90,6 +96,40 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         return this;
     }
 
+    public ResourceAccountsPanel<T> reclassify() {
+        toolbarButtonClickByTitle("ResourceCategorizedPanel.button.reclassify");
+        return new ConfirmationModal<>(ResourceAccountsPanel.this,
+                Utils.getModalWindowSelenideElement())
+                .clickYes();
+    }
+
+    public ResourceAccountsPanel<T> refresh() {
+        toolbarButtonClickByTitle("MainObjectListPanel.refresh");
+        return ResourceAccountsPanel.this;
+    }
+
+    /**
+     *
+     * @param title can be a key or a translated title
+     */
+    private void toolbarButtonClickByTitle(String title) {
+        table()
+                .getToolbarButtonByTitleKey(title)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+    }
+
+    public ResourceAccountsPanel<T> assertTableContainsColumnWithValue(String columnResourceKey, String value) {
+        table().assertTableContainsColumnWithValue(columnResourceKey, value);
+        return this;
+    }
+
+    public ResourceAccountsPanel<T> assertTableDoesntContainColumnWithValue(String columnResourceKey, String value) {
+        table().assertTableDoesntContainColumnWithValue(columnResourceKey, value);
+        return this;
+    }
+
     public ResourceShadowTable<ResourceAccountsPanel<T>> table() {
 
         SelenideElement element = $(Schrodinger.byDataId("div", "itemsTable"))
@@ -102,6 +142,56 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         $(Schrodinger.byDataId("div", "intent")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .$(Schrodinger.byDataId("input", "input"))
                 .setValue(intent);
+    }
+
+    public ObjectTypeBasicInformationWizardStep configureBasicAttributes() {
+        clickButton("ResourceObjectTypePreviewTileType.BASIC");
+        return new ObjectTypeBasicInformationWizardStep(new ObjectTypeWizardPage());
+    }
+
+    public MappingsWizardStep<ResourceAccountsPanel<T>> configureMappings() {
+        clickButton("ResourceObjectTypePreviewTileType.ATTRIBUTE_MAPPING");
+        return new MappingsWizardStep<>(ResourceAccountsPanel.this);
+    }
+
+    public SynchronizationWizardStep<ResourceAccountsPanel<T>> configureSynchronization() {
+        clickButton("ResourceObjectTypePreviewTileType.SYNCHRONIZATION_CONFIG");
+        return new SynchronizationWizardStep<>(ResourceAccountsPanel.this);
+    }
+
+    public void configureCorrelation() {
+        clickButton("ResourceObjectTypePreviewTileType.CORRELATION_CONFIG");
+    }
+
+    public void configureCapabilities() {
+        clickButton("ResourceObjectTypePreviewTileType.CAPABILITIES_CONFIG");
+    }
+
+    public void configureActivation() {
+        clickButton("ResourceObjectTypePreviewTileType.ACTIVATION");
+    }
+
+    public void configureCredentials() {
+        clickButton("ResourceObjectTypePreviewTileType.CREDENTIALS");
+    }
+
+    public void configureAssociations() {
+        clickButton("ResourceObjectTypePreviewTileType.ASSOCIATIONS");
+    }
+
+    private void clickButton(String title) {
+        String translatedTitle = Utils.getPropertyString(title);
+        SelenideElement buttonsContainer = $(Schrodinger.byDataId("topButtonsContainer"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        ElementsCollection buttons = buttonsContainer.$$x(".//a");
+        SelenideElement button = buttons.findBy(Condition.text(translatedTitle));
+        if (!button.exists()) {
+            return;
+        }
+        Utils.scrollToElement(button);
+        button.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
     }
 
     public ProjectionsDropDown<ResourceAccountsPanel<T>> clickHeaderActionDropDown() {

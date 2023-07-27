@@ -520,13 +520,17 @@
                             <c:path>completionTimestamp</c:path>
                         </item>
                     </container>
+                </panel>
+                <panel>
+                    <identifier>operation-attributes-progress</identifier>
+                    <display>
+                        <label>Operational attributes (progress)</label>
+                    </display>
+                    <panelType>formPanel</panelType>
                     <container>
+                        <identifier>operation-attributes-progress</identifier>
                         <displayOrder>910</displayOrder>
                         <visibility>hidden</visibility>
-                        <identifier>operation-attributes-progress</identifier>
-                        <display>
-                            <label>Operational attributes (progress)</label>
-                        </display>
                         <item>
                             <c:path>progress</c:path>
                         </item>

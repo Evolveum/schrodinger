@@ -205,12 +205,16 @@
                     <searchItems>
                         <searchItem>
                             <path>c:employeeNumber</path>
-                            <displayName>By employee number</displayName>
+                            <display>
+                                <label>By employee number</label>
+                            </display>
                             <visibleByDefault>true</visibleByDefault>
                         </searchItem>
                         <searchItem>
                             <path>c:emailAddress</path>
-                            <displayName>By email</displayName>
+                            <display>
+                                <label>By email</label>
+                            </display>
                             <visibleByDefault>true</visibleByDefault>
                         </searchItem>
                     </searchItems>

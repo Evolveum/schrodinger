@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.evolveum.midpoint.schrodinger;
+package com.evolveum.midpoint.schrodinger.scenarios;
 
 import com.codeborne.selenide.Selenide;
 
+import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.component.common.Paging;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 

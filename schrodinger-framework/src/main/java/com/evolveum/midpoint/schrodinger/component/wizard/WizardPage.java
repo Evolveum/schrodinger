@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Condition;
@@ -34,7 +35,7 @@ public class WizardPage extends BasicPage {
 
     public WizardPage assertSelectedStepByLabel(String label) {
         $x(".//div[@data-s-id='step' and contains(@class, 'active') and " +
-                "descendant-or-self::*[contains(.,\" + label + \")]]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                "descendant-or-self::*[contains(.,\"" + label + "\")]]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
     }
 

@@ -21,6 +21,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
+import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -28,7 +29,8 @@ import java.util.Arrays;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessPage> {
+public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessPage>
+        implements NextStepAction<ShoppingCartStepPanel> {
 
     public RoleCatalogStepPanel(RequestAccessPage parent) {
         super(parent);
@@ -80,8 +82,9 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return RoleCatalogStepPanel.this;
     }
 
-    public ShoppingCartStepPanel navigateToShoppingCartPanel() {
-        clickNextButton();
+    @Override
+    public ShoppingCartStepPanel next() {
+        clickNext();
         return new ShoppingCartStepPanel(getParent());
     }
 

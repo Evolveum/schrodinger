@@ -23,12 +23,16 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPanel<W> {
 
+    protected static final String ID_CONTENT_BODY = "choicePanel";
+
     public TileListWizardStepPanel(W parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public WizardStepPanel selectTileByNumber(int tileNumber) {
@@ -39,29 +43,41 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
         Utils.waitForAjaxCallFinish();
         findTileByNumber(tileNumber).click();
         if (clickNextButton) {
-            clickNextButton();
+            clickNext();
         }
+        return this;
+    }
+
+    public WizardStepPanel selectTileByLabelAndMoveToNext(String tileLabel) {
+        selectTileByLabel(tileLabel);
+        clickNext();
         return this;
     }
 
     public WizardStepPanel selectTileByLabel(String tileLabel) {
         findTileByLabel(tileLabel).click();
         Utils.waitForAjaxCallFinish();
-        clickNextButton();
         return this;
     }
 
     public SelenideElement findTileByNumber(int tileNumber) {
-        ElementsCollection collection = getStepPanelContentElement().$$x(".//div[@data-s-id='tile']");
+        ElementsCollection collection = getContentPanelElement().$$x(".//div[@data-s-id='tile']");
         if (collection.size() >= tileNumber) {
             return collection.get(tileNumber - 1);
         }
         return null;
     }
 
-    public SelenideElement findTileByLabel(String tileLabel) {
-        return $(Schrodinger.byElementValue(
-                "div", "data-s-id", "tile", tileLabel))
+    public SelenideElement findTileByCssClass(int cssClass) {
+        return $x(".//div[@data-s-id='tile' and contains(@class, '" + cssClass + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    public SelenideElement findTileByKey(String tileLabelKey) {
+        return findTileByLabel(Utils.getPropertyString(tileLabelKey));
+    }
+
+    public SelenideElement findTileByLabel(String tileLabel) {
+        return getParentElement().$(byText(tileLabel));
     }
 }

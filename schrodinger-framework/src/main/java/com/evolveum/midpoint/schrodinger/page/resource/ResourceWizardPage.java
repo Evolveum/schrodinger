@@ -24,13 +24,13 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
- * Created by honchar.
+ * This is old resource wizard page. It's not present in mp since 4.6
  */
+@Deprecated
 public class ResourceWizardPage extends BasicPage {
 
     public void clickOnWizardTab(String tabName){

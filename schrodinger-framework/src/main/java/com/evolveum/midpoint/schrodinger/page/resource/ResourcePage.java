@@ -28,6 +28,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
 
@@ -73,8 +74,40 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
         return new ResourceAccountsPanel<>(this, tabContent);
     }
 
-    public SchemaStepSchemaPanel selectSchemaPanel() {
-        SelenideElement element = getNavigationPanelSelenideElement("Schema");
-        return new SchemaStepSchemaPanel(this, element);
+    public SchemaHandlingPanel selectSchemaHandlingPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Schema handling");
+        return new SchemaHandlingPanel(this, element);
+    }
+
+    public ResourcePage switchToDevelopmentMode() {
+        try {
+            String switchToDevelopmentKey = "OperationalButtonsPanel.button.toggleToDevelopment";
+            String title = Utils.getPropertyString(switchToDevelopmentKey);
+            SelenideElement button = $(Schrodinger.byElementAttributeValue("a", "title", title))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            if (button.exists()) {
+                button.click();
+                Utils.waitForAjaxCallFinish();
+            }
+        } catch (Exception e) {
+            //nothing to do here, we are already in development mode
+        }
+        return ResourcePage.this;
+    }
+
+    public ResourcePage switchToProductionMode() {
+        try {
+            String switchToProductionKey = "OperationalButtonsPanel.button.toggleToProduction";
+            String title = Utils.getPropertyString(switchToProductionKey);
+            SelenideElement button = $(Schrodinger.byElementAttributeValue("a", "title", title))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            if (button.exists()) {
+                button.click();
+                Utils.waitForAjaxCallFinish();
+            }
+        } catch (Exception e) {
+            //nothing to do here, we are already in production mode
+        }
+        return ResourcePage.this;
     }
 }

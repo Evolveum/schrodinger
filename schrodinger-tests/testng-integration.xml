@@ -63,13 +63,13 @@
     </test>
     <test name="UserTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
-            <class name="com.evolveum.midpoint.schrodinger.UserTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.scenarios.UserTest"/>
             <class name="com.evolveum.midpoint.schrodinger.page.PreviewPageTest"/>
         </classes>
     </test>
     <test name="UsersTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
-            <class name="com.evolveum.midpoint.schrodinger.UsersTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.scenarios.UsersTest"/>
         </classes>
     </test>
     <test name="QueryPlaygroundPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
@@ -100,7 +100,7 @@
     </test>
     <test name="ImportTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
-            <class name="com.evolveum.midpoint.schrodinger.ImportTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.scenarios.ImportTest"/>
         </classes>
     </test>
     <test name="HomePageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">

@@ -17,13 +17,12 @@
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
-
-import javax.management.relation.Role;
 import java.util.Objects;
 
-public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage> {
+public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage>
+        implements NextStepAction<RoleCatalogStepPanel> {
 
     public static final int DEFAULT_RELATION_INDEX = 1;
     public static final int MANAGER_RELATION_INDEX = 2;
@@ -38,10 +37,9 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
     public RoleCatalogStepPanel selectDefaultRelation() {
         if (!isRelationSelected(DEFAULT_RELATION_INDEX)) {
             selectTileByNumber(DEFAULT_RELATION_INDEX);
-        } else {
-            clickNextButton();
+            return new RoleCatalogStepPanel(getParent());
         }
-        return new RoleCatalogStepPanel(getParent());
+        return next();
     }
 
     public RoleCatalogStepPanel selectOwnerRelation() {
@@ -66,7 +64,7 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
     }
 
     public RoleCatalogStepPanel selectRelationByLabel(String label) {
-        selectTileByLabel(label);
+        selectTileByLabelAndMoveToNext(label);
         return new RoleCatalogStepPanel(getParent());
     }
 
@@ -79,5 +77,9 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
        return tile != null && Objects.requireNonNullElse(tile.getAttribute("class"), "").contains("active");
     }
 
-
+    @Override
+    public RoleCatalogStepPanel next() {
+        clickNext();
+        return new RoleCatalogStepPanel(getParent());
+    }
 }

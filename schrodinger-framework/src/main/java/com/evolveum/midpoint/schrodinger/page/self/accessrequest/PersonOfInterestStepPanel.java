@@ -21,6 +21,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModalTable;
 import com.evolveum.midpoint.schrodinger.component.self.RequestRoleTab;
+import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -29,7 +30,8 @@ import jdk.jshell.execution.Util;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAccessPage> {
+public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAccessPage>
+        implements NextStepAction<RelationStepPanel> {
 
     private static final int MYSELF_TILE_INDEX = 1;
     private static final int GROUP_TILE_INDEX = 2;
@@ -46,8 +48,13 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
     public RelationStepPanel selectGroup(String... userNames) {
         selectTileByNumber(GROUP_TILE_INDEX, false);
         new DefineGroupOfUsersPanel(getParent())
-                .selectUserGroupByButtonClick(userNames)
-                .clickNextButton();
+                .selectUserGroupByButtonClick(userNames);
+        return next();
+    }
+    
+    @Override
+    public RelationStepPanel next() {
+        clickNext();
         return new RelationStepPanel(getParent());
     }
 

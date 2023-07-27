@@ -26,6 +26,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -100,8 +101,12 @@ public class Table<T> extends Component<T> {
         int index = 1;
 
         for (SelenideElement header : headers) {
-            SelenideElement headerWithKey = header.find((Schrodinger.byDataResourceKey(key)));
-            if (headerWithKey.exists()) {
+            SelenideElement headerElement = header.find((Schrodinger.byDataResourceKey(key)));
+            if (headerElement.exists()) {
+                return index;
+            }
+            headerElement = header.$(byText(key));
+            if (headerElement.exists()) {
                 return index;
             }
             index++;
@@ -133,7 +138,6 @@ public class Table<T> extends Component<T> {
                 return new TableRow(this, row);
             }
         }
-        Selenide.screenshot("getTableRowByIndex_returns_null_" + System.currentTimeMillis());
         return null;
     }
 
@@ -156,16 +160,24 @@ public class Table<T> extends Component<T> {
     }
 
     public String getTableCellValue(String columnResourceKey, int rowIndex) {
+        SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
+        if (element == null) {
+            return null;
+        }
+        return element.getText();
+    }
+
+    protected SelenideElement getTableCellElement(String columnResourceKey, int rowIndex) {
         int columnIndex = findColumnByResourceKey(columnResourceKey);
         ElementsCollection rows = getParentElement().findAll("tbody tr");
         if (rowIndex > rows.size()) {
             return null;
         }
         SelenideElement element = rows.get(rowIndex -1).find("td:nth-child(" + (columnIndex) + ")");
-        if (element == null) {
+        if (!element.exists()) {
             return null;
         }
-        return element.getText();
+        return element;
     }
 
     public Search<? extends Table<T>> search() {
@@ -224,6 +236,19 @@ public class Table<T> extends Component<T> {
         return $(Schrodinger.byDataId("buttonToolbar"));
     }
 
+    public SelenideElement getToolbarButtonByTitleKey(String titleKey){
+        String title = Utils.getPropertyString(titleKey);
+        return getToolbarButtonByTitle(title);
+    }
+
+    public SelenideElement getToolbarButtonByTitle(String buttonTitle){
+        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
+    }
+
+    public SelenideElement getToolbarButtonByCss(String iconCssClass){
+        return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
+    }
+
     public int countTableObjects() {
         String countStringValue = $(Schrodinger.bySelfOrAncestorElementAttributeValue("span", "class", "align-middle", Schrodinger.DATA_S_ID, "count"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).text();
@@ -251,7 +276,7 @@ public class Table<T> extends Component<T> {
     }
 
     public Table<T> assertTableObjectsCountEquals(int expectedObjectsCount) {
-        assertion.assertEquals(countTableObjects(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
+        assertion.assertEquals(rowsCount(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
         return this;
     }
 
@@ -316,6 +341,12 @@ public class Table<T> extends Component<T> {
         return this;
     }
 
+    public Table<T> assertTableDoesntContainColumnWithValue(String columnResourceKey, String value) {
+        assertion.assertNull(rowByColumnResourceKey(columnResourceKey, value), "Table shouldn't contain value '" + value +
+                "' in column with resource key '" + columnResourceKey + "'.");
+        return this;
+    }
+
     public Table<T> assertTableColumnValueIsEmpty(String columnResourceKey) {
         assertion.assertEquals("", getTableCellValue(columnResourceKey, 1));
         return this;
@@ -340,6 +371,23 @@ public class Table<T> extends Component<T> {
             }
         }
         return this;
+    }
+
+    public int rowsCount() {
+        return getParentElement()
+                .findAll("tbody tr")
+                .size();
+
+    }
+
+    public TableRow<T, Table<T>> getTableRow(int rowIndex) {
+        ElementsCollection rows = getParentElement()
+                .findAll("tbody tr");
+        int rowsSize = rows.size();
+        if (rowIndex > rowsSize) {
+            return null;
+        }
+        return new TableRow(this, rows.get(rowIndex - 1));
     }
 
 }
