@@ -133,49 +133,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void springTestContextPrepareTestInstance() throws Exception {
         startMidpoint = isStartMidpoint();
         if (startMidpoint) {
-            String home = System.getProperty("midpoint.home");
-            File mpHomeDir = new File(home);
-            if (!mpHomeDir.exists()) {
-                if (!mpHomeDir.mkdir()) {
-                    throw new IOException("Creation of directory " + mpHomeDir.getAbsolutePath() + " unsuccessful");
-                }
-            }
-            File extensionSchemaFile = getExtensionSchemaFile();
-            if (extensionSchemaFile != null) {
-                File schemaDir = new File(home, "schema");
-                if (!schemaDir.mkdir()) {
-                    if (schemaDir.exists()) {
-                        FileUtils.cleanDirectory(schemaDir);
-                    } else {
-                        throw new IOException("Creation of directory \"" + schemaDir.getAbsolutePath() + "\" unsuccessful");
-                    }
-                }
-                File schemaFile = new File(schemaDir, extensionSchemaFile.getName());
-                FileUtils.copyFile(extensionSchemaFile, schemaFile);
-            }
-
-            String postInitialObjectsPath = getPostInitialObjectsFolderPath();
-            if (StringUtils.isNotEmpty(postInitialObjectsPath)) {
-                File postInitObjectsSourceDir = new File(postInitialObjectsPath);
-                File[] objList = postInitObjectsSourceDir.listFiles();
-
-                if (objList != null && objList.length > 0) {
-                    File postInitObjectsDir = new File(home, "post-initial-objects");
-                    if (!postInitObjectsDir.mkdir()) {
-                        if (postInitObjectsDir.exists()) {
-                            FileUtils.cleanDirectory(postInitObjectsDir);
-                        } else {
-                            throw new IOException("Creation of directory \"" + postInitObjectsDir.getAbsolutePath() + "\" unsuccessful");
-                        }
-                    }
-                    Arrays.sort(objList);
-                    for (File postInitFile : objList) {
-                        File objFile = new File(postInitObjectsDir, postInitFile.getName());
-                        FileUtils.copyFile(Utils.changeAttributeIfPresent(postInitFile, "redirectToFile",
-                                home + "/example-mail-notifications.log", home), objFile);
-                    }
-                }
-            }
+            startMidpoint();
             super.springTestContextPrepareTestInstance();
         } else if (prismContext == null) {
             PrismContextFactory pcf = new MidPointPrismContextFactory();
@@ -189,6 +147,80 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, true));
     }
 
+    private void startMidpoint() throws IOException {
+        LOG.info("Starting midPoint....");
+        String home = createMidPointHome();
+
+        initializeExtensionSchemas(home);
+
+        initializePostInitialObjects(home);
+        LOG.info("midPoint started successfully");
+    }
+
+    private void initializePostInitialObjects(String home) throws IOException {
+        String postInitialObjectsPath = getPostInitialObjectsFolderPath();
+        if (StringUtils.isEmpty(postInitialObjectsPath)) {
+            LOG.info("No post-initial objects to import, skipping post-inital objects.");
+            return;
+        }
+
+        File postInitObjectsSourceDir = new File(postInitialObjectsPath);
+        File[] objList = postInitObjectsSourceDir.listFiles();
+
+        if (objList != null && objList.length > 0) {
+            File postInitObjectsDir = new File(home, "post-initial-objects");
+            if (!postInitObjectsDir.mkdir()) {
+                if (postInitObjectsDir.exists()) {
+                    FileUtils.cleanDirectory(postInitObjectsDir);
+                } else {
+                    throw new IOException("Creation of directory \"" + postInitObjectsDir.getAbsolutePath() + "\" unsuccessful");
+                }
+            }
+            Arrays.sort(objList);
+            for (File postInitFile : objList) {
+                File objFile = new File(postInitObjectsDir, postInitFile.getName());
+                FileUtils.copyFile(Utils.changeAttributeIfPresent(postInitFile, "redirectToFile",
+                        home + "/example-mail-notifications.log", home), objFile);
+            }
+        }
+        LOG.info("Post-initial objects successfully copied to midpoint.home/post-initial-objects directory.");
+
+    }
+
+    private String createMidPointHome() throws IOException {
+        String home = System.getProperty("midpoint.home");
+        File mpHomeDir = new File(home);
+        if (!mpHomeDir.exists()) {
+            LOG.info("Creating midpoint.home directory: {}", mpHomeDir.getAbsolutePath());
+            if (!mpHomeDir.mkdir()) {
+                throw new IOException("Creation of directory " + mpHomeDir.getAbsolutePath() + " unsuccessful");
+            }
+        }
+        LOG.info("midpoint.home directory created successfully");
+        return home;
+    }
+
+    private void initializeExtensionSchemas(String home) throws IOException {
+        File extensionSchemaFile = getExtensionSchemaFile();
+        if (extensionSchemaFile == null) {
+            LOG.info("No extension files found, continue with midPoint initialization.");
+            return;
+        }
+
+        LOG.info("Initializing extension schema from file {}", extensionSchemaFile.getName());
+
+        File schemaDir = new File(home, "schema");
+        if (!schemaDir.mkdir()) {
+            if (schemaDir.exists()) {
+                FileUtils.cleanDirectory(schemaDir);
+            } else {
+                throw new IOException("Creation of directory \"" + schemaDir.getAbsolutePath() + "\" unsuccessful");
+            }
+        }
+        File schemaFile = new File(schemaDir, extensionSchemaFile.getName());
+        FileUtils.copyFile(extensionSchemaFile, schemaFile);
+        LOG.info("Extension schema initialized successfully.");
+    }
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     public void beforeClass() throws IOException {
@@ -732,6 +764,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected boolean isStartMidpoint() throws IOException {
         String startMidpointStr = getConfigurationPropertyValue("startMidpoint");
+        LOG.info("startMidpoint property set to: {}", startMidpointStr);
         if (!StringUtils.isEmpty(startMidpointStr) && startMidpointStr.equals("false")) {
             return false;
         }
