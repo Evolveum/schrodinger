@@ -73,9 +73,6 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
         basicPage.getUserMenu().shouldBe(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         Selenide.clearBrowserCookies();
-        if (!Selenide.localStorage().isEmpty()) {
-            Selenide.clearBrowserLocalStorage();
-        }
         Selenide.closeWindow();
     }
 
@@ -123,9 +120,6 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
             logoutAndCheckIt(username);
         } finally {
             Selenide.clearBrowserCookies();
-            if (!Selenide.localStorage().isEmpty()) {
-                Selenide.clearBrowserLocalStorage();
-            }
             Selenide.closeWindow();
         }
     }
@@ -139,9 +133,6 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
             logoutAndCheckIt(username);
         } finally {
             Selenide.clearBrowserCookies();
-            if (!Selenide.localStorage().isEmpty()) {
-                Selenide.clearBrowserLocalStorage();
-            }
             Selenide.closeWindow();
         }
     }
