@@ -15,7 +15,11 @@
  */
 package com.evolveum.midpoint.schrodinger.flexible.authentication.saml;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.flexible.authentication.util.KeycloakUtils;
+
+import java.time.Duration;
 
 public class KeycloakSamlAuthModuleTest extends AbstractSamlAuthModuleTest {
 
@@ -30,6 +34,7 @@ public class KeycloakSamlAuthModuleTest extends AbstractSamlAuthModuleTest {
 
     @Override
     protected void logoutAndCheckIt(String username) {
+        Selenide.sleep(Duration.ofMinutes(16).toMillis());
         KeycloakUtils.logoutAndCheckIt();
     }
 }
