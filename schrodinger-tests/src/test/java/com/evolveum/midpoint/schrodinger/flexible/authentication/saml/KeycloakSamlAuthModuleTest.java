@@ -34,7 +34,6 @@ public class KeycloakSamlAuthModuleTest extends AbstractSamlAuthModuleTest {
 
     @Override
     protected void logoutAndCheckIt(String username) {
-        Selenide.sleep(Duration.ofMinutes(16).toMillis());
         KeycloakUtils.logoutAndCheckIt();
     }
 }
