@@ -83,8 +83,8 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
     @Test
     public void test030resetPassowordMailNonce() throws IOException, InterruptedException {
         basicPage.loggedUser().logoutIfUserIsLogin();
-        FormLoginPage login = midPoint.formLogin();
-        MailNoncePage mailNonce = (MailNoncePage) login.forgotPassword();
+        midPoint.formLogin().forgotPassword();
+        MailNoncePage mailNonce = new MailNoncePage();
         mailNonce.setMail(MAIL_OF_ENABLED_USER);
         TimeUnit.SECONDS.sleep(6);
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));

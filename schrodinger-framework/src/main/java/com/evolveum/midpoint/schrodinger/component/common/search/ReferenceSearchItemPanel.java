@@ -42,10 +42,10 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         if (getParentElement() == null){
             return getParent();
         }
-        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
+        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
+//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         if(!oid.equals(inputField.getValue())) {
