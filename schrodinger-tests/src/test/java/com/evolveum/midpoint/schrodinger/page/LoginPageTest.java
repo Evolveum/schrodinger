@@ -80,7 +80,9 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/login");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
-        ((MailNoncePage)login.forgotPassword())
+        midPoint.formLogin().forgotPassword();
+        MailNoncePage mailNonce = new MailNoncePage();
+        mailNonce
                 .setMail(MAIL_OF_ENABLED_USER);
         TimeUnit.SECONDS.sleep(6);
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
