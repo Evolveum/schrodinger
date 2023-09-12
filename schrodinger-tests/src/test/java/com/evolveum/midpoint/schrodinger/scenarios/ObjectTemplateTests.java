@@ -57,8 +57,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                             .inputValue("userWithoutFullname")
                             .updateSearch()
                         .and()
-                        .assertTableContainsColumnWithValue("UserType.familyName", "Sadman")
-                        .assertTableContainsColumnWithValue("UserType.givenName", "Mark")
+                        .assertTableContainsColumnWithValue("ObjectType.name", "userWithoutFullname")
                         .assertTableColumnValueIsEmpty("UserType.fullName");
 
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
@@ -83,8 +82,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                             .inputValue("userWithFullname")
                             .updateSearch()
                             .and()
-                        .assertTableContainsColumnWithValue("UserType.givenName", "Emil")
-                        .assertTableContainsColumnWithValue("UserType.familyName", "Happyman")
+                        .assertTableContainsColumnWithValue("ObjectType.name", "userWithFullname")
                         .assertTableContainsColumnWithValue("UserType.fullName", "Emil Happyman");
     }
 
@@ -142,8 +140,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                             .inputValue("employeeTestUser")
                             .updateSearch()
                         .and()
-                        .assertTableContainsColumnWithValue("UserType.givenName", "Kevin")
-                        .assertTableContainsColumnWithValue("UserType.familyName", "Black")
+                        .assertTableContainsColumnWithValue("ObjectType.name", "employeeTestUser")
                         .assertTableColumnValueIsEmpty("UserType.fullName");
         table.clickByName("employeeTestUser")
                 .selectBasicPanel();
@@ -173,8 +170,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                             .inputValue("employeeTestUserWithFullname")
                             .updateSearch()
                         .and()
-                        .assertTableContainsColumnWithValue("UserType.givenName", "Oskar")
-                        .assertTableContainsColumnWithValue("UserType.familyName", "White")
+                        .assertTableContainsColumnWithValue("ObjectType.name", "employeeTestUserWithFullname")
                         .assertTableContainsColumnWithValue("UserType.fullName", "Oskar White");
     }
 
