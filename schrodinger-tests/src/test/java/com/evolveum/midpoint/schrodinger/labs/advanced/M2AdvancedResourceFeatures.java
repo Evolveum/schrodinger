@@ -124,8 +124,9 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
 
         showResource(CONTRACTORS_RESOURCE_NAME)
                 .selectAccountsPanel()
-                    .importTask()
-                        .clickCreateNew()
+                .tasks()
+                    .clickCreateNew()
+                        .importTask()
                             .selectBasicPanel()
                                 .form()
                                     .addAttributeValue("Name", CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)

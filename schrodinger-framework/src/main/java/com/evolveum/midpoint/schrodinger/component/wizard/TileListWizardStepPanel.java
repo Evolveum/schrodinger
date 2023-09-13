@@ -35,6 +35,10 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
         super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
+     public TileListWizardStepPanel(W parent, SelenideElement parentElement) {
+        super(parent, parentElement);
+    }
+
     public WizardStepPanel selectTileByNumber(int tileNumber) {
         return selectTileByNumber(tileNumber, true);
     }

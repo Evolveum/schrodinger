@@ -43,37 +43,49 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         super(parent, parentElement);
     }
 
-    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> importTask() {
-        SelenideElement importDiv = $(Schrodinger.byDataId("div", "import"));
-        importDiv.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
-        SelenideElement dropDownElement = importDiv.lastChild().lastChild()
+    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> tasks() {
+        SelenideElement tasksButton = $x(".//div[@data-s-id='tasks']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        tasksButton
+                .click();
+        SelenideElement dropDownElement = tasksButton.$x(".//div[@data-s-id='dropDownMenu']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-
         return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
     }
 
-    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> reconciliationTask() {
-        SelenideElement reconcileDiv = $(Schrodinger.byDataId("div", "reconciliation"));
-        reconcileDiv.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
-        SelenideElement dropDownElement = reconcileDiv.lastChild().lastChild()
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> importTask() {
+//        SelenideElement importDiv = $(Schrodinger.byDataId("div", "import"));
+//        importDiv.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//
+//        SelenideElement dropDownElement = importDiv.lastChild().lastChild()
+//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//
+//        return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
+//    }
 
-        return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
-    }
+//    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> reconciliationTask() {
+//        SelenideElement reconcileDiv = $(Schrodinger.byDataId("div", "reconciliation"));
+//        reconcileDiv.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+//
+//        SelenideElement dropDownElement = reconcileDiv.lastChild().lastChild()
+//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//
+//        return new ResourceTaskQuickAccessDropDown<>(this, dropDownElement);
+//    }
 
-    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> liveSyncTask() {
-        SelenideElement liveSyncButton = getParentElement()
-                .find(Schrodinger.byDataId("liveSync"))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        liveSyncButton.find(By.tagName("button")).click();
-        Utils.waitForAjaxCallFinish();
-        SelenideElement dropDownMenu = liveSyncButton.$x(".//div[@data-s-id='dropDownMenu']")
-                .shouldHave(Condition.cssClass("show"), MidPoint.TIMEOUT_MEDIUM_6_S);
-        return new ResourceTaskQuickAccessDropDown<>(this, dropDownMenu);
-    }
+//    public ResourceTaskQuickAccessDropDown<ResourceAccountsPanel<T>> liveSyncTask() {
+//        SelenideElement liveSyncButton = getParentElement()
+//                .find(Schrodinger.byDataId("liveSync"))
+//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+//
+//        liveSyncButton.find(By.tagName("button")).click();
+//        Utils.waitForAjaxCallFinish();
+//        SelenideElement dropDownMenu = liveSyncButton.$x(".//div[@data-s-id='dropDownMenu']")
+//                .shouldHave(Condition.cssClass("show"), MidPoint.TIMEOUT_MEDIUM_6_S);
+//        return new ResourceTaskQuickAccessDropDown<>(this, dropDownMenu);
+//    }
 
     public ResourceAccountsPanel<T> clickSearchInRepository() {
 
