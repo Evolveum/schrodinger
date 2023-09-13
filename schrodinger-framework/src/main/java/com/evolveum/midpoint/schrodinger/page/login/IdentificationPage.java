@@ -1,6 +1,8 @@
 package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -18,8 +20,9 @@ public class IdentificationPage extends FormLoginPage {
 
     @Override
     public IdentificationPage setUsernameValue(String nameValue) {
-        $(Schrodinger.byDataId("attributeValue")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(nameValue);
+        $(Schrodinger.byDataId("attributeValue")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(nameValue);
         Utils.waitForAjaxCallFinish();
+        Selenide.screenshot("IdentificationPage_setUsername");
         return this;
     }
 
