@@ -39,10 +39,10 @@ public class ResourceWizardPage extends BasicPage {
                 .click();
     }
 
-    public ConfigurationWizardStep selectConfigurationStep() {
+    public ConfigurationWizardStep<ResourceWizardPage> selectConfigurationStep() {
         clickOnWizardTab("Configuration");
         SelenideElement tabElement = $(Schrodinger.byDataId("configuration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new ConfigurationWizardStep(this, tabElement);
+        return new ConfigurationWizardStep<>(this, tabElement);
     }
 
     public SchemaWizardStep selectSchemaStep() {
