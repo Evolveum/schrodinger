@@ -39,6 +39,13 @@
             <securityQuestionsForm>
                 <identifier>secQ</identifier>
             </securityQuestionsForm>
+            <focusIdentification>
+                <identifier>userName</identifier>
+                <item>
+                    <path>name</path>
+                    <matchingRule>polyStringNorm</matchingRule>
+                </item>
+            </focusIdentification>
         </modules>
         <sequence>
             <identifier>admin-gui-default</identifier>
@@ -88,13 +95,18 @@
                 <urlSuffix>resetPassword</urlSuffix>
             </channel>
             <module>
+                <identifier>userName</identifier>
+                <order>10</order>
+                <necessity>requisite</necessity>
+            </module>
+            <module>
                 <identifier>secQ</identifier>
-                <order>1</order>
+                <order>20</order>
                 <necessity>required</necessity>
             </module>
             <module>
                 <identifier>mailNonce</identifier>
-                <order>2</order>
+                <order>30</order>
                 <necessity>required</necessity>
             </module>
         </sequence>

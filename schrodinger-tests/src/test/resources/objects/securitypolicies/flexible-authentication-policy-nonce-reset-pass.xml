@@ -46,7 +46,7 @@
                 <description>Authentication based on mail message with a nonce. Used for user registration.</description>
                 <credentialName>mailNonce</credentialName>
             </mailNonce>
-            <focusIdentification> <!--1-->
+            <focusIdentification>
                 <identifier>userName</identifier>
                 <item>
                     <path>name</path>

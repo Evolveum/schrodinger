@@ -20,15 +20,18 @@ public class IdentificationPage extends FormLoginPage {
 
     @Override
     public IdentificationPage setUsernameValue(String nameValue) {
-        $(Schrodinger.byDataId("attributeValue")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(nameValue);
+        SelenideElement nameInput = $(Schrodinger.byDataId("attributeValue")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.setValueToElementAndFireBlurEvent(nameInput, nameValue);
         Utils.waitForAjaxCallFinish();
         Selenide.screenshot("IdentificationPage_setUsername");
         return this;
     }
 
     public LoginPage clickSendButton() {
-        $x(".//input[@type='submit']").click();
+        $x(".//input[@type='submit']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
+        Selenide.screenshot("IdentificationPage_sendButtonClick");
         return this;
     }
 }

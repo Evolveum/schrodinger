@@ -41,7 +41,7 @@
             <loginForm>
                 <identifier>loginForm</identifier>
             </loginForm>
-            <focusIdentification> <!--1-->
+            <focusIdentification>
                 <identifier>userName</identifier>
                 <item>
                     <path>name</path>
