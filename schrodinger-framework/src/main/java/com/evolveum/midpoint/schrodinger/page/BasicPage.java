@@ -489,6 +489,7 @@ public class BasicPage {
     public FeedbackBox<? extends BasicPage> feedback() {
         SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        Utils.scrollToElement(feedback);
         return new FeedbackBox<>(this, feedback);
     }
 
