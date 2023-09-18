@@ -104,11 +104,10 @@ public class ObjectListArchetypeTests extends AbstractSchrodingerTest {
     }
 
     @Test(priority = 4, dependsOnMethods ={"test0020actualizeArchetypeConfiguration"})
-    public void test0040checkNewObjectButtonWithDropdown(){
+    public void test0040checkNewObjectTemplatePanel(){
         basicPage.listUsers()
                 .table()
-                .assertNewObjectButtonsCountEquals("fa fa-plus", 2)
-                .newObjectButtonByCssClick(ARCHETYPE_ICON_CSS_STYLE);
+                .assertTemplatePanelButtonsCountEquals(3);
     }
 
 }

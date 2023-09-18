@@ -205,10 +205,17 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return "Name";
     }
 
-    public AssignmentHolderObjectListTable<P, PD> assertNewObjectButtonsCountEquals(String mainButtonIconCssClass, int expectedButtonsCount) {
-        assertion.assertEquals(expectedButtonsCount, countNewObjectButtonsInPopup(mainButtonIconCssClass), "The number of the dropdown buttons "
-                + "for the button with '" + mainButtonIconCssClass + "' css class doesn't match to " + expectedButtonsCount);
+    public AssignmentHolderObjectListTable<P, PD> assertTemplatePanelButtonsCountEquals(int expectedButtonsCount) {
+        int realButtonsCount = countNewObjectButtonsInPopup("fa fa-plus");
+        assertion.assertTrue(realButtonsCount == expectedButtonsCount,
+                "Template panel doesn't contain an expected buttons count, expected: " + expectedButtonsCount +
+                        ", real count: " + realButtonsCount);
         return this;
     }
 
+    public AssignmentHolderObjectListTable<P, PD> assertTemplatePanelVisible() {
+        SelenideElement templatePanel = $(Schrodinger.byDataId("newObjectSelectionButtonPanel"));
+        assertion.assertTrue(templatePanel.exists(),  "Template panel doesn't exist.");
+        return this;
+    }
 }
