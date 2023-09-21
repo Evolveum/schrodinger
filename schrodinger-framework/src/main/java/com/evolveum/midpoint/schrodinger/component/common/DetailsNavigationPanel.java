@@ -37,10 +37,10 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
         for (String navigationItemName : name) {
             String translatedNavigationName = Utils.getPropertyString(navigationItemName);
             if (nav == null) {
-                nav = getParentElement().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
+                nav = getParentElement().$x(".//span[@data-s-id='navItem' and contains(@class, \"text-truncate\")" +
                                 " and contains(text(), '" + translatedNavigationName + "')]");
             } else {
-                nav = nav.parent().parent().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
+                nav = nav.parent().parent().$x(".//span[@data-s-id='navItem' and contains(@class, \"text-truncate\")" +
                                 " and contains(text(), '" + translatedNavigationName + "')]");
             }
             Utils.scrollToElement(nav);
