@@ -49,7 +49,7 @@ public class DateIntervalSearchItemPanel<T> extends Component<T> {
     }
 
     private SelenideElement getPopupPanel() {
-        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
+        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='popover']")

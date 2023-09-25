@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selectors.byPartialLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -88,7 +89,7 @@ public class FeedbackBox<T> extends Component<T> {
 
     public TaskBasicPanel clickShowTask() {
 
-        $(Schrodinger.byDataId("backgroundTask")).scrollIntoView(false).click();
+        $(Schrodinger.byDataId("backgroundTaskLink")).scrollIntoView(false).click();
         Utils.waitForMainPanelOnDetailsPage();
         TaskPage taskPage = new TaskPage();
         SelenideElement taskBasicTab = taskPage.getNavigationPanelSelenideElement("Basic");
@@ -143,7 +144,8 @@ public class FeedbackBox<T> extends Component<T> {
     }
 
     public FeedbackBox<T> assertMessageExists(String messageText) {
-        assertion.assertTrue($(Schrodinger.byDataId("detailsBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+        SelenideElement detailsBox = $(Schrodinger.byDataId("detailsBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        assertion.assertTrue(detailsBox
                 .$(byText(messageText)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists());
         return this;
     }

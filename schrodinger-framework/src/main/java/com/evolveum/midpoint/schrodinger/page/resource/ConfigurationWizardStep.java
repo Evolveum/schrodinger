@@ -23,17 +23,17 @@ import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 /**
  * Created by honchar.
  */
-public class ConfigurationWizardStep extends Component<ResourceWizardPage> {
-        public ConfigurationWizardStep(ResourceWizardPage parent, SelenideElement parentElement) {
+public class ConfigurationWizardStep<T> extends Component<T> {
+        public ConfigurationWizardStep(T parent, SelenideElement parentElement) {
             super(parent, parentElement);
         }
 
-        public TabPanel<ConfigurationWizardStep> getTabPanel() {
+        public TabPanel<ConfigurationWizardStep<T>> getTabPanel() {
             return new TabPanel<>(this, getParentElement());
         }
 
-        public ConfigurationStepConfigurationPanel selectConfigurationTab() {
-            return new ConfigurationStepConfigurationPanel(this, getTabPanel().clickTabWithName("Configuration"));
+        public ConfigurationStepConfigurationPanel<ConfigurationWizardStep<T>> selectConfigurationTab() {
+            return new ConfigurationStepConfigurationPanel<>(this, getTabPanel().clickTabWithName("Configuration"));
         }
 
         public ConfigurationStepConnectorPoolPanel selectConnectorPoolTab() {

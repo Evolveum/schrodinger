@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -37,16 +38,23 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
         for (String navigationItemName : name) {
             String translatedNavigationName = Utils.getPropertyString(navigationItemName);
             if (nav == null) {
-                nav = getParentElement().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
+                nav = getParentElement().$x(".//div[@data-s-id='navItem' and contains(@class, \"text-truncate\")" +
                                 " and contains(text(), '" + translatedNavigationName + "')]");
             } else {
-                nav = nav.parent().parent().$x(".//span[@data-s-id='navItem' and contains(@class, \"details-menu-label\")" +
+                while (nav.parent() != null) {
+                    nav = nav.parent();
+                    String cssClass = nav.getAttribute("class");
+                    if (StringUtils.isNotEmpty(cssClass) && cssClass.contains("navigation-details")) {
+                        break;
+                    }
+                }
+                nav = nav.$x(".//div[@data-s-id='navItem' and contains(@class, \"text-truncate\")" +
                                 " and contains(text(), '" + translatedNavigationName + "')]");
             }
             Utils.scrollToElement(nav);
             nav.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
             nav.click();
-            nav.parent().parent().shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
+            nav.parent().parent().parent().shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
         }
         return $(Schrodinger.byDataId("mainPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }

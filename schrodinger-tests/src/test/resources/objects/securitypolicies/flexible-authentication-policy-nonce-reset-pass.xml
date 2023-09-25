@@ -46,6 +46,13 @@
                 <description>Authentication based on mail message with a nonce. Used for user registration.</description>
                 <credentialName>mailNonce</credentialName>
             </mailNonce>
+            <focusIdentification>
+                <identifier>userName</identifier>
+                <item>
+                    <path>name</path>
+                    <matchingRule>polyStringNorm</matchingRule>
+                </item>
+            </focusIdentification>
         </modules>
         <sequence>
             <identifier>admin-gui-default</identifier>
@@ -101,9 +108,14 @@
                 <urlSuffix>resetPassword</urlSuffix>
             </channel>
             <module>
-                <identifier>MailNonce</identifier>
+                <identifier>userName</identifier>
                 <order>10</order>
-                <necessity>sufficient</necessity>
+                <necessity>requisite</necessity>
+            </module>
+            <module>
+                <identifier>MailNonce</identifier>
+                <order>20</order>
+                <necessity>required</necessity>
             </module>
         </sequence>
         <sequence>

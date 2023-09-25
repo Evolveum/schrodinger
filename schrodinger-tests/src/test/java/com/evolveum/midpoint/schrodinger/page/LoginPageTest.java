@@ -80,11 +80,12 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/login");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
-        ((MailNoncePage)login.forgotPassword())
-                .setMail(MAIL_OF_ENABLED_USER);
+        midPoint.formLogin().forgotPassword();
+        IdentificationPage identificationPage = new IdentificationPage();
+        identificationPage.setNameAndConfirm("enabled_user");
         TimeUnit.SECONDS.sleep(6);
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
-        TimeUnit.SECONDS.sleep(6);
+        TimeUnit.SECONDS.sleep(4);
         open(link);
         TimeUnit.SECONDS.sleep(6);
         String actualUrl = basicPage.getCurrentUrl();
@@ -104,9 +105,9 @@ public class LoginPageTest extends AbstractLoginPageTest {
         login.loginWithReloadLoginPage("administrator", "5ecr3t");
         importObject(SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         basicPage.loggedUser().logoutIfUserIsLogin();
-        login.forgotPassword()
-                .setUsernameValue(NAME_OF_RESET_PASSWORD_TEST_USER)
-                .clickShowQuestionsButton();
+        login.forgotPassword();
+        new IdentificationPage()
+                .setNameAndConfirm(NAME_OF_RESET_PASSWORD_TEST_USER);
         ForgetPasswordSecurityQuestionsPage securityQuestionsPage = new ForgetPasswordSecurityQuestionsPage();
         securityQuestionsPage
                 .getPasswordQuestionsPanel()

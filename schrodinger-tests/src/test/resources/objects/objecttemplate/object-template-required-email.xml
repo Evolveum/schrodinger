@@ -1,0 +1,39 @@
+<objectTemplate xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="10000000-0000-0000-0000-000000000002" version="1">
+    <name>Default User Template</name>
+    <item id="1">
+        <ref>emailAddress</ref>
+        <limitations id="2">
+            <layer>presentation</layer>
+        </limitations>
+        <validation>
+            <server>
+                <expression>
+                    <script>
+                        <code>
+                            import com.evolveum.midpoint.util.*
+                            import com.evolveum.midpoint.xml.ns._public.common.common_3.*
+                            import com.evolveum.midpoint.schema.result.*
+                            import javax.xml.namespace.QName
+
+                            log.info("validation: {}", input)
+
+                            if (basic.isEmpty(input)) {
+                            result = new OperationResult("validation")
+                            result.setStatus(OperationResultStatus.FATAL_ERROR)
+                            result.setMessage("Required emailAddress")
+                            return result.createOperationResultType()
+                            }
+
+                            if (!input.contains("@")) {
+                            result = new OperationResult("validation")
+                            result.setStatus(OperationResultStatus.FATAL_ERROR)
+                            result.setMessage("The emailAddress is invalid: ${input}")
+                            return result.createOperationResultType()
+                            }
+                        </code>
+                    </script>
+                </expression>
+            </server>
+        </validation>
+    </item>
+</objectTemplate>

@@ -32,8 +32,8 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
 
-    public PanelWithContainerWrapper<ResourcePage> selectConnectorConfigurationPanel() {
-        return new PanelWithContainerWrapper<>(this, getNavigationPanelSelenideElement("Connector configuration"));
+    public ConfigurationWizardStep<ResourcePage> selectConnectorConfigurationPanel() {
+        return new ConfigurationWizardStep<>(this, getNavigationPanelSelenideElement("Connector configuration"));
     }
 
     public ResourcePage refreshSchema() {

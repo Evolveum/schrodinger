@@ -20,6 +20,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.DropDown;
+import com.evolveum.midpoint.schrodinger.component.task.wizard.TaskTypeSelectionStep;
+import com.evolveum.midpoint.schrodinger.component.task.wizard.TaskWizardPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -42,15 +44,16 @@ public class ResourceTaskQuickAccessDropDown<T> extends DropDown<T> {
         return this.getParent();
     }
 
-    public TaskPage clickCreateNew() {
-        String newTaskKey = "ResourceContentResourcePanel.newTask";
+    public TaskTypeSelectionStep clickCreateNew() {
+        String newTaskKey = "ResourceObjectsPanel.button.createTask";
         getParentElement()
-                .$x(".//a[@data-s-id='menuItemLink' and contains(text(), '" + Utils.getPropertyString(newTaskKey) + "')]")
+                .$(Schrodinger.byDataResourceKey("ResourceObjectsPanel.button.createTask"))
+                .parent()
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         Utils.waitForAjaxCallFinish();
         Utils.waitForMainPanelOnDetailsPage();
-        return new TaskPage();
+        return new TaskTypeSelectionStep(new TaskWizardPage());
     }
 
 }

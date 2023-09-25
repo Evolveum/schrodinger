@@ -21,9 +21,9 @@ import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 /**
  * Created by honchar.
  */
-public class ConfigurationStepConfigurationPanel extends PanelWithContainerWrapper<ConfigurationWizardStep> {
+public class ConfigurationStepConfigurationPanel<T> extends PanelWithContainerWrapper<T> {
 
-    public ConfigurationStepConfigurationPanel(ConfigurationWizardStep parent, SelenideElement parentElement){
+    public ConfigurationStepConfigurationPanel(T parent, SelenideElement parentElement){
         super(parent, parentElement);
     }
 }

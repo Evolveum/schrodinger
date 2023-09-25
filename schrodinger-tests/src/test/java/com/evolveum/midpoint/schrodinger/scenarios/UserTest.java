@@ -45,6 +45,8 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File DELEGABLE_END_USER_ROLE_FILE = new File("./src/test/resources/objects/roles/delegable-end-user-role.xml");
     private static final File DELEGATE_END_USER_ROLE_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-from-user.xml");
     private static final File DELEGATE_END_USER_ROLE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-to-user.xml");
+    private static final File OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE = new File("./src/test/resources/objects/objecttemplate/object-template-required-email.xml");
+    private static final File SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-email-required-template.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -174,6 +176,76 @@ public class UserTest extends AbstractSchrodingerTest {
         basicPage.loggedUser().logout();
         midPoint.formLogin().login("DelegateEndUserRoleToUser", "pAssword123")
                         .assertUserMenuExist();
+        basicPage.loggedUser().logout();
+        midPoint.formLogin().login("administrator", "5ecr3t");
+
+    }
+
+    /**
+     * check if validation error is visible after form submitting in case when required field is empty.
+     * also checks that validation error is single
+     *  inspired by mid-8886
+     */
+    @Test
+    private void test0050checkRequiredFieldValidationErrorVisibility() {
+        importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
+        importObject(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE, true);
+
+        basicPage.newUser()
+                .clickSave()
+                .feedbackContainer()
+                .assertFeedbackMessagesCountEquals(1)
+                .and()
+                .feedback()
+                .assertMessageExists("Required emailAddress");
+    }
+
+    /**
+     * check if validation error is visible after second form submitting in case when required field is empty.
+     * also checks that validation error is single
+     *  inspired by mid-8886
+     */
+    @Test
+    private void test0060checkRequiredFieldValidationErrorVisibilityAfterSecondFormSubmit() {
+        importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
+        importObject(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE, true);
+
+        UserPage page = basicPage.newUser();
+        page
+                .clickSave()
+                .feedbackContainer()
+                .assertFeedbackMessagesCountEquals(1)
+                .and()
+                .feedback()
+                .assertMessageExists("Required emailAddress");
+
+        page.clickSave()
+                .feedbackContainer()
+                .assertFeedbackMessagesCountEquals(1)
+                .and()
+                .feedback()
+                .assertMessageExists("Required emailAddress");
+    }
+
+    @Test
+    private void test0070checkWrongEmailValidationError() {
+        importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
+        importObject(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE, true);
+
+        UserPage page = basicPage.newUser();
+        page
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Email", "a")
+                .and()
+                .and()
+                .clickSave()
+                .feedbackContainer()
+                .assertFeedbackMessagesCountEquals(1)
+                .and()
+                .feedback()
+                .assertMessageExists("The emailAddress is invalid: a");
+
     }
 
 }

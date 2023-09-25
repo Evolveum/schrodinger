@@ -22,6 +22,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.LoggedUser;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
+import com.evolveum.midpoint.schrodinger.component.common.FeedbackContainerPanel;
 import com.evolveum.midpoint.schrodinger.component.common.Toast;
 import com.evolveum.midpoint.schrodinger.component.common.UserMenuPanel;
 import com.evolveum.midpoint.schrodinger.component.configuration.*;
@@ -486,9 +487,23 @@ public class BasicPage {
         clickMenuItem(ConstantsUtil.CONFIGURATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey, index);
     }
 
+    /**
+     * returns the whole feedback container of the page with all feedback messages
+     */
+    public FeedbackContainerPanel<? extends BasicPage> feedbackContainer() {
+        SelenideElement feedbackContainer = $(Schrodinger.byDataId("feedbackContainer"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        Utils.scrollToElement(feedbackContainer);
+        return new FeedbackContainerPanel<>(this, feedbackContainer);
+    }
+
+    /**
+     * returns feedback panel for the first feedback message on the page
+     */
     public FeedbackBox<? extends BasicPage> feedback() {
         SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
+        Utils.scrollToElement(feedback);
         return new FeedbackBox<>(this, feedback);
     }
 

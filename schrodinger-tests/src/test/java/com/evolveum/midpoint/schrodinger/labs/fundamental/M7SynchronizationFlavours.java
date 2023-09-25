@@ -107,8 +107,9 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()
-                            .importTask()
-                                .clickCreateNew();
+                        .tasks()
+                        .clickCreateNew()
+                            .importTask();
         Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
         taskPage
                                     .selectBasicPanel()

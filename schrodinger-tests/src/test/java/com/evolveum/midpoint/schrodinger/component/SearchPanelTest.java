@@ -97,8 +97,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .inputValue("searchByNameUser")
                 .updateSearch();
         table.assertTableContainsText("searchByNameUser");
-        table.assertTableDoesntContainText("searchByGivenNameUser");
-        table.assertTableDoesntContainText("searchByFamilyNameUser");
+        table.assertTableDoesntContainText("search by given name user");
+        table.assertTableDoesntContainText("search by family name user");
         usersListSearch.clearTextSearchItemByNameAndUpdate(NAME_ATTRIBUTE);
 
         usersListSearch
@@ -106,8 +106,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .inputValue("searchByGivenNameUser")
                 .updateSearch();
         table.assertTableDoesntContainText("searchByNameUser");
-        table.assertTableContainsText("searchByGivenNameUser");
-        table.assertTableDoesntContainText("searchByFamilyNameUser");
+        table.assertTableContainsText("search by given name user");
+        table.assertTableDoesntContainText("search by family name user");
         usersListSearch.clearTextSearchItemByNameAndUpdate(GIVEN_NAME_ATTRIBUTE);
 
         usersListSearch
@@ -115,8 +115,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .inputValue("searchByFamilyNameUser")
                 .updateSearch();
         table.assertTableDoesntContainText("searchByNameUser");
-        table.assertTableDoesntContainText("searchByGivenNameUser");
-        table.assertTableContainsText("searchByFamilyNameUser");
+        table.assertTableDoesntContainText("search by given name user");
+        table.assertTableContainsText("search by family name user");
         usersListSearch.clearTextSearchItemByNameAndUpdate(FAMILY_NAME_ATTRIBUTE);
     }
 
