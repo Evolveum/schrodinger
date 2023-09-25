@@ -363,11 +363,13 @@ public class Table<T> extends Component<T> {
     }
 
     public Table<T> assertIconColumnExistsByNameColumnValue(String nameColumnValue, String iconClass, String iconColor) {
-        if (rowByColumnLabel("Name", nameColumnValue).getParentElement().$(By.className("icon")).exists()) {
-            SelenideElement iconColumnElement = rowByColumnResourceKey("Name", nameColumnValue).getParentElement().$(By.className("icon"));
-            assertion.assertTrue(iconColumnElement.$x(".//i[@class='" + iconClass + "']").exists());
+        SelenideElement iconColumnElement = rowByColumnResourceKey("Name", nameColumnValue).getParentElement()
+                .$x(".//td[contains(@class, 'icon') or contains(@class, 'composited-icon')]");
+        if (iconColumnElement.exists()) {
+            assertion.assertTrue(iconColumnElement.$x(".//i[contains(@class, \"" + iconClass + "\")]").exists());
             if (StringUtils.isNotEmpty(iconColor)) {
-                assertion.assertTrue(iconColumnElement.$x(".//i[@style='color: " + iconClass + ";']").exists());
+                assertion.assertTrue(iconColumnElement.$x(".//i[@style='color: " + iconClass + ";' or " +
+                        "contains(@class, '" + iconColor + "')]").exists());
             }
         }
         return this;

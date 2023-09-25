@@ -99,8 +99,8 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
                         .inputValue(TEST_USER_BOTTICELLI_NAME)
                     .updateSearch()
                 .and()
-                    .clickByName(TEST_USER_BOTTICELLI_NAME)
-                        .assertActivationStateEquals(ACTIVATION_STATE_ARCHIVAED_VALUE);
+            //check user's icon column: right bottom icon should be disabled as user's effective status is set to disabled
+            .assertIconColumnExistsByNameColumnValue(TEST_USER_BOTTICELLI_NAME, "fa-ban", "red");
     }
 
 //TODO issue listed in Jira under MID-4996

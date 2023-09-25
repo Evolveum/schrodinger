@@ -44,7 +44,7 @@ public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> exten
                 while (nav.parent() != null) {
                     nav = nav.parent();
                     String cssClass = nav.getAttribute("class");
-                    if (StringUtils.isNotEmpty(cssClass) && cssClass.contains("details-menu")) {
+                    if (StringUtils.isNotEmpty(cssClass) && cssClass.contains("navigation-details")) {
                         break;
                     }
                 }
