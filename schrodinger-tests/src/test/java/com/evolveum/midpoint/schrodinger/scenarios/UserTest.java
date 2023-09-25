@@ -176,6 +176,9 @@ public class UserTest extends AbstractSchrodingerTest {
         basicPage.loggedUser().logout();
         midPoint.formLogin().login("DelegateEndUserRoleToUser", "pAssword123")
                         .assertUserMenuExist();
+        basicPage.loggedUser().logout();
+        midPoint.formLogin().login("administrator", "5ecr3t");
+
     }
 
     /**
@@ -241,7 +244,7 @@ public class UserTest extends AbstractSchrodingerTest {
                 .assertFeedbackMessagesCountEquals(1)
                 .and()
                 .feedback()
-                .assertMessageExists("The emailAddress is invalid");
+                .assertMessageExists("The emailAddress is invalid: a");
 
     }
 
