@@ -45,20 +45,6 @@
                         <authenticationRequestBinding>urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</authenticationRequestBinding>
                         <nameOfUsernameAttribute>wrong_attribute_name</nameOfUsernameAttribute>
                     </identityProvider>
-                    <keys>
-                        <activeSimpleKey>
-                            <privateKey>
-                                <clearValue>||signing.privateKey||</clearValue>
-                            </privateKey>
-                            <passphrase>
-                                <clearValue>||signing.passphrase||</clearValue>
-                            </passphrase>
-                            <certificate>
-                                <clearValue>||signing.certificate||</clearValue>
-                            </certificate>
-                            <type>signing</type>
-                        </activeSimpleKey>
-                    </keys>
                 </serviceProvider>
             </saml2>
             <httpBasic>

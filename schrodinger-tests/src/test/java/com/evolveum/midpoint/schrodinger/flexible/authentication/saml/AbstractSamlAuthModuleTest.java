@@ -63,26 +63,10 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
         return new File("src/test/resources/configuration/saml.properties");
     }
 
-    protected String getSecurityPolicy(File securityPolicyFile) throws IOException {
-        String securityContent = super.getSecurityPolicy(securityPolicyFile);
-        securityContent = securityContent.replace(
-                createTag(addSigningPrefix(PRIVATE_KEY_KEY)),
-                getProperty(addSigningPrefix(PRIVATE_KEY_KEY)));
-        securityContent = securityContent.replace(
-                createTag(addSigningPrefix(PASSPHRASE_TAG)),
-                getProperty(addSigningPrefix(PASSWORD_FOR_PRIVATE_KEY)));
-        securityContent = securityContent.replace(
-                createTag(addSigningPrefix(CERTIFICATE_KEY)),
-                getProperty(addSigningPrefix(CERTIFICATE_KEY)));
-
-        return securityContent;
-    }
-
     protected void applyBasicSecurityPolicy() throws IOException {
         applyBasicSecurityPolicy(
                 getBasicSecurityPolicy(SECURITY_POLICY_METADATA_URL_FILE));
     }
-
 
     private String getBasicSecurityPolicy(File file) throws IOException {
         String securityContent = getSecurityPolicy(file);
@@ -131,6 +115,15 @@ public abstract class AbstractSamlAuthModuleTest extends AbstractRemoteAuthModul
     @Test
     public void test004SuccessLoginAndLogoutSigningAuthRequest() throws Exception {
         String securityContent = getSecurityPolicy(SECURITY_POLICY_SIGNING_FILE);
+        securityContent = securityContent.replace(
+                createTag(addSigningPrefix(PRIVATE_KEY_KEY)),
+                getProperty(addSigningPrefix(PRIVATE_KEY_KEY)));
+        securityContent = securityContent.replace(
+                createTag(addSigningPrefix(PASSPHRASE_TAG)),
+                getProperty(addSigningPrefix(PASSWORD_FOR_PRIVATE_KEY)));
+        securityContent = securityContent.replace(
+                createTag(addSigningPrefix(CERTIFICATE_KEY)),
+                getProperty(addSigningPrefix(CERTIFICATE_KEY)));
         securityContent = securityContent.replace(
                 createTag(ENTITY_ID_KEY),
                 getProperty(addSigningPrefix(ENTITY_ID_KEY)));
