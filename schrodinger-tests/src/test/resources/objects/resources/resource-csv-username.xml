@@ -57,7 +57,10 @@
         <objectType>
             <displayName>Default Account</displayName>
             <default>true</default>
-            <objectClass>ri:AccountObjectClass</objectClass>
+                        <delineation>
+                <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
 
             <attribute>
                 <ref>ri:username</ref>

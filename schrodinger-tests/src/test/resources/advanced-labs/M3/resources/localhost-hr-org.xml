@@ -54,7 +54,10 @@
                 <default>true</default>
                 <!-- Reference to the Resource Schema (see above) specifying
                      object class for this account type -->
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:orgName</ref>
                     <displayName>ORG Name</displayName>

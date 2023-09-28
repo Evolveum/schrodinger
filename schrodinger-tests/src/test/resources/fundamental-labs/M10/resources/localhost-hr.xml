@@ -57,7 +57,10 @@ xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector
                 <default>true</default>
                 <!-- Reference to the Resource Schema (see above) specifying
                      object class for this account type -->
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:name</ref>
                     <limitations>

@@ -39,7 +39,10 @@
             <liveSynchronization>
                 <resourceObjects>
                     <resourceRef oid="10000000-9999-9999-0000-a000ff000001" type="ResourceType"/>
-                    <objectclass>ri:AccountObjectClass</objectclass>
+                                <delineation>
+                <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 </resourceObjects>
             </liveSynchronization>
         </work>

@@ -38,7 +38,10 @@
                 <intent>default</intent>
                 <displayName>Default Account</displayName>
                 <default>true</default>
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:cid</ref>
                     <limitations>

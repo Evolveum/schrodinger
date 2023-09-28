@@ -49,7 +49,10 @@
                 <intent>default</intent>
                 <displayName>Default Account</displayName>
                 <default>true</default>
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:dn</ref>
                     <displayName>Distinguished Name</displayName>
@@ -298,7 +301,10 @@ return midpoint.isUniqueAccountValue(resource, projection, 'mail', mail)
                 <displayName>Admin Account</displayName>
                 <default>false</default>
 
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:dn</ref>
                     <displayName>Distinguished Name</displayName>

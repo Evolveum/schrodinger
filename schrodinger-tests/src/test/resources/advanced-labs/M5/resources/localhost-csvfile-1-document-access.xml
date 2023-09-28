@@ -65,7 +65,10 @@ object.
                 <default>true</default>
                 <!-- Reference to the Resource Schema (see above) specifying
                      object class for this account type -->
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:login</ref>
                     <!-- Readable name for the attribute. This will be used in GUI -->
@@ -268,7 +271,10 @@ password for account activation instead of using an empty one  -->
                 <intent>test</intent>
                 <displayName>Test Account</displayName>
                 <default>false</default>
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:login</ref>
                     <displayName>Login</displayName>
@@ -405,7 +411,10 @@ password for account activation instead of using an empty one  -->
                     the system (live sync task, discovery or reconciliation) -->
                 <name>Default account</name>
                 <description>The default account name does NOT start with "_"</description>
-                <!--<objectClass>ri:AccountObjectClass</objectClass>-->
+                <!--            <delineation>
+                <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+-->
                 <kind>account</kind>
                 <intent>default</intent>
                 <enabled>true</enabled>

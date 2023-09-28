@@ -65,7 +65,10 @@ object.
                 <default>true</default>
                 <!-- Reference to the Resource Schema (see above) specifying
                      object class for this account type -->
+                            <delineation>
                 <objectClass>ri:AccountObjectClass</objectClass>
+            </delineation>
+
                 <attribute>
                     <ref>ri:login</ref>
                     <!-- Readable name for the attribute. This will be used in GUI -->
