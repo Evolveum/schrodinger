@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
@@ -51,6 +52,14 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
     private static final String FILE_RESOUCE_NAME = "midpoint-advanced-sync.csv";
     private static final String DIRECTORY_CURRENT_TEST = "synchronizationTests";
+
+
+    @BeforeClass
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+        resetToDefaultAndRelogin();
+    }
 
     @Test(priority = 0)
     public void test0010setUpResourceAndSynchronizationTask() throws IOException {
