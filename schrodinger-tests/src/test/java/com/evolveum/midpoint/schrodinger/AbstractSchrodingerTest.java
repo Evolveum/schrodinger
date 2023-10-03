@@ -266,7 +266,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Selenide.closeWebDriver(); //todo or closeWindow?
 
         if (resetToDefaultAfterTests()) {
-            resetToDefault();
+//            resetToDefault();
         }
     }
 
@@ -403,6 +403,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .table()
                 .clickByName(resourceName)
                 .refreshSchema();
+        resourcePage.feedback();    //just wait until refresh schema ends up
         return resourcePage;
     }
 
