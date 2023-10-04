@@ -106,10 +106,15 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         importObject(FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         TimeUnit.SECONDS.sleep(4);
         basicPage.loggedUser().logoutIfUserIsLogin();
-        SecurityQuestionsPage securityQuestion = (SecurityQuestionsPage) login.forgotPassword();
-        securityQuestion.setUsername(NAME_OF_ENABLED_USER)
-            .setAnswer(0, "10")
-            .submit();
+        login.forgotPassword();
+        new IdentificationPage()
+                .setNameAndConfirm(NAME_OF_RESET_PASSWORD_TEST_USER);
+        ForgetPasswordSecurityQuestionsPage securityQuestionsPage = new ForgetPasswordSecurityQuestionsPage();
+        securityQuestionsPage
+                .getPasswordQuestionsPanel()
+                .setAnswerValue("10")
+                .and()
+                .clickSendButton();
         String actualUrl = basicPage.getCurrentUrl();
         String urlSuffix = getUrlSuffix(actualUrl);
         Assert.assertTrue(urlSuffix.equals("/resetPassword"));
