@@ -53,6 +53,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     protected static final String MAIL_OF_ENABLED_USER = "enabled_user@evolveum.com";
 
     private static final File ENABLED_USER = new File("src/test/resources/objects/users/enabled-user.xml");
+    private static final File END_USER_ROLE_UPDATED = new File("src/test/resources/objects/roles/role-enduser-updated-with-ui-auth.xml");
     private static final File RESET_PASSWORD_TEST_USER = new File("src/test/resources/objects/users/reset-password-test-user.xml");
     private static final File DISABLED_USER = new File("src/test/resources/objects/users/disabled-user.xml");
     private static final File ENABLED_USER_WITHOUT_AUTHORIZATIONS = new File("src/test/resources/objects/users/enabled-user-without-authorizations.xml");
@@ -72,6 +73,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         importObject(ENABLED_USER_WITHOUT_AUTHORIZATIONS, true);
         importObject(MAIL_NONCE_VALUE_POLICY, true);
         importObject(ARCHETYPE_NODE_GUI, true);
+        importObject(END_USER_ROLE_UPDATED, true);
         importObject(getSecurityPolicyMailNonceResetPass(), true);
         //todo smth goes wrong after security policy import
         importObject(USER_WITHOUT_SUPERUSER, true);
