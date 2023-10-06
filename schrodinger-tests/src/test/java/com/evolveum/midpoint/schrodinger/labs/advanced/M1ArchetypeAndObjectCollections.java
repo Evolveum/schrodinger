@@ -216,12 +216,11 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                                 .tasks()
                                     .clickCreateNew()
                                         .importTask()
-                                        .selectBasicPanel()
-                                        .form()
-                                        .addAttributeValue("Name", "Initial import from HR")
-                                        .and()
-                                    .and()
-                                .clickSaveAndRun()
+                                        .configuration()
+                                        .name("Name")
+                                        .next()
+                                    .next()
+                                .saveAndRun()
                                 .feedback()
                                 .assertSuccess();
         basicPage

@@ -63,6 +63,8 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
     @Test(priority = 0)
     public void test0010setUpResourceAndSynchronizationTask() throws IOException {
+        //reset system configuration to initial state to have all configured collection views
+        addObjectFromFile(ScenariosCommons.SYSTEM_CONFIGURATION_INITIAL_FILE);
 
         initTestDirectory(DIRECTORY_CURRENT_TEST);
 
@@ -86,18 +88,11 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .tasks()
                             .clickCreateNew()
                             .liveSynchronizationTask()
-                                .selectBasicPanel()
-                                    .form()
-                                        .addAttributeValue("name","LiveSyncTest")
-                                        .and()
-                                    .and()
-                                .selectSchedulePanel()
-                                    .form()
-                                        .addAttributeValue("interval", "5")
-                                        .selectOption("recurrence","Recurring")
-                                        .and()
-                            .and()
-                                .clickSaveAndRun()
+                                .configuration()
+                                    .name("LiveSyncTest")
+                .next()
+                .next()
+                .saveAndRun()
                                     .feedback()
                                     .assertSuccess();
     }

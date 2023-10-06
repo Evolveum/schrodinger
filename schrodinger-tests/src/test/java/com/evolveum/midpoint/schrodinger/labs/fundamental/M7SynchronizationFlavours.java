@@ -103,21 +103,18 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
 
         owner.assertName("X001212");
 
-        TaskPage taskPage = basicPage.listResources()
+        basicPage.listResources()
                 .table()
                     .clickByName(HR_RESOURCE_NAME)
                         .selectAccountsPanel()
                         .tasks()
                         .clickCreateNew()
-                            .importTask();
-        Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds());
-        taskPage
-                                    .selectBasicPanel()
-                                        .form()
-                                            .addAttributeValue("name","Initial import from HR")
-                                            .and()
-                                        .and()
-                                    .clickSaveAndRun()
+                            .importTask()
+                                    .configuration()
+                                            .name("Initial import from HR")
+                                                    .next()
+                                                            .next()
+                                                                    .saveAndRun()
                                         .feedback()
                                             .isInfo();
         Selenide.sleep(MidPoint.TIMEOUT_LONG_30_S.getSeconds()); // the time for the task to be finished

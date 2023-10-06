@@ -16,25 +16,25 @@ public class TaskTypeSelectionStep extends TileListWizardStepPanel<TaskWizardPag
         super(page, $(Schrodinger.byDataId("templateChoicePanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
-    public TaskPage reconciliationTask() {
+    public TaskWizardPage reconciliationTask() {
         selectTileByLabel("Reconciliation task");
         Utils.waitForAjaxCallFinish();
         clickCreateNewTaskButton();
-        return new TaskPage();
+        return getParent();
     }
 
-    public TaskPage importTask() {
+    public TaskWizardPage importTask() {
         selectTileByLabel("Import task");
         Utils.waitForAjaxCallFinish();
         clickCreateNewTaskButton();
-        return new TaskPage();
+        return getParent();
     }
 
-    public TaskPage liveSynchronizationTask() {
+    public TaskWizardPage liveSynchronizationTask() {
         selectTileByLabel("Live synchronization task");
         Utils.waitForAjaxCallFinish();
         clickCreateNewTaskButton();
-        return new TaskPage();
+        return getParent();
     }
 
     private void clickCreateNewTaskButton() {
@@ -42,7 +42,6 @@ public class TaskTypeSelectionStep extends TileListWizardStepPanel<TaskWizardPag
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
-        Utils.waitForMainPanelOnDetailsPage();
     }
 
 }
