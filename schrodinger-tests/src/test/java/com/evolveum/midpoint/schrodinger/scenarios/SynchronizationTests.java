@@ -91,6 +91,8 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                                 .configuration()
                                     .name("LiveSyncTest")
                 .next()
+                .nextToSchedule()
+                .interval("5")
                 .next()
                 .saveAndRun()
                                     .feedback()

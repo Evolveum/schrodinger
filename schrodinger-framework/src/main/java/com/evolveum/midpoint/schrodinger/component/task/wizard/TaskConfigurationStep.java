@@ -1,8 +1,9 @@
 package com.evolveum.midpoint.schrodinger.component.task.wizard;
 
+import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 
-public class TaskConfigurationStep extends PrismFormWizardStepPanel<TaskWizardPage> {
+public class TaskConfigurationStep extends PrismFormWizardStepPanel<TaskWizardPage> implements NextStepAction {
 
     public TaskConfigurationStep(TaskWizardPage parent) {
         super(parent);
@@ -28,6 +29,7 @@ public class TaskConfigurationStep extends PrismFormWizardStepPanel<TaskWizardPa
         return TaskConfigurationStep.this;
     }
 
+    @Override
     public TaskResourceObjectsStep next() {
         clickNext();
         return new TaskResourceObjectsStep(getParent());

@@ -20,6 +20,7 @@ public class TaskTypeSelectionStep extends TileListWizardStepPanel<TaskWizardPag
         selectTileByLabel("Reconciliation task");
         Utils.waitForAjaxCallFinish();
         clickCreateNewTaskButton();
+        getParent().setTaskType(TaskWizardPage.TaskType.RECONCILIATION);
         return getParent();
     }
 
@@ -27,6 +28,7 @@ public class TaskTypeSelectionStep extends TileListWizardStepPanel<TaskWizardPag
         selectTileByLabel("Import task");
         Utils.waitForAjaxCallFinish();
         clickCreateNewTaskButton();
+        getParent().setTaskType(TaskWizardPage.TaskType.IMPORT);
         return getParent();
     }
 
@@ -34,6 +36,7 @@ public class TaskTypeSelectionStep extends TileListWizardStepPanel<TaskWizardPag
         selectTileByLabel("Live synchronization task");
         Utils.waitForAjaxCallFinish();
         clickCreateNewTaskButton();
+        getParent().setTaskType(TaskWizardPage.TaskType.LIVE_SYNCHRONIZATION);
         return getParent();
     }
 

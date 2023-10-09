@@ -130,7 +130,8 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                             .configuration()
                                     .name(CONTRACTORS_RESOURCE_IMPORT_TASK_NAME)
                                     .next()
-                                .next()
+                                .nextToSchedule()   //todo fix
+                .next()
                             .saveAndRun()
                             .feedback()
                                 .isInfo();

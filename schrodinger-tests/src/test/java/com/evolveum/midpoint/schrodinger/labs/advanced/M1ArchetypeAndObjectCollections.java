@@ -219,7 +219,8 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                                         .configuration()
                                         .name("Name")
                                         .next()
-                                    .next()
+                                    .nextToSchedule()//todo fix
+                .next()
                                 .saveAndRun()
                                 .feedback()
                                 .assertSuccess();

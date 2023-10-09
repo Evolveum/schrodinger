@@ -113,7 +113,8 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                                     .configuration()
                                             .name("Initial import from HR")
                                                     .next()
-                                                            .next()
+                                                            .nextToSchedule()   //todo fix
+                .next()
                                                                     .saveAndRun()
                                         .feedback()
                                             .isInfo();

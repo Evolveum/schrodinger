@@ -1,8 +1,11 @@
 package com.evolveum.midpoint.schrodinger.component.task.wizard;
 
+import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 
-public class TaskResourceObjectsStep  extends PrismFormWizardStepPanel<TaskWizardPage> {
+public class TaskResourceObjectsStep<WSP extends WizardStepPanel>  extends PrismFormWizardStepPanel<TaskWizardPage>
+        implements NextStepAction<WSP> {
 
     public TaskResourceObjectsStep(TaskWizardPage parent) {
         super(parent);
@@ -10,8 +13,13 @@ public class TaskResourceObjectsStep  extends PrismFormWizardStepPanel<TaskWizar
 
     //todo fill in the form attributes
 
-    public TaskDistributionStep next() {
+    public TaskScheduleStep nextToSchedule() {
         clickNext();
-        return new TaskDistributionStep(getParent());
+        return new TaskScheduleStep(getParent());
+    }
+
+    @Override
+    public WSP next() {
+        return null;
     }
 }
