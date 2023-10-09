@@ -18,6 +18,7 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
@@ -65,6 +66,9 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     public void test0010setUpResourceAndSynchronizationTask() throws IOException {
         //reset system configuration to initial state to have all configured collection views
         addObjectFromFile(ScenariosCommons.SYSTEM_CONFIGURATION_INITIAL_FILE);
+        //relogin
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
 
         initTestDirectory(DIRECTORY_CURRENT_TEST);
 
