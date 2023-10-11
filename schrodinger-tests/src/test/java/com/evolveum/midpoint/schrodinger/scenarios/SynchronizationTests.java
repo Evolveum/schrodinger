@@ -149,8 +149,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                     .clickByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
-                        .selectAccountsPanel()
-                        .clickSearchInResource()
+                        .selectResourceObjectsPanel()
                             .table()
                             .assertCurrentTableContains(ScenariosCommons.TEST_USER_PROTECTED_NAME);
 
@@ -263,14 +262,12 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .updateSearch()
                     .and()
                     .clickByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
-                        .selectAccountsPanel()
-                        .clickSearchInResource()
+                        .selectResourceObjectsPanel()
                             .table()
                             .selectCheckboxByName("raphael")
                                 .clickDelete()
                             .clickYes()
                         .and()
-                        .clickSearchInResource()
                             .table()
                             .assertCurrentTableDoesntContain("raphael");
 

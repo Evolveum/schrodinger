@@ -21,6 +21,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceObjectsPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.TestConnectionModal;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -61,6 +62,13 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceAccountsPanel<>(this, tabContent);
+    }
+
+    public ResourceObjectsPanel<ResourcePage> selectResourceObjectsPanel() {
+        SelenideElement tabContent = getNavigationPanelSelenideElement("Resource objects")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+
+        return new ResourceObjectsPanel<>(this, tabContent);
     }
 
     public ResourceAccountsPanel<ResourcePage> clickGenericsTab() {
