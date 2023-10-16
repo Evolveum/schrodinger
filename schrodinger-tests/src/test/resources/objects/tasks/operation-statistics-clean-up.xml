@@ -10240,10 +10240,7 @@
                     <resourceRef oid="10000000-9999-9999-0000-a000ff000001" type="c:ResourceType">
                         <targetName>ExAmPLE, Inc. HR Source</targetName>
                     </resourceRef>
-                                <delineation>
-                <objectClass>ri:AccountObjectClass</objectClass>
-            </delineation>
-
+                    <objectClass>ri:AccountObjectClass</objectClass>
                     <operation>
                         <operation>search</operation>
                         <count>1</count>
