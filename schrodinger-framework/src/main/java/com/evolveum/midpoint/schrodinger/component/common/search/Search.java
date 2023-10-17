@@ -234,7 +234,7 @@ public class Search<T> extends Component<T> {
     }
 
     public Search<T> assertHelpTextOfSearchItem(String name, String expectedHelpText) {
-        assertion.assertTrue(getItemByName(name).$x("./i[@"+ Schrodinger.DATA_S_ID +"='help']")
+        assertion.assertTrue(getItemByName(name).$x(".//i[@"+ Schrodinger.DATA_S_ID +"='help']")
                         .has(Condition.attribute("title", expectedHelpText)),
                 "Search item with name '" + name + "' don't contains help text '" + expectedHelpText + "'");
         return this;

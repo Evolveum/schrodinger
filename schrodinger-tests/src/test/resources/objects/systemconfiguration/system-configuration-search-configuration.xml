@@ -427,51 +427,51 @@
                     </collectionRef>
                 </collection>
             </objectCollectionView>
-            <objectCollectionView>
-                <identifier>orgMember</identifier>
-                <type>OrgType</type>
-                <searchBoxConfiguration>
-                    <scopeConfiguration>
-                        <display>
-                            <label>Scope2</label>
-                            <help>Help scope</help>
-                        </display>
-                        <!--<visibility>hidden</visibility>-->
-                        <defaultValue>subtree</defaultValue>
-                    </scopeConfiguration>
-                    <objectTypeConfiguration>
-                        <display>
-                            <label>Type2</label>
-                            <help>Type help</help>
-                        </display>
-                        <!--<visibility>hidden</visibility>-->
-                        <defaultValue>OrgType</defaultValue>
-                        <supportedTypes>OrgType</supportedTypes>
-                        <supportedTypes>UserType</supportedTypes>
-                        <supportedTypes>ServiceType</supportedTypes>
-                    </objectTypeConfiguration>
-                    <relationConfiguration>
-                        <display>
-                            <label>Relation2</label>
-                            <help>Help relation</help>
-                        </display>
-                        <!--<visibility>hidden</visibility>-->
-                        <defaultValue>default</defaultValue>
-                        <supportedRelations>default</supportedRelations>
-                        <supportedRelations>manager</supportedRelations>
-                    </relationConfiguration>
-                    <indirectConfiguration>
-                        <display>
-                            <label>Indirect2</label>
-                            <help>Indirect help</help>
-                        </display>
-                        <!--<visibility>hidden</visibility>-->
-                        <indirect>true</indirect>
-                    </indirectConfiguration>
-                </searchBoxConfiguration>
-            </objectCollectionView>
         </objectCollectionViews>
         <objectDetails>
+            <objectDetailsPage>
+                <type>c:OrgType</type>
+                <panel>
+                    <identifier>orgMembers</identifier>
+                    <listView>
+                        <searchBoxConfiguration>
+                            <scopeConfiguration>
+                                <display>
+                                    <label>Scope2</label>
+                                    <help>Help scope</help>
+                                </display>
+                                <defaultValue>subtree</defaultValue>
+                            </scopeConfiguration>
+                            <objectTypeConfiguration>
+                                <display>
+                                    <label>Type2</label>
+                                    <help>Type help</help>
+                                </display>
+                                <defaultValue>OrgType</defaultValue>
+                                <supportedTypes>OrgType</supportedTypes>
+                                <supportedTypes>UserType</supportedTypes>
+                                <supportedTypes>ServiceType</supportedTypes>
+                            </objectTypeConfiguration>
+                            <relationConfiguration>
+                                <display>
+                                    <label>Relation2</label>
+                                    <help>Help relation</help>
+                                </display>
+                                <defaultValue>default</defaultValue>
+                                <supportedRelations>default</supportedRelations>
+                                <supportedRelations>manager</supportedRelations>
+                            </relationConfiguration>
+                            <indirectConfiguration>
+                                <display>
+                                    <label>Indirect2</label>
+                                    <help>Indirect help</help>
+                                </display>
+                                <indirect>true</indirect>
+                            </indirectConfiguration>
+                        </searchBoxConfiguration>
+                    </listView>
+                </panel>
+            </objectDetailsPage>
             <objectDetailsPage>
                 <type>c:TaskType</type>
                 <panel>

@@ -17,7 +17,11 @@ public class MemberSearch<S> extends Search<AssignmentHolderObjectListTable<S, A
     }
 
     public MemberSearch<S> byType(String type) {
-        dropDownPanelByItemName("Type").inputDropDownValue(type);
+        return byType(type, "Type");
+    }
+
+    public MemberSearch<S> byType(String type, String typeItemLabel) {
+        dropDownPanelByItemName(typeItemLabel).inputDropDownValue(type);
         sleep(MidPoint.TIMEOUT_EXTRA_SHORT_1_S.toMillis());
         return this;
     }
