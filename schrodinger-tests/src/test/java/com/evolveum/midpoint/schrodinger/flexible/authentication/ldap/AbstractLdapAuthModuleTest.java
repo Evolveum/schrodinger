@@ -29,6 +29,9 @@ public abstract class AbstractLdapAuthModuleTest extends AbstractRemoteAuthModul
     private static final File SECURITY_POLICY_SUCCESS_FILE =
             new File (BASE_DIR_FOR_SECURITY_FILES + "success.xml");
 
+    private static final File SECURITY_POLICY_SUCCESS_WITHOUT_NAMINGATTR_FILE =
+            new File (BASE_DIR_FOR_SECURITY_FILES + "success-without-namingAttr.xml");
+
     private static final File SECURITY_POLICY_SUCCESS_SUBTREE_FILE =
             new File (BASE_DIR_FOR_SECURITY_FILES + "success-subtree.xml");
 
@@ -55,19 +58,25 @@ public abstract class AbstractLdapAuthModuleTest extends AbstractRemoteAuthModul
     }
 
     protected void applyBasicSecurityPolicy() throws IOException {
-        applyBasicSecurityPolicy(
-                getSecurityPolicy(SECURITY_POLICY_SUCCESS_FILE));
+        applyBasicSecurityPolicy(getSecurityPolicy(SECURITY_POLICY_SUCCESS_FILE));
     }
 
     @Test
-    public void test001SuccessLoginAndLogout() throws Exception {
+    public void test010SuccessLoginAndLogout() throws Exception {
         applyBasicSecurityPolicy();
 
         successLoginAndLogout();
     }
 
     @Test
-    public void test002UserFromSubtreeUnsuccessfully() throws Exception {
+    public void test020SuccessLoginAndLogout() throws Exception {
+        applyBasicSecurityPolicy(getSecurityPolicy(SECURITY_POLICY_SUCCESS_WITHOUT_NAMINGATTR_FILE));
+
+        successLoginAndLogout();
+    }
+
+    @Test
+    public void test030UserFromSubtreeUnsuccessfully() throws Exception {
         applyBasicSecurityPolicy();
 
         try {
@@ -82,17 +91,15 @@ public abstract class AbstractLdapAuthModuleTest extends AbstractRemoteAuthModul
     }
 
     @Test
-    public void test003UserFromSubtreeSuccessfully() throws Exception {
-        applyBasicSecurityPolicy(
-                getSecurityPolicy(SECURITY_POLICY_SUCCESS_SUBTREE_FILE));
+    public void test040UserFromSubtreeSuccessfully() throws Exception {
+        applyBasicSecurityPolicy(getSecurityPolicy(SECURITY_POLICY_SUCCESS_SUBTREE_FILE));
 
         successLoginAndLogout("sub_enabled_user");
     }
 
     @Test
-    public void test004WrongAttributeName() throws Exception {
-        applyBasicSecurityPolicy(
-                getSecurityPolicy(SECURITY_POLICY_WRONG_ATTRIBUTE_NAME_FILE));
+    public void test050WrongAttributeName() throws Exception {
+        applyBasicSecurityPolicy(getSecurityPolicy(SECURITY_POLICY_WRONG_ATTRIBUTE_NAME_FILE));
 
         try {
             failLogin(
