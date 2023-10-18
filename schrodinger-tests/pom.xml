@@ -41,7 +41,7 @@
     <parent>
         <artifactId>schrodinger</artifactId>
         <groupId>com.evolveum.midpoint</groupId>
-        <version>4.8-SNAPSHOT</version>
+        <version>${midpoint.version}</version>
     </parent>
 
     <artifactId>schrodinger-tests</artifactId>
@@ -156,14 +156,26 @@
         <dependency>
             <groupId>com.evolveum.midpoint.client</groupId>
             <artifactId>midpoint-client-api</artifactId>
-            <version>${midpoint.version}</version>
+            <version>${midpoint.client.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.evolveum.midpoint.model</groupId>
+                    <artifactId>authentication-impl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.evolveum.midpoint.client</groupId>
             <artifactId>midpoint-client-impl-prism</artifactId>
-            <version>${midpoint.version}</version>
+            <version>${midpoint.client.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.evolveum.midpoint.model</groupId>
+                    <artifactId>authentication-impl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
