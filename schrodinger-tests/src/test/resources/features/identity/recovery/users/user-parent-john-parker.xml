@@ -16,7 +16,7 @@
     <familyName>Parker</familyName>
     <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
         <ext:universityId>3216547</ext:universityId>
-        <ext:dateOfBirth>2002-05-12T02:00:00.000+02:00</ext:dateOfBirth>
+        <ext:dateOfBirth>2002-05-12T00:00:00.000+02:00</ext:dateOfBirth>
         <ext:birthCity>Vienna</ext:birthCity>
         <ext:birthCountry>Austria</ext:birthCountry>
         <ext:nationalId>847293-01</ext:nationalId>

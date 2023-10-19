@@ -18,7 +18,7 @@
         <ext:middleName>Michael</ext:middleName>
         <ext:department>IT department</ext:department>
         <ext:universityId>9876543</ext:universityId>
-        <ext:dateOfBirth>2004-12-09T02:00:00.000+02:00</ext:dateOfBirth>
+        <ext:dateOfBirth>2004-12-09T00:00:00.000+02:00</ext:dateOfBirth>
         <ext:birthCity>Lisbon</ext:birthCity>
         <ext:birthCountry>Spain</ext:birthCountry>
         <ext:nationalId>839211-21</ext:nationalId>

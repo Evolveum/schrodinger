@@ -16,10 +16,10 @@
     <familyName>James</familyName>
     <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
         <ext:universityId>1234567</ext:universityId>
-        <ext:dateOfBirth>2003-04-23T03:00:00.000+03:00</ext:dateOfBirth>
+        <ext:dateOfBirth>2003-04-23T00:00:00.000+02:00</ext:dateOfBirth>
         <ext:birthCity>Vienna</ext:birthCity>
         <ext:birthCountry>Austria</ext:birthCountry>
-        <ext:nationalId>718204-18</ext:nationalId>
+        <ext:nationalId>718204-19</ext:nationalId>
         <ext:middleName>Sam1</ext:middleName>
     </extension>
     <nickName>Spiderman</nickName>

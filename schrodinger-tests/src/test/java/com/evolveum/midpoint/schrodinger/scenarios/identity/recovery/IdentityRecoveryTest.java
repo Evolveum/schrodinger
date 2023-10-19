@@ -1,14 +1,19 @@
 package com.evolveum.midpoint.schrodinger.scenarios.identity.recovery;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.impl.Screenshot;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.codeborne.selenide.Selenide.open;
 
 public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
@@ -29,10 +34,10 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private static final File OBJECT_TEMPLATE_STUDENT = new File(OBJECT_TEMPLATE_PATH + "/object-template-student.xml");
     private static final File OBJECT_TEMPLATE_TEACHER = new File(OBJECT_TEMPLATE_PATH + "/object-template-teacher.xml");
     private static final File SECURITY_POLICY_DEFAULT = new File(SECURITY_POLICY_PATH + "/security-policy-default.xml");
-    private static final File SECURITY_POLICY_APPLICANT = new File(OBJECT_TEMPLATE_PATH + "/security-policy-applicant.xml");
-    private static final File SECURITY_POLICY_PARENT = new File(OBJECT_TEMPLATE_PATH + "/security-policy-parent.xml");
-    private static final File SECURITY_POLICY_STUDENT = new File(OBJECT_TEMPLATE_PATH + "/security-policy-student.xml");
-    private static final File SECURITY_POLICY_TEACHER = new File(OBJECT_TEMPLATE_PATH + "/security-policy-teacher.xml");
+    private static final File SECURITY_POLICY_APPLICANT = new File(SECURITY_POLICY_PATH + "/security-policy-applicant.xml");
+    private static final File SECURITY_POLICY_PARENT = new File(SECURITY_POLICY_PATH + "/security-policy-parent.xml");
+    private static final File SECURITY_POLICY_STUDENT = new File(SECURITY_POLICY_PATH + "/security-policy-student.xml");
+    private static final File SECURITY_POLICY_TEACHER = new File(SECURITY_POLICY_PATH + "/security-policy-teacher.xml");
     private static final File INITIAL_SYSTEM_CONFIGURATION_UPDATED = new File(SYSTEM_CONFIGURATION_PATH + "/initial-system-configuration-updated.xml");
 
     private static final File USER_APPLICANT_CALEB_JAMES = new File(USER_PATH + "/user-applicant-caleb-james.xml");
@@ -61,20 +66,51 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 USER_NO_ARCHETYPE_CALEB_JAMES_3, USER_STUDENT_CALEB_JAMES_ECONOMY, USER_STUDENT_CALEB_JAMES_IT);
     }
 
+    @BeforeMethod
+    private void openLoginPage() {
+        clearBrowser();
+        midPoint.open();
+    }
+
     @Override
     protected List<String> createImportOptionList() {
         return new ImportOptions(false, true).createOptionList();
     }
 
     @Test
-    public void test00100threeCorrelatorsPositiveScenario() {
+    public void test00100threeCorrelatorsCalebJamesIsFound() {
         midPoint.formLogin()
                 .identityRecovery()
                 .selectArchetype("Applicant")
                 .send()
                 .setAttributeValue("Given name", "Caleb")
                 .setAttributeValue("Family name", "James")
-                .send();
+                .send()
+                .setAttributeValue("Date of birth", "4/23/2003")
+                .setAttributeValue("City of birth", "Vienna")
+                .setAttributeValue("Country of birth", "Austria")
+                .send()
+                .setAttributeValue("National ID", "718204-18")
+                .send()
+                .assertSingleIdentityFound("caleb.james");
+    }
+
+    @Test
+    public void test00110threeCorrelatorsDuplicateUserIsFound() {
+        midPoint.formLogin()
+                .identityRecovery()
+                .selectArchetype("Applicant")
+                .send()
+                .setAttributeValue("Given name", "Caleb")
+                .setAttributeValue("Family name", "James")
+                .send()
+                .setAttributeValue("Date of birth", "4/23/2003")
+                .setAttributeValue("City of birth", "Vienna")
+                .setAttributeValue("Country of birth", "Austria")
+                .send()
+                .setAttributeValue("National ID", "718204-19")
+                .send()
+                .assertSingleIdentityFound("caleb.james.duplicate");
     }
 
 

@@ -272,7 +272,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Selenide.closeWebDriver(); //todo or closeWindow?
 
         if (resetToDefaultAfterTests()) {
-//            resetToDefault();
+            resetToDefault();
         }
     }
 
