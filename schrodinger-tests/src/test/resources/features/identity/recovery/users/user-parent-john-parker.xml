@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" oid="0915256e-7e01-41a0-9d79-4fffa9fbb691" version="1">
+    <name>john.parker</name>
+    <description>Parent</description>
+    <assignment>
+        <targetRef oid="5bd3f6b4-e328-4f6e-976a-7b5b0c48346d" relation="org:default" type="c:ArchetypeType" />
+    </assignment>
+    <emailAddress>john.parker@test.com</emailAddress>
+    <givenName>John</givenName>
+    <familyName>Parker</familyName>
+    <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <ext:universityId>3216547</ext:universityId>
+        <ext:dateOfBirth>2002-05-12T02:00:00.000+02:00</ext:dateOfBirth>
+        <ext:birthCity>Vienna</ext:birthCity>
+        <ext:birthCountry>Austria</ext:birthCountry>
+        <ext:nationalId>847293-01</ext:nationalId>
+    </extension>
+</user>
+

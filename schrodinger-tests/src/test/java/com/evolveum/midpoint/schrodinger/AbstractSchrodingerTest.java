@@ -47,12 +47,14 @@ import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
+import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,7 +146,11 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 throw new com.evolveum.midpoint.client.api.exception.SchemaException(e);
             }
         }
-        getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, true));
+        getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, createImportOptionList()));
+    }
+
+    protected List<String> createImportOptionList() {
+        return new ImportOptions(true, true).createOptionList();
     }
 
     private void startMidpoint() throws IOException {
@@ -266,7 +272,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         Selenide.closeWebDriver(); //todo or closeWindow?
 
         if (resetToDefaultAfterTests()) {
-            resetToDefault();
+//            resetToDefault();
         }
     }
 
@@ -484,33 +490,28 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected void addObjectFromFile(File file) {
-        addObjectFromFile(file, true);
+        addObjectFromFile(file, new ImportOptions(true, true).createOptionList());
     }
 
-    protected void addObjectFromFile(File file, boolean overwrite) {
+    protected void addObjectFromFile(File file, @NotNull List<String> optionList) {
         try {
             List<PrismObject<?>> objects = prismContext.parserFor(file).parseObjects();
-            addObjects(objects, overwrite);
+            addObjects(objects, optionList);
         } catch (CommonException | SchemaException | IOException ex) {
             LOG.error("Unable to add object, {}", ex);
         }
     }
 
-    private void addObjects(List<PrismObject<?>> objects, boolean overwrite) throws IOException, CommonException {
+    private void addObjects(List<PrismObject<?>> objects, @NotNull List<String> optionList) throws IOException, CommonException {
         RestPrismServiceBuilder builder = RestPrismServiceBuilder.create();
         RestPrismService service = builder
                 .baseUrl(getConfigurationPropertyValue(startMidpoint ? "base_url" : "base_url_mp_already_started") + "/ws/rest")
                 .username(getConfigurationPropertyValue("username"))
                 .password(getConfigurationPropertyValue("password"))
                 .build();
-        final List<String> options = new ArrayList<>();
-        if (overwrite) {
-            options.add("overwrite");
-            options.add("raw");
-        }
         objects.forEach(object -> {
             try {
-                addObjectService(service, object).setOptions(options).post();
+                addObjectService(service, object).setOptions(optionList).post();
                 LOG.trace("Object oid=" + object.getOid() + "; name='" + object.getName() + "' is added.");
             } catch (Exception e) {
                 LOG.error("Unable to add object oid=" + object.getOid() + "; name='" + object.getName() + "' , {}", e);
@@ -519,13 +520,13 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected void addObjectFromString(String object) {
-        addObjectFromString(object, false);
+        addObjectFromString(object, new ImportOptions(false, false).createOptionList());
     }
 
-    protected void addObjectFromString(String object, boolean overwrite) {
+    protected void addObjectFromString(String object, List<String> optionList) {
         try {
             PrismObject<?> prismObject = prismContext.parseObject(object);
-            addObjects(List.of(prismObject), overwrite);
+            addObjects(List.of(prismObject), optionList);
         } catch (CommonException | SchemaException | IOException ex) {
             LOG.error("Unable to add object, {}", ex);
         }

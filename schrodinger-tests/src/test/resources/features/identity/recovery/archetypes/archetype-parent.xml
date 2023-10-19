@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="5bd3f6b4-e328-4f6e-976a-7b5b0c48346d" version="1">
+    <name>Parent of a student</name>
+    <archetypePolicy>
+        <objectTemplateRef oid="09467337-0f91-4fca-84a2-5a5b4fc4a9be"/>
+        <display>
+            <label>Parent of a student</label>
+            <icon>
+                <cssClass>fa fa-users</cssClass>
+            </icon>
+            <help>A parent of the student or applicant.</help>
+        </display>
+    </archetypePolicy>
+    <securityPolicyRef oid="343cc4e0-7aa3-43b0-a347-142c6c37c36c" />
+</archetype>

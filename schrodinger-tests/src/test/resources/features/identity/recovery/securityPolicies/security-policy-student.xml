@@ -1,0 +1,47 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<securityPolicy xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="fbbfc1bf-fa25-454e-b043-d1a3cc2a5ee5" version="1">
+    <name>University Student Security Policy</name>
+    <authentication>
+        <modules>
+            <correlation>
+                <identifier>correlationModule</identifier>
+                <correlator>
+                    <correlatorIdentifier>identity-recovery-1</correlatorIdentifier>
+                    <order>10</order>
+                </correlator>
+                <correlator>
+                    <correlatorIdentifier>identity-recovery-2</correlatorIdentifier>
+                    <order>20</order>
+                </correlator>
+                <correlator>
+                    <correlatorIdentifier>identity-recovery-3</correlatorIdentifier>
+                    <order>30</order>
+                </correlator>
+            </correlation>
+        </modules>
+        <sequence>
+            <identifier>identity-recovery-sequence</identifier>
+            <channel>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#identityRecovery</channelId>
+                <default>true</default>
+                <urlSuffix>identityRecovery</urlSuffix>
+            </channel>
+            <module>
+                <identifier>correlationModule</identifier>
+                <order>10</order>
+                <necessity>requisite</necessity>
+            </module>
+        </sequence>
+    </authentication>
+    <identityRecovery>
+        <identifier>identity-recovery</identifier>
+        <authenticationSequenceIdentifier>identity-recovery-sequence</authenticationSequenceIdentifier>
+    </identityRecovery>
+</securityPolicy>
+

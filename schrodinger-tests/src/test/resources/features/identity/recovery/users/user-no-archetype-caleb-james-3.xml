@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="9a61aa91-ab42-4760-a71b-00e58e9aa2e4" version="1">
+    <name>caleb.james3</name>
+    <description>No archetype</description>
+    <emailAddress>caleb.j3@test.com</emailAddress>
+    <givenName>Caleb</givenName>
+    <familyName>James</familyName>
+    <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <ext:nationalId>718204-18</ext:nationalId>
+    </extension>
+</user>

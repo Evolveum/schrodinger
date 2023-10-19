@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="6a705fbc-38e2-4de9-9b93-58bce2f2a332" version="1">
+    <name>Teacher</name>
+    <archetypePolicy>
+        <objectTemplateRef oid="1d41138f-103b-4fb8-ab7f-693eeacadf07"/>
+        <display>
+            <label>Teacher</label>
+            <icon>
+                <cssClass>fa fa-institution</cssClass>
+            </icon>
+            <help>A teacher of the university.</help>
+        </display>
+    </archetypePolicy>
+    <securityPolicyRef oid="fb27408e-46f6-41db-ac2f-20388c00ebad" />
+</archetype>

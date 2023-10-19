@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="41a212f2-ab42-4760-a71b-00e58e9aa2e4" version="1">
+    <name>caleb.james.duplicate</name>
+    <description>Applicant</description>
+    <assignment>
+        <targetRef oid="612c147c-1ef7-4be9-9085-a1cb6ca8515e" relation="org:default" type="c:ArchetypeType" />
+    </assignment>
+    <emailAddress>caleb.duplicate@test.com</emailAddress>
+    <givenName>Caleb</givenName>
+    <familyName>James</familyName>
+    <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <ext:universityId>1234567</ext:universityId>
+        <ext:dateOfBirth>2003-04-23T03:00:00.000+03:00</ext:dateOfBirth>
+        <ext:birthCity>Vienna</ext:birthCity>
+        <ext:birthCountry>Austria</ext:birthCountry>
+        <ext:nationalId>718204-18</ext:nationalId>
+        <ext:middleName>Sam1</ext:middleName>
+    </extension>
+    <nickName>Spiderman</nickName>
+</user>
+

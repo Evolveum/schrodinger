@@ -15,6 +15,7 @@
  */
 package com.evolveum.midpoint.schrodinger.page.login;
 
+import com.beust.ah.A;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -60,6 +61,13 @@ public class FormLoginPage extends LoginPage {
             return new MailNoncePage();
         }
         return this;
+    }
+
+    public ArchetypeSelectionPage identityRecovery() {
+        Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byDataId("identityRecovery")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        Utils.waitForAjaxCallFinish();
+        return new ArchetypeSelectionPage();
     }
 
     public BasicPage loginIfUserIsNotLog(String username, String password){

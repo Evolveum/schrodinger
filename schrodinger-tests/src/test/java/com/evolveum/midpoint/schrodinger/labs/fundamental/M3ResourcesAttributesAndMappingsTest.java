@@ -85,7 +85,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
 //        CSV_1_RESOURCE_ATTRIBUTES.forEach(attr ->
 //                schemaStepSchemaTab.getAttributesTable().assertTableContainsText(attr));
 
-        addObjectFromFile(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE, true);
+        addObjectFromFile(NUMERIC_PIN_FIRST_NONZERO_POLICY_FILE);
 
         csv2TargetFile = new File(getTestTargetDir(), CSV_2_FILE_SOURCE_NAME);
         FileUtils.copyFile(CSV_2_SOURCE_FILE, csv2TargetFile);

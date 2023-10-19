@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="900152f2-ab42-4760-a71b-00e58e9aa2e4" version="1">
+    <name>john.collins</name>
+    <description>Student</description>
+    <assignment>
+        <targetRef oid="9e105fbc-38e2-4de9-9b93-58bce2f2995a" relation="org:default" type="c:ArchetypeType" />
+    </assignment>
+    <emailAddress>john.collins@test.com</emailAddress>
+    <givenName>John</givenName>
+    <familyName>Collins</familyName>
+    <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <ext:universityId>345678</ext:universityId>
+        <ext:dateOfBirth>2003-08-22T03:00:00.000+03:00</ext:dateOfBirth>
+        <ext:birthCity>Paris</ext:birthCity>
+        <ext:birthCountry>France</ext:birthCountry>
+        <ext:nationalId>827462-10</ext:nationalId>
+    </extension>
+</user>
+

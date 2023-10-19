@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="612c147c-1ef7-4be9-9085-a1cb6ca8515e" version="1">
+    <name>Applicant</name>
+    <archetypePolicy>
+        <objectTemplateRef oid="ac6542bf-6ed3-4af9-9be7-bcf4bf84dc91"/>
+        <display>
+            <label>Applicant</label>
+            <icon>
+                <cssClass>fa fa-file-text</cssClass>
+            </icon>
+            <help>A user who has already applied to the university.</help>
+        </display>
+    </archetypePolicy>
+    <securityPolicyRef oid="1696542c-1f9e-4c55-9759-de3cb4475cc5" />
+</archetype>

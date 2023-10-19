@@ -1,0 +1,68 @@
+<!--
+  ~ Copyright (C) 2010-2022 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<objectTemplate xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                oid="391696c8-cae6-4530-a7cf-43e3bf29ec62">
+    <name>Student object template</name>
+    <correlation>
+        <correlators>
+            <name>identity-recovery-1</name>
+            <documentation>
+                If key attributes (given/family names, university ID, faculty) exactly match,
+                we are immediately done.
+            </documentation>
+            <items>
+                <name>names-universityId-faculty</name>
+                <item>
+                    <ref>givenName</ref>
+                </item>
+                <item>
+                    <ref>familyName</ref>
+                </item>
+                <item>
+                    <ref>extension/universityId</ref>
+                </item>
+                <item>
+                    <ref>extension/faculty</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+        <correlators>
+            <name>identity-recovery-2</name>
+            <items>
+                <name>birth-information</name>
+                <documentation>
+                    Check the date and the place of birth.
+                </documentation>
+                <item>
+                    <ref>extension/dateOfBirth</ref>
+                </item>
+                <item>
+                    <ref>extension/birthCity</ref>
+                </item>
+                <item>
+                    <ref>extension/birthCountry</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+        <correlators>
+            <name>identity-recovery-3</name>
+            <items>
+                <name>national-id</name>
+                <documentation>
+                    Check the national id.
+                </documentation>
+                <item>
+                    <ref>extension/nationalId</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+    </correlation>
+</objectTemplate>

@@ -60,8 +60,8 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                         .assertTableContainsColumnWithValue("ObjectType.name", "userWithoutFullname")
                         .assertTableColumnValueIsEmpty("UserType.fullName");
 
-        addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE, true);
+        addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE);
+        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage.loggedUser().logout();
@@ -93,7 +93,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                     .table()
                         .deleteObject("Object template", "Full name template");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
+        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         Map<String, String> attributesMap = new HashMap<>();
@@ -109,8 +109,8 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
 
     @Test (dependsOnMethods = {"test00200deleteObjectTemplateCreateUser"})
     public void test00300createArchetypeObjectTemplateExists() {
-        addObjectFromFile(EMPLOYEE_ARCHETYPE_FILE, true);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE, true);
+        addObjectFromFile(EMPLOYEE_ARCHETYPE_FILE);
+        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage.loggedUser().logout();
@@ -144,8 +144,8 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                         .assertTableColumnValueIsEmpty("UserType.fullName");
         table.clickByName("employeeTestUser")
                 .selectBasicPanel();
-        addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE, true);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE, true);
+        addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE);
+        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage
@@ -181,7 +181,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                 .table()
                 .deleteObject("Object template", "Full name template");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
+        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage

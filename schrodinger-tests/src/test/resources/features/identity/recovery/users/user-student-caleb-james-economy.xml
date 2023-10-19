@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="7f2212f2-ab42-4760-a71b-00e58e88a2e4" version="1">
+    <name>caleb.james.economist</name>
+    <description>Student</description>
+    <assignment>
+        <targetRef oid="9e105fbc-38e2-4de9-9b93-58bce2f2995a" relation="org:default" type="c:ArchetypeType" />
+    </assignment>
+    <emailAddress>caleb.stud@test.com</emailAddress>
+    <givenName>Caleb</givenName>
+    <familyName>James</familyName>
+    <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <ext:universityId>1234567</ext:universityId>
+        <ext:birthCity>Salzburg</ext:birthCity>
+        <ext:birthCountry>Austria</ext:birthCountry>
+        <ext:nationalId>718204-18</ext:nationalId>
+        <ext:middleName>Sam</ext:middleName>
+        <ext:faculty>Economy</ext:faculty>
+    </extension>
+    <nickName>Superman</nickName>
+</user>
+

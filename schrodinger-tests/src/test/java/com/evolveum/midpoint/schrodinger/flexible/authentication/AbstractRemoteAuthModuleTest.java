@@ -20,6 +20,7 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.testng.annotations.AfterClass;
@@ -54,19 +55,17 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
-        addObjectFromFile(DEFAULT_SECURITY_POLICY_FILE, true);
+        addObjectFromFile(DEFAULT_SECURITY_POLICY_FILE);
 
         super.beforeClass();
 
         this.properties = loadProperties(getPropertyFile());
 
         addObjectFromFile(
-                new File(getEnabledUserFilePath()),
-                true);
+                new File(getEnabledUserFilePath()));
 
         addObjectFromFile(
-                new File(getDisabledUserFilePath()),
-                true);
+                new File(getDisabledUserFilePath()));
 
 
         basicPage.loggedUser().logoutIfUserIsLogin();
@@ -174,7 +173,7 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
     }
 
     protected void applyBasicSecurityPolicy(String securityPolicy) {
-        addObjectFromString(securityPolicy, true);
+        addObjectFromString(securityPolicy, new ImportOptions(true, true).createOptionList());
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
     }
 

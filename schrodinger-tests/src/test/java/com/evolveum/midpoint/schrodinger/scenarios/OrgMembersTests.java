@@ -189,7 +189,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
     @Test (priority = 5)
     public void test00500createNewUserManagerObject() {
         resetToDefaultAndRelogin();
-        addObjectFromFile(ORG_WITH_MEMBER_FILE, true);
+        addObjectFromFile(ORG_WITH_MEMBER_FILE);
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
@@ -226,7 +226,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
     @Test (priority = 6)
     public void test00600createNewOrgOwnerObject() {
         resetToDefaultAndRelogin();
-        addObjectFromFile(ORG_WITH_MEMBER_FILE, true);
+        addObjectFromFile(ORG_WITH_MEMBER_FILE);
         OrgPage newOrgPage = (OrgPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
@@ -266,7 +266,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
     @Test (priority = 7)
     public void test00700createNewOrganizationApproverObject() {
         resetToDefaultAndRelogin();
-        addObjectFromFile(ORG_WITH_MEMBER_FILE, true);
+        addObjectFromFile(ORG_WITH_MEMBER_FILE);
         ServicePage newServicePage = (ServicePage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()

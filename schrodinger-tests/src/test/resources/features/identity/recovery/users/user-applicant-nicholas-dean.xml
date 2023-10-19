@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (C) 2023 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="998612f2-ab42-4760-a71b-00e58e9aa2e4" version="1">
+    <name>nicholas.dean</name>
+    <description>Applicant</description>
+    <assignment>
+        <targetRef oid="612c147c-1ef7-4be9-9085-a1cb6ca8515e" relation="org:default" type="c:ArchetypeType" />
+    </assignment>
+    <emailAddress>nicholas.dean@test.com</emailAddress>
+    <givenName>Nicholas</givenName>
+    <familyName>Dean</familyName>
+    <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <ext:universityId>872367</ext:universityId>
+        <ext:middleName>Mike</ext:middleName>
+        <ext:dateOfBirth>2004-02-03T02:00:00.000+02:00</ext:dateOfBirth>
+        <ext:birthCity>Bratislava</ext:birthCity>
+        <ext:birthCountry>Slovakia</ext:birthCountry>
+        <ext:nationalId>431230-99</ext:nationalId>
+    </extension>
+</user>
+

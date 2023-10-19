@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (C) 2010-2022 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<objectTemplate xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                oid="ac6542bf-6ed3-4af9-9be7-bcf4bf84dc91">
+    <name>Applicant object template</name>
+    <correlation>
+        <correlators>
+            <name>identity-recovery-1</name>
+            <items>
+                <name>given-family-names</name>
+                <documentation>
+                    If given/family names exactly match, we are immediately done.
+                </documentation>
+                <item>
+                    <ref>givenName</ref>
+                </item>
+                <item>
+                    <ref>familyName</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+        <correlators>
+            <name>identity-recovery-2</name>
+            <items>
+                <name>place-date-of-birth</name>
+                <documentation>
+                    Check the place and date of birth.
+                </documentation>
+                <item>
+                    <ref>extension/birthCity</ref>
+                </item>
+                <item>
+                    <ref>extension/birthCountry</ref>
+                </item>
+                <item>
+                    <ref>extension/dateOfBirth</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+        <correlators>
+            <name>identity-recovery-3</name>
+            <items>
+                <name>national-id</name>
+                <documentation>
+                    Check the national id.
+                </documentation>
+                <item>
+                    <ref>extension/nationalId</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+    </correlation>
+</objectTemplate>

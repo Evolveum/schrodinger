@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (C) 2010-2022 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<objectTemplate xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                oid="09467337-0f91-4fca-84a2-5a5b4fc4a9be">
+    <name>Parent object template</name>
+    <correlation>
+        <correlators>
+            <name>identity-recovery-1</name>
+            <items>
+                <name>names-date-universityId</name>
+                <documentation>
+                    If key attributes (given/family names, date of birth, university ID) exactly match,
+                    we are immediately done.
+                </documentation>
+                <item>
+                    <ref>givenName</ref>
+                </item>
+                <item>
+                    <ref>familyName</ref>
+                </item>
+                <item>
+                    <ref>extension/universityId</ref>
+                </item>
+                <item>
+                    <ref>extension/dateOfBirth</ref>
+                </item>
+                <item>
+                    <ref>extension/nationalId</ref>
+                </item>
+            </items>
+            <use>identityRecovery</use>
+        </correlators>
+    </correlation>
+</objectTemplate>
