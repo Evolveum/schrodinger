@@ -1,7 +1,5 @@
 package com.evolveum.midpoint.schrodinger.scenarios.identity.recovery;
 
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.impl.Screenshot;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +11,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.open;
 
 public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
@@ -47,6 +44,7 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private static final File USER_NO_ARCHETYPE_CALEB_JAMES_3 = new File(USER_PATH + "/user-no-archetype-caleb-james-3.xml");
     private static final File USER_STUDENT_CALEB_JAMES_ECONOMY = new File(USER_PATH + "/user-student-caleb-james-economy.xml");
     private static final File USER_STUDENT_CALEB_JAMES_IT = new File(USER_PATH + "/user-student-caleb-james-IT-vienna.xml");
+    private static final File USER_TEACHER_BLAKE_ADAMS = new File(USER_PATH + "/user-teacher-blake-adams.xml");
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
     public void beforeClass() throws IOException {
@@ -63,7 +61,8 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 ARCHETYPE_PARENT, ARCHETYPE_STUDENT, ARCHETYPE_TEACHER,
                 INITIAL_SYSTEM_CONFIGURATION_UPDATED, USER_APPLICANT_CALEB_JAMES,
                 USER_APPLICANT_CALEB_JAMES_DUPLICATE, USER_NO_ARCHETYPE_CALEB_JAMES_1, USER_NO_ARCHETYPE_CALEB_JAMES_2,
-                USER_NO_ARCHETYPE_CALEB_JAMES_3, USER_STUDENT_CALEB_JAMES_ECONOMY, USER_STUDENT_CALEB_JAMES_IT);
+                USER_NO_ARCHETYPE_CALEB_JAMES_3, USER_STUDENT_CALEB_JAMES_ECONOMY, USER_STUDENT_CALEB_JAMES_IT,
+                USER_TEACHER_BLAKE_ADAMS);
     }
 
     @BeforeMethod
@@ -113,5 +112,40 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 .assertSingleIdentityFound("caleb.james.duplicate");
     }
 
+    @Test
+    public void test00120undefinedArchetypeMultipleIdentities() {
+        midPoint.formLogin()
+                .identityRecovery()
+                .selectArchetype("Undefined")
+                .send()
+                .setAttributeValue("National ID", "718204-18")
+                .send()
+                .assertIdentityResultsPagingExist()
+                .assertDisplayedIdentitiesCountEquals(3)
+                .clickNextPage()
+                .assertDisplayedIdentitiesCountEquals(3)
+                .assertPageCountEquals(2);
+    }
+
+    @Test
+    public void test00130teacherIdentityDisplayedInfo() {
+        midPoint.formLogin()
+                .identityRecovery()
+                .selectArchetype("Teacher")
+                .send()
+                .setAttributeValue("Given name", "Blake")
+                .setAttributeValue("Middle name", "Michael")
+                .setAttributeValue("Family name", "Adams")
+                .setAttributeValue("University ID", "9876543")
+                .setAttributeValue("Department", "IT department")
+                .setAttributeValue("National ID", "839211-21")
+                .send()
+                .assertSingleIdentityFound("blake.adams")
+                .assertAttributeValueShown("Email", "blake.adams@test.com")
+                .assertAttributeValueShown("Nickname", "Fixik");
+    }
+
+
+    //todo check audit log
 
 }

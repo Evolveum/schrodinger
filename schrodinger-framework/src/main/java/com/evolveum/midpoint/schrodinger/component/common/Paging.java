@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.apache.commons.lang3.Validate;
-import org.openqa.selenium.By;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -116,12 +115,34 @@ public class Paging<T> extends Component<T> {
     }
 
     public int currentPageNumber() {
-        // todo implement
+        SelenideElement activePageElement = getParentElement()
+                .$x(".//li[contains(@class, 'page-item' and contains(@class, 'active'))]");
+        if (activePageElement.isDisplayed()) {
+            String selectedIndexStr = activePageElement.getAttribute("data-s-id");
+            try {
+                return Integer.parseInt(selectedIndexStr + 1);
+            } catch (Exception e) {
+                //nothing to do here
+            }
+        }
         return -1;
     }
 
-    public int currentMaxPages() {
-        // todo implement
-        return -1;
+    public int getPagesCount() {
+        ElementsCollection pageItems = getParentElement()
+                .$$x(".//li[contains(@class, 'page-item')]");
+        int pagesCount = 0;
+        for (SelenideElement el : pageItems.asFixedIterable()) {
+            try {
+                String selectedIndexStr = el.getAttribute("data-s-id");
+                int temp = Integer.parseInt(selectedIndexStr) + 1;
+                if (temp > pagesCount) {
+                    pagesCount = temp;
+                }
+            } catch (Exception e) {
+                //nothing to do here
+            }
+        }
+        return pagesCount;
     }
 }
