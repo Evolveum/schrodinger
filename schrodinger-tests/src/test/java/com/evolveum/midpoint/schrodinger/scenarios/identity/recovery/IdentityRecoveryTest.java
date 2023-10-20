@@ -143,9 +143,21 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 .assertSingleIdentityFound("blake.adams")
                 .assertAttributeValueShown("Email", "blake.adams@test.com")
                 .assertAttributeValueShown("Nickname", "Fixik");
+
+        openLoginPage();
+        midPoint.formLogin().login("administrator", "5ecr3t");
+
+        basicPage.auditLogViewer()
+                .table()
+                .search()
+                .dropDownPanelByItemName("Event type")
+                .inputDropDownValue("Information disclosure")
+                .updateSearch()
+                .and()
+                .clickByRowColumnNumber(0, 0)
+                .deltaPanel()
+                .assertObjectNameValueEquals("blake.adams");
+
     }
-
-
-    //todo check audit log
 
 }

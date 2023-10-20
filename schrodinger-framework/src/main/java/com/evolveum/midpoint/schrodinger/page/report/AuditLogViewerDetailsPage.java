@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class AuditLogViewerDetailsPage extends BasicPage {
 
     public VisualizationPanel<AuditLogViewerDetailsPage> deltaPanel() {
-        SelenideElement el = $x(".//div[@data-s-id='deltaPanel']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement el = $x(".//div[@data-s-id='delta']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new VisualizationPanel<>(this, el);
     }
 

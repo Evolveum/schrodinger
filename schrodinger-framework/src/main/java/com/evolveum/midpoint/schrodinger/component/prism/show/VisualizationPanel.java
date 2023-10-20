@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class VisualizationPanel<T> extends Component<T> {
 
@@ -66,6 +67,13 @@ public class VisualizationPanel<T> extends Component<T> {
     public VisualizationPanel<T> assertItemsDeltasSizeEquals(int expectedSize) {
         assertion.assertEquals(expectedSize, getObjectItemsDeltaPanel().getVisualizationItemsCount());
         return this;
+    }
+
+    public VisualizationPanel<T> assertObjectNameValueEquals(String objectNameValue) {
+        SelenideElement el = $x(".//span[@data-s-id='objectName' and contains(., '" + objectNameValue + "')]");
+        assertion.assertTrue(el.isDisplayed(), "Object name should be displayed, ");
+        assertion.assertEquals(el.getText(), objectNameValue, "Object name should match with expected value " + objectNameValue + ", ");
+        return VisualizationPanel.this;
     }
 
 
