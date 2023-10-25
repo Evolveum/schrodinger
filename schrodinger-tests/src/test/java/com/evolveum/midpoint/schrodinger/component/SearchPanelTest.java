@@ -269,15 +269,11 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .selectTabWithRootOrg("orgRootMemberSearch")
                     .getMemberPanel()
                         .table();
-        table.search()
-                .byType("All")
-                .updateSearch()
-                .and()
-                .assertTableContainsText("orgMembershipByTypeSearch");
+        table.assertTableContainsText("orgMembershipByTypeSearch");
         table.search().assertExistSearchItem("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
                 .assertActualOptionOfSelectSearchItem("Type2", "Organization");
         table.search().assertExistSearchItem("Relation2").assertHelpTextOfSearchItem("Relation2", "Help relation")
-                .assertActualOptionOfSelectSearchItem("Relation2", "Member");
+                .assertActualOptionOfSelectSearchItem("Relation2", "Default");
         table.search().assertExistSearchItem("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
                 .assertActualOptionOfSelectSearchItem("Scope2", "Subtree");
         table.search().dropDownPanelByItemName("Scope2").inputDropDownValue("One level");
