@@ -100,8 +100,11 @@ public class Search<T> extends Component<T> {
     public Search<T> updateSearch(){
         SelenideElement simpleSearchButton = getParentElement().$x(".//button[@" + Schrodinger.DATA_S_ID + "='searchButton']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        Actions builder = new Actions(WebDriverRunner.getWebDriver());
-        builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
+        Utils.scrollToElement(simpleSearchButton);
+        simpleSearchButton.click();
+        Utils.waitForAjaxCallFinish();
+//        Actions builder = new Actions(WebDriverRunner.getWebDriver());
+//        builder.moveToElement(simpleSearchButton, 5, 5).click().build().perform();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
         return this;
     }
