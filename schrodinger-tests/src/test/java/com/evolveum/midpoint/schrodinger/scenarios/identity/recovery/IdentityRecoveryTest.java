@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2023 Evolveum
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.evolveum.midpoint.schrodinger.scenarios.identity.recovery;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
@@ -43,7 +58,9 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private static final File USER_NO_ARCHETYPE_CALEB_JAMES_2 = new File(USER_PATH + "/user-no-archetype-caleb-james-2.xml");
     private static final File USER_NO_ARCHETYPE_CALEB_JAMES_3 = new File(USER_PATH + "/user-no-archetype-caleb-james-3.xml");
     private static final File USER_STUDENT_CALEB_JAMES_ECONOMY = new File(USER_PATH + "/user-student-caleb-james-economy.xml");
-    private static final File USER_STUDENT_CALEB_JAMES_IT = new File(USER_PATH + "/user-student-caleb-james-IT-vienna.xml");
+    private static final File USER_STUDENT_CALEB_JAMES_IT_VIENNA = new File(USER_PATH + "/user-student-caleb-james-IT-vienna.xml");
+    private static final File USER_STUDENT_CALEB_JAMES_IT_SALZBURG = new File(USER_PATH + "/user-student-caleb-james-IT-salzburg.xml");
+    private static final File USER_STUDENT_CALEB_JAMES_IT_GRAZ = new File(USER_PATH + "/user-student-caleb-james-IT-graz.xml");
     private static final File USER_TEACHER_BLAKE_ADAMS = new File(USER_PATH + "/user-teacher-blake-adams.xml");
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
@@ -61,8 +78,8 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 ARCHETYPE_PARENT, ARCHETYPE_STUDENT, ARCHETYPE_TEACHER,
                 INITIAL_SYSTEM_CONFIGURATION_UPDATED, USER_APPLICANT_CALEB_JAMES,
                 USER_APPLICANT_CALEB_JAMES_DUPLICATE, USER_NO_ARCHETYPE_CALEB_JAMES_1, USER_NO_ARCHETYPE_CALEB_JAMES_2,
-                USER_NO_ARCHETYPE_CALEB_JAMES_3, USER_STUDENT_CALEB_JAMES_ECONOMY, USER_STUDENT_CALEB_JAMES_IT,
-                USER_TEACHER_BLAKE_ADAMS);
+                USER_NO_ARCHETYPE_CALEB_JAMES_3, USER_STUDENT_CALEB_JAMES_ECONOMY, USER_STUDENT_CALEB_JAMES_IT_VIENNA,
+                USER_STUDENT_CALEB_JAMES_IT_SALZBURG, USER_STUDENT_CALEB_JAMES_IT_GRAZ, USER_TEACHER_BLAKE_ADAMS);
     }
 
     @BeforeMethod
@@ -158,6 +175,22 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 .deltaPanel()
                 .assertObjectNameValueEquals("blake.adams");
 
+    }
+
+    @Test
+    public void test00140candidateLimitIsExceeded() {
+        midPoint.formLogin()
+                .identityRecovery()
+                .selectArchetype("Student")
+                .send()
+                .setAttributeValue("Given name", "Caleb")
+                .setAttributeValue("Family name", "James")
+                .setAttributeValue("University ID", "1234567")
+                .setAttributeValue("Faculty", "IT")
+                .send()
+                .assertNoCandidateDisplayed()
+                .feedback()
+                .assertError();
     }
 
 }

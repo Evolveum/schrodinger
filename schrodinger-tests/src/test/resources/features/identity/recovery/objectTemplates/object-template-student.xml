@@ -32,37 +32,5 @@
             </items>
             <use>identityRecovery</use>
         </correlators>
-        <correlators>
-            <name>identity-recovery-2</name>
-            <items>
-                <name>birth-information</name>
-                <documentation>
-                    Check the date and the place of birth.
-                </documentation>
-                <item>
-                    <ref>extension/dateOfBirth</ref>
-                </item>
-                <item>
-                    <ref>extension/birthCity</ref>
-                </item>
-                <item>
-                    <ref>extension/birthCountry</ref>
-                </item>
-            </items>
-            <use>identityRecovery</use>
-        </correlators>
-        <correlators>
-            <name>identity-recovery-3</name>
-            <items>
-                <name>national-id</name>
-                <documentation>
-                    Check the national id.
-                </documentation>
-                <item>
-                    <ref>extension/nationalId</ref>
-                </item>
-            </items>
-            <use>identityRecovery</use>
-        </correlators>
     </correlation>
 </objectTemplate>

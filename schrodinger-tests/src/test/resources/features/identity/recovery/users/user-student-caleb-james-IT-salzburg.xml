@@ -5,8 +5,8 @@
   ~ and European Union Public License. See LICENSE file for details.
   -->
 
-<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="7f2212f2-a332-4760-a71b-00e58e9aa2e4" version="1">
-    <name>caleb.james.student.vienna</name>
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"  xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"     oid="522882f2-ab42-4760-a71b-00e58e9aa2e4" version="1">
+    <name>caleb.james.student,salzburg</name>
     <description>Student</description>
     <assignment>
         <targetRef oid="9e105fbc-38e2-4de9-9b93-58bce2f2995a" relation="org:default" type="c:ArchetypeType" />
@@ -16,7 +16,7 @@
     <familyName>James</familyName>
     <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
         <ext:universityId>1234567</ext:universityId>
-        <ext:birthCity>Vienna</ext:birthCity>
+        <ext:birthCity>Salzburg</ext:birthCity>
         <ext:birthCountry>Austria</ext:birthCountry>
         <ext:nationalId>718204-18</ext:nationalId>
         <ext:middleName>Sam</ext:middleName>

@@ -15,14 +15,9 @@
                     <correlatorIdentifier>identity-recovery-1</correlatorIdentifier>
                     <order>10</order>
                 </correlator>
-                <correlator>
-                    <correlatorIdentifier>identity-recovery-2</correlatorIdentifier>
-                    <order>20</order>
-                </correlator>
-                <correlator>
-                    <correlatorIdentifier>identity-recovery-3</correlatorIdentifier>
-                    <order>30</order>
-                </correlator>
+                <options>
+                    <candidateLimit>2</candidateLimit>
+                </options>
             </correlation>
         </modules>
         <sequence>
