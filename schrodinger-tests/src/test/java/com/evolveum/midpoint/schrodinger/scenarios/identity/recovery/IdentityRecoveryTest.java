@@ -15,7 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.scenarios.identity.recovery;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -86,6 +88,11 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private void openLoginPage() {
         clearBrowser();
         midPoint.open();
+
+        midPoint.formLogin().login("administrator", "5ecr3t");
+        basicPage.listUsers();
+        Selenide.screenshot("UsersList" + System.currentTimeMillis());
+        basicPage.loggedUser().logout();
     }
 
     @Override

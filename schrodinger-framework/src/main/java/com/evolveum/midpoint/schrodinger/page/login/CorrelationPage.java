@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -53,6 +54,7 @@ public class CorrelationPage extends BasicPage {
     }
 
     public CorrelationPage send() {
+        Selenide.screenshot("IdentityRecoveryBeforeSend" + System.currentTimeMillis());
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
