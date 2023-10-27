@@ -88,11 +88,6 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private void openLoginPage() {
         clearBrowser();
         midPoint.open();
-
-        midPoint.formLogin().login("administrator", "5ecr3t");
-        basicPage.listUsers();
-        Selenide.screenshot("UsersList" + System.currentTimeMillis());
-        basicPage.loggedUser().logout();
     }
 
     @Override
@@ -102,6 +97,11 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100threeCorrelatorsCalebJamesIsFound() {
+        midPoint.formLogin().login("administrator", "5ecr3t");
+        basicPage.listUsers();
+        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound");
+        basicPage.loggedUser().logout();
+
         midPoint.formLogin()
                 .identityRecovery()
                 .selectArchetype("Applicant")
