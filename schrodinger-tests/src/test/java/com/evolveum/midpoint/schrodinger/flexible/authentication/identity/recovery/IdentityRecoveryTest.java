@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.scenarios.identity.recovery;
+package com.evolveum.midpoint.schrodinger.flexible.authentication.identity.recovery;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.BeforeClass;
@@ -99,9 +100,17 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     @Test
     public void test00100threeCorrelatorsCalebJamesIsFound() {
         midPoint.formLogin().login("administrator", "5ecr3t");
-        basicPage.listUsers().table().clickByName("caleb.james");
+        UserPage user = basicPage.listUsers().table().clickByName("caleb.james");
         Utils.waitForAjaxCallFinish();
         Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound");
+        user.assertGivenName("Caleb")
+                        .assertFamilyName("James")
+                                .assertElementWithValueExists("Vienna")
+                                        .assertElementWithValueExists("Austria")
+                                                .assertElementWithValueExists("718204-18")
+                                                        .assertElementWithValueExists("4/23/2003");
+        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound.userData");
+
         basicPage.loggedUser().logout();
 
         midPoint.formLogin()
