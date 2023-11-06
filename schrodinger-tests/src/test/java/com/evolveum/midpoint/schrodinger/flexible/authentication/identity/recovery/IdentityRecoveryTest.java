@@ -69,6 +69,8 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
     public void beforeClass() throws IOException {
+        addObjectFromFile(DEFAULT_SECURITY_POLICY_FILE);
+
         super.beforeClass();
 
         basicPage.loggedUser().logoutIfUserIsLogin();

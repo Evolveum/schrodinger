@@ -89,6 +89,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected static final String SCHRODINGER_PROPERTIES = "./src/test/resources/configuration/schrodinger.properties";
 
+    protected static final File DEFAULT_SECURITY_POLICY_FILE =
+            new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
 
     protected static File testTargetDir;

@@ -37,9 +37,6 @@ import static com.codeborne.selenide.Selenide.open;
 
 public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTest {
 
-    private static final File DEFAULT_SECURITY_POLICY_FILE =
-            new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
-
     protected static final String USER_FILE_PREFIX = "src/test/resources/objects/users/";
     protected static final String ENABLED_USER_FILE_SUFFIX = "enabled-user.xml";
     protected static final String DISABLED_USER_FILE_SUFFIX = "disabled-user.xml";
