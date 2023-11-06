@@ -62,6 +62,15 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     public void beforeClass() throws IOException {
         super.beforeClass();
         resetToDefaultAndRelogin();
+
+        initTestDirectory(DIRECTORY_CURRENT_TEST);
+
+        csvTargetFile = new File(testTargetDir, FILE_RESOUCE_NAME);
+        LOG.info("Resource source file is created, {}", csvTargetFile.getAbsolutePath());
+
+        FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
+        LOG.info("Resource source file is created, {}", csvTargetFile.getAbsolutePath());
+
     }
 
     @Test(priority = 0)
@@ -75,13 +84,6 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
         //just for debugging, remove later
         basicPage.dashboard();
         Selenide.screenshot("dashboardPage");
-
-
-        initTestDirectory(DIRECTORY_CURRENT_TEST);
-
-        csvTargetFile = new File(testTargetDir, FILE_RESOUCE_NAME);
-
-        FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
 
         addCsvResourceFromFileAndTestConnection(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_FILE, ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, csvTargetFile.getAbsolutePath());
         addObjectFromFile(ScenariosCommons.USER_TEST_RAPHAEL_FILE);
