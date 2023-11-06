@@ -19,6 +19,7 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -98,7 +99,8 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     @Test
     public void test00100threeCorrelatorsCalebJamesIsFound() {
         midPoint.formLogin().login("administrator", "5ecr3t");
-        basicPage.listUsers();
+        basicPage.listUsers().table().clickByName("caleb.james");
+        Utils.waitForAjaxCallFinish();
         Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound");
         basicPage.loggedUser().logout();
 
