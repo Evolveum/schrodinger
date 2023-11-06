@@ -146,7 +146,6 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 throw new com.evolveum.midpoint.client.api.exception.SchemaException(e);
             }
         }
-        getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, createImportOptionList()));
     }
 
     protected List<String> createImportOptionList() {
@@ -243,6 +242,12 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         FormLoginPage login = midPoint.formLogin();
         String locale = getConfigurationPropertyValue("locale");
         basicPage = login.loginIfUserIsNotLog(username, password, locale);
+
+        if (resetToDefaultBeforeTests()) {
+            resetToDefaultAndRelogin();
+        }
+        getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, createImportOptionList()));
+
     }
 
     protected EnvironmentConfiguration buildEnvironmentConfiguration() throws IOException {
@@ -771,6 +776,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             return false;
         }
         return true;
+    }
+
+    protected boolean resetToDefaultBeforeTests() {
+        return false;
     }
 
     protected boolean resetToDefaultAfterTests() {

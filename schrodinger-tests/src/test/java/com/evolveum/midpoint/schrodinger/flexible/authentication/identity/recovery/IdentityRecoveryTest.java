@@ -93,6 +93,11 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     }
 
     @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return true;
+    }
+
+    @Override
     protected List<String> createImportOptionList() {
         return new ImportOptions(false, true).createOptionList();
     }
@@ -159,7 +164,7 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 .assertDisplayedIdentitiesCountEquals(3)
                 .clickNextPage()
                 .assertDisplayedIdentitiesCountEquals(3)
-                .assertPageCountEquals(2);
+                .assertPageCountEquals(3);
     }
 
     @Test
