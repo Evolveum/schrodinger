@@ -352,7 +352,7 @@ public class Utils {
     }
 
     public static void scrollToElement(SelenideElement element) {
-        if (element == null) {
+        if (element == null || !element.exists()) {
             return;
         }
         long endTime = System.currentTimeMillis() + 5000;

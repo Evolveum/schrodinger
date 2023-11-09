@@ -696,6 +696,25 @@ public class BasicPage {
         return this;
     }
 
+    public BasicPage assertMenuItemExists(String topMenuIdentifier, String mainMenuIdentifier, String menuIdentifier) {
+        SelenideElement menuItem = getMenuItemElement(topMenuIdentifier, mainMenuIdentifier, menuIdentifier);
+        assertion.assertTrue(menuItem.exists() && menuItem.isDisplayed(),
+                "Menu item should be displayed, " + menuIdentifier);
+        return this;
+    }
+
+    public BasicPage assertMenuItemDoesntExist(String topMenuIdentifier, String mainMenuIdentifier, String menuIdentifier) {
+        SelenideElement menuItem = null;
+        try {
+            menuItem = getMenuItemElement(topMenuIdentifier, mainMenuIdentifier, menuIdentifier);
+        } catch (Exception e) {
+            menuItem = null;
+        }
+        assertion.assertTrue(menuItem == null || !menuItem.exists() || !menuItem.isDisplayed(),
+                "Menu item shouldn't be displayed, " + menuIdentifier);
+        return this;
+    }
+
     public BasicPage changeLanguageBeforeLogin(String countryCode) {
         Validate.notNull(countryCode, "Country code must not be null");
 
