@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.flexible.authentication.identity.recov
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
-import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -124,6 +123,13 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00110threeCorrelatorsDuplicateUserIsFound() {
+        midPoint.formLogin().login("administrator", "5ecr3t");
+        basicPage.listUsers().table();
+        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound_usersTable");
+        UserPage user = basicPage.listUsers().table().clickByName("caleb.james");
+        Utils.waitForAjaxCallFinish();
+        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound_userData");
+        basicPage.loggedUser().logout();
         midPoint.formLogin()
                 .identityRecovery()
                 .selectArchetype("Applicant")

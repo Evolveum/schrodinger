@@ -60,6 +60,7 @@ public class MidPoint {
     private void init() {
         configuration.validate();
         Configuration.headless = configuration.isHeadless();
+        Configuration.browserSize = "1600x1200";
         Configuration.baseUrl = configuration.getBaseUrl();
         System.setProperty("selenide.baseUrl", configuration.getBaseUrl());
         if (configuration.isUseRemoteWebdriver()) {
