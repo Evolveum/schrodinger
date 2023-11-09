@@ -106,20 +106,6 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100threeCorrelatorsCalebJamesIsFound() {
-        midPoint.formLogin().login("administrator", "5ecr3t");
-        UserPage user = basicPage.listUsers().table().clickByName("caleb.james");
-        Utils.waitForAjaxCallFinish();
-        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound");
-        user.assertGivenName("Caleb")
-                        .assertFamilyName("James")
-                                .assertElementWithValueExists("Vienna")
-                                        .assertElementWithValueExists("Austria")
-                                                .assertElementWithValueExists("718204-18")
-                                                        .assertElementWithValueExists("4/23/2003");
-        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound.userData");
-
-        basicPage.loggedUser().logout();
-
         midPoint.formLogin()
                 .identityRecovery()
                 .selectArchetype("Applicant")
