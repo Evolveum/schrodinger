@@ -109,7 +109,8 @@ public class CaseTests extends AbstractSchrodingerTest {
 
      }
 
-    @Test (dependsOnMethods = {"test110isCaseCreated"})
+     //commented due to MID-8834
+//    @Test (dependsOnMethods = {"test110isCaseCreated"})
     public void test120approveCaseAction() {
         AllRequestsPage allRequestsPage = basicPage.listAllRequests();
         ChildrenCaseTable childrenCaseTable = allRequestsPage
