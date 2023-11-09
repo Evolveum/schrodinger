@@ -16,7 +16,7 @@
     <familyName>Collins</familyName>
     <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
         <ext:universityId>345678</ext:universityId>
-        <ext:dateOfBirth>2003-08-22T00:00:00.000+02:00</ext:dateOfBirth>
+        <ext:dateOfBirth>2003-08-22T00:00:00.000</ext:dateOfBirth>
         <ext:birthCity>Paris</ext:birthCity>
         <ext:birthCountry>France</ext:birthCountry>
         <ext:nationalId>827462-10</ext:nationalId>

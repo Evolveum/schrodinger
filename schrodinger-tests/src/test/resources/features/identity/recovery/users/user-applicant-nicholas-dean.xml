@@ -17,7 +17,7 @@
     <extension xmlns:ext="http://midpoint.evolveum.com/xml/ns/samples/gen">
         <ext:universityId>872367</ext:universityId>
         <ext:middleName>Mike</ext:middleName>
-        <ext:dateOfBirth>2004-02-03T00:00:00.000+02:00</ext:dateOfBirth>
+        <ext:dateOfBirth>2004-02-03T00:00:00.000</ext:dateOfBirth>
         <ext:birthCity>Bratislava</ext:birthCity>
         <ext:birthCountry>Slovakia</ext:birthCountry>
         <ext:nationalId>431230-99</ext:nationalId>
