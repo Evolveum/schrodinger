@@ -324,6 +324,21 @@
             </build>
         </profile>
         <profile>
+            <id>first-steps-training</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>testng-first-steps.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>all-tests</id>
             <build>
                 <plugins>
@@ -335,6 +350,7 @@
                                 <suiteXmlFile>testng-fundamental-labs.xml</suiteXmlFile>
                                 <suiteXmlFile>testng-advanced-labs.xml</suiteXmlFile>
                                 <suiteXmlFile>testng-flexible-authentication.xml</suiteXmlFile>
+                                <suiteXmlFile>testng-first-steps.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
