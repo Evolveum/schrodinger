@@ -41,7 +41,8 @@ import com.evolveum.midpoint.schrodinger.page.report.ListReportsPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ImportResourceDefinitionPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListConnectorHostsPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
-import com.evolveum.midpoint.schrodinger.page.resource.NewResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.NewResourcePanel;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardPage;
 import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.self.CredentialsPage;
@@ -205,9 +206,9 @@ public class BasicPage {
         return new ListResourcesPage();
     }
 
-    public NewResourcePage newResource() {
+    public NewResourcePanel newResource() {
         clickAdministrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.new");
-        return new NewResourcePage();
+        return new NewResourcePanel(new ResourceWizardPage());
     }
 
     public AllCasesPage listAllCases(){

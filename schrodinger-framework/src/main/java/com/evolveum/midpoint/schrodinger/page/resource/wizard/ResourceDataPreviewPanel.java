@@ -50,8 +50,10 @@ public class ResourceDataPreviewPanel<W extends WizardPage, T extends TileListWi
                 $x(".//div[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
-    public T exitWizard() {
-        $x(".//a[contains(text(), 'Exit wizard')]")
+    public T clickBack() {
+        SelenideElement element = $x(".//a[contains(text(), 'Back')]");
+        Utils.scrollToElement(element);
+        element
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return getParent();

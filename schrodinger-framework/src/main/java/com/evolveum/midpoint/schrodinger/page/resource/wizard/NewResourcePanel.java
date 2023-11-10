@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.page.resource;
+package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.SchrodingerException;
-import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.BasicInformationWizardStep;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardPage;
+import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -30,25 +28,15 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class NewResourcePage extends BasicPage {
+public class NewResourcePanel extends TileListWizardStepPanel<ResourceWizardPage> {
 
-    public BasicInformationWizardStep createResourceFromScratch(String resourceTitle) {
-        $x(".//div[@data-s-id='panelHeader']")
-                .$x(".//div[@data-s-id='type']")
-                .$x(".//select[@data-s-id='input']")
-                .selectOption("From scratch");
-        Utils.waitForAjaxCallFinish();
-        SelenideElement tile = Utils.findTileElementByTitle(resourceTitle);
-        if (tile == null) {
-            throw new SchrodingerException("Connector selection element with title " + resourceTitle
-                    + " is not found on the page.");
-        }
-        tile
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        ResourceWizardPage page = new ResourceWizardPage();
-        page.assertBasicStep();
-        return new BasicInformationWizardStep(page);
+    public NewResourcePanel(ResourceWizardPage parentPage) {
+        super(parentPage);
+    }
+
+    public ConnectorSelectionStep createResourceFromScratch() {
+        selectTileByLabel("From scratch");
+        return new ConnectorSelectionStep(getParent());
     }
 
     public BasicInformationWizardStep createResourceFromTemplate(String templateTitle) {
