@@ -17,21 +17,19 @@ package com.evolveum.midpoint.schrodinger.component.resource;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
-import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -108,11 +106,10 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         return this;
     }
 
-    public ResourceAccountsPanel<T> reclassify() {
-        toolbarButtonClickByTitle("ResourceCategorizedPanel.button.reclassify");
-        return new ConfirmationModal<>(ResourceAccountsPanel.this,
-                Utils.getModalWindowSelenideElement())
-                .clickYes();
+    public ResourceAccountsPanel<T> reload() {
+        toolbarButtonClickByTitle("ReloadableButton.reload");
+        Selenide.sleep(5000);
+        return this;
     }
 
     public ResourceAccountsPanel<T> refresh() {

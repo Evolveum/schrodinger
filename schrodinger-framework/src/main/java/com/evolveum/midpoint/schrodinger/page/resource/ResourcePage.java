@@ -87,21 +87,22 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
         return new SchemaHandlingPanel(this, element);
     }
 
-    public ResourcePage switchToDevelopmentMode() {
-        try {
-            String switchToDevelopmentKey = "OperationalButtonsPanel.button.toggleToDevelopment";
-            String title = Utils.getPropertyString(switchToDevelopmentKey);
-            SelenideElement button = $(Schrodinger.byElementAttributeValue("a", "title", title))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-            if (button.exists()) {
-                button.click();
-                Utils.waitForAjaxCallFinish();
-            }
-        } catch (Exception e) {
-            //nothing to do here, we are already in development mode
-        }
-        return ResourcePage.this;
-    }
+    //was removed in mp v4.8
+//    public ResourcePage switchToDevelopmentMode() {
+//        try {
+//            String switchToDevelopmentKey = "OperationalButtonsPanel.button.toggleToDevelopment";
+//            String title = Utils.getPropertyString(switchToDevelopmentKey);
+//            SelenideElement button = $(Schrodinger.byElementAttributeValue("a", "title", title))
+//                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+//            if (button.exists()) {
+//                button.click();
+//                Utils.waitForAjaxCallFinish();
+//            }
+//        } catch (Exception e) {
+//            //nothing to do here, we are already in development mode
+//        }
+//        return ResourcePage.this;
+//    }
 
     public ResourcePage switchToProductionMode() {
         try {

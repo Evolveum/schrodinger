@@ -23,6 +23,8 @@ import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPreviewPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import static com.codeborne.selenide.Selenide.$x;
+
 
 public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTypeWizardPage> {
 
@@ -36,9 +38,10 @@ public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTy
         return new ObjectTypeBasicInformationWizardStep(getParent());
     }
 
-    public ResourceDataPreviewPanel<ObjectTypeWizardPage, ObjectTypeWizardChoiceStep> previewDataOfObjectType() {
-        SelenideElement tile = Utils.findTileElementByTitle("ResourceObjectTypePreviewTileType.PREVIEW_DATA");
-        clickTile(tile);
+    public ResourceDataPreviewPanel<ObjectTypeWizardPage, ObjectTypeWizardChoiceStep> previewData() {
+        $x(".//a[@title='Preview data']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
         return new ResourceDataPreviewPanel<>(ObjectTypeWizardChoiceStep.this, getParent().getChoicePanelElement());
     }
     public void configureMappings() {
@@ -76,9 +79,10 @@ public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTy
         clickTile(tile);
     }
 
-    public ResourcePage goToResource() {
-        SelenideElement tile = Utils.findTileElementByTitle("Go to resource");
-        clickTile(tile);
+    public ResourcePage backToObjectTypes() {
+        $x(".//a[@title='Back to object types']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
         return new ResourcePage();
     }
 

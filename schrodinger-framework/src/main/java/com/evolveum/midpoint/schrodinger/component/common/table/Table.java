@@ -242,7 +242,12 @@ public class Table<T> extends Component<T> {
     }
 
     public SelenideElement getToolbarButtonByTitle(String buttonTitle){
-        return getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
+        SelenideElement el = getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
+        if (el.exists() && el.isDisplayed()) {
+            return el;
+        }
+        return getButtonToolbar().$x(".//button[@title='" + buttonTitle + "']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public SelenideElement getToolbarButtonByCss(String iconCssClass){

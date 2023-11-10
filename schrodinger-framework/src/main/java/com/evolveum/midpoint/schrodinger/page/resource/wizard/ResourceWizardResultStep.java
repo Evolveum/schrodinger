@@ -27,7 +27,8 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWizardPage> {
 
-    private static final String RESOURCE_CREATED_HEADER = "A new resource has been created";
+    private static final String RESOURCE_CREATED_HEADER_BEGIN = "Resource '";
+    private static final String RESOURCE_CREATED_HEADER_END = "' has been created";
 
     public ResourceWizardResultStep(ResourceWizardPage page) {
         super(page);
@@ -60,12 +61,13 @@ public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWi
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
-    public ResourceWizardResultStep assertResourceIsCreated() {
+    public ResourceWizardResultStep assertResourceIsCreated(String resourceName) {
         SelenideElement header = $x(".//h2[@data-s-resource-key='ResourceWizardPreviewPanel.text']");
         String text = header.text();
-        assertion.assertTrue(text.contains(RESOURCE_CREATED_HEADER),
+        String expected = RESOURCE_CREATED_HEADER_BEGIN + resourceName + RESOURCE_CREATED_HEADER_END;
+        assertion.assertTrue(text.contains(expected),
                 "Resource creation result doesn't contain a correct message; expected: "
-                        + RESOURCE_CREATED_HEADER
+                        + expected
                         + "; actual: " + text);
         return ResourceWizardResultStep.this;
     }
