@@ -19,31 +19,32 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.ObjectTypeManagerPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPreviewPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 
-public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTypeWizardPage> {
+public class ObjectTypeWizardChoiceStep<T> extends TileListWizardStepPanel<T> {
 
-    public ObjectTypeWizardChoiceStep(ObjectTypeWizardPage parent) {
+    public ObjectTypeWizardChoiceStep(T parent) {
         super(parent);
     }
 
-    public ObjectTypeBasicInformationWizardStep configureBasicAttributes() {
+    public ObjectTypeBasicInformationWizardStep<T> configureBasicAttributes() {
         SelenideElement tile = Utils.findTileElementByTitle("ResourceObjectTypePreviewTileType.BASIC");
         clickTile(tile);
-        return new ObjectTypeBasicInformationWizardStep(getParent());
+        return new ObjectTypeBasicInformationWizardStep<>(getParent());
     }
 
-    public ResourceDataPreviewPanel<ObjectTypeWizardPage, ObjectTypeWizardChoiceStep> previewData() {
+    public ResourceDataPreviewPanel<ObjectTypeWizardChoiceStep<T>> previewData() {
         $x(".//a[@title='Preview data']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
-        return new ResourceDataPreviewPanel<>(ObjectTypeWizardChoiceStep.this, getParent().getChoicePanelElement());
+        return new ResourceDataPreviewPanel<>(ObjectTypeWizardChoiceStep.this);
     }
+
     public void configureMappings() {
         SelenideElement tile = Utils.findTileElementByTitle("ResourceObjectTypePreviewTileType.ATTRIBUTE_MAPPING");
         clickTile(tile);
@@ -79,11 +80,11 @@ public class ObjectTypeWizardChoiceStep extends TileListWizardStepPanel<ObjectTy
         clickTile(tile);
     }
 
-    public ResourcePage backToObjectTypes() {
+    public T backToObjectTypes() {
         $x(".//a[@title='Back to object types']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
-        return new ResourcePage();
+        return getParent();
     }
 
     private void clickTile(SelenideElement tile) {

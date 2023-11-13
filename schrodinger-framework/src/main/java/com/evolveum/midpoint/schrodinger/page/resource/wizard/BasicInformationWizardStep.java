@@ -36,6 +36,11 @@ public class BasicInformationWizardStep extends PrismFormWizardStepPanel<Resourc
         return BasicInformationWizardStep.this;
     }
 
+    public BasicInformationWizardStep lifecycle(String lifecycle) {
+        getFormPanel().setDropDownAttributeValue("Lifecycle state", lifecycle);
+        return BasicInformationWizardStep.this;
+    }
+
     public BasicInformationWizardStep description(String description) {
         getFormPanel().addAttributeValue("Description", description);
         return BasicInformationWizardStep.this;

@@ -24,19 +24,19 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ObjectTypeMidpointDataWizardStep extends PrismFormWizardStepPanel<ObjectTypeWizardPage>
-        implements PreviousStepAction<ObjectTypeResourceDataWizardStep> {
+public class ObjectTypeMidpointDataWizardStep<T> extends PrismFormWizardStepPanel<T>
+        implements PreviousStepAction<ObjectTypeResourceDataWizardStep<T>> {
 
-    public ObjectTypeMidpointDataWizardStep(ObjectTypeWizardPage parent) {
+    public ObjectTypeMidpointDataWizardStep(T parent) {
         super(parent);
     }
 
-    public ObjectTypeMidpointDataWizardStep type(String value) {
+    public ObjectTypeMidpointDataWizardStep<T> type(String value) {
         getFormPanel().selectOption("Type", value);
         return ObjectTypeMidpointDataWizardStep.this;
     }
 
-    public ObjectTypeMidpointDataWizardStep archetype(String archetypeName) {
+    public ObjectTypeMidpointDataWizardStep<T> archetype(String archetypeName) {
         getFormPanel().editRefValue("Archetype")
                 .table()
                 .clickByName(archetypeName);
@@ -44,18 +44,18 @@ public class ObjectTypeMidpointDataWizardStep extends PrismFormWizardStepPanel<O
         return ObjectTypeMidpointDataWizardStep.this;
     }
 
-    public ObjectTypeWizardChoiceStep saveSettings() {
+    public ObjectTypeWizardChoiceStep<T> saveSettings() {
         $(Schrodinger.byDataId("submit"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
-        return new ObjectTypeWizardChoiceStep(getParent());
+        return new ObjectTypeWizardChoiceStep<>(getParent());
     }
 
     @Override
-    public ObjectTypeResourceDataWizardStep back() {
+    public ObjectTypeResourceDataWizardStep<T> back() {
         clickBack();
-        return new ObjectTypeResourceDataWizardStep(getParent());
+        return new ObjectTypeResourceDataWizardStep<>(getParent());
     }
 
     @Override

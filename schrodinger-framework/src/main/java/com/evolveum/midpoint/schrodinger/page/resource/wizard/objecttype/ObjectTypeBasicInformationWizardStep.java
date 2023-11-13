@@ -19,34 +19,34 @@ import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class ObjectTypeBasicInformationWizardStep extends PrismFormWizardStepPanel<ObjectTypeWizardPage>
-        implements NextStepAction<ObjectTypeResourceDataWizardStep> {
-    public ObjectTypeBasicInformationWizardStep(ObjectTypeWizardPage parent) {
+public class ObjectTypeBasicInformationWizardStep<T> extends PrismFormWizardStepPanel<T>
+        implements NextStepAction<ObjectTypeResourceDataWizardStep<T>> {
+    public ObjectTypeBasicInformationWizardStep(T parent) {
         super(parent);
     }
 
-    public ObjectTypeBasicInformationWizardStep displayName(String value) {
+    public ObjectTypeBasicInformationWizardStep<T> displayName(String value) {
         getFormPanel().addAttributeValue("Display name", value);
         return ObjectTypeBasicInformationWizardStep.this;
     }
 
-    public ObjectTypeBasicInformationWizardStep description(String value) {
+    public ObjectTypeBasicInformationWizardStep<T> description(String value) {
         getFormPanel().addAttributeValue("Description", value);
         return ObjectTypeBasicInformationWizardStep.this;
     }
 
-    public ObjectTypeBasicInformationWizardStep kind(String value) {
+    public ObjectTypeBasicInformationWizardStep<T> kind(String value) {
         getFormPanel().selectOption("Kind", value);
         return ObjectTypeBasicInformationWizardStep.this;
     }
 
-    public ObjectTypeBasicInformationWizardStep intent(String value) {
+    public ObjectTypeBasicInformationWizardStep<T> intent(String value) {
         getFormPanel().selectOption("Intent", value);
         return ObjectTypeBasicInformationWizardStep.this;
     }
 
 
-   public ObjectTypeBasicInformationWizardStep securityPolicy(String securityPolicyName) {
+   public ObjectTypeBasicInformationWizardStep<T> securityPolicy(String securityPolicyName) {
         getFormPanel().editRefValue("Security policy")
                 .table()
                 .clickByName(securityPolicyName);
@@ -54,15 +54,15 @@ public class ObjectTypeBasicInformationWizardStep extends PrismFormWizardStepPan
         return ObjectTypeBasicInformationWizardStep.this;
     }
 
-    public ObjectTypeBasicInformationWizardStep setDefault(String value) {
+    public ObjectTypeBasicInformationWizardStep<T> setDefault(String value) {
         getFormPanel().selectOption("Default", value);
         return ObjectTypeBasicInformationWizardStep.this;
     }
 
     @Override
-    public ObjectTypeResourceDataWizardStep next() {
+    public ObjectTypeResourceDataWizardStep<T> next() {
         clickNext();
-        return new ObjectTypeResourceDataWizardStep(getParent());
+        return new ObjectTypeResourceDataWizardStep<>(getParent());
     }
 
     @Override

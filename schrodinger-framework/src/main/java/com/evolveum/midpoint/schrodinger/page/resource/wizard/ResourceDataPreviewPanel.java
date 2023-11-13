@@ -22,30 +22,32 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ResourceDataPreviewPanel<W extends WizardPage, T extends TileListWizardStepPanel<W>>
-        extends Component<T> {
+public class ResourceDataPreviewPanel<T> extends Component<T> {
 
-    public ResourceDataPreviewPanel(T parent, SelenideElement parentElement) {
-        super(parent, parentElement);
+    public ResourceDataPreviewPanel(T parent) {
+        super(parent, $(Schrodinger.byDataId("choicePanel"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
-    public ResourceDataPreviewPanel<W, T> assertTableContainsObjects(int objectCount) {
+    public ResourceDataPreviewPanel<T> assertTableContainsObjects(int objectCount) {
         getResourceObjectsTable().assertTableObjectsCountEquals(objectCount);
         return ResourceDataPreviewPanel.this;
     }
 
-    public ResourceDataPreviewPanel<W, T> assertTableColumnContainsValue(String columnName, String value) {
+    public ResourceDataPreviewPanel<T> assertTableColumnContainsValue(String columnName, String value) {
         getResourceObjectsTable().paging().pageSize(100);
         Utils.waitForAjaxCallFinish();
         getResourceObjectsTable().assertTableContainsColumnWithValue(columnName, value);
         return ResourceDataPreviewPanel.this;
     }
 
-    private Table<ResourceDataPreviewPanel<W, T>> getResourceObjectsTable() {
+    private Table<ResourceDataPreviewPanel<T>> getResourceObjectsTable() {
         return new Table<>(ResourceDataPreviewPanel.this,
                 $x(".//div[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }

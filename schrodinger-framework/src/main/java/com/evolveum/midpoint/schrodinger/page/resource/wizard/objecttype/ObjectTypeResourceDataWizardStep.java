@@ -19,57 +19,57 @@ import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 
-public class ObjectTypeResourceDataWizardStep extends PrismFormWizardStepPanel<ObjectTypeWizardPage>
+public class ObjectTypeResourceDataWizardStep<T> extends PrismFormWizardStepPanel<T>
         implements NextStepAction<ObjectTypeMidpointDataWizardStep>,
         PreviousStepAction<ObjectTypeBasicInformationWizardStep> {
 
-    public ObjectTypeResourceDataWizardStep(ObjectTypeWizardPage parent) {
+    public ObjectTypeResourceDataWizardStep(T parent) {
         super(parent);
     }
 
-    public ObjectTypeResourceDataWizardStep objectClass(String value) {
+    public ObjectTypeResourceDataWizardStep<T> objectClass(String value) {
         getFormPanel().addAttributeValue("Object class", value);
         return ObjectTypeResourceDataWizardStep.this;
     }
 
-    public ObjectTypeResourceDataWizardStep auxiliaryObjectClass(String value) {
+    public ObjectTypeResourceDataWizardStep<T> auxiliaryObjectClass(String value) {
         getFormPanel().selectOption("Auxiliary object class", value);
         return ObjectTypeResourceDataWizardStep.this;
     }
 
-    public ObjectTypeResourceDataWizardStep subtreeSearchHierarchyScope() {
+    public ObjectTypeResourceDataWizardStep<T> subtreeSearchHierarchyScope() {
         return searchHierarchyScope("Subtree search");
     }
 
-    public ObjectTypeResourceDataWizardStep oneLevelSearchHierarchyScope() {
+    public ObjectTypeResourceDataWizardStep<T> oneLevelSearchHierarchyScope() {
         return searchHierarchyScope("One-level search");
     }
 
-    public ObjectTypeResourceDataWizardStep searchHierarchyScope(String value) {
+    public ObjectTypeResourceDataWizardStep<T> searchHierarchyScope(String value) {
         getFormPanel().selectOption("Search hierarchy scope", value);
         return ObjectTypeResourceDataWizardStep.this;
     }
 
-    public ObjectTypeResourceDataWizardStep filter(String value) {
+    public ObjectTypeResourceDataWizardStep<T> filter(String value) {
         getFormPanel().addAttributeValue("Filter", value);
         return ObjectTypeResourceDataWizardStep.this;
     }
 
-    public ObjectTypeResourceDataWizardStep classificationCondition (String value) {
+    public ObjectTypeResourceDataWizardStep<T> classificationCondition (String value) {
         getFormPanel().addAttributeValue("Classification condition", value);
         return ObjectTypeResourceDataWizardStep.this;
     }
 
     @Override
-    public ObjectTypeMidpointDataWizardStep next() {
+    public ObjectTypeMidpointDataWizardStep<T> next() {
         clickNext();
-        return new ObjectTypeMidpointDataWizardStep(getParent());
+        return new ObjectTypeMidpointDataWizardStep<>(getParent());
     }
 
     @Override
-    public ObjectTypeBasicInformationWizardStep back() {
+    public ObjectTypeBasicInformationWizardStep<T> back() {
         clickBack();
-        return new ObjectTypeBasicInformationWizardStep(getParent());
+        return new ObjectTypeBasicInformationWizardStep<>(getParent());
     }
 
     @Override
