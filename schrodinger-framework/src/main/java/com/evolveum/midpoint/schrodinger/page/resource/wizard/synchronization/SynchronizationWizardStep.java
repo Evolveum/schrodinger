@@ -29,11 +29,12 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         super(parent);
     }
 
-    public MainConfigurationWizardStep<SynchronizationWizardStep<T>> addReaction() {
+    public ListOfReactionsTable<SynchronizationWizardStep<T>> addReaction() {
         table()
                 .getToolbarButtonByTitleKey("SynchronizationReactionTable.newObject")
                 .click();
-        return new MainConfigurationWizardStep<>(SynchronizationWizardStep.this);
+        Utils.waitForAjaxCallFinish();
+        return new ListOfReactionsTable<>(SynchronizationWizardStep.this, $(Schrodinger.byDataId("table")));
     }
 
     public ListOfReactionsTable<SynchronizationWizardStep<T>> addSimpleReaction() {
