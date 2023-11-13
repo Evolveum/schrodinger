@@ -246,8 +246,7 @@ public class Table<T> extends Component<T> {
         if (el.exists() && el.isDisplayed()) {
             return el;
         }
-        return getButtonToolbar().$x(".//button[@title='" + buttonTitle + "']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return getButtonToolbar().$x(".//button[@title='" + buttonTitle + "']");
     }
 
     public SelenideElement getToolbarButtonByCss(String iconCssClass){
