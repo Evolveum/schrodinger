@@ -19,10 +19,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceObjectsPanel;
-import com.evolveum.midpoint.schrodinger.component.resource.TestConnectionModal;
+import com.evolveum.midpoint.schrodinger.component.resource.*;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -62,6 +59,13 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new ResourceAccountsPanel<>(this, tabContent);
+    }
+
+    public ResourceDetailsPanel<ResourcePage> selectDetailsPanel() {
+        SelenideElement tabContent = getNavigationPanelSelenideElement("Details")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+
+        return new ResourceDetailsPanel<>(this, tabContent);
     }
 
     public ResourceObjectsPanel<ResourcePage> selectResourceObjectsPanel() {

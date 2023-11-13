@@ -1,4 +1,4 @@
-"empNumber","firstname","lastname","status","locality","state","ou","orgPath","type","job"
+"empnum","firstname","surname","status","locality","state","ou","orgPath","type","job"
 "0001","Geena","Green","In","Small Red Rock City","_loc:Rocky State",,,"Employee","CEO"
 "0002","Ana","Lopez","In","Hot Lava City","_lcl:Lava State",,,"Employee","CFO"
 "0003","Jimmy","Taylor","Former employee","Small Red Rock City","_loc:Rocky State",,,"Employee","Junior Consultant"
