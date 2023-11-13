@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.ListOfReactionsTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 public class InboundMappingsTable<T> extends MappingsTable<T> {
@@ -43,12 +44,12 @@ public class InboundMappingsTable<T> extends MappingsTable<T> {
         return InboundMappingsTable.this;
     }
 
-    public InboundMappingsTable<T> ref(String value) {
-        return ref(value, rowsCount());
+    public InboundMappingsTable<T> fromResourceAttribute(String value) {
+        return fromResourceAttribute(value, rowsCount());
     }
 
-    public InboundMappingsTable<T> ref(String value, int rowIndex) {
-        setInputValue("Ref", value, rowIndex);
+    public InboundMappingsTable<T> fromResourceAttribute(String value, int rowIndex) {
+        setInputValue("From resource attribute", value, rowIndex);
         return InboundMappingsTable.this;
     }
 
@@ -67,6 +68,15 @@ public class InboundMappingsTable<T> extends MappingsTable<T> {
 
     public InboundMappingsTable<T> enabled(String value, int rowIndex) {
         setDropdownValue("Enabled", value, rowIndex);
+        return InboundMappingsTable.this;
+    }
+
+    public InboundMappingsTable<T> lifecycleState(String value) {
+        return lifecycleState(value, rowsCount());
+    }
+
+    public InboundMappingsTable<T> lifecycleState(String value, int rowIndex) {
+        setDropdownValue("Lifecycle state", value, rowIndex);
         return InboundMappingsTable.this;
     }
 

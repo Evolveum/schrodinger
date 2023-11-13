@@ -164,16 +164,16 @@ public class ResourceAccountsPanel<T> extends Component<T> {
     }
 
     public SynchronizationWizardStep<ResourceAccountsPanel<T>> configureSynchronization() {
-        clickButton("ResourceObjectTypePreviewTileType.SYNCHRONIZATION_CONFIG");
+        clickButton("ResourceObjectTypePreviewTileType.SYNCHRONIZATION");
         return new SynchronizationWizardStep<>(ResourceAccountsPanel.this);
     }
 
     public void configureCorrelation() {
-        clickButton("ResourceObjectTypePreviewTileType.CORRELATION_CONFIG");
+        clickButton("ResourceObjectTypePreviewTileType.CORRELATION");
     }
 
     public void configureCapabilities() {
-        clickButton("ResourceObjectTypePreviewTileType.CAPABILITIES_CONFIG");
+        clickButton("ResourceObjectTypePreviewTileType.CAPABILITIES");
     }
 
     public void configureActivation() {
@@ -190,8 +190,10 @@ public class ResourceAccountsPanel<T> extends Component<T> {
 
     private void clickButton(String title) {
         String translatedTitle = Utils.getPropertyString(title);
-        SelenideElement buttonsContainer = $(Schrodinger.byDataId("topButtonsContainer"))
+        SelenideElement buttonsContainer = $(Schrodinger.byDataId("configuration"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        buttonsContainer.click();
+        Utils.waitForAjaxCallFinish();
         ElementsCollection buttons = buttonsContainer.$$x(".//a");
         SelenideElement button = buttons.findBy(Condition.text(translatedTitle));
         if (!button.exists()) {

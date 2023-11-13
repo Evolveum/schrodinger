@@ -381,6 +381,7 @@ public class Table<T> extends Component<T> {
     }
 
     public int rowsCount() {
+        Utils.waitForAjaxCallFinish();
         return getParentElement()
                 .findAll("tbody tr")
                 .size();

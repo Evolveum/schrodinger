@@ -35,7 +35,7 @@ public class CreateHrResource extends AbstractTrainingTest {
 
 
     @Test
-    public void createHrResource() {
+    public void test00100lab2_1CreateHrResource() {
         //todo should the test do user's export in HR application?
         String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
@@ -86,57 +86,64 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8001")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8002")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8003");
-
-                //mapping configuration is not longer within this lab
-//                .configureSynchronization()
-//                .addSimpleReaction()
-//                .name("unmatched-add")
-//                .situation("Unmatched")
-//                .action("Add focus")
-//                .and()
-//                .addSimpleReaction()
-//                .name("unlinked-link")
-//                .situation("Unlinked")
-//                .action("Link")
-//                .and()
-//                .addSimpleReaction()
-//                .name("linked-synchronize")
-//                .situation("Linked")
-//                .action("Synchronize")
-//                .and()
-//                .addSimpleReaction()
-//                .name("deleted-inactivate")
-//                .situation("Deleted")
-//                .action("Inactivate focus")
-//                .and()
-//                .saveSynchronizationSettings()
-//                .configureMappings()
-//                .inboundMappings()
-//                .addInbound()
-//                .name("empNumber-to-name")
-//                .ref("empNumber")
-//                .expression("As is")
-//                .target("name")
-//                .and()
-//                .addInbound()
-//                .name("empNumber-to-employeeNumber")
-//                .ref("empNumber")
-//                .expression("As is")
-//                .target("employeeNumber")
-//                .and()
-//                .addInbound()
-//                .name("firstname-to-givenName")
-//                .ref("firstname")
-//                .expression("As is")
-//                .target("givenName")
-//                .and()
-//                .addInbound()
-//                .name("lastname-to-familyName")
-//                .ref("lastname")
-//                .expression("As is")
-//                .target("familyName")
-//                .and()
-//                .and()
-//                .saveMappings();
     }
+
+    @Test
+    public void test00110lab2_2ConfigureHrResource() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("HR")
+                .selectAccountsPanel()
+                .configureSynchronization()
+                .addReaction()
+                .name("unmatched-add")
+                .situation("Unmatched")
+                .action("Add focus")
+                .lifecycleState("Active")
+                .and()
+                .addReaction()
+                .name("linked-synchronize")
+                .situation("Linked")
+                .action("Synchronize")
+                .lifecycleState("Active")
+                .and()
+                .saveSynchronizationSettings()
+                //todo check Active lifecycle for mappings and Proposed for resource
+                .configureMappings()
+                .inboundMappings()
+                .addInbound()
+                .name("empnum-to-name")
+                .fromResourceAttribute("empnum")
+                .expression("As is")
+                .target("name")
+                .lifecycleState("Active")
+                .and()
+                .addInbound()
+                .name("empnum-to-persNumber")
+                .fromResourceAttribute("empnum")
+                .expression("As is")
+                .target("personalNumber")
+                .lifecycleState("Active")
+                .and()
+                .addInbound()
+                .name("firstname-to-givenName")
+                .fromResourceAttribute("firstname")
+                .expression("As is")
+                .target("givenName")
+                .lifecycleState("Active")
+                .and()
+                .addInbound()
+                .name("surname-to-familyName")
+                .fromResourceAttribute("surname")
+                .expression("As is")
+                .target("familyName")
+                .lifecycleState("Active")
+                .and()
+                .and()
+                .saveMappings();
+        //todo check Active lifecycle for mappings and Proposed for resource
+
+    }
+
 }

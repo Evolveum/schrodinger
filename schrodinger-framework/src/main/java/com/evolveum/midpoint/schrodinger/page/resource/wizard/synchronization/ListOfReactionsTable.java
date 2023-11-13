@@ -53,6 +53,15 @@ public class ListOfReactionsTable<T> extends EditableRowTable<T> {
         return ListOfReactionsTable.this;
     }
 
+    public ListOfReactionsTable<T> lifecycleState(String value) {
+        return lifecycleState(value, rowsCount());
+    }
+
+    public ListOfReactionsTable<T> lifecycleState(String value, int rowIndex) {
+        setDropdownValue("Lifecycle state", value, rowIndex);
+        return ListOfReactionsTable.this;
+    }
+
     public ListOfReactionsTable<T> switchToDevelopment() {
         return switchToDevelopment(rowsCount());
     }
