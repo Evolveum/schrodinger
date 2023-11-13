@@ -22,6 +22,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 public class CreateHrResource extends AbstractTrainingTest {
 
@@ -47,7 +48,7 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .next()
                 .filePath(csvFilePath)
                 .next()
-                .uniqueAttributeName("empNumber")
+                .uniqueAttributeName("empnum")
                 .next()
                 .createResource()
                 .assertResourceIsCreated("HR")
@@ -65,14 +66,14 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .type("User")
                 .saveSettings()
                 .previewData()
-                .assertTableColumnContainsValue("Identifiers", "empNumber: 8000")
-                .assertTableColumnContainsValue("Identifiers", "empNumber: 8001")
-                .assertTableColumnContainsValue("Identifiers", "empNumber: 8002")
-                .assertTableColumnContainsValue("Identifiers", "empNumber: 8003")
+                .assertTableColumnContainsValue("Identifiers", "empnum: 8000")
+                .assertTableColumnContainsValue("Identifiers", "empnum: 8001")
+                .assertTableColumnContainsValue("Identifiers", "empnum: 8002")
+                .assertTableColumnContainsValue("Identifiers", "empnum: 8003")
                 .clickBack()
                 .configureBasicAttributes()
                 .next()
-                .filter("attributes/empNumber not startsWith \"8\"")
+                .filter("attributes/empnum not startsWith \"8\"")
                 .next()
                 .saveSettings()
                 .backToObjectTypes()
@@ -82,10 +83,10 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .reclassify()
                 .and()
                 .selectAccountsPanel()
-                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8000")
-                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8001")
-                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8002")
-                .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8003");
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empnum: 8000")
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empnum: 8001")
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empnum: 8002")
+                .assertTableDoesntContainColumnWithValue("Identifiers", "empnum: 8003");
     }
 
     @Test
@@ -141,9 +142,14 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .lifecycleState("Active")
                 .and()
                 .and()
-                .saveMappings();
-        //todo check Active lifecycle for mappings and Proposed for resource
-
+                .saveMappings()
+                .and()
+                .selectDetailsPanel()
+                .changeCapabilityState("Create")
+                .changeUpdateCapabilityState(Collections.singletonMap("Enabled", "False"))
+                .changeCapabilityState("Delete")
+                .and()
+                .clickSave();
     }
 
 }
