@@ -34,14 +34,14 @@ public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWi
         super(page);
     }
 
-    public ResourceDataPreviewPanel<ResourceWizardPage, ResourceWizardResultStep> previewResourceData() {
+    public ResourceDataPreviewPanel<ResourceWizardResultStep> previewResourceData() {
         selectTileByLabel("Preview resource data");
-        return new ResourceDataPreviewPanel<>(ResourceWizardResultStep.this, getChoicePanelElement());
+        return new ResourceDataPreviewPanel<>(ResourceWizardResultStep.this);
     }
 
-    public ObjectTypeManagerPanel configureObjectTypes() {
+    public ObjectTypeManagerPanel<ResourceWizardResultStep> configureObjectTypes() {
         selectTileByLabel("Configure Object Types");
-        return new ObjectTypeManagerPanel(ResourceWizardResultStep.this, getChoicePanelElement());
+        return new ObjectTypeManagerPanel<>(ResourceWizardResultStep.this);
     }
 
     public ResourcePage goToResource() {
@@ -54,11 +54,6 @@ public class ResourceWizardResultStep extends TileListWizardStepPanel<ResourceWi
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new ListResourcesPage();
-    }
-
-    private SelenideElement getChoicePanelElement() {
-        return $x(".//div[@data-s-id='choicePanel']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public ResourceWizardResultStep assertResourceIsCreated(String resourceName) {

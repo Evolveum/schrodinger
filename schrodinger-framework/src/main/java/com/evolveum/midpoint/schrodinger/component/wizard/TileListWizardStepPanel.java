@@ -27,23 +27,23 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPanel<W> {
+public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
 
     protected static final String ID_CONTENT_BODY = "choicePanel";
 
-    public TileListWizardStepPanel(W parent) {
+    public TileListWizardStepPanel(T parent) {
         super(parent, $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
-     public TileListWizardStepPanel(W parent, SelenideElement parentElement) {
+     public TileListWizardStepPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public WizardStepPanel selectTileByNumber(int tileNumber) {
+    public WizardStepPanel<T> selectTileByNumber(int tileNumber) {
         return selectTileByNumber(tileNumber, true);
     }
 
-    public WizardStepPanel selectTileByNumber(int tileNumber, boolean clickNextButton) {
+    public WizardStepPanel<T> selectTileByNumber(int tileNumber, boolean clickNextButton) {
         Utils.waitForAjaxCallFinish();
         findTileByNumber(tileNumber).click();
         if (clickNextButton) {
@@ -52,13 +52,13 @@ public class TileListWizardStepPanel<W extends WizardPage> extends WizardStepPan
         return this;
     }
 
-    public WizardStepPanel selectTileByLabelAndMoveToNext(String tileLabel) {
+    public WizardStepPanel<T> selectTileByLabelAndMoveToNext(String tileLabel) {
         selectTileByLabel(tileLabel);
         clickNext();
         return this;
     }
 
-    public WizardStepPanel selectTileByLabel(String tileLabel) {
+    public WizardStepPanel<T> selectTileByLabel(String tileLabel) {
         findTileByLabel(tileLabel).click();
         Utils.waitForAjaxCallFinish();
         return this;

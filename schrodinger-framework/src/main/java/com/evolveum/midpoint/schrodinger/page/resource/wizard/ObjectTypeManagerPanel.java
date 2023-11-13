@@ -19,16 +19,32 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ObjectTypeManagerPanel extends Component<ResourceWizardResultStep> {
+public class ObjectTypeManagerPanel<T> extends Component<T> {
 
-    public ObjectTypeManagerPanel(ResourceWizardResultStep parent, SelenideElement parentElement) {
-        super(parent, parentElement);
+    public ObjectTypeManagerPanel(T parent) {
+        super(parent, $x(".//div[@data-s-id='choicePanel']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
-    public ResourceWizardResultStep exitWizard() {
+    public ObjectTypeBasicInformationWizardStep<ObjectTypeManagerPanel<T>> addObjectType() {
+        String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
+        String titleTranslated = Utils.getPropertyString(addNewObjectTypeKey);
+        $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return new ObjectTypeBasicInformationWizardStep<>(ObjectTypeManagerPanel.this);
+    }
+
+    public T exitWizard() {
         $x(".//a[contains(text(), 'Exit wizard')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();

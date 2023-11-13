@@ -36,12 +36,14 @@ public class CreateHrResource extends AbstractTrainingTest {
 
     @Test
     public void createHrResource() {
+        //todo should the test do user's export in HR application?
         String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
                 .newResource()
                 .createResourceFromScratch()
                 .selectCsvConnector()
                 .name("HR")
+                .lifecycle("Proposed")
                 .next()
                 .filePath(csvFilePath)
                 .next()
@@ -49,15 +51,11 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .next()
                 .createResource()
                 .assertResourceIsCreated("HR")
-                // todo NOTE: all accounts are with `kind=unknown` so far
                 .previewResourceData()
                 .assertTableContainsObjects(20)
-                //todo ask Ivan where to go to check Former status? resource data preview table doesn't contain this column
-//                .assertTableColumnContainsValue("status", "Former")
                 .clickBack()
-                .goToResource()
-                .selectSchemaHandlingPanel()
-                .addNewObjectType()
+                .configureObjectTypes()
+                .addObjectType()
                 .displayName("HR Person")
                 .kind("Account")
                 .setDefault("True")
@@ -78,9 +76,12 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .next()
                 .saveSettings()
                 .backToObjectTypes()
+                .exitWizard()
+                .goToResource()
+                .selectResourceObjectsPanel()
+                .reclassify()
+                .and()
                 .selectAccountsPanel()
-                .reload()
-//                .refresh()
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8000")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8001")
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empNumber: 8002")
