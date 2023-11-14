@@ -184,7 +184,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         getShadowTable(HR_RESOURCE_NAME, "name", "001212")
                 .selectCheckboxByName("001212")
-                .clickImport();
+                .importAccount();
         showUser("X001212")
             .assertGivenName("John")
             .assertFamilyName("Smith")

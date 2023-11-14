@@ -182,7 +182,6 @@ public class Table<T> extends Component<T> {
 
     public Search<? extends Table<T>> search() {
         SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form"));
-
         return new Search<>(this, searchElement);
     }
 

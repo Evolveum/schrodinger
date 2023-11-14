@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Evolveum
+ * Copyright (c) 2023  Evolveum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.trainings.first.steps.module2;
+package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.apache.commons.io.FileUtils;
@@ -24,9 +24,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
-public class CreateHrResource extends AbstractTrainingTest {
+public class ConnectingSourceSystem extends AbstractTrainingTest {
 
-    @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
+    @BeforeClass(alwaysRun = true, dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
@@ -35,8 +35,8 @@ public class CreateHrResource extends AbstractTrainingTest {
     }
 
 
-    @Test
-    public void test00100lab2_1CreateHrResource() {
+    @Test(groups = MODULE_2_GROUP)
+    public void test00100createHrResource() {
         //todo should the test do user's export in HR application?
         String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
@@ -89,8 +89,8 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .assertTableDoesntContainColumnWithValue("Identifiers", "empnum: 8003");
     }
 
-    @Test
-    public void test00110lab2_2ConfigureHrResource() {
+    @Test(groups = MODULE_2_GROUP)
+    public void test00110configureHrResource() {
         basicPage
                 .listResources()
                 .table()
@@ -152,4 +152,8 @@ public class CreateHrResource extends AbstractTrainingTest {
                 .clickSave();
     }
 
+    @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return true;
+    }
 }

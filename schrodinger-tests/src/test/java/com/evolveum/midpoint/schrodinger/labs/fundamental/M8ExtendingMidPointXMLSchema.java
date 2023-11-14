@@ -113,7 +113,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         accountTab.table()
                 .selectCheckboxByName("001212")
-                        .clickImport()
+                        .importAccount()
                     .and()
                 .and()
             .feedback()

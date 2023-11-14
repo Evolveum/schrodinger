@@ -170,7 +170,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                             .clickSearchInResource()
                                 .table()
                                 .selectCheckboxByName("001212")
-                                .clickImport();
+                                .importAccount();
         ((PrismFormWithActionButtons<ObjectPolicyPanel>)basicPage.objectPolicy()
                 .clickAddObjectPolicy()
                     .selectOption("type", "User")
@@ -244,7 +244,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         accountTab.table()
                 .selectCheckboxByName("001212")
-                    .clickImport()
+                    .importAccount()
                     .and()
                 .and()
             .feedback()

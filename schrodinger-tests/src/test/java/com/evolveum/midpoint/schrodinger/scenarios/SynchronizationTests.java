@@ -267,7 +267,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                         .selectResourceObjectsPanel()
                             .table()
                             .selectCheckboxByName("raphael")
-                                .clickDelete()
+                                .delete()
                             .clickYes()
                         .and()
                             .table()
