@@ -43,13 +43,7 @@ public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListReso
         Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byElementValue("span", Schrodinger.DATA_S_ID, "label", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        ResourcePage detailsPage = new ResourcePage();
-        //TODO what is this?
-        if (detailsPage.isUseTabbedPanel()) {
-            detailsPage.getTabPanel();
-        } else {
-            detailsPage.getNavigationPanel();
-        }
+        Utils.waitForMainPanelOnDetailsPage();
         return new ResourcePage();
     }
 

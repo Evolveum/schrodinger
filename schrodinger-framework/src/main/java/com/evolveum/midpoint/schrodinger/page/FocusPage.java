@@ -80,25 +80,17 @@ public class FocusPage<F extends FocusPage> extends AssignmentHolderDetailsPage<
     }
 
     public void activateExecuteOption(String option) {
-        if (isUseTabbedPanel()) {
-            setCheckFormGroupOptionCheckedByValue(option, true);
-        } else {
-            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            optionsButtons.scrollIntoView(false).$x(".//button[@data-s-id='buttonContainer']").click();
-            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//div[@data-s-id='dropDownMenu']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, true);
-        }
+        SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        optionsButtons.scrollIntoView(false).$x(".//button[@data-s-id='buttonContainer']").click();
+        SelenideElement optionsDropdownPanel = optionsButtons.$x(".//div[@data-s-id='dropDownMenu']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, true);
     }
 
     public void disactivateExecuteOption(String option) {
-        if (isUseTabbedPanel()) {
-            setCheckFormGroupOptionCheckedByValue(option, false);
-        } else {
-            SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            optionsButtons.$x(".//button[@data-s-id='buttonContainer']").click();
-            SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-            Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, false);
-        }
+        SelenideElement optionsButtons = $(Schrodinger.byDataId("executeOptions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        optionsButtons.$x(".//button[@data-s-id='buttonContainer']").click();
+        SelenideElement optionsDropdownPanel = optionsButtons.$x(".//ul[@data-s-id='dropDownMenu']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        Utils.setCheckFormGroupOptionCheckedByValue(optionsDropdownPanel, option, false);
     }
 
     public ProjectionsPanel<F> selectProjectionsPanel() {

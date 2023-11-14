@@ -59,11 +59,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         getParentElement().$x(".//span[@data-s-id='label' and contains(text(), '" + name + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         PD detailsPage = getObjectDetailsPage();
-        if (detailsPage.isUseTabbedPanel()) {
-            detailsPage.getTabPanel();
-        } else {
-            detailsPage.getNavigationPanel();
-        }
+        Utils.waitForMainPanelOnDetailsPage();
         return detailsPage;
     }
 

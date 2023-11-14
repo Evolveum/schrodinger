@@ -59,16 +59,10 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public ProgressPage clickSaveAndRun() {
-        if (isUseTabbedPanel()) {
-            $(Schrodinger.byDataId("saveAndRun"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-        } else {
-            SelenideElement button = $(byText("Save & Run"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-            Utils.scrollToElement(button);
-            button.click();
-        }
+        SelenideElement button = $(byText("Save & Run"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ProgressPage();
     }

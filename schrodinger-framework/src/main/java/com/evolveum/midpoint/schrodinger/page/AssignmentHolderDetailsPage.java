@@ -38,14 +38,7 @@ import org.openqa.selenium.ElementClickInterceptedException;
  */
 public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDetailsPage> extends BasicPage {
 
-    private boolean useTabbedPanel = false; //if gui uses old TabbedPanel, set to true
-
     public AssignmentHolderDetailsPage() {
-        this(false);
-    }
-
-    public AssignmentHolderDetailsPage(boolean useTabbedPanel) {
-        this.useTabbedPanel = useTabbedPanel;
     }
 
     public SelenideElement getButtonPanelElement() {
@@ -54,18 +47,12 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public void clickOperationButton(String className, String elementId) {
-        if (isUseTabbedPanel()) {
-            $(Schrodinger.byDataId(elementId))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-        } else {
-            SelenideElement button = getButtonByIconClass(className);
-            try {
-                button.scrollIntoView(false);
-                button.click();
-            } catch (ElementClickInterceptedException e) {
-                button.parent().click();
-            }
+        SelenideElement button = getButtonByIconClass(className);
+        try {
+            button.scrollIntoView(false);
+            button.click();
+        } catch (ElementClickInterceptedException e) {
+            button.parent().click();
         }
     }
 
@@ -103,13 +90,6 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         return getButtonByIconClass("fa fa-eye");
     }
 
-    public TabPanel getTabPanel() {
-        SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "tabPanel"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
-        tabPanelElement.shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_20_S);
-        return new TabPanel<>(this, tabPanelElement);
-    }
-
     public DetailsNavigationPanel<AssignmentHolderDetailsPage<P>> getNavigationPanel() {
         SelenideElement tabPanelElement = $(Schrodinger.byDataId("div", "navigation"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
@@ -135,13 +115,9 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
 //    }
 
     public SelenideElement getNavigationPanelSelenideElement(String... panelTitle) {
+        Utils.waitForMainPanelOnDetailsPage();
         Utils.waitForAjaxCallFinish();
-        if (isUseTabbedPanel()) {
-            return getTabPanel().clickTab(panelTitle[0])
-                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        } else {
-            return getNavigationPanel().selectPanelByName(panelTitle);
-        }
+        return getNavigationPanel().selectPanelByName(panelTitle);
     }
 
     public ObjectBrowserModal<AssignmentHolderDetailsPage<P>> changeArchetype() {
@@ -151,10 +127,5 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
             return new ObjectBrowserModal<AssignmentHolderDetailsPage<P>>(this, getModalWindowSelenideElement());
         }
         return null;
-    }
-
-    public boolean isUseTabbedPanel() {
-        Utils.waitForMainPanelOnDetailsPage();
-        return !($x(".//div[contains(@class,\"details-panel-navigation\")]").isDisplayed());
     }
 }
