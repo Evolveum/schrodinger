@@ -92,7 +92,7 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                             .clickSearchInResource();
         accountTab.table()
                 .selectCheckboxByName("001212")
-                    .clickImport()
+                    .importAccount()
                     .and()
                 .and()
             .feedback()

@@ -29,6 +29,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 /**
@@ -109,9 +110,15 @@ public class InlineMenu<T> extends Component<T> {
     }
 
     public InlineMenu<T> clickItemByKey(String itemKey) {
-        SelenideElement element = getParentElement().find("div.btn-group ul.dropdown-menu li a schrodinger[data-s-resource-key=" + itemKey + "]");
-        element.parent().click();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        getParentElement().$x(".//button[@data-s-id='buttonContainer']")
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
+        String itemKeyTranslated = Utils.getPropertyString(itemKey);
+        SelenideElement menuItemElement = getParentElement()
+                .$x(".//a[@data-s-id='menuItemLink' and contains (text(), '" + itemKeyTranslated + "')]");
+        if (menuItemElement.exists() && menuItemElement.isDisplayed()) {
+            menuItemElement.click();
+        }
         return this;
     }
 

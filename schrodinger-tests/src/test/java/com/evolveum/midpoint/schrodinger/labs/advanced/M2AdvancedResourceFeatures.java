@@ -112,7 +112,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     public void mod02test01reactionSpecificObjectTemplate() throws IOException {
         getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
                 .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
-                .clickImport();
+                .importAccount();
 
         showUser("aperkeltini")
                 .assertGivenName("Antonio")
