@@ -16,7 +16,6 @@
 package com.evolveum.midpoint.schrodinger.component.prism.show;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
@@ -25,9 +24,6 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.openqa.selenium.By;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -59,9 +55,9 @@ public class VisualizationPanel<T> extends Component<T> {
         return new VisualizationItemsPanel<>(VisualizationPanel.this, getParentElement().$(Schrodinger.byDataId("itemsTable")));
     }
 
-    public PartialVisualizationHeader header() {
+    public PartialVisualizationHeader<VisualizationPanel<T>> header() {
         SelenideElement element = $(Schrodinger.byDataId("headerPanel"));
-        return new PartialVisualizationHeader(this, element);
+        return new PartialVisualizationHeader<>(this, element);
     }
 
     public VisualizationPanel<T> assertItemsDeltasSizeEquals(int expectedSize) {
@@ -76,5 +72,16 @@ public class VisualizationPanel<T> extends Component<T> {
         return VisualizationPanel.this;
     }
 
+    public VisualizationPanel<T> assertItemValueEquals(String itemName, String itemValue) {
+        assertion.assertTrue(getObjectItemsDeltaPanel().itemLineExists(itemName, itemValue),
+                "Item '" + itemName + "' value doesn't match, expected " + itemValue);
+        return VisualizationPanel.this;
+    }
+
+    public VisualizationPanel<T> assertItemValueNotPresent(String itemName) {
+        assertion.assertTrue(getObjectItemsDeltaPanel().itemLineDoesntExist(itemName),
+                "Item '" + itemName + "' value shouldn't exists.");
+        return VisualizationPanel.this;
+    }
 
 }

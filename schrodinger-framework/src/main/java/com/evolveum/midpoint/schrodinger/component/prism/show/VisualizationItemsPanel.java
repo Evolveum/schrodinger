@@ -21,6 +21,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class VisualizationItemsPanel<T> extends Component<T> {
 
@@ -31,6 +32,34 @@ public class VisualizationItemsPanel<T> extends Component<T> {
     public int getVisualizationItemsCount() {
         ElementsCollection col = getItemsElementList();
         return CollectionUtils.isEmpty(col) ? 0 : col.size();
+    }
+
+    public boolean itemLineExists(String itemName, String itemValue) {
+        ElementsCollection items = getItemsElementList();
+        for (SelenideElement item : items) {
+            SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
+            SelenideElement itemValueEl = item.$(Schrodinger.byDataId("newValueContainer"))
+                    .$(Schrodinger.byDataId("label"));
+            String itemNameRealValue = itemNameEl.exists() ? itemNameEl.getValue() : null;
+            String itemValueRealValue = itemValueEl.exists() ? itemValueEl.getValue() : null;
+            boolean match = StringUtils.equals(itemName, itemNameRealValue)
+                    && StringUtils.equals(itemValue, itemValueRealValue);
+            if (match) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean itemLineDoesntExist(String itemName) {
+        ElementsCollection items = getItemsElementList();
+        for (SelenideElement item : items) {
+            SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
+            if (itemNameEl.exists() && itemNameEl.isDisplayed()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private ElementsCollection getItemsElementList() {

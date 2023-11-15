@@ -16,7 +16,39 @@
 
 package com.evolveum.midpoint.schrodinger.simulation;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.prism.show.VisualizationPanel;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class SimulationResultDetailsPage extends BasicPage {
+
+    public SimulationResultDetailsPage waitForDetailsPanelToBeDisplayed() {
+        try {
+            $x(".//div[@data-s-id='details' and contains(@class, 'card')]")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        } catch (Exception e) {
+
+        }
+        return SimulationResultDetailsPage.this;
+    }
+
+    public VisualizationPanel<SimulationResultDetailsPage> changes() {
+        SelenideElement changesElement = $(Schrodinger.byDataId("div", "changes"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new VisualizationPanel<>(SimulationResultDetailsPage.this, changesElement);
+    }
+
+    public ProcessedObjectsPage back() {
+        $(Schrodinger.byDataId("a", "back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return new ProcessedObjectsPage();
+    }
+
+
 }
