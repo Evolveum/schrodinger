@@ -45,7 +45,23 @@ public class ImportSourceData extends AbstractTrainingTest {
                 .and()
                 .assertTableContainsText("Focus activated")
                 .assertTableContainsColumnWithValue("SimulationResultProcessedObjectType.type", "User")
-                .assertTableContainsColumnWithValue("SimulationResultProcessedObjectType.state", "Added");
+                .assertTableContainsColumnWithValue("SimulationResultProcessedObjectType.state", "Added")
+                .clickByName("1001")
+                .changes()
+                .header()
+                .assertChangeTypeEquals("Add")
+                .assertChangedObjectTypeEquals("User")
+                .assertChangedObjectNameEquals("1001")
+                .and()
+                .assertItemsDeltasSizeEquals(5)
+                .assertItemValueEquals("Name", "1001")
+                //todo check other item values
+                .assertItemValueNotPresent("Locality")
+                .assertItemValueNotPresent("Lifecycle status")
+                .and()
+                .back();
+
+
     }
 
     @Override

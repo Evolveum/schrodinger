@@ -29,19 +29,19 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PartialVisualizationHeader extends Component<VisualizationPanel> {
+public class PartialVisualizationHeader<T> extends Component<T> {
 
-    public PartialVisualizationHeader(VisualizationPanel parent, SelenideElement parentElement) {
+    public PartialVisualizationHeader(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public PartialVisualizationHeader assertChangeTypeEquals(String expectedValue) {
+    public PartialVisualizationHeader<T> assertChangeTypeEquals(String expectedValue) {
         SelenideElement element = $(Schrodinger.byDataId("changeType"));
         assertion.assertEquals(expectedValue, element.getText(), "Unexpected change type");
         return this;
     }
 
-    public PartialVisualizationHeader assertChangedObjectNameEquals(String expectedValue) {
+    public PartialVisualizationHeader<T> assertChangedObjectNameEquals(String expectedValue) {
         SelenideElement element;
 //        if (isLink()) {
             element = getNameLink();
@@ -52,7 +52,7 @@ public class PartialVisualizationHeader extends Component<VisualizationPanel> {
         return this;
     }
 
-    public PartialVisualizationHeader assertChangedObjectTypeEquals(String expectedValue) {
+    public PartialVisualizationHeader<T> assertChangedObjectTypeEquals(String expectedValue) {
         SelenideElement element = $(Schrodinger.byDataId("objectType"));
         assertion.assertEquals(expectedValue, element.getText(), "Unexpected change object type");
         return this;
@@ -89,12 +89,12 @@ public class PartialVisualizationHeader extends Component<VisualizationPanel> {
         return element.exists() && element.getTagName().equals("a");
     }
 
-    public PartialVisualizationHeader assertIsLink() {
+    public PartialVisualizationHeader<T> assertIsLink() {
         assertion.assertTrue(isLink(), "Link is expected.");
         return this;
     }
 
-    public PartialVisualizationHeader assertIsNotLink() {
+    public PartialVisualizationHeader<T> assertIsNotLink() {
         assertion.assertFalse(isLink(), "Link is not expected.");
         return this;
     }
