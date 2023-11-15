@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
@@ -121,6 +122,16 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
         } catch (Exception e) {
             //nothing to do here, we are already in production mode
         }
+        return ResourcePage.this;
+    }
+
+    public ResourcePage setLifecycleState(String value) {
+        SelenideElement lifecycleStatePanel = $(Schrodinger.byDataId("lifecycleStatePanel"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        lifecycleStatePanel.$(Schrodinger.byDataId("select", "panel")).selectOption(value);
+        Utils.waitForAjaxCallFinish();
+        assertFeedbackExists();
+        feedback().assertMessageExists("Change resource lifecycle state (GUI)");
         return ResourcePage.this;
     }
 }

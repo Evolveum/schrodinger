@@ -16,9 +16,13 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.ListOfReactionsTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 public class InboundMappingsTable<T> extends MappingsTable<T> {
 
@@ -59,6 +63,27 @@ public class InboundMappingsTable<T> extends MappingsTable<T> {
 
     public InboundMappingsTable<T> expression(String value, int rowIndex) {
         setDropdownValue("Expression", value, rowIndex);
+        return InboundMappingsTable.this;
+    }
+
+    public InboundMappingsTable<T> scriptExpression(String language, String expressionValue) {
+        scriptExpression(language, expressionValue, rowsCount());
+        return InboundMappingsTable.this;
+    }
+
+    public InboundMappingsTable<T> scriptExpression(String language, String expressionValue, int rowIndex) {
+        setDropdownValue("Expression", "Script", rowIndex);
+        SelenideElement cell = getTableCellElement("Expression", rowIndex);
+        cell.$(Schrodinger.byElementValue("button", "data-s-id", "typeButton", "Show script"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
+        SelenideElement modal = Utils.getModalWindowSelenideElement();
+        modal.$(Schrodinger.byDataId("select", "input")).selectOption(language);
+        modal.$(Schrodinger.byElementAttributeValue("textarea", "class", "ace_text-input"))
+                .shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(expressionValue);
+        Utils.waitForAjaxCallFinish();
+        modal.$(Schrodinger.byDataId("a", "doneButton")).click();
+        Utils.waitForAjaxCallFinish();
         return InboundMappingsTable.this;
     }
 
