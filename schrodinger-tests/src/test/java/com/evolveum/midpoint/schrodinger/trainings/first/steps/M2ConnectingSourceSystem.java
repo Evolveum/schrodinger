@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
-public class ConnectingSourceSystem extends AbstractTrainingTest {
+public class M2ConnectingSourceSystem extends AbstractTrainingTest {
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
@@ -41,7 +41,7 @@ public class ConnectingSourceSystem extends AbstractTrainingTest {
         String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
                 .newResource()
-                .createResourceFromScratch()
+                .fromScratch()
                 .selectCsvConnector()
                 .name("HR")
                 .lifecycle("Proposed")

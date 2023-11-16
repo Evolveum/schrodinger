@@ -21,12 +21,12 @@ import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
 
-public class ImportSourceData extends AbstractTrainingTest {
+public class M3ImportSourceData extends AbstractTrainingTest {
 
     private static final String STATUS_EXPRESSION_SCRIPT_VALUE = "switch (input) { case 'In': 'active'; break; case 'Long-term leave': 'suspended'; break; case 'Former employee': 'archived'; break; }";
 
     @Test(groups = MODULE_3_GROUP)
-    public void singleSourceSystemEntryImportSimulation() {
+    public void test00100singleSourceSystemEntryImportSimulation() {
         basicPage
                 .listResources()
                 .table()
@@ -118,7 +118,7 @@ public class ImportSourceData extends AbstractTrainingTest {
     }
 
     @Test(groups = MODULE_3_GROUP)
-    public void sourceSystemDataImport() {
+    public void test00110sourceSystemDataImport() {
         basicPage
                 .listResources()
                 .table()
@@ -201,10 +201,5 @@ public class ImportSourceData extends AbstractTrainingTest {
                 .assertTableContainsColumnWithValue("Name", "0016")
                 .assertTableContainsColumnWithValue("UserType.fullName", "Geena Green");
         //todo check more full names?
-    }
-
-        @Override
-    protected boolean resetToDefaultBeforeTests() {
-        return false;
     }
 }
