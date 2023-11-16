@@ -92,4 +92,11 @@ public class ObjectTypeWizardChoiceStep<T> extends TileListWizardStepPanel<T> {
         tile.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
     }
+
+    public T exitWizard() {
+        $x(".//a[contains(text(), 'Exit wizard')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return getParent();
+    }
 }

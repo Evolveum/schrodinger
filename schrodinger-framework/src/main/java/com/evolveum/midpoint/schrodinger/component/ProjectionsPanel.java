@@ -20,14 +20,12 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.common.ProjectionFormPanelWithActionButtons;
 import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetProjectionModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.page.FocusPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -38,7 +36,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends TabWithTableAndPrismView<FocusPage> {
+public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends PanelWithTableAndPrismView<FocusPage> {
 
     public ProjectionsPanel(FocusPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class ObjectTypeMidpointDataWizardStep<T> extends PrismFormWizardStepPanel<T>
         implements PreviousStepAction<ObjectTypeResourceDataWizardStep<T>> {
@@ -52,6 +53,20 @@ public class ObjectTypeMidpointDataWizardStep<T> extends PrismFormWizardStepPane
         return new ObjectTypeWizardChoiceStep<>(getParent());
     }
 
+    /**
+     * depending on the way the user came to Midpoint Data wizard step, Save settings click
+     * can either lead to Object type wizard, or stay on the same panel. This method should
+     * be used in the cases when there is no redirection after button click
+     * @return
+     */
+    public ObjectTypeMidpointDataWizardStep<T> saveSettingsWithoutRedirect() {
+        $(Schrodinger.byDataId("submit"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return ObjectTypeMidpointDataWizardStep.this;
+    }
+
     @Override
     public ObjectTypeResourceDataWizardStep<T> back() {
         clickBack();
@@ -61,5 +76,12 @@ public class ObjectTypeMidpointDataWizardStep<T> extends PrismFormWizardStepPane
     @Override
     protected String getFormElementId() {
         return "formContainer";
+    }
+
+    public T exitWizard() {
+        $(Schrodinger.byDataId("a", "exit"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return getParent();
     }
 }

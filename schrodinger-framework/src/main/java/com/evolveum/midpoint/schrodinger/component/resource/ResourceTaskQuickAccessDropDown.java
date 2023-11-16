@@ -16,13 +16,11 @@
 package com.evolveum.midpoint.schrodinger.component.resource;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.DropDown;
 import com.evolveum.midpoint.schrodinger.component.task.wizard.TaskTypeSelectionStep;
 import com.evolveum.midpoint.schrodinger.component.task.wizard.TaskWizardPage;
-import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -44,7 +42,7 @@ public class ResourceTaskQuickAccessDropDown<T> extends DropDown<T> {
         return this.getParent();
     }
 
-    public TaskTypeSelectionStep clickCreateNew() {
+    public TaskTypeSelectionStep clickCreateTask() {
         String newTaskKey = "ResourceObjectsPanel.button.createTask";
         getParentElement()
                 .$(Schrodinger.byDataResourceKey("ResourceObjectsPanel.button.createTask"))

@@ -299,6 +299,12 @@ public class Utils {
         $(Schrodinger.byDataId("div", "mainPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M);
     }
 
+    public static void waitForSummaryDisplayNameOnDetailsPage(String displayName) {
+        waitForAjaxCallFinish();
+        $(Schrodinger.byDataId("span", "summaryDisplayName"))
+                .shouldHave(Condition.text(displayName), MidPoint.TIMEOUT_LONG_20_S);
+    }
+
     public static void waitForAjaxCallFinish() {
         new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {

@@ -153,9 +153,9 @@ public class ResourceAccountsPanel<T> extends Component<T> {
                 .setValue(intent);
     }
 
-    public ObjectTypeBasicInformationWizardStep configureBasicAttributes() {
+    public ObjectTypeBasicInformationWizardStep<ResourceAccountsPanel<T>> configureBasicAttributes() {
         clickButton("ResourceObjectTypePreviewTileType.BASIC");
-        return new ObjectTypeBasicInformationWizardStep(new ObjectTypeWizardPage());
+        return new ObjectTypeBasicInformationWizardStep<>(ResourceAccountsPanel.this);
     }
 
     public MappingsWizardStep<ResourceAccountsPanel<T>> configureMappings() {

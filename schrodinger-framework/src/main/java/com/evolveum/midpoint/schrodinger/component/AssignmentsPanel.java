@@ -37,7 +37,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends TabWithTableAndPrismView<P> {
+public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends PanelWithTableAndPrismView<P> {
 
     public AssignmentsPanel(P parent, SelenideElement parentElement) {
         super(parent, parentElement);

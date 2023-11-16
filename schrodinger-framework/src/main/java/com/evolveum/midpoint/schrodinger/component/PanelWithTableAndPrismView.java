@@ -29,13 +29,13 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-abstract public class TabWithTableAndPrismView<P> extends Component<P> {
+abstract public class PanelWithTableAndPrismView<P> extends Component<P> {
 
-    public TabWithTableAndPrismView(P parent, SelenideElement parentElement) {
+    public PanelWithTableAndPrismView(P parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public <T extends TabWithTableAndPrismView<P>> AbstractTableWithPrismView<T> table() {
+    public <T extends PanelWithTableAndPrismView<P>> AbstractTableWithPrismView<T> table() {
 
         SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
