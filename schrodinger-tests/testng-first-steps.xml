@@ -20,11 +20,13 @@
         <groups>
             <dependencies>
                 <group name="Module3" depends-on="Module2" />
+                <group name="Module4" depends-on="Module3" />
             </dependencies>
         </groups>
         <classes>
-            <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.ConnectingSourceSystem"/>
-            <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.ImportSourceData"/>
+            <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M2ConnectingSourceSystem"/>
+            <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M3ImportSourceData"/>
+            <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M4ConnectingTargetSystem"/>
         </classes>
     </test>
 </suite>

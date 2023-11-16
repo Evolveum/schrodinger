@@ -16,9 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.SchrodingerException;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -34,22 +32,13 @@ public class NewResourcePanel extends TileListWizardStepPanel<ResourceWizardPage
         super(parentPage);
     }
 
-    public ConnectorSelectionStep createResourceFromScratch() {
+    public ConnectorSelectionStep fromScratch() {
         selectTileByLabel("From scratch");
         return new ConnectorSelectionStep(getParent());
     }
 
-    public BasicInformationWizardStep createResourceFromTemplate(String templateTitle) {
-        $x(".//div[@data-s-id='panelHeader']")
-                .$x(".//div[@data-s-id='type']")
-                .$x(".//select[@data-s-id='input']")
-                .selectOption("From template");
-        Utils.waitForAjaxCallFinish();
-        $x(".//div[@data-s-id='tile' and contains(text(), '" + templateTitle + "')]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        ResourceWizardPage page = new ResourceWizardPage();
-        page.assertBasicStep();
-        return new BasicInformationWizardStep(page);
+    public ResourceCatalogPanel<NewResourcePanel> copyFromTemplate(String templateTitle) {
+        selectTileByLabel("Copy from template");
+        return new ResourceCatalogPanel<>(NewResourcePanel.this, $(Schrodinger.byDataId("detailsView")));
     }
 }

@@ -32,6 +32,7 @@ public class AbstractTrainingTest extends AbstractSchrodingerTest {
     protected static final File HR_CSV_SOURCE_FILE = new File(FIRST_STEPS_RESOURCES_DIRECTORY + "hr.csv");
     protected static final String MODULE_2_GROUP = "Module2";
     protected static final String MODULE_3_GROUP = "Module3";
+    protected static final String MODULE_4_GROUP = "Module4";
 
     protected static File hrCsvFile;
 
@@ -43,4 +44,10 @@ public class AbstractTrainingTest extends AbstractSchrodingerTest {
     protected boolean resetToDefaultAfterTests() {
         return false;
     }
+
+    @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return false;
+    }
+
 }
