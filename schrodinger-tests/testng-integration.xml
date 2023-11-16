@@ -107,6 +107,16 @@
             <class name="com.evolveum.midpoint.schrodinger.scenarios.ImportTest"/>
         </classes>
     </test>
+     <test name="CleanupPoliciesTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.scenarios.CleanupPoliciesTest"/>
+        </classes>
+    </test>
+     <test name="CustomColumnTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.scenarios.CustomColumnTest"/>
+        </classes>
+    </test>
     <test name="HomePageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
             <class name="com.evolveum.midpoint.schrodinger.page.HomePageTest"/>
@@ -150,6 +160,16 @@
     <test name="LeftMenuTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
             <class name="com.evolveum.midpoint.schrodinger.component.LeftMenuTest"/>
+        </classes>
+    </test>
+    <test name="AuditLogViewerPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.page.AuditLogViewerPageTest"/>
+        </classes>
+    </test>
+    <test name="Wizards" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.component.wizard.RequestAccessWizardTest"/>
         </classes>
     </test>
 </suite>
