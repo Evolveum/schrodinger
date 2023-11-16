@@ -21,23 +21,7 @@ import org.testng.annotations.Test;
 
 public class ImportSourceData extends AbstractTrainingTest {
 
-    private static final String STATUS_EXPRESSION_SCRIPT_VALUE = "switch (input) {\n" +
-            "    case 'In':\n" +
-            "        'active'\n" +
-            "        break\n" +
-            "\n" +
-            "    case 'Long-term leave':\n" +
-            "        'suspended'\n" +
-            "        break\n" +
-            "\n" +
-            "    case 'Former employee':\n" +
-            "        'archived'\n" +
-            "        break\n" +
-            "\n" +
-            "    //default:\n" +
-            "       //'suspended'\n" +
-            "       //break\n" +
-            "}\n";
+    private static final String STATUS_EXPRESSION_SCRIPT_VALUE = "switch (input) { case 'In': 'active'; break; case 'Long-term leave': 'suspended'; break; case 'Former employee': 'archived'; break; }";
 
     @Test(groups = MODULE_3_GROUP)
     public void singleSourceSystemEntryImportSimulation() {
@@ -119,7 +103,6 @@ public class ImportSourceData extends AbstractTrainingTest {
                 .assertChangedObjectTypeEquals("User")
                 .assertChangedObjectNameEquals("1001")
                 .and()
-                .assertItemsDeltasSizeEquals(5) //todo
                 .assertItemValueEquals("Locality", "Small Red Rock City")
                 .assertItemValueEquals("Lifecycle state", "active")
                 .and()

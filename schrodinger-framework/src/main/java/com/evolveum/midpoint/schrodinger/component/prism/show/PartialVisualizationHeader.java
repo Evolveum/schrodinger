@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -48,7 +49,7 @@ public class PartialVisualizationHeader<T> extends Component<T> {
 //        } else {
 //            element = getNameLabel();
 //        }
-        assertion.assertEquals(expectedValue, element.getText(), "Unexpected object name.");
+        assertion.assertTrue(StringUtils.equals(expectedValue, element.getText()), "Unexpected object name.");
         return this;
     }
 
