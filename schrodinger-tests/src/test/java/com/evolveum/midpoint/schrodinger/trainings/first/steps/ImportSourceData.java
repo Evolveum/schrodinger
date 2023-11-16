@@ -16,6 +16,8 @@
 
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
 
@@ -115,7 +117,93 @@ public class ImportSourceData extends AbstractTrainingTest {
                 .setLifecycleState("Active (production)");
     }
 
-    @Override
+    @Test(groups = MODULE_3_GROUP)
+    public void sourceSystemDataImport() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("HR")
+                .selectAccountsPanel()
+                .tasks()
+                .clickCreateTask()
+                .importTask()
+                .clickCreateTaskButton()
+                .configuration()
+                .next()
+                .nextToDistribution()
+                .saveAndRun();
+        basicPage
+                .listTasks("Import tasks")
+                .table()
+                .clickByName("Import task: HR: HR Person")
+                .summary()
+                .assertSummaryTagWithTextExists("Success")
+                .and()
+                .selectOperationStatisticsPanel()
+                .assertProgressSummaryObjectsCountEquals(40);
+        //todo assert the count of the imported accounts
+
+        basicPage
+                .listUsers()
+                .table()
+                .assertTableContainsColumnWithValue("Name", "0001")
+                .assertTableContainsColumnWithValue("Name", "0013")
+                .assertTableContainsColumnWithValue("Name", "0016")
+                .search()
+                .byName()
+                .inputValue("0001")
+                .updateSearch()
+                .and()
+                .assertTableColumnValueIsEmpty("UserType.fullName")
+                .search()
+                .byName()
+                .inputValue("80")
+                .updateSearch()
+                .and()
+                .assertCurrentTableDoesntContain("8000")
+                .assertCurrentTableDoesntContain("8001")
+                .assertCurrentTableDoesntContain("8002")
+                .assertCurrentTableDoesntContain("8003");
+
+        basicPage
+                .listUsers("Persons")
+                .table()
+                .assertTableObjectsCountEquals(0);
+
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("HR")
+                .selectAccountsPanel()
+                .configureBasicAttributes()
+                .next()
+                .next()
+                .archetype("Person")
+                .saveSettingsWithoutRedirect()
+                .exitWizard()
+                .and()
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Import task: HR: HR Person")
+                .selectOperationStatisticsPanel()
+                //todo what concretely should be checked here?
+                .and()
+                .clickRunNow();
+
+        Selenide.sleep(30000);
+
+        UsersPageTable personsTable = basicPage
+                .listUsers("Persons")
+                .table();
+        personsTable
+                .assertTableContainsColumnWithValue("Name", "0001")
+                .assertTableContainsColumnWithValue("Name", "0013")
+                .assertTableContainsColumnWithValue("Name", "0016")
+                .assertTableContainsColumnWithValue("UserType.fullName", "Geena Green");
+        //todo check more full names?
+    }
+
+        @Override
     protected boolean resetToDefaultBeforeTests() {
         return false;
     }

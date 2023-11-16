@@ -1,6 +1,7 @@
 package com.evolveum.midpoint.schrodinger.component.task.wizard;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
@@ -20,6 +21,7 @@ public class TaskDistributionStep  extends PrismFormWizardStepPanel<TaskWizardPa
         $x(".//a[@data-s-id='submit']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
+        Selenide.sleep(30000);
         return new BasicPage();
     }
 }

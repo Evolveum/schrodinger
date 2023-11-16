@@ -84,7 +84,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public TaskPage clickRunNow() {
-        $(Schrodinger.byElementAttributeValue("span", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(Schrodinger.byElementAttributeValue("a", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
     }
@@ -95,7 +95,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public boolean isRunNowVisible(){
-        return $(Schrodinger.byDataResourceKey("span", "pageTaskEdit.button.runNow")).is(Condition.visible);
+        return $(Schrodinger.byDataResourceKey("a", "pageTaskEdit.button.runNow")).is(Condition.visible);
     }
 
     public TaskPage downloadReport() {

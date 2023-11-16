@@ -21,7 +21,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.TabWithTableAndPrismView;
+import com.evolveum.midpoint.schrodinger.component.PanelWithTableAndPrismView;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -30,7 +30,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
  * @author skublik
  */
 
-public class ObjectPolicyPanel extends TabWithTableAndPrismView<SystemPage> {
+public class ObjectPolicyPanel extends PanelWithTableAndPrismView<SystemPage> {
 
     public ObjectPolicyPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -92,6 +92,11 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
         return new SchemaHandlingPanel(this, element);
     }
 
+    public DefinedTasksPanel selectDefinedTasksPanel() {
+        SelenideElement element = getNavigationPanelSelenideElement("Defined Tasks");
+        return new DefinedTasksPanel(this, element);
+    }
+
     //was removed in mp v4.8
 //    public ResourcePage switchToDevelopmentMode() {
 //        try {
