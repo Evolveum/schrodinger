@@ -40,8 +40,8 @@ public class VisualizationItemsPanel<T> extends Component<T> {
             SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
             SelenideElement itemValueEl = item.$(Schrodinger.byDataId("newValueContainer"))
                     .$(Schrodinger.byDataId("label"));
-            String itemNameRealValue = itemNameEl.exists() ? itemNameEl.getValue() : null;
-            String itemValueRealValue = itemValueEl.exists() ? itemValueEl.getValue() : null;
+            String itemNameRealValue = itemNameEl.exists() ? itemNameEl.getText() : null;
+            String itemValueRealValue = itemValueEl.exists() ? itemValueEl.getText() : null;
             boolean match = StringUtils.equals(itemName, itemNameRealValue)
                     && StringUtils.equals(itemValue, itemValueRealValue);
             if (match) {
@@ -55,7 +55,8 @@ public class VisualizationItemsPanel<T> extends Component<T> {
         ElementsCollection items = getItemsElementList();
         for (SelenideElement item : items) {
             SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
-            if (itemNameEl.exists() && itemNameEl.isDisplayed()) {
+            String text = itemNameEl.getText();
+            if (itemName.equals(text)) {
                 return false;
             }
         }
