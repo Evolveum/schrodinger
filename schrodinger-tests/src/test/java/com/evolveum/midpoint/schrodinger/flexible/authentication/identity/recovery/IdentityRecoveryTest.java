@@ -65,6 +65,7 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private static final File USER_STUDENT_CALEB_JAMES_IT_SALZBURG = new File(USER_PATH + "/user-student-caleb-james-IT-salzburg.xml");
     private static final File USER_STUDENT_CALEB_JAMES_IT_GRAZ = new File(USER_PATH + "/user-student-caleb-james-IT-graz.xml");
     private static final File USER_TEACHER_BLAKE_ADAMS = new File(USER_PATH + "/user-teacher-blake-adams.xml");
+
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
     public void beforeClass() throws IOException {

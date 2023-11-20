@@ -17,12 +17,16 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ExportPopupPanel;
+import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
+import org.apache.commons.io.FileUtils;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,16 +47,22 @@ public class CustomColumnTest extends AbstractSchrodingerTest {
                 CUSTOM_COLUMNS_OBJECT_COLLECTION_KEY_LABELS_FILE);
     }
 
+    @BeforeClass(alwaysRun = true, dependsOnMethods = {"springTestContextPrepareTestInstance"})
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        FormLoginPage login = midPoint.formLogin();
+        login.login(getUsername(), getPassword());
+    }
+
     @Test(priority = 1)
     public void test00100checkUserCustomColumns() {
         basicPage.listUsers("Custom columns view")
                 .table()
-                    .assertColumnIndexMatches("Name (custom)", 3);
-        basicPage.listUsers("Custom columns view")
-                .table()
-                    .assertColumnIndexMatches("Role membership", 4);
-        basicPage.listUsers("Custom columns view")
-                .table()
+                    .assertColumnIndexMatches("Name (custom)", 3)
+                    .assertColumnIndexMatches("Role membership", 4)
                     .assertColumnIndexMatches("Preferred language", 5);
     }
 
@@ -61,12 +71,8 @@ public class CustomColumnTest extends AbstractSchrodingerTest {
         ListUsersPage usersPage = basicPage.listUsers("Custom columns label test");
         usersPage
                 .table()
-                    .assertColumnIndexMatches("Enable", 3);
-        usersPage
-                .table()
-                    .assertColumnIndexMatches("Disable", 4);
-        usersPage
-                .table()
+                    .assertColumnIndexMatches("Enable", 3)
+                    .assertColumnIndexMatches("Disable", 4)
                     .assertColumnIndexMatches("Unlink", 5);
     }
 
