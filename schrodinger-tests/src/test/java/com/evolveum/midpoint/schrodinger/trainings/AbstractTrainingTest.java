@@ -28,8 +28,8 @@ public class AbstractTrainingTest extends AbstractSchrodingerTest {
     protected static final String RESOURCES_DIRECTORY = "./src/test/resources/";
     protected static final String FIRST_STEPS_DIRECTORY = RESOURCES_DIRECTORY + "first-steps/";
     protected static final String FIRST_STEPS_RESOURCES_DIRECTORY = FIRST_STEPS_DIRECTORY + "resources/";
-    protected static final String CSV_HR_FILE_SOURCE_NAME = "hr.csv";
-    protected static final File HR_CSV_SOURCE_FILE = new File(FIRST_STEPS_RESOURCES_DIRECTORY + "hr.csv");
+    protected static final String CSV_HR_FILE_SOURCE_NAME = "export.csv";
+    protected static final File HR_CSV_SOURCE_FILE = new File(FIRST_STEPS_RESOURCES_DIRECTORY + "export.csv");
     protected static final String MODULE_2_GROUP = "Module2";
     protected static final String MODULE_3_GROUP = "Module3";
     protected static final String MODULE_4_GROUP = "Module4";
