@@ -32,8 +32,7 @@ public class ExportPopupPanel<T> extends ModalBox<T> {
 
     public Table<ExportPopupPanel<T>> table() {
         return new Table<>(this,
-                getParentElement().$(Schrodinger.bySelfOrDescendantElementAttributeValue("div", "data-s-id", "table",
-                        "style", "float: left; padding-bottom: 5px;"))
+                getParentElement().$(Schrodinger.byDataId("div", "table"))
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
