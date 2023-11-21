@@ -82,6 +82,6 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
     }
 
     public SelenideElement findTileByLabel(String tileLabel) {
-        return getParentElement().$(byText(tileLabel));
+        return Utils.findTileElementByTitle(tileLabel);
     }
 }

@@ -20,6 +20,8 @@ import static com.codeborne.selenide.Selectors.byPartialLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.codeborne.selenide.Condition;
@@ -36,9 +38,6 @@ import com.evolveum.midpoint.schrodinger.component.common.Paging;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import org.testng.Assert;
-import org.testng.asserts.Assertion;
-
 /**
  * Created by Viliam Repan (lazyman).
  */
@@ -48,7 +47,7 @@ public class Table<T> extends Component<T> {
         super(parent, parentElement);
     }
 
-    public TableRow<T, Table<T>> rowByColumnLabel(String label, String rowValue) {
+    public TableRow<T, Table<T>> findRowByColumnLabel(String label, String rowValue) {
         int index = findColumnByLabel(label);
         if (index < 0) {
             Selenide.screenshot("rowByColumnLabel_returns_null_" + System.currentTimeMillis());
@@ -59,6 +58,11 @@ public class Table<T> extends Component<T> {
             Selenide.screenshot("rowByColumnLabel_returns_null_" + System.currentTimeMillis());
         }
         return tableRow;
+    }
+
+    public List<TableRow<T, Table<T>>> findAllRowsByColumnLabel(String label, String rowValue) {
+        int index = findColumnByLabel(label);
+        return getTableRowsByIndex(index, rowValue);
     }
 
     public int findColumnByLabel(String label) {
@@ -125,6 +129,14 @@ public class Table<T> extends Component<T> {
         return getTableRowByIndex(index, rowValue);
     }
 
+    public List<TableRow<T, Table<T>>> allRowsByColumnResourceKey(String key, String rowValue) {
+        int index = findColumnByResourceKey(key);
+        if (index < 0) {
+            return null;
+        }
+        return getTableRowsByIndex(index, rowValue);
+    }
+
     private TableRow<T, Table<T>> getTableRowByIndex(int index, String rowValue) {
         ElementsCollection rows = getParentElement().findAll("tbody tr");
         for (SelenideElement row : rows) {
@@ -139,6 +151,23 @@ public class Table<T> extends Component<T> {
             }
         }
         return null;
+    }
+
+    private List<TableRow<T, Table<T>>> getTableRowsByIndex(int index, String rowValue) {
+        ElementsCollection rows = getParentElement().findAll("tbody tr");
+        List<TableRow<T, Table<T>>> result = new ArrayList<>();
+        for (SelenideElement row : rows) {
+            String value = row.find("td:nth-child(" + index + ")").text();
+            if (value == null) {
+                continue;
+            }
+            value = value.trim();
+
+            if (Objects.equals(rowValue, value)) {
+                result.add(new TableRow<>(this, row));
+            }
+        }
+        return result;
     }
 
     public int calculateAllIntValuesInColumn(String columnName) {
@@ -275,7 +304,7 @@ public class Table<T> extends Component<T> {
     }
 
     public Table<T> assertTableRowExists(String columnLabel, String rowValue) {
-        assertion.assertNotNull(rowByColumnLabel(columnLabel, rowValue), "Row with value " + rowValue + " in " + columnLabel + " column doesn't exist.");
+        assertion.assertNotNull(findRowByColumnLabel(columnLabel, rowValue), "Row with value " + rowValue + " in " + columnLabel + " column doesn't exist.");
         return this;
     }
 

@@ -30,6 +30,8 @@ import jdk.jshell.execution.Util;
 
 import static com.codeborne.selenide.Selenide.$;
 
+import static com.codeborne.selenide.Selenide.$;
+
 public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAccessPage>
         implements NextStepAction<RelationStepPanel> {
 
@@ -37,7 +39,7 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
     private static final int GROUP_TILE_INDEX = 2;
 
     public PersonOfInterestStepPanel(RequestAccessPage parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId("contentBody")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public RelationStepPanel selectMyself() {
@@ -61,7 +63,7 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
     public class DefineGroupOfUsersPanel extends TileListWizardStepPanel<RequestAccessPage> {
 
         public DefineGroupOfUsersPanel(RequestAccessPage parent) {
-            super(parent);
+            super(parent, $(Schrodinger.byDataId("contentBody")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
         }
 
         public DefineGroupOfUsersPanel selectUserGroupByButtonClick(String... userNames) {

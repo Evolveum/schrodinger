@@ -45,7 +45,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         showUser("administrator")
                 .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Role", "Member", "End user");
+                .assertAssignmentsWithRelationExist("Role", "Default", "End user");
     }
 
    @Test
@@ -59,15 +59,13 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .next()
                 .clickSubmitButton()
                 .feedback()
-                .assertSuccess();
+                .assertInfo();
         showUser("ra_wizard_user_1")
                 .selectAssignmentsPanel()
-                .selectTypeRole()
-                .assertAssignmentsWithRelationExist("Role", "Member", "End user");
+                .assertAssignmentsWithRelationExist("Role", "Default", "End user");
         showUser("ra_wizard_user_2")
                 .selectAssignmentsPanel()
-                .selectTypeRole()
-                .assertAssignmentsWithRelationExist("Role", "Member", "End user");
+                .assertAssignmentsWithRelationExist("Role", "Default", "End user");
     }
 
    @Test
@@ -84,7 +82,6 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                .assertSuccess();
         showUser("ra_wizard_user_1")
                 .selectAssignmentsPanel()
-                .selectTypeRole()
                 .assertAssignmentsWithRelationExist("Role", "Manager", "ra_role_to_assign");
     }
 }

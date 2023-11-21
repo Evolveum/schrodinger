@@ -52,7 +52,7 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T> {
     }
 
     public WorkitemsTable<T> approveWorkitemByName(String itemName) {
-        rowByColumnLabel("Name", itemName)
+        findRowByColumnLabel("Name", itemName)
                 .getParentElement().$x(".//i[@class='fa fa-check ']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();

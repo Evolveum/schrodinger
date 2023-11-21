@@ -49,7 +49,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
     @Override
     public AssignmentHolderObjectListTable<P, PD> selectCheckboxByName(String name) {
-        rowByColumnLabel(getNameColumnLabel(), name).clickCheckBox();
+        findRowByColumnLabel(getNameColumnLabel(), name).clickCheckBox();
         return this;
     }
 
