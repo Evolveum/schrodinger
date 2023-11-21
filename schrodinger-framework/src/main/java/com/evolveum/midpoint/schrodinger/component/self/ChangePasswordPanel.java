@@ -23,11 +23,9 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
-import com.evolveum.midpoint.schrodinger.page.self.CredentialsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class ChangePasswordPanel<T> extends Component<T> {
 
@@ -74,7 +72,7 @@ public class ChangePasswordPanel<T> extends Component<T> {
 
     public ChangePasswordPanel<T> assertPasswordPropagationResultSuccess(String userName) {
         assertion.assertTrue(accountsTable()
-                .rowByColumnLabel("Name", userName)
+                .findRowByColumnLabel("Name", userName)
                     .getColumnCellElementByColumnName("Propagation result")
                         .$x(".//i[@data-s-id='basicIcon'][contains(@class,\"fa-check-circle\") and contains(@class, \"text-success\")]")
                         .isDisplayed(), "Propagation result is not successfull, ");

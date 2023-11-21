@@ -21,6 +21,8 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.table.DirectIndirectAssignmentTable;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
@@ -30,6 +32,7 @@ import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -109,24 +112,25 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         return new DirectIndirectAssignmentTable<A>((A) this, table);
     }
 
-    protected void selectType(String resourceKey) {
-        $(Schrodinger.byDataResourceKey("span", resourceKey)).click();
+    protected void selectType(String type) {
+        getParent().getNavigationPanelSelenideElement("Assignments", type);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
     }
 
     public boolean containsAssignmentsWithRelation(String targetType, String relation, String... expectedAssignments) {
         getParent().getNavigationPanelSelenideElement("Assignments", targetType);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        ElementsCollection labels = getParentElement()
-                .$$(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("span", "data-s-id", "label",
-                        "data-s-id", "5", relation));
+        List<TableRow<PanelWithTableAndPrismView<P>, Table<PanelWithTableAndPrismView<P>>>> rows =
+                table().findAllRowsByColumnLabel("Relation", relation);
         List<String> assignmentNamesList = new ArrayList<String>();
-        for (SelenideElement label : labels) {
-            if (!label.getText().isEmpty()) {
+        for (TableRow<?, ?> row : rows) {
+            SelenideElement label = row.getParentElement().$(Schrodinger.byDataId("td", "3"))
+                    .$(Schrodinger.byDataId("span", "label"));
+            if (label.exists() && !label.getText().isEmpty()) {
                 assignmentNamesList.add(label.getText());
             }
         }
-        return assignmentNamesList.containsAll(Arrays.asList(expectedAssignments));
+        return new HashSet<>(assignmentNamesList).containsAll(Arrays.asList(expectedAssignments));
     }
 
     @Override

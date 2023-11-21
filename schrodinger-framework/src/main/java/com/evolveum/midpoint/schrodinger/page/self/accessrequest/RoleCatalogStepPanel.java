@@ -23,17 +23,19 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import java.util.Arrays;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessPage>
         implements NextStepAction<ShoppingCartStepPanel> {
 
     public RoleCatalogStepPanel(RequestAccessPage parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId("contentBody")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public RoleCatalogStepPanel selectAllRolesMenu() {
@@ -84,7 +86,8 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
 
     @Override
     public ShoppingCartStepPanel next() {
-        clickNext();
+        $x(".//a[@data-s-id='nextLink' and contains(@class, 'btn-success')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         return new ShoppingCartStepPanel(getParent());
     }
 

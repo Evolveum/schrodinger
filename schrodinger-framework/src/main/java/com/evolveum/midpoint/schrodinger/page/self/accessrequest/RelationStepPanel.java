@@ -16,10 +16,16 @@
 
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+
 import java.util.Objects;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage>
         implements NextStepAction<RoleCatalogStepPanel> {
@@ -31,7 +37,7 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
 
 
     public RelationStepPanel(RequestAccessPage parent) {
-        super(parent);
+        super(parent, $(Schrodinger.byDataId("contentBody")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
     public RoleCatalogStepPanel selectDefaultRelation() {

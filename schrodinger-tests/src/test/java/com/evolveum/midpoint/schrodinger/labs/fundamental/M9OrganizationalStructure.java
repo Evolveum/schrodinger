@@ -142,7 +142,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                             .inputValue("0919")
                             .updateSearch()
                         .and()
-                        .rowByColumnLabel("Name", "0919")
+                        .findRowByColumnLabel("Name", "0919")
                         .clickCheckBox()
                         .and()
                     .and()
