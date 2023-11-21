@@ -16,10 +16,8 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.resource.*;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -27,7 +25,6 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
 
@@ -101,7 +98,7 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
 //    public ResourcePage switchToDevelopmentMode() {
 //        try {
 //            String switchToDevelopmentKey = "OperationalButtonsPanel.button.toggleToDevelopment";
-//            String title = Utils.getPropertyString(switchToDevelopmentKey);
+//            String title = Utils.translate(switchToDevelopmentKey);
 //            SelenideElement button = $(Schrodinger.byElementAttributeValue("a", "title", title))
 //                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 //            if (button.exists()) {
@@ -117,7 +114,7 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
     public ResourcePage switchToProductionMode() {
         try {
             String switchToProductionKey = "OperationalButtonsPanel.button.toggleToProduction";
-            String title = Utils.getPropertyString(switchToProductionKey);
+            String title = Utils.translate(switchToProductionKey);
             SelenideElement button = $(Schrodinger.byElementAttributeValue("a", "title", title))
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             if (button.exists()) {

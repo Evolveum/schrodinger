@@ -23,7 +23,6 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -78,7 +77,7 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
     }
 
     public SelenideElement findTileByKey(String tileLabelKey) {
-        return findTileByLabel(Utils.getPropertyString(tileLabelKey));
+        return findTileByLabel(Utils.translate(tileLabelKey));
     }
 
     public SelenideElement findTileByLabel(String tileLabel) {

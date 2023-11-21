@@ -15,8 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.component.configuration;
 
-import static com.evolveum.midpoint.schrodinger.util.ConstantsUtil.*;
-
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
@@ -68,7 +66,7 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
     }
 
     public ObjectCollectionViewsPanel objectCollectionViewsPanel() {
-        String titleTranslated = Utils.getPropertyString("ObjectCollectionViewsContentPanel.label");
+        String titleTranslated = Utils.translate("ObjectCollectionViewsContentPanel.label");
         return new ObjectCollectionViewsPanel(getParent(), getParent().getNavigationPanelSelenideElement(titleTranslated));
     }
 }

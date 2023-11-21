@@ -16,11 +16,9 @@
 package com.evolveum.midpoint.schrodinger.page.configuration;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -91,7 +89,7 @@ public class SystemPage extends AssignmentHolderDetailsPage {
 
     private SystemPage panelSelectionButtonClick(String panelTitle) {
         Utils.waitForAjaxCallFinish();
-        String translatedTitle = Utils.getPropertyString(panelTitle);
+        String translatedTitle = Utils.translate(panelTitle);
         $x(".//span[@class='compositedButtonLabel' and contains(text(), '" + translatedTitle + "')]")
                 .shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();

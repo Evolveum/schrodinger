@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schema.constants.SchemaConstants;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
@@ -273,7 +274,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.search().assertExistSearchItem("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
                 .assertActualOptionOfSelectSearchItem("Type2", "Organization");
         table.search().assertExistSearchItem("Relation2").assertHelpTextOfSearchItem("Relation2", "Help relation")
-                .assertActualOptionOfSelectSearchItem("Relation2", "Default");
+                .assertActualOptionOfSelectSearchItem("Relation2", SchemaConstants.ORG_DEFAULT.getLocalPart());
         table.search().assertExistSearchItem("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
                 .assertActualOptionOfSelectSearchItem("Scope2", "Subtree");
         table.search().dropDownPanelByItemName("Scope2").inputDropDownValue("One level");
@@ -298,6 +299,19 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.search().assertDoesntExistSearchItem("Relation2");
         table.search().assertDoesntExistSearchItem("Scope2");
         table.search().assertDoesntExistSearchItem("Indirect2");
+    }
+
+    @Test
+    public void test014OselectAdvancedSearchOnRoleCatalogPage() {
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .selectAllOrganizationsMenu()
+                .search()
+                .advanced()
+                .assertAdvancedSearchIsSelected();
+
     }
 
     private void logoutLoginToRefreshSearch() {

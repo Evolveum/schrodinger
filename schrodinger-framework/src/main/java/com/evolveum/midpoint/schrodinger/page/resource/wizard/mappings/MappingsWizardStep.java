@@ -34,7 +34,7 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
     }
 
     public InboundMappingsPanel<MappingsWizardStep<T>> inboundMappings() {
-        String linkText = Utils.getPropertyString("AttributeMappingsTableWizardPanel.inboundTable");
+        String linkText = Utils.translate("AttributeMappingsTableWizardPanel.inboundTable");
         getParentElement().$(By.partialLinkText(linkText))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -43,7 +43,7 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
     }
 
     public OutboundMappingsPanel<MappingsWizardStep<T>> outboundMappings() {
-        String linkText = Utils.getPropertyString("AttributeMappingsTableWizardPanel.outboundTable");
+        String linkText = Utils.translate("AttributeMappingsTableWizardPanel.outboundTable");
         $x(".//a[@data-s-id='link' and contains(text(), \"" + linkText + "\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -56,7 +56,7 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
     }
 
     public T saveMappings() {
-        String buttonTitle = Utils.getPropertyString("AttributeMappingsTableWizardPanel.saveButton");
+        String buttonTitle = Utils.translate("AttributeMappingsTableWizardPanel.saveButton");
         $x(".//a[@title=\"" + buttonTitle + "\"]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();

@@ -21,6 +21,7 @@ import java.util.List;
 
 import com.codeborne.selenide.Selenide;
 
+import com.evolveum.midpoint.schema.constants.SchemaConstants;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
@@ -96,7 +97,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                     .getMemberPanel()
                         .table()
                             .search()
-                            .byRelation("Default")
+                            .byRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
                         .and()
                         .and()
                     .assignMember()
@@ -108,7 +109,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .and()
                         .selectCheckboxByName(USER_NAME)
                     .and()
-//                    .setRelation("Member")
+//                    .setRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
                     .clickAdd();
         orgTreePage = basicPage.orgStructure();
         orgTreePage
@@ -125,7 +126,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .getMemberPanel()
                             .table()
                                 .search()
-                                .byRelation("Default")
+                                .byRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
                                 .and()
                             .and()
                         .assignMember()
@@ -137,7 +138,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .and()
                             .selectCheckboxByName("UniqueNameUserForMemberTest")
                         .and()
-//                        .setRelation("Member")
+//                        .setRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
                         .clickAdd();
 
         AssignmentHolderObjectListTable<MemberPanel<OrgRootTab>, AssignmentHolderDetailsPage> membersTable =

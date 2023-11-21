@@ -16,6 +16,7 @@
 
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
+import com.evolveum.midpoint.schema.constants.SchemaConstants;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.testng.annotations.Test;
 
@@ -45,7 +46,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         showUser("administrator")
                 .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Role", "Default", "End user");
+                .assertAssignmentsWithRelationExist("Role", SchemaConstants.ORG_DEFAULT.getLocalPart(), "End user");
     }
 
    @Test
@@ -62,10 +63,10 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertInfo();
         showUser("ra_wizard_user_1")
                 .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Role", "Default", "End user");
+                .assertAssignmentsWithRelationExist("Role", SchemaConstants.ORG_DEFAULT.getLocalPart(), "End user");
         showUser("ra_wizard_user_2")
                 .selectAssignmentsPanel()
-                .assertAssignmentsWithRelationExist("Role", "Default", "End user");
+                .assertAssignmentsWithRelationExist("Role", SchemaConstants.ORG_DEFAULT.getLocalPart(), "End user");
     }
 
    @Test
