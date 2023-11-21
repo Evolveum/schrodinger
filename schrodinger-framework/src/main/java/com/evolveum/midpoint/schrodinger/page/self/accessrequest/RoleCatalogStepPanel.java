@@ -20,11 +20,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
+import com.evolveum.midpoint.schrodinger.component.resource.ResourceShadowTable;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
 import java.util.Arrays;
 
@@ -57,6 +60,10 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
                 .table()
                 .clickByName(teammateName);
         return RoleCatalogStepPanel.this;
+    }
+
+    public Search<RoleCatalogStepPanel> search() {
+        return new Search<>(RoleCatalogStepPanel.this, getParentElement().$(By.cssSelector(".search-panel-form")));
     }
 
     public boolean assertAccessesPanelContainsItems(String... itemLabels) {

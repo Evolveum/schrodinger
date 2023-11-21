@@ -98,18 +98,16 @@ public class PolyStringTests extends AbstractSchrodingerTest {
         usersPage
                         .table()
                             .search()
-                                .byFullText()
-                                .inputValue(TEST_USER_JOZKO_NAME)
-                            .pressEnter()
+                                .fullText(TEST_USER_JOZKO_NAME)
+                        .updateSearch()
                         .and()
                         .assertCurrentTableContains(TEST_USER_JOZKO_NAME);
 
         usersPage
                         .table()
                             .search()
-                                .byFullText()
-                                .inputValue(TEST_USER_JOZKO_NAME_NO_DIAC)
-                            .pressEnter()
+                                .fullText(TEST_USER_JOZKO_NAME_NO_DIAC)
+                        .updateSearch()
                         .and()
                         .assertCurrentTableContains(TEST_USER_JOZKO_NAME);
 

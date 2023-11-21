@@ -19,13 +19,11 @@ package com.evolveum.midpoint.schrodinger.component.common.search;
 import com.codeborne.selenide.*;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.common.InputBox;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
 
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 /**
@@ -119,7 +117,29 @@ public class Search<T> extends Component<T> {
 
     private boolean isBasicSearch() {
         SelenideElement searchButton = getParentElement().find(Schrodinger.byDataId("span", "searchButtonLabel"));
-        return searchButton.getText() != null && searchButton.getText().equals("Basic");
+        String basicKey = "SearchBoxModeType.BASIC";
+        return searchButton.getText() != null && searchButton.getText().equals(Utils.translate(basicKey));
+    }
+
+    private boolean isAdvancedSearch() {
+        SelenideElement searchButton = getParentElement().find(Schrodinger.byDataId("span", "searchButtonLabel"));
+        String basicKey = "SearchBoxModeType.AXIOM_QUERY";
+        SelenideElement axiomInput = getParentElement()
+                .$(Schrodinger.byDataId("input", "axiomQueryField"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return searchButton.getText().equals(Utils.translate(basicKey)) && axiomInput.exists() && axiomInput.isDisplayed();
+    }
+
+    public Search<T> assertAdvancedSearchIsSelected() {
+        assertion.assertTrue(isAdvancedSearch(), "Advanced search should be selected.");
+        return Search.this;
+    }
+
+    private Search<T> selectSearchMode(String searchMode) {
+        getParentElement()
+                .$x(".//span[@data-s-id='searchButtonLabel' and contains(text(), '" + searchMode + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return Search.this;
     }
 
     private void clickDroDownForSearchMode() {
@@ -131,13 +151,35 @@ public class Search<T> extends Component<T> {
         dropDownButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
     }
 
-    public InputBox<Search<T>> byFullText() {
+    public Search<T> fullText() {
+        return fullText("");
+    }
+
+    public Search<T> fullText(String valueToSearch) {
         selectSearchType("SearchBoxModeType.FULLTEXT");
 
         // we assume fulltext is enabled in systemconfig, else error is thrown here:
         SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new InputBox<> (this, fullTextField);
+        if (StringUtils.isNotEmpty(valueToSearch)) {
+            fullTextField.setValue(valueToSearch);
+        }
+        return Search.this;
     }
+
+    public Search<T> advanced() {
+        return advanced("");
+    }
+
+    public Search<T> advanced(String valueToSearch) {
+        selectSearchType("SearchBoxModeType.AXIOM_QUERY");
+
+        if (StringUtils.isNotEmpty(valueToSearch)) {
+            SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "axiomQueryField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            fullTextField.setValue(valueToSearch);
+        }
+        return Search.this;
+    }
+
 
     private void selectSearchType(String resourceKey) {
         clickDroDownForSearchMode();

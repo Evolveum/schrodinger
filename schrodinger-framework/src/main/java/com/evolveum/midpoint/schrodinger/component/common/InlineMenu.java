@@ -22,7 +22,6 @@ import java.util.Objects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -113,7 +112,7 @@ public class InlineMenu<T> extends Component<T> {
         getParentElement().$x(".//button[@data-s-id='buttonContainer']")
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-        String itemKeyTranslated = Utils.getPropertyString(itemKey);
+        String itemKeyTranslated = Utils.translate(itemKey);
         SelenideElement menuItemElement = getParentElement()
                 .$x(".//a[@data-s-id='menuItemLink' and contains (text(), '" + itemKeyTranslated + "')]");
         if (menuItemElement.exists() && menuItemElement.isDisplayed()) {

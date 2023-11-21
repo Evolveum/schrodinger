@@ -59,7 +59,7 @@ public class ResourceDetailsPanel<T> extends Component<T> {
     }
 
     private SelenideElement getCapabilityButton(String title) {
-        String titleTranslated = Utils.getPropertyString(title);
+        String titleTranslated = Utils.translate(title);
         ElementsCollection buttons = $$x(".//a[@data-s-id='capabilityButton']");
         ElementsCollection.SelenideElementIterable it = buttons.asFixedIterable();
         return it.stream().filter(b -> b.getText().equals(titleTranslated))

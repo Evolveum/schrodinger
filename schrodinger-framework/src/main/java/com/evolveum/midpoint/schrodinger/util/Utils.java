@@ -46,7 +46,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -263,7 +262,7 @@ public class Utils {
         if (!notifications.contains(bodyTag)) {
             return "";
         }
-        String body = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.indexOf(Utils.getPropertyString("PageBase.nonActiveSubscriptionMessage")));
+        String body = notification.substring(notification.indexOf(bodyTag) + bodyTag.length(), notification.indexOf(Utils.translate("PageBase.nonActiveSubscriptionMessage")));
         return body;
     }
 
@@ -320,11 +319,11 @@ public class Utils {
         });
     }
 
-    public static String getPropertyString(String key) {
-        return getPropertyString(key, null);
+    public static String translate(String key) {
+        return translate(key, null);
     }
 
-    public static String getPropertyString(String key, String defaultValue) {
+    public static String translate(String key, String defaultValue) {
         String lang = System.getProperty("locale");
         if (StringUtils.isEmpty(lang)) {
             lang = "en";
@@ -392,7 +391,7 @@ public class Utils {
      * @return
      */
     public static SelenideElement findTileElementByTitle(String title) {
-        String translateTitle = getPropertyString(title);
+        String translateTitle = translate(title);
         ElementsCollection tiles = $$x(".//div[@data-s-id='tile']");
         return tiles.findBy(Condition.text(translateTitle));
     }

@@ -16,11 +16,9 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -36,7 +34,7 @@ public class ObjectTypeManagerPanel<T> extends Component<T> {
 
     public ObjectTypeBasicInformationWizardStep<ObjectTypeManagerPanel<T>> addObjectType() {
         String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
-        String titleTranslated = Utils.getPropertyString(addNewObjectTypeKey);
+        String titleTranslated = Utils.translate(addNewObjectTypeKey);
         $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();

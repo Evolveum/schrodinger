@@ -17,7 +17,6 @@
 package com.evolveum.midpoint.schrodinger.component.common;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -27,8 +26,6 @@ import org.openqa.selenium.By;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
-import static com.codeborne.selenide.Selectors.byText;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -40,7 +37,7 @@ public class TabPanel<T> extends Component<T> {
     }
 
     public SelenideElement clickTab(String resourceKey) {
-        String translatedLabel = Utils.getPropertyString(resourceKey);
+        String translatedLabel = Utils.translate(resourceKey);
         SelenideElement link = getParentElement()
                 .$x(".//a[@data-s-id='link' and contains(text(), '" + translatedLabel + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);

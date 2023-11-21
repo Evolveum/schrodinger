@@ -550,7 +550,7 @@ public class BasicPage {
 
         SelenideElement menuItem = $(Schrodinger.byDataResourceKey(menuItemKey));
         if (!menuItem.exists()) {
-            menuItem = $(Schrodinger.byDataResourceKey(Utils.getPropertyString(menuItemKey)));
+            menuItem = $(Schrodinger.byDataResourceKey(Utils.translate(menuItemKey)));
         }
         Utils.scrollToElement(menuItem);
         return menuItem.parent();

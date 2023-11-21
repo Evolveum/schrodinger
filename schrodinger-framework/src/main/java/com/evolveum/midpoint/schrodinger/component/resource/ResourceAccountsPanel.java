@@ -21,11 +21,9 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -189,7 +187,7 @@ public class ResourceAccountsPanel<T> extends Component<T> {
     }
 
     private void clickButton(String title) {
-        String translatedTitle = Utils.getPropertyString(title);
+        String translatedTitle = Utils.translate(title);
         SelenideElement buttonsContainer = $(Schrodinger.byDataId("configuration"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         buttonsContainer.click();

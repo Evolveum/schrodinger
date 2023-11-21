@@ -265,7 +265,7 @@ public class Table<T> extends Component<T> {
     }
 
     public SelenideElement getToolbarButtonByTitleKey(String titleKey){
-        String title = Utils.getPropertyString(titleKey);
+        String title = Utils.translate(titleKey);
         return getToolbarButtonByTitle(title);
     }
 

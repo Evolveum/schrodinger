@@ -46,7 +46,7 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
     }
 
     public T saveSynchronizationSettings() {
-        String titleTranslated = Utils.getPropertyString("SynchronizationReactionTableWizardPanel.saveButton");
+        String titleTranslated = Utils.translate("SynchronizationReactionTableWizardPanel.saveButton");
         $x(".//a[@title=\"" + titleTranslated + "\"]").click();
         Utils.waitForAjaxCallFinish();
         return getParent();

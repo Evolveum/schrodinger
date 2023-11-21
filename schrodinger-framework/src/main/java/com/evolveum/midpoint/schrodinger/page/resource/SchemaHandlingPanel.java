@@ -34,7 +34,7 @@ public class SchemaHandlingPanel extends Component<ResourcePage> {
 
     public ObjectTypeBasicInformationWizardStep addNewObjectType() {
         String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
-        String titleTranslated = Utils.getPropertyString(addNewObjectTypeKey);
+        String titleTranslated = Utils.translate(addNewObjectTypeKey);
         $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
