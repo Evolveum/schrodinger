@@ -105,8 +105,6 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                .assertShoppingCartIsEmpty()
                .table()
                .addAll()
-               .and()
-               .assertShoppingCartIsNotEmpty()
-               .assertShoppingCartCountEquals("5");
+               .assertShoppingCartCountEqualsTableItemsCount();
     }
 }
