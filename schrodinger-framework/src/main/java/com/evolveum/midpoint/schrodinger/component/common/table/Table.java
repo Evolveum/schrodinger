@@ -86,7 +86,7 @@ public class Table<T> extends Component<T> {
                 continue;
             }
 
-            if (Objects.equals(label, value)) {
+            if (StringUtils.equalsIgnoreCase(label, value)) {
                 break;
             }
             index++;
@@ -146,7 +146,7 @@ public class Table<T> extends Component<T> {
             }
             value = value.trim();
 
-            if (Objects.equals(rowValue, value)) {
+            if (StringUtils.equalsIgnoreCase(rowValue, value)) {
                 return new TableRow(this, row);
             }
         }
@@ -163,7 +163,7 @@ public class Table<T> extends Component<T> {
             }
             value = value.trim();
 
-            if (Objects.equals(rowValue, value)) {
+            if (StringUtils.equalsIgnoreCase(rowValue, value)) {
                 result.add(new TableRow<>(this, row));
             }
         }
