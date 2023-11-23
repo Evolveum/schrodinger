@@ -301,12 +301,32 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.search().assertDoesntExistSearchItem("Indirect2");
     }
 
+    /**
+     * covers MID-9324 (Request access: Cannot change search mode)
+     */
     @Test
     public void test014OselectAdvancedSearchOnRoleCatalogPage() {
         basicPage
                 .requestAccess()
                 .selectMyself()
                 .selectDefaultRelation()
+                .selectAllOrganizationsMenu()
+                .search()
+                .advanced()
+                .assertAdvancedSearchIsSelected();
+
+    }
+
+    /**
+     * covers MID-9324 (Request access: Cannot change search mode)
+     */
+    @Test
+    public void test015OselectAdvancedSearchOnRoleCatalogTableView() {
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .selectTableView()
                 .selectAllOrganizationsMenu()
                 .search()
                 .advanced()

@@ -21,8 +21,8 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
-import com.evolveum.midpoint.schrodinger.component.resource.ResourceShadowTable;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -89,6 +89,30 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
             Utils.waitForAjaxCallFinish();
         }
         return RoleCatalogStepPanel.this;
+    }
+
+    public Table<RoleCatalogStepPanel> table() {
+        return new Table<>(RoleCatalogStepPanel.this, $(Schrodinger.byDataId("tilesTable")));
+    }
+
+    public RoleCatalogStepPanel selectTableView() {
+        clickHeaderToggleButton("fa-table-list");
+        return RoleCatalogStepPanel.this;
+    }
+
+    public RoleCatalogStepPanel selectTilesView() {
+        clickHeaderToggleButton("fa-table-cells");
+        return RoleCatalogStepPanel.this;
+    }
+
+    private void clickHeaderToggleButton(String iconClass) {
+        SelenideElement item = $(Schrodinger.byDataId("div", "viewToggle"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement iconElement = item.$x(".//i[contains(@class, '" + iconClass + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        iconElement.click();
+        iconElement.parent().shouldHave(Condition.attribute("aria-pressed", "true"),
+                MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     @Override
