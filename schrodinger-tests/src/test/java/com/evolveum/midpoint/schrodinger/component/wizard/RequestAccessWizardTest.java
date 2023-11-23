@@ -32,6 +32,12 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES);
     }
+
+    @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return true;
+    }
+
     @Test
     public void test0010requestEndUserRoleForLoggedInUser() {
         basicPage
@@ -70,7 +76,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     }
 
    @Test
-    public void test003requestRolesOfTeammate() {
+   public void test003requestRolesOfTeammate() {
        basicPage
                .requestAccess()
                .selectGroup("ra_wizard_user_1")
@@ -84,5 +90,23 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
         showUser("ra_wizard_user_1")
                 .selectAssignmentsPanel()
                 .assertAssignmentsWithRelationExist("Role", "Manager", "ra_role_to_assign");
+    }
+
+    /**
+     * Covers MID-9323
+     */
+    @Test
+   public void test004selectAllItemsOnTableViewPanel() {
+       basicPage
+               .requestAccess()
+               .selectMyself()
+               .selectDefaultRelation()
+               .selectTableView()
+               .assertShoppingCartIsEmpty()
+               .table()
+               .addAll()
+               .and()
+               .assertShoppingCartIsNotEmpty()
+               .assertShoppingCartCountEquals("5");
     }
 }
