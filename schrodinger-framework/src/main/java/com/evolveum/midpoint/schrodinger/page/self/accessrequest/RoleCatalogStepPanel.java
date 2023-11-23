@@ -27,6 +27,7 @@ import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
 import java.util.Arrays;
@@ -91,8 +92,8 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return RoleCatalogStepPanel.this;
     }
 
-    public Table<RoleCatalogStepPanel> table() {
-        return new Table<>(RoleCatalogStepPanel.this, $(Schrodinger.byDataId("tilesTable")));
+    public RoleCatalogItemsTable<RoleCatalogStepPanel> table() {
+        return new RoleCatalogItemsTable<>(RoleCatalogStepPanel.this);
     }
 
     public RoleCatalogStepPanel selectTableView() {
@@ -113,6 +114,31 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         iconElement.click();
         iconElement.parent().shouldHave(Condition.attribute("aria-pressed", "true"),
                 MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    public RoleCatalogStepPanel assertShoppingCartIsEmpty() {
+        SelenideElement shoppingCart = $(Schrodinger.byDataId("mainHeader"))
+                .$x(".//span[@data-s-id='cartCount']");
+        assertion.assertTrue(!shoppingCart.exists() || !shoppingCart.isDisplayed() ||
+                StringUtils.isEmpty(shoppingCart.getText()), "Shopping cart should be empty.");
+        return RoleCatalogStepPanel.this;
+    }
+
+    public RoleCatalogStepPanel assertShoppingCartIsNotEmpty() {
+        SelenideElement shoppingCart = $(Schrodinger.byDataId("mainHeader"))
+                .$x(".//span[@data-s-id='cartCount']");
+        assertion.assertTrue(shoppingCart.exists() && shoppingCart.isDisplayed() &&
+                StringUtils.isNotEmpty(shoppingCart.getText()), "Shopping cart should not be empty.");
+        return RoleCatalogStepPanel.this;
+    }
+
+    public RoleCatalogStepPanel assertShoppingCartCountEquals(String expectedValue) {
+        SelenideElement shoppingCart = $(Schrodinger.byDataId("mainHeader"))
+                .$x(".//span[@data-s-id='cartCount']");
+        assertion.assertTrue(shoppingCart.exists() && shoppingCart.isDisplayed() &&
+                StringUtils.equals(expectedValue, shoppingCart.getText()),
+                "Shopping cart items count doesn't equal to expected value (" + expectedValue + ")");
+        return RoleCatalogStepPanel.this;
     }
 
     @Override
