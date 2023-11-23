@@ -17,10 +17,12 @@
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -45,4 +47,15 @@ public class RoleCatalogItemsTable<T> extends Table<T> {
         Utils.waitForAjaxCallFinish();
         return RoleCatalogItemsTable.this;
     }
+
+    public RoleCatalogItemsTable<T> assertShoppingCartCountEqualsTableItemsCount() {
+        SelenideElement shoppingCart = $(Schrodinger.byDataId("mainHeader"))
+                .$x(".//span[@data-s-id='cartCount']");
+        String rowsCount = String.valueOf(rowsCount());
+        assertion.assertTrue(shoppingCart.exists() && shoppingCart.isDisplayed() &&
+                        StringUtils.equals(rowsCount, shoppingCart.getText()),
+                "Shopping cart items count doesn't equal to expected value (" + rowsCount + ")");
+        return RoleCatalogItemsTable.this;
+    }
+
 }
