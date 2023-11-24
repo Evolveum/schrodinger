@@ -45,7 +45,7 @@ public class AuditLogViewerPageTest extends AbstractSchrodingerTest {
                     .table()
                         .search()
                             .referencePanelByItemName("Target", true)
-                            .inputRefName("auditLogViewer", "auditLogViewerTestUser")
+                            .inputRefName("auditLogViewer", "auditLogViewerTestUser1")
                             .updateSearch()
                         .and()
                     .clickByRowColumnNumber(0, 0);

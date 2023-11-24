@@ -6,6 +6,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.screenshot;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -27,7 +28,8 @@ public class MemberSearch<S> extends Search<AssignmentHolderObjectListTable<S, A
     }
 
     public MemberSearch<S> byRelation(String relation) {
-        dropDownPanelByItemName("Relation").inputDropDownValue(relation);
+        String translatedRelation = Utils.translate(relation);
+        dropDownPanelByItemName("Relation").inputDropDownValue(translatedRelation);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
