@@ -58,4 +58,5 @@ public class ConstantsUtil {
 
     public static final String BOXED_TABLE_CSS = "card card-outline";
     public static final String BOXED_TABLE_CSS_SELECTOR = ".card.card-outline";
+    public static final String MEMBER_RELATION_KEY = "RelationTypes.MEMBER";
 }

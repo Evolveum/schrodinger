@@ -305,7 +305,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      * covers MID-9324 (Request access: Cannot change search mode)
      */
     @Test
-    public void test014OselectAdvancedSearchOnRoleCatalogPage() {
+    public void test014selectAdvancedSearchOnRoleCatalogPage() {
+        resetToDefaultAndRelogin();
         basicPage
                 .requestAccess()
                 .selectMyself()
@@ -321,7 +322,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      * covers MID-9324 (Request access: Cannot change search mode)
      */
     @Test
-    public void test015OselectAdvancedSearchOnRoleCatalogTableView() {
+    public void test015selectAdvancedSearchOnRoleCatalogTableView() {
         basicPage
                 .requestAccess()
                 .selectMyself()

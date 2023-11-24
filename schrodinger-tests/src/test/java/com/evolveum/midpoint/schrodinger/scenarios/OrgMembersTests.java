@@ -41,6 +41,8 @@ import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
+import static com.evolveum.midpoint.schrodinger.util.ConstantsUtil.MEMBER_RELATION_KEY;
+
 /**
  * Created by honchar.
  */
@@ -97,7 +99,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                     .getMemberPanel()
                         .table()
                             .search()
-                            .byRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
+                            .byRelation(MEMBER_RELATION_KEY)
                         .and()
                         .and()
                     .assignMember()
@@ -109,7 +111,6 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .and()
                         .selectCheckboxByName(USER_NAME)
                     .and()
-//                    .setRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
                     .clickAdd();
         orgTreePage = basicPage.orgStructure();
         orgTreePage
@@ -126,7 +127,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .getMemberPanel()
                             .table()
                                 .search()
-                                .byRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
+                                .byRelation(MEMBER_RELATION_KEY)
                                 .and()
                             .and()
                         .assignMember()
@@ -138,7 +139,6 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .and()
                             .selectCheckboxByName("UniqueNameUserForMemberTest")
                         .and()
-//                        .setRelation(SchemaConstants.ORG_DEFAULT.getLocalPart())
                         .clickAdd();
 
         AssignmentHolderObjectListTable<MemberPanel<OrgRootTab>, AssignmentHolderDetailsPage> membersTable =
