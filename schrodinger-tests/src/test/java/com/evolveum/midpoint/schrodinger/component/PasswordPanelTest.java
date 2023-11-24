@@ -55,7 +55,9 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
 
         FormLoginPage login = new FormLoginPage();
         login.login("PasswordPanelTest", "password")
-                .assertUserMenuDoesntExist();
+                .assertUserMenuDoesntExist()
+                        .feedback()
+                                .assertError();
 
         login.login("PasswordPanelTest", "password ")
                 .assertUserMenuExist();
