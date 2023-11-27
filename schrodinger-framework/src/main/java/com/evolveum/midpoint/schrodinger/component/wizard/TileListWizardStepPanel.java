@@ -44,7 +44,13 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
 
     public WizardStepPanel<T> selectTileByNumber(int tileNumber, boolean clickNextButton) {
         Utils.waitForAjaxCallFinish();
-        findTileByNumber(tileNumber).click();
+        SelenideElement tile = findTileByNumber(tileNumber);
+        String tileCss = tile.getAttribute("class");
+        if (tileCss == null || !tileCss.contains("active")) {
+            tile.click();
+            tile.shouldHave(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
+
         if (clickNextButton) {
             clickNext();
         }
@@ -58,7 +64,13 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
     }
 
     public WizardStepPanel<T> selectTileByLabel(String tileLabel) {
-        findTileByLabel(tileLabel).click();
+        SelenideElement tile = findTileByLabel(tileLabel);
+        String tileCss = tile.getAttribute("class");
+        if (tileCss != null && tileCss.contains("active")) {
+            return this;
+        }
+        tile.click();
+        tile.shouldHave(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         Utils.waitForAjaxCallFinish();
         return this;
     }
