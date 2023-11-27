@@ -155,7 +155,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         table()
                 .search()
                     .referencePanelByItemName("Resource")
-                        .inputRefName(resourceName, resourceName)
+                        .inputRefName(resourceName)
+                        .confirmButtonClick()
                     .updateSearch();
         ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
@@ -170,7 +171,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         table()
                 .search()
                     .referencePanelByItemName("Resource")
-                        .inputRefName(resourceName, resourceName)
+                        .inputRefName(resourceName)
+                        .confirmButtonClick()
                     .updateSearch();
         Selenide.screenshot("afterSearch");
         ProjectionFormPanelWithActionButtons form = table()
@@ -189,7 +191,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         table()
                 .search()
                  .referencePanelByItemName("Resource")
-                    .inputRefName(resourceName, resourceName)
+                    .inputRefName(resourceName)
+                    .confirmButtonClick()
                     .updateSearch()
                     .and()
                 .assertTableObjectsCountEquals(0);
@@ -200,7 +203,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         table()
                 .search()
                 .referencePanelByItemName("Resource")
-                .inputRefName(resourceName, resourceName)
+                .inputRefName(resourceName)
+                .confirmButtonClick()
                 .updateSearch();
         ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
@@ -213,7 +217,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         table()
                 .search()
                 .referencePanelByItemName("Resource")
-                .inputRefName(resourceName, resourceName)
+                .inputRefName(resourceName)
+                .confirmButtonClick()
                 .updateSearch();
         ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);

@@ -196,6 +196,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                         .search()
                             .referencePanelByItemName("Resource")
                                 .inputRefOid("10000000-9999-9999-0000-a000ff000003")
+                                .confirmButtonClick()
                             .updateSearch()
                         .and()
                         .selectAll()

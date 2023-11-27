@@ -101,6 +101,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         table.search()
                 .referencePanelByItemName("Resource")
                     .inputRefOid("10000000-9999-9999-0000-a000ff000002")
+                    .confirmButtonClick()
                     .updateSearch()
                 .and()
              .assertTableContainsText("jkirk");
@@ -109,6 +110,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
        table.search()
                 .referencePanelByItemName("Resource")
                     .inputRefOid("10000000-9999-9999-0000-a000ff000003")
+                    .confirmButtonClick()
                     .updateSearch()
                 .and()
             .assertTableContainsText("jkirk");
@@ -116,6 +118,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         table.search()
                 .referencePanelByItemName("Resource")
                     .inputRefOid("10000000-9999-9999-0000-a000ff000004")
+                    .confirmButtonClick()
                     .updateSearch()
                 .and()
             .assertTableContainsText("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");

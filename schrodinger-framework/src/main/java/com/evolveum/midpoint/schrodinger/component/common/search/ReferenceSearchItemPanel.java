@@ -38,83 +38,68 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         super(parent, parentElement);
     }
 
-    public T inputRefOid(String oid) {
+    public ReferenceSearchItemPanel<T> inputRefOid(String oid) {
         if (getParentElement() == null){
-            return getParent();
+            return ReferenceSearchItemPanel.this;
         }
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
-//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         if(!oid.equals(inputField.getValue())) {
             inputField.setValue(oid);
         }
-        SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
-        confirmButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        confirmButton.shouldBe(Condition.disappear, MidPoint.TIMEOUT_MEDIUM_6_S);
-        return getParent();
+        return ReferenceSearchItemPanel.this;
     }
 
-    public T inputRefType(String type) {
+    public ReferenceSearchItemPanel<T> inputRefType(String type) {
         if (getParentElement() == null){
-            return getParent();
+            return ReferenceSearchItemPanel.this;
         }
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
-//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Type:")).parent()
                 .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         inputField.selectOptionContainingText(type);
-        SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
-        confirmButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        confirmButton.shouldBe(Condition.disappear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return getParent();
+        return ReferenceSearchItemPanel.this;
     }
 
-    public T inputRefRelation(String relation) {
+    public ReferenceSearchItemPanel<T> inputRefRelation(String relation) {
         if (getParentElement() == null){
-            return getParent();
+            return ReferenceSearchItemPanel.this;
         }
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
-//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Relation:")).parent()
                 .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         inputField.selectOption(relation);
         inputField.shouldBe(Condition.text(relation), MidPoint.TIMEOUT_MEDIUM_6_S);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
-        SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
-        confirmButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        confirmButton.shouldBe(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return getParent();
+        return ReferenceSearchItemPanel.this;
     }
 
-    public T inputRefName(String referenceObjNamePartial, String referenceObjNameFull) {
+    public ReferenceSearchItemPanel<T> inputRefName(String referenceObjName) {
         if (getParentElement() == null){
-            return getParent();
+            return ReferenceSearchItemPanel.this;
         }
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-//        getParentElement().parent().$x(".//a[@" + Schrodinger.DATA_S_ID + "='editButton']")
-//                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Name:")).parent()
                 .$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        inputField.setValue(referenceObjNameFull);
+        inputField.setValue(referenceObjName);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
-//        $(By.className("wicket-aa-container")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
-//                .$(byText(referenceObjNameFull)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        return ReferenceSearchItemPanel.this;
+    }
+
+    public T confirmButtonClick() {
         SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
         confirmButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-//        confirmButton.shouldBe(Condition.hidden, MidPoint.TIMEOUT_DEFAULT_2_S);
         return getParent();
+
     }
 
     public boolean matchRefSearchFieldValue(String value) {

@@ -343,7 +343,7 @@ public class BasicPage {
     }
 
     public AuditLogViewerPage auditLogViewer() {
-        clickAdministrationMenu("PageAdmin.menu.top.reports", "PageAuditLogViewer.menuName");
+        clickAdministrationMenu("", "PageAuditLogViewer.menuName");
         return new AuditLogViewerPage();
     }
 

@@ -173,6 +173,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         table.assertTableObjectsCountNotEquals(1);
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefOid("959870f4-5b63-11ed-9b6a-0242ac120002")
+                .confirmButtonClick()
                 .updateSearch();
         table.assertTableObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByOid");
@@ -186,6 +187,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 //        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefType("Organization")
+                .confirmButtonClick()
                 .updateSearch();
         table.assertTableObjectsCountEquals(2);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByType");
@@ -199,6 +201,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 //        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .inputRefRelation("Manager")
+                .confirmButtonClick()
                 .updateSearch();
         table.assertTableObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByRelation");
@@ -209,9 +212,9 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         logoutLoginToRefreshSearch();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
-//        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
-                .inputRefName("roleMembershipByName", "roleMembershipByNameSearch")
+                .inputRefName("roleMembershipByNameSearch")
+                .confirmButtonClick()
                 .updateSearch();
         table
                 .assertTableObjectsCountEquals(1)
