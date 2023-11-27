@@ -77,7 +77,9 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
         if (propertyRow != null) {
             ReferenceSearchItemPanel<SearchPropertiesConfigPanel> refConfigPanel =
                     new ReferenceSearchItemPanel<>(this, propertyRow.getColumnCellElementByColumnName("Value"));
-            refConfigPanel.inputRefOid(objectReferenceOid);
+            refConfigPanel
+                    .inputRefOid(objectReferenceOid)
+                    .confirmButtonClick();
         }
         return this;
     }
