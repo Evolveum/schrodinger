@@ -82,7 +82,7 @@
         <h2.version>1.4.193</h2.version>
         <guava.version>31.1-jre</guava.version>
         <midpoint.version>4.8.1-SNAPSHOT</midpoint.version>
-        <midpoint.client.version>4.8-SNAPSHOT</midpoint.client.version>
+        <midpoint.client.version>4.9-SNAPSHOT</midpoint.client.version>
         <connid.version>1.5.1.10</connid.version>
     </properties>
 
