@@ -832,6 +832,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     protected void resetToDefaultAndRelogin() {
         resetToDefault();
+
+        basicPage.loggedUser().logoutIfUserIsLogin();
+
         FormLoginPage login = midPoint.formLogin();
         basicPage = login.loginIfUserIsNotLog(username, password);
     }

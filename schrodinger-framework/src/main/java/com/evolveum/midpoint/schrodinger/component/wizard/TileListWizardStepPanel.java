@@ -48,7 +48,10 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
         String tileCss = tile.getAttribute("class");
         if (tileCss == null || !tileCss.contains("active")) {
             tile.click();
-            tile.shouldHave(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            Utils.waitForAjaxCallFinish();
+            if (tile.exists() && tile.isDisplayed()) {
+                tile.shouldHave(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+            }
         }
 
         if (clickNextButton) {
