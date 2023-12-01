@@ -24,10 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.openqa.selenium.By;
-import org.testng.Assert;
 
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -38,75 +35,20 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
         super(parent, parentElement);
     }
 
-    public ReferenceSearchItemPanel<T> inputRefOid(String oid) {
-        if (getParentElement() == null){
-            return ReferenceSearchItemPanel.this;
-        }
+    public ReferenceSearchItemPopup propertySettings() {
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        if(!oid.equals(inputField.getValue())) {
-            inputField.setValue(oid);
-        }
-        return ReferenceSearchItemPanel.this;
-    }
-
-    public ReferenceSearchItemPanel<T> inputRefType(String type) {
-        if (getParentElement() == null){
-            return ReferenceSearchItemPanel.this;
-        }
-        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Type:")).parent()
-                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        inputField.selectOptionContainingText(type);
-        return ReferenceSearchItemPanel.this;
-    }
-
-    public ReferenceSearchItemPanel<T> inputRefRelation(String relation) {
-        if (getParentElement() == null){
-            return ReferenceSearchItemPanel.this;
-        }
-        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Relation:")).parent()
-                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        inputField.selectOption(relation);
-        inputField.shouldBe(Condition.text(relation), MidPoint.TIMEOUT_MEDIUM_6_S);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
-        return ReferenceSearchItemPanel.this;
-    }
-
-    public ReferenceSearchItemPanel<T> inputRefName(String referenceObjName) {
-        if (getParentElement() == null){
-            return ReferenceSearchItemPanel.this;
-        }
-        getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        SelenideElement inputField = getParentElement().parent().$(Schrodinger.byElementValue("label", "Name:")).parent()
-                .$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
-        inputField.setValue(referenceObjName);
-        Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
-        return ReferenceSearchItemPanel.this;
-    }
-
-    public T confirmButtonClick() {
-        SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
-        confirmButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-        return getParent();
-
+        SelenideElement popover = getParentElement().$x(".//div[@data-s-id='popover']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        return new ReferenceSearchItemPopup(popover);
     }
 
     public boolean matchRefSearchFieldValue(String value) {
         if (getParentElement() == null || value == null){
             return false;
         }
-        SelenideElement inputField = getParentElement().parent().$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
+        SelenideElement inputField = getParentElement().$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return value.equals(inputField.getValue());
 
@@ -118,5 +60,58 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
 
     }
 
+    public class ReferenceSearchItemPopup extends Component<ReferenceSearchItemPanel<T>> {
+
+        public ReferenceSearchItemPopup(SelenideElement popupElement) {
+            super(ReferenceSearchItemPanel.this, popupElement);
+        }
+
+        public ReferenceSearchItemPopup inputRefOid(String oid) {
+            SelenideElement inputField = getParentElement().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            if(!oid.equals(inputField.getValue())) {
+                inputField.setValue(oid);
+            }
+            Utils.waitForAjaxCallFinish();
+            return ReferenceSearchItemPopup.this;
+        }
+
+        public ReferenceSearchItemPopup inputRefType(String type) {
+            SelenideElement inputField = getParentElement().$(Schrodinger.byElementValue("label", "Type:")).parent()
+                    .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            inputField.selectOptionContainingText(type);
+            return ReferenceSearchItemPopup.this;
+        }
+
+        public ReferenceSearchItemPopup inputRefRelation(String relation) {
+            SelenideElement inputField = getParentElement().$(Schrodinger.byElementValue("label", "Relation:")).parent()
+                    .$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            inputField.selectOption(relation);
+            inputField.shouldBe(Condition.text(relation), MidPoint.TIMEOUT_MEDIUM_6_S);
+            Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
+            return ReferenceSearchItemPopup.this;
+        }
+
+        public ReferenceSearchItemPopup inputRefName(String referenceObjName) {
+            SelenideElement inputField = getParentElement().$(Schrodinger.byElementValue("label", "Name:")).parent()
+                    .$x(".//input[@" + Schrodinger.DATA_S_ID + "='input']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            inputField.setValue(referenceObjName);
+            Utils.waitForAjaxCallFinish();
+            Selenide.sleep(4000);
+            getParentElement().$x(".//h3").click();
+            inputField.pressEscape();
+            return ReferenceSearchItemPopup.this;
+        }
+
+        public ReferenceSearchItemPanel<T> applyButtonClick() {
+            SelenideElement confirmButton = getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='confirmButton']");
+            confirmButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+            Utils.waitForAjaxCallFinish();
+            return getParent();
+        }
+    }
 
 }

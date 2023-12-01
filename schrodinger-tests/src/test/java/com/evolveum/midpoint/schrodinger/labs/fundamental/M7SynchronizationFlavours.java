@@ -242,8 +242,10 @@ public class M7SynchronizationFlavours extends AbstractLabTest {
                     .search()
                         .resetBasicSearch()
                         .referencePanelByItemName("Resource")
+                        .propertySettings()
                             .inputRefOid(resourceOid)
-                            .confirmButtonClick()
+                            .applyButtonClick()
+                            .and()
                             .updateSearch()
                         .and()
                     .assertTableContainsText(accountName);
