@@ -24,22 +24,22 @@ public class AuditLogViewerPageTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100returnBackToAuditLogDetails() {
-//        createUser("auditLogViewerTestUser");
-//        basicPage
-//                .listUsers()
-//                    .table()
-//                        .search()
-//                            .byName()
-//                            .inputValue("auditLogViewerTestUser")
-//                            .updateSearch()
-//                        .and()
-//                    .clickByName("auditLogViewerTestUser")
-//                        .selectBasicPanel()
-//                            .form()
-//                                .changeAttributeValue("Name", "auditLogViewerTestUser", "auditLogViewerTestUser1")
-//                                .and()
-//                            .and()
-//                        .clickSave();
+        createUser("auditLogViewerTestUser");
+        basicPage
+                .listUsers()
+                    .table()
+                        .search()
+                            .byName()
+                            .inputValue("auditLogViewerTestUser")
+                            .updateSearch()
+                        .and()
+                    .clickByName("auditLogViewerTestUser")
+                        .selectBasicPanel()
+                            .form()
+                                .changeAttributeValue("Name", "auditLogViewerTestUser", "auditLogViewerTestUser1")
+                                .and()
+                            .and()
+                        .clickSave();
         AuditLogViewerDetailsPage detailsPage = basicPage
                 .auditLogViewer()
                     .table()
