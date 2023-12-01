@@ -172,8 +172,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 //        search.resetBasicSearch();
         table.assertTableObjectsCountNotEquals(1);
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
+                .propertySettings()
                 .inputRefOid("959870f4-5b63-11ed-9b6a-0242ac120002")
-                .confirmButtonClick()
+                .applyButtonClick()
+                .and()
                 .updateSearch();
         table.assertTableObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByOid");
@@ -186,8 +188,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
 //        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
+                .propertySettings()
                 .inputRefType("Organization")
-                .confirmButtonClick()
+                .applyButtonClick()
+                .and()
                 .updateSearch();
         table.assertTableObjectsCountEquals(2);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByType");
@@ -200,8 +204,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
 //        search.resetBasicSearch();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
+                .propertySettings()
                 .inputRefRelation("Manager")
-                .confirmButtonClick()
+                .applyButtonClick()
+                .and()
                 .updateSearch();
         table.assertTableObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByRelation");
@@ -213,8 +219,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
+                .propertySettings()
                 .inputRefName("roleMembershipByNameSearch")
-                .confirmButtonClick()
+                .applyButtonClick()
+                .and()
                 .updateSearch();
         table
                 .assertTableObjectsCountEquals(1)

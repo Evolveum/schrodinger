@@ -100,8 +100,10 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         Selenide.screenshot("kirk_user_projections");
         table.search()
                 .referencePanelByItemName("Resource")
+                .propertySettings()
                     .inputRefOid("10000000-9999-9999-0000-a000ff000002")
-                    .confirmButtonClick()
+                    .applyButtonClick()
+                .and()
                     .updateSearch()
                 .and()
              .assertTableContainsText("jkirk");
@@ -109,16 +111,20 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
 
        table.search()
                 .referencePanelByItemName("Resource")
+               .propertySettings()
                     .inputRefOid("10000000-9999-9999-0000-a000ff000003")
-                    .confirmButtonClick()
+                    .applyButtonClick()
+               .and()
                     .updateSearch()
                 .and()
             .assertTableContainsText("jkirk");
 
         table.search()
                 .referencePanelByItemName("Resource")
+                .propertySettings()
                     .inputRefOid("10000000-9999-9999-0000-a000ff000004")
-                    .confirmButtonClick()
+                    .applyButtonClick()
+                .and()
                     .updateSearch()
                 .and()
             .assertTableContainsText("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");

@@ -15,7 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.labs.fundamental;
 
-import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
@@ -195,8 +194,10 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                     .table()
                         .search()
                             .referencePanelByItemName("Resource")
+                            .propertySettings()
                                 .inputRefOid("10000000-9999-9999-0000-a000ff000003")
-                                .confirmButtonClick()
+                                .applyButtonClick()
+                            .and()
                             .updateSearch()
                         .and()
                         .selectAll()
