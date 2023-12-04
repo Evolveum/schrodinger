@@ -26,23 +26,43 @@ public class DiscoveryWizardStep extends PrismFormWizardStepPanel<ResourceWizard
         super(parent);
     }
 
+    /**
+     * for CSV resource configuration
+     */
     public DiscoveryWizardStep fieldDelimiter(String value) {
         getFormPanel().addAttributeValue("Field delimiter", value);
         return this;
     }
 
+    /**
+     * for CSV resource configuration
+     */
     public DiscoveryWizardStep userPasswordAttributeName(String value) {
         getFormPanel().addAttributeValue("User password attribute name", value);
         return this;
     }
 
+    /**
+     * for CSV resource configuration
+     */
     public DiscoveryWizardStep nameAttribute (String value) {
         getFormPanel().addAttributeValue("Name attribute", value);
         return this;
     }
 
+    /**
+     * for CSV resource configuration
+     */
     public DiscoveryWizardStep uniqueAttributeName (String value) {
         getFormPanel().addAttributeValue("Unique attribute name", value);
+        return this;
+    }
+
+    /**
+     * for LDAP resource configuration
+     */
+    public DiscoveryWizardStep baseContext (String value) {
+        getFormPanel().addAttributeValue("Base context", value);
         return this;
     }
 

@@ -16,6 +16,9 @@
 
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPreviewPanel;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardResultStep;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
 
@@ -23,8 +26,29 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
 
     @Test(groups = MODULE_4_GROUP)
     public void test00100createActiveDirectoryResourceFromTemplate() {
-        basicPage
-                .newResource();
-//                .copyFromTemplate("Training Active Directory Resource Template");
+        ResourceDataPreviewPanel<ResourceWizardResultStep> dataPreviewPanel = basicPage
+                .newResource()
+                .copyFromTemplate("Training Active Directory Resource Template")
+                .next()
+                .name("AD")
+                .description("ExAmPLE, Inc. AD resource")
+                .lifecycle("Proposed")
+                .next()
+                .host("ad")
+                .port("389")
+                .bindDN("cn=idm,ou=Administrators,dc=example,dc=com")
+                .bindPassword("secret")
+                .next()
+                .baseContext("dc=example,dc=com")
+                .next()
+                .createResource()
+                .previewResourceData();
+        //select inetOrgPerson  object class to display the existing account in your AD resource
+        Selenide.screenshot("M4ConnectingTargetSystem_resourceData");
+        dataPreviewPanel
+                .clickBack()
+                .goToResource();
+
+
     }
 }
