@@ -25,8 +25,43 @@ public class ConfigurationWizardStep extends PrismFormWizardStepPanel<ResourceWi
         super(parent);
     }
 
+    /**
+     * for CSV resource configuration
+     */
     public ConfigurationWizardStep filePath(String value) {
         getFormPanel().addAttributeValue("filePath", value);
+        return this;
+    }
+
+    /**
+     * should be used for LDAP resource configuration
+     */
+    public ConfigurationWizardStep host(String value) {
+        getFormPanel().addAttributeValue("Host", value);
+        return this;
+    }
+
+    /**
+     * for LDAP resource configuration
+     */
+    public ConfigurationWizardStep port(String value) {
+        getFormPanel().addAttributeValue("Port", value);
+        return this;
+    }
+
+    /**
+     * for LDAP resource configuration
+     */
+    public ConfigurationWizardStep bindDN(String value) {
+        getFormPanel().addAttributeValue("Bind DN", value);
+        return this;
+    }
+
+    /**
+     * for LDAP resource configuration
+     */
+    public ConfigurationWizardStep bindPassword(String value) {
+        getFormPanel().addAttributeValue("Bind password", value);
         return this;
     }
 
