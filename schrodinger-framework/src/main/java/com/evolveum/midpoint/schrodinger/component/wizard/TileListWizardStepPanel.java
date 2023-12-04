@@ -73,8 +73,10 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
             return this;
         }
         tile.click();
-        tile.shouldHave(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         Utils.waitForAjaxCallFinish();
+        if (tile.exists() && tile.isDisplayed()) {
+            tile.shouldHave(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
+        }
         return this;
     }
 

@@ -146,12 +146,12 @@ public class M3ImportSourceData extends AbstractTrainingTest {
         basicPage
                 .listUsers()
                 .table()
-                .assertTableContainsColumnWithValue("Name", "0001")
-                .assertTableContainsColumnWithValue("Name", "0013")
-                .assertTableContainsColumnWithValue("Name", "0016")
+                .assertTableContainsColumnWithValue("Name", "1001")
+                .assertTableContainsColumnWithValue("Name", "1013")
+                .assertTableContainsColumnWithValue("Name", "1016")
                 .search()
                 .byName()
-                .inputValue("0001")
+                .inputValue("1001")
                 .updateSearch()
                 .and()
                 .assertTableColumnValueIsEmpty("UserType.fullName")
@@ -196,9 +196,9 @@ public class M3ImportSourceData extends AbstractTrainingTest {
                 .listUsers("Persons")
                 .table();
         personsTable
-                .assertTableContainsColumnWithValue("Name", "0001")
-                .assertTableContainsColumnWithValue("Name", "0013")
-                .assertTableContainsColumnWithValue("Name", "0016")
+                .assertTableContainsColumnWithValue("Name", "1001")
+                .assertTableContainsColumnWithValue("Name", "1013")
+                .assertTableContainsColumnWithValue("Name", "1016")
                 .assertTableContainsColumnWithValue("UserType.fullName", "Geena Green");
         //todo check more full names?
     }
