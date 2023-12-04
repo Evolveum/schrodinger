@@ -15,6 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.DiscoveryWizardStep;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
@@ -39,7 +41,7 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
     public void test00100createHrResource() {
         //todo should the test do user's export in HR application?
         String csvFilePath = hrCsvFile.getAbsolutePath();
-        basicPage
+        DiscoveryWizardStep step = basicPage
                 .newResource()
                 .fromScratch()
                 .selectCsvConnector()
@@ -47,7 +49,9 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
                 .lifecycle("Proposed")
                 .next()
                 .filePath(csvFilePath)
-                .next()
+                .next();
+        Selenide.screenshot("test00100createHrResource_DiscoveryWizardStep");
+        step
                 .uniqueAttributeName("empnum")
                 .next()
                 .createResource()

@@ -124,13 +124,6 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00110threeCorrelatorsDuplicateUserIsFound() {
-        midPoint.formLogin().login("administrator", "5ecr3t");
-        basicPage.listUsers().table();
-        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound_usersTable");
-        UserPage user = basicPage.listUsers().table().clickByName("caleb.james");
-        Utils.waitForAjaxCallFinish();
-        Selenide.screenshot("test00100threeCorrelatorsCalebJamesIsFound_userData");
-        basicPage.loggedUser().logout();
         midPoint.formLogin()
                 .identityRecovery()
                 .selectArchetype("Applicant")

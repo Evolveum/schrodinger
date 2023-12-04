@@ -54,7 +54,6 @@ public class CorrelationPage extends BasicPage {
     }
 
     public CorrelationPage send() {
-        Selenide.screenshot("IdentityRecoveryBeforeSend" + System.currentTimeMillis());
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
     }
