@@ -156,8 +156,8 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
                 .clickSave();
     }
 
-    @Override
-    protected boolean resetToDefaultBeforeTests() {
-        return true;
-    }
+//    @Override
+//    protected boolean resetToDefaultBeforeTests() {
+//        return true;
+//    }
 }
