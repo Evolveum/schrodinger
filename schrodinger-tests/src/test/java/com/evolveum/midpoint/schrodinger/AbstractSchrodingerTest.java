@@ -244,6 +244,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
         FormLoginPage login = midPoint.formLogin();
         String locale = getConfigurationPropertyValue("locale");
+        LOG.info("Logging to midpoint with credentials: " + username + "-" + password);
         basicPage = login.loginIfUserIsNotLog(username, password, locale);
 
         if (resetToDefaultBeforeTests()) {

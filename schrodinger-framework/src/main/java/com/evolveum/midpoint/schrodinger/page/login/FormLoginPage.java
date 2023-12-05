@@ -130,6 +130,7 @@ public class FormLoginPage extends LoginPage {
         }
         $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
         $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
+        Utils.waitForAjaxCallFinish();
         $x(".//button[@type='submit']").click();
         Utils.waitForAjaxCallFinish();
         return new BasicPage();
