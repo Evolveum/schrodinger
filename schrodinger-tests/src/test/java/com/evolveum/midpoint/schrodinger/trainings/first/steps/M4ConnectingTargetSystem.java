@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
 public class M4ConnectingTargetSystem extends AbstractTrainingTest {
 
     @Test(groups = MODULE_4_GROUP)
-    public void test00100createActiveDirectoryResourceFromTemplate() {
+    public void test00100createADResourceFromTemplate() {
         ResourceDataPreviewPanel<ResourceWizardResultStep> dataPreviewPanel = basicPage
                 .newResource()
                 .copyFromTemplate("Training Active Directory Resource Template")
@@ -48,7 +48,27 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
         dataPreviewPanel
                 .clickBack()
                 .goToResource();
+    }
 
-
+    @Test(groups = MODULE_4_GROUP)
+    public void test00200reviewADResourceSyncConfiguration() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .configureSynchronization()
+                .assertAllLifecycleStateValuesEqual("Proposed")
+                .assertActionValueForSituationEquals("Unmatched", "Delete resource object")
+                .exitWizard()
+                .configureCorrelation()
+                .assertCorrelationRuleExist("personalNumber-correlation")
+                .assertCorrelationRuleEnabled("personalNumber-correlation")
+                .assertCorrelationRuleExist("last-resort-correlation")
+                .assertCorrelationRuleDisabled("last-resort-correlation")
+                .exitWizard()
+                .configureMappings()
+                //todo there are several inbound mappings, all of them are active, but used only for the correlation (indicated by  icon)
+                .exitWizard();
     }
 }

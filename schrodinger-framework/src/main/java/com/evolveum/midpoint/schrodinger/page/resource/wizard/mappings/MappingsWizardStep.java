@@ -56,10 +56,17 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
     }
 
     public T saveMappings() {
-        String buttonTitle = Utils.translate("AttributeMappingsTableWizardPanel.saveButton");
-        $x(".//a[@title=\"" + buttonTitle + "\"]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+        return clickButtonByTitleKeyAndRedirectToParent("AttributeMappingsTableWizardPanel.saveButton");
+    }
+
+    public T exitWizard() {
+        return clickButtonByTitleKeyAndRedirectToParent("WizardPanel.exit");
+    }
+
+    private T clickButtonByTitleKeyAndRedirectToParent(String titleKey) {
+        String titleTranslated = Utils.translate(titleKey);
+        $x(".//a[@title=\"" + titleTranslated + "\"]").click();
+        Utils.waitForAjaxCallFinish();
         return getParent();
     }
 }

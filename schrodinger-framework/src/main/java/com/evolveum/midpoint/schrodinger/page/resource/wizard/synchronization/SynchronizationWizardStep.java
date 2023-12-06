@@ -16,6 +16,8 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -46,9 +48,48 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
     }
 
     public T saveSynchronizationSettings() {
-        String titleTranslated = Utils.translate("SynchronizationReactionTableWizardPanel.saveButton");
+        return clickButtonByTitleKeyAndRedirectToParent("SynchronizationReactionTableWizardPanel.saveButton");
+    }
+
+    public T exitWizard() {
+        return clickButtonByTitleKeyAndRedirectToParent("WizardPanel.exit");
+    }
+
+    private T clickButtonByTitleKeyAndRedirectToParent(String titleKey) {
+        String titleTranslated = Utils.translate(titleKey);
         $x(".//a[@title=\"" + titleTranslated + "\"]").click();
         Utils.waitForAjaxCallFinish();
         return getParent();
     }
+
+    public SynchronizationWizardStep<T> assertLifecycleStateValueEquals(int rowIndex,
+                                                                        String lifecycleStateExpectedValue) {
+        TableRow<?, ?> tableRow = table().getTableRow(rowIndex);
+        String actualValue = tableRow.getParentElement().getText();
+        assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
+                "to: " + lifecycleStateExpectedValue + "; actual value: " + actualValue);
+        return this;
+    }
+
+    public SynchronizationWizardStep<T> assertAllLifecycleStateValuesEqual(String lifecycleStateExpectedValue) {
+        int rowsCount = table().rowsCount();
+        for (int i = 1; i <= rowsCount; i++) {
+            TableRow<?, ?> tableRow = table().getTableRow(i);
+            String actualValue = tableRow.getParentElement().getText();
+            assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
+                    "to: " + lifecycleStateExpectedValue + "; actual value: " + actualValue);
+        }
+        return this;
+    }
+
+    public SynchronizationWizardStep<T> assertActionValueForSituationEquals(String situationValue,
+                                                                            String actionExpectedValue) {
+        TableRow<?, ?> tableRow = table().findRowByColumnLabel(" Situation", situationValue);
+        SelenideElement cell = tableRow.getColumnCellElementByColumnName("Action");
+        String actionActualValue = cell.getText();
+        assertion.assertEquals(actionActualValue, actionExpectedValue, "Action value for " + situationValue +
+                " situation should be equal to: " + actionExpectedValue + "; actual value: " + actionActualValue);
+        return this;
+    }
+
 }

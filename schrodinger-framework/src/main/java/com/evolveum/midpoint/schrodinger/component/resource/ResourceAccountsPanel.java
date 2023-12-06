@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.CorrelationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -166,8 +167,9 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         return new SynchronizationWizardStep<>(ResourceAccountsPanel.this);
     }
 
-    public void configureCorrelation() {
+    public CorrelationWizardStep<ResourceAccountsPanel<T>> configureCorrelation() {
         clickButton("ResourceObjectTypePreviewTileType.CORRELATION");
+        return new CorrelationWizardStep<>(ResourceAccountsPanel.this);
     }
 
     public void configureCapabilities() {
