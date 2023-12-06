@@ -45,7 +45,7 @@ public class ConfigurationWizardStep extends PrismFormWizardStepPanel<ResourceWi
      * for LDAP resource configuration
      */
     public ConfigurationWizardStep port(String value) {
-        getFormPanel().addAttributeValue("Port", value);
+        getFormPanel().addAttributeValue("Port number", value);
         return this;
     }
 
