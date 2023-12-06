@@ -55,7 +55,7 @@ public class PrismForm<T> extends Component<T> {
 
         ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
         if (values.size() >= 1) {
-            values.first().$x(".//input[contains(@class,\"form-control\")]").setValue(value);
+            values.first().$x(".//*[@data-s-id='input' and contains(@class,\"form-control\")]").setValue(value);
         }
 
         // todo implement
