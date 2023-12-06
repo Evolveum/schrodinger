@@ -29,7 +29,6 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
         ResourceDataPreviewPanel<ResourceWizardResultStep> dataPreviewPanel = basicPage
                 .newResource()
                 .copyFromTemplate("Training Active Directory Resource Template")
-                .next()
                 .name("AD")
                 .description("ExAmPLE, Inc. AD resource")
                 .lifecycle("Proposed")

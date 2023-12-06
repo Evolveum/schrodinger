@@ -18,6 +18,11 @@ public class TaskResourceObjectsStep<WSP extends WizardStepPanel>  extends Prism
         return new TaskScheduleStep(getParent());
     }
 
+    public TaskExecutionStep nextToExecution() {
+        clickNext();
+        return new TaskExecutionStep(getParent());
+    }
+
     public TaskDistributionStep nextToDistribution() {
         clickNext();
         return new TaskDistributionStep(getParent());
