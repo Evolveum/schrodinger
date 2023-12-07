@@ -15,6 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.user.UserPasswordPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
@@ -61,7 +63,10 @@ public class ConfigurationWizardStep extends PrismFormWizardStepPanel<ResourceWi
      * for LDAP resource configuration
      */
     public ConfigurationWizardStep bindPassword(String value) {
-        getFormPanel().addAttributeValue("Bind password", value);
+        SelenideElement passwordPanel = getFormPanel().findProperty("Bind password");
+        UserPasswordPanel<ConfigurationWizardStep> panel = new UserPasswordPanel<>(ConfigurationWizardStep.this,
+                passwordPanel);
+        panel.setPasswordValue(value);
         return this;
     }
 
