@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.DiscoveryWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPreviewPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardResultStep;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
@@ -26,7 +27,7 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
 
     @Test(groups = MODULE_4_GROUP)
     public void test00100createADResourceFromTemplate() {
-        ResourceDataPreviewPanel<ResourceWizardResultStep> dataPreviewPanel = basicPage
+         DiscoveryWizardStep discoveryWizardStep = basicPage
                 .newResource()
                 .copyFromTemplate("Training Active Directory Resource Template")
                 .name("AD")
@@ -37,7 +38,9 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .port("389")
                 .bindDN("cn=idm,ou=Administrators,dc=example,dc=com")
                 .bindPassword("secret")
-                .next()
+                .next();
+         Selenide.screenshot("test00100createADResourceFromTemplate_DiscoveryWizardStep");
+        ResourceDataPreviewPanel<ResourceWizardResultStep> dataPreviewPanel = discoveryWizardStep
                 .baseContext("dc=example,dc=com")
                 .next()
                 .createResource()
