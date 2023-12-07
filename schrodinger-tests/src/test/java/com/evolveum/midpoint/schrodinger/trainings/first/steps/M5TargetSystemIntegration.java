@@ -36,6 +36,19 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .configuration()
                 .name("Reconciliation with AD - development simulation")
                 .next()
-                .nextToSchedule();
+                .nextToExecution()
+                .mode("Preview")
+                .predefined("Development")
+                .next()
+                .next()
+                .saveAndRun();
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD - development simulation")
+                .selectOperationStatisticsPanel();
     }
 }

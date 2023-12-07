@@ -25,6 +25,17 @@ public class TaskExecutionStep extends PrismFormWizardStepPanel<TaskWizardPage> 
         super(parent);
     }
 
+    public TaskExecutionStep mode(String value) {
+        getFormPanel().setDropDownAttributeValue("Mode", value);
+        return TaskExecutionStep.this;
+    }
+
+    public TaskExecutionStep predefined(String value) {
+        getFormPanel().setDropDownAttributeValue("Predefined", value);
+        return TaskExecutionStep.this;
+    }
+
+
     @Override
     public TaskScheduleStep next() {
         clickNext();
