@@ -75,12 +75,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
     @Test(priority = 0)
     public void test0010setUpResourceAndSynchronizationTask() throws IOException {
-        //reset system configuration to initial state to have all configured collection views
-        addObjectFromFile(ScenariosCommons.SYSTEM_CONFIGURATION_INITIAL_FILE);
-        //relogin
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        FormLoginPage login = midPoint.formLogin();
-        basicPage = login.loginIfUserIsNotLog(username, password);
+        reimportDefaultSystemConfigurationAndRelogin();
         //just for debugging, remove later
         basicPage.dashboard();
         Selenide.screenshot("dashboardPage");

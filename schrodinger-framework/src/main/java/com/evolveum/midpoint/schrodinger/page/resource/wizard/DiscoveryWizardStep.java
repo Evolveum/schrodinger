@@ -62,7 +62,7 @@ public class DiscoveryWizardStep extends PrismFormWizardStepPanel<ResourceWizard
      * for LDAP resource configuration
      */
     public DiscoveryWizardStep baseContext (String value) {
-        getFormPanel().addAttributeValue("Base context", value);
+        getFormPanel().setDropDownAttributeValue("Base context", value);
         return this;
     }
 

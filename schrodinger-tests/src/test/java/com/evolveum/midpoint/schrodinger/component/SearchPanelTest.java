@@ -317,7 +317,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test014selectAdvancedSearchOnRoleCatalogPage() {
-        resetToDefaultAndRelogin();
+        reimportDefaultSystemConfigurationAndRelogin();
         basicPage
                 .requestAccess()
                 .selectMyself()
@@ -334,6 +334,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test015selectAdvancedSearchOnRoleCatalogTableView() {
+        reimportDefaultSystemConfigurationAndRelogin();
         basicPage
                 .requestAccess()
                 .selectMyself()

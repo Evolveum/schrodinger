@@ -88,7 +88,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final String CSV_RESOURCE_ATTR_UNIQUE = "Unique attribute name";
 
     protected static final String SCHRODINGER_PROPERTIES = "./src/test/resources/configuration/schrodinger.properties";
-
+    protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
             new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
 
@@ -834,6 +834,16 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void resetToDefaultAndRelogin() {
         resetToDefault();
 
+        basicPage.loggedUser().logoutIfUserIsLogin();
+
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
+    }
+
+    protected void reimportDefaultSystemConfigurationAndRelogin() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+
+        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         FormLoginPage login = midPoint.formLogin();
