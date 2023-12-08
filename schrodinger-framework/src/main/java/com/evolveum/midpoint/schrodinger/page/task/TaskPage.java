@@ -28,6 +28,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.task.*;
 
+import com.evolveum.midpoint.schrodinger.simulation.SimulationResultDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
@@ -180,5 +181,10 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 //        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         handlerElement.shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
+    }
+
+    public SimulationResultDetailsPage showSimulationResult() {
+        clickOperationButtonByTitleKey("PageTask.simulationResult");
+        return new SimulationResultDetailsPage();
     }
 }

@@ -50,12 +50,12 @@ public class Table<T> extends Component<T> {
     public TableRow<T, Table<T>> findRowByColumnLabel(String label, String rowValue) {
         int index = findColumnByLabel(label);
         if (index < 0) {
-            Selenide.screenshot("rowByColumnLabel_returns_null_" + System.currentTimeMillis());
+            Selenide.screenshot("rowByColumnLabel_findColumnByLabel_returns_null_" + System.currentTimeMillis());
             return null;
         }
         TableRow<T, Table<T>> tableRow = getTableRowByIndex(index, rowValue);
         if (tableRow == null) {
-            Selenide.screenshot("rowByColumnLabel_returns_null_" + System.currentTimeMillis());
+            Selenide.screenshot("rowByColumnLabel_getTableRowByIndex_returns_null_" + System.currentTimeMillis());
         }
         return tableRow;
     }

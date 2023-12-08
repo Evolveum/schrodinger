@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import static com.codeborne.selenide.Selenide.$;
 
-import static com.codeborne.selenide.Selenide.$x;
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.*;
@@ -26,7 +25,6 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.DetailsNavigationPanel;
-import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -46,8 +44,19 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
     }
 
-    public void clickOperationButton(String className, String elementId) {
+    public void clickOperationButtonByClassName(String className) {
         SelenideElement button = getButtonByIconClass(className);
+        try {
+            button.scrollIntoView(false);
+            button.click();
+        } catch (ElementClickInterceptedException e) {
+            button.parent().click();
+        }
+    }
+
+    public void clickOperationButtonByTitleKey(String titleKey) {
+        SelenideElement button = getButtonPanelElement()
+                .$(Schrodinger.byDataResourceKey(titleKey));
         try {
             button.scrollIntoView(false);
             button.click();
@@ -62,18 +71,18 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public BasicPage clickBack() {
-        clickOperationButton("fa fa-arrow-left", "back");
+        clickOperationButtonByClassName("fa fa-arrow-left");
         return new BasicPage();
     }
 
     public ProgressPage clickSave() {
-        clickOperationButton("fa fa-save", "save");
+        clickOperationButtonByClassName("fa fa-save");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ProgressPage();
     }
 
     public PreviewPage clickPreview() {
-        clickOperationButton("fa fa-eye", "previewChanges");
+        clickOperationButtonByClassName("fa fa-eye");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         feedback().isSuccess();
         return new PreviewPage();
