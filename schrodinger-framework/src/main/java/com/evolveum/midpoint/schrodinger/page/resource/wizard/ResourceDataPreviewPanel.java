@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPane
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -44,6 +45,15 @@ public class ResourceDataPreviewPanel<T> extends Component<T> {
         getResourceObjectsTable().paging().pageSize(100);
         Utils.waitForAjaxCallFinish();
         getResourceObjectsTable().assertTableContainsColumnWithValue(columnName, value);
+        return ResourceDataPreviewPanel.this;
+    }
+
+    public ResourceDataPreviewPanel<T> selectObjectType(String objectType) {
+        SelenideElement objectTypeElement = getParentElement().$(Schrodinger.byDataId("objectType"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement select = objectTypeElement.$(By.tagName("select"));
+        select.selectOption(objectType);
+        Utils.waitForAjaxCallFinish();
         return ResourceDataPreviewPanel.this;
     }
 

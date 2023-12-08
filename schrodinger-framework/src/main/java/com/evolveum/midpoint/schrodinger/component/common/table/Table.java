@@ -145,6 +145,9 @@ public class Table<T> extends Component<T> {
             if (cell.$(By.tagName("select")).isDisplayed()) {
                 SelenideElement select = cell.$(By.tagName("select"));
                 value = select.getText();
+            } else if (cell.$(By.tagName("input")).isDisplayed()) {
+                SelenideElement input = cell.$(By.tagName("input"));
+                value = input.getValue();
             }
             if (value == null) {
                 continue;

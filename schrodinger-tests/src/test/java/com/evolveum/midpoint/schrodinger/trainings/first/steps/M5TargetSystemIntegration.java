@@ -16,6 +16,7 @@
 
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsPanel;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
@@ -75,6 +76,18 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
                 .showSimulationResult();
+
+    }
+
+    @Test(groups = MODULE_5_GROUP)
+    public void test00300ignoringOrphanedAccounts() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .setLifecycleState("Active (Production)")
+                .selectSchemaHandlingPanel();
+        Selenide.screenshot("test00300ignoringOrphanedAccounts");
 
     }
 }

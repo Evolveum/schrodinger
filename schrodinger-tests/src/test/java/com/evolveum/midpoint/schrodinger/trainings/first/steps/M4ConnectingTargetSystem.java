@@ -49,7 +49,8 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .baseContext("dc=example,dc=com")
                 .next()
                 .createResource()
-                .previewResourceData();
+                .previewResourceData()
+                        .selectObjectType("inetOrgPerson");
         //select inetOrgPerson  object class to display the existing account in your AD resource
         Selenide.screenshot("M4ConnectingTargetSystem_resourceData");
         LOG.info("dataPreviewPanel");
