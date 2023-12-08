@@ -21,6 +21,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -75,9 +76,11 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         int rowsCount = table().rowsCount();
         for (int i = 1; i <= rowsCount; i++) {
             TableRow<?, ?> tableRow = table().getTableRow(i);
-            String actualValue = tableRow.getParentElement().getText();
+            SelenideElement select = tableRow.getParentElement().$(By.tagName("select"));
+            String actualText = select.getText();
+            String actualValue = select.getValue();
             assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
-                    "to: " + lifecycleStateExpectedValue + "; actual value: " + actualValue);
+                    "to: " + lifecycleStateExpectedValue + "; actual text: " + actualText + "actual value: " + actualValue);
         }
         return this;
     }
