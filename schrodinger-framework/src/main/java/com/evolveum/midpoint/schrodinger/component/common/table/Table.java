@@ -140,7 +140,12 @@ public class Table<T> extends Component<T> {
     private TableRow<T, Table<T>> getTableRowByIndex(int index, String rowValue) {
         ElementsCollection rows = getParentElement().findAll("tbody tr");
         for (SelenideElement row : rows) {
-            String value = row.find("td:nth-child(" + index + ")").text();
+            SelenideElement cell = row.find("td:nth-child(" + index + ")");
+            String value = cell.getText();
+            if (cell.$(By.tagName("select")).isDisplayed()) {
+                SelenideElement select = cell.$(By.tagName("select"));
+                value = select.getText();
+            }
             if (value == null) {
                 continue;
             }

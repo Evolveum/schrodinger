@@ -113,6 +113,15 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
         return cell;
     }
 
+    public String getColumnCellTextByColumnName(String columnName) {
+        SelenideElement cell = getColumnCellElementByColumnName(columnName);
+        String value = cell.getText();
+        if (cell.$(By.tagName("select")).isDisplayed()) {
+            value = cell.$(By.tagName("select")).getText();
+        }
+        return value;
+    }
+
     public TableRow<X, T> clickColumnByKey(String key) {
         // todo implement
         return this;

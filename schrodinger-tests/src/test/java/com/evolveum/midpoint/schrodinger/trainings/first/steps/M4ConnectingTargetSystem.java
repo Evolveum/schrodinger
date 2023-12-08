@@ -17,13 +17,18 @@
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.DiscoveryWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPreviewPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardResultStep;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 public class M4ConnectingTargetSystem extends AbstractTrainingTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(M4ConnectingTargetSystem.class);
 
     @Test(groups = MODULE_4_GROUP)
     public void test00100createADResourceFromTemplate() {
@@ -47,6 +52,8 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .previewResourceData();
         //select inetOrgPerson  object class to display the existing account in your AD resource
         Selenide.screenshot("M4ConnectingTargetSystem_resourceData");
+        LOG.info("dataPreviewPanel");
+        LOG.info(WebDriverRunner.source());
         dataPreviewPanel
                 .clickBack()
                 .goToResource();
@@ -69,8 +76,11 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .assertCorrelationRuleExist("last-resort-correlation")
                 .assertCorrelationRuleDisabled("last-resort-correlation")
                 .exitWizard()
-                .configureMappings()
+                .configureMappings();
+        Selenide.screenshot("test00200reviewADResourceSyncConfiguration");
+        LOG.info("configureMappings");
+        LOG.info(WebDriverRunner.source());
                 //todo there are several inbound mappings, all of them are active, but used only for the correlation (indicated by  icon)
-                .exitWizard();
+//                .exitWizard();
     }
 }
