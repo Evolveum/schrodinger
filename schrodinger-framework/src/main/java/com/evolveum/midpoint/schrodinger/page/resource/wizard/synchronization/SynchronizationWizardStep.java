@@ -66,7 +66,9 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
     public SynchronizationWizardStep<T> assertLifecycleStateValueEquals(int rowIndex,
                                                                         String lifecycleStateExpectedValue) {
         TableRow<?, ?> tableRow = table().getTableRow(rowIndex);
-        String actualValue = tableRow.getParentElement().getText();
+        SelenideElement cell = tableRow.getColumnCellElementByColumnName("Lifecycle state");
+        SelenideElement select = cell.$(By.tagName("select"));
+        String actualValue = select.getText();
         assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
                 "to: " + lifecycleStateExpectedValue + "; actual value: " + actualValue);
         return this;
@@ -75,12 +77,7 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
     public SynchronizationWizardStep<T> assertAllLifecycleStateValuesEqual(String lifecycleStateExpectedValue) {
         int rowsCount = table().rowsCount();
         for (int i = 1; i <= rowsCount; i++) {
-            TableRow<?, ?> tableRow = table().getTableRow(i);
-            SelenideElement select = tableRow.getParentElement().$(By.tagName("select"));
-            String actualText = select.getText();
-            String actualValue = select.getValue();
-            assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
-                    "to: " + lifecycleStateExpectedValue + "; actual text: " + actualText + "actual value: " + actualValue);
+            assertLifecycleStateValueEquals(i, lifecycleStateExpectedValue);
         }
         return this;
     }
