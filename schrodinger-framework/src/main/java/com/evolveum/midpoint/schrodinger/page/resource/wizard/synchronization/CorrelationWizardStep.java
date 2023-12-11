@@ -45,12 +45,12 @@ public class CorrelationWizardStep <T> extends TableWizardStepPanel<T> {
     }
 
     public CorrelationWizardStep<T> assertCorrelationRuleExist(String correlationRuleName) {
-        table().assertTableContainsColumnWithValue("AbstractCorrelatorType.name", correlationRuleName);
+        table().assertTableContainsColumnWithValue("Rule name", correlationRuleName);
         return this;
     }
 
     public CorrelationWizardStep<T> assertCorrelationRuleEnabled(String correlationRuleName) {
-        TableRow<?, ?> tableRow = table().rowByColumnResourceKey("AbstractCorrelatorType.name", correlationRuleName);
+        TableRow<?, ?> tableRow = table().rowByColumnResourceKey("Rule name", correlationRuleName);
         SelenideElement cell = tableRow.getColumnCellElementByColumnName("Enabled");
         String enabledRealValue = cell != null ? cell.getText() : null;
         assertion.assertEquals(enabledRealValue, "True", "Enabled value for " + correlationRuleName
