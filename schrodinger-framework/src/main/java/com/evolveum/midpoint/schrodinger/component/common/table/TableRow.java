@@ -116,6 +116,9 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
     public String getColumnCellTextByColumnName(String columnName) {
         SelenideElement cell = getColumnCellElementByColumnName(columnName);
         String value = cell.getText();
+        if (cell.$(By.tagName("input")).isDisplayed()) {
+            value = cell.$(By.tagName("input")).getText();
+        }
         if (cell.$(By.tagName("select")).isDisplayed()) {
             value = cell.$(By.tagName("select")).getText();
         }
