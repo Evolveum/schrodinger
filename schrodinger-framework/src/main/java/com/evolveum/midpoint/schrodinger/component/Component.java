@@ -68,7 +68,8 @@ public abstract class Component<T, C extends Component> {
 
     public C screenshot() {
         var basicPage = findBasicPage();
-        String fileName = basicPage != null ? basicPage.getScreenshotNamePrefix() + System.currentTimeMillis() : null;
+        String fileName = basicPage != null ?
+                basicPage.getScreenshotNamePrefix() + "_" + System.currentTimeMillis() : null;
         return screenshot(fileName);
     }
 

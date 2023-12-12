@@ -74,7 +74,7 @@ import static com.codeborne.selenide.Selenide.*;
  */
 public class BasicPage {
 
-    private String screenshotNamePrefix;
+    private static String screenshotNamePrefix;
     public LoggedUser loggedUser() {
         return new LoggedUser();
     }
