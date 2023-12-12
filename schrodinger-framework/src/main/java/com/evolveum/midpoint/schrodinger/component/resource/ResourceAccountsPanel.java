@@ -35,7 +35,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by matus on 5/22/2018.
  */
-public class ResourceAccountsPanel<T> extends Component<T> {
+public class ResourceAccountsPanel<T> extends Component<T, ResourceAccountsPanel<T>> {
     public ResourceAccountsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

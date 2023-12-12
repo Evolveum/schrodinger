@@ -31,7 +31,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class DelegationDetailsPanel<T> extends Component<T> {
+public class DelegationDetailsPanel<T> extends Component<T, DelegationDetailsPanel<T>> {
 
     public DelegationDetailsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

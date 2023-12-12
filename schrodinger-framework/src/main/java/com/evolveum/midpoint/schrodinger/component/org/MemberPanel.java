@@ -41,7 +41,7 @@ import static com.codeborne.selenide.Selenide.*;
  * @author skublik
  */
 
-public class MemberPanel<T> extends Component<T> {
+public class MemberPanel<T> extends Component<T, MemberPanel<T>> {
 
     public MemberPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

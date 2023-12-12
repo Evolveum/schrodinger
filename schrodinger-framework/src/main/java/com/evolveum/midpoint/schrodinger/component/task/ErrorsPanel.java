@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 /**
  * @author honchar
  */
-public class ErrorsPanel extends Component<TaskPage> {
+public class ErrorsPanel extends Component<TaskPage, ErrorsPanel> {
 
     public ErrorsPanel(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

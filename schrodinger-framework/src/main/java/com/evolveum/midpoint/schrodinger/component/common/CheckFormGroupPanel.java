@@ -25,7 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 /**
  * Created by honchar
  */
-public class CheckFormGroupPanel<T> extends Component<T> {
+public class CheckFormGroupPanel<T> extends Component<T, CheckFormGroupPanel<T>> {
 
     public CheckFormGroupPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class NotificationsPanel extends Component<SystemPage> {
+public class NotificationsPanel extends Component<SystemPage, NotificationsPanel> {
 
     public NotificationsPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.InternalsConfigurati
 /**
  * Created by honchar
  */
-public class PerformancePanel extends Component<InternalsConfigurationPage> {
+public class PerformancePanel extends Component<InternalsConfigurationPage, PerformancePanel> {
 
     public PerformancePanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -31,7 +31,7 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
     private static final Logger LOG = LoggerFactory.getLogger(M4ConnectingTargetSystem.class);
 
     @Test(groups = MODULE_4_GROUP)
-    public void test00100createADResourceFromTemplate() {
+    public void test1createADResourceFromTemplate() {
          DiscoveryWizardStep discoveryWizardStep = basicPage
                 .newResource()
                 .copyFromTemplate("Training Active Directory Resource Template")
@@ -61,7 +61,7 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
     }
 
     @Test(groups = MODULE_4_GROUP)
-    public void test00200reviewADResourceSyncConfiguration() {
+    public void test2reviewADResourceSyncConfiguration() {
         basicPage
                 .listResources()
                 .table()

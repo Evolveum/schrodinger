@@ -8,7 +8,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import java.util.stream.Collectors;
 
-public class FeedbackContainerPanel<T> extends Component<T> {
+public class FeedbackContainerPanel<T> extends Component<T, FeedbackContainerPanel<T>> {
 
     public FeedbackContainerPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ChangePasswordPanel<T> extends Component<T> {
+public class ChangePasswordPanel<T> extends Component<T, ChangePasswordPanel<T>> {
 
     public ChangePasswordPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

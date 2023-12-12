@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.InternalsConfigurati
 /**
  * Created by honchar
  */
-public class MemoryPanel extends Component<InternalsConfigurationPage> {
+public class MemoryPanel extends Component<InternalsConfigurationPage, MemoryPanel> {
 
     public MemoryPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

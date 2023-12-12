@@ -30,7 +30,7 @@ import static com.evolveum.midpoint.schrodinger.util.Utils.setCheckFormGroupOpti
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class InternalConfigurationPanel extends Component<InternalsConfigurationPage> {
+public class InternalConfigurationPanel extends Component<InternalsConfigurationPage, InternalConfigurationPanel> {
 
     public InternalConfigurationPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -29,7 +29,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ResourceDataPreviewPanel<T> extends Component<T> {
+public class ResourceDataPreviewPanel<T> extends Component<T, ResourceDataPreviewPanel<T>> {
 
     public ResourceDataPreviewPanel(T parent) {
         super(parent, $(Schrodinger.byDataId("choicePanel"))

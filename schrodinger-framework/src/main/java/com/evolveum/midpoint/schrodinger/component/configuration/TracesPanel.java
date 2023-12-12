@@ -24,7 +24,7 @@ import static com.evolveum.midpoint.schrodinger.util.Utils.setCheckFormGroupOpti
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class TracesPanel extends Component<InternalsConfigurationPage> {
+public class TracesPanel extends Component<InternalsConfigurationPage, TracesPanel> {
 
     public TracesPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

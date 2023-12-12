@@ -29,7 +29,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-abstract public class PanelWithTableAndPrismView<P> extends Component<P> {
+abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWithTableAndPrismView<P>> {
 
     public PanelWithTableAndPrismView(P parent, SelenideElement parentElement) {
         super(parent, parentElement);

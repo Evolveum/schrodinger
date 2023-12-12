@@ -36,7 +36,7 @@ import static com.codeborne.selenide.Selenide.$x;
 /**
  * Created by Kate Honchar
  */
-public class WorkitemDetailsPanel<P> extends Component<P> {
+public class WorkitemDetailsPanel<P> extends Component<P, WorkitemDetailsPanel<P>> {
 
     public WorkitemDetailsPanel(P parent, SelenideElement parentElement) {
         super(parent, parentElement);

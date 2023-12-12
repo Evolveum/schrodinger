@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$;
  * @author skublik
  */
 
-public class OperationStatisticsPanel extends Component<TaskPage> {
+public class OperationStatisticsPanel extends Component<TaskPage, OperationStatisticsPanel> {
 
     public OperationStatisticsPanel(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

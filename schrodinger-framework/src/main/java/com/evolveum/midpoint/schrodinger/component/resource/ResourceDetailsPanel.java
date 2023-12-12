@@ -29,7 +29,7 @@ import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ResourceDetailsPanel<T> extends Component<T> {
+public class ResourceDetailsPanel<T> extends Component<T, ResourceDetailsPanel<T>> {
     public ResourceDetailsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

@@ -24,7 +24,7 @@ import org.testng.annotations.Test;
 public class M5TargetSystemIntegration extends AbstractTrainingTest {
 
     @Test(groups = MODULE_5_GROUP)
-    public void test00100simulatedCorrelationWithAD() {
+    public void test1simulatedCorrelationWithAD() {
         basicPage
                 .listResources()
                 .table()
@@ -67,7 +67,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
     }
 
     @Test(groups = MODULE_5_GROUP)
-    public void test00200markingAccounts() {
+    public void test2markingAccounts() {
         basicPage
                 .listResources()
                 .table()
@@ -80,7 +80,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
     }
 
     @Test(groups = MODULE_5_GROUP)
-    public void test00300ignoringOrphanedAccounts() {
+    public void test3ignoringOrphanedAccounts() {
         basicPage
                 .listResources()
                 .table()

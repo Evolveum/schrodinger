@@ -11,7 +11,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ResourceObjectsPanel<T> extends Component<T> {
+public class ResourceObjectsPanel<T> extends Component<T, ResourceObjectsPanel<T>> {
     public ResourceObjectsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

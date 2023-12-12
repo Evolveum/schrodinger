@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * @author honchar
  */
-public class GovernancePanel<T> extends Component<T> {
+public class GovernancePanel<T> extends Component<T, GovernancePanel<T>> {
 
     public GovernancePanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

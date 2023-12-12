@@ -30,7 +30,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * @author honchar
  */
-public class ResultPanel extends Component<TaskPage> {
+public class ResultPanel extends Component<TaskPage, ResultPanel> {
 
     public ResultPanel(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

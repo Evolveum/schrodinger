@@ -41,7 +41,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class Table<T> extends Component<T> {
+public class Table<T> extends Component<T, Table<T>> {
 
     public Table(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

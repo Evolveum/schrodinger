@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class CasesPanel<P extends FocusPage> extends Component<P> {
+public class CasesPanel<P extends FocusPage> extends Component<P, CasesPanel<P>> {
 
     public CasesPanel(P parent, SelenideElement parentElement) {
         super(parent, parentElement);

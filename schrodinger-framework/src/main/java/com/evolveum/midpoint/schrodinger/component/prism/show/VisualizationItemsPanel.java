@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class VisualizationItemsPanel<T> extends Component<T> {
+public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsPanel<T>> {
 
     public VisualizationItemsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

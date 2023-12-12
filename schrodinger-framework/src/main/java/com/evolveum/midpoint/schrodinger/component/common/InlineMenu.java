@@ -34,7 +34,7 @@ import org.openqa.selenium.By;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class InlineMenu<T> extends Component<T> {
+public class InlineMenu<T> extends Component<T, InlineMenu<T>> {
 
     public InlineMenu(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

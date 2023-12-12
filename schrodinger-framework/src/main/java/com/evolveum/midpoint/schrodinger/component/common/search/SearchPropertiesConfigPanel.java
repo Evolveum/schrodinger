@@ -29,7 +29,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byText;
 
-public class SearchPropertiesConfigPanel<T> extends Component<T> {
+public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertiesConfigPanel<T>> {
 
     public SearchPropertiesConfigPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

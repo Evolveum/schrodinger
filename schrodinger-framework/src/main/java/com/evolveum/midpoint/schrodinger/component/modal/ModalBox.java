@@ -23,7 +23,7 @@ import org.openqa.selenium.By;
 /**
  * Created by matus on 4/26/2018.
  */
-public class ModalBox<T> extends Component<T> {
+public class ModalBox<T> extends Component<T, ModalBox<T>> {
     public ModalBox(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

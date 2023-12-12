@@ -39,7 +39,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class PrismForm<T> extends Component<T> {
+public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
     private static final String CARET_DOWN_ICON_STYLE = "fa-caret-down";
 
@@ -419,7 +419,6 @@ public class PrismForm<T> extends Component<T> {
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         newContainerElement.scrollTo();
-        newContainerElement.screenshot();
 
         return this;
     }

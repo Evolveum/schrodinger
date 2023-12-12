@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PartialVisualizationHeader<T> extends Component<T> {
+public class PartialVisualizationHeader<T> extends Component<T, PartialVisualizationHeader<T>> {
 
     public PartialVisualizationHeader(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

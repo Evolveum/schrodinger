@@ -25,7 +25,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ObjectTypeManagerPanel<T> extends Component<T> {
+public class ObjectTypeManagerPanel<T> extends Component<T, ObjectTypeManagerPanel<T>> {
 
     public ObjectTypeManagerPanel(T parent) {
         super(parent, $x(".//div[@data-s-id='choicePanel']")

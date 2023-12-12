@@ -37,7 +37,7 @@ import java.util.List;
  * @author skublik
  */
 
-public class OrgHierarchyPanel<T> extends Component<T> {
+public class OrgHierarchyPanel<T> extends Component<T, OrgHierarchyPanel<T>> {
     public OrgHierarchyPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

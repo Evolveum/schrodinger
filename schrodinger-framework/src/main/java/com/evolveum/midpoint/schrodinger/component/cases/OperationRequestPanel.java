@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Kate Honchar
  */
-public class OperationRequestPanel extends Component<CasePage> {
+public class OperationRequestPanel extends Component<CasePage, OperationRequestPanel> {
 
     public OperationRequestPanel(CasePage parent, SelenideElement parentElement) {
         super(parent, parentElement);

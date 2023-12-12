@@ -21,8 +21,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ReadOnlyTable<T> extends Component<T> {
-
+public class ReadOnlyTable<T> extends Component<T, ReadOnlyTable<T>> {
 
     public ReadOnlyTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

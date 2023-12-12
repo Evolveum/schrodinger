@@ -74,6 +74,7 @@ import static com.codeborne.selenide.Selenide.*;
  */
 public class BasicPage {
 
+    private String screenshotNamePrefix;
     public LoggedUser loggedUser() {
         return new LoggedUser();
     }
@@ -761,5 +762,13 @@ public class BasicPage {
     public void waitForDetailsPageIsLoaded() {
         Utils.waitForMainPanelOnDetailsPage();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
+    }
+
+    public String getScreenshotNamePrefix() {
+        return screenshotNamePrefix;
+    }
+
+    public void setScreenshotNamePrefix(String screenshotNamePrefix) {
+        this.screenshotNamePrefix = screenshotNamePrefix;
     }
 }

@@ -38,10 +38,10 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
 
 
     @Test(groups = MODULE_2_GROUP)
-    public void test00100createHrResource() {
+    public void test1createHrResource() {
         //todo should the test do user's export in HR application?
         String csvFilePath = hrCsvFile.getAbsolutePath();
-        DiscoveryWizardStep step = basicPage
+        basicPage
                 .newResource()
                 .fromScratch()
                 .selectCsvConnector()
@@ -49,14 +49,13 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
                 .lifecycle("Proposed")
                 .next()
                 .filePath(csvFilePath)
-                .next();
-        Selenide.screenshot("test00100createHrResource_DiscoveryWizardStep");
-        step
+                .next()
                 .uniqueAttributeName("empnum")
                 .next()
                 .createResource()
                 .assertResourceIsCreated("HR")
                 .previewResourceData()
+                .screenshot()
                 .assertTableContainsObjects(20)
                 .clickBack()
                 .configureObjectTypes()
@@ -94,7 +93,7 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
     }
 
     @Test(groups = MODULE_2_GROUP)
-    public void test00110configureHrResource() {
+    public void test2configureHrResource() {
         basicPage
                 .listResources()
                 .table()
@@ -156,8 +155,4 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
                 .clickSave();
     }
 
-//    @Override
-//    protected boolean resetToDefaultBeforeTests() {
-//        return true;
-//    }
 }

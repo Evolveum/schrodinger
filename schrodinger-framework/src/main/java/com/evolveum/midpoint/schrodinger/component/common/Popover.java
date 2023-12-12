@@ -27,7 +27,7 @@ import org.openqa.selenium.Keys;
 /**
  * Created by matus on 3/22/2018.
  */
-public class Popover<T> extends Component<T> {
+public class Popover<T> extends Component<T, Popover<T>> {
     public Popover(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

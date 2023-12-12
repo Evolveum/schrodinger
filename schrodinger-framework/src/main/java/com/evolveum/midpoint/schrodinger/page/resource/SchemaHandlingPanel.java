@@ -28,7 +28,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SchemaHandlingPanel extends Component<ResourcePage> {
+public class SchemaHandlingPanel extends Component<ResourcePage, SchemaHandlingPanel> {
 
     public SchemaHandlingPanel(ResourcePage parent, SelenideElement parentElement) {
         super(parent, parentElement);

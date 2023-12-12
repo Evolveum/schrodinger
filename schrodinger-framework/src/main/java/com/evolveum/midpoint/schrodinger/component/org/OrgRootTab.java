@@ -30,7 +30,7 @@ import org.openqa.selenium.By;
  * @author skublik
  */
 
-public class OrgRootTab extends Component<OrgTreePage> {
+public class OrgRootTab extends Component<OrgTreePage, OrgRootTab> {
 
     public OrgRootTab(OrgTreePage parent, SelenideElement parentElement) {
         super(parent, parentElement);

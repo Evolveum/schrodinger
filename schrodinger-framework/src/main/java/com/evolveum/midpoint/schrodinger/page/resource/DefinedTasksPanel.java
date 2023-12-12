@@ -30,7 +30,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class DefinedTasksPanel<T> extends Component<T> {
+public class DefinedTasksPanel<T> extends Component<T, DefinedTasksPanel<T>> {
 
     public DefinedTasksPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

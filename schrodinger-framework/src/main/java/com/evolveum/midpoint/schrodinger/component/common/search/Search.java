@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class Search<T> extends Component<T> {
+public class Search<T> extends Component<T, Search<T>> {
 
     public Search(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

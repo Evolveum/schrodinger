@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Kate Honchar
  */
-public class WorkitemsPanel extends Component<CasePage> {
+public class WorkitemsPanel extends Component<CasePage, WorkitemsPanel> {
 
     public WorkitemsPanel(CasePage parent, SelenideElement parentElement) {
         super(parent, parentElement);

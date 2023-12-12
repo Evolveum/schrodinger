@@ -31,7 +31,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class UserDelegatedToMePanel extends Component<UserPage> {
+public class UserDelegatedToMePanel extends Component<UserPage, UserDelegatedToMePanel> {
 
     public UserDelegatedToMePanel(UserPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -16,8 +16,10 @@
 package com.evolveum.midpoint.schrodinger.component;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
+import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
@@ -26,7 +28,7 @@ import org.testng.asserts.Assertion;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public abstract class Component<T> {
+public abstract class Component<T, C extends Component> {
 
     private T parent;
 
@@ -61,6 +63,29 @@ public abstract class Component<T> {
                 return element;
             }
         }
+        return null;
+    }
+
+    public C screenshot() {
+        var basicPage = findBasicPage();
+        String fileName = basicPage != null ? basicPage.getScreenshotNamePrefix() + System.currentTimeMillis() : null;
+        return screenshot(fileName);
+    }
+
+    public C screenshot(String fileName) {
+        Selenide.screenshot(fileName);
+        return (C) this;
+    }
+
+    private BasicPage findBasicPage() {
+        if (parent instanceof BasicPage) {
+            return (BasicPage) parent;
+        }
+
+        if (parent instanceof Component) {
+            return ((Component) parent).findBasicPage();
+        }
+
         return null;
     }
 }

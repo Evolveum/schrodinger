@@ -28,7 +28,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class ItemPathSearchItemPanel<T> extends Component<T> {
+public class ItemPathSearchItemPanel<T> extends Component<T, ItemPathSearchItemPanel<T>> {
     public ItemPathSearchItemPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

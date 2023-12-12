@@ -36,7 +36,7 @@ import javax.management.relation.Role;
 
 import static com.codeborne.selenide.Selectors.byText;
 
-public class ChooseFocusTypeAndRelationModal<T> extends Component<T> {
+public class ChooseFocusTypeAndRelationModal<T> extends Component<T, ChooseFocusTypeAndRelationModal<T>> {
 
     public ChooseFocusTypeAndRelationModal(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class ApplicablePoliciesPanel<T extends FocusPage> extends Component<T> {
+public class ApplicablePoliciesPanel<T extends FocusPage> extends Component<T, ApplicablePoliciesPanel<T>> {
 
     public ApplicablePoliciesPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

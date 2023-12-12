@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class LoggedInUsersPanel extends Component<InternalsConfigurationPage> {
+public class LoggedInUsersPanel extends Component<InternalsConfigurationPage, LoggedInUsersPanel> {
 
     public LoggedInUsersPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -32,7 +32,7 @@ import com.evolveum.midpoint.schrodinger.component.common.InlineMenu;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class TableRow<X, T extends Table<X>> extends Component<T> {
+public class TableRow<X, T extends Table<X>> extends Component<T, TableRow<X, T>> {
 
     public TableRow(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

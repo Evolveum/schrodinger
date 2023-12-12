@@ -20,7 +20,7 @@ import com.codeborne.selenide.SelenideElement;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class FocusProjectionsPanel<T> extends Component<T> {
+public class FocusProjectionsPanel<T> extends Component<T, FocusProjectionsPanel<T>> {
 
     public FocusProjectionsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

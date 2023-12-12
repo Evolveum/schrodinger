@@ -30,7 +30,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class TabPanel<T> extends Component<T> {
+public class TabPanel<T> extends Component<T, TabPanel<T>> {
 
     public TabPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

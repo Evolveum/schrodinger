@@ -28,7 +28,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class VisualizationPanel<T> extends Component<T> {
+public class VisualizationPanel<T> extends Component<T, VisualizationPanel<T>> {
 
     public VisualizationPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

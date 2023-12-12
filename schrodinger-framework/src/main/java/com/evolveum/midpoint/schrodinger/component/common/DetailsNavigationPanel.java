@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> extends Component<T> {
+public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> extends Component<T, DetailsNavigationPanel<T>> {
 
     public DetailsNavigationPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

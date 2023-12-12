@@ -37,7 +37,7 @@ import static com.codeborne.selenide.Selenide.sleep;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class UserDelegationsPanel extends Component<UserPage> {
+public class UserDelegationsPanel extends Component<UserPage, UserDelegationsPanel> {
 
     public UserDelegationsPanel(UserPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

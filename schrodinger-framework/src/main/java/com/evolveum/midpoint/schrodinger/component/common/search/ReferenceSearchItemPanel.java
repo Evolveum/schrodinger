@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class ReferenceSearchItemPanel<T> extends Component<T> {
+public class ReferenceSearchItemPanel<T> extends Component<T, ReferenceSearchItemPanel<T>> {
     public ReferenceSearchItemPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
@@ -60,7 +60,7 @@ public class ReferenceSearchItemPanel<T> extends Component<T> {
 
     }
 
-    public class ReferenceSearchItemPopup extends Component<ReferenceSearchItemPanel<T>> {
+    public class ReferenceSearchItemPopup extends Component<ReferenceSearchItemPanel<T>, ReferenceSearchItemPopup> {
 
         public ReferenceSearchItemPopup(SelenideElement popupElement) {
             super(ReferenceSearchItemPanel.this, popupElement);

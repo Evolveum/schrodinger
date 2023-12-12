@@ -30,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * @author honchar
  */
-public class EnvironmentalPerformancePanel extends Component<TaskPage> {
+public class EnvironmentalPerformancePanel extends Component<TaskPage, EnvironmentalPerformancePanel> {
 
     public EnvironmentalPerformancePanel(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

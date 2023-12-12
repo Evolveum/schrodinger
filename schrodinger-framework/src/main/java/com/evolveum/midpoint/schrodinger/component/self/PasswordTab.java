@@ -26,7 +26,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by honchar
  */
-public class PasswordTab extends Component<CredentialsPage> {
+public class PasswordTab extends Component<CredentialsPage, PasswordTab> {
 
     public PasswordTab(CredentialsPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
