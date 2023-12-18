@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import static com.codeborne.selenide.Selenide.$;
 
+import static com.codeborne.selenide.Selenide.$x;
 import static com.evolveum.midpoint.schrodinger.util.Utils.getModalWindowSelenideElement;
 
 import com.codeborne.selenide.*;
@@ -40,7 +41,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
     }
 
     public SelenideElement getButtonPanelElement() {
-        return $(Schrodinger.byElementValue("legend", "Operations"))
+        return $x(".//fieldset[contains(@class, 'objectButtons')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
     }
 

@@ -85,7 +85,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .listResources()
                 .table()
                 .clickByName("AD")
-                .setLifecycleState("Active (Production)")
+                .setLifecycleState("Active (production)")
                 .selectSchemaHandlingPanel();
         Selenide.screenshot("test00300ignoringOrphanedAccounts");
 
