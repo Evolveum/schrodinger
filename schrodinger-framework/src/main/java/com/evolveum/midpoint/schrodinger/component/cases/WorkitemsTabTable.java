@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel> {
+public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel, WorkitemsTabTable> {
 
     public WorkitemsTabTable(WorkitemsPanel parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -65,7 +65,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
     }
 
     @Override
-    public TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel> selectCheckboxByName(String name) {
+    public TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel, WorkitemsTabTable> selectCheckboxByName(String name) {
         //do nothing as there is no checkbox column in the table
         return this;
     }

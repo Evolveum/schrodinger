@@ -34,7 +34,7 @@ import static com.codeborne.selenide.Selenide.screenshot;
  * @author skublik
  */
 
-public class MemberTable<T> extends AssignmentHolderObjectListTable<T, AssignmentHolderDetailsPage> {
+public class MemberTable<T> extends AssignmentHolderObjectListTable<T, AssignmentHolderDetailsPage, MemberTable<T>> {
 
     public MemberTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -74,7 +74,7 @@ public class MemberTable<T> extends AssignmentHolderObjectListTable<T, Assignmen
     }
 
     @Override
-    public MemberSearch<T> search() {
+    public MemberSearch<MemberTable<T>> search() {
         return new MemberSearch<>(this, findSearchElement());
     }
 

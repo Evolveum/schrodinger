@@ -64,7 +64,7 @@ public class Search<T> extends Component<T, Search<T>> {
     }
 
     public ReferenceSearchItemPanel<Search<T>> referencePanelByItemName(String itemName, boolean addIfAbsent) {
-        return new ReferenceSearchItemPanel(this, getItemSearchElement(itemName, addIfAbsent));
+        return new ReferenceSearchItemPanel<>(this, getItemSearchElement(itemName, addIfAbsent));
     }
 
     public DateIntervalSearchItemPanel<Search<T>> dateIntervalPanelByItemName(String itemName) {

@@ -32,7 +32,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class ServicesPageTable extends AssignmentHolderObjectListTable<ListServicesPage, ServicePage> {
+public class ServicesPageTable extends AssignmentHolderObjectListTable<ListServicesPage, ServicePage, ServicesPageTable> {
 
     public ServicesPageTable(ListServicesPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

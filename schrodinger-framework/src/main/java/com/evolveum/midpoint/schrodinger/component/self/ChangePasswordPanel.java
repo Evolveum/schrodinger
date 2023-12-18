@@ -66,7 +66,7 @@ public class ChangePasswordPanel<T> extends Component<T, ChangePasswordPanel<T>>
         return this;
     }
 
-    public Table<ChangePasswordPanel<T>> accountsTable() {
+    public Table<ChangePasswordPanel<T>, Table> accountsTable() {
         return new Table<>(this, $(Schrodinger.byDataId("individualSystemsTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
@@ -79,8 +79,8 @@ public class ChangePasswordPanel<T> extends Component<T, ChangePasswordPanel<T>>
         return this;
     }
 
-    public ChangePasswordPanel clickAccountCheckboxIconByResourceValue(String resourceValue) {
-        Table<ChangePasswordPanel> accountsTable = new Table<>(this, $(Schrodinger.byDataId("accounts"))
+    public ChangePasswordPanel<T> clickAccountCheckboxIconByResourceValue(String resourceValue) {
+        Table<ChangePasswordPanel<T>, Table> accountsTable = new Table<>(this, $(Schrodinger.byDataId("accounts"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         TableRow row = accountsTable.rowByColumnResourceKey("ChangePasswordPanel.resourceName", resourceValue);
         row.clickColumnByName("Name", "i");

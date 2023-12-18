@@ -21,6 +21,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
+import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
@@ -35,7 +36,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPage, UserPage> {
+public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPage, UserPage, UsersPageTable> {
 
     public UsersPageTable(ListUsersPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -110,5 +111,12 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     public UsersPageTable assertButtonToolBarExists() {
         assertion.assertTrue($(Schrodinger.byDataId("buttonToolbar")).exists(), "Button toolbar is absent");
         return this;
+    }
+
+    @Override
+    public Search<UsersPageTable> search() {
+        SelenideElement searchElement = findSearchElement();
+
+        return new Search<>(this, searchElement);
     }
 }

@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListResourcesPage, ResourcePage> {
+public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListResourcesPage, ResourcePage, ResourcesPageTable> {
 
     public ResourcesPageTable(ListResourcesPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

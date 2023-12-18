@@ -24,7 +24,7 @@ import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.Li
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class InboundMappingsTable<T> extends MappingsTable<T> {
+public class InboundMappingsTable<T> extends MappingsTable<T, InboundMappingsTable<T>> {
 
     public InboundMappingsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by honchar
  */
-public class WorkitemsTable<T> extends TableWithPageRedirect<T> {
+public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemsTable> {
 
     public WorkitemsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -34,6 +34,7 @@ import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceShadowTable;
+import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.AboutPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
@@ -43,6 +44,7 @@ import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
+import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -613,7 +615,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         return role;
     }
 
-    public AssignmentHolderObjectListTable<ListUsersPage, UserPage> showUserInTable(String userName) {
+    public UsersPageTable showUserInTable(String userName) {
         return basicPage.listUsers()
                 .table()
                 .search()
@@ -623,7 +625,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
-    public AssignmentHolderObjectListTable<ListRolesPage, RolePage> showRoleInTable(String roleName) {
+    public RolesPageTable showRoleInTable(String roleName) {
         return basicPage.listRoles()
                 .table()
                 .search()

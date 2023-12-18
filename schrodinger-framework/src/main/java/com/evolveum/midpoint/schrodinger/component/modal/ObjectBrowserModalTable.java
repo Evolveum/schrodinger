@@ -33,7 +33,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M> {
+public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M, ObjectBrowserModalTable<T, M>> {
 
     public ObjectBrowserModalTable(M parent, SelenideElement parentElement){
         super(parent, parentElement);

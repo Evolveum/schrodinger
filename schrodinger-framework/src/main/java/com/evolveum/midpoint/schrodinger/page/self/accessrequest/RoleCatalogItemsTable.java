@@ -26,7 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class RoleCatalogItemsTable<T> extends Table<T> {
+public class RoleCatalogItemsTable<T> extends Table<T, RoleCatalogItemsTable> {
 
     public RoleCatalogItemsTable(T parent) {
         super(parent, $(Schrodinger.byDataId("tilesTable")));

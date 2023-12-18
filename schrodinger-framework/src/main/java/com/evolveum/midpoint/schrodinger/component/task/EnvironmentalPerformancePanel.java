@@ -36,16 +36,16 @@ public class EnvironmentalPerformancePanel extends Component<TaskPage, Environme
         super(parent, parentElement);
     }
 
-    public Table<EnvironmentalPerformancePanel> getMappingsEvaluationInformationTable() {
+    public Table<EnvironmentalPerformancePanel, Table> getMappingsEvaluationInformationTable() {
         SelenideElement tableElement = $(Schrodinger.byDataId("mappingsStatisticsLines"))
                 .$x(".//table[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new Table<EnvironmentalPerformancePanel>(this, tableElement);
+        return new Table<>(this, tableElement);
     }
 
-    public Table<EnvironmentalPerformancePanel> getNotificationsInformationTable() {
+    public Table<EnvironmentalPerformancePanel, Table> getNotificationsInformationTable() {
         SelenideElement tableElement = $(Schrodinger.byDataId("notificationsStatisticsLines"))
                 .$x(".//table[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new Table<EnvironmentalPerformancePanel>(this, tableElement);
+        return new Table<>(this, tableElement);
     }
 
     public String getLastStatusMessage() {

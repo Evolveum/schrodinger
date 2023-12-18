@@ -26,7 +26,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T> {
+public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, ProcessedObjectsTable<T>> {
 
     public ProcessedObjectsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

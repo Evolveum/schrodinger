@@ -302,19 +302,17 @@ public class M4ProvisioningToResources extends AbstractLabTest {
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
         loginPage.loginWithReloadLoginPage(getUsername(), getPassword());
-
-        ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
-                ((AbstractTableWithPrismView)showUser("kirk")
+         showUser("kirk")
                         .selectProjectionsPanel()
                             .table()
                                 .search()
                                     .textInputPanelByItemName("Name")
                                         .inputValue("jim tiberius kirk")
                                         .updateSearch()
-                                    .and())
+                                    .and()
                                 .clickByName("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
                         .showEmptyAttributes("Attributes")
-                        .addAttributeValue("manager", "xxx"))
+                        .addAttributeValue("manager", "xxx")
                         .and()
                     .and()
                 .and()
@@ -328,17 +326,16 @@ public class M4ProvisioningToResources extends AbstractLabTest {
     }
 
     private void changeAdministrativeStatusViaProjectionTab(String userName, String accountName, String status, String resourceName) {
-        ((PrismFormWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<UserPage>>>)
-                ((AbstractTableWithPrismView)showUser(userName)
+        showUser(userName)
                 .selectProjectionsPanel()
                     .table()
                         .search()
                             .textInputPanelByItemName("Name")
                                 .inputValue(accountName)
                             .updateSearch()
-                        .and())
+                        .and()
                         .clickByName(accountName)
-                            .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, status))
+                            .setDropDownAttributeValue(ActivationType.F_ADMINISTRATIVE_STATUS, status)
                             .and()
                         .and()
                     .and()

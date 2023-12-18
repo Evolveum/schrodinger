@@ -31,7 +31,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by honchar
  */
-public class RolesPageTable extends AssignmentHolderObjectListTable<ListRolesPage, RolePage> {
+public class RolesPageTable extends AssignmentHolderObjectListTable<ListRolesPage, RolePage, RolesPageTable> {
 
     public RolesPageTable(ListRolesPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

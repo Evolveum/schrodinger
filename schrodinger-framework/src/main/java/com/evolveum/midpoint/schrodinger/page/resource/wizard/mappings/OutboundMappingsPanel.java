@@ -37,8 +37,8 @@ public class OutboundMappingsPanel<T> extends TableWizardStepPanel<T> {
         return new OutboundMappingsTable<>(OutboundMappingsPanel.this, $(Schrodinger.byDataId("table")));
     }
 
-    protected EditableRowTable<TableWizardStepPanel<T>> table() {
-        return new EditableRowTable<>(OutboundMappingsPanel.this,
+    protected OutboundMappingsTable table() {
+        return new OutboundMappingsTable<>(OutboundMappingsPanel.this,
                 $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

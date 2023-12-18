@@ -62,8 +62,8 @@ public class OperationStatisticsPanel extends Component<TaskPage, OperationStati
         return Integer.valueOf(textValue);
     }
 
-    public Table<OperationStatisticsPanel> getSynchronizationSituationTransitionsTable() {
-        Table<OperationStatisticsPanel> table = new Table<>(this,
+    public Table<OperationStatisticsPanel, Table> getSynchronizationSituationTransitionsTable() {
+        Table<OperationStatisticsPanel, Table> table = new Table<>(this,
                 $(Schrodinger.byDataId("synchronizationSituationTransitions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         return table;
     }

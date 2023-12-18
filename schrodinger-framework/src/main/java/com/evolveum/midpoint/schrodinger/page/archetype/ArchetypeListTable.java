@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2021 Evolveum
+ * Copyright (c) 2023  Evolveum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,32 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.component.report;
+
+package com.evolveum.midpoint.schrodinger.page.archetype;
 
 import com.codeborne.selenide.SelenideElement;
-
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
-import com.evolveum.midpoint.schrodinger.page.report.CreatedReportsPage;
-import com.evolveum.midpoint.schrodinger.page.report.ReportPage;
+import com.evolveum.midpoint.schrodinger.page.cases.CasesListTable;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
-/**
- * Created by honchar
- */
-public class CreatedReportsTable extends AssignmentHolderObjectListTable<CreatedReportsPage, ReportPage, CreatedReportsTable> {
+public class ArchetypeListTable extends AssignmentHolderObjectListTable<ListArchetypesPage, ArchetypePage, ArchetypeListTable> {
 
-    public CreatedReportsTable(CreatedReportsPage parent, SelenideElement parentElement) {
+    public ArchetypeListTable(ListArchetypesPage parent, SelenideElement parentElement){
         super(parent, parentElement);
     }
 
     @Override
-    protected TableHeaderDropDownMenu<ReportTable> clickHeaderActionDropDown() {
+    protected TableHeaderDropDownMenu<CasesListTable> clickHeaderActionDropDown() {
         return null;
     }
 
     @Override
-    public ReportPage getObjectDetailsPage() {
-        return null;
+    public ArchetypePage getObjectDetailsPage(){
+        Utils.waitForMainPanelOnDetailsPage();
+        return new ArchetypePage();
     }
 
 }

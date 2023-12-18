@@ -19,7 +19,7 @@ package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-public class OutboundMappingsTable<T> extends MappingsTable<T> {
+public class OutboundMappingsTable<T> extends MappingsTable<T, OutboundMappingsTable<T>> {
 
     public OutboundMappingsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

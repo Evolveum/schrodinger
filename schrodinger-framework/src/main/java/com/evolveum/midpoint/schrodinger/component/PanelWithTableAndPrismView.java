@@ -35,13 +35,13 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
         super(parent, parentElement);
     }
 
-    public <T extends PanelWithTableAndPrismView<P>> AbstractTableWithPrismView<T> table() {
+    public <T extends PanelWithTableAndPrismView<P>> AbstractTableWithPrismView<T, AbstractTableWithPrismView> table() {
 
         SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new AbstractTableWithPrismView<T>((T) this, tableBox) {
+        return new AbstractTableWithPrismView<T, AbstractTableWithPrismView>((T) this, tableBox) {
             @Override
-            public PrismFormWithActionButtons<AbstractTableWithPrismView<T>> clickByName(String name) {
+            public PrismFormWithActionButtons<AbstractTableWithPrismView<T, AbstractTableWithPrismView>> clickByName(String name) {
                 $(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
@@ -51,7 +51,7 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
             }
 
             @Override
-            public AbstractTableWithPrismView<T> selectCheckboxByName(String name) {
+            public AbstractTableWithPrismView<T, AbstractTableWithPrismView> selectCheckboxByName(String name) {
                 $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
@@ -59,7 +59,7 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
             }
 
             @Override
-            public AbstractTableWithPrismView<T> selectHeaderCheckbox() {
+            public AbstractTableWithPrismView<T, AbstractTableWithPrismView> selectHeaderCheckbox() {
                 $(By.tagName("thead")).$x(".//input[@data-s-id='check']")
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
@@ -67,13 +67,13 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
             }
 
             @Override
-            public AbstractTableWithPrismView<T> removeByName(String name) {
+            public AbstractTableWithPrismView<T, AbstractTableWithPrismView> removeByName(String name) {
                 findRowByColumnLabel("Name", name).getInlineMenu().clickInlineMenuButtonByIconClass(".fa.fa-minus");
                 return this;
             }
 
             @Override
-            public AbstractTableWithPrismView<T> clickHeaderActionButton(String actionButtonStyle) {
+            public AbstractTableWithPrismView<T, AbstractTableWithPrismView> clickHeaderActionButton(String actionButtonStyle) {
                 $(By.tagName("thead")).$x(".//i[@class='" + actionButtonStyle + "']")
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());

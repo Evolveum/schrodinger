@@ -57,13 +57,13 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
     }
 
 
-    public AbstractTableWithPrismView<ProjectionsPanel<P>> table() {
+    public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> table() {
 
         SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable"));
 
-        return new AbstractTableWithPrismView<ProjectionsPanel<P>>(this, tableBox) {
+        return new AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>(this, tableBox) {
             @Override
-            public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> clickByName(String name) {
+            public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>> clickByName(String name) {
                 Utils.waitForAjaxCallFinish();
                 SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "label", name));
                 linkElement
@@ -81,7 +81,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
             }
 
             @Override
-            public AbstractTableWithPrismView<ProjectionsPanel<P>> selectCheckboxByName(String name) {
+            public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> selectCheckboxByName(String name) {
 
                 $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
                         .$(By.tagName("input"))
@@ -91,7 +91,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
             }
 
             @Override
-            public AbstractTableWithPrismView<ProjectionsPanel<P>> selectHeaderCheckbox() {
+            public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> selectHeaderCheckbox() {
                 $(Schrodinger.byFollowingSiblingEnclosedValue("th", "class", "check", "data-s-id", "3", ""))
                         .$(By.tagName("input"))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
@@ -100,14 +100,14 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
             }
 
             @Override
-            public AbstractTableWithPrismView<ProjectionsPanel<P>> removeByName(String name) {
+            public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> removeByName(String name) {
                 selectCheckboxByName(name);
                 clickHeaderActionDropDown().delete();
                 return this;
             }
 
             @Override
-            public AbstractTableWithPrismView<ProjectionsPanel<P>> clickHeaderActionButton(String actionButtonStyle) {
+            public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> clickHeaderActionButton(String actionButtonStyle) {
                 $(Schrodinger.byDescendantElementAttributeValue("th", "class", actionButtonStyle))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
@@ -168,7 +168,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         return projectionName.equals(assignmentActualName);
     }
 
-    public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> viewProjectionDetails(String projectionName, String resourceName){
+    public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>> viewProjectionDetails(String projectionName, String resourceName){
         Selenide.screenshot("beforeSearch");
         table()
                 .search()
@@ -181,8 +181,8 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         Selenide.screenshot("afterSearch");
         ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
-        ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>> detailsPanel =
-                new ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>>>(table(), $(Schrodinger.byDataId("valueForm")));
+        ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>> detailsPanel =
+                new ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>>(table(), $(Schrodinger.byDataId("valueForm")));
         return detailsPanel;
     }
 

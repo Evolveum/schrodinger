@@ -29,7 +29,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 /**
  * Created by honchar
  */
-public class ReportTable extends AssignmentHolderObjectListTable<ListReportsPage, ReportPage> {
+public class ReportTable extends AssignmentHolderObjectListTable<ListReportsPage, ReportPage, ReportTable> {
 
     public ReportTable(ListReportsPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

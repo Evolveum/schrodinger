@@ -21,13 +21,13 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 /**
  * Created by matus on 5/17/2018.
  */
-public abstract class TableWithComponentRedirect<T, E extends Component> extends Table<T> {
+public abstract class TableWithComponentRedirect<T, E extends Component, P extends TableWithComponentRedirect> extends Table<T, P> {
     public TableWithComponentRedirect(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
     public abstract E clickByName(String name);
 
-    public abstract TableWithComponentRedirect<T, E> selectCheckboxByName(String name);
+    public abstract TableWithComponentRedirect<T, E, P> selectCheckboxByName(String name);
 
 }

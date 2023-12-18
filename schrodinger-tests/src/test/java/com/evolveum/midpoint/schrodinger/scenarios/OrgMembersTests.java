@@ -141,7 +141,6 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .and()
                         .clickAdd();
 
-        AssignmentHolderObjectListTable<MemberPanel<OrgRootTab>, AssignmentHolderDetailsPage> membersTable =
                 basicPage.orgStructure()
                     .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                         .getMemberPanel()
@@ -151,10 +150,8 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                                     .inputValue("UniqueNameUserForMemberTest")
                                 .updateSearch()
                             .and()
-                        .clickRefreshButton();
-        Selenide.screenshot("test00300assignExistingUserAsMember_membersPanel_" + System.currentTimeMillis());
-
-        membersTable
+                        .clickRefreshButton()
+                                .screenshot("test00300assignExistingUserAsMember_membersPanel_" + System.currentTimeMillis())
                     .assertTableContainsText("UniqueNameUserForMemberTest");
     }
 

@@ -64,11 +64,11 @@ public class ResultPanel extends Component<TaskPage, ResultPanel> {
         return cell.getText();
     }
 
-    public TableRow<ResultPanel, Table<ResultPanel>> getResultsTableRowByToken(String tokenValue) {
+    public TableRow<ResultPanel, Table<ResultPanel, Table>> getResultsTableRowByToken(String tokenValue) {
         return getResultsTable().rowByColumnResourceKey("pageTaskEdit.opResult.token", tokenValue);
     }
 
-    public Table<ResultPanel> getResultsTable() {
+    public Table<ResultPanel, Table> getResultsTable() {
         return new Table<>(this, $(Schrodinger.byDataId("operationResult")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 

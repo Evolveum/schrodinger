@@ -31,7 +31,7 @@ public class TableWizardStepPanel<T> extends WizardStepPanel<T> {
                 MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
-    protected Table<TableWizardStepPanel<T>> table() {
+    protected Table<TableWizardStepPanel<T>, ? extends Table> table() {
         return new Table<>(TableWizardStepPanel.this,
                 $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }

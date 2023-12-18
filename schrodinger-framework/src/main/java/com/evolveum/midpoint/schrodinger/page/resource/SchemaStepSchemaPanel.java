@@ -54,8 +54,8 @@ public class SchemaStepSchemaPanel extends PanelWithContainerWrapper<ResourcePag
                 .exists();
     }
 
-    public Table<SchemaStepSchemaPanel> getAttributesTable() {
-        return new Table<SchemaStepSchemaPanel>(this,
+    public Table<SchemaStepSchemaPanel, Table> getAttributesTable() {
+        return new Table<>(this,
                 $(Schrodinger.byDataId("attributeTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 

@@ -33,7 +33,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListRepositoryObjectsPage> {
+public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListRepositoryObjectsPage, ListRepositoryObjectsTable> {
 
     public ListRepositoryObjectsTable(ListRepositoryObjectsPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

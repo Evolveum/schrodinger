@@ -58,7 +58,7 @@ public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertie
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
-    public Table<SearchPropertiesConfigPanel> getPropertiesTable() {
+    public Table<SearchPropertiesConfigPanel, Table> getPropertiesTable() {
         SelenideElement tableElement = getParentElement().$(By.tagName("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         Table propertiesTable = new Table(this, tableElement);
         return propertiesTable;

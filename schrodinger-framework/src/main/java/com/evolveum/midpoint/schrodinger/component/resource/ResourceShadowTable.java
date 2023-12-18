@@ -35,7 +35,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/25/2018.
  */
-public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
+public class ResourceShadowTable<T> extends TableWithPageRedirect<T, ResourceShadowTable<T>> {
     public ResourceShadowTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
@@ -91,8 +91,8 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     }
 
     @Override
-    public Search<? extends ResourceShadowTable<T>> search() {
-        return (Search<? extends ResourceShadowTable<T>>) super.search();
+    public Search<ResourceShadowTable<T>> search() {
+        return (Search<ResourceShadowTable<T>>) super.search();
     }
 
     public ResourceShadowTable<T> enable() {

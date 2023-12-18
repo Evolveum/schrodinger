@@ -27,7 +27,7 @@ import org.openqa.selenium.By;
 /**
  * Created by Kate Honchar
  */
-public class ChildrenCaseTable extends TableWithPageRedirect<CasePage> {
+public class ChildrenCaseTable extends TableWithPageRedirect<CasePage, ChildrenCaseTable> {
     public ChildrenCaseTable(CasePage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

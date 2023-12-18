@@ -38,7 +38,7 @@ import static com.codeborne.selenide.Selenide.screenshot;
 /**
  * Created by matus on 5/2/2018.
  */
-public abstract class TableWithPageRedirect<T> extends Table<T> {
+public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirect> extends Table<T, TWPR> {
 
     public TableWithPageRedirect(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -46,9 +46,9 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
 
     public abstract <E extends BasicPage> E clickByName(String name);
 
-    public abstract TableWithPageRedirect<T> selectCheckboxByName(String name);
+    public abstract TableWithPageRedirect<T, TWPR> selectCheckboxByName(String name);
 
-    protected abstract <P extends TableWithPageRedirect<T>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown();
+    protected abstract <P extends TableWithPageRedirect<T, TWPR>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown();
 
     protected SelenideElement clickAndGetHeaderDropDownMenu() {
 
@@ -61,7 +61,7 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
         return dropDownMenu;
     }
 
-    public InlineMenu<TableWithPageRedirect<T>> getHeaderInlineMenuPanel() {
+    public InlineMenu<TableWithPageRedirect<T, TWPR>> getHeaderInlineMenuPanel() {
         SelenideElement element = getParentElement().find("th:last-child div.btn-group");
         if (element == null) {
             return null;
@@ -74,12 +74,12 @@ public abstract class TableWithPageRedirect<T> extends Table<T> {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
     }
 
-    protected  <P extends TableWithPageRedirect<T>> ConfirmationModal<P> clickMenuItemWithConfirmation(String columnTitleKey, String rowValue, String menuItemKey) {
+    protected  <P extends TableWithPageRedirect<T, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation(String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
 
-    protected  <P extends TableWithPageRedirect<T>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
+    protected  <P extends TableWithPageRedirect<T, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
         clickMenuItemButton(columnTitleKey, rowValue, iconClass);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }

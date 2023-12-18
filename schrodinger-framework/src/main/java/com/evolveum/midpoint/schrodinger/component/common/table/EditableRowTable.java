@@ -26,12 +26,12 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/22/2018.
  */
-public class EditableRowTable<T> extends Table<T>{
+public class EditableRowTable<T, P extends EditableRowTable> extends Table<T, P>{
     public EditableRowTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public EditableRowTable<T> setInputValue(String columnResourceKey, String attributeValue, int rowIndex){
+    public EditableRowTable<T, P> setInputValue(String columnResourceKey, String attributeValue, int rowIndex){
         SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
         if (element != null && element.exists()) {
             element.$x(".//input").setValue(attributeValue);
@@ -39,7 +39,7 @@ public class EditableRowTable<T> extends Table<T>{
         return EditableRowTable.this;
     }
 
-    public EditableRowTable<T> setDropdownValue(String columnResourceKey, String attributeValue, int rowIndex){
+    public EditableRowTable<T, P> setDropdownValue(String columnResourceKey, String attributeValue, int rowIndex){
         SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
         if (element != null && element.exists()) {
             element.$x(".//select").selectOption(attributeValue);
@@ -47,7 +47,7 @@ public class EditableRowTable<T> extends Table<T>{
         return EditableRowTable.this;
     }
 
-    public EditableRowTable<T> addAttributeValue(String columnName, String attributeValue){
+    public EditableRowTable<T, P> addAttributeValue(String columnName, String attributeValue){
         SelenideElement element = $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","text",null,null, columnName))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(attributeValue);
         if (element.exists()) {
@@ -57,7 +57,7 @@ public class EditableRowTable<T> extends Table<T>{
     }
 
 
-    public EditableRowTable<T> clickCheckBox(String attributeName){
+    public EditableRowTable<T, P> clickCheckBox(String attributeName){
 
     $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","checkbox",null,null,attributeName))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();

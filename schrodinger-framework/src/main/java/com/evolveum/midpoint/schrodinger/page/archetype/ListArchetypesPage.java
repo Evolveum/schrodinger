@@ -26,18 +26,8 @@ import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu
 public class ListArchetypesPage extends AssignmentHolderObjectListPage<AssignmentHolderObjectListTable, ArchetypePage> {
 
     @Override
-    public AssignmentHolderObjectListTable<ListArchetypesPage, ArchetypePage> table() {
-        return new AssignmentHolderObjectListTable<ListArchetypesPage, ArchetypePage>(this, getTableBoxElement()) {
-            @Override
-            protected  <P extends TableWithPageRedirect<ListArchetypesPage>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown() {
-                return null;
-            }
-
-            @Override
-            public ArchetypePage getObjectDetailsPage() {
-                return new ArchetypePage();
-            }
-        };
+    public ArchetypeListTable table() {
+        return new ArchetypeListTable(ListArchetypesPage.this, getTableBoxElement());
     }
 
     @Override

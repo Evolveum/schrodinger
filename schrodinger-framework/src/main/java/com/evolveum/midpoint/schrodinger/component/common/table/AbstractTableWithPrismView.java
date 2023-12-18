@@ -17,22 +17,30 @@ package com.evolveum.midpoint.schrodinger.component.common.table;
 
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
+import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import org.openqa.selenium.By;
 
 /**
  * Created by matus on 5/17/2018.
  */
-public abstract class AbstractTableWithPrismView<T> extends Table<T> {
+public abstract class AbstractTableWithPrismView<T, P extends AbstractTableWithPrismView> extends Table<T, P> {
     public AbstractTableWithPrismView(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public abstract <PF extends PrismFormWithActionButtons<AbstractTableWithPrismView<T>>> PF clickByName(String name);
+    public abstract <PF extends PrismFormWithActionButtons<AbstractTableWithPrismView<T, P>>> PF clickByName(String name);
 
-    public abstract AbstractTableWithPrismView<T> selectCheckboxByName(String name);
+    public abstract AbstractTableWithPrismView<T, P> selectCheckboxByName(String name);
 
-    public abstract AbstractTableWithPrismView<T> selectHeaderCheckbox();
+    public abstract AbstractTableWithPrismView<T, P> selectHeaderCheckbox();
 
-    public abstract AbstractTableWithPrismView<T> removeByName(String name);
+    public abstract AbstractTableWithPrismView<T, P> removeByName(String name);
 
-    public abstract AbstractTableWithPrismView<T> clickHeaderActionButton(String actionButtonStyle);
+    public abstract AbstractTableWithPrismView<T, P> clickHeaderActionButton(String actionButtonStyle);
+
+    @Override
+    public Search<? extends AbstractTableWithPrismView<T, P>> search() {
+        SelenideElement searchElement = getParentElement().$(By.cssSelector(".search-panel-form"));
+        return new Search<>(AbstractTableWithPrismView.this, searchElement);
+    }
 }

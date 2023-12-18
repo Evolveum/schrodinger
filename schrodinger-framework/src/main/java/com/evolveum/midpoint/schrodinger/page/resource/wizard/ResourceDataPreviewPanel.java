@@ -57,7 +57,7 @@ public class ResourceDataPreviewPanel<T> extends Component<T, ResourceDataPrevie
         return ResourceDataPreviewPanel.this;
     }
 
-    private Table<ResourceDataPreviewPanel<T>> getResourceObjectsTable() {
+    private Table<ResourceDataPreviewPanel<T>, Table> getResourceObjectsTable() {
         return new Table<>(ResourceDataPreviewPanel.this,
                 $x(".//div[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }

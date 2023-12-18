@@ -78,12 +78,10 @@ public class CustomColumnTest extends AbstractSchrodingerTest {
 
     @Test(priority = 3)
     public void test00300checkExportColumns() {
-        ListUsersPage usersPage = basicPage.listUsers("Custom columns view");
-        Table<ExportPopupPanel<ListUsersPage>> exportTable = usersPage.table()
+        basicPage.listUsers("Custom columns view")
+                .table()
                 .clickExportButton()
-                    .table();
-        screenshot("exportTable");
-        exportTable
+                .table()
                 .assertTableRowExists("Column name", "Name (custom)")
                 .assertTableRowExists("Column name", "Role membership")
                 .assertTableRowExists("Column name", "Preferred language");

@@ -127,6 +127,7 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
                 .name("empnum-to-persNumber")
                 .fromResourceAttribute("empnum")
                 .expression("As is")
+                .screenshot()
                 .target("personalNumber")
                 .lifecycleState("Active")
                 .and()

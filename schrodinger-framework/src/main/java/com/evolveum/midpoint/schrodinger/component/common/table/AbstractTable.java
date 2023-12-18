@@ -27,17 +27,17 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/9/2018.
  */
-public abstract class AbstractTable<T> extends Table<T> {
+public abstract class AbstractTable<T, P extends AbstractTable> extends Table<T, P> {
 
     public AbstractTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public abstract PrismForm<AbstractTable<T>> clickByName(String name);
+    public abstract PrismForm<AbstractTable<T, P>> clickByName(String name);
 
-    public abstract AbstractTable<T> selectCheckboxByName(String name);
+    public abstract AbstractTable<T, P> selectCheckboxByName(String name);
 
-    public AbstractTable<T> selectHeaderCheckBox(){
+    public AbstractTable<T, P> selectHeaderCheckBox(){
         $(By.tagName("thead"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
         .$(Schrodinger.byElementAttributeValue("input", "type", "checkbox"))

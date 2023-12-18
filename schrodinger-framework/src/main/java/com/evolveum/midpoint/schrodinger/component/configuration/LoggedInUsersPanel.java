@@ -35,7 +35,7 @@ public class LoggedInUsersPanel extends Component<InternalsConfigurationPage, Lo
         super(parent, parentElement);
     }
 
-    public Table<LoggedInUsersPanel> table() {
+    public Table<LoggedInUsersPanel, Table> table() {
         return new Table<>(this, $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

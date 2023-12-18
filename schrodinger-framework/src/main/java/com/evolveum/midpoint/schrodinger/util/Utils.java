@@ -102,7 +102,7 @@ public class Utils {
     }
 
     public static <P extends AssignmentHolderDetailsPage> void removeAssignments(AssignmentsPanel<P> tab, String... assignments) {
-        AbstractTableWithPrismView<AssignmentsPanel<P>> table = tab.table();
+        AbstractTableWithPrismView<AssignmentsPanel<P>, AbstractTableWithPrismView> table = tab.table();
         for (String assignment : assignments) {
             table.removeByName(assignment);
         }

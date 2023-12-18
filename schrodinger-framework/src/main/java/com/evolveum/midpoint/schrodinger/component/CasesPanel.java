@@ -36,8 +36,8 @@ public class CasesPanel<P extends FocusPage> extends Component<P, CasesPanel<P>>
         super(parent, parentElement);
     }
 
-    public TableWithPageRedirect<CasesPanel<P>> table() {
-        return new TableWithPageRedirect<CasesPanel<P>>(this,
+    public TableWithPageRedirect<CasesPanel<P>, TableWithPageRedirect> table() {
+        return new TableWithPageRedirect<>(this,
                 $(Schrodinger.byDataId("taskTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)) {
             @Override
             public CasePage clickByName(String name) {
@@ -45,7 +45,7 @@ public class CasesPanel<P extends FocusPage> extends Component<P, CasesPanel<P>>
             }
 
             @Override
-            public TableWithPageRedirect<CasesPanel<P>> selectCheckboxByName(String name) {
+            public TableWithPageRedirect<CasesPanel<P>, TableWithPageRedirect> selectCheckboxByName(String name) {
                 return null;
             }
 

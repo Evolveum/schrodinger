@@ -40,7 +40,8 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by honchar
  */
-public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHolderDetailsPage> extends TableWithPageRedirect<P> {
+public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHolderDetailsPage,
+        T extends AssignmentHolderObjectListTable<P, PD, T>> extends TableWithPageRedirect<P, T> {
 
     public AssignmentHolderObjectListTable(P parent, SelenideElement parentElement){
         super(parent, parentElement);
@@ -48,7 +49,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
 
 
     @Override
-    public AssignmentHolderObjectListTable<P, PD> selectCheckboxByName(String name) {
+    public AssignmentHolderObjectListTable<P, PD, T> selectCheckboxByName(String name) {
         findRowByColumnLabel(getNameColumnLabel(), name).clickCheckBox();
         return this;
     }
@@ -79,10 +80,10 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     @Override
-    public Search<? extends AssignmentHolderObjectListTable<P, PD>> search() {
+    public Search<T> search() {
         SelenideElement searchElement = findSearchElement();
 
-        return new Search<>(this, searchElement);
+        return new Search<>((T) this, searchElement);
     }
 
     protected SelenideElement findSearchElement() {
@@ -90,7 +91,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     }
 
     @Override
-    public AssignmentHolderObjectListTable<P, PD> selectAll() {
+    public AssignmentHolderObjectListTable<P, PD, T> selectAll() {
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
@@ -143,7 +144,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return new ExportPopupPanel<>(getParent(), Utils.getModalWindowSelenideElement());
     }
 
-    public AssignmentHolderObjectListTable<P, PD> clickRefreshButton() {
+    public AssignmentHolderObjectListTable<P, PD, T> clickRefreshButton() {
         getToolbarButtonByCss("fa fa-sync-alt")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -201,7 +202,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return "Name";
     }
 
-    public AssignmentHolderObjectListTable<P, PD> assertTemplatePanelButtonsCountEquals(int expectedButtonsCount) {
+    public AssignmentHolderObjectListTable<P, PD, T> assertTemplatePanelButtonsCountEquals(int expectedButtonsCount) {
         int realButtonsCount = countNewObjectButtonsInPopup("fa fa-plus");
         assertion.assertTrue(realButtonsCount == expectedButtonsCount,
                 "Template panel doesn't contain an expected buttons count, expected: " + expectedButtonsCount +
@@ -209,7 +210,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return this;
     }
 
-    public AssignmentHolderObjectListTable<P, PD> assertTemplatePanelVisible() {
+    public AssignmentHolderObjectListTable<P, PD, T> assertTemplatePanelVisible() {
         SelenideElement templatePanel = $(Schrodinger.byDataId("newObjectSelectionButtonPanel"));
         assertion.assertTrue(templatePanel.exists(),  "Template panel doesn't exist.");
         return this;

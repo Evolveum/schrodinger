@@ -34,7 +34,7 @@ import static com.codeborne.selenide.Selenide.$;
  * @author skublik
  */
 
-public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
+public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditRecordTable<T>> {
 
     public AuditRecordTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
