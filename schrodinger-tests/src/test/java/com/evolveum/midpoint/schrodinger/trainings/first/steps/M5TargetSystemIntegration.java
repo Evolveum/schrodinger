@@ -51,14 +51,18 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .selectDefinedTasksPanel()
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
-                .selectOperationStatisticsPanel();
+                .selectOperationStatisticsPanel()
+                        .screenshot("selectOperationStatisticsPanel")
+                                .assertProgressSummaryObjectsCountEquals(1);
         //todo check:
         // 39 accounts previously not linked are now linked to midPoint users; final situation is Linked
         //5 accounts previously not linked are still not linked to midPoint users; final situation is Unmatched - these are orphaned accounts
         //1 account is protected (within the configuration of resource copied from resource template)
         operationStatisticsPanel
                 .and()
-                .showSimulationResult();
+                .showSimulationResult()
+                .changes()
+                .screenshot("showSimulationResult");
         //todo check
         // 5 deactivated accounts (to be deleted) including Ana Lopez (company CFO, we need to be careful here!)
         //78 modified objects, where:
@@ -75,7 +79,10 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .selectDefinedTasksPanel()
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
-                .showSimulationResult();
+                .showSimulationResult()
+                .changes()
+                .screenshot("test2markingAccounts")
+                .assertItemsDeltasSizeEquals(1);
 
     }
 
@@ -86,8 +93,9 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("AD")
                 .setLifecycleState("Active (production)")
-                .selectSchemaHandlingPanel();
-        Selenide.screenshot("test00300ignoringOrphanedAccounts");
+                .selectSchemaHandlingPanel()
+                        .screenshot("test00300ignoringOrphanedAccounts")
+                .addNewObjectType();
 
     }
 }
