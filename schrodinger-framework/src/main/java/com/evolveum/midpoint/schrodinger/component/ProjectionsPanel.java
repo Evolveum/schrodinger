@@ -201,7 +201,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
                 .and()
                     .updateSearch()
                     .and()
-                .assertTableObjectsCountEquals(0);
+                .assertVisibleObjectsCountEquals(0);
         return this;
     }
 

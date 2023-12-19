@@ -22,7 +22,6 @@ import static com.codeborne.selenide.Selenide.$;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -315,12 +314,17 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return this;
     }
 
-    public Table<T, P> assertTableObjectsCountEquals(int expectedObjectsCount) {
+    public Table<T, P> assertVisibleObjectsCountEquals(int expectedObjectsCount) {
         assertion.assertEquals(rowsCount(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
         return this;
     }
 
-    public Table<T, P> assertTableObjectsCountNotEquals(int objectsCount) {
+    public Table<T, P> assertAllObjectsCountEquals(int objectsCount) {
+        assertion.assertEquals(countTableObjects(), objectsCount, "All objects count doesn't equal to expected value " + objectsCount);
+        return this;
+    }
+
+    public Table<T, P> assertAllObjectsCountNotEquals(int objectsCount) {
         assertion.assertNotEquals(countTableObjects(), objectsCount, "Table objects count equals to expected value " + objectsCount);
         return this;
     }

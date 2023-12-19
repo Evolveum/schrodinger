@@ -32,7 +32,7 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
 
     @Test(groups = MODULE_4_GROUP)
     public void test1createADResourceFromTemplate() {
-         DiscoveryWizardStep discoveryWizardStep = basicPage
+         basicPage
                 .newResource()
                 .copyFromTemplate("Training Active Directory Resource Template")
                 .name("AD")
@@ -43,19 +43,13 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .port("389")
                 .bindDN("cn=idm,ou=Administrators,dc=example,dc=com")
                 .bindPassword("secret")
-                .next();
-         Selenide.screenshot("test00100createADResourceFromTemplate_DiscoveryWizardStep");
-        ResourceDataPreviewPanel<ResourceWizardResultStep> dataPreviewPanel = discoveryWizardStep
+                .next()
                 .baseContext("dc=example,dc=com")
                 .next()
                 .createResource()
                 .previewResourceData()
-                        .selectObjectType("inetOrgPerson");
-        //select inetOrgPerson  object class to display the existing account in your AD resource
-        Selenide.screenshot("M4ConnectingTargetSystem_resourceData");
-        LOG.info("dataPreviewPanel");
-        LOG.info(WebDriverRunner.source());
-        dataPreviewPanel
+                 .selectObjectType("inetOrgPerson")
+                 .assertAllObjectsCountEquals(45)
                 .clickBack()
                 .goToResource();
     }
@@ -77,11 +71,21 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .assertCorrelationRuleExist("last-resort-correlation")
                 .assertCorrelationRuleDisabled("last-resort-correlation")
                 .exitWizard()
-                .configureMappings();
-        Selenide.screenshot("test00200reviewADResourceSyncConfiguration");
-        LOG.info("configureMappings");
-        LOG.info(WebDriverRunner.source());
-                //todo there are several inbound mappings, all of them are active, but used only for the correlation (indicated by  icon)
-//                .exitWizard();
+                .configureMappings()
+                .inboundMappings()
+                .assertMappingExist("mapping-inbound-familyName-for-correlation")
+                .assertMappingExist("mapping-inbound-givenName-for-correlation")
+                .assertMappingExist("mapping-inbound-locality-for-correlation")
+                .assertMappingExist("mapping-inbound-employeeNumber-for-correlation")
+                .assertMappingLifecycleStateEquals("mapping-inbound-familyName-for-correlation", "Active")
+                .assertMappingLifecycleStateEquals("mapping-inbound-givenName-for-correlation", "Active")
+                .assertMappingLifecycleStateEquals("mapping-inbound-locality-for-correlation", "Active")
+                .assertMappingLifecycleStateEquals("mapping-inbound-employeeNumber-for-correlation", "Active")
+                .assertMappingIconTitleEquals("mapping-inbound-familyName-for-correlation", "Used for correlation")
+                .assertMappingIconTitleEquals("mapping-inbound-givenName-for-correlation", "Used for correlation")
+                .assertMappingIconTitleEquals("mapping-inbound-locality-for-correlation", "Used for correlation")
+                .assertMappingIconTitleEquals("mapping-inbound-employeeNumber-for-correlation", "Used for correlation")
+                .and()
+                .exitWizard();
     }
 }

@@ -168,7 +168,7 @@ public class M3ImportSourceData extends AbstractTrainingTest {
         basicPage
                 .listUsers("Persons")
                 .table()
-                .assertTableObjectsCountEquals(0);
+                .assertVisibleObjectsCountEquals(0);
 
         basicPage
                 .listResources()

@@ -103,7 +103,7 @@ public class M5AdvancedSecurityFeatures extends AbstractAdvancedLabTest {
         userPage
                 .selectProjectionsPanel()
                     .table()
-                        .assertTableObjectsCountEquals(0);
+                        .assertVisibleObjectsCountEquals(0);
         userPage
                 .addPasswordAttributeValue("qwerty12345XXXX")
                 .clickSave()

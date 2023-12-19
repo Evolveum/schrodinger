@@ -20,8 +20,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
-import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -36,8 +34,13 @@ public class ResourceDataPreviewPanel<T> extends Component<T, ResourceDataPrevie
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
+    public ResourceDataPreviewPanel<T> assertAllObjectsCountEquals(int objectCount) {
+        getResourceObjectsTable().assertAllObjectsCountEquals(objectCount);
+        return ResourceDataPreviewPanel.this;
+    }
+
     public ResourceDataPreviewPanel<T> assertTableContainsObjects(int objectCount) {
-        getResourceObjectsTable().assertTableObjectsCountEquals(objectCount);
+        getResourceObjectsTable().assertVisibleObjectsCountEquals(objectCount);
         return ResourceDataPreviewPanel.this;
     }
 

@@ -144,11 +144,11 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
 //        search.resetBasicSearch();
-        table.assertTableObjectsCountNotEquals(1);
+        table.assertAllObjectsCountNotEquals(1);
         search.dropDownPanelByItemName(REQUESTABLE_ATTRIBUTE)
                 .inputDropDownValue("True")
                 .updateSearch();
-        table.assertTableObjectsCountEquals(1);
+        table.assertVisibleObjectsCountEquals(1);
     }
 
     @Test
@@ -157,11 +157,11 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
 //        search.resetBasicSearch();
-        table.assertTableObjectsCountNotEquals(1);
+        table.assertAllObjectsCountNotEquals(1);
         search.dropDownPanelByItemName(ADMINISTRATIVE_STATUS_ATTRIBUTE)
                 .inputDropDownValue("Disabled")
                 .updateSearch();
-        table.assertTableObjectsCountEquals(1);
+        table.assertVisibleObjectsCountEquals(1);
     }
 
     @Test
@@ -170,14 +170,14 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
 //        search.resetBasicSearch();
-        table.assertTableObjectsCountNotEquals(1);
+        table.assertAllObjectsCountNotEquals(1);
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .propertySettings()
                 .inputRefOid("959870f4-5b63-11ed-9b6a-0242ac120002")
                 .applyButtonClick()
                 .and()
                 .updateSearch();
-        table.assertTableObjectsCountEquals(1);
+        table.assertVisibleObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByOid");
     }
 
@@ -193,7 +193,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .applyButtonClick()
                 .and()
                 .updateSearch();
-        table.assertTableObjectsCountEquals(2);
+        table.assertVisibleObjectsCountEquals(2);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByType");
     }
 
@@ -209,7 +209,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .applyButtonClick()
                 .and()
                 .updateSearch();
-        table.assertTableObjectsCountEquals(1);
+        table.assertVisibleObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByRelation");
     }
 
@@ -225,7 +225,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .updateSearch();
         table
-                .assertTableObjectsCountEquals(1)
+                .assertVisibleObjectsCountEquals(1)
                 .assertTableContainsLinkTextPartially("testUserWithRoleMembershipSearchByName");
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
                 .assertRefSearchFieldValueMatch(REF_SEARCH_FIELD_VALUE);
@@ -243,14 +243,14 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         search.textInputPanelByItemName("By employee number", false)
                 .inputValue("544")
                 .updateSearch();
-        table.assertTableObjectsCountEquals(1);
+        table.assertVisibleObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("searchByEmployeeNumberUser");
 
         search.clearTextSearchItemByNameAndUpdate("By employee number");
         search.textInputPanelByItemName("By email", false)
                 .inputValue("testEmailAddress@test.com")
                 .updateSearch();
-        table.assertTableObjectsCountEquals(1);
+        table.assertVisibleObjectsCountEquals(1);
         table.assertTableContainsLinkTextPartially("searchByEmailAddressUser");
     }
 

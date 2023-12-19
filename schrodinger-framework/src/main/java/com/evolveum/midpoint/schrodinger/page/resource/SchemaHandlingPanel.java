@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -23,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableWithCompone
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardChoiceStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
+import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -43,6 +45,10 @@ public class SchemaHandlingPanel extends Component<ResourcePage, SchemaHandlingP
         Utils.waitForAjaxCallFinish();
         ObjectTypeWizardPage objectTypeWizardPage = new ObjectTypeWizardPage();
         return new ObjectTypeBasicInformationWizardStep(objectTypeWizardPage);
+    }
+
+    public ResourcePage saveMappings() {
+        return getParent();
     }
 
 //    public ObjectTypeBasicInformationWizardStep setObjectTypeLifecycleState(String objectTypeName,

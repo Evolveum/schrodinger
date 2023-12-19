@@ -46,7 +46,7 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
                         .selectAssignmentsPanel()
                             .assertAssignmentsCountLabelEquals("1")
                             .table()
-                                .assertTableObjectsCountEquals(1);
+                                .assertVisibleObjectsCountEquals(1);
         basicPage
                 .listUsers()
                     .table()
@@ -59,7 +59,7 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
                         .selectAssignmentsPanel()
                             .assertAssignmentsCountLabelEquals("0")
                             .table()
-                                .assertTableObjectsCountEquals(0);
+                                .assertVisibleObjectsCountEquals(0);
 
     }
 }

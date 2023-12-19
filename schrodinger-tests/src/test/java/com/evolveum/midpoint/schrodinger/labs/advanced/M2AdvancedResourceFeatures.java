@@ -120,7 +120,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .assertFullName("Antonio Perkeltini")
                 .selectAssignmentsPanel()
                     .table()
-                        .assertTableObjectsCountEquals(0);
+                        .assertVisibleObjectsCountEquals(0);
 
         showResource(CONTRACTORS_RESOURCE_NAME)
                 .selectAccountsPanel()
@@ -149,7 +149,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertSucceededCountMatch(11);
         basicPage.listUsers("Externals")
                 .table()
-                    .assertTableObjectsCountEquals(11);
+                    .assertVisibleObjectsCountEquals(11);
 
         //todo check notification file; password is generated message
 
@@ -186,7 +186,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .inputValue("aanderson")
                         .updateSearch()
                         .and()
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                     .assertTableContainsLinkTextPartially("aanderson")
                     .assertTableContainsColumnWithValue("UserType.givenName", "Alice")
                     .assertTableContainsColumnWithValue("UserType.familyName", "Anderson");
@@ -201,7 +201,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .inputValue("aanderson")
                         .updateSearch()
                         .and()
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                     .assertTableContainsLinkTextPartially("aanderson")
                     .assertTableContainsColumnWithValue("UserType.givenName", "Ann")
                     .assertTableContainsColumnWithValue("UserType.familyName", "Anderson");

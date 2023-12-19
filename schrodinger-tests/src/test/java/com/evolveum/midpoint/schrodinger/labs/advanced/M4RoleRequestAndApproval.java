@@ -385,7 +385,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .byType("Role")
                         .updateSearch()
                     .and()
-                        .assertTableObjectsCountEquals(0);
+                        .assertVisibleObjectsCountEquals(0);
 
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
@@ -612,7 +612,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                 .and()
                                     .assertTableContainsText("Metarole - Role Modification Approval by Role Owner(s)")
                                     .assertTableContainsText("Metarole - Role Modification Approval by Security Officer")
-                                    .assertTableObjectsCountEquals(6);
+                                    .assertVisibleObjectsCountEquals(6);
 
         RolePage rolePage = showRole("Secret Projects I");
         rolePage

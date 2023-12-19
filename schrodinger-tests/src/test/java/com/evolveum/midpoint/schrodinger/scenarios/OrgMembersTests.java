@@ -19,22 +19,13 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import com.codeborne.selenide.Selenide;
-
-import com.evolveum.midpoint.schema.constants.SchemaConstants;
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
 
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
-import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
-import com.evolveum.midpoint.schrodinger.page.role.RolePage;
-
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.testng.annotations.Test;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
@@ -180,7 +171,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .inputValue("NewUserAsOrgApprover")
                             .updateSearch()
                         .and()
-                        .assertTableObjectsCountEquals(1)
+                        .assertVisibleObjectsCountEquals(1)
                         .assertTableContainsText("Approver");
     }
 
@@ -217,7 +208,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                     .updateSearch();
 
         memberTable
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                 .assertTableContainsText("Manager");
     }
 
@@ -257,7 +248,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .inputValue("NewOrgAsOrgOwner")
                     .updateSearch()
                 .and()
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                     .assertTableContainsText("Owner");
     }
 
@@ -293,7 +284,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .inputValue("NewOrgAsOrgApprover")
                 .updateSearch()
                 .and()
-                .assertTableObjectsCountEquals(1)
+                .assertVisibleObjectsCountEquals(1)
                 .assertTableContainsText("Approver");
     }
 }

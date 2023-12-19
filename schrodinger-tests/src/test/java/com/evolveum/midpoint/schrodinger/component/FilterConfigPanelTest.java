@@ -68,7 +68,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
         midPoint.formLogin().login(username, password);
 
         UsersPageTable usersPageTable = basicPage.listUsers("FilterTestUsers").table();
-        usersPageTable.assertTableObjectsCountEquals(1);
+        usersPageTable.assertVisibleObjectsCountEquals(1);
         usersPageTable.assertTableContainsText("FilterConfigTest");
     }
 
@@ -100,7 +100,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
         midPoint.formLogin().login(username, password);
 
         UsersPageTable usersPageTable = basicPage.listUsers("NewObjCollectionTest").table();
-        usersPageTable.assertTableObjectsCountEquals(1);
+        usersPageTable.assertVisibleObjectsCountEquals(1);
         usersPageTable.assertTableContainsText("NewObjCollectionTestUser");
     }
 
@@ -130,7 +130,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
         midPoint.formLogin().login(username, password);
 
         UsersPageTable usersPageTable = basicPage.listUsers("ObjRefAttributeConfigTest").table();
-        usersPageTable.assertTableObjectsCountEquals(1);
+        usersPageTable.assertVisibleObjectsCountEquals(1);
         usersPageTable.assertTableContainsText("ObjRefPropertyConfigUser");
     }
 
@@ -161,7 +161,7 @@ public class FilterConfigPanelTest extends AbstractSchrodingerTest {
         midPoint.formLogin().login(username, password);
 
         UsersPageTable usersPageTable = basicPage.listUsers("DropdownPropertyConfigTest").table();
-        usersPageTable.assertTableObjectsCountEquals(1);
+        usersPageTable.assertVisibleObjectsCountEquals(1);
         usersPageTable.assertTableContainsText("DropdownPropertyConfigUser");
     }
 
