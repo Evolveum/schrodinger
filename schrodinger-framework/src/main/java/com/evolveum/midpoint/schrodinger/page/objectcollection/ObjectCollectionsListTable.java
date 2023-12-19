@@ -37,11 +37,6 @@ public class ObjectCollectionsListTable extends
     }
 
     @Override
-    protected TableHeaderDropDownMenu<ObjectCollectionsListTable> clickHeaderActionDropDown() {
-        return null;
-    }
-
-    @Override
     public ObjectCollectionPage getObjectDetailsPage(){
         Utils.waitForMainPanelOnDetailsPage();
         return new ObjectCollectionPage();

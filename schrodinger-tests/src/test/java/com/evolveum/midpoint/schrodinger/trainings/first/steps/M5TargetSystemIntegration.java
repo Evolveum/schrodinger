@@ -16,10 +16,12 @@
 
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
-import com.codeborne.selenide.Selenide;
-import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsPanel;
+import com.evolveum.midpoint.schrodinger.component.task.dto.SynchronizationSituationTransitionDto;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class M5TargetSystemIntegration extends AbstractTrainingTest {
 
@@ -44,7 +46,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .next()
                 .next()
                 .saveAndRun();
-        OperationStatisticsPanel operationStatisticsPanel = basicPage
+        basicPage
                 .listResources()
                 .table()
                 .clickByName("AD")
@@ -52,21 +54,35 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
                 .selectOperationStatisticsPanel()
-                        .screenshot("selectOperationStatisticsPanel")
-                                .assertProgressSummaryObjectsCountEquals(1);
-        //todo check:
-        // 39 accounts previously not linked are now linked to midPoint users; final situation is Linked
-        //5 accounts previously not linked are still not linked to midPoint users; final situation is Unmatched - these are orphaned accounts
-        //1 account is protected (within the configuration of resource copied from resource template)
-        operationStatisticsPanel
+                .assertSynchronizationSituationTransitionRecordsMatch(prepareSyncSituationTransitionRecords())
                 .and()
                 .showSimulationResult()
+                .assertMarkValueEquals("Projection deactivated", 5)
+                .simulationTaskDetails()
+                .assertDeletedObjectsValueEquals("5")
+                .viewDeletedObjects()
+                .table()
+                .assertTableContainsText("Anna Lopez")
+                .and()
+                .backToSimulationResultPage()
+                .simulationTaskDetails()
+                .assertModifiedObjectsValueEquals("78")
+                .viewModifiedObjects()
+                .table()
+                .clickByName("1001 (Geena Green)")
                 .changes()
-                .screenshot("showSimulationResult");
+                .assertItemValueEquals("Projections", "cn=Geena Green,ou=users,dc=example,dc=com")
+                .and()
+                .back()
+                .table()
+                .search()
+                .dropDownPanelByItemName("Type")
+                .inputDropDownValue("Shadow")
+                .updateSearch()
+                .and()
+                .clickByName("cn=Geena Green,ou=users,dc=example,dc=com (Account cn=Geena Green,ou=users,dc=example,dc=com (default) on AD)")
+                .changes();
         //todo check
-        // 5 deactivated accounts (to be deleted) including Ana Lopez (company CFO, we need to be careful here!)
-        //78 modified objects, where:
-        //midPoint users indicate added Projection (as a result of correlation of the account and linking it to its owner)
         //AD accounts indicate metadata changes (in midPoint repository only)
     }
 
@@ -80,10 +96,32 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
                 .showSimulationResult()
-                .changes()
-                .screenshot("test2markingAccounts")
-                .assertItemsDeltasSizeEquals(1);
+                .selectMark("Projection deactivated")
+                .table()
+                .addMarks("cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
+                .markAsProtected("cn=Mail Service Account,ou=users,dc=example,dc=com")
+                .markAsProtected("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com");
+        //todo the processed object list immediately refreshes to show the marks
+        //(also Resource Accounts page now shows the marks)
 
+        basicPage
+                .listTasks()
+                .table()
+                .clickByName("Reconciliation with AD - development simulation")
+                .clickRunNowAndWait()
+                .showSimulationResult()
+                .assertMarkValueEquals("Projection deactivated", 1)
+                .simulationTaskDetails()
+                .assertDeletedObjectsValueEquals("1")
+                .viewDeletedObjects()
+                .table()
+                .assertTableContainsText("cn=Secret Admin,ou=users,dc=example,dc=com")
+                .and()
+                .backToSimulationResultPage()
+                .simulationTaskDetails()
+                .assertModifiedObjectsValueEquals("78");
+        //todo check midPoint users indicate added Projection (as a result of correlation of the account and linking it to its owner)
+        //AD accounts indicate metadata changes (in midPoint repository only)
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -93,9 +131,37 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("AD")
                 .setLifecycleState("Active (production)")
-                .selectSchemaHandlingPanel()
-                        .screenshot("test00300ignoringOrphanedAccounts")
-                .addNewObjectType();
+                .selectSchemaHandlingPanel();
 
+    }
+
+    private List<SynchronizationSituationTransitionDto> prepareSyncSituationTransitionRecords() {
+        List<SynchronizationSituationTransitionDto> list = new ArrayList();
+        list.add(new SynchronizationSituationTransitionDto()
+                .originalState(SynchronizationSituationTransitionDto.State.NO_RECORD)
+                .synchronizationStart(SynchronizationSituationTransitionDto.State.UNLINKED)
+                .synchronizationEnd(SynchronizationSituationTransitionDto.State.LINKED)
+                .succeeded("39")
+                .failed("0")
+                .skipped("0")
+                .total("39"));
+        list.add(new SynchronizationSituationTransitionDto()
+                .originalState(SynchronizationSituationTransitionDto.State.NO_RECORD)
+                .synchronizationStart(SynchronizationSituationTransitionDto.State.UNMATCHED)
+                .synchronizationEnd(SynchronizationSituationTransitionDto.State.UNMATCHED)
+                .succeeded("5")
+                .failed("0")
+                .skipped("0")
+                .total("5"));
+        list.add(new SynchronizationSituationTransitionDto()
+                .originalState(SynchronizationSituationTransitionDto.State.NO_RECORD)
+                .synchronizationStart(SynchronizationSituationTransitionDto.State.NO_RECORD)
+                .synchronizationEnd(SynchronizationSituationTransitionDto.State.NO_RECORD)
+                .exclusionReason(SynchronizationSituationTransitionDto.State.PROTECTED)
+                .succeeded("0")
+                .failed("0")
+                .skipped("1")
+                .total("1"));
+        return list;
     }
 }

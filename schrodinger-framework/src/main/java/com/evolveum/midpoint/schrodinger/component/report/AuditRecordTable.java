@@ -55,16 +55,6 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditRecordTab
         return new AuditLogViewerDetailsPage();
     }
 
-    @Override
-    public AuditRecordTable<T> selectCheckboxByName(String name) {
-        return null;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<AuditRecordTable<T>> clickHeaderActionDropDown() {
-        return null;
-    }
-
     public void checkInitiator(int row, String name) {
         checkTextInColumn(row, 2, name);
     }

@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by honchar
  */
-public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemsTable> {
+public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemsTable<T>> {
 
     public WorkitemsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -40,16 +40,6 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemsTable> 
         return new WorkitemPage();
     }
 
-    @Override
-    public WorkitemsTable<T> selectCheckboxByName(String name) {
-        return null;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<WorkitemsTable> clickHeaderActionDropDown() {
-        return null;
-
-    }
 
     public WorkitemsTable<T> approveWorkitemByName(String itemName) {
         findRowByColumnLabel("Name", itemName)

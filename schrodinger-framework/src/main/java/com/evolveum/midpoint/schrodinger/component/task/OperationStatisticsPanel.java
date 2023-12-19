@@ -21,8 +21,13 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
+import com.evolveum.midpoint.schrodinger.component.task.dto.SynchronizationSituationTransitionDto;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+
+import java.util.List;
+import java.util.logging.Logger;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -62,10 +67,50 @@ public class OperationStatisticsPanel extends Component<TaskPage, OperationStati
         return Integer.valueOf(textValue);
     }
 
-    public Table<OperationStatisticsPanel, Table> getSynchronizationSituationTransitionsTable() {
+    private Table<OperationStatisticsPanel, Table> getSynchronizationSituationTransitionsTable() {
         Table<OperationStatisticsPanel, Table> table = new Table<>(this,
-                $(Schrodinger.byDataId("synchronizationSituationTransitions")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+                $(Schrodinger.byDataId("synchronizationSituationTransitions"))
+                        .$(Schrodinger.byDataId("synchronizationSituationTransitions"))
+                                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         return table;
+    }
+
+    public OperationStatisticsPanel assertSynchronizationSituationTransitionRecordsMatch(
+            List<SynchronizationSituationTransitionDto> records) {
+        records.forEach(record -> {
+            assertion.assertTrue(rowWithRecordExists(record), "Record " + record + " doesn't exist in table.");
+        });
+        return this;
+    }
+
+    private boolean rowWithRecordExists(SynchronizationSituationTransitionDto record) {
+        Table<?, ?> table = getSynchronizationSituationTransitionsTable();
+        int rowCount = table.rowsCount();
+        boolean exists = false;
+        for (int i = 1; i <= rowCount; i++) {
+            try {
+                Logger.getLogger(OperationStatisticsPanel.class.getSimpleName()).info("Checking record " + record);
+                TableRow<?, ?> tableRow = table.getTableRow(i);
+                assertion.assertEquals(record.getOriginalState(),
+                        tableRow.getColumnCellTextByColumnName("Original state"),
+                        "Original state doesn't match, expected: " + record.getOriginalState());
+                assertion.assertEquals(record.getSynchronizationStart(),
+                        tableRow.getColumnCellTextByColumnName("Synchronization start"));
+                assertion.assertEquals(record.getSynchronizationEnd(),
+                        tableRow.getColumnCellTextByColumnName("Synchronization end"));
+                assertion.assertEquals(record.getExclusionReason(),
+                        tableRow.getColumnCellTextByColumnName("Exclusion reason"));
+                assertion.assertEquals(record.getSucceeded(), tableRow.getColumnCellTextByColumnName("Succeeded"));
+                assertion.assertEquals(record.getFailed(), tableRow.getColumnCellTextByColumnName("Failed"));
+                assertion.assertEquals(record.getSkipped(), tableRow.getColumnCellTextByColumnName("Skipped"));
+                assertion.assertEquals(record.getTotal(), tableRow.getColumnCellTextByColumnName("Total"));
+                exists = true;
+                break;
+            } catch (AssertionError e) {
+                //nothing to do
+            }
+        }
+        return exists;
     }
 
     public OperationStatisticsPanel assertSucceededCountMatch(int expectedCount) {

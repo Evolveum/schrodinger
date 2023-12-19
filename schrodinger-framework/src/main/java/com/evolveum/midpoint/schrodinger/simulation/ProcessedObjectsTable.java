@@ -20,11 +20,17 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import com.evolveum.midpoint.schrodinger.component.common.table.SelectableRowTable;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
+import com.evolveum.midpoint.schrodinger.component.modal.ModalBox;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
+
+import java.util.Arrays;
 
 public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, ProcessedObjectsTable<T>> {
 
@@ -38,16 +44,6 @@ public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, Processed
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
         return new SimulationResultDetailsPage().waitForDetailsPanelToBeDisplayed();
-    }
-
-    @Override
-    public ProcessedObjectsTable<T> selectCheckboxByName(String name) {
-        return ProcessedObjectsTable.this;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<ProcessedObjectsTable<T>> clickHeaderActionDropDown() {
-        return null;
     }
 
     @Override
@@ -65,6 +61,23 @@ public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, Processed
     @Override
     public ProcessedObjectsTable<T> assertTableContainsColumnWithValue(String columnResourceKey, String value) {
         super.assertTableContainsColumnWithValue(columnResourceKey, value);
+        return ProcessedObjectsTable.this;
+    }
+
+    public ProcessedObjectsTable<T> markAsProtected(String name) {
+        TableRow<?, ?> row = findRowByColumnLabel("Name", name);
+        row.getInlineMenu().clickInlineMenuButtonByTitle("Mark as Protected");
+        return ProcessedObjectsTable.this;
+    }
+
+    public ProcessedObjectsTable<T> addMarks(String name, String... marks) {
+        TableRow<?, ?> row = findRowByColumnLabel("Name", name);
+        row.getInlineMenu().clickInlineMenuButtonByTitle("Add Marks");
+        ModalBox<ProcessedObjectsTable<T>> modal = new ModalBox<>(this, Utils.getModalWindowSelenideElement());
+        SelectableRowTable<?, ?> table = new SelectableRowTable<>(modal,
+                modal.getParentElement().$(Schrodinger.byDataId("div", "table")));
+        Arrays.stream(marks).forEach(mark -> table.findRowByColumnLabel("Name", mark).clickCheckBox());
+        modal.getParentElement().$(Schrodinger.byDataId("a", "addButton")).click();
         return ProcessedObjectsTable.this;
     }
 }

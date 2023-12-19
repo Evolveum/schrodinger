@@ -36,11 +36,6 @@ public class CasesListTable extends AssignmentHolderObjectListTable<CasesPage, C
     }
 
     @Override
-    protected TableHeaderDropDownMenu<CasesListTable> clickHeaderActionDropDown() {
-        return null;
-    }
-
-    @Override
     public CasePage getObjectDetailsPage(){
         Utils.waitForMainPanelOnDetailsPage();
         return new CasePage();

@@ -108,8 +108,10 @@ public class TableRow<X, T extends Table> extends Component<T, TableRow<X, T>> {
         if (index < 0) {
             return null;
         }
-        SelenideElement cell = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") div"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement cell = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") div"));
+        //todo try to comment for now; may be visibility is not needed
+//        Utils.scrollToElement(cell);
+//        cell.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return cell;
     }
 

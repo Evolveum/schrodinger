@@ -47,11 +47,6 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
     }
 
     @Override
-    public ListRepositoryObjectsTable selectCheckboxByName(String name) {
-        return null;
-    }
-
-    @Override
     protected TableHeaderDropDownMenu<ListRepositoryObjectsTable> clickHeaderActionDropDown() {
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();

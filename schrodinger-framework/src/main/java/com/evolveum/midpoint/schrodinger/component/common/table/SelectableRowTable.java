@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2021 Evolveum
+ * Copyright (c) 2023  Evolveum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.evolveum.midpoint.schrodinger.component.common.table;
 
 import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.component.Component;
 
-/**
- * Created by matus on 5/17/2018.
- */
-public abstract class TableWithComponentRedirect<T, E extends Component, P extends TableWithComponentRedirect<T, E, P>>
-        extends SelectableRowTable<T, P> {
-    public TableWithComponentRedirect(T parent, SelenideElement parentElement) {
-        super(parent, parentElement);
+public class SelectableRowTable<T, P extends SelectableRowTable<T, P>> extends Table<T, P>{
+
+    public SelectableRowTable(T parent, SelenideElement selenideElement) {
+        super(parent, selenideElement);
     }
 
-    public abstract E clickByName(String name);
-
+    public P selectCheckboxByName(String name) {
+        findRowByColumnLabel("Name", name).clickCheckBox();
+        return (P) this;
+    }
 }

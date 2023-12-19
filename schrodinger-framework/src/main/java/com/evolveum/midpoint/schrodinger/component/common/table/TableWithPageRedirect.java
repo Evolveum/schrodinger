@@ -38,7 +38,7 @@ import static com.codeborne.selenide.Selenide.screenshot;
 /**
  * Created by matus on 5/2/2018.
  */
-public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirect> extends Table<T, TWPR> {
+public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirect<T, TWPR>> extends SelectableRowTable<T, TWPR> {
 
     public TableWithPageRedirect(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -46,9 +46,9 @@ public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirec
 
     public abstract <E extends BasicPage> E clickByName(String name);
 
-    public abstract TableWithPageRedirect<T, TWPR> selectCheckboxByName(String name);
-
-    protected abstract <P extends TableWithPageRedirect<T, TWPR>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown();
+    protected <P extends TableWithPageRedirect<T, TWPR>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown() {
+        return null;
+    }
 
     protected SelenideElement clickAndGetHeaderDropDownMenu() {
 

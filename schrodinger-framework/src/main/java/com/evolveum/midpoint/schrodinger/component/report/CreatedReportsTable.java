@@ -32,11 +32,6 @@ public class CreatedReportsTable extends AssignmentHolderObjectListTable<Created
     }
 
     @Override
-    protected TableHeaderDropDownMenu<ReportTable> clickHeaderActionDropDown() {
-        return null;
-    }
-
-    @Override
     public ReportPage getObjectDetailsPage() {
         return null;
     }

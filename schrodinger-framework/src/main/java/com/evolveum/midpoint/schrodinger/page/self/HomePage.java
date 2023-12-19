@@ -42,7 +42,7 @@ public class HomePage extends BasicPage {
         return new QuickSearch<HomePage>(this, searchElement);
     }
 
-    public TableWithPageRedirect<HomePage, TableWithPageRedirect> myRequestsTable() {
+    public <T extends TableWithPageRedirect<HomePage, T>> TableWithPageRedirect<HomePage, T> myRequestsTable() {
         SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//table[@data-s-id='table']");
         return new TableWithPageRedirect<>(HomePage.this, table) {
@@ -52,16 +52,6 @@ public class HomePage extends BasicPage {
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 $(Schrodinger.byDataId("summaryBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
                 return new CasePage();
-            }
-
-            @Override
-            public TableWithPageRedirect<HomePage, TableWithPageRedirect> selectCheckboxByName(String name) {
-                return null;
-            }
-
-            @Override
-            protected TableHeaderDropDownMenu<TableWithPageRedirect<CasePage, TableWithPageRedirect>> clickHeaderActionDropDown() {
-                return null;
             }
 
         };

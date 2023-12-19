@@ -39,17 +39,6 @@ public class ChildrenCaseTable extends TableWithPageRedirect<CasePage, ChildrenC
         return new CasePage();
     }
 
-    @Override
-    public ChildrenCaseTable selectCheckboxByName(String name) {
-        //TODO implement
-
-        return this;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<ChildrenCaseTable> clickHeaderActionDropDown() {
-        return null;
-    }
 
     public CasePage clickByPartialName(String name) {
         getParentElement()

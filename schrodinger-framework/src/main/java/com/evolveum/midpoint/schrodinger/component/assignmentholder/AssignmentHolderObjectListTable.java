@@ -47,13 +47,6 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         super(parent, parentElement);
     }
 
-
-    @Override
-    public AssignmentHolderObjectListTable<P, PD, T> selectCheckboxByName(String name) {
-        findRowByColumnLabel(getNameColumnLabel(), name).clickCheckBox();
-        return this;
-    }
-
     @Override
     public PD clickByName(String name) {
         Utils.waitForAjaxCallFinish();

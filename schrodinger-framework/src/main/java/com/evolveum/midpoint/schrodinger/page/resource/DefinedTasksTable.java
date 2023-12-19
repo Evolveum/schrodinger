@@ -24,7 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class DefinedTasksTable<T> extends TableWithPageRedirect<T, DefinedTasksTable> {
+public class DefinedTasksTable<T> extends TableWithPageRedirect<T, DefinedTasksTable<T>> {
 
     public DefinedTasksTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -37,15 +37,5 @@ public class DefinedTasksTable<T> extends TableWithPageRedirect<T, DefinedTasksT
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForSummaryDisplayNameOnDetailsPage(name);
         return new TaskPage();
-    }
-
-    @Override
-    public DefinedTasksTable<T> selectCheckboxByName(String name) {
-        return null;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<DefinedTasksTable<T>> clickHeaderActionDropDown() {
-        return null;
     }
 }

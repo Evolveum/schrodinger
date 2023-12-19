@@ -29,11 +29,6 @@ public class ArchetypeListTable extends AssignmentHolderObjectListTable<ListArch
     }
 
     @Override
-    protected TableHeaderDropDownMenu<CasesListTable> clickHeaderActionDropDown() {
-        return null;
-    }
-
-    @Override
     public ArchetypePage getObjectDetailsPage(){
         Utils.waitForMainPanelOnDetailsPage();
         return new ArchetypePage();

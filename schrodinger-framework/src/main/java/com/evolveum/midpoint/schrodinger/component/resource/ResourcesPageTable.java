@@ -34,11 +34,6 @@ public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListReso
     }
 
     @Override
-    protected TableHeaderDropDownMenu<ResourcesPageTable> clickHeaderActionDropDown() {
-        return null;
-    }
-
-    @Override
     public ResourcePage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byElementValue("span", Schrodinger.DATA_S_ID, "label", name))

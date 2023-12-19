@@ -29,4 +29,9 @@ public class ProcessedObjectsPage extends BasicPage {
         return new ProcessedObjectsTable<>(ProcessedObjectsPage.this, tableBox);
     }
 
+    public SimulationResultDetailsPage backToSimulationResultPage() {
+        $(Schrodinger.byDataId("a", "back")).click();
+        return new SimulationResultDetailsPage();
+    }
+
 }

@@ -64,10 +64,4 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
         return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
     }
 
-    @Override
-    public TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel, WorkitemsTabTable> selectCheckboxByName(String name) {
-        //do nothing as there is no checkbox column in the table
-        return this;
-    }
-
 }
