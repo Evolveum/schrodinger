@@ -70,7 +70,7 @@ public class SimulationResultDetailsPage extends BasicPage {
     }
 
     private SelenideElement getMarkTileElement(String markName) {
-        ElementsCollection marks = $$(Schrodinger.byDataId("div", "markName"));
+        ElementsCollection marks = $$(Schrodinger.byDataId("div", "mark"));
         return marks.asFixedIterable().stream()
                 .filter(mark -> mark.$x(".//span[@title='" + markName + "']").isDisplayed())
                 .findFirst()

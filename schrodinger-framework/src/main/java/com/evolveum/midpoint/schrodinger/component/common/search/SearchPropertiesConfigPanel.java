@@ -119,13 +119,13 @@ public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertie
     }
 
     private TableRow getTableRowForProperty(String propertyName, boolean addPropertyIfAbsent) {
-        TableRow propertyRow = getPropertiesTable().findRowByColumnLabel("Property", propertyName);
+        TableRow propertyRow = getPropertiesTable().findRowByColumnLabelAndRowValue("Property", propertyName);
         if (propertyRow == null && !addPropertyIfAbsent) {
             return null;
         }
         if (propertyRow == null && addPropertyIfAbsent) {
             addPropertyToTable(propertyName);
-            propertyRow = getPropertiesTable().findRowByColumnLabel("Property", propertyName);
+            propertyRow = getPropertiesTable().findRowByColumnLabelAndRowValue("Property", propertyName);
         }
         return propertyRow;
     }

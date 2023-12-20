@@ -46,16 +46,16 @@ public class Table<T, P extends Table> extends Component<T, P> {
         super(parent, parentElement);
     }
 
-    public TableRow<T, Table<T, P>> findRowByColumnLabel(String label, String rowValue) {
+    public TableRow<T, Table<T, P>> findRowByColumnLabelAndRowValue(String label, String rowValue) {
+        return findRowByColumnLabelAndRowValue(label, rowValue, false);
+    }
+
+    public TableRow<T, Table<T, P>> findRowByColumnLabelAndRowValue(String label, String rowValue, boolean partialText) {
         int index = findColumnByLabel(label);
         if (index < 0) {
-            Selenide.screenshot("rowByColumnLabel_findColumnByLabel_returns_null_" + System.currentTimeMillis());
             return null;
         }
-        TableRow<T, Table<T, P>> tableRow = getTableRowByIndex(index, rowValue);
-        if (tableRow == null) {
-            Selenide.screenshot("rowByColumnLabel_getTableRowByIndex_returns_null_" + System.currentTimeMillis());
-        }
+        TableRow<T, Table<T, P>> tableRow = getTableRowByIndexAndText(index, rowValue, partialText);
         return tableRow;
     }
 
@@ -66,34 +66,12 @@ public class Table<T, P extends Table> extends Component<T, P> {
 
     public int findColumnByLabel(String label) {
         ElementsCollection headers = getParentElement().findAll("thead th[data-s-id=header]");
-        if (headers == null) {
-            return -1;
-        }
-        int index = 1;
-        for (SelenideElement header : headers) {
-            SelenideElement hasHeader = header.find(Schrodinger.byDataId("span", "label"));
-            SelenideElement hasSearchableHeader = header.find(Schrodinger.bySchrodingerDataId("label"));
-            String value = null;
-            if (hasHeader.exists()) {
-                value = hasHeader.text();
-            } else if (hasSearchableHeader.exists()) {
-                value = hasSearchableHeader.parent().text();
-            }
-
-            if (value == null) {
-                index++;
-                continue;
-            }
-
-            if (StringUtils.equalsIgnoreCase(label, value)) {
-                break;
-            }
-            index++;
-        }
-        if (index > headers.size()) {
-            return -1;
-        }
-        return index;
+        SelenideElement headerWithLabel = headers.asFixedIterable()
+                .stream()
+                .filter(h -> h.$x(".//span[contains(text(), '" + label + "')]").isDisplayed())
+                .findFirst()
+                .orElse(null);
+        return headerWithLabel == null ? -1 : headers.indexOf(headerWithLabel) + 1;
     }
 
     public int findColumnByResourceKey(String key) {
@@ -125,7 +103,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
         if (index < 0) {
             return null;
         }
-        return getTableRowByIndex(index, rowValue);
+        return getTableRowByIndexAndText(index, rowValue);
     }
 
 //    public List<TableRow<T, Table<T, P>>> allRowsByColumnResourceKey(String key, String rowValue) {
@@ -136,7 +114,11 @@ public class Table<T, P extends Table> extends Component<T, P> {
 //        return getTableRowsByIndex(index, rowValue);
 //    }
 
-    private TableRow<T, Table<T, P>> getTableRowByIndex(int index, String rowValue) {
+    private TableRow<T, Table<T, P>> getTableRowByIndexAndText(int index, String rowValue) {
+        return getTableRowByIndexAndText(index, rowValue, false);
+    }
+
+    private TableRow<T, Table<T, P>> getTableRowByIndexAndText(int index, String rowValue, boolean partialText) {
         ElementsCollection rows = getParentElement().findAll("tbody tr");
         for (SelenideElement row : rows) {
             SelenideElement cell = row.find("td:nth-child(" + index + ")");
@@ -153,7 +135,9 @@ public class Table<T, P extends Table> extends Component<T, P> {
             }
             value = value.trim();
 
-            if (StringUtils.equalsIgnoreCase(rowValue, value)) {
+            if (partialText && StringUtils.containsIgnoreCase(value, rowValue)) {
+                return new TableRow<>(this, row);
+            } else if (StringUtils.equalsIgnoreCase(rowValue, value)) {
                 return new TableRow<>(this, row);
             }
         }
@@ -251,7 +235,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     public boolean containsText(String value) {
-        return getParentElement().$(byText(value)).is(Condition.visible);
+        return getParentElement().$x(".//*[contains(text(), '" + value + "')]").is(Condition.visible);
     }
 
     public boolean containsLinkTextPartially(String value) {
@@ -310,7 +294,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     public Table<T, P> assertTableRowExists(String columnLabel, String rowValue) {
-        assertion.assertNotNull(findRowByColumnLabel(columnLabel, rowValue), "Row with value " + rowValue + " in " + columnLabel + " column doesn't exist.");
+        assertion.assertNotNull(findRowByColumnLabelAndRowValue(columnLabel, rowValue), "Row with value " + rowValue + " in " + columnLabel + " column doesn't exist.");
         return this;
     }
 

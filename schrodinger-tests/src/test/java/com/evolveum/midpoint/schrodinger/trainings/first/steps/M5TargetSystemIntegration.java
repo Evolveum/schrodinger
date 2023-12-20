@@ -62,7 +62,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertDeletedObjectsValueEquals("5")
                 .viewDeletedObjects()
                 .table()
-                .assertTableContainsText("Anna Lopez")
+                .assertTableContainsText("Ana Lopez")
                 .and()
                 .backToSimulationResultPage()
                 .simulationTaskDetails()
@@ -71,7 +71,8 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("1001 (Geena Green)")
                 .changes()
-                .assertItemValueEquals("Projections", "cn=Geena Green,ou=users,dc=example,dc=com")
+                .assertItemExists("Projections")
+                .assertNewValueExists("cn=Geena Green,ou=users,dc=example,dc=com")
                 .and()
                 .back()
                 .table()
@@ -81,9 +82,14 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .updateSearch()
                 .and()
                 .clickByName("cn=Geena Green,ou=users,dc=example,dc=com (Account cn=Geena Green,ou=users,dc=example,dc=com (default) on AD)")
-                .changes();
-        //todo check
-        //AD accounts indicate metadata changes (in midPoint repository only)
+                .changes()
+                .advancedView()
+                .showOperationalItems()
+                .showOperationalItems("Metadata")
+                .assertItemValueEquals("Metadata", "Modification channel", "http://midpoint.evolveum.com/xml/ns/public/common/channels-3#reconciliation")
+                .assertItemExists("Metadata", "Modified at")
+                .assertItemValueEquals("Metadata", "Modifier", "midPoint Administrator (administrator)")
+                .assertItemValueEquals("Metadata", "Modified by task", "Reconciliation with AD - development simulation");
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -100,8 +106,10 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .addMarks("cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
                 .markAsProtected("cn=Mail Service Account,ou=users,dc=example,dc=com")
-                .markAsProtected("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com");
-        //todo the processed object list immediately refreshes to show the marks
+                .markAsProtected("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com")
+                .assertRealObjectIsMarked("cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
+                .assertRealObjectIsMarked("cn=Mail Service Account,ou=users,dc=example,dc=com", "Protected")
+                .assertRealObjectIsMarked("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com", "Protected");
         //(also Resource Accounts page now shows the marks)
 
         basicPage

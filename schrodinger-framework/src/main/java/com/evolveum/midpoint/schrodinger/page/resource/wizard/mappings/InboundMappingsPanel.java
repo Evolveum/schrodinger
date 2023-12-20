@@ -16,12 +16,10 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -44,7 +42,7 @@ public class InboundMappingsPanel<T> extends TableWizardStepPanel<T> {
     }
 
     public InboundMappingsPanel<T> assertMappingLifecycleStateEquals(String mappingName, String lifecycleStateExpectedValue) {
-        TableRow<?, ?> row = table().findRowByColumnLabel("Name", mappingName);
+        TableRow<?, ?> row = table().findRowByColumnLabelAndRowValue("Name", mappingName);
         String stateRealValue = row.getColumnCellTextByColumnName("Lifecycle state");
         assertion.assertEquals(stateRealValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
                 "to: " + lifecycleStateExpectedValue + "; actual value: " + stateRealValue);
@@ -52,7 +50,7 @@ public class InboundMappingsPanel<T> extends TableWizardStepPanel<T> {
     }
 
     public InboundMappingsPanel<T> assertMappingIconTitleEquals(String mappingName, String iconTitle) {
-        TableRow<?, ?> row = table().findRowByColumnLabel("Name", mappingName);
+        TableRow<?, ?> row = table().findRowByColumnLabelAndRowValue("Name", mappingName);
         SelenideElement iconElement = row.getParentElement().$x(".//i[@data-s-id='image' and @title='" + iconTitle + "']");
         assertion.assertTrue(iconElement.exists() && iconElement.isDisplayed(), "Icon with title " +
                 iconTitle + "should exist for mapping: " + mappingName);

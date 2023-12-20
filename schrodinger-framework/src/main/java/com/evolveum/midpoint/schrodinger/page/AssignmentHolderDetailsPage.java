@@ -64,6 +64,7 @@ public abstract class AssignmentHolderDetailsPage<P extends AssignmentHolderDeta
         } catch (ElementClickInterceptedException e) {
             button.parent().click();
         }
+        Utils.waitForAjaxCallFinish();
     }
 
     public SelenideElement getButtonByIconClass(String className) {

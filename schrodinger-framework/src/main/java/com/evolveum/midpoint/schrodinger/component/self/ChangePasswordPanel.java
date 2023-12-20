@@ -72,7 +72,7 @@ public class ChangePasswordPanel<T> extends Component<T, ChangePasswordPanel<T>>
 
     public ChangePasswordPanel<T> assertPasswordPropagationResultSuccess(String userName) {
         assertion.assertTrue(accountsTable()
-                .findRowByColumnLabel("Name", userName)
+                .findRowByColumnLabelAndRowValue("Name", userName)
                     .getColumnCellElementByColumnName("Propagation result")
                         .$x(".//i[@data-s-id='basicIcon'][contains(@class,\"fa-check-circle\") and contains(@class, \"text-success\")]")
                         .isDisplayed(), "Propagation result is not successfull, ");

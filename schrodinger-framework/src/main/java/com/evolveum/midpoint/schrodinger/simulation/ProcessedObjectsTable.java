@@ -17,20 +17,23 @@
 package com.evolveum.midpoint.schrodinger.simulation;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.SelectableRowTable;
-import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.modal.ModalBox;
-import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import java.util.Arrays;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, ProcessedObjectsTable<T>> {
 
@@ -65,19 +68,54 @@ public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, Processed
     }
 
     public ProcessedObjectsTable<T> markAsProtected(String name) {
-        TableRow<?, ?> row = findRowByColumnLabel("Name", name);
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", name, true);
         row.getInlineMenu().clickInlineMenuButtonByTitle("Mark as Protected");
-        return ProcessedObjectsTable.this;
+        Selenide.sleep(3000);
+        return getThis();
     }
 
     public ProcessedObjectsTable<T> addMarks(String name, String... marks) {
-        TableRow<?, ?> row = findRowByColumnLabel("Name", name);
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", name, true);
         row.getInlineMenu().clickInlineMenuButtonByTitle("Add Marks");
         ModalBox<ProcessedObjectsTable<T>> modal = new ModalBox<>(this, Utils.getModalWindowSelenideElement());
         SelectableRowTable<?, ?> table = new SelectableRowTable<>(modal,
                 modal.getParentElement().$(Schrodinger.byDataId("div", "table")));
-        Arrays.stream(marks).forEach(mark -> table.findRowByColumnLabel("Name", mark).clickCheckBox());
+        Arrays.stream(marks).forEach(mark -> table.findRowByColumnLabelAndRowValue("Name", mark).clickCheckBox());
         modal.getParentElement().$(Schrodinger.byDataId("a", "addButton")).click();
-        return ProcessedObjectsTable.this;
+        Utils.waitForAjaxCallFinish();
+        if (Utils.isModalWindowSelenideElementVisible()) {
+            Selenide.sleep(3000);
+        }
+        return getThis();
+    }
+
+    public ProcessedObjectsTable<T> assertRealObjectIsMarked(String objectName, String markName) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement mark = row.getParentElement()
+                .$x(".//span[@data-s-id='realMarks' and contains(text(), '" + markName + "')]");
+        assertion.assertTrue(mark.isDisplayed(), "Mark " + markName + " is not present for object " + objectName);
+        return getThis();
+    }
+
+
+    private ProcessedObjectsTable<T> getThis() {
+        try {
+            if (getParentElement().isDisplayed()) {
+                return this;
+            } else {
+                return new ProcessedObjectsTable<>(getParent(), findTableElement());
+            }
+        } catch (Exception e) {
+        }
+        return new ProcessedObjectsTable<>(getParent(), findTableElement());
+    }
+
+    private SelenideElement findTableElement() {
+        ElementsCollection tableElements = $$(Schrodinger.byDataId("div", "itemsTable"));
+        return tableElements.asFixedIterable()
+                .stream()
+                .filter(SelenideElement::isDisplayed)
+                .findFirst()
+                .orElse(null);
     }
 }

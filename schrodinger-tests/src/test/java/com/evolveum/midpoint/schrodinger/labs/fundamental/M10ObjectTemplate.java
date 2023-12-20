@@ -321,7 +321,7 @@ public class M10ObjectTemplate extends AbstractLabTest {
                             .inputValue("0919")
                             .updateSearch()
                         .and()
-                        .findRowByColumnLabel("Name", "0919")
+                        .findRowByColumnLabelAndRowValue("Name", "0919")
                         .clickCheckBox()
                         .and()
                     .and()

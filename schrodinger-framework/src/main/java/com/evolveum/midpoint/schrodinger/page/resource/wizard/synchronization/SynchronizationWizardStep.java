@@ -84,7 +84,7 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
 
     public SynchronizationWizardStep<T> assertActionValueForSituationEquals(String situationValue,
                                                                             String actionExpectedValue) {
-        TableRow<?, ?> tableRow = table().findRowByColumnLabel("Situation *", situationValue);
+        TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation *", situationValue);
         String actionActualValue = tableRow.getColumnCellTextByColumnName("Action");
         assertion.assertEquals(actionActualValue, actionExpectedValue, "Action value for " + situationValue +
                 " situation should be equal to: " + actionExpectedValue + "; actual value: " + actionActualValue);

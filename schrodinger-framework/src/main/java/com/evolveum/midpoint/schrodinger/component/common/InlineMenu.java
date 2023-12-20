@@ -124,6 +124,7 @@ public class InlineMenu<T> extends Component<T, InlineMenu<T>> {
     public InlineMenu<T> clickInlineMenuButtonByTitle(String title) {
         getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", title))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 

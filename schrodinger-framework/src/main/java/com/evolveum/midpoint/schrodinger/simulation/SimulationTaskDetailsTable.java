@@ -119,8 +119,7 @@ public class SimulationTaskDetailsTable extends Table<SimulationResultDetailsPag
     }
 
     private boolean rowWithValuesExists(String firstColumnValue, String secondColumnValue) {
-        SelenideElement firstColumnCell = getTableRowWithFirstColumnValue(firstColumnValue);
-        SelenideElement row = firstColumnCell.parent();
+        SelenideElement row = getTableRowWithFirstColumnValue(firstColumnValue);
         String secondColumnText = row.$x(".//td[2]").getText();
         return secondColumnText.contains(secondColumnValue);
     }

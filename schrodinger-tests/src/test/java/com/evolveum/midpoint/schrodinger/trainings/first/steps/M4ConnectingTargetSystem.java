@@ -50,7 +50,7 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .previewResourceData()
                  .selectObjectType("inetOrgPerson")
                  .assertAllObjectsCountEquals(45)
-                .clickBack()
+                 .clickBack()
                 .goToResource();
     }
 

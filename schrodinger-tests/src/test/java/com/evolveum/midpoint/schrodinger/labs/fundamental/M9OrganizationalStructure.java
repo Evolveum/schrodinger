@@ -24,7 +24,6 @@ import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -142,7 +141,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                             .inputValue("0919")
                             .updateSearch()
                         .and()
-                        .findRowByColumnLabel("Name", "0919")
+                        .findRowByColumnLabelAndRowValue("Name", "0919")
                         .clickCheckBox()
                         .and()
                     .and()

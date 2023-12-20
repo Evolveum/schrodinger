@@ -35,7 +35,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
      * @return
      */
     public WorkitemDetailsPanel<WorkitemsPanel> clickNameByState(String state) {
-        TableRow row = findRowByColumnLabel("State", state);
+        TableRow row = findRowByColumnLabelAndRowValue("State", state);
         if (row == null) {
             assertion.fail("Unable to find row with the the value " + state + "in State column");
         }
@@ -52,7 +52,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
     }
 
     public WorkitemDetailsPanel<WorkitemsPanel> clickNameByActor(String actor) {
-        findRowByColumnLabel("Actor(s)", actor)
+        findRowByColumnLabelAndRowValue("Actor(s)", actor)
                 .clickColumnByName("Name");
 //                    getParentElement()
 //                            .$(Schrodinger.byDataId("tableContainer"))

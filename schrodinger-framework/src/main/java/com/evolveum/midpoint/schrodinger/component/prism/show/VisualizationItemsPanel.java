@@ -23,6 +23,10 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$$x;
+
 public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsPanel<T>> {
 
     public VisualizationItemsPanel(T parent, SelenideElement parentElement) {
@@ -30,12 +34,20 @@ public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsP
     }
 
     public int getVisualizationItemsCount() {
-        ElementsCollection col = getItemsElementList();
+        return getVisualizationItemsCount(getParentElement());
+    }
+
+    public int getVisualizationItemsCount(SelenideElement parentElement) {
+        ElementsCollection col = getItemsElementList(parentElement);
         return CollectionUtils.isEmpty(col) ? 0 : col.size();
     }
 
     public boolean itemLineExists(String itemName, String itemValue) {
-        ElementsCollection items = getItemsElementList();
+        return itemLineExists(getParentElement(), itemName, itemValue);
+    }
+
+    public boolean itemLineExists(SelenideElement parentElement, String itemName, String itemValue) {
+        ElementsCollection items = getItemsElementList(parentElement);
         for (SelenideElement item : items) {
             SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
             SelenideElement itemValueEl = item.$(Schrodinger.byDataId("newValueContainer"))
@@ -55,8 +67,40 @@ public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsP
         return false;
     }
 
+    public boolean newItemValueExists(String itemValue) {
+        return newItemValueExists(getParentElement(), itemValue);
+    }
+
+    public boolean newItemValueExists(SelenideElement parentElement, String itemValue) {
+        ElementsCollection items = parentElement.$$(Schrodinger.byDataId("newValueContainer"));
+        for (SelenideElement item : items) {
+            if (item.$(byText(itemValue)).isDisplayed()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean itemExists(String itemName) {
+        return itemExists(getParentElement(), itemName);
+    }
+
+    public boolean itemExists(SelenideElement parentElement, String itemName) {
+        ElementsCollection items = parentElement.$$(Schrodinger.byDataId("nameContainer"));
+        for (SelenideElement item : items) {
+            if (item.$(byText(itemName)).isDisplayed()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean itemLineDoesntExist(String itemName) {
-        ElementsCollection items = getItemsElementList();
+        return itemLineDoesntExist(getParentElement(), itemName);
+    }
+
+    public boolean itemLineDoesntExist(SelenideElement parentElement, String itemName) {
+        ElementsCollection items = getItemsElementList(parentElement);
         for (SelenideElement item : items) {
             SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
             String text = itemNameEl.getText();
@@ -67,7 +111,7 @@ public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsP
         return true;
     }
 
-    private ElementsCollection getItemsElementList() {
-        return getParentElement().$$(Schrodinger.byDataId("itemLine"));
+    private ElementsCollection getItemsElementList(SelenideElement parentElement) {
+        return parentElement.$$(Schrodinger.byDataId("itemLine"));
     }
 }

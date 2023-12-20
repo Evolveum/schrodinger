@@ -68,7 +68,7 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
 
             @Override
             public AbstractTableWithPrismView<T, AbstractTableWithPrismView> removeByName(String name) {
-                findRowByColumnLabel("Name", name).getInlineMenu().clickInlineMenuButtonByIconClass(".fa.fa-minus");
+                findRowByColumnLabelAndRowValue("Name", name).getInlineMenu().clickInlineMenuButtonByIconClass(".fa.fa-minus");
                 return this;
             }
 
