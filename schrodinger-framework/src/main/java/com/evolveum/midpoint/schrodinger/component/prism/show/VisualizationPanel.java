@@ -59,11 +59,9 @@ public class VisualizationPanel<T> extends Component<T, VisualizationPanel<T>> {
     }
 
     private VisualizationItemsPanel<VisualizationPanel<T>> getObjectItemsDeltaPanel(String containerName) {
-        SelenideElement container = getPartialVisualizationPanelForContainer(containerName);
-        if (container == null) {
-            return null;
-        }
-        return getObjectItemsDeltaPanel(container);
+        SelenideElement parentElement = containerName == null ?
+                getParentElement() : getPartialVisualizationPanelForContainer(containerName);
+        return getObjectItemsDeltaPanel(parentElement);
     }
 
     private VisualizationItemsPanel<VisualizationPanel<T>> getObjectItemsDeltaPanel(SelenideElement parentElement) {

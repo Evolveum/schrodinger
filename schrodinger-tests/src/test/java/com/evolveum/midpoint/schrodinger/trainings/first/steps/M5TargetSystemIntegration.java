@@ -139,8 +139,64 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("AD")
                 .setLifecycleState("Active (production)")
-                .selectSchemaHandlingPanel();
-
+                .selectSchemaHandlingPanel()
+                .getSchemaHandlingTable()
+                .setLifecycleStateValue("Normal Account", "Active (production)")
+                .and()
+                .and()
+                .clickSave();
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .configureSynchronization()
+                .setLifecycleStateValueForSituation("Unlinked", "Active (production)")
+                .setLifecycleStateValueForSituation("Linked", "Active (production)")
+                .setLifecycleStateValueForSituation("Deleted", "Active (production)")
+                .setLifecycleStateValueForSituation("Unmatched", "Draft (disabled)")
+                .saveSynchronizationSettings()
+                .tasks()
+                .clickCreateTask()
+                .reconciliationTask()
+                .turnOnTaskSimulating()
+                .clickCreateTaskButton()
+                .configuration()
+                .name("Reconciliation with AD - production simulation")
+                .next()
+                .nextToExecution()
+                .mode("Preview")
+                .predefined("Production")
+                .next()
+                .next()
+                .saveAndRun();
+        //todo fix in guide
+        //1. In your browser with midPoint, in Accounts panel for AD resource:
+        //click Defined Tasks menu item
+        // (not connected to Accounts panel)
+        //
+        //2. Active (production) in guide Active (Production)
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD - production simulation")
+                .selectOperationStatisticsPanel()
+/**
+ * scroll down to Synchronization situation transitions section. Here you can see how the resource accounts were classified before/after the task execution. Please note the operations were not actually executed as we have run the reconciliation in simulation mode.
+ * 39 accounts previously not linked are now linked to midPoint users; final situation is Linked
+ * 1 account previously not linked is still not linked to midPoint users; final situation is Unmatched - this is orphaned account
+ * 4+1 accounts are protected (4 using marks including Ana Lopez, one from the configuration of resource copied from resource template)
+ */
+                .and()
+                .showSimulationResult()
+                .assertMarkValueEquals("Projection deactivated", 0)
+                .simulationTaskDetails()
+                .assertModifiedObjectsValueEquals("78");
+        //todo check midPoint users indicate added Projection (as a result of correlation of the account and linking it to its owner)
+        //AD accounts indicate metadata changes (in midPoint repository only)
     }
 
     private List<SynchronizationSituationTransitionDto> prepareSyncSituationTransitionRecords() {

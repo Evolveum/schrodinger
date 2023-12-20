@@ -19,6 +19,7 @@ package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.page.resource.SchemaHandlingTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -84,10 +85,19 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
 
     public SynchronizationWizardStep<T> assertActionValueForSituationEquals(String situationValue,
                                                                             String actionExpectedValue) {
-        TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation *", situationValue);
+        TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation", situationValue);
         String actionActualValue = tableRow.getColumnCellTextByColumnName("Action");
         assertion.assertEquals(actionActualValue, actionExpectedValue, "Action value for " + situationValue +
                 " situation should be equal to: " + actionExpectedValue + "; actual value: " + actionActualValue);
+        return this;
+    }
+
+    public SynchronizationWizardStep<T> setLifecycleStateValueForSituation(String situation,
+                                                                           String lifecycleStateExpectedValue) {
+        TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation", situation, true);
+        SelenideElement cell = tableRow.getColumnCellElementByColumnName("Lifecycle state");
+        SelenideElement select = cell.$(By.tagName("select"));
+        select.selectOption(lifecycleStateExpectedValue);
         return this;
     }
 

@@ -16,17 +16,10 @@
 package com.evolveum.midpoint.schrodinger.page.resource;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.component.common.table.TableWithComponentRedirect;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardChoiceStep;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
-import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -36,32 +29,10 @@ public class SchemaHandlingPanel extends Component<ResourcePage, SchemaHandlingP
         super(parent, parentElement);
     }
 
-    public ObjectTypeBasicInformationWizardStep addNewObjectType() {
-        String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject1";
-        String titleTranslated = Utils.translate(addNewObjectTypeKey);
-        $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        Utils.waitForAjaxCallFinish();
-        ObjectTypeWizardPage objectTypeWizardPage = new ObjectTypeWizardPage();
-        return new ObjectTypeBasicInformationWizardStep(objectTypeWizardPage);
+    public SchemaHandlingTable<SchemaHandlingPanel> getSchemaHandlingTable() {
+        SelenideElement element = $(Schrodinger.byDataId("div", "table"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new SchemaHandlingTable<>(this, element);
     }
-
-    public ResourcePage saveMappings() {
-        return getParent();
-    }
-
-//    public ObjectTypeBasicInformationWizardStep setObjectTypeLifecycleState(String objectTypeName,
-//                                                                            String lifecycleStateValue) {
-//        table()
-//        String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
-//        String titleTranslated = Utils.translate(addNewObjectTypeKey);
-//        $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
-//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-//                .click();
-//        Utils.waitForAjaxCallFinish();
-//        ObjectTypeWizardPage objectTypeWizardPage = new ObjectTypeWizardPage();
-//        return new ObjectTypeBasicInformationWizardStep(objectTypeWizardPage);
-//    }
 
 }
