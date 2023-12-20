@@ -28,19 +28,18 @@ import java.util.Collections;
 
 public class M2ConnectingSourceSystem extends AbstractTrainingTest {
 
-//    @BeforeClass(alwaysRun = true, dependsOnMethods = {"springTestContextPrepareTestInstance"})
-//    @Override
-//    public void beforeClass() throws IOException {
-//        super.beforeClass();
-//        hrCsvFile = new File(getTestTargetDir(), CSV_HR_FILE_SOURCE_NAME);
-//        FileUtils.copyFile(HR_CSV_SOURCE_FILE, hrCsvFile);
-//    }
+    @BeforeClass(alwaysRun = true, dependsOnMethods = {"springTestContextPrepareTestInstance"})
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+        hrCsvFile = new File(getTestTargetDir(), CSV_HR_FILE_SOURCE_NAME);
+        FileUtils.copyFile(HR_CSV_SOURCE_FILE, hrCsvFile);
+    }
 
 
     @Test(groups = MODULE_2_GROUP)
     public void test1createHrResource() {
-        //todo should the test do user's export in HR application?
-//        String csvFilePath = hrCsvFile.getAbsolutePath();
+        String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
                 .newResource()
                 .fromScratch()
@@ -48,7 +47,7 @@ public class M2ConnectingSourceSystem extends AbstractTrainingTest {
                 .name("HR")
                 .lifecycle("Proposed")
                 .next()
-                .filePath("/opt/midpoint/var/resources/export.csv")
+                .filePath(csvFilePath)
                 .next()
                 .uniqueAttributeName("empnum")
                 .next()
