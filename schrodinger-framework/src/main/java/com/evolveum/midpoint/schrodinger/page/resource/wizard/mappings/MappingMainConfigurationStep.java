@@ -74,5 +74,8 @@ public class MappingMainConfigurationStep<T> extends PrismFormWizardStepPanel<T>
         return new MappingOptionalConfigurationStep<>(getParent());
     }
 
+    protected String getFormElementId() {
+        return "formContainer";
+    }
 
 }

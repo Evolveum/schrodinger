@@ -93,7 +93,12 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     public TaskPage clickRunNowAndWait() {
         $(Schrodinger.byElementAttributeValue("a", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-        Selenide.sleep(20000);
+
+        SelenideElement statusTag = summary().getParentElement()
+                .$(Schrodinger.byElementAttributeValue("div", "class", "summary-tag-box"))
+                        .$(Schrodinger.byDataId("summaryTag"))
+                                .$(Schrodinger.byDataId("summaryTagLabel"));
+        statusTag.shouldHave(Condition.text("Closed"), MidPoint.TIMEOUT_LONG_1_M);
         return this;
     }
 

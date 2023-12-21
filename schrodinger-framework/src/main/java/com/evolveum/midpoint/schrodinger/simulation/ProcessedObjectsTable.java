@@ -97,6 +97,30 @@ public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, Processed
         return getThis();
     }
 
+    public ProcessedObjectsTable<T> assertProcessedObjectIsMarked(String objectName, String markName) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement mark = row.getParentElement()
+                .$x(".//span[@data-s-id='processedMarks' and contains(text(), '" + markName + "')]");
+        assertion.assertTrue(mark.isDisplayed(), "Mark " + markName + " is not present for object " + objectName);
+        return getThis();
+    }
+
+    public ProcessedObjectsTable<T> assertAllObjectsAreMarked(String markName) {
+        ElementsCollection rows = getParentElement().findAll("tbody tr");
+        boolean allMarked = rows.asFixedIterable()
+                .stream()
+                .allMatch(r -> rowContainsMark(r, markName));
+        assertion.assertTrue(allMarked, "Not all objects are marked with " + markName);
+        return getThis();
+    }
+
+    private boolean rowContainsMark(SelenideElement row, String markName) {
+        SelenideElement processedMark = row
+                .$x(".//span[@data-s-id='processedMarks' and contains(text(), '" + markName + "')]");
+        SelenideElement realMark = row
+                .$x(".//span[@data-s-id='realMarks' and contains(text(), '" + markName + "')]");
+        return processedMark.isDisplayed() || realMark.isDisplayed();
+    }
 
     private ProcessedObjectsTable<T> getThis() {
         try {

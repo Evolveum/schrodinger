@@ -30,7 +30,7 @@ public abstract class EditableTableWithRedirectToWizardStep<T, WS extends Wizard
 
     public WS clickEditButton(String objectName) {
         TableRow<?, ?> row = findRowByColumnLabelAndRowValue(getObjectNameColumnLabel(), objectName);
-        row.getInlineMenu().clickInlineMenuButtonByIconClass("fa fa-edit");
+        row.getInlineMenu().clickInlineMenuButtonByIconClass(".fa.fa-edit");
         Utils.waitForAjaxCallFinish();
         return getWizardStepPanelOnEditAction();
     }

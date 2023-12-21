@@ -32,7 +32,7 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .inboundMappings()
                 .table()
                 .editMapping("empnum-to-name")
-                .strength("weak")
+                .strength("Weak")
                 .next()
                 .clickDone()
                 .saveMappings();
@@ -53,6 +53,38 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .and()
                 .and()
                 .saveMappings();
+    }
 
+    @Test(groups = MODULE_6_GROUP)
+    public void test2usernameImportSimulation() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .table()
+                .search()
+                .byName()
+                .inputValue("cn=Geena Green,ou=users,dc=example,dc=com")
+                .updateSearch()
+                .and()
+                .importPreview("Name", "cn=Geena Green,ou=users,dc=example,dc=com")
+                .selectTaskExecutionMode("Simulated development")
+                .select()
+                .table()
+                .assertProcessedObjectIsMarked("geena (Geena Green)", "Focus renamed");
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD - development simulation")
+                .clickRunNowAndWait()
+                .showSimulationResult()
+                .assertMarkValueEquals("Focus renamed", 39)
+                .selectMark("Focus renamed")
+                .table()
+                .assertAllObjectsAreMarked("Focus renamed");
     }
 }

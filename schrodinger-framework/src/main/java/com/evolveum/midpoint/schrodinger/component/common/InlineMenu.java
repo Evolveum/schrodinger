@@ -129,6 +129,10 @@ public class InlineMenu<T> extends Component<T, InlineMenu<T>> {
     }
 
     public InlineMenu<T> clickInlineMenuButtonByIconClass(String iconClass) {
+        if (!iconClass.startsWith(".")) {
+            iconClass = "." + iconClass;
+        }
+        iconClass = iconClass.replaceAll(" ", ".");
         getParentElement().$(By.cssSelector(iconClass))
                 .scrollIntoView(false)
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
