@@ -36,6 +36,7 @@ public class AbstractTrainingTest extends AbstractSchrodingerTest {
     protected static final String MODULE_3_GROUP = "Module3";
     protected static final String MODULE_4_GROUP = "Module4";
     protected static final String MODULE_5_GROUP = "Module5";
+    protected static final String MODULE_6_GROUP = "Module6";
 
     protected static File hrCsvFile;
 

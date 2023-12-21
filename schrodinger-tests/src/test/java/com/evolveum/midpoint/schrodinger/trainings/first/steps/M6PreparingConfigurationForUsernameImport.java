@@ -17,9 +17,11 @@
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
+import org.testng.annotations.Test;
 
 public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingTest {
 
+    @Test(groups = MODULE_6_GROUP)
     public void test1preparingConfigurationForUsernameImport() {
         basicPage
                 .listResources()
