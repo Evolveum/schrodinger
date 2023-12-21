@@ -19,7 +19,7 @@ package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.page.resource.SchemaHandlingTable;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -27,13 +27,13 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
+public class SynchronizationWizardStep<P> extends TableWizardStepPanel<P, ListOfReactionsTable<SynchronizationWizardStep<P>>> {
 
-    public SynchronizationWizardStep(T parent) {
+    public SynchronizationWizardStep(P parent) {
         super(parent);
     }
 
-    public ListOfReactionsTable<SynchronizationWizardStep<T>> addReaction() {
+    public ListOfReactionsTable<SynchronizationWizardStep<P>> addReaction() {
         table()
                 .getToolbarButtonByTitleKey("SynchronizationReactionTable.newObject")
                 .click();
@@ -41,7 +41,7 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         return new ListOfReactionsTable<>(SynchronizationWizardStep.this, $(Schrodinger.byDataId("table")));
     }
 
-    public ListOfReactionsTable<SynchronizationWizardStep<T>> addSimpleReaction() {
+    public ListOfReactionsTable<SynchronizationWizardStep<P>> addSimpleReaction() {
         table()
                 .getToolbarButtonByTitleKey("SynchronizationReactionTable.newObject.simple")
                 .click();
@@ -49,22 +49,22 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         return new ListOfReactionsTable<>(SynchronizationWizardStep.this, $(Schrodinger.byDataId("table")));
     }
 
-    public T saveSynchronizationSettings() {
+    public P saveSynchronizationSettings() {
         return clickButtonByTitleKeyAndRedirectToParent("SynchronizationReactionTableWizardPanel.saveButton");
     }
 
-    public T exitWizard() {
+    public P exitWizard() {
         return clickButtonByTitleKeyAndRedirectToParent("WizardPanel.exit");
     }
 
-    private T clickButtonByTitleKeyAndRedirectToParent(String titleKey) {
+    private P clickButtonByTitleKeyAndRedirectToParent(String titleKey) {
         String titleTranslated = Utils.translate(titleKey);
         $x(".//a[@title=\"" + titleTranslated + "\"]").click();
         Utils.waitForAjaxCallFinish();
         return getParent();
     }
 
-    public SynchronizationWizardStep<T> assertLifecycleStateValueEquals(int rowIndex,
+    public SynchronizationWizardStep<P> assertLifecycleStateValueEquals(int rowIndex,
                                                                         String lifecycleStateExpectedValue) {
         TableRow<?, ?> tableRow = table().getTableRow(rowIndex);
         SelenideElement cell = tableRow.getColumnCellElementByColumnName("Lifecycle state");
@@ -75,7 +75,7 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         return this;
     }
 
-    public SynchronizationWizardStep<T> assertAllLifecycleStateValuesEqual(String lifecycleStateExpectedValue) {
+    public SynchronizationWizardStep<P> assertAllLifecycleStateValuesEqual(String lifecycleStateExpectedValue) {
         int rowsCount = table().rowsCount();
         for (int i = 1; i <= rowsCount; i++) {
             assertLifecycleStateValueEquals(i, lifecycleStateExpectedValue);
@@ -83,7 +83,7 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         return this;
     }
 
-    public SynchronizationWizardStep<T> assertActionValueForSituationEquals(String situationValue,
+    public SynchronizationWizardStep<P> assertActionValueForSituationEquals(String situationValue,
                                                                             String actionExpectedValue) {
         TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation", situationValue);
         String actionActualValue = tableRow.getColumnCellTextByColumnName("Action");
@@ -92,13 +92,18 @@ public class SynchronizationWizardStep<T> extends TableWizardStepPanel<T> {
         return this;
     }
 
-    public SynchronizationWizardStep<T> setLifecycleStateValueForSituation(String situation,
+    public SynchronizationWizardStep<P> setLifecycleStateValueForSituation(String situation,
                                                                            String lifecycleStateExpectedValue) {
         TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation", situation, true);
         SelenideElement cell = tableRow.getColumnCellElementByColumnName("Lifecycle state");
         SelenideElement select = cell.$(By.tagName("select"));
         select.selectOption(lifecycleStateExpectedValue);
         return this;
+    }
+
+    @Override
+    public ListOfReactionsTable<SynchronizationWizardStep<P>> table() {
+        return new ListOfReactionsTable<>(this, getTableElement());
     }
 
 }

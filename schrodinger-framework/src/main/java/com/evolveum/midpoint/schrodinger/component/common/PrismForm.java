@@ -251,6 +251,16 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
+    public PrismForm<T> setAceEditorAreaValue(String name, String value) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(name);
+
+        property.$(Schrodinger.byElementAttributeValue("textarea", "class", "ace_text-input"))
+                .shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .sendKeys(value);
+        return this;
+    }
+
     public PrismForm<T> setPolyStringLocalizedValue(QName name, String locale, String value) {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);

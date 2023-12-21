@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class InboundMappingsPanel<T> extends TableWizardStepPanel<T> {
+public class InboundMappingsPanel<T> extends TableWizardStepPanel<T, InboundMappingsTable<InboundMappingsPanel<T>>> {
 
     public InboundMappingsPanel(T parent) {
         super(parent);
@@ -55,5 +55,9 @@ public class InboundMappingsPanel<T> extends TableWizardStepPanel<T> {
         assertion.assertTrue(iconElement.exists() && iconElement.isDisplayed(), "Icon with title " +
                 iconTitle + "should exist for mapping: " + mappingName);
         return this;
+    }
+
+    public InboundMappingsTable<InboundMappingsPanel<T>> table() {
+        return new InboundMappingsTable<>(InboundMappingsPanel.this, $(Schrodinger.byDataId("table")));
     }
 }

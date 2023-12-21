@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -24,16 +25,18 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class TableWizardStepPanel<T> extends WizardStepPanel<T> {
+public abstract class TableWizardStepPanel<P, T extends Table> extends WizardStepPanel<P> {
 
-    public TableWizardStepPanel(T parent) {
+    public TableWizardStepPanel(P parent) {
         super(parent, $x(".//div[contains(@class, \"card\")]").shouldBe(Condition.visible,
                 MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
-    protected Table<TableWizardStepPanel<T>, ? extends Table> table() {
-        return new Table<>(TableWizardStepPanel.this,
-                $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+    public abstract T table();
+
+    protected SelenideElement getTableElement() {
+        return getParentElement().$(Schrodinger.byDataId("table"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
 }

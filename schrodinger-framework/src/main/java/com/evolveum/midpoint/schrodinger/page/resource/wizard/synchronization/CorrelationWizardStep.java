@@ -23,33 +23,33 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class CorrelationWizardStep <T> extends TableWizardStepPanel<T> {
+public class CorrelationWizardStep<P> extends TableWizardStepPanel<P, CorrelationRulesTable<CorrelationWizardStep<P>>> {
 
-    public CorrelationWizardStep(T parent) {
+    public CorrelationWizardStep(P parent) {
         super(parent);
     }
 
-    public T saveSynchronizationSettings() {
+    public P saveSynchronizationSettings() {
         return clickButtonByTitleKeyAndRedirectToParent("CorrelationWizardPanelWizardPanel.saveButton");
     }
 
-    public T exitWizard() {
+    public P exitWizard() {
         return clickButtonByTitleKeyAndRedirectToParent("WizardPanel.exit");
     }
 
-    private T clickButtonByTitleKeyAndRedirectToParent(String titleKey) {
+    private P clickButtonByTitleKeyAndRedirectToParent(String titleKey) {
         String titleTranslated = Utils.translate(titleKey);
         $x(".//a[@title=\"" + titleTranslated + "\"]").click();
         Utils.waitForAjaxCallFinish();
         return getParent();
     }
 
-    public CorrelationWizardStep<T> assertCorrelationRuleExist(String correlationRuleName) {
+    public CorrelationWizardStep<P> assertCorrelationRuleExist(String correlationRuleName) {
         table().assertTableContainsColumnWithValue("Rule name", correlationRuleName);
         return this;
     }
 
-    public CorrelationWizardStep<T> assertCorrelationRuleEnabled(String correlationRuleName) {
+    public CorrelationWizardStep<P> assertCorrelationRuleEnabled(String correlationRuleName) {
         TableRow<?, ?> tableRow = table().rowByColumnResourceKey("Rule name", correlationRuleName);
         String enabledRealValue = tableRow != null ? tableRow.getColumnCellTextByColumnName("Enabled") : null;
         assertion.assertEquals(enabledRealValue, "True", "Enabled value for " + correlationRuleName
@@ -57,11 +57,16 @@ public class CorrelationWizardStep <T> extends TableWizardStepPanel<T> {
         return this;
     }
 
-    public CorrelationWizardStep<T> assertCorrelationRuleDisabled(String correlationRuleName) {
+    public CorrelationWizardStep<P> assertCorrelationRuleDisabled(String correlationRuleName) {
         TableRow<?, ?> tableRow = table().rowByColumnResourceKey("Rule name", correlationRuleName);
         String enabledRealValue = tableRow != null ? tableRow.getColumnCellTextByColumnName("Enabled") : null;
         assertion.assertEquals(enabledRealValue, "False", "Enabled value for " + correlationRuleName
                 + " correlation rule should be False");
         return this;
+    }
+
+    @Override
+    public CorrelationRulesTable<CorrelationWizardStep<P>> table() {
+        return new CorrelationRulesTable<>(this, getTableElement());
     }
 }

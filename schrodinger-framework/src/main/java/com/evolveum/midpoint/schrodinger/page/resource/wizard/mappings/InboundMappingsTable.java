@@ -20,11 +20,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
+import com.evolveum.midpoint.schrodinger.component.wizard.EditableTableWithRedirectToWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.ListOfReactionsTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class InboundMappingsTable<T> extends MappingsTable<T, InboundMappingsTable<T>> {
+public class InboundMappingsTable<T> extends
+        EditableTableWithRedirectToWizardStep<T, MappingMainConfigurationStep<T>, InboundMappingsTable<T>> {
 
     public InboundMappingsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -128,4 +131,18 @@ public class InboundMappingsTable<T> extends MappingsTable<T, InboundMappingsTab
                 .click();
         return InboundMappingsTable.this;
     }
+
+    public MappingMainConfigurationStep<T> editMapping(String mappingName) {
+        return clickEditButton(mappingName);
+    }
+    @Override
+    public MappingMainConfigurationStep<T> getWizardStepPanelOnEditAction() {
+        return new MappingMainConfigurationStep<>(getParent());
+    }
+
+    @Override
+    public String getObjectNameColumnLabel() {
+        return "Name";
+    }
+
 }

@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.evolveum.midpoint.schrodinger.component.task.dto.SynchronizationSituationTransitionDto;
+import com.evolveum.midpoint.schrodinger.simulation.ProcessedObjectsPage;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
 
@@ -46,7 +47,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .next()
                 .next()
                 .saveAndRun();
-        basicPage
+        ProcessedObjectsPage processedObjectsPage = basicPage
                 .listResources()
                 .table()
                 .clickByName("AD")
@@ -67,29 +68,9 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .backToSimulationResultPage()
                 .simulationTaskDetails()
                 .assertModifiedObjectsValueEquals("78")
-                .viewModifiedObjects()
-                .table()
-                .clickByName("1001 (Geena Green)")
-                .changes()
-                .assertItemExists("Projections")
-                .assertNewValueExists("cn=Geena Green,ou=users,dc=example,dc=com")
-                .and()
-                .back()
-                .table()
-                .search()
-                .dropDownPanelByItemName("Type")
-                .inputDropDownValue("Shadow")
-                .updateSearch()
-                .and()
-                .clickByName("cn=Geena Green,ou=users,dc=example,dc=com (Account cn=Geena Green,ou=users,dc=example,dc=com (default) on AD)")
-                .changes()
-                .advancedView()
-                .showOperationalItems()
-                .showOperationalItems("Metadata")
-                .assertItemValueEquals("Metadata", "Modification channel", "http://midpoint.evolveum.com/xml/ns/public/common/channels-3#reconciliation")
-                .assertItemExists("Metadata", "Modified at")
-                .assertItemValueEquals("Metadata", "Modifier", "midPoint Administrator (administrator)")
-                .assertItemValueEquals("Metadata", "Modified by task", "Reconciliation with AD - development simulation");
+                .viewModifiedObjects();
+        checkProjectionWasAddedToUser(processedObjectsPage);
+        checkMetadataChangesForShadow(processedObjectsPage);
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -112,24 +93,23 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertRealObjectIsMarked("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com", "Protected");
         //(also Resource Accounts page now shows the marks)
 
-        basicPage
+        ProcessedObjectsPage processedObjectsPage = basicPage
                 .listTasks()
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
                 .clickRunNowAndWait()
                 .showSimulationResult()
-                .assertMarkValueEquals("Projection deactivated", 1)
-                .simulationTaskDetails()
-                .assertDeletedObjectsValueEquals("1")
-                .viewDeletedObjects()
+                .assertMarkValueEquals("Projection deactivated", 1) //todo ask Vix
+                .selectMark("Projection deactivated")
                 .table()
                 .assertTableContainsText("cn=Secret Admin,ou=users,dc=example,dc=com")
                 .and()
                 .backToSimulationResultPage()
                 .simulationTaskDetails()
-                .assertModifiedObjectsValueEquals("78");
-        //todo check midPoint users indicate added Projection (as a result of correlation of the account and linking it to its owner)
-        //AD accounts indicate metadata changes (in midPoint repository only)
+                .assertModifiedObjectsValueEquals("78")
+                .viewModifiedObjects();
+        checkProjectionWasAddedToUser(processedObjectsPage);
+        checkMetadataChangesForShadow(processedObjectsPage);
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -176,7 +156,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
         // (not connected to Accounts panel)
         //
         //2. Active (production) in guide Active (Production)
-        basicPage
+        ProcessedObjectsPage processedObjectsPage = basicPage
                 .listResources()
                 .table()
                 .clickByName("AD")
@@ -184,6 +164,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .table()
                 .clickByName("Reconciliation with AD - production simulation")
                 .selectOperationStatisticsPanel()
+                .screenshot("test3ignoringOrphanedAccounts_selectOperationStatisticsPanel")
 /**
  * scroll down to Synchronization situation transitions section. Here you can see how the resource accounts were classified before/after the task execution. Please note the operations were not actually executed as we have run the reconciliation in simulation mode.
  * 39 accounts previously not linked are now linked to midPoint users; final situation is Linked
@@ -194,9 +175,69 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .showSimulationResult()
                 .assertMarkValueEquals("Projection deactivated", 0)
                 .simulationTaskDetails()
-                .assertModifiedObjectsValueEquals("78");
-        //todo check midPoint users indicate added Projection (as a result of correlation of the account and linking it to its owner)
-        //AD accounts indicate metadata changes (in midPoint repository only)
+                .assertModifiedObjectsValueEquals("78")
+                .viewModifiedObjects();
+        checkProjectionWasAddedToUser(processedObjectsPage);
+        checkMetadataChangesForShadow(processedObjectsPage);
+    }
+
+    @Test(groups = MODULE_5_GROUP)
+    public void test4realCorrelationWithAD() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .tasks()
+                .clickCreateTask()
+                .reconciliationTask()
+                .clickCreateTaskButton()
+                .configuration()
+                .name("Reconciliation with AD (real)")
+                .next()
+                .nextToSchedule()
+                .next()
+                .saveAndRun();
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD (real)")
+                .selectOperationStatisticsPanel()
+                        .screenshot("test4realCorrelationWithAD_selectOperationStatisticsPanel");
+                // check correlation results. The results are the same as during the simulations.
+        basicPage
+                .listUsers("Persons")
+                //all linkable AD accounts are linked to their owners, 2 accounts are reported for all users (except 1002 - Ana Lopez)
+                .table()
+                .search()
+                .byName()
+                .inputValue("1006")
+                .updateSearch()
+                .and()
+                .clickByName("1006")
+                .selectProjectionsPanel()
+                .table()
+                .clickByName("cn=Martin Knight,ou=users,dc=example,dc=com")
+                        .screenshot("test4realCorrelationWithAD_projectionsPanel");
+                //click AD account to display user’s AD account attributes
+
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .table()
+                .search()
+                .dropDownPanelByItemName("Situation")
+                .inputDropDownValue("Unmatched")
+                .updateSearch()
+                .screenshot("test4realCorrelationWithAD_unmatchedAccounts");
+                //All Unmatched accounts except cn=Secret Admin,ou=users,dc=example,dc=com are already marked from earlier steps
+                //Any new Unmatched accounts (created meanwhile in AD) would have no marks
+        // Ana Lopez will be resolved late
     }
 
     private List<SynchronizationSituationTransitionDto> prepareSyncSituationTransitionRecords() {
@@ -227,5 +268,33 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .skipped("1")
                 .total("1"));
         return list;
+    }
+
+    private void checkProjectionWasAddedToUser(ProcessedObjectsPage processedObjectsPage) {
+        processedObjectsPage
+                .table()
+                .clickByName("1001 (Geena Green)")
+                .changes()
+                .assertItemExists("Projections")
+                .assertNewValueExists("cn=Geena Green,ou=users,dc=example,dc=com");
+    }
+
+    private void checkMetadataChangesForShadow(ProcessedObjectsPage processedObjectsPage) {
+        processedObjectsPage
+                .table()
+                .search()
+                .dropDownPanelByItemName("Type")
+                .inputDropDownValue("Shadow")
+                .updateSearch()
+                .and()
+                .clickByName("cn=Geena Green,ou=users,dc=example,dc=com (Account cn=Geena Green,ou=users,dc=example,dc=com (default) on AD)")
+                .changes()
+                .advancedView()
+                .showOperationalItems()
+                .showOperationalItems("Metadata")
+                .assertItemValueEquals("Metadata", "Modification channel", "http://midpoint.evolveum.com/xml/ns/public/common/channels-3#reconciliation")
+                .assertItemExists("Metadata", "Modified at")
+                .assertItemValueEquals("Metadata", "Modifier", "midPoint Administrator (administrator)")
+                .assertItemValueEquals("Metadata", "Modified by task", "Reconciliation with AD - development simulation");
     }
 }
