@@ -87,4 +87,38 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .table()
                 .assertAllObjectsAreMarked("Focus renamed");
     }
+
+    @Test(groups = MODULE_6_GROUP)
+    public void test3usernameImportFromAD() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .configureMappings()
+                .inboundMappings()
+                .table()
+                .lifecycleState("mapping-inbound-username-to-name-for-import", "Active (production)")
+                .and()
+                .and()
+                .saveMappings()
+                .and()
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD (real)")
+                .clickRunNowAndWait();
+        basicPage
+                .listUsers("Persons")
+                .table()
+                .screenshot("users");
+
+        /**
+         * todo
+         * All users with linked AD account are now renamed in midPoint.
+         * The only exception is user 1002 (Ana Lopez) for whom the correlation has failed and does not have a linked AD account.
+         * Her AD account is still Unmatched and marked  Correlate later.
+         * We will resolve this in later labs.
+         * We wanted to emphasize that we can continue the deployment using First steps methodology even if the data is not ideal.
+         */
+    }
 }

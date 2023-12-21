@@ -99,6 +99,13 @@ public class InboundMappingsTable<T> extends
         return InboundMappingsTable.this;
     }
 
+    public InboundMappingsTable<T> lifecycleState(String name, String lifecycleState) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue(getObjectNameColumnLabel(), name, true);
+        setDropdownValue("Lifecycle state", lifecycleState, row);
+
+        return InboundMappingsTable.this;
+    }
+
     public InboundMappingsTable<T> lifecycleState(String value) {
         return lifecycleState(value, rowsCount());
     }

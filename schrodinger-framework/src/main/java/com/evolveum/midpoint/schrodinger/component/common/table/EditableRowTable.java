@@ -21,6 +21,8 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import java.util.Objects;
+
 import static com.codeborne.selenide.Selenide.$;
 
 /**
@@ -37,6 +39,19 @@ public class EditableRowTable<T, P extends EditableRowTable> extends Table<T, P>
             element.$x(".//input").setValue(attributeValue);
         }
         return EditableRowTable.this;
+    }
+
+    public EditableRowTable<T, P> setDropdownValue(String columnResourceKey, String attributeValue, TableRow<?, ?> tableRow){
+        int i = -1;
+        try {
+            i = Integer.parseInt(Objects.requireNonNull(tableRow.getParentElement().getAttribute("data-s-id")));
+        } catch (NumberFormatException e) {
+            screenshot("setDropdownValueFailed");
+        }
+        if (i < 0) {
+            return null;
+        }
+        return setDropdownValue(columnResourceKey, attributeValue, i);
     }
 
     public EditableRowTable<T, P> setDropdownValue(String columnResourceKey, String attributeValue, int rowIndex){
