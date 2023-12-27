@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRed
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
+import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.ListRepositoryObjectsPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.RepositoryObjectPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -33,7 +34,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListRepositoryObjectsPage, ListRepositoryObjectsTable> {
+public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListRepositoryObjectsPage, RepositoryObjectPage, ListRepositoryObjectsTable> {
 
     public ListRepositoryObjectsTable(ListRepositoryObjectsPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -105,5 +106,10 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
     public ListRepositoryObjectsTable setShowAllItemsOptionChecked(boolean value) {
         Utils.setOptionCheckedById("showAllItemsCheck", value);
         return this;
+    }
+
+    @Override
+    public RepositoryObjectPage getObjectDetailsPage() {
+        return new RepositoryObjectPage();
     }
 }

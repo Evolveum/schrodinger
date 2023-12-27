@@ -21,10 +21,11 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class DefinedTasksTable<T> extends TableWithPageRedirect<T, DefinedTasksTable<T>> {
+public class DefinedTasksTable<T> extends TableWithPageRedirect<T, TaskPage, DefinedTasksTable<T>> {
 
     public DefinedTasksTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -36,6 +37,11 @@ public class DefinedTasksTable<T> extends TableWithPageRedirect<T, DefinedTasksT
         getParentElement().$x(".//span[@data-s-id='label' and contains(text(), '" + name + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForSummaryDisplayNameOnDetailsPage(name);
+        return new TaskPage();
+    }
+
+    @Override
+    public TaskPage getObjectDetailsPage() {
         return new TaskPage();
     }
 }

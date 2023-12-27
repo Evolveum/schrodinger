@@ -21,12 +21,13 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 /**
  * Created by honchar
  */
-public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemsTable<T>> {
+public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemPage, WorkitemsTable<T>> {
 
     public WorkitemsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -46,5 +47,10 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemsTable<T
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         return this;
+    }
+
+    @Override
+    public WorkitemPage getObjectDetailsPage() {
+        return new WorkitemPage();
     }
 }

@@ -26,6 +26,8 @@ import com.evolveum.midpoint.schrodinger.component.common.table.SelectableRowTab
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.modal.ModalBox;
+import com.evolveum.midpoint.schrodinger.component.modal.SelectMarkModal;
+import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -35,7 +37,7 @@ import java.util.Arrays;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, ProcessedObjectsTable<T>> {
+public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, SimulationResultDetailsPage, ProcessedObjectsTable<T>> {
 
     public ProcessedObjectsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -77,15 +79,10 @@ public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, Processed
     public ProcessedObjectsTable<T> addMarks(String name, String... marks) {
         TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", name, true);
         row.getInlineMenu().clickInlineMenuButtonByTitle("Add Marks");
-        ModalBox<ProcessedObjectsTable<T>> modal = new ModalBox<>(this, Utils.getModalWindowSelenideElement());
-        SelectableRowTable<?, ?> table = new SelectableRowTable<>(modal,
-                modal.getParentElement().$(Schrodinger.byDataId("div", "table")));
-        Arrays.stream(marks).forEach(mark -> table.findRowByColumnLabelAndRowValue("Name", mark).clickCheckBox());
-        modal.getParentElement().$(Schrodinger.byDataId("a", "addButton")).click();
-        Utils.waitForAjaxCallFinish();
-        if (Utils.isModalWindowSelenideElementVisible()) {
-            Selenide.sleep(3000);
-        }
+        SelectMarkModal<ProcessedObjectsTable<T>> modal =
+                new SelectMarkModal<>(this, Utils.getModalWindowSelenideElement());
+        modal.selectMarks(marks);
+        modal.clickConfirmationButton();
         return getThis();
     }
 
@@ -141,5 +138,10 @@ public class ProcessedObjectsTable<T> extends TableWithPageRedirect<T, Processed
                 .filter(SelenideElement::isDisplayed)
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public SimulationResultDetailsPage getObjectDetailsPage() {
+        return new SimulationResultDetailsPage();
     }
 }

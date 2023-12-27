@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.self.QuickSearch;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
@@ -42,7 +43,7 @@ public class HomePage extends BasicPage {
         return new QuickSearch<HomePage>(this, searchElement);
     }
 
-    public <T extends TableWithPageRedirect<HomePage, T>> TableWithPageRedirect<HomePage, T> myRequestsTable() {
+    public <T extends TableWithPageRedirect<HomePage, CasePage, T>> TableWithPageRedirect<HomePage, CasePage, T> myRequestsTable() {
         SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//table[@data-s-id='table']");
         return new TableWithPageRedirect<>(HomePage.this, table) {
@@ -51,6 +52,11 @@ public class HomePage extends BasicPage {
                 getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 $(Schrodinger.byDataId("summaryBox")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+                return new CasePage();
+            }
+
+            @Override
+            public CasePage getObjectDetailsPage(){
                 return new CasePage();
             }
 

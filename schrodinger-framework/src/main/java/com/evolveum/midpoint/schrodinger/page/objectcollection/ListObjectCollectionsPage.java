@@ -15,9 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.page.objectcollection;
 
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 
-public class ListObjectCollectionsPage extends AssignmentHolderObjectListPage<ObjectCollectionsListTable, ObjectCollectionPage> {
+public class ListObjectCollectionsPage extends ObjectListPageWithPageRedirect<ObjectCollectionsListTable, ObjectCollectionPage> {
 
     @Override
     public ObjectCollectionsListTable table() {

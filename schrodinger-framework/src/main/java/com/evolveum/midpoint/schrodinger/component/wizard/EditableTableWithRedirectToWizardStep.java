@@ -21,7 +21,8 @@ import com.evolveum.midpoint.schrodinger.component.common.table.EditableRowTable
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public abstract class EditableTableWithRedirectToWizardStep<T, WS extends WizardStepPanel<T>, P  extends EditableTableWithRedirectToWizardStep<T, WS, P>>
+public abstract class EditableTableWithRedirectToWizardStep<T, WS extends WizardStepPanel<T>,
+        P extends EditableTableWithRedirectToWizardStep<T, WS, P>>
         extends EditableRowTable<T, P> {
 
     public EditableTableWithRedirectToWizardStep(T parent, SelenideElement parentElement) {

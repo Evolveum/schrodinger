@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.EditableTableWithRedirectToWizardStep;
 
 public class CorrelationRulesTable<P>
@@ -34,5 +35,11 @@ public class CorrelationRulesTable<P>
     @Override
     public String getObjectNameColumnLabel() {
         return "Rule name";
+    }
+
+    public CorrelationRulesTable<P> setEnabled(String name, String lifecycleState) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue(getObjectNameColumnLabel(), name, true);
+        setDropdownValue("Enabled", lifecycleState, row);
+        return this;
     }
 }

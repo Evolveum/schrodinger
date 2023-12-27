@@ -23,7 +23,9 @@ import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
+import com.evolveum.midpoint.schrodinger.component.modal.SelectMarkModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.simulation.ProcessedObjectsTable;
@@ -37,7 +39,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/25/2018.
  */
-public class ResourceShadowTable<T> extends TableWithPageRedirect<T, ResourceShadowTable<T>> {
+public class ResourceShadowTable<T> extends TableWithPageRedirect<T, AccountPage, ResourceShadowTable<T>> {
     public ResourceShadowTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
@@ -142,6 +144,19 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T, ResourceSha
         return new TaskExecutionModePopup(ResourceShadowTable.this, popup);
     }
 
+    public ResourceShadowTable<T> removeMarks() {
+        return removeMarks(null, null);
+    }
+
+    public ResourceShadowTable<T> removeMarks(String columnTitleKey, String rowValue, String... marks) {
+        clickMenu(columnTitleKey, rowValue, "pageContentAccounts.menu.mark.remove");
+        SelectMarkModal<ResourceShadowTable<T>> modal =
+                new SelectMarkModal<>(this, Utils.getModalWindowSelenideElement());
+        modal.selectMarks(marks);
+        modal.clickConfirmationButton();
+        return this;
+    }
+
     public ResourceShadowTable<T> removeOwner() {
         return removeOwner(null, null);
     }
@@ -167,5 +182,18 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T, ResourceSha
         return this;
     }
 
+    public ResourceShadowTable<T> assertSituationEquals(String objectName, String situation) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement cell = row.getParentElement()
+                .$x(".//div[@data-s-id='cell' and contains(text(), '" + situation + "')]");
+        assertion.assertTrue(cell.isDisplayed(), "Situation " + situation + " is not present for object " + objectName);
+        return this;
+    }
+
+
+    @Override
+    public AccountPage getObjectDetailsPage(){
+        return new AccountPage();
+    }
 
 }

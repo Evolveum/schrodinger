@@ -17,7 +17,7 @@ package com.evolveum.midpoint.schrodinger.page.report;
 
 import com.codeborne.selenide.SelenideElement;
 
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.report.ReportTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
@@ -28,7 +28,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ListReportsPage extends AssignmentHolderObjectListPage<ReportTable, ReportPage> {
+public class ListReportsPage extends ObjectListPageWithPageRedirect<ReportTable, ReportPage> {
 
     @Override
     public ReportTable table() {

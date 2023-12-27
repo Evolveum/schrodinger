@@ -20,11 +20,12 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.cases.WorkitemDetailsPanel;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.ObjectDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WorkitemPage extends BasicPage {
+public class WorkitemPage extends ObjectDetailsPage<WorkitemPage> {
 
     public WorkitemDetailsPanel<WorkitemPage> detailsPanel() {
         SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))

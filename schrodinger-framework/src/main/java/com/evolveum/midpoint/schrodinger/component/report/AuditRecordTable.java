@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +35,7 @@ import static com.codeborne.selenide.Selenide.$;
  * @author skublik
  */
 
-public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditRecordTable<T>> {
+public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewerDetailsPage, AuditRecordTable<T>> {
 
     public AuditRecordTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -88,5 +89,10 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditRecordTab
     @Override
     public Search<AuditRecordTable<T>> search() {
         return (Search<AuditRecordTable<T>>) super.search();
+    }
+
+    @Override
+    public AuditLogViewerDetailsPage getObjectDetailsPage() {
+        return new AuditLogViewerDetailsPage();
     }
 }

@@ -36,7 +36,7 @@ public class CasesPanel<P extends FocusPage> extends Component<P, CasesPanel<P>>
         super(parent, parentElement);
     }
 
-    public <T extends TableWithPageRedirect<CasesPanel<P>, T>> TableWithPageRedirect<CasesPanel<P>, T> table() {
+    public <T extends TableWithPageRedirect<CasesPanel<P>, CasePage, T>> TableWithPageRedirect<CasesPanel<P>, CasePage, T> table() {
         return new TableWithPageRedirect<>(this,
                 $(Schrodinger.byDataId("taskTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)) {
             @Override
@@ -44,6 +44,10 @@ public class CasesPanel<P extends FocusPage> extends Component<P, CasesPanel<P>>
                 return new CasePage();
             }
 
+            @Override
+            public CasePage getObjectDetailsPage() {
+                return new CasePage();
+            }
         };
     }
 }

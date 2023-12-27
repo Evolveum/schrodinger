@@ -16,7 +16,6 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization;
 
-import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -29,7 +28,7 @@ public class CorrelationWizardStep<P> extends TableWizardStepPanel<P, Correlatio
         super(parent);
     }
 
-    public P saveSynchronizationSettings() {
+    public P saveCorrelationSettings() {
         return clickButtonByTitleKeyAndRedirectToParent("CorrelationWizardPanelWizardPanel.saveButton");
     }
 

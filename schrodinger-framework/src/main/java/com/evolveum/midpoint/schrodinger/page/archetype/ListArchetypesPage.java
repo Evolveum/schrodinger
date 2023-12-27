@@ -15,15 +15,13 @@
  */
 package com.evolveum.midpoint.schrodinger.page.archetype;
 
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
-import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
-import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ListArchetypesPage extends AssignmentHolderObjectListPage<AssignmentHolderObjectListTable, ArchetypePage> {
+public class ListArchetypesPage extends ObjectListPageWithPageRedirect<AssignmentHolderObjectListTable, ArchetypePage> {
 
     @Override
     public ArchetypeListTable table() {

@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.ObjectDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -38,15 +39,16 @@ import static com.codeborne.selenide.Selenide.screenshot;
 /**
  * Created by matus on 5/2/2018.
  */
-public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirect<T, TWPR>> extends SelectableRowTable<T, TWPR> {
+public abstract class TableWithPageRedirect<T, DP extends BasicPage,
+        TWPR extends TableWithPageRedirect<T, DP, TWPR>> extends SelectableRowTable<T, TWPR> {
 
     public TableWithPageRedirect(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public abstract <E extends BasicPage> E clickByName(String name);
+    public abstract DP clickByName(String name);
 
-    protected <P extends TableWithPageRedirect<T, TWPR>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown() {
+    protected <P extends TableWithPageRedirect<T, DP, TWPR>> TableHeaderDropDownMenu<P> clickHeaderActionDropDown() {
         return null;
     }
 
@@ -61,7 +63,7 @@ public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirec
         return dropDownMenu;
     }
 
-    public InlineMenu<TableWithPageRedirect<T, TWPR>> getHeaderInlineMenuPanel() {
+    public InlineMenu<TableWithPageRedirect<T, DP, TWPR>> getHeaderInlineMenuPanel() {
         SelenideElement element = getParentElement().find("th:last-child div.btn-group");
         if (element == null) {
             return null;
@@ -74,12 +76,12 @@ public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirec
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
     }
 
-    protected  <P extends TableWithPageRedirect<T, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation(String columnTitleKey, String rowValue, String menuItemKey) {
+    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation(String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
 
-    protected  <P extends TableWithPageRedirect<T, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
+    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
         clickMenuItemButton(columnTitleKey, rowValue, iconClass);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
@@ -133,5 +135,47 @@ public abstract class TableWithPageRedirect<T, TWPR extends TableWithPageRedirec
                     .clickInlineMenuButtonByIconClass(iconClass);
         }
     }
+
+    public DP newObjectButtonByCssClick(String iconCssClass){
+        if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
+            getToolbarButtonByCss("fa fa-plus")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+//            Selenide.sleep(2000);
+        } else {
+            getToolbarButtonByCss(iconCssClass).click();
+        }
+        Utils.waitForAjaxCallFinish();
+        try {
+            Utils.getModalWindowSelenideElement();
+        } catch (Error e) {
+            //nothing to do here; the window appears depending on configuration
+        }
+        if (Utils.isModalWindowSelenideElementVisible()) {
+            Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]").click();
+            Utils.waitForAjaxCallFinish();
+        }
+        Utils.waitForMainPanelOnDetailsPage();
+        return getObjectDetailsPage();
+    }
+
+    public DP newObjectButtonByTitleClick(String buttonTitle){
+        if (!getToolbarButtonByTitleKey(buttonTitle).isDisplayed()) {
+            getToolbarButtonByCss("fa fa-plus")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+            Selenide.sleep(2000);
+        }
+        if (Utils.isModalWindowSelenideElementVisible()) {
+            Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
+        } else {
+            getToolbarButtonByTitleKey(buttonTitle).click();
+        }
+        Utils.waitForMainPanelOnDetailsPage();
+        return getObjectDetailsPage();
+    }
+
+    public abstract DP getObjectDetailsPage();
+
 
 }

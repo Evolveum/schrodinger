@@ -16,8 +16,11 @@
 
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
+
+import static com.codeborne.selenide.Selectors.byText;
 
 public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingTest {
 
@@ -159,6 +162,7 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .table()
                 .clickByName("Reconciliation with AD (real)")
                 .selectOperationStatisticsPanel()
+                .screenshot("M6_operation_statistics")
         /**
         * todo
          * click Operation statistics menu item and scroll down to Actions executed (all actions) section. You should see the following entry representing the orphaned account deletion in the table (some content is excluded for brevity):
@@ -189,5 +193,80 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .assertRealObjectIsMarked("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com", "Protected")
                 .assertRealObjectIsMarked("cn=Test123,ou=users,dc=example,dc=com", "Do not touch")
                 .assertTableDoesntContainColumnWithValue("Name", "cn=Secret Admin,ou=users,dc=example,dc=com");
+    }
+
+    @Test(groups = MODULE_6_GROUP)
+    public void test5finalizeCorrelation() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .table()
+                .search()
+                .byName()
+                .inputValue("cn=Ana Lopez,ou=users,dc=example,dc=com")
+                .updateSearch()
+                .and()
+                .and()
+                .configureCorrelation()
+                .table()
+                .setEnabled("last-resort-correlation", "True")
+                .and()
+                .saveCorrelationSettings()
+                .table()
+                .removeMarks("Name", "cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
+                .and()
+                .and()
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD (real)")
+                .clickRunNowAndWaitToBeClosed()
+                .backToResourcePage()
+                .selectAccountsPanel()
+                .table()
+                .assertSituationEquals("cn=Ana Lopez,ou=users,dc=example,dc=com", "DISPUTED")
+                .and()
+                .configureSynchronization()
+                .addReaction()
+                .name("disputed-create-case")
+                .situation("Disputed")
+                .action("Create correlation case")
+                .lifecycleState("Active")
+                .and()
+                .saveSynchronizationSettings()
+                .and()
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD (real)")
+                .clickRunNowAndWaitToBeClosed();
+        basicPage
+                .myWorkItems()
+                .table()
+                .clickByName("Correlation of account 'cn=Ana Lopez,ou=users,dc=example,dc=com' on AD");
+        /**
+         * in the table of correlation candidates, look at the Correlation candidate 1 column (Ana Lopez)
+         * notice the Personal number difference (default correlator didn’t match), but all other correlation attributes (from second correlator) match
+         * click Correlate for Correlation candidate 1 (Ana Lopez) to select this user as owner of the uncorrelated account
+         */
+        Selenide.screenshot("M6_work_item");
+        basicPage
+                .listUsers("Persons")
+                .table()
+                .search()
+                .byName()
+                .inputValue("alopez")
+                .updateSearch()
+                .and()
+                .clickByName("alopez")
+                .selectProjectionsPanel()
+                .table()
+                .assertVisibleObjectsCountEquals(2);
+
+        Selenide.screenshot("M6_projections");
+
+        /**
+         * user alopez (formerly 1002, now renamed) has her AD account linked and visible in Projections panel. AD’s employeeNumber is still incorrect, but will be fixed when we enable provisioning to AD in later labs
+         */
     }
 }

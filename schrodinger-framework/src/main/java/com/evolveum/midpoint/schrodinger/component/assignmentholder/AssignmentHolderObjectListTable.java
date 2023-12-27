@@ -41,7 +41,7 @@ import static com.codeborne.selenide.Selenide.*;
  * Created by honchar
  */
 public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHolderDetailsPage,
-        T extends AssignmentHolderObjectListTable<P, PD, T>> extends TableWithPageRedirect<P, T> {
+        T extends AssignmentHolderObjectListTable<P, PD, T>> extends TableWithPageRedirect<P, PD, T> {
 
     public AssignmentHolderObjectListTable(P parent, SelenideElement parentElement){
         super(parent, parentElement);
@@ -88,45 +88,6 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         $(Schrodinger.bySelfOrAncestorElementAttributeValue("input", "type", "checkbox", "data-s-id", "topToolbars"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
-    }
-
-    public PD newObjectButtonByCssClick(String iconCssClass){
-        if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
-            getToolbarButtonByCss("fa fa-plus")
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-//            Selenide.sleep(2000);
-        } else {
-            getToolbarButtonByCss(iconCssClass).click();
-        }
-        Utils.waitForAjaxCallFinish();
-        try {
-            Utils.getModalWindowSelenideElement();
-        } catch (Error e) {
-            //nothing to do here; the window appears depending on configuration
-        }
-        if (Utils.isModalWindowSelenideElementVisible()) {
-            Utils.getModalWindowSelenideElement().$x(".//i[contains(@class, \"" + iconCssClass + "\")]").click();
-            Utils.waitForAjaxCallFinish();
-        }
-        Utils.waitForMainPanelOnDetailsPage();
-        return getObjectDetailsPage();
-    }
-
-    public PD newObjectButtonByTitleClick(String buttonTitle){
-        if (!getToolbarButtonByTitleKey(buttonTitle).isDisplayed()) {
-            getToolbarButtonByCss("fa fa-plus")
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-            Selenide.sleep(2000);
-        }
-        if (Utils.isModalWindowSelenideElementVisible()) {
-            Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
-        } else {
-            getToolbarButtonByTitleKey(buttonTitle).click();
-        }
-        Utils.waitForMainPanelOnDetailsPage();
-        return getObjectDetailsPage();
     }
 
     public ExportPopupPanel<P> clickExportButton() {
@@ -188,8 +149,6 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         }
         return 0;
     }
-
-    public abstract PD getObjectDetailsPage();
 
     protected String getNameColumnLabel() {
         return "Name";

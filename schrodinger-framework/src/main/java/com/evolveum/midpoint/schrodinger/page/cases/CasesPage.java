@@ -15,12 +15,12 @@
  */
 package com.evolveum.midpoint.schrodinger.page.cases;
 
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 
 /**
  * Created by Kate Honchar
  */
-public class CasesPage extends AssignmentHolderObjectListPage<CasesListTable, CasePage> {
+public class CasesPage extends ObjectListPageWithPageRedirect<CasesListTable, CasePage> {
 
     @Override
     public CasesListTable table() {
