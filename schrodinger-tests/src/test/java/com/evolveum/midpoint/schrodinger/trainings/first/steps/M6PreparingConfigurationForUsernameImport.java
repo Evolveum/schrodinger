@@ -80,7 +80,7 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .selectDefinedTasksPanel()
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
-                .clickRunNowAndWait()
+                .clickRunNowAndWaitToBeClosed()
                 .showSimulationResult()
                 .assertMarkValueEquals("Focus renamed", 39)
                 .selectMark("Focus renamed")
@@ -106,7 +106,7 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .selectDefinedTasksPanel()
                 .table()
                 .clickByName("Reconciliation with AD (real)")
-                .clickRunNowAndWait();
+                .clickRunNowAndWaitToBeClosed();
         basicPage
                 .listUsers("Persons")
                 .table()
@@ -120,5 +120,74 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
          * We will resolve this in later labs.
          * We wanted to emphasize that we can continue the deployment using First steps methodology even if the data is not ideal.
          */
+    }
+
+    @Test(groups = MODULE_6_GROUP)
+    public void test4deletingOrphanedADAccounts() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .configureSynchronization()
+                .setLifecycleStateValueForSituation("Unmatched", "Active (production)")
+                .saveSynchronizationSettings();
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD - production simulation")
+                .clickRunNowAndWaitToBeClosed()
+                .showSimulationResult()
+                .simulationTaskDetails()
+                .assertModifiedObjectsValueEquals("0")
+                .assertDeletedObjectsValueEquals("1")
+                .and()
+                .assertMarkValueEquals("Projection deactivated", 1)
+                .assertMarkValueEquals("Resource object affected", 1)
+                .selectMark("Projection deactivated")
+                .table()
+                .assertVisibleObjectsCountEquals(1)
+                .assertTableContainsText("cn=Secret Admin,ou=users,dc=example,dc=com");
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD (real)")
+                .selectOperationStatisticsPanel()
+        /**
+        * todo
+         * click Operation statistics menu item and scroll down to Actions executed (all actions) section. You should see the following entry representing the orphaned account deletion in the table (some content is excluded for brevity):
+         * Object type
+         * Operation
+         * Channel
+         * Count (OK)
+         * Last (OK)
+         *
+         * Shadow
+         * Delete
+         * Reconciliation
+         * 1
+         * cn=Secret Admin,ou=users,dc=example,dc=com (ACCOUNT - default - inetOrgPerson)
+         *
+         */
+                .and()
+                .backToResourcePage()
+                .selectAccountsPanel()
+                .table()
+                .search()
+                .dropDownPanelByItemName("Situation")
+                .inputDropDownValue("Unmatched")
+                .updateSearch()
+                .and()
+                .assertRealObjectIsMarked("cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
+                .assertRealObjectIsMarked("cn=Mail Service Account,ou=users,dc=example,dc=com", "Protected")
+                .assertRealObjectIsMarked("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com", "Protected")
+                .assertRealObjectIsMarked("cn=Test123,ou=users,dc=example,dc=com", "Do not touch")
+                .assertTableDoesntContainColumnWithValue("Name", "cn=Secret Admin,ou=users,dc=example,dc=com");
     }
 }

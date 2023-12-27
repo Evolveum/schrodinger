@@ -20,11 +20,13 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.simulation.ProcessedObjectsTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -148,4 +150,22 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T, ResourceSha
         clickMenuItemWithConfirmation(columnTitleKey, rowValue, "pageContentAccounts.menu.removeOwner");
         return this;
     }
+
+    public ResourceShadowTable<T> assertRealObjectIsMarked(String objectName, String markName) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement mark = row.getParentElement()
+                .$x(".//span[@data-s-id='realMarks' and contains(text(), '" + markName + "')]");
+        assertion.assertTrue(mark.isDisplayed(), "Mark " + markName + " is not present for object " + objectName);
+        return this;
+    }
+
+    public ResourceShadowTable<T> assertProcessedObjectIsMarked(String objectName, String markName) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement mark = row.getParentElement()
+                .$x(".//span[@data-s-id='processedMarks' and contains(text(), '" + markName + "')]");
+        assertion.assertTrue(mark.isDisplayed(), "Mark " + markName + " is not present for object " + objectName);
+        return this;
+    }
+
+
 }

@@ -97,7 +97,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .listTasks()
                 .table()
                 .clickByName("Reconciliation with AD - development simulation")
-                .clickRunNowAndWait()
+                .clickRunNowAndWaitToBeClosed()
                 .showSimulationResult()
                 .assertMarkValueEquals("Projection deactivated", 1) //todo ask Vix
                 .selectMark("Projection deactivated")

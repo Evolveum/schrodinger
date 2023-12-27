@@ -28,6 +28,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.task.*;
 
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.simulation.SimulationResultDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -90,7 +91,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return this;
     }
 
-    public TaskPage clickRunNowAndWait() {
+    public TaskPage clickRunNowAndWaitToBeClosed() {
         $(Schrodinger.byElementAttributeValue("a", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
 
@@ -198,5 +199,11 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     public SimulationResultDetailsPage showSimulationResult() {
         clickOperationButtonByTitleKey("PageTask.simulationResult");
         return new SimulationResultDetailsPage();
+    }
+
+    public ResourcePage backToResourcePage() {
+        $(Schrodinger.byDataId("back"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        return new ResourcePage();
     }
 }
