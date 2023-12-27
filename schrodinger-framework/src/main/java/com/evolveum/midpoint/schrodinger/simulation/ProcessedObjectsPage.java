@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class ProcessedObjectsPage extends BasicPage {
 
     public ProcessedObjectsTable<ProcessedObjectsPage> table() {
-        SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable"))
+        SelenideElement tableBox = $(Schrodinger.byDataId("itemsTable"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new ProcessedObjectsTable<>(ProcessedObjectsPage.this, tableBox);
     }
