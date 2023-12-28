@@ -22,6 +22,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.activation.ActivationConfigurationStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.CorrelationWizardStep;
@@ -176,8 +177,9 @@ public class ResourceAccountsPanel<T> extends Component<T, ResourceAccountsPanel
         clickButton("ResourceObjectTypePreviewTileType.CAPABILITIES");
     }
 
-    public void configureActivation() {
+    public ActivationConfigurationStep<ResourceAccountsPanel<T>> configureActivation() {
         clickButton("ResourceObjectTypePreviewTileType.ACTIVATION");
+        return new ActivationConfigurationStep<>(ResourceAccountsPanel.this);
     }
 
     public void configureCredentials() {

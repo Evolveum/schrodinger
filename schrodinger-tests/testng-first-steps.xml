@@ -23,6 +23,7 @@
                 <group name="Module4" depends-on="Module3" />
                 <group name="Module5" depends-on="Module4" />
                 <group name="Module6" depends-on="Module5" />
+                <group name="Module7" depends-on="Module6" />
             </dependencies>
         </groups>
         <classes>
@@ -31,6 +32,7 @@
             <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M4ConnectingTargetSystem"/>
             <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M5TargetSystemIntegration"/>
             <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M6PreparingConfigurationForUsernameImport"/>
+            <class name="com.evolveum.midpoint.schrodinger.trainings.first.steps.M7EnableProvisioningToTargetSystem"/>
         </classes>
     </test>
 </suite>

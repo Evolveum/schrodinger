@@ -385,14 +385,23 @@ public class Utils {
         return cssClassStr != null && cssClassStr.contains(cssClass);
     }
 
+    public static SelenideElement findTileElementByTitle(String title) {
+        return findTileElementByTitle(title, null);
+    }
+
     /**
      *
      * @param title can be either title key or title value
      * @return
      */
-    public static SelenideElement findTileElementByTitle(String title) {
+    public static SelenideElement findTileElementByTitle(String title, SelenideElement parentElement) {
         String translateTitle = translate(title);
-        ElementsCollection tiles = $$x(".//div[@data-s-id='tile']");
+        ElementsCollection tiles;
+        if (parentElement != null) {
+            tiles = parentElement.$$x(".//div[@data-s-id='tile']");
+        } else {
+            tiles = $$x(".//div[@data-s-id='tile']");
+        }
         return tiles.findBy(Condition.text(translateTitle));
     }
 
