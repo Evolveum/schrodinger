@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evolveum.midpoint.schrodinger.page.resource.wizard.activation;
+package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.activation;
 
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;

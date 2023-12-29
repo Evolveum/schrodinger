@@ -47,49 +47,13 @@ public class M7EnableProvisioningToTargetSystem extends AbstractTrainingTest {
                 .assertPropertyDropdownValueEquals("Delete after", "Minutes")
                 .done()
                 .and()
+                .exitWizard()
+                .configureCredentials()
+                .outbound()
+                .assertTilesNumberEquals(2)
+                .assertTilesLifecycleStateValueEquals("initial-passwd-generate", "Draft")
+                .assertTilesLifecycleStateValueEquals("passwd-change", "Draft")
+                .and()
                 .exitWizard();
-
-
-
-/**
-  *
- * click Configure, then click Credentials item in the context menu
- *
- *
- * click Outbound
- *
- *
- * there are two outbound credentials mappings, all of them in Draft lifecycle state, so they are effectively disabled:
- *
- *
- *
- * mapping initial-password-generate will be later used to generate a random initial password (using a weak mapping) for AD account (as the account cannot be passwordless). This password won’t be stored and will be unknown to the user; we assume the user will activate his/her AD account by visiting the company’s helpdesk
- *
- *
- * mapping password-change will be later used to allow password changes from midPoint to Active Directory
- *
- *
- *
- *
- *
- *
- *
- * We will not allow end-user access nor password changes via midPoint in this training.
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- * Click Exit wizard to get back to account list.
- *
- *
- * The resource created from resource template is ready to be used for provisioning simulations.
- */
     }
 }

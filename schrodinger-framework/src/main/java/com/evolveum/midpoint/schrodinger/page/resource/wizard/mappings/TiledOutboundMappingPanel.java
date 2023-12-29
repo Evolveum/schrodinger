@@ -14,61 +14,61 @@
  * limitations under the License.
  */
 
-package com.evolveum.midpoint.schrodinger.page.resource.wizard.activation;
+package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
 import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.activation.ScenarioConfigurationStep;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-public class ActivationOutboundPanel<T> extends Component<T, ActivationOutboundPanel<T>> {
+public class TiledOutboundMappingPanel<T, MP extends TiledOutboundMappingPanel<T, MP>> extends TileListWizardStepPanel<T> {
 
-    public ActivationOutboundPanel(T parent, SelenideElement parentElement) {
+    public TiledOutboundMappingPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ActivationOutboundPanel<T> setLifecycleStateValue(String activationRuleTitle, String lifecycleStateValue) {
+    public MP setLifecycleStateValue(String activationRuleTitle, String lifecycleStateValue) {
         SelenideElement select = getLifecycleStateElement(activationRuleTitle);
         select.selectOption(lifecycleStateValue);
         Utils.waitForAjaxCallFinish();
-        return this;
+        return getThis();
     }
 
-    public ActivationOutboundPanel<T> remove(String activationRuleTitle) {
+    public MP remove(String activationRuleTitle) {
         SelenideElement tile = Utils.findTileElementByTitle(activationRuleTitle);
         SelenideElement remove = tile.$(Schrodinger.byDataId("removeButton"));
         remove.click();
         Utils.waitForAjaxCallFinish();
-        return this;
+        return getThis();
     }
 
-    public ActivationRuleMainConfigurationStep<ActivationOutboundPanel<T>> settings(String activationRuleTitle) {
+    public MP settings(String activationRuleTitle) {
         SelenideElement tile = Utils.findTileElementByTitle(activationRuleTitle);
         SelenideElement remove = tile.$(Schrodinger.byDataId("configureButton"));
         remove.click();
         Utils.waitForAjaxCallFinish();
-        return new ActivationRuleMainConfigurationStep<>(this);
+        return getThis();
     }
 
     //todo how to distinguish scenario configuration tiles?
-    public ScenarioConfigurationStep<ActivationOutboundPanel<T>> scenarioConfigurationSettings(String activationRuleTitle) {
+    public ScenarioConfigurationStep<MP> scenarioConfigurationSettings(String activationRuleTitle) {
         settings(activationRuleTitle);
-        return new ScenarioConfigurationStep<>(this);
+        return new ScenarioConfigurationStep<>(getThis());
     }
 
-    public ActivationOutboundPanel<T> assertTilesNumberEquals(int expected) {
+    public MP assertTilesNumberEquals(int expected) {
         assertion.assertEquals(expected, getParentElement().$$(Schrodinger.byDataId("tile")).size(),
                 "Wrong number of tiles");
-        return this;
+        return getThis();
     }
 
-    public ActivationOutboundPanel<T> assertTilesLifecycleStateValueEquals(String activationRuleTitle,
-                                                                           String expectedLifecycleStateValue) {
-        SelenideElement select = getLifecycleStateElement(activationRuleTitle);
+    public MP assertTilesLifecycleStateValueEquals(String tileTitle, String expectedLifecycleStateValue) {
+        SelenideElement select = getLifecycleStateElement(tileTitle);
         assertion.assertEquals(expectedLifecycleStateValue, select.getSelectedOption().getText(),
                 "Wrong lifecycle state value");
-        return this;
+        return getThis();
     }
 
     private SelenideElement getLifecycleStateElement(String activationRuleTitle) {
@@ -76,4 +76,9 @@ public class ActivationOutboundPanel<T> extends Component<T, ActivationOutboundP
         SelenideElement lifecycleState = tile.$(Schrodinger.byDataId("lifecycleState"));
         return lifecycleState.$(By.tagName("select"));
     }
+
+    private MP getThis() {
+        return (MP) this;
+    }
+
 }

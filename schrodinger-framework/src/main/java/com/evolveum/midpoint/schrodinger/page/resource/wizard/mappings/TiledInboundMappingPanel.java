@@ -14,32 +14,38 @@
  * limitations under the License.
  */
 
-package com.evolveum.midpoint.schrodinger.page.resource.wizard.activation;
+package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
 import com.codeborne.selenide.SelenideElement;
-import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.activation.ActivationInboundPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class ActivationInboundPanel<T> extends Component<T, ActivationInboundPanel<T>> {
+public class TiledInboundMappingPanel<T, MP extends TiledInboundMappingPanel<T, MP>> extends TileListWizardStepPanel<T> {
 
-    public ActivationInboundPanel(T parent, SelenideElement parentElement) {
+    public TiledInboundMappingPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ActivationInboundPanel<T> addInbound(String activationRuleTitle) {
+    public MP addInbound(String activationRuleTitle) {
         getParentElement().$(Schrodinger.byDataId("addInbound")).click();
         Utils.waitForAjaxCallFinish();
         SelenideElement modalBox = Utils.getModalWindowSelenideElement();
         SelenideElement tile = Utils.findTileElementByTitle("ResourceObjectTypePreviewTileType.BASIC", modalBox);
         tile.click();
         Utils.waitForAjaxCallFinish();
-        return this;
+        return getThis();
     }
 
-    public ActivationInboundPanel<T> assertTilesNumberEquals(int expected) {
+    public MP assertTilesNumberEquals(int expected) {
         assertion.assertEquals(expected, getParentElement().$$(Schrodinger.byDataId("tile")).size(),
                 "Wrong number of tiles");
-        return this;
+        return getThis();
     }
+
+    private MP getThis() {
+        return (MP) this;
+    }
+
 }
