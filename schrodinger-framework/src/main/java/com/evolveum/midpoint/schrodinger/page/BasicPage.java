@@ -676,12 +676,16 @@ public class BasicPage {
     }
 
     public BasicPage assertUserMenuExist() {
-        assertion.assertTrue(userMenuExists(), "User should be logged in, user menu should be visible.");
+        getUserMenu().shouldBe(
+                Condition.visible.because("User should be logged in, user menu should be visible."),
+                MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
     public BasicPage assertUserMenuDoesntExist() {
-        assertion.assertFalse(userMenuExists(), "User should be logged out, user menu shouldn't be visible.");
+        getUserMenu().shouldNotBe(
+                Condition.visible.because("User should be logged out, user menu shouldn't be visible."),
+                MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
