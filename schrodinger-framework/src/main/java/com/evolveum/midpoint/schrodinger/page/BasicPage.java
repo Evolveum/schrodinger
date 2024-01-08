@@ -663,7 +663,7 @@ public class BasicPage {
     }
 
     public boolean userMenuExists() {
-        return getUserMenu().exists();
+        return getUserMenu().shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).exists();
     }
 
     public BasicPage assertElementWithTextExists(String text) {
