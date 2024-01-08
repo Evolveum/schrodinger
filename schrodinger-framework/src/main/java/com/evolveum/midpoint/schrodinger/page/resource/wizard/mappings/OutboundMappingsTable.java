@@ -18,8 +18,9 @@ package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.common.ChangeLifecyclePopup;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 public class OutboundMappingsTable<T> extends MappingsTable<T, OutboundMappingsTable<T>> {
@@ -115,6 +116,15 @@ public class OutboundMappingsTable<T> extends MappingsTable<T, OutboundMappingsT
         assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
                 "to: " + lifecycleStateExpectedValue + "; actual value: " + actualValue);
         return this;
+    }
+
+
+    public OutboundMappingsTable<T> changeLifecycleStateForSelectedRows(String lifecycleStateExpectedValue) {
+        clickHeaderInlineMenuButton(".fa.fa-heart-pulse");
+        ChangeLifecyclePopup<OutboundMappingsTable<T>> changeLifecyclePopup = new ChangeLifecyclePopup(this, Utils.getModalWindowSelenideElement());
+        return changeLifecyclePopup
+                .selectLifecycleValue(lifecycleStateExpectedValue)
+                .clickApplyChanges();
     }
 
 }

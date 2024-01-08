@@ -44,7 +44,7 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
 
     public OutboundMappingsPanel<MappingsWizardStep<T>> outboundMappings() {
         String linkText = Utils.translate("AttributeMappingsTableWizardPanel.outboundTable");
-        $x(".//a[@data-s-id='link' and contains(text(), \"" + linkText + "\")]")
+        getParentElement().$(By.partialLinkText(linkText))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();

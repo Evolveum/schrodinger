@@ -16,6 +16,10 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.activation;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -43,4 +47,12 @@ public class ScenarioConfigurationStep<T> extends PrismFormWizardStepPanel<T> {
         Utils.waitForAjaxCallFinish();
         return getParent();
     }
+
+    @Override
+    protected PrismForm<PrismFormWizardStepPanel<T>> getFormPanel() {
+        SelenideElement formElement = $(Schrodinger.byDataId("mainForm"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new PrismForm<>(ScenarioConfigurationStep.this, formElement);
+    }
+
 }

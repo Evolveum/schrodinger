@@ -136,6 +136,7 @@ public class InlineMenu<T> extends Component<T, InlineMenu<T>> {
         getParentElement().$(By.cssSelector(iconClass))
                 .scrollIntoView(false)
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 }

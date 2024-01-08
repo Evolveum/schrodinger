@@ -16,7 +16,6 @@
 package com.evolveum.midpoint.schrodinger.component.common.table;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -72,12 +71,10 @@ public class EditableRowTable<T, P extends EditableRowTable> extends Table<T, P>
     }
 
 
-    public EditableRowTable<T, P> clickCheckBox(String attributeName){
-
-    $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","checkbox",null,null,attributeName))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
-        return this;
+    public P selectRowByName(String name){
+        TableRow<?,?> row = rowByColumnResourceKey("Name", name);
+        row.clickCheckBox();
+        return (P) this;
     }
 
 

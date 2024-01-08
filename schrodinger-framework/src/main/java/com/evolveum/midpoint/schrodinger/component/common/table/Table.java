@@ -27,6 +27,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.common.InlineMenu;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -418,7 +419,21 @@ public class Table<T, P extends Table> extends Component<T, P> {
         if (rowIndex > rowsSize) {
             return null;
         }
-        return new TableRow(this, rows.get(rowIndex - 1));
+        return new TableRow<>(this, rows.get(rowIndex - 1));
+    }
+
+    protected void clickHeaderInlineMenuButton(String iconClass) {
+        getHeaderInlineMenuPanel()
+                .clickInlineMenuButtonByIconClass(iconClass);
+    }
+
+    protected InlineMenu<P> getHeaderInlineMenuPanel() {
+        SelenideElement element = getParentElement().find("th:last-child div.btn-group");
+        if (!element.exists() || !element.isDisplayed()) {
+            return null;
+        }
+
+        return new InlineMenu<>((P) this, element);
     }
 
 }

@@ -16,25 +16,46 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.activation;
 
+import com.codeborne.selenide.Condition;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.TiledMappingConfigurationStep;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
-public class ActivationConfigurationStep<T> extends TiledMappingConfigurationStep<T, ActivationConfigurationStep<T>> {
+public class ActivationConfigurationStep<T> extends TiledMappingConfigurationStep<T,
+        ActivationOutboundPanel<ActivationConfigurationStep<T>>, ActivationInboundPanel<ActivationConfigurationStep<T>>,
+        ActivationConfigurationStep<T>> {
 
     public ActivationConfigurationStep(T parent) {
         super(parent);
     }
 
     @Override
-    public ActivationInboundPanel<ActivationConfigurationStep<T>> getInboundMappingPanel() {
+    protected ActivationInboundPanel<ActivationConfigurationStep<T>> getInboundMappingPanel() {
         return new ActivationInboundPanel<>(this, $(Schrodinger.byDataId("tilesContainer")));
     }
 
     @Override
-    public ActivationOutboundPanel<ActivationConfigurationStep<T>> getOutboundMappingPanel() {
+    protected ActivationOutboundPanel<ActivationConfigurationStep<T>> getOutboundMappingPanel() {
         return new ActivationOutboundPanel<>(this, $(Schrodinger.byDataId("tilesContainer")));
+    }
+
+    public T saveSettings() {
+        $x(".//a[contains(text(), 'Save settings')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return getParent();
+    }
+
+    public T exitWizard() {
+        $x(".//a[contains(text(), 'Exit wizard')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        return getParent();
     }
 
 }

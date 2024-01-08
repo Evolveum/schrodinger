@@ -26,7 +26,7 @@ public class M7EnableProvisioningToTargetSystem extends AbstractTrainingTest {
         basicPage
                 .listResources()
                 .table()
-                .clickByName("HR")
+                .clickByName("AD")
                 .selectAccountsPanel()
                 .configureMappings()
                 .outboundMappings()
@@ -55,5 +55,60 @@ public class M7EnableProvisioningToTargetSystem extends AbstractTrainingTest {
                 .assertTilesLifecycleStateValueEquals("passwd-change", "Draft")
                 .and()
                 .exitWizard();
+    }
+
+    @Test(groups = MODULE_7_GROUP)
+    public void test2ADProvisioningSimulation() {
+        basicPage
+                .listResources()
+                .table()
+                .clickByName("AD")
+                .selectAccountsPanel()
+                .configureMappings()
+                .outboundMappings()
+                .table()
+                .selectRowByName("mapping-dn")
+                .selectRowByName("mapping-cn-weak")
+                .selectRowByName("mapping-displayName")
+                .selectRowByName("mapping-sn")
+                .selectRowByName("mapping-givenName")
+                .selectRowByName("mapping-uid")
+                .selectRowByName("mapping-l")
+                .selectRowByName("mapping-employeeNumber")
+                .changeLifecycleStateForSelectedRows("Proposed (simulation)")
+                .and()
+                .and()
+                .saveMappings()
+                .configureActivation()
+                .outbound()
+                .setLifecycleStateValue("set-account-status-based-on-midpoint-user", "Proposed (simulation)")
+                .setLifecycleStateValue("Disable instead of delete", "Proposed (simulation)")
+                .setLifecycleStateValue("Delayed delete", "Proposed (simulation)")
+                .and()
+                .saveSettings()
+                .configureCredentials()
+                .outbound()
+                .setLifecycleStateValue("initial-passwd-generate", "Proposed (simulation)")
+                .setLifecycleStateValue("passwd-change", "Proposed (simulation)")
+                .and()
+                .saveSettings()
+                .and()
+                .selectDefinedTasksPanel()
+                .table()
+                .clickByName("Reconciliation with AD - development simulation")
+                .clickRunNowAndWaitToBeClosed()
+                .showSimulationResult()
+                .assertMarkValueEquals("Projection renamed", 5)
+                .assertMarkValueEquals("Projection deactivated", 2)
+                .assertMarkValueEquals("Projection password changed", 0)    //todo is it correct to check projection password or user password should be checked?
+                .simulationTaskDetails()
+                .viewAllProcessedObjects();
+                //todo finish assertions
+      /*      *
+           * the Simulation results show:
+         * AD employeeNumber attribute is being updated for Ana Lopez
+         * no passwords are going to be changed
+         * no accounts are going to be deleted
+            */
     }
 }

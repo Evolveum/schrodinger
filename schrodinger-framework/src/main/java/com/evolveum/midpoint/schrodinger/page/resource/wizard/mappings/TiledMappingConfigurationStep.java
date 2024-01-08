@@ -25,13 +25,14 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public abstract class TiledMappingConfigurationStep<T, M extends TiledMappingConfigurationStep<T, M>> extends WizardStepPanel<T> {
+public abstract class TiledMappingConfigurationStep<T, OM extends TiledOutboundMappingPanel,
+        IM extends TiledInboundMappingPanel, M extends TiledMappingConfigurationStep<T, OM, IM, M>> extends WizardStepPanel<T> {
 
     public TiledMappingConfigurationStep(T parent) {
         super(parent, $(Schrodinger.byDataId("tabTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 
-    public <IM extends TiledInboundMappingPanel<TiledMappingConfigurationStep<T, M>, ? extends TiledInboundMappingPanel>> IM inbound() {
+    public IM inbound() {
         getParentElement().$(Schrodinger.byDataId("li", "0"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -39,8 +40,7 @@ public abstract class TiledMappingConfigurationStep<T, M extends TiledMappingCon
         return getInboundMappingPanel();
     }
 
-    public <OM extends TiledOutboundMappingPanel<TiledMappingConfigurationStep<T, M>,
-            ? extends TiledOutboundMappingPanel>> OM outbound() {
+    public OM outbound() {
         getParentElement().$(Schrodinger.byDataId("li", "1"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -56,9 +56,7 @@ public abstract class TiledMappingConfigurationStep<T, M extends TiledMappingCon
         return getParent();
     }
 
-    public abstract <IM extends TiledInboundMappingPanel<TiledMappingConfigurationStep<T, M>,
-            ? extends TiledInboundMappingPanel>> IM getInboundMappingPanel();
+    protected abstract IM getInboundMappingPanel();
 
-    public abstract <OM extends TiledOutboundMappingPanel<TiledMappingConfigurationStep<T, M>,
-            ? extends TiledOutboundMappingPanel>> OM getOutboundMappingPanel();
+    protected abstract OM getOutboundMappingPanel();
 }

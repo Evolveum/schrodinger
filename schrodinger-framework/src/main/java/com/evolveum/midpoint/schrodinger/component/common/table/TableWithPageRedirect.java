@@ -63,30 +63,24 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
         return dropDownMenu;
     }
 
-    public InlineMenu<TableWithPageRedirect<T, DP, TWPR>> getHeaderInlineMenuPanel() {
-        SelenideElement element = getParentElement().find("th:last-child div.btn-group");
-        if (element == null) {
-            return null;
-        }
-
-        return new InlineMenu<>(this, element);
-    }
-
     protected  void clickMenu(String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
     }
 
-    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation(String columnTitleKey, String rowValue, String menuItemKey) {
+    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation
+            (String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
 
-    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation(String columnTitleKey, String rowValue, String iconClass) {
+    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation
+            (String columnTitleKey, String rowValue, String iconClass) {
         clickMenuItemButton(columnTitleKey, rowValue, iconClass);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
 
-    protected  <P extends TableWithPageRedirect> FocusSetAssignmentsModal<P> clickMenuItemWithFocusSetAssignmentsModal(String columnTitleKey, String rowValue, String menuItemKey) {
+    protected  <P extends TableWithPageRedirect> FocusSetAssignmentsModal<P> clickMenuItemWithFocusSetAssignmentsModal
+            (String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
         return new FocusSetAssignmentsModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
@@ -124,8 +118,7 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
      */
     public void clickMenuItemButton(String columnTitleKey, String rowValue, String iconClass){
         if (columnTitleKey == null && rowValue == null) {
-            getHeaderInlineMenuPanel()
-                    .clickInlineMenuButtonByIconClass(iconClass);
+            clickHeaderInlineMenuButton(iconClass);
         } else {
             TableRow tableRow = rowByColumnResourceKey(columnTitleKey, rowValue);
             assertion.assertNotNull(tableRow, "Unable to find table row with columnTitleKey='" + columnTitleKey

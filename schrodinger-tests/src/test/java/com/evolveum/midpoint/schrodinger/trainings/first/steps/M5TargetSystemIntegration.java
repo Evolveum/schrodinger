@@ -69,7 +69,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .simulationTaskDetails()
                 .assertModifiedObjectsValueEquals("78")
                 .viewModifiedObjects();
-        checkProjectionWasAddedToUser(processedObjectsPage);
+        processedObjectsPage = checkProjectionWasAddedToUser(processedObjectsPage);
         checkMetadataChangesForShadow(processedObjectsPage);
     }
 
@@ -108,7 +108,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .simulationTaskDetails()
                 .assertModifiedObjectsValueEquals("78")
                 .viewModifiedObjects();
-        checkProjectionWasAddedToUser(processedObjectsPage);
+        processedObjectsPage = checkProjectionWasAddedToUser(processedObjectsPage);
         checkMetadataChangesForShadow(processedObjectsPage);
     }
 
@@ -177,7 +177,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .simulationTaskDetails()
                 .assertModifiedObjectsValueEquals("78")
                 .viewModifiedObjects();
-        checkProjectionWasAddedToUser(processedObjectsPage);
+        processedObjectsPage = checkProjectionWasAddedToUser(processedObjectsPage);
         checkMetadataChangesForShadow(processedObjectsPage);
     }
 
@@ -270,17 +270,19 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
         return list;
     }
 
-    private void checkProjectionWasAddedToUser(ProcessedObjectsPage processedObjectsPage) {
-        processedObjectsPage
+    private ProcessedObjectsPage checkProjectionWasAddedToUser(ProcessedObjectsPage processedObjectsPage) {
+        return processedObjectsPage
                 .table()
                 .clickByName("1001 (Geena Green)")
                 .changes()
                 .assertItemExists("Projections")
-                .assertNewValueExists("cn=Geena Green,ou=users,dc=example,dc=com");
+                .assertNewValueExists("cn=Geena Green,ou=users,dc=example,dc=com")
+                .and()
+                .back();
     }
 
-    private void checkMetadataChangesForShadow(ProcessedObjectsPage processedObjectsPage) {
-        processedObjectsPage
+    private ProcessedObjectsPage checkMetadataChangesForShadow(ProcessedObjectsPage processedObjectsPage) {
+        return processedObjectsPage
                 .table()
                 .search()
                 .dropDownPanelByItemName("Type")
@@ -295,6 +297,8 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertItemValueEquals("Metadata", "Modification channel", "http://midpoint.evolveum.com/xml/ns/public/common/channels-3#reconciliation")
                 .assertItemExists("Metadata", "Modified at")
                 .assertItemValueEquals("Metadata", "Modifier", "midPoint Administrator (administrator)")
-                .assertItemValueEquals("Metadata", "Modified by task", "Reconciliation with AD - development simulation");
+                .assertItemValueEquals("Metadata", "Modified by task", "Reconciliation with AD - development simulation")
+                .and()
+                .back();
     }
 }

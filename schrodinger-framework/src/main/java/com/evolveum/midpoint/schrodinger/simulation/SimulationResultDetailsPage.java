@@ -78,7 +78,10 @@ public class SimulationResultDetailsPage extends BasicPage {
     }
 
     public ProcessedObjectsPage back() {
-        $(Schrodinger.byDataId("a", "back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        SelenideElement backButton = $(Schrodinger.byDataId("a", "back"));
+        Utils.scrollToElement(backButton);
+        backButton
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new ProcessedObjectsPage();
     }

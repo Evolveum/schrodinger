@@ -194,9 +194,11 @@ public class ResourceAccountsPanel<T> extends Component<T, ResourceAccountsPanel
 
     private void clickButton(String title) {
         String translatedTitle = Utils.translate(title);
-        SelenideElement buttonsContainer = $(Schrodinger.byDataId("configuration"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        buttonsContainer.click();
+        SelenideElement buttonsContainer = $(Schrodinger.byDataId("configuration"));
+        Utils.scrollToElement(buttonsContainer);
+        buttonsContainer
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
         ElementsCollection buttons = buttonsContainer.$$x(".//a");
         SelenideElement button = buttons.findBy(Condition.text(translatedTitle));
