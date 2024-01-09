@@ -20,6 +20,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -35,6 +36,11 @@ public class ProcessedObjectsPage extends BasicPage {
     public SimulationResultDetailsPage backToSimulationResultPage() {
         $(Schrodinger.byDataId("a", "back")).click();
         return new SimulationResultDetailsPage();
+    }
+
+    public ResourcePage backToResourcePage() {
+        $(Schrodinger.byDataId("a", "back")).click();
+        return new ResourcePage();
     }
 
 }

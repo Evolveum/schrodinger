@@ -75,6 +75,9 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .selectTaskExecutionMode("Simulated development")
                 .select()
                 .table()
+                .search()
+                .resetBasicSearch()
+                .and()
                 .assertProcessedObjectIsMarked("geena (Geena Green)", "Focus renamed");
         basicPage
                 .listResources()

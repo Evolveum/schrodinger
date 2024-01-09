@@ -25,8 +25,8 @@ public class HRApplicationUserDto {
     public static final String LOCALITY_FIELD_ID = "locality";
     public static final String COUNTRY_FIELD_ID = "country";
     public static final String JOB_FIELD_ID = "job";
-    public static final String EMP_TYPE_FIELD_ID = "empType";
-    public static final String STATUS_FIELD_ID = "status";
+    public static final String EMP_TYPE_FIELD_ID = "empSelect";
+    public static final String STATUS_FIELD_ID = "statusSelect";
 
     private String firstName;
     private String surname;

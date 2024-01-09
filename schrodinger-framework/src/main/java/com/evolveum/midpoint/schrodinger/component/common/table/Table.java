@@ -260,6 +260,12 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return true;
     }
 
+    public P clickReloadToolbarButton() {
+        getToolbarButtonByTitleKey("MainObjectListPanel.refresh").click();
+        Utils.waitForAjaxCallFinish();
+        return (P) this;
+    }
+
     public SelenideElement getButtonToolbar() {
         return $(Schrodinger.byDataId("buttonToolbar"));
     }
