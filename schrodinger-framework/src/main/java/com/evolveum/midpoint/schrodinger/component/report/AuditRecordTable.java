@@ -21,6 +21,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
@@ -45,6 +46,13 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewer
     public AuditLogViewerDetailsPage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        return new AuditLogViewerDetailsPage();
+    }
+
+    public AuditLogViewerDetailsPage openDetailsPageForTargetObject(String targetObjectName) {
+        TableRow<?,?> row = rowByColumnResourceKey("Target", targetObjectName);
+        row.clickColumnByName("Time");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new AuditLogViewerDetailsPage();
     }

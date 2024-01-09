@@ -101,7 +101,7 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
             menuItem.click();
             menuItem.shouldBe(Condition.disappear, MidPoint.TIMEOUT_SHORT_4_S);
         } else {
-            rowByColumnResourceKey(columnTitleKey, rowValue)
+            rowByColumnResourceKeyAndPartialText(columnTitleKey, rowValue)
                     .getInlineMenu()
                     .clickItemByKey(menuItemKey);
 

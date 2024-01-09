@@ -32,6 +32,7 @@ import com.evolveum.midpoint.schrodinger.page.certification.*;
 import com.evolveum.midpoint.schrodinger.page.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
+import com.evolveum.midpoint.schrodinger.page.objecttemplate.ListObjectTemplatesPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
@@ -356,6 +357,11 @@ public class BasicPage {
     public ObjectCollectionPage newObjectCollection() {
         clickAdministrationMenu("PageAdmin.menu.top.objectCollections", "PageAdmin.menu.top.objectCollections.new");
         return new ObjectCollectionPage();
+    }
+
+    public ListObjectTemplatesPage listObjectTemplates() {
+        clickConfigurationMenu("PageAdmin.menu.top.objectTemplates", "PageAdmin.menu.top.objectTemplates.list");
+        return new ListObjectTemplatesPage();
     }
 
     public ImportResourceDefinitionPage importResourceDefinition() {

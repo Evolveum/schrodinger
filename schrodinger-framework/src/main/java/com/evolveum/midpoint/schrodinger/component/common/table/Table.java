@@ -107,6 +107,14 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return getTableRowByIndexAndText(index, rowValue);
     }
 
+    public TableRow<T, Table<T, P>> rowByColumnResourceKeyAndPartialText(String key, String rowValue) {
+        int index = findColumnByResourceKey(key);
+        if (index < 0) {
+            return null;
+        }
+        return getTableRowByIndexAndText(index, rowValue, true);
+    }
+
 //    public List<TableRow<T, Table<T, P>>> allRowsByColumnResourceKey(String key, String rowValue) {
 //        int index = findColumnByResourceKey(key);
 //        if (index < 0) {

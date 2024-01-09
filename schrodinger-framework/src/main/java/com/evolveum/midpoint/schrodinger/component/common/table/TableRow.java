@@ -65,7 +65,7 @@ public class TableRow<X, T extends Table> extends Component<T, TableRow<X, T>> {
         }
         SelenideElement a = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") " + cellElementTagName));
         a.click();
-        // todo implement
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 

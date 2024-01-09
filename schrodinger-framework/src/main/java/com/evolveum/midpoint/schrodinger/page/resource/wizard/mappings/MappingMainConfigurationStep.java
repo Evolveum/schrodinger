@@ -41,6 +41,11 @@ public class MappingMainConfigurationStep<T> extends PrismFormWizardStepPanel<T>
         return this;
     }
 
+    public MappingMainConfigurationStep<T> lifecycle(String value) {
+        getFormPanel().setDropDownAttributeValue("Lifecycle state", value);
+        return this;
+    }
+
     public MappingMainConfigurationStep<T> source(String objectType, String value) {
         //TODO not sure it works
         getFormPanel().setDropDownAttributeValue("Source", objectType);

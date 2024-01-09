@@ -70,7 +70,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertModifiedObjectsValueEquals("78")
                 .viewModifiedObjects();
         processedObjectsPage = checkProjectionWasAddedToUser(processedObjectsPage);
-        checkMetadataChangesForShadow(processedObjectsPage);
+        checkMetadataChangesForShadow(processedObjectsPage, "Reconciliation with AD - development simulation");
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -88,6 +88,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .addMarks("cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
                 .markAsProtected("cn=Mail Service Account,ou=users,dc=example,dc=com")
                 .markAsProtected("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com")
+                .addMarks("cn=Test123,ou=users,dc=example,dc=com", "Do not touch")
                 .assertRealObjectIsMarked("cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
                 .assertRealObjectIsMarked("cn=Mail Service Account,ou=users,dc=example,dc=com", "Protected")
                 .assertRealObjectIsMarked("cn=Spam Assassin Service Account,ou=users,dc=example,dc=com", "Protected");
@@ -109,7 +110,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertModifiedObjectsValueEquals("78")
                 .viewModifiedObjects();
         processedObjectsPage = checkProjectionWasAddedToUser(processedObjectsPage);
-        checkMetadataChangesForShadow(processedObjectsPage);
+        checkMetadataChangesForShadow(processedObjectsPage, "Reconciliation with AD - development simulation");
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -178,7 +179,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertModifiedObjectsValueEquals("78")
                 .viewModifiedObjects();
         processedObjectsPage = checkProjectionWasAddedToUser(processedObjectsPage);
-        checkMetadataChangesForShadow(processedObjectsPage);
+        checkMetadataChangesForShadow(processedObjectsPage, "Reconciliation with AD - production simulation");
     }
 
     @Test(groups = MODULE_5_GROUP)
@@ -273,6 +274,14 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
     private ProcessedObjectsPage checkProjectionWasAddedToUser(ProcessedObjectsPage processedObjectsPage) {
         return processedObjectsPage
                 .table()
+                .search()
+                .resetBasicSearch()
+                .byName()
+                .inputValue("1001")
+                .dropDownPanelByItemName("Type")
+                .inputDropDownValue("User")
+                .updateSearch()
+                .and()
                 .clickByName("1001 (Geena Green)")
                 .changes()
                 .assertItemExists("Projections")
@@ -281,10 +290,11 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .back();
     }
 
-    private ProcessedObjectsPage checkMetadataChangesForShadow(ProcessedObjectsPage processedObjectsPage) {
+    private ProcessedObjectsPage checkMetadataChangesForShadow(ProcessedObjectsPage processedObjectsPage, String modifiedByTask) {
         return processedObjectsPage
                 .table()
                 .search()
+                .resetBasicSearch()
                 .dropDownPanelByItemName("Type")
                 .inputDropDownValue("Shadow")
                 .updateSearch()
@@ -297,7 +307,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .assertItemValueEquals("Metadata", "Modification channel", "http://midpoint.evolveum.com/xml/ns/public/common/channels-3#reconciliation")
                 .assertItemExists("Metadata", "Modified at")
                 .assertItemValueEquals("Metadata", "Modifier", "midPoint Administrator (administrator)")
-                .assertItemValueEquals("Metadata", "Modified by task", "Reconciliation with AD - development simulation")
+                .assertItemValueEquals("Metadata", "Modified by task", modifiedByTask)
                 .and()
                 .back();
     }

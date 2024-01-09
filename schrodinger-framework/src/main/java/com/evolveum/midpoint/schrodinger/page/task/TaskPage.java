@@ -202,8 +202,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public ResourcePage backToResourcePage() {
-        $(Schrodinger.byDataId("back"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        clickOperationButtonByTitleKey("Back");
         return new ResourcePage();
     }
 }
