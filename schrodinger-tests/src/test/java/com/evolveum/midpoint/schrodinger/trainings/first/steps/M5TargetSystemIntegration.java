@@ -100,7 +100,7 @@ public class M5TargetSystemIntegration extends AbstractTrainingTest {
                 .clickByName("Reconciliation with AD - development simulation")
                 .clickRunNowAndWaitToBeClosed()
                 .showSimulationResult()
-                .assertMarkValueEquals("Projection deactivated", 1) //todo ask Vix
+                .assertMarkValueEquals("Projection deactivated", 1)
                 .selectMark("Projection deactivated")
                 .table()
                 .assertTableContainsText("cn=Secret Admin,ou=users,dc=example,dc=com")

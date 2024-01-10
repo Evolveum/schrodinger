@@ -24,7 +24,7 @@ public class SelectableRowTable<T, P extends SelectableRowTable<T, P>> extends T
         super(parent, selenideElement);
     }
 
-    public P selectCheckboxByName(String name) {
+    public P selectRowByName(String name) {
         findRowByColumnLabelAndRowValue("Name", name).clickCheckBox();
         return (P) this;
     }

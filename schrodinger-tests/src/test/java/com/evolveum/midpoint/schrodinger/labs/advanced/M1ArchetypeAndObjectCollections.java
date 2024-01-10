@@ -183,7 +183,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
 
         getShadowTable(HR_RESOURCE_NAME, "name", "001212")
-                .selectCheckboxByName("001212")
+                .selectRowByName("001212")
                 .importAccount();
         showUser("X001212")
             .assertGivenName("John")

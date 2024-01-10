@@ -81,6 +81,11 @@ public class UserPage extends FocusPage<UserPage> {
         return this;
     }
 
+    public UserPage assertDescription(String expectedValue) {
+        selectBasicPanel().form().assertPropertyTextareaValueContainsText("description", expectedValue);
+        return this;
+    }
+
     public UserPasswordPanel<UserPage> selectPasswordPanel() {
         return new UserPasswordPanel(this, getNavigationPanelSelenideElement("Password"));
     }

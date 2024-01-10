@@ -15,10 +15,7 @@
  */
 package com.evolveum.midpoint.schrodinger.labs.fundamental;
 
-import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
-import com.evolveum.midpoint.schrodinger.component.common.PrismFormWithActionButtons;
-import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -93,7 +90,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                                     .inputValue(CSV_1_RESOURCE_NAME)
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName(CSV_1_RESOURCE_NAME)
+                            .selectRowByName(CSV_1_RESOURCE_NAME)
                                 .and()
                             .clickAdd()
                         .and()
@@ -151,7 +148,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                                     .inputValue(CSV_2_RESOURCE_NAME)
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName(CSV_2_RESOURCE_NAME)
+                            .selectRowByName(CSV_2_RESOURCE_NAME)
                         .and()
                     .clickAdd()
                     .clickAddProjection()
@@ -161,7 +158,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                                     .inputValue(CSV_3_RESOURCE_NAME)
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName(CSV_3_RESOURCE_NAME)
+                            .selectRowByName(CSV_3_RESOURCE_NAME)
                         .and()
                     .clickAdd()
                     .and()
@@ -274,7 +271,7 @@ public class M4ProvisioningToResources extends AbstractLabTest {
                                     .inputValue(CSV_1_RESOURCE_NAME)
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName(CSV_1_RESOURCE_NAME)
+                            .selectRowByName(CSV_1_RESOURCE_NAME)
                         .and()
                         .clickAdd()
                     .and()

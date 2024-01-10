@@ -19,7 +19,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.cases.WorkitemDetailsPanel;
-import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.ObjectDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 

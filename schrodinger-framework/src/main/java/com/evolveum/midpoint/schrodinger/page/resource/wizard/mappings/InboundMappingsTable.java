@@ -100,7 +100,7 @@ public class InboundMappingsTable<T> extends
     }
 
     public InboundMappingsTable<T> lifecycleState(String name, String lifecycleState) {
-        TableRow<?, ?> row = findRowByColumnLabelAndRowValue(getObjectNameColumnLabel(), name, true);
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue(getObjectNameColumnLabel(), name, false);
         setDropdownValue("Lifecycle state", lifecycleState, row);
 
         return InboundMappingsTable.this;

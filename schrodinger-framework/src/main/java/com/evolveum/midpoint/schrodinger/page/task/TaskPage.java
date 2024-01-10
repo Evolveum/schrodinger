@@ -197,12 +197,12 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public SimulationResultDetailsPage showSimulationResult() {
-        clickOperationButtonByTitleKey("PageTask.simulationResult");
+        clickOperationButtonByLabelKey("PageTask.simulationResult");
         return new SimulationResultDetailsPage();
     }
 
     public ResourcePage backToResourcePage() {
-        clickOperationButtonByTitleKey("Back");
+        clickOperationButtonByTitleAttributeValue("Back");
         return new ResourcePage();
     }
 }

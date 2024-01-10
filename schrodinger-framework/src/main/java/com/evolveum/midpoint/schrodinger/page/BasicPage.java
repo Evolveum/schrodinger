@@ -238,8 +238,8 @@ public class BasicPage {
         return new AllApprovalsPage();
     }
 
-    public MyWorkitemsPage myItems() {
-        clickAdministrationMenu("PageAdmin.menu.top.workItems", "PageAdmin.menu.top.workItems.list");
+    public MyWorkitemsPage myWorkItems() {
+        clickAdministrationMenu(ConstantsUtil.MENU_TOP_CASES, ConstantsUtil.MENU_MY_WORK_ITEMS_MENU_ITEM_RESOURCE_KEY);
         return new MyWorkitemsPage();
     }
 
@@ -288,7 +288,7 @@ public class BasicPage {
         return new CampaignsSchedulingPage();
     }
 
-    public MyWorkItemsPage myWorkItems() {
+    public MyWorkItemsPage myCertificationWorkItems() {
         clickAdministrationMenu("PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.decisions");
         return new MyWorkItemsPage();
     }

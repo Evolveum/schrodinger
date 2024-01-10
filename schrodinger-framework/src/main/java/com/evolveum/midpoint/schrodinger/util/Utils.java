@@ -171,7 +171,7 @@ public class Utils {
                             .inputValue(assignment)
                             .updateSearch()
                             .and()
-                        .selectCheckboxByName(assignment)
+                        .selectRowByName(assignment)
                         .and()
                     .clickAdd();
         }

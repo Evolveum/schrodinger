@@ -17,10 +17,11 @@
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.component.task.dto.ExecutedActionDto;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selectors.byText;
+import java.util.List;
 
 public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingTest {
 
@@ -97,6 +98,10 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
     @Test(groups = MODULE_6_GROUP)
     public void test3usernameImportFromAD() {
         basicPage
+                .listUsers("Persons")
+                .table()
+                .screenshot("users_before_rename");
+        basicPage
                 .listResources()
                 .table()
                 .clickByName("AD")
@@ -157,6 +162,11 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .table()
                 .assertVisibleObjectsCountEquals(1)
                 .assertTableContainsText("cn=Secret Admin,ou=users,dc=example,dc=com");
+
+        List<ExecutedActionDto> executedActionRecords = List.of(new ExecutedActionDto("Shadow", "Delete",
+                "Reconciliation", "1",
+                "cn=Secret Admin,ou=users,dc=example,dc=com (ACCOUNT - default - inetOrgPerson)",
+                "", ""));
         basicPage
                 .listResources()
                 .table()
@@ -165,23 +175,7 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .table()
                 .clickByName("Reconciliation with AD (real)")
                 .selectOperationStatisticsPanel()
-                .screenshot("M6_operation_statistics")
-        /**
-        * todo
-         * click Operation statistics menu item and scroll down to Actions executed (all actions) section. You should see the following entry representing the orphaned account deletion in the table (some content is excluded for brevity):
-         * Object type
-         * Operation
-         * Channel
-         * Count (OK)
-         * Last (OK)
-         *
-         * Shadow
-         * Delete
-         * Reconciliation
-         * 1
-         * cn=Secret Admin,ou=users,dc=example,dc=com (ACCOUNT - default - inetOrgPerson)
-         *
-         */
+                .assertAllExecutedActionsRecordsMatch(executedActionRecords)
                 .and()
                 .backToResourcePage()
                 .selectAccountsPanel()
@@ -246,13 +240,15 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
         basicPage
                 .myWorkItems()
                 .table()
-                .clickByName("Correlation of account 'cn=Ana Lopez,ou=users,dc=example,dc=com' on AD");
-        /**
-         * in the table of correlation candidates, look at the Correlation candidate 1 column (Ana Lopez)
-         * notice the Personal number difference (default correlator didn’t match), but all other correlation attributes (from second correlator) match
-         * click Correlate for Correlation candidate 1 (Ana Lopez) to select this user as owner of the uncorrelated account
-         */
-        Selenide.screenshot("M6_work_item");
+                .clickByName("Correlation of account 'cn=Ana Lopez,ou=users,dc=example,dc=com' on AD")
+                .detailsPanel()
+                .deltasToBeApprovedTable()
+                .assertCorrelationCandidate1Exists("Ana Lopez (1002)", "Ana", "Lopez",
+                        "Hot Lava City", "1002")
+                .clickCorrelateButtonForCandidate1()
+                .feedback()
+                .assertSuccess();
+
         basicPage
                 .listUsers("Persons")
                 .table()
@@ -264,9 +260,8 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .clickByName("alopez")
                 .selectProjectionsPanel()
                 .table()
+                .screenshot("M6_projections")
                 .assertVisibleObjectsCountEquals(2);
-
-        Selenide.screenshot("M6_projections");
 
         /**
          * user alopez (formerly 1002, now renamed) has her AD account linked and visible in Projections panel. AD’s employeeNumber is still incorrect, but will be fixed when we enable provisioning to AD in later labs

@@ -155,6 +155,39 @@ public class M8AutomatingIntegration extends AbstractTrainingTest {
         //todo add assertions : look for Event type: Add object operations for Channel: Reconciliation
     }
 
+    @Test(groups = MODULE_8_GROUP)
+    public void test2automateActiveDirectoryAccountCreationForAllPersons() {
+        basicPage
+                .listArchetypes()
+                .table()
+                .clickByName("Person")
+                .selectInducementsPanel()
+                .selectTypeResource()
+                .clickAddApplicationResource()
+                .selectResource("AD")
+                .next()
+                .next()
+                .next()
+                .saveSettings();
+        //todo wait for the next regular reconciliation with HR resource, it will add the AD accounts for the new users (otherwise full recomputation is needed)
+        Selenide.sleep(20000);
+
+        checkCreatedUser("lcallaha", "Louise Callahan",
+                "cn=Louise Callahan,ou=users,dc=example,dc=com", "No AD DN uniqueness issues");
+        checkCreatedUser("abaker2", "Andreas Baker",
+                "cn=Andreas Baker,ou=users,dc=example,dc=com", "No AD DN uniqueness issues");
+        checkCreatedUser("cwhitehe2", "Clara Whiteherring",
+                "cn=Clara Whiteherring,ou=users,dc=example,dc=com", "No AD DN uniqueness issues");
+        checkCreatedUser("cwhitehe3", "Clara Whiteherring",
+                "cn=Clara Whiteherring (cwhitehe3),ou=users,dc=example,dc=com",
+                "Iterated, because cn=Clara Whiteherring,ou=users,dc=example,dc=com already exists (for user cwhitehe2 (Clara Whiteherring)).");
+        checkCreatedUser("jsmith3", "Jacques Smith",
+                "cn=Jacques Smith,ou=users,dc=example,dc=com", "No AD DN uniqueness issues");
+
+        basicPage
+                .listUsers("Persons");
+    }
+
     private void registerNewUsersInHRApplicationAndExportUsers() {
         Selenide.open("http://localhost/hr/");
 
@@ -206,6 +239,24 @@ public class M8AutomatingIntegration extends AbstractTrainingTest {
 
     private void fillInDropDownInHRApplication(String selectName, String value) {
         $x(".//select[@name='" + selectName + "']").setValue(value);
+    }
+
+    private void checkCreatedUser(String username, String fullName, String adDn, String description) {
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .byName()
+                .inputValue(username)
+                .updateSearch()
+                .and()
+                .clickByName(username)
+                .assertName(username)
+                .assertFullName(fullName)
+                .assertDescription(description)
+                .selectProjectionsPanel()
+                .table()
+                .assertTableContainsText(adDn);
     }
 
 }

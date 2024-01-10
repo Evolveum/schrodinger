@@ -134,7 +134,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
 //            }
 //
 //            @Override
-//            public AbstractTable<ProjectionsTab> selectCheckboxByName(String name) {
+//            public AbstractTable<ProjectionsTab> selectRowByName(String name) {
 //
 //                $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name))
 //                        .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();

@@ -20,6 +20,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.induced.ApplicationResourceStep;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -36,7 +37,38 @@ public class InducementsPanel<P extends AbstractRolePage> extends AssignmentsPan
         return super.clickAddAssignment();
     }
 
+    public ApplicationResourceStep<InducementsPanel<P>> clickAddApplicationResource() {
+        super.clickAddAssignment();
+        return new ApplicationResourceStep<>(this);
+    }
+
     public boolean inducementExists(String inducementName){
         return super.assignmentExists(inducementName);
     }
+
+    public InducementsPanel<P> selectTypeAll() {
+        selectType("All");
+        return this;
+    }
+
+    public InducementsPanel<P> selectTypeRole() {
+        selectType("Role");
+        return this;
+    }
+
+    public InducementsPanel<P> selectTypeOrg() {
+        selectType("Organization");
+        return this;
+    }
+
+    public InducementsPanel<P> selectTypeService() {
+        selectType("Service");
+        return this;
+    }
+
+    public InducementsPanel<P> selectTypeResource() {
+        selectType("Resource");
+        return this;
+    }
+
 }

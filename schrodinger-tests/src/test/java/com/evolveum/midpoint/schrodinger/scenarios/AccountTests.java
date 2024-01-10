@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.ProjectionFormPanelWithActionButtons;
-import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -136,7 +135,7 @@ public class AccountTests extends AbstractSchrodingerTest {
                     .selectProjectionsPanel()
                     .clickAddProjection()
                             .table()
-                            .selectCheckboxByName(CSV_RESOURCE_NAME)
+                            .selectRowByName(CSV_RESOURCE_NAME)
                         .and()
                         .clickAdd()
                     .and()

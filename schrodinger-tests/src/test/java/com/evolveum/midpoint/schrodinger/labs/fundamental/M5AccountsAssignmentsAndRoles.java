@@ -142,7 +142,7 @@ public class M5AccountsAssignmentsAndRoles extends AbstractLabTest {
                                 .inputValue("Incognito")
                                 .updateSearch()
                             .and()
-                        .selectCheckboxByName("Incognito")
+                        .selectRowByName("Incognito")
                     .and()
                 .clickAdd()
                 .and()

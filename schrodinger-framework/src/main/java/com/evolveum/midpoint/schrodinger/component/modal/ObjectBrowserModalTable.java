@@ -55,6 +55,7 @@ public class ObjectBrowserModalTable<T, M extends ModalBox<T>> extends Table<M, 
             linkToClick.click();
             Utils.waitForAjaxCallFinish();
         }
+        Selenide.sleep(2000);
         return getParent().getParent();
     }
 

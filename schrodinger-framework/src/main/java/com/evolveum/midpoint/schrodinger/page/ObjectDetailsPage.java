@@ -21,9 +21,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
-import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.DetailsNavigationPanel;
-import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -53,9 +51,22 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
         }
     }
 
-    public void clickOperationButtonByTitleKey(String titleKey) {
+    public void clickOperationButtonByLabelKey(String titleKey) {
         SelenideElement button = getButtonPanelElement()
                 .$(Schrodinger.byDataResourceKey(titleKey));
+        try {
+            button.scrollIntoView(false);
+            button.click();
+        } catch (ElementClickInterceptedException e) {
+            button.parent().click();
+        }
+        Utils.waitForAjaxCallFinish();
+    }
+
+    public void clickOperationButtonByTitleAttributeValue(String titleAttributeValue) {
+        String translated = Utils.translate(titleAttributeValue);
+        SelenideElement button = getButtonPanelElement()
+                .$(Schrodinger.byElementAttributeValue("a", "title", translated));
         try {
             button.scrollIntoView(false);
             button.click();

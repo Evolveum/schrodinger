@@ -41,7 +41,7 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T, FocusTa
     }
 
     @Override
-    public FocusTableWithChoosableElements<T> selectCheckboxByName(String name) {
+    public FocusTableWithChoosableElements<T> selectRowByName(String name) {
         Utils.waitForAjaxCallFinish();
         SelenideElement checkbox = getParentElement()
                 .$(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))

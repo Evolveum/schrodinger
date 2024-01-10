@@ -100,7 +100,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .inputValue(USER_NAME)
                             .updateSearch()
                         .and()
-                        .selectCheckboxByName(USER_NAME)
+                        .selectRowByName(USER_NAME)
                     .and()
                     .clickAdd();
         orgTreePage = basicPage.orgStructure();
@@ -128,7 +128,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                                 .inputValue("UniqueNameUserForMemberTest")
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName("UniqueNameUserForMemberTest")
+                            .selectRowByName("UniqueNameUserForMemberTest")
                         .and()
                         .clickAdd();
 

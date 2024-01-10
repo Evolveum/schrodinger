@@ -305,7 +305,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .inputValue(CASE_CREATION_TEST_ROLE_NAME)
                 .updateSearch()
                 .and()
-                .selectCheckboxByName(CASE_CREATION_TEST_ROLE_NAME)
+                .selectRowByName(CASE_CREATION_TEST_ROLE_NAME)
                 .and()
                 .clickAdd()
                 .and()

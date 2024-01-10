@@ -18,8 +18,6 @@ package com.evolveum.midpoint.schrodinger.component;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
-import com.evolveum.midpoint.schrodinger.page.login.LoginPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import org.testng.annotations.Test;
 
@@ -40,7 +38,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
                 .clickAddAssignment()
                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                 .table()
-                .selectCheckboxByName("End user")
+                .selectRowByName("End user")
                 .and()
                 .clickAdd()
                 .and()

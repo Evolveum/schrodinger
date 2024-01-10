@@ -95,7 +95,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
                                     .inputValue(NAME_ORG_UNIT_ASSIGN)
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName(NAME_ORG_UNIT_ASSIGN)
+                            .selectRowByName(NAME_ORG_UNIT_ASSIGN)
                         .and()
                     .clickAdd()
                 .and();
@@ -155,7 +155,7 @@ public class OrganizationStructureTests extends AbstractSchrodingerTest {
                                     .inputValue(NAME_ORG_UNIT_ASSIGN_AND_INDUCE)
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName(NAME_ORG_UNIT_ASSIGN_AND_INDUCE)
+                            .selectRowByName(NAME_ORG_UNIT_ASSIGN_AND_INDUCE)
                         .and()
                     .clickAdd()
                 .and();

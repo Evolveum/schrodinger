@@ -15,12 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.scenarios;
 
-import com.codeborne.selenide.Screenshots;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
-import com.evolveum.midpoint.schrodinger.page.DashboardPage;
-import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
@@ -262,7 +259,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                     .clickByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
                         .selectResourceObjectsPanel()
                             .table()
-                            .selectCheckboxByName("raphael")
+                            .selectRowByName("raphael")
                                 .delete()
                             .clickYes()
                         .and()

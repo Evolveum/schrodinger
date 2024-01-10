@@ -23,6 +23,8 @@ import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.modal.ForwardWorkitemModal;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.cases.DeltasToBeApprovedTable;
+import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -96,5 +98,9 @@ public class WorkitemDetailsPanel<P> extends Component<P, WorkitemDetailsPanel<P
         $(By.tagName("textarea")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .setValue(comment);
         return this;
+    }
+
+    public DeltasToBeApprovedTable<WorkitemDetailsPanel<P>> deltasToBeApprovedTable() {
+        return new DeltasToBeApprovedTable<>(WorkitemDetailsPanel.this);
     }
 }
