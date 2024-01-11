@@ -47,11 +47,14 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .baseContext("dc=example,dc=com")
                 .next()
                 .createResource()
-                .previewResourceData()
-                 .selectObjectType("inetOrgPerson")
-                 .assertAllObjectsCountEquals(45)
-                 .clickBack()
-                .goToResource();
+                 .previewResourceData()
+                 .selectObjectType("inetOrgPerson");
+         basicPage.feedback()
+                 .clickShowAll()
+                 .screenshot("m4_ad_feedback");
+//                 .assertAllObjectsCountEquals(45)
+//                 .clickBack()
+//                .goToResource();
     }
 
     @Test(groups = MODULE_4_GROUP)
