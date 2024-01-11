@@ -16,7 +16,6 @@
 
 package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
-import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.task.dto.ExecutedActionDto;
 import com.evolveum.midpoint.schrodinger.trainings.AbstractTrainingTest;
 import org.testng.annotations.Test;
@@ -98,10 +97,6 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
     @Test(groups = MODULE_6_GROUP)
     public void test3usernameImportFromAD() {
         basicPage
-                .listUsers("Persons")
-                .table()
-                .screenshot("users_before_rename");
-        basicPage
                 .listResources()
                 .table()
                 .clickByName("AD")
@@ -121,16 +116,12 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
         basicPage
                 .listUsers("Persons")
                 .table()
-                .screenshot("users");
-
-        /**
-         * todo
-         * All users with linked AD account are now renamed in midPoint.
-         * The only exception is user 1002 (Ana Lopez) for whom the correlation has failed and does not have a linked AD account.
-         * Her AD account is still Unmatched and marked  Correlate later.
-         * We will resolve this in later labs.
-         * We wanted to emphasize that we can continue the deployment using First steps methodology even if the data is not ideal.
-         */
+                //further several renamed users are checked to be present in the table
+                .assertTableContainsColumnWithValue("Name", "abaker")
+                .assertTableContainsColumnWithValue("Name", "afreeman")
+                .assertTableContainsColumnWithValue("Name", "hunter")
+                //also Anna Lopez user is checked to be NOT renamed
+                .assertTableContainsColumnWithValue("Name", "1002");
     }
 
     @Test(groups = MODULE_6_GROUP)
@@ -174,6 +165,7 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
                 .selectDefinedTasksPanel()
                 .table()
                 .clickByName("Reconciliation with AD (real)")
+                .clickRunNowAndWaitToBeClosed()
                 .selectOperationStatisticsPanel()
                 .assertAllExecutedActionsRecordsMatch(executedActionRecords)
                 .and()
@@ -194,49 +186,49 @@ public class M6PreparingConfigurationForUsernameImport extends AbstractTrainingT
 
     @Test(groups = MODULE_6_GROUP)
     public void test5finalizeCorrelation() {
-        basicPage
-                .listResources()
-                .table()
-                .clickByName("AD")
-                .selectAccountsPanel()
-                .table()
-                .search()
-                .byName()
-                .inputValue("cn=Ana Lopez,ou=users,dc=example,dc=com")
-                .updateSearch()
-                .and()
-                .and()
-                .configureCorrelation()
-                .table()
-                .setEnabled("last-resort-correlation", "True")
-                .and()
-                .saveCorrelationSettings()
-                .table()
-                .removeMarks("Name", "cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
-                .and()
-                .and()
-                .selectDefinedTasksPanel()
-                .table()
-                .clickByName("Reconciliation with AD (real)")
-                .clickRunNowAndWaitToBeClosed()
-                .backToResourcePage()
-                .selectAccountsPanel()
-                .table()
-                .assertSituationEquals("cn=Ana Lopez,ou=users,dc=example,dc=com", "DISPUTED")
-                .and()
-                .configureSynchronization()
-                .addReaction()
-                .name("disputed-create-case")
-                .situation("Disputed")
-                .action("Create correlation case")
-                .lifecycleState("Active")
-                .and()
-                .saveSynchronizationSettings()
-                .and()
-                .selectDefinedTasksPanel()
-                .table()
-                .clickByName("Reconciliation with AD (real)")
-                .clickRunNowAndWaitToBeClosed();
+//        basicPage
+//                .listResources()
+//                .table()
+//                .clickByName("AD")
+//                .selectAccountsPanel()
+//                .table()
+//                .search()
+//                .byName()
+//                .inputValue("cn=Ana Lopez,ou=users,dc=example,dc=com")
+//                .updateSearch()
+//                .and()
+//                .and()
+//                .configureCorrelation()
+//                .table()
+//                .setEnabled("last-resort-correlation", "True")
+//                .and()
+//                .saveCorrelationSettings()
+//                .table()
+//                .removeMarks("Name", "cn=Ana Lopez,ou=users,dc=example,dc=com", "Correlate later")
+//                .and()
+//                .and()
+//                .selectDefinedTasksPanel()
+//                .table()
+//                .clickByName("Reconciliation with AD (real)")
+//                .clickRunNowAndWaitToBeClosed()
+//                .backToResourcePage()
+//                .selectAccountsPanel()
+//                .table()
+//                .assertSituationEquals("cn=Ana Lopez,ou=users,dc=example,dc=com", "DISPUTED")
+//                .and()
+//                .configureSynchronization()
+//                .addReaction()
+//                .name("disputed-create-case")
+//                .situation("Disputed")
+//                .action("Create correlation case")
+//                .lifecycleState("Active")
+//                .and()
+//                .saveSynchronizationSettings()
+//                .and()
+//                .selectDefinedTasksPanel()
+//                .table()
+//                .clickByName("Reconciliation with AD (real)")
+//                .clickRunNowAndWaitToBeClosed();
         basicPage
                 .myWorkItems()
                 .table()

@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class WorkitemPage extends ObjectDetailsPage<WorkitemPage> {
 
     public WorkitemDetailsPanel<WorkitemPage> detailsPanel() {
-        SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "details"))
+        SelenideElement detailsPanel = $(Schrodinger.byDataId("div", "workItemDetails"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new WorkitemDetailsPanel<WorkitemPage>(WorkitemPage.this, detailsPanel);
     }

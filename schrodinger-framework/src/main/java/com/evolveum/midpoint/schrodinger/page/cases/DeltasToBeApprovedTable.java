@@ -42,8 +42,9 @@ public class DeltasToBeApprovedTable<T> extends Table<T, Table> {
     }
 
     public MyWorkitemsPage clickCorrelateButtonForCandidate1() {
-        SelenideElement cellWithButton = getTableCellElement("Correlation candidate 1", 1);
-        cellWithButton.$(Schrodinger.byDataId("correlateButton1")).click();
+        getParentElement().$x(".//*[@data-s-id='actionLabel' and contains(text(), 'Correlate')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
         return new MyWorkitemsPage();
     }
 }

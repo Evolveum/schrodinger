@@ -94,7 +94,7 @@ public class SynchronizationWizardStep<P> extends TableWizardStepPanel<P, ListOf
 
     public SynchronizationWizardStep<P> setLifecycleStateValueForSituation(String situation,
                                                                            String lifecycleStateExpectedValue) {
-        TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation", situation, true);
+        TableRow<?, ?> tableRow = table().findRowByColumnLabelAndRowValue("Situation", situation, false);
         SelenideElement cell = tableRow.getColumnCellElementByColumnName("Lifecycle state");
         SelenideElement select = cell.$(By.tagName("select"));
         select.selectOption(lifecycleStateExpectedValue);

@@ -77,7 +77,10 @@ public class Table<T, P extends Table> extends Component<T, P> {
 
     public int findColumnByResourceKey(String key) {
         ElementsCollection headers = getParentElement().findAll(Schrodinger.byDataId("th", "header"));
-        if (headers == null) {
+        if (headers.isEmpty()) {
+            headers = getParentElement().findAll(Schrodinger.byDataId("header"));
+        }
+        if (headers.isEmpty()) {
             return -1;
         }
         int index = 1;
@@ -88,7 +91,8 @@ public class Table<T, P extends Table> extends Component<T, P> {
                 return index;
             }
             headerElement = header.$(byText(key));
-            if (headerElement.exists()) {
+            String headerText = header.getText();
+            if (headerElement.exists() || key.equals(headerText)) {
                 return index;
             }
             index++;
@@ -130,7 +134,10 @@ public class Table<T, P extends Table> extends Component<T, P> {
     private TableRow<T, Table<T, P>> getTableRowByIndexAndText(int index, String rowValue, boolean partialText) {
         ElementsCollection rows = getParentElement().findAll("tbody tr");
         for (SelenideElement row : rows) {
-            SelenideElement cell = row.find("td:nth-child(" + index + ")");
+            SelenideElement cell = row.$$x(".//td").get(index - 1);
+            if (!cell.exists()) {
+                continue;
+            }
             String value = cell.getText();
             if (cell.$(By.tagName("select")).isDisplayed()) {
                 SelenideElement select = cell.$(By.tagName("select"));

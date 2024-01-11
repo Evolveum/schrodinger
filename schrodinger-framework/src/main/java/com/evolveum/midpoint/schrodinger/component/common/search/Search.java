@@ -241,7 +241,16 @@ public class Search<T> extends Component<T, Search<T>> {
         return $(By.className("search-popover")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
     }
 
-
+    public Search<T> selectCustomFiler(String filterName) {
+        SelenideElement searchItemElement = getItemSearchElement(filterName, false);
+        SelenideElement checkBox = searchItemElement.$(Schrodinger.byDataId("checkDisable")).$(By.tagName("input"));
+        if (checkBox.isDisplayed() && checkBox.is(Condition.checked)) {
+            return this;
+        }
+        checkBox.click();
+        Utils.waitForAjaxCallFinish();
+        return this;
+    }
 
     public Search<T> resetBasicSearch() {
         choiceBasicSearch();
