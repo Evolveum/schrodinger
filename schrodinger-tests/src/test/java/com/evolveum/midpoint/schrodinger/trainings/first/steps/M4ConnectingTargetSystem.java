@@ -18,6 +18,7 @@ package com.evolveum.midpoint.schrodinger.trainings.first.steps;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.ConfigurationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.DiscoveryWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceDataPreviewPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.ResourceWizardResultStep;
@@ -32,7 +33,7 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
 
     @Test(groups = MODULE_4_GROUP)
     public void test1createADResourceFromTemplate() {
-         basicPage
+         ConfigurationWizardStep step = basicPage
                 .newResource()
                 .copyFromTemplate("Training Active Directory Resource Template")
                 .name("AD")
@@ -42,19 +43,26 @@ public class M4ConnectingTargetSystem extends AbstractTrainingTest {
                 .host("ad")
                 .port("389")
                 .bindDN("cn=idm,ou=Administrators,dc=example,dc=com")
-                .bindPassword("secret")
-                .next()
-                .baseContext("dc=example,dc=com")
+                .bindPassword("secret");
+         step
+                 .screenshot("m4_ad_basic");
+         DiscoveryWizardStep discoveryWizardStep = step
+                .next();
+            discoveryWizardStep
+                 .screenshot("m4_ad_discovery");
+            discoveryWizardStep
+                    .baseContext("dc=example,dc=com")
+                 .screenshot("m4_ad_discovery_baseContext");
+            discoveryWizardStep
                 .next()
                 .createResource()
                  .previewResourceData()
-                 .selectObjectType("inetOrgPerson");
-         basicPage.feedback()
-                 .clickShowAll()
-                 .screenshot("m4_ad_feedback");
-//                 .assertAllObjectsCountEquals(45)
-//                 .clickBack()
-//                .goToResource();
+                    .screenshot("m4_ad_preview_data")
+                 .selectObjectType("inetOrgPerson")
+                    .screenshot("m4_ad_preview_data_inetOrgPerson")
+                 .assertAllObjectsCountEquals(45)
+                 .clickBack()
+                .goToResource();
     }
 
     @Test(groups = MODULE_4_GROUP)
