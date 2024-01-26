@@ -86,6 +86,9 @@ public class ResultPanel extends Component<TaskPage, ResultPanel> {
 
     public ResultPanel assertTimestampValueByTokenMatch(String tokenValue, String expectedValue) {
         String realValue = getTimestampValueByToken(tokenValue);
+        if (realValue != null) {
+            realValue = realValue.replaceAll("&nbsp;", " ");
+        }
         assertion.assertEquals(realValue, expectedValue, "'Timestamp' value doesn't match to " + expectedValue);
         return this;
     }
