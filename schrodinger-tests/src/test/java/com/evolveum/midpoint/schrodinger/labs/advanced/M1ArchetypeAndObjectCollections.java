@@ -310,7 +310,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        login.loginWithReloadLoginPage("administrator", "5ecr3t");
+        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
 
         basicPage.listUsers("Empty Telephones")
                 .table()

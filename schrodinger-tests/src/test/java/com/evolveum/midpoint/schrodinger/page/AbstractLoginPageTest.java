@@ -49,7 +49,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
 
     protected static final String NAME_OF_ENABLED_USER = "enabled_user";
     protected static final String NAME_OF_RESET_PASSWORD_TEST_USER = "resetPasswordTestUser";
-    protected static final String PASSWORD_OF_ENABLED_USER = "5ecr3t";
+    protected static final String PASSWORD_OF_ENABLED_USER = "Test5ecr3t";
     protected static final String MAIL_OF_ENABLED_USER = "enabled_user@evolveum.com";
 
     private static final File ENABLED_USER = new File("src/test/resources/objects/users/enabled-user.xml");
@@ -111,19 +111,19 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         for (int i = 0; i < 4; i++) {
             unsuccessfulLogin("enabled_user", "bad_password");
         }
-        unsuccessfulLogin("enabled_user", "5ecr3t");
+        unsuccessfulLogin("enabled_user", "Test5ecr3t");
     }
 
     @Test
     public void test002loginDisabledUser() {
         basicPage.loggedUser().logoutIfUserIsLogin();
-        unsuccessfulLogin("disabled_user", "5ecr3t");
+        unsuccessfulLogin("disabled_user", "Test5ecr3t");
     }
 
     @Test
     public void test003loginEnabledUserWithoutAuthorizationsUser() {
         basicPage.loggedUser().logoutIfUserIsLogin();
-        unsuccessfulLogin("enabled_user_without_authorizations", "5ecr3t");
+        unsuccessfulLogin("enabled_user_without_authorizations", "Test5ecr3t");
     }
 
     protected void unsuccessfulLogin(String username, String password){
@@ -139,7 +139,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     public void test010auditingSuccessfulLogin() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        login.login("administrator", "5ecr3t");
+        login.login("administrator", "Test5ecr3t");
         auditingSuccessfulLogin("administrator");
     }
 
@@ -155,8 +155,8 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     public void test011auditingFailLogin() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        login.login("bad_administrator", "5ecr3t");
-        login.login("administrator", "5ecr3t");
+        login.login("bad_administrator", "Test5ecr3t");
+        login.login("administrator", "Test5ecr3t");
 
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable auditRecordsTable = auditLogViewer.table();
@@ -169,9 +169,9 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     public void test012auditingSuccessfulLogout() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        login.login("administrator", "5ecr3t");
+        login.login("administrator", "Test5ecr3t");
         basicPage.loggedUser().logout();
-        login.login("administrator", "5ecr3t");
+        login.login("administrator", "Test5ecr3t");
 
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable auditRecordsTable = auditLogViewer.table();

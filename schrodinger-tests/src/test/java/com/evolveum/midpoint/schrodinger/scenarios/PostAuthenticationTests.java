@@ -44,7 +44,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     protected static final String TEST_USER_TITIAN_NAME= "titian";
     protected static final String TEST_USER_BOTTICELLI_NAME= "botticelli";
 
-    protected static final String TEST_USER_TITIAN_PASSWORD= "5ecr3t";
+    protected static final String TEST_USER_TITIAN_PASSWORD= "Test5ecr3t";
     protected static final String ROLE_POST_AUTHENTICATION_AUTHORIZATION_NAME= "Post authentication authorization role";
     protected static final String TEST_GROUP_BEFORE_POST_AUTH_FLOW = "beforePostAuthFlow";
     protected static final String TEST_FLOW_WITHOUT_POST_AUTH_ROLE_ASSIGNED = "test0030flowWithoutPostAuthRoleAssigned";

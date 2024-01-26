@@ -173,7 +173,7 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
                 .assertAttributeValueShown("Nickname", "Fixik");
 
         openLoginPage();
-        midPoint.formLogin().login("administrator", "5ecr3t");
+        midPoint.formLogin().login("administrator", "Test5ecr3t");
 
         basicPage.auditLogViewer()
                 .table()

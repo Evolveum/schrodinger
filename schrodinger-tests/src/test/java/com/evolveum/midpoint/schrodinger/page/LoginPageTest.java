@@ -53,7 +53,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelfRegistrationPage registrationPage = login.register();
         registrationPage.setGivenName("Test").setFamilyName("User")
-                .setEmail("test.user@evolveum.com").setPassword("5ecr3t").setCaptcha().submit();
+                .setEmail("test.user@evolveum.com").setPassword("Test5ecr3t").setCaptcha().submit();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         basicPage.feedback().isSuccess();
         String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
@@ -102,7 +102,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/login");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         open("/");
-        login.loginWithReloadLoginPage("administrator", "5ecr3t");
+        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
         importObject(SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         basicPage.loggedUser().logoutIfUserIsLogin();
         login.forgotPassword();
