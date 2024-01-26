@@ -177,7 +177,7 @@ public class UserTest extends AbstractSchrodingerTest {
         midPoint.formLogin().login("DelegateEndUserRoleToUser", "pAssword123")
                         .assertUserMenuExist();
         basicPage.loggedUser().logout();
-        midPoint.formLogin().login("administrator", "5ecr3t");
+        midPoint.formLogin().login("administrator", "Test5ecr3t");
 
     }
 

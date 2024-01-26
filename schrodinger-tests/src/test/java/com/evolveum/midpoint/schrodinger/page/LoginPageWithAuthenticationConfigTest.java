@@ -68,7 +68,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         basicPage.loggedUser().logoutIfUserIsLogin();
         open("/auth/emergency/internalLoginForm");
         FormLoginPage login = midPoint.formLogin();
-        login.login("administrator", "5ecr3t");
+        login.login("administrator", "Test5ecr3t");
         basicPage.loggedUser().logout();
         basicPage.assertUserMenuDoesntExist();
     }
@@ -77,7 +77,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
     public void test021negativeLoginForAdministrators() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         open("/auth/emergency/internalLoginForm");
-        unsuccessfulLogin("user_without_superuser", "5ecr3t");
+        unsuccessfulLogin("user_without_superuser", "Test5ecr3t");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         FormLoginPage login = midPoint.formLogin();
         open("/login");
         open("/");
-        login.loginWithReloadLoginPage("administrator", "5ecr3t");
+        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
         importObject(FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         TimeUnit.SECONDS.sleep(4);
         basicPage.loggedUser().logoutIfUserIsLogin();
@@ -154,7 +154,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
                 .setGivenName("Test")
                 .setFamilyName("User")
                 .setEmail("test.user@evolveum.com")
-                .setPassword("5ecr3t")
+                .setPassword("Test5ecr3t")
                 .submit()
                 .feedback()
                 .assertSuccess();
@@ -180,10 +180,10 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         FormLoginPage login = midPoint.formLogin();
 
         open("/");
-        login.loginWithReloadLoginPage("enabled_user", "5ecr3t");
+        login.loginWithReloadLoginPage("enabled_user", "Test5ecr3t");
         basicPage.loggedUser().logoutIfUserIsLogin();
 
-        login.loginWithReloadLoginPage("administrator", "5ecr3t");
+        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
         importObject(BULK_TASK);
         basicPage.listTasks().table().clickByName("Add archetype"); //.clickRunNow(); the task is running after import, no need to click run now button
         screenshot("addArchetypeBulkActionTask");
@@ -191,8 +191,8 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         open("/");
-        unsuccessfulLogin("enabled_user", "5ecr3t");
-        login.loginWithReloadLoginPage("administrator", "5ecr3t");
+        unsuccessfulLogin("enabled_user", "Test5ecr3t");
+        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
         basicPage.loggedUser().logoutIfUserIsLogin();
     }
 

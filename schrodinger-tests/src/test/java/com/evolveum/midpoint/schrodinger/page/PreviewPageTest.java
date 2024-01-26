@@ -162,7 +162,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .assertIsNotLink();
 
         midPoint.logout();
-        basicPage = midPoint.formLogin().login("administrator", "5ecr3t");
+        basicPage = midPoint.formLogin().login("administrator", "Test5ecr3t");
 
     }
 
