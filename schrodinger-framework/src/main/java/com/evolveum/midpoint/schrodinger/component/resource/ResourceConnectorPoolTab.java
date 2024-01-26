@@ -21,7 +21,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 /**
  * Created by matus on 3/28/2018.
  */
-public class ResourceConnectorPoolTab<T> extends Component<T> {
+public class ResourceConnectorPoolTab<T> extends Component<T, ResourceConnectorPoolTab<T>> {
     public ResourceConnectorPoolTab(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

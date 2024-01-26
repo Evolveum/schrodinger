@@ -31,7 +31,7 @@ import java.util.List;
  * @author skublik
  */
 
-public class ManagerPanel<T> extends Component<T> {
+public class ManagerPanel<T> extends Component<T, ManagerPanel<T>> {
 
     public ManagerPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

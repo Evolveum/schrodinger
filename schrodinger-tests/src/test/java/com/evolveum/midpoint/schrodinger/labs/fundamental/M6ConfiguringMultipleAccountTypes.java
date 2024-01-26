@@ -95,7 +95,7 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, "Secret Projects I", "Secret Projects II", "Incognito");
         Utils.addAssignmentsWithDefaultRelationAndSave(showUser("kirk").selectAssignmentsPanel(), true, CSV1_TESTER_ROLE_NAME, CSV3_ADMIN_ROLE_NAME);
 
-        AbstractTableWithPrismView<ProjectionsPanel<UserPage>> table = showUser("kirk").selectProjectionsPanel()
+        AbstractTableWithPrismView<ProjectionsPanel<UserPage>, AbstractTableWithPrismView> table = showUser("kirk").selectProjectionsPanel()
                 .table();
         Selenide.screenshot("kirk_user_projections");
         table.search()
@@ -106,8 +106,8 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
                 .and()
                     .updateSearch()
                 .and()
-             .assertTableContainsText("jkirk");
-        table.assertTableContainsText("_kirk");
+             .assertTableContainsText("jkirk")
+                .assertTableContainsText("_kirk");
 
        table.search()
                 .referencePanelByItemName("Resource")
@@ -127,8 +127,8 @@ public class M6ConfiguringMultipleAccountTypes extends AbstractLabTest {
                 .and()
                     .updateSearch()
                 .and()
-            .assertTableContainsText("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com");
-        table.assertTableContainsText("cn=Jim Tiberius Kirk,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com");
+            .assertTableContainsText("cn=Jim Tiberius Kirk,ou=ExAmPLE,dc=example,dc=com")
+                .assertTableContainsText("cn=Jim Tiberius Kirk,ou=_Administrators_,ou=ExAmPLE,dc=example,dc=com");
 
         assertShadowExists(CSV_1_RESOURCE_NAME, "Name", "jkirk", "default", true);
         assertShadowExists(CSV_1_RESOURCE_NAME, "Name", "_kirk", "test", true);

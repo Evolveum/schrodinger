@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 /**
  * @author honchar
  */
-public class InternalPerformancePanel extends Component<TaskPage> {
+public class InternalPerformancePanel extends Component<TaskPage, InternalPerformancePanel> {
 
     public InternalPerformancePanel(TaskPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

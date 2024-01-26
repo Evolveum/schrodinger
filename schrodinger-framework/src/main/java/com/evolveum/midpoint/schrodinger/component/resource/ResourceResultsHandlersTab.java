@@ -21,7 +21,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 /**
  * Created by matus on 3/28/2018.
  */
-public class ResourceResultsHandlersTab<T> extends Component<T> {
+public class ResourceResultsHandlersTab<T> extends Component<T, ResourceResultsHandlersTab<T>> {
     public ResourceResultsHandlersTab(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

@@ -22,7 +22,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.InternalsConfigurati
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class CountersPanel extends Component<InternalsConfigurationPage> {
+public class CountersPanel extends Component<InternalsConfigurationPage, CountersPanel> {
 
     public CountersPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

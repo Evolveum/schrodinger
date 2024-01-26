@@ -30,7 +30,6 @@ import static com.codeborne.selenide.Selenide.$x;
 public class SystemPage extends AssignmentHolderDetailsPage {
 
     public SystemPage() {
-        super(true);
     }
 
     public SystemPanel systemPanel() {

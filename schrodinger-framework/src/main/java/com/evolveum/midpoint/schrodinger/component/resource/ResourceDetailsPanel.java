@@ -18,7 +18,6 @@ package com.evolveum.midpoint.schrodinger.component.resource;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Modal;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -26,12 +25,11 @@ import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ResourceDetailsPanel<T> extends Component<T> {
+public class ResourceDetailsPanel<T> extends Component<T, ResourceDetailsPanel<T>> {
     public ResourceDetailsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

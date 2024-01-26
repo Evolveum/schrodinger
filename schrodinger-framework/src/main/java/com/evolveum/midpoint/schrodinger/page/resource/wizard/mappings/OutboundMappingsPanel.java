@@ -24,7 +24,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class OutboundMappingsPanel<T> extends TableWizardStepPanel<T> {
+public class OutboundMappingsPanel<T> extends TableWizardStepPanel<T, OutboundMappingsTable<OutboundMappingsPanel<T>>> {
 
     public OutboundMappingsPanel(T parent) {
         super(parent);
@@ -37,8 +37,9 @@ public class OutboundMappingsPanel<T> extends TableWizardStepPanel<T> {
         return new OutboundMappingsTable<>(OutboundMappingsPanel.this, $(Schrodinger.byDataId("table")));
     }
 
-    protected EditableRowTable<TableWizardStepPanel<T>> table() {
-        return new EditableRowTable<>(OutboundMappingsPanel.this,
+    @Override
+    public OutboundMappingsTable<OutboundMappingsPanel<T>> table() {
+        return new OutboundMappingsTable<>(OutboundMappingsPanel.this,
                 $(Schrodinger.byDataId("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }

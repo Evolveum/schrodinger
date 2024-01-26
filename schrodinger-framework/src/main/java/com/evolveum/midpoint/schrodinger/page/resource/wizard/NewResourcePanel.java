@@ -37,8 +37,9 @@ public class NewResourcePanel extends TileListWizardStepPanel<ResourceWizardPage
         return new ConnectorSelectionStep(getParent());
     }
 
-    public ResourceCatalogPanel<NewResourcePanel> copyFromTemplate(String templateTitle) {
+    public BasicInformationWizardStep copyFromTemplate(String templateTitle) {
         selectTileByLabel("Copy from template");
-        return new ResourceCatalogPanel<>(NewResourcePanel.this, $(Schrodinger.byDataId("detailsView")));
+        selectTileByLabel(templateTitle);
+        return new BasicInformationWizardStep(getParent());
     }
 }

@@ -16,28 +16,23 @@
 package com.evolveum.midpoint.schrodinger.component.assignmentholder;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 
-import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * @author skublik
  */
 
-public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderObjectListTable, D extends AssignmentHolderDetailsPage> extends BasicPage {
+public abstract class ObjectListPageWithPageRedirect<T extends TableWithPageRedirect, 
+        D extends BasicPage> extends BasicPage {
 
     public abstract T table();
 
@@ -63,7 +58,7 @@ public abstract class AssignmentHolderObjectListPage<T extends AssignmentHolderO
                 .newObjectButtonByTitleClick(title);
     }
 
-    public AssignmentHolderObjectListPage<T, D> assertObjectsCountEquals(int expectedCount) {
+    public ObjectListPageWithPageRedirect<T, D> assertObjectsCountEquals(int expectedCount) {
         assertion.assertEquals(getCountOfObjects(), expectedCount, "Objects count doesn't equal to " + expectedCount);
         return this;
     }

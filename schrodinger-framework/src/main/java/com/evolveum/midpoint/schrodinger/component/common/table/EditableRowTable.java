@@ -16,22 +16,24 @@
 package com.evolveum.midpoint.schrodinger.component.common.table;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.openqa.selenium.By;
+
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by matus on 5/22/2018.
  */
-public class EditableRowTable<T> extends Table<T>{
+public class EditableRowTable<T, P extends EditableRowTable> extends Table<T, P>{
     public EditableRowTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public EditableRowTable<T> setInputValue(String columnResourceKey, String attributeValue, int rowIndex){
+    public EditableRowTable<T, P> setInputValue(String columnResourceKey, String attributeValue, int rowIndex){
         SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
         if (element != null && element.exists()) {
             element.$x(".//input").setValue(attributeValue);
@@ -39,7 +41,17 @@ public class EditableRowTable<T> extends Table<T>{
         return EditableRowTable.this;
     }
 
-    public EditableRowTable<T> setDropdownValue(String columnResourceKey, String attributeValue, int rowIndex){
+    public EditableRowTable<T, P> setDropdownValue(String columnResourceKey, String attributeValue, TableRow<?, ?> tableRow){
+        int columnIndex = findColumnByResourceKey(columnResourceKey);
+        if (columnIndex <= 0) {
+            return null;
+        }
+        SelenideElement dropdownCell = tableRow.getParentElement().$$(By.tagName("td")).get(columnIndex - 1);
+        dropdownCell.$x(".//select").selectOption(attributeValue);
+        return EditableRowTable.this;
+    }
+
+    public EditableRowTable<T, P> setDropdownValue(String columnResourceKey, String attributeValue, int rowIndex){
         SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
         if (element != null && element.exists()) {
             element.$x(".//select").selectOption(attributeValue);
@@ -47,7 +59,7 @@ public class EditableRowTable<T> extends Table<T>{
         return EditableRowTable.this;
     }
 
-    public EditableRowTable<T> addAttributeValue(String columnName, String attributeValue){
+    public EditableRowTable<T, P> addAttributeValue(String columnName, String attributeValue){
         SelenideElement element = $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","text",null,null, columnName))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(attributeValue);
         if (element.exists()) {
@@ -57,12 +69,10 @@ public class EditableRowTable<T> extends Table<T>{
     }
 
 
-    public EditableRowTable<T> clickCheckBox(String attributeName){
-
-    $(Schrodinger.byAncestorPrecedingSiblingDescendantOrSelfElementEnclosedValue("input","type","checkbox",null,null,attributeName))
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
-        return this;
+    public P selectRowByName(String name){
+        TableRow<?,?> row = rowByColumnResourceKey("Name", name);
+        row.clickCheckBox();
+        return (P) this;
     }
 
 

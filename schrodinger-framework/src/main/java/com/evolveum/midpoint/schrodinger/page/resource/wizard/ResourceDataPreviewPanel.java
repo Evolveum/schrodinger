@@ -20,23 +20,27 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
-import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class ResourceDataPreviewPanel<T> extends Component<T> {
+public class ResourceDataPreviewPanel<T> extends Component<T, ResourceDataPreviewPanel<T>> {
 
     public ResourceDataPreviewPanel(T parent) {
         super(parent, $(Schrodinger.byDataId("choicePanel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
+    public ResourceDataPreviewPanel<T> assertAllObjectsCountEquals(int objectCount) {
+        getResourceObjectsTable().assertAllObjectsCountEquals(objectCount);
+        return ResourceDataPreviewPanel.this;
+    }
+
     public ResourceDataPreviewPanel<T> assertTableContainsObjects(int objectCount) {
-        getResourceObjectsTable().assertTableObjectsCountEquals(objectCount);
+        getResourceObjectsTable().assertVisibleObjectsCountEquals(objectCount);
         return ResourceDataPreviewPanel.this;
     }
 
@@ -47,7 +51,16 @@ public class ResourceDataPreviewPanel<T> extends Component<T> {
         return ResourceDataPreviewPanel.this;
     }
 
-    private Table<ResourceDataPreviewPanel<T>> getResourceObjectsTable() {
+    public ResourceDataPreviewPanel<T> selectObjectType(String objectType) {
+        SelenideElement objectTypeElement = getParentElement().$(Schrodinger.byDataId("objectType"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement select = objectTypeElement.$(By.tagName("select"));
+        select.selectOption(objectType);
+        Utils.waitForAjaxCallFinish();
+        return ResourceDataPreviewPanel.this;
+    }
+
+    private Table<ResourceDataPreviewPanel<T>, Table> getResourceObjectsTable() {
         return new Table<>(ResourceDataPreviewPanel.this,
                 $x(".//div[@data-s-id='table']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }

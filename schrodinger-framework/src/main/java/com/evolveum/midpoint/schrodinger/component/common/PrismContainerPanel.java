@@ -18,7 +18,7 @@ package com.evolveum.midpoint.schrodinger.component.common;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.Component;
 
-public class PrismContainerPanel<T> extends Component<T> {
+public class PrismContainerPanel<T> extends Component<T, PrismContainerPanel<T>> {
 
     public PrismContainerPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

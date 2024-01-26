@@ -32,7 +32,7 @@ import com.evolveum.midpoint.schrodinger.component.common.InlineMenu;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class TableRow<X, T extends Table<X>> extends Component<T> {
+public class TableRow<X, T extends Table> extends Component<T, TableRow<X, T>> {
 
     public TableRow(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -65,7 +65,7 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
         }
         SelenideElement a = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") " + cellElementTagName));
         a.click();
-        // todo implement
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 
@@ -108,9 +108,23 @@ public class TableRow<X, T extends Table<X>> extends Component<T> {
         if (index < 0) {
             return null;
         }
-        SelenideElement cell = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") div"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement cell = getParentElement().$(By.cssSelector("td:nth-child(" + index + ") div"));
+        //todo try to comment for now; may be visibility is not needed
+//        Utils.scrollToElement(cell);
+//        cell.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return cell;
+    }
+
+    public String getColumnCellTextByColumnName(String columnName) {
+        SelenideElement cell = getColumnCellElementByColumnName(columnName);
+        String value = cell.getText();
+        if (cell.$(By.tagName("input")).isDisplayed()) {
+            value = cell.$(By.tagName("input")).getText();
+        }
+        if (cell.$(By.tagName("select")).isDisplayed()) {
+            value = cell.$(By.tagName("select")).getText();
+        }
+        return value;
     }
 
     public TableRow<X, T> clickColumnByKey(String key) {

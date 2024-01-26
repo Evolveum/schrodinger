@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class UserTasksPanel extends Component<UserPage> {
+public class UserTasksPanel extends Component<UserPage, UserTasksPanel> {
 
     public UserTasksPanel(UserPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

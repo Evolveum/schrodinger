@@ -28,7 +28,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ClockPanel extends Component<InternalsConfigurationPage> {
+public class ClockPanel extends Component<InternalsConfigurationPage, ClockPanel> {
 
     public ClockPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

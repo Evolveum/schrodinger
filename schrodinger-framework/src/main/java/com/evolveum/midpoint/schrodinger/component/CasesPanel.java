@@ -30,14 +30,14 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class CasesPanel<P extends FocusPage> extends Component<P> {
+public class CasesPanel<P extends FocusPage> extends Component<P, CasesPanel<P>> {
 
     public CasesPanel(P parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public TableWithPageRedirect<CasesPanel<P>> table() {
-        return new TableWithPageRedirect<CasesPanel<P>>(this,
+    public <T extends TableWithPageRedirect<CasesPanel<P>, CasePage, T>> TableWithPageRedirect<CasesPanel<P>, CasePage, T> table() {
+        return new TableWithPageRedirect<>(this,
                 $(Schrodinger.byDataId("taskTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)) {
             @Override
             public CasePage clickByName(String name) {
@@ -45,13 +45,8 @@ public class CasesPanel<P extends FocusPage> extends Component<P> {
             }
 
             @Override
-            public TableWithPageRedirect<CasesPanel<P>> selectCheckboxByName(String name) {
-                return null;
-            }
-
-            @Override
-            protected TableHeaderDropDownMenu<P> clickHeaderActionDropDown() {
-                return null;
+            public CasePage getObjectDetailsPage() {
+                return new CasePage();
             }
         };
     }

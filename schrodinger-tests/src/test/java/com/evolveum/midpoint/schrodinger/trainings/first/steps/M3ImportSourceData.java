@@ -26,7 +26,7 @@ public class M3ImportSourceData extends AbstractTrainingTest {
     private static final String STATUS_EXPRESSION_SCRIPT_VALUE = "switch (input) { case 'In': 'active'; break; case 'Long-term leave': 'suspended'; break; case 'Former employee': 'archived'; break; }";
 
     @Test(groups = MODULE_3_GROUP)
-    public void test00100singleSourceSystemEntryImportSimulation() {
+    public void test1singleSourceSystemEntryImportSimulation() {
         basicPage
                 .listResources()
                 .table()
@@ -118,7 +118,7 @@ public class M3ImportSourceData extends AbstractTrainingTest {
     }
 
     @Test(groups = MODULE_3_GROUP)
-    public void test00110sourceSystemDataImport() {
+    public void test2sourceSystemDataImport() {
         basicPage
                 .listResources()
                 .table()
@@ -168,7 +168,7 @@ public class M3ImportSourceData extends AbstractTrainingTest {
         basicPage
                 .listUsers("Persons")
                 .table()
-                .assertTableObjectsCountEquals(0);
+                .assertVisibleObjectsCountEquals(0);
 
         basicPage
                 .listResources()

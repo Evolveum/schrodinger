@@ -21,8 +21,10 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +36,7 @@ import static com.codeborne.selenide.Selenide.$;
  * @author skublik
  */
 
-public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
+public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewerDetailsPage, AuditRecordTable<T>> {
 
     public AuditRecordTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -48,21 +50,18 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
         return new AuditLogViewerDetailsPage();
     }
 
+    public AuditLogViewerDetailsPage openDetailsPageForTargetObject(String targetObjectName) {
+        TableRow<?,?> row = rowByColumnResourceKey("Target", targetObjectName);
+        row.clickColumnByName("Time");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        return new AuditLogViewerDetailsPage();
+    }
+
     public AuditLogViewerDetailsPage clickByRowColumnNumber(int rowNumber, int columnNumber) {
         getCell(rowNumber, columnNumber)
                 .$(By.tagName("a")).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new AuditLogViewerDetailsPage();
-    }
-
-    @Override
-    public AuditRecordTable<T> selectCheckboxByName(String name) {
-        return null;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<AuditRecordTable<T>> clickHeaderActionDropDown() {
-        return null;
     }
 
     public void checkInitiator(int row, String name) {
@@ -98,5 +97,10 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T> {
     @Override
     public Search<AuditRecordTable<T>> search() {
         return (Search<AuditRecordTable<T>>) super.search();
+    }
+
+    @Override
+    public AuditLogViewerDetailsPage getObjectDetailsPage() {
+        return new AuditLogViewerDetailsPage();
     }
 }

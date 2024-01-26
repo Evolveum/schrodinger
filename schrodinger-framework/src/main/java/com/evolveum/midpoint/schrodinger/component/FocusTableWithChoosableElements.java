@@ -30,18 +30,18 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/9/2018.
  */
-public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
+public class FocusTableWithChoosableElements<T> extends AbstractTable<T, FocusTableWithChoosableElements<T>> {
     public FocusTableWithChoosableElements(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
     @Override
-    public PrismForm<AbstractTable<T>> clickByName(String name) {
+    public PrismForm<AbstractTable<T, FocusTableWithChoosableElements<T>>> clickByName(String name) {
         return null;
     }
 
     @Override
-    public AbstractTable<T> selectCheckboxByName(String name) {
+    public FocusTableWithChoosableElements<T> selectRowByName(String name) {
         Utils.waitForAjaxCallFinish();
         SelenideElement checkbox = getParentElement()
                 .$(Schrodinger.byElementValue("td", "data-s-id", "3", "div", name))
@@ -66,6 +66,6 @@ public class FocusTableWithChoosableElements<T> extends AbstractTable<T> {
         SelenideElement searchElement = getParentElement().find(By.cssSelector(".search-panel-form"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-        return new Search<FocusTableWithChoosableElements<T>>(this, searchElement);
+        return new Search<>(this, searchElement);
     }
 }

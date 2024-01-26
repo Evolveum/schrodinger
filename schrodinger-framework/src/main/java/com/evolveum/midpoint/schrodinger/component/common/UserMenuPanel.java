@@ -28,7 +28,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class UserMenuPanel<BP extends BasicPage> extends Component<BP> {
+public class UserMenuPanel<BP extends BasicPage> extends Component<BP, UserMenuPanel<BP>> {
 
     public UserMenuPanel(BP parent, SelenideElement parentElement) {
         super(parent, parentElement);

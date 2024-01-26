@@ -26,7 +26,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WizardStepPanel<T> extends Component<T> {
+public class WizardStepPanel<T> extends Component<T, WizardStepPanel<T>> {
     protected static final String ID_CONTENT_BODY = "contentBody";
 
     public WizardStepPanel(T parent, SelenideElement parentElement) {

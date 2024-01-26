@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.self.QuickSearch;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
@@ -42,10 +43,10 @@ public class HomePage extends BasicPage {
         return new QuickSearch<HomePage>(this, searchElement);
     }
 
-    public TableWithPageRedirect<HomePage> myRequestsTable() {
+    public <T extends TableWithPageRedirect<HomePage, CasePage, T>> TableWithPageRedirect<HomePage, CasePage, T> myRequestsTable() {
         SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//table[@data-s-id='table']");
-        return new TableWithPageRedirect<HomePage>(HomePage.this, table) {
+        return new TableWithPageRedirect<>(HomePage.this, table) {
             @Override
             public CasePage clickByName(String name) {
                 getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
@@ -55,13 +56,8 @@ public class HomePage extends BasicPage {
             }
 
             @Override
-            public TableWithPageRedirect<HomePage> selectCheckboxByName(String name) {
-                return null;
-            }
-
-            @Override
-            protected TableHeaderDropDownMenu<TableWithPageRedirect<CasePage>> clickHeaderActionDropDown() {
-                return null;
+            public CasePage getObjectDetailsPage(){
+                return new CasePage();
             }
 
         };

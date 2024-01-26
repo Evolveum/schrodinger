@@ -25,15 +25,10 @@ import com.evolveum.midpoint.schrodinger.page.report.ReportPage;
 /**
  * Created by honchar
  */
-public class CreatedReportsTable extends AssignmentHolderObjectListTable<CreatedReportsPage, ReportPage> {
+public class CreatedReportsTable extends AssignmentHolderObjectListTable<CreatedReportsPage, ReportPage, CreatedReportsTable> {
 
     public CreatedReportsTable(CreatedReportsPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<ReportTable> clickHeaderActionDropDown() {
-        return null;
     }
 
     @Override

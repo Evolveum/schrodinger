@@ -29,7 +29,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selectors.byText;
 
-public class SearchPropertiesConfigPanel<T> extends Component<T> {
+public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertiesConfigPanel<T>> {
 
     public SearchPropertiesConfigPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -58,7 +58,7 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
-    public Table<SearchPropertiesConfigPanel> getPropertiesTable() {
+    public Table<SearchPropertiesConfigPanel, Table> getPropertiesTable() {
         SelenideElement tableElement = getParentElement().$(By.tagName("table")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         Table propertiesTable = new Table(this, tableElement);
         return propertiesTable;
@@ -119,13 +119,13 @@ public class SearchPropertiesConfigPanel<T> extends Component<T> {
     }
 
     private TableRow getTableRowForProperty(String propertyName, boolean addPropertyIfAbsent) {
-        TableRow propertyRow = getPropertiesTable().findRowByColumnLabel("Property", propertyName);
+        TableRow propertyRow = getPropertiesTable().findRowByColumnLabelAndRowValue("Property", propertyName);
         if (propertyRow == null && !addPropertyIfAbsent) {
             return null;
         }
         if (propertyRow == null && addPropertyIfAbsent) {
             addPropertyToTable(propertyName);
-            propertyRow = getPropertiesTable().findRowByColumnLabel("Property", propertyName);
+            propertyRow = getPropertiesTable().findRowByColumnLabelAndRowValue("Property", propertyName);
         }
         return propertyRow;
     }

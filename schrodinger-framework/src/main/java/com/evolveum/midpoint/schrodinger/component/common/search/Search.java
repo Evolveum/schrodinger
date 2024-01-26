@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class Search<T> extends Component<T> {
+public class Search<T> extends Component<T, Search<T>> {
 
     public Search(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -64,7 +64,7 @@ public class Search<T> extends Component<T> {
     }
 
     public ReferenceSearchItemPanel<Search<T>> referencePanelByItemName(String itemName, boolean addIfAbsent) {
-        return new ReferenceSearchItemPanel(this, getItemSearchElement(itemName, addIfAbsent));
+        return new ReferenceSearchItemPanel<>(this, getItemSearchElement(itemName, addIfAbsent));
     }
 
     public DateIntervalSearchItemPanel<Search<T>> dateIntervalPanelByItemName(String itemName) {
@@ -241,7 +241,16 @@ public class Search<T> extends Component<T> {
         return $(By.className("search-popover")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
     }
 
-
+    public Search<T> selectCustomFiler(String filterName) {
+        SelenideElement searchItemElement = getItemSearchElement(filterName, false);
+        SelenideElement checkBox = searchItemElement.$(Schrodinger.byDataId("checkDisable")).$(By.tagName("input"));
+        if (checkBox.isDisplayed() && checkBox.is(Condition.checked)) {
+            return this;
+        }
+        checkBox.click();
+        Utils.waitForAjaxCallFinish();
+        return this;
+    }
 
     public Search<T> resetBasicSearch() {
         choiceBasicSearch();

@@ -9,7 +9,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$x;
 
-public class MultiCompositedButtonPanel<T> extends Component<T> {
+public class MultiCompositedButtonPanel<T> extends Component<T, MultiCompositedButtonPanel<T>> {
 
     public MultiCompositedButtonPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

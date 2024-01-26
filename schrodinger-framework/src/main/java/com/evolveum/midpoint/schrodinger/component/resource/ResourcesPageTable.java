@@ -27,15 +27,10 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListResourcesPage, ResourcePage> {
+public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListResourcesPage, ResourcePage, ResourcesPageTable> {
 
     public ResourcesPageTable(ListResourcesPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<ResourcesPageTable> clickHeaderActionDropDown() {
-        return null;
     }
 
     @Override
@@ -43,13 +38,7 @@ public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListReso
         Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byElementValue("span", Schrodinger.DATA_S_ID, "label", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        ResourcePage detailsPage = new ResourcePage();
-        //TODO what is this?
-        if (detailsPage.isUseTabbedPanel()) {
-            detailsPage.getTabPanel();
-        } else {
-            detailsPage.getNavigationPanel();
-        }
+        Utils.waitForMainPanelOnDetailsPage();
         return new ResourcePage();
     }
 

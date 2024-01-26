@@ -24,7 +24,6 @@ import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
 
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -142,7 +141,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                             .inputValue("0919")
                             .updateSearch()
                         .and()
-                        .findRowByColumnLabel("Name", "0919")
+                        .findRowByColumnLabelAndRowValue("Name", "0919")
                         .clickCheckBox()
                         .and()
                     .and()
@@ -215,7 +214,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                                                     .inputValue("Secret Projects I")
                                                     .updateSearch()
                                                     .and()
-                                            .selectCheckboxByName("Secret Projects I")
+                                            .selectRowByName("Secret Projects I")
                                             .and()
                                         .clickAdd()
                                     .and()
@@ -238,7 +237,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                                                 .inputValue("kirk")
                                                 .updateSearch()
                                             .and()
-                                        .selectCheckboxByName("kirk")
+                                        .selectRowByName("kirk")
                                         .and()
                                     .clickAdd()
                                 .and()
@@ -288,7 +287,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                                                     .inputValue("Secret Projects II")
                                                     .updateSearch()
                                                 .and()
-                                            .selectCheckboxByName("Secret Projects II")
+                                            .selectRowByName("Secret Projects II")
                                             .and()
                                         .clickAdd()
                                     .and()

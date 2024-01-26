@@ -29,15 +29,11 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 /**
  * Created by Kate Honchar.
  */
-public class ObjectCollectionsListTable extends AssignmentHolderObjectListTable<ListObjectCollectionsPage, ObjectCollectionPage> {
+public class ObjectCollectionsListTable extends
+        AssignmentHolderObjectListTable<ListObjectCollectionsPage, ObjectCollectionPage, ObjectCollectionsListTable> {
 
     public ObjectCollectionsListTable(ListObjectCollectionsPage parent, SelenideElement parentElement){
         super(parent, parentElement);
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<ObjectCollectionsListTable> clickHeaderActionDropDown() {
-        return null;
     }
 
     @Override

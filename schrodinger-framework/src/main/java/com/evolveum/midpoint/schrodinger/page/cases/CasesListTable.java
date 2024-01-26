@@ -29,15 +29,10 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Kate Honchar.
  */
-public class CasesListTable extends AssignmentHolderObjectListTable<CasesPage, CasePage> {
+public class CasesListTable extends AssignmentHolderObjectListTable<CasesPage, CasePage, CasesListTable> {
 
     public CasesListTable(CasesPage parent, SelenideElement parentElement){
         super(parent, parentElement);
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<CasesListTable> clickHeaderActionDropDown() {
-        return null;
     }
 
     @Override

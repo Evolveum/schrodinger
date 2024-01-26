@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 public class ReportPage extends AssignmentHolderDetailsPage<ReportPage> {
 
     public ReportPage() {
-        super(true);
     }
 
     @Override

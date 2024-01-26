@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ArchetypePage extends AbstractRolePage {
+public class ArchetypePage extends AbstractRolePage<ArchetypePage> {
 
     @Override
     public ProjectionsPanel<ArchetypePage> selectProjectionsPanel() {

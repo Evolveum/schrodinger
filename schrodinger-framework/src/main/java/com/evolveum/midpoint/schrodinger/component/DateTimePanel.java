@@ -26,7 +26,7 @@ import org.testng.Assert;
 /**
  * Created by honchar
  */
-public class DateTimePanel<T> extends Component<T> {
+public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
     public enum AmOrPmChoice {
         AM, PM

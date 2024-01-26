@@ -144,7 +144,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
                 .inputValue(ROLE_POST_AUTHENTICATION_AUTHORIZATION_NAME)
                 .updateSearch()
                 .and()
-                .selectCheckboxByName(ROLE_POST_AUTHENTICATION_AUTHORIZATION_NAME)
+                .selectRowByName(ROLE_POST_AUTHENTICATION_AUTHORIZATION_NAME)
                 .and()
                 .clickAdd().and();
         sleep(1000);

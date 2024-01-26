@@ -34,7 +34,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 3/20/2018.
  */
-public class FeedbackBox<T> extends Component<T> {
+public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
 
     public FeedbackBox(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

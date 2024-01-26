@@ -30,7 +30,7 @@ import org.apache.commons.lang3.Validate;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class Paging<T> extends Component<T> {
+public class Paging<T> extends Component<T, Paging<T>> {
 
     public Paging(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -148,7 +148,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return new ShoppingCartStepPanel(getParent());
     }
 
-    private static class RolesOfTeammatePanel extends Component<RequestAccessPage> {
+    private static class RolesOfTeammatePanel extends Component<RequestAccessPage, RolesOfTeammatePanel> {
 
         public RolesOfTeammatePanel(RequestAccessPage parent, SelenideElement parentElement) {
             super(parent, parentElement);

@@ -16,12 +16,14 @@
 
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class InboundMappingsPanel<T> extends TableWizardStepPanel<T> {
+public class InboundMappingsPanel<T> extends TableWizardStepPanel<T, InboundMappingsTable<InboundMappingsPanel<T>>> {
 
     public InboundMappingsPanel(T parent) {
         super(parent);
@@ -31,6 +33,31 @@ public class InboundMappingsPanel<T> extends TableWizardStepPanel<T> {
         table()
                 .getToolbarButtonByTitleKey("InboundAttributeMappingsTable.newObject")
                 .click();
+        return new InboundMappingsTable<>(InboundMappingsPanel.this, $(Schrodinger.byDataId("table")));
+    }
+
+    public InboundMappingsPanel<T> assertMappingExist(String mappingName) {
+        table().assertTableContainsColumnWithValue("Name", mappingName);
+        return this;
+    }
+
+    public InboundMappingsPanel<T> assertMappingLifecycleStateEquals(String mappingName, String lifecycleStateExpectedValue) {
+        TableRow<?, ?> row = table().findRowByColumnLabelAndRowValue("Name", mappingName);
+        String stateRealValue = row.getColumnCellTextByColumnName("Lifecycle state");
+        assertion.assertEquals(stateRealValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
+                "to: " + lifecycleStateExpectedValue + "; actual value: " + stateRealValue);
+        return this;
+    }
+
+    public InboundMappingsPanel<T> assertMappingIconTitleEquals(String mappingName, String iconTitle) {
+        TableRow<?, ?> row = table().findRowByColumnLabelAndRowValue("Name", mappingName);
+        SelenideElement iconElement = row.getParentElement().$x(".//i[@data-s-id='image' and @title='" + iconTitle + "']");
+        assertion.assertTrue(iconElement.exists() && iconElement.isDisplayed(), "Icon with title " +
+                iconTitle + "should exist for mapping: " + mappingName);
+        return this;
+    }
+
+    public InboundMappingsTable<InboundMappingsPanel<T>> table() {
         return new InboundMappingsTable<>(InboundMappingsPanel.this, $(Schrodinger.byDataId("table")));
     }
 }

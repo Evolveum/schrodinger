@@ -34,7 +34,7 @@ import org.openqa.selenium.By;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class InlineMenu<T> extends Component<T> {
+public class InlineMenu<T> extends Component<T, InlineMenu<T>> {
 
     public InlineMenu(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -124,13 +124,19 @@ public class InlineMenu<T> extends Component<T> {
     public InlineMenu<T> clickInlineMenuButtonByTitle(String title) {
         getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", title))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 
     public InlineMenu<T> clickInlineMenuButtonByIconClass(String iconClass) {
+        if (!iconClass.startsWith(".")) {
+            iconClass = "." + iconClass;
+        }
+        iconClass = iconClass.replaceAll(" ", ".");
         getParentElement().$(By.cssSelector(iconClass))
                 .scrollIntoView(false)
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 }

@@ -19,28 +19,20 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
-import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeWizardPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class SchemaHandlingPanel extends Component<ResourcePage> {
+public class SchemaHandlingPanel extends Component<ResourcePage, SchemaHandlingPanel> {
 
     public SchemaHandlingPanel(ResourcePage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ObjectTypeBasicInformationWizardStep addNewObjectType() {
-        String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
-        String titleTranslated = Utils.translate(addNewObjectTypeKey);
-        $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        Utils.waitForAjaxCallFinish();
-        ObjectTypeWizardPage objectTypeWizardPage = new ObjectTypeWizardPage();
-        return new ObjectTypeBasicInformationWizardStep(objectTypeWizardPage);
+    public SchemaHandlingTable<SchemaHandlingPanel> getSchemaHandlingTable() {
+        SelenideElement element = $(Schrodinger.byDataId("div", "table"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new SchemaHandlingTable<>(this, element);
     }
 
 }

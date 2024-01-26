@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PreviewChangesPanel extends Component<PreviewPage> {
+public class PreviewChangesPanel extends Component<PreviewPage, PreviewChangesPanel> {
 
     public PreviewChangesPanel(PreviewPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

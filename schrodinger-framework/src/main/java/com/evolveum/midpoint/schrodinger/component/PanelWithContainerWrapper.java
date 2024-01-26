@@ -24,7 +24,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
  * @author skublik
  */
 
-public class PanelWithContainerWrapper<P> extends Component<P> {
+public class PanelWithContainerWrapper<P> extends Component<P, PanelWithContainerWrapper<P>> {
 
     public PanelWithContainerWrapper(P parent, SelenideElement parentElement) {
         super(parent, parentElement);

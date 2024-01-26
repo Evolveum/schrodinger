@@ -174,7 +174,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         basicPage
                 .listUsers("Employees")
                     .table()
-                        .assertTableObjectsCountEquals(1)
+                        .assertVisibleObjectsCountEquals(1)
                         .assertCurrentTableContains("janeway");
     }
 
@@ -183,7 +183,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         changeResourceAttribute(HR_RESOURCE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, hrTargetFile.getAbsolutePath(), true);
 
         getShadowTable(HR_RESOURCE_NAME, "name", "001212")
-                .selectCheckboxByName("001212")
+                .selectRowByName("001212")
                 .importAccount();
         showUser("X001212")
             .assertGivenName("John")
@@ -228,7 +228,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
         basicPage
                 .listUsers()
                     .table()
-                        .assertTableObjectsCountEquals(15);
+                        .assertVisibleObjectsCountEquals(15);
 
         TaskPage task = basicPage.newTask("Live synchronization task");
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
@@ -269,7 +269,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .inputValue("000999")
                         .updateSearch()
                     .and()
-                    .assertTableObjectsCountEquals(1);
+                    .assertVisibleObjectsCountEquals(1);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_2, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
@@ -282,7 +282,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
                         .inputValue("Arnold J.")
                         .updateSearch()
                     .and()
-                    .assertTableObjectsCountEquals(1);
+                    .assertVisibleObjectsCountEquals(1);
 
         FileUtils.copyFile(HR_SOURCE_FILE_1_3_UPDATE_3, hrTargetFile);
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
@@ -314,7 +314,7 @@ public class M1ArchetypeAndObjectCollections extends AbstractAdvancedLabTest {
 
         basicPage.listUsers("Empty Telephones")
                 .table()
-                    .assertTableObjectsCountNotEquals(0);
+                    .assertAllObjectsCountNotEquals(0);
 
     }
 }

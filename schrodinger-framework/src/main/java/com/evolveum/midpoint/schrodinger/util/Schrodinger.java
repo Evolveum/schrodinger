@@ -616,6 +616,57 @@ public class Schrodinger {
     }
 
     /**
+     * <p>Produces a XPath query pointing to an element. This is based on the elements ancestors preceding sibling or
+     * any of the siblings children. Search is based on the ancestors preceding sibling (or its children) "value"
+     * attribute value</p>
+     *
+     * @param element
+     * <p>An element which is the subject of the search. e.g. <code>li</code></p>
+     *
+     * @param attr
+     * <p>Attribute of the searched element e.g. <code>type</code></p>
+     *
+     * @param attrValue
+     * <p>Value of the previously specified attribute</p>
+     *
+     * @param ancestorAttr
+     * <p>Attribute of the ancestor of the searched element e.g. <code>data-s-id</code></p>
+     *
+     * @param ancestorAttrValue
+     * <p>Value of the ancestor attribute</p>
+     *
+     * @param value
+     * <p>String which is defined in the 'value' attribute</p>
+     *
+     * @return the XPath query value for the searched element
+     */
+
+    public static By byAncestorPrecedingSiblingDescendantOrSelfElementValue(String element, String attr,
+                                                                                    String attrValue, String ancestorAttr,
+                                                                                    String ancestorAttrValue, String value) {
+        if (element == null) {
+            element = "*";
+        }
+
+        StringBuilder xpathBuilder = new StringBuilder(".//").append(element).append("[ancestor::*[");
+
+        if (ancestorAttr != null) {
+            xpathBuilder.append("@").append(ancestorAttr).append("=\"").append(ancestorAttrValue)
+                    .append("\" and preceding-sibling::*[descendant-or-self::*[@value='" + value+ "']]]")
+                    .append(" or preceding-sibling::*[").append("@").append(ancestorAttr).append("=\"").append(ancestorAttrValue)
+                    .append("\" and descendant-or-self::*[@value='\" + value+ \"']]]");
+        } else {
+            xpathBuilder.append("preceding-sibling::*[descendant-or-self::*[@value='\" + value+ \"']]]]");
+        }
+
+        if (attr != null) {
+            xpathBuilder.append("[@").append(attr).append("=\"").append(attrValue).append("\"]");
+        }
+
+        return By.xpath(xpathBuilder.toString());
+    }
+
+    /**
      * <p>Produces a XPath query pointing to an element. This is based on the elements ancestors following sibling or
      * any of the siblings children. Search is based on the ancestors following sibling (or its children) enclosed text</p>
      *

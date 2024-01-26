@@ -185,7 +185,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                             .clickGenericsTab()
                                 .clickSearchInResource()
                                     .table()
-                                        .assertTableObjectsCountEquals(10); //todo check UNLINKED: 7 objects; UNMATCHED: 3 objects
+                                        .assertVisibleObjectsCountEquals(10); //todo check UNLINKED: 7 objects; UNMATCHED: 3 objects
 
         addObjectFromFile(OBJECT_TEMPLATE_EXAMPLE_ORG);
 
@@ -305,7 +305,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
                                 .and()
                             .selectProjectionsPanel()
                                 .table()
-                                    .assertTableObjectsCountEquals(4); //todo actual result should be 5 when ldap resource is up
+                                    .assertVisibleObjectsCountEquals(4); //todo actual result should be 5 when ldap resource is up
         //todo check notification
     }
 

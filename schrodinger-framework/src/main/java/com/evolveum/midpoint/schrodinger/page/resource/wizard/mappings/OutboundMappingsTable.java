@@ -17,9 +17,13 @@
 package com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings;
 
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.common.ChangeLifecyclePopup;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.openqa.selenium.By;
 
-public class OutboundMappingsTable<T> extends MappingsTable<T> {
+public class OutboundMappingsTable<T> extends MappingsTable<T, OutboundMappingsTable<T>> {
 
     public OutboundMappingsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -94,4 +98,33 @@ public class OutboundMappingsTable<T> extends MappingsTable<T> {
                 .click();
         return OutboundMappingsTable.this;
     }
+
+    public OutboundMappingsTable<T> assertAllLifecycleStateValuesEqual(String lifecycleStateExpectedValue) {
+        int rowsCount = rowsCount();
+        for (int i = 1; i <= rowsCount; i++) {
+            assertLifecycleStateValueEquals(i, lifecycleStateExpectedValue);
+        }
+        return this;
+    }
+
+    public OutboundMappingsTable<T> assertLifecycleStateValueEquals(int rowIndex,
+                                                                        String lifecycleStateExpectedValue) {
+        TableRow<?, ?> tableRow = getTableRow(rowIndex);
+        SelenideElement cell = tableRow.getColumnCellElementByColumnName("Lifecycle state");
+        SelenideElement select = cell.$(By.tagName("select"));
+        String actualValue = select.getText();
+        assertion.assertEquals(actualValue, lifecycleStateExpectedValue, "Lifecycle state value should be equal " +
+                "to: " + lifecycleStateExpectedValue + "; actual value: " + actualValue);
+        return this;
+    }
+
+
+    public OutboundMappingsTable<T> changeLifecycleStateForSelectedRows(String lifecycleStateExpectedValue) {
+        clickHeaderInlineMenuButton(".fa.fa-heart-pulse");
+        ChangeLifecyclePopup<OutboundMappingsTable<T>> changeLifecyclePopup = new ChangeLifecyclePopup(this, Utils.getModalWindowSelenideElement());
+        return changeLifecyclePopup
+                .selectLifecycleValue(lifecycleStateExpectedValue)
+                .clickApplyChanges();
+    }
+
 }

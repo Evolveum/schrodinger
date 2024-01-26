@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 
-public class CompositedButtonPanel<T> extends Component<T> {
+public class CompositedButtonPanel<T> extends Component<T, CompositedButtonPanel<T>> {
 
     public CompositedButtonPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

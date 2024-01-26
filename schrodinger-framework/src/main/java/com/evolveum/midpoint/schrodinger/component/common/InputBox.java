@@ -21,7 +21,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 /**
  * Created by martin.lizner on 12/08/2018.
  */
-public class InputBox<T> extends Component<T> {
+public class InputBox<T> extends Component<T, InputBox<T>> {
     public InputBox(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

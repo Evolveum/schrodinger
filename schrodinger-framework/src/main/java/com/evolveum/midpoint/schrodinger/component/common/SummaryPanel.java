@@ -32,7 +32,7 @@ import static com.codeborne.selenide.Selenide.$$;
 /**
  * Created by matus on 3/21/2018.
  */
-public class SummaryPanel<T> extends Component<T> {
+public class SummaryPanel<T> extends Component<T, SummaryPanel<T>> {
     public SummaryPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

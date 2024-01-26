@@ -20,11 +20,15 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
+import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
+import com.evolveum.midpoint.schrodinger.component.modal.SelectMarkModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.simulation.ProcessedObjectsTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +39,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/25/2018.
  */
-public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
+public class ResourceShadowTable<T> extends TableWithPageRedirect<T, AccountPage, ResourceShadowTable<T>> {
     public ResourceShadowTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
@@ -53,7 +57,7 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     }
 
     @Override
-    public ResourceShadowTable<T> selectCheckboxByName(String name) {
+    public ResourceShadowTable<T> selectRowByName(String name) {
         Utils.waitForAjaxCallFinish();
         SelenideElement check = $(Schrodinger.byAncestorFollowingSiblingDescendantOrSelfElementEnclosedValue("input", "type", "checkbox", "data-s-id", "3", name));
         check.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
@@ -91,8 +95,8 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
     }
 
     @Override
-    public Search<? extends ResourceShadowTable<T>> search() {
-        return (Search<? extends ResourceShadowTable<T>>) super.search();
+    public Search<ResourceShadowTable<T>> search() {
+        return (Search<ResourceShadowTable<T>>) super.search();
     }
 
     public ResourceShadowTable<T> enable() {
@@ -140,6 +144,19 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
         return new TaskExecutionModePopup(ResourceShadowTable.this, popup);
     }
 
+    public ResourceShadowTable<T> removeMarks() {
+        return removeMarks(null, null);
+    }
+
+    public ResourceShadowTable<T> removeMarks(String columnTitleKey, String rowValue, String... marks) {
+        clickMenu(columnTitleKey, rowValue, "pageContentAccounts.menu.mark.remove");
+        SelectMarkModal<ResourceShadowTable<T>> modal =
+                new SelectMarkModal<>(this, Utils.getModalWindowSelenideElement());
+        modal.selectMarks(marks);
+        modal.clickConfirmationButton();
+        return this;
+    }
+
     public ResourceShadowTable<T> removeOwner() {
         return removeOwner(null, null);
     }
@@ -148,4 +165,35 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T> {
         clickMenuItemWithConfirmation(columnTitleKey, rowValue, "pageContentAccounts.menu.removeOwner");
         return this;
     }
+
+    public ResourceShadowTable<T> assertRealObjectIsMarked(String objectName, String markName) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement mark = row.getParentElement()
+                .$x(".//span[@data-s-id='realMarks' and contains(text(), '" + markName + "')]");
+        assertion.assertTrue(mark.isDisplayed(), "Mark " + markName + " is not present for object " + objectName);
+        return this;
+    }
+
+    public ResourceShadowTable<T> assertProcessedObjectIsMarked(String objectName, String markName) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement mark = row.getParentElement()
+                .$x(".//span[@data-s-id='processedMarks' and contains(text(), '" + markName + "')]");
+        assertion.assertTrue(mark.isDisplayed(), "Mark " + markName + " is not present for object " + objectName);
+        return this;
+    }
+
+    public ResourceShadowTable<T> assertSituationEquals(String objectName, String situation) {
+        TableRow<?, ?> row = findRowByColumnLabelAndRowValue("Name", objectName, true);
+        SelenideElement cell = row.getParentElement()
+                .$x(".//div[@data-s-id='cell' and contains(text(), '" + situation + "')]");
+        assertion.assertTrue(cell.isDisplayed(), "Situation " + situation + " is not present for object " + objectName);
+        return this;
+    }
+
+
+    @Override
+    public AccountPage getObjectDetailsPage(){
+        return new AccountPage();
+    }
+
 }

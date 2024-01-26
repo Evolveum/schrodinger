@@ -23,6 +23,8 @@ import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.modal.ForwardWorkitemModal;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.cases.DeltasToBeApprovedTable;
+import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -36,7 +38,7 @@ import static com.codeborne.selenide.Selenide.$x;
 /**
  * Created by Kate Honchar
  */
-public class WorkitemDetailsPanel<P> extends Component<P> {
+public class WorkitemDetailsPanel<P> extends Component<P, WorkitemDetailsPanel<P>> {
 
     public WorkitemDetailsPanel(P parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -96,5 +98,9 @@ public class WorkitemDetailsPanel<P> extends Component<P> {
         $(By.tagName("textarea")).shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S)
                 .setValue(comment);
         return this;
+    }
+
+    public DeltasToBeApprovedTable<WorkitemDetailsPanel<P>> deltasToBeApprovedTable() {
+        return new DeltasToBeApprovedTable<>(WorkitemDetailsPanel.this);
     }
 }

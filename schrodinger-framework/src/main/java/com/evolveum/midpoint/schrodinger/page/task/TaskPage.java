@@ -28,6 +28,8 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.task.*;
 
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
+import com.evolveum.midpoint.schrodinger.simulation.SimulationResultDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
@@ -59,16 +61,10 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public ProgressPage clickSaveAndRun() {
-        if (isUseTabbedPanel()) {
-            $(Schrodinger.byDataId("saveAndRun"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-        } else {
-            SelenideElement button = $(byText("Save & Run"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-            Utils.scrollToElement(button);
-            button.click();
-        }
+        SelenideElement button = $(byText("Save & Run"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ProgressPage();
     }
@@ -91,7 +87,19 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
     public TaskPage clickRunNow() {
         $(Schrodinger.byElementAttributeValue("a", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
+        return this;
+    }
 
+    public TaskPage clickRunNowAndWaitToBeClosed() {
+        $(Schrodinger.byElementAttributeValue("a", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
+
+        SelenideElement statusTag = summary().getParentElement()
+                .$(Schrodinger.byElementAttributeValue("div", "class", "summary-tag-box"))
+                        .$(Schrodinger.byDataId("summaryTag"))
+                                .$(Schrodinger.byDataId("summaryTagLabel"));
+        statusTag.shouldHave(Condition.text("Closed"), MidPoint.TIMEOUT_LONG_1_M);
         return this;
     }
 
@@ -186,5 +194,15 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 //        $(Schrodinger.byElementAttributeValue("li", "textvalue", handler)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         handlerElement.shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
+    }
+
+    public SimulationResultDetailsPage showSimulationResult() {
+        clickOperationButtonByLabelKey("PageTask.simulationResult");
+        return new SimulationResultDetailsPage();
+    }
+
+    public ResourcePage backToResourcePage() {
+        clickOperationButtonByTitleAttributeValue("Back");
+        return new ResourcePage();
     }
 }

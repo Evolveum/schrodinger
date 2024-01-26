@@ -20,13 +20,10 @@ import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModalTable;
-import com.evolveum.midpoint.schrodinger.component.self.RequestRoleTab;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
-import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import jdk.jshell.execution.Util;
 
 import static com.codeborne.selenide.Selenide.$;
 

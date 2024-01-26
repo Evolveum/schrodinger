@@ -112,7 +112,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                         .clickSearchInResource();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         accountTab.table()
-                .selectCheckboxByName("001212")
+                .selectRowByName("001212")
                         .importAccount()
                     .and()
                 .and()
@@ -138,7 +138,7 @@ public class M8ExtendingMidPointXMLSchema extends AbstractLabTest {
                                 .inputValue("Internal Employee")
                                 .updateSearch()
                             .and()
-                        .selectCheckboxByName("Internal Employee")
+                        .selectRowByName("Internal Employee")
                         .and()
                     .clickAdd()
                 .and()

@@ -117,10 +117,10 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .assignMember()
                                 .selectType("Role")
                                 .table()
-                                    .selectCheckboxByName("Metarole - Request Additional Approval by Big Brother")
-                                    .selectCheckboxByName("Metarole - Request Approval by Role Approver(s)")
-                                    .selectCheckboxByName("Metarole - Request Approval by Security Officer for Non-employees")
-                                    .selectCheckboxByName("Metarole - Request Approval by User Manager(s)")
+                                    .selectRowByName("Metarole - Request Additional Approval by Big Brother")
+                                    .selectRowByName("Metarole - Request Approval by Role Approver(s)")
+                                    .selectRowByName("Metarole - Request Approval by Security Officer for Non-employees")
+                                    .selectRowByName("Metarole - Request Approval by User Manager(s)")
                                     .and()
                                 .clickAdd()
 //                                .selectType("All")
@@ -214,7 +214,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .inputValue("administrator")
                         .updateSearch()
                     .and()
-                    .selectCheckboxByName("administrator");
+                    .selectRowByName("administrator");
         modal.clickAdd();
         basicPage
                 .feedback()
@@ -322,7 +322,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         basicPage.loggedUser().logout();
         loginPage.login("X000390", "qwerty12345XXXX")
                 .assertUserMenuExist();
-        basicPage.myItems()
+        basicPage.myWorkItems()
                     .table()
                         .clickByName("") //todo insert name
                             //todo approve
@@ -344,7 +344,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         loginPage.login("X000089", "qwerty12345XXXX")
                 .assertUserMenuExist();
 
-        basicPage.myItems()
+        basicPage.myWorkItems()
                 .table()
                     .clickByName("")
                         .detailsPanel()
@@ -385,7 +385,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .byType("Role")
                         .updateSearch()
                     .and()
-                        .assertTableObjectsCountEquals(0);
+                        .assertVisibleObjectsCountEquals(0);
 
         basicPage.loggedUser().logout();
         loginPage.login("X000158", "qwerty12345XXXX")
@@ -522,7 +522,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 //                        .clickRequestButton()
 //                        .assertFeedbackExists();
         basicPage
-                .myItems()
+                .myWorkItems()
                     .table()
                         .approveWorkitemByName("X000158")
                         .and()
@@ -539,7 +539,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         loginPage.login("X000089", "qwerty12345XXXX")
                 .assertUserMenuExist();
         basicPage
-                .myItems()
+                .myWorkItems()
                     .table()
                         .approveWorkitemByName("X000158")
                         .and()
@@ -571,7 +571,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .inputValue("administrator")
                             .updateSearch()
                             .and()
-                    .selectCheckboxByName("administrator")
+                    .selectRowByName("administrator")
                     .and()
                 .clickAdd()
                 .and()
@@ -600,8 +600,8 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                             .assignMember()
                                 .selectType("Role")
                                 .table()
-                                    .selectCheckboxByName("Metarole - Role Modification Approval by Role Owner(s)")
-                                    .selectCheckboxByName("Metarole - Role Modification Approval by Security Officer")
+                                    .selectRowByName("Metarole - Role Modification Approval by Role Owner(s)")
+                                    .selectRowByName("Metarole - Role Modification Approval by Security Officer")
                                     .and()
                                 .clickAdd()
 //                                .selectType("All")
@@ -612,7 +612,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                                 .and()
                                     .assertTableContainsText("Metarole - Role Modification Approval by Role Owner(s)")
                                     .assertTableContainsText("Metarole - Role Modification Approval by Security Officer")
-                                    .assertTableObjectsCountEquals(6);
+                                    .assertVisibleObjectsCountEquals(6);
 
         RolePage rolePage = showRole("Secret Projects I");
         rolePage
@@ -643,7 +643,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         loginPage.login("security-officer", "sECurit400")
                 .assertUserMenuExist();
 
-        basicPage.myItems()
+        basicPage.myWorkItems()
                    .table()
                         .clickByName("Modifying role")
                             .detailsPanel()
@@ -659,7 +659,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         rolePage.clickSave()
                 .feedback()
                     .assertInfo();
-        basicPage.myItems()
+        basicPage.myWorkItems()
                 .table()
                     .clickByName("Modifying role")
                         .detailsPanel()

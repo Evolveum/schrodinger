@@ -23,7 +23,7 @@ import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 /**
  * Created by honchar.
  */
-public class ConfigurationWizardStep<T> extends Component<T> {
+public class ConfigurationWizardStep<T> extends Component<T, ConfigurationWizardStep<T>> {
         public ConfigurationWizardStep(T parent, SelenideElement parentElement) {
             super(parent, parentElement);
         }

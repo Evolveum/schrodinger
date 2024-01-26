@@ -24,7 +24,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by matus on 5/2/2018.
  */
-public class DropDown<T> extends Component<T> {
+public class DropDown<T> extends Component<T, DropDown<T>> {
     public DropDown(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

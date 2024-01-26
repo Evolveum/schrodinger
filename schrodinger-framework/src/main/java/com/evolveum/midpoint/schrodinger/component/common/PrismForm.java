@@ -39,7 +39,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class PrismForm<T> extends Component<T> {
+public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
     private static final String CARET_DOWN_ICON_STYLE = "fa-caret-down";
 
@@ -55,7 +55,7 @@ public class PrismForm<T> extends Component<T> {
 
         ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
         if (values.size() >= 1) {
-            values.first().$x(".//input[contains(@class,\"form-control\")]").setValue(value);
+            values.first().$x(".//*[@data-s-id='input' and contains(@class,\"form-control\")]").setValue(value);
         }
 
         // todo implement
@@ -251,6 +251,16 @@ public class PrismForm<T> extends Component<T> {
         return this;
     }
 
+    public PrismForm<T> setAceEditorAreaValue(String name, String value) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(name);
+
+        property.$(Schrodinger.byElementAttributeValue("textarea", "class", "ace_text-input"))
+                .shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .sendKeys(value);
+        return this;
+    }
+
     public PrismForm<T> setPolyStringLocalizedValue(QName name, String locale, String value) {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
@@ -419,7 +429,6 @@ public class PrismForm<T> extends Component<T> {
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         newContainerElement.scrollTo();
-        newContainerElement.screenshot();
 
         return this;
     }

@@ -20,6 +20,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
@@ -27,7 +28,7 @@ import org.openqa.selenium.By;
 /**
  * Created by Kate Honchar
  */
-public class ChildrenCaseTable extends TableWithPageRedirect<CasePage> {
+public class ChildrenCaseTable extends TableWithPageRedirect<CasePage, CasePage, ChildrenCaseTable> {
     public ChildrenCaseTable(CasePage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
@@ -39,17 +40,6 @@ public class ChildrenCaseTable extends TableWithPageRedirect<CasePage> {
         return new CasePage();
     }
 
-    @Override
-    public ChildrenCaseTable selectCheckboxByName(String name) {
-        //TODO implement
-
-        return this;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<ChildrenCaseTable> clickHeaderActionDropDown() {
-        return null;
-    }
 
     public CasePage clickByPartialName(String name) {
         getParentElement()
@@ -60,4 +50,8 @@ public class ChildrenCaseTable extends TableWithPageRedirect<CasePage> {
         return new CasePage();
     }
 
+    @Override
+    public CasePage getObjectDetailsPage() {
+        return new CasePage();
+    }
 }

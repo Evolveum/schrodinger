@@ -20,13 +20,14 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
+import com.evolveum.midpoint.schrodinger.page.ObjectDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class DetailsNavigationPanel<T extends AssignmentHolderDetailsPage> extends Component<T> {
+public class DetailsNavigationPanel<T extends ObjectDetailsPage> extends Component<T, DetailsNavigationPanel<T>> {
 
     public DetailsNavigationPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

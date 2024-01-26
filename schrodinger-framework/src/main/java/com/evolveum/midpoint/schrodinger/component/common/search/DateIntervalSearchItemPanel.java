@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class DateIntervalSearchItemPanel<T> extends Component<T> {
+public class DateIntervalSearchItemPanel<T> extends Component<T, DateIntervalSearchItemPanel<T>> {
 
     public DateIntervalSearchItemPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

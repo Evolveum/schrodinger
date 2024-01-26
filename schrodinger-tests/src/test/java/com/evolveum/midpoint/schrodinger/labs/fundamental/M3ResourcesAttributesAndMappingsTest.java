@@ -22,11 +22,9 @@ import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
-import com.evolveum.midpoint.schrodinger.page.resource.SchemaStepSchemaPanel;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 
 import com.evolveum.midpoint.schrodinger.labs.AbstractLabTest;
-import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
 
 import org.apache.commons.io.FileUtils;
@@ -128,7 +126,7 @@ public class M3ResourcesAttributesAndMappingsTest extends AbstractLabTest {
                                         .inputValue(CSV_1_RESOURCE_NAME)
                                     .updateSearch()
                                 .and()
-                                .selectCheckboxByName(CSV_1_RESOURCE_NAME)
+                                .selectRowByName(CSV_1_RESOURCE_NAME)
                                 .and()
                                 .clickAdd()
                             .and()

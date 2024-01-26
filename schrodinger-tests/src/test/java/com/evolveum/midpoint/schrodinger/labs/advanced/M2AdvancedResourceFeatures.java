@@ -111,7 +111,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
     @Test(groups={"advancedM2"})
     public void mod02test01reactionSpecificObjectTemplate() throws IOException {
         getShadowTabTable(CONTRACTORS_RESOURCE_NAME)
-                .selectCheckboxByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
+                .selectRowByName("9a0e3e60-21e4-11e8-b9b8-67f3338057d8")
                 .importAccount();
 
         showUser("aperkeltini")
@@ -120,7 +120,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .assertFullName("Antonio Perkeltini")
                 .selectAssignmentsPanel()
                     .table()
-                        .assertTableObjectsCountEquals(0);
+                        .assertVisibleObjectsCountEquals(0);
 
         showResource(CONTRACTORS_RESOURCE_NAME)
                 .selectAccountsPanel()
@@ -149,7 +149,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                     .assertSucceededCountMatch(11);
         basicPage.listUsers("Externals")
                 .table()
-                    .assertTableObjectsCountEquals(11);
+                    .assertVisibleObjectsCountEquals(11);
 
         //todo check notification file; password is generated message
 
@@ -186,7 +186,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .inputValue("aanderson")
                         .updateSearch()
                         .and()
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                     .assertTableContainsLinkTextPartially("aanderson")
                     .assertTableContainsColumnWithValue("UserType.givenName", "Alice")
                     .assertTableContainsColumnWithValue("UserType.familyName", "Anderson");
@@ -201,7 +201,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                         .inputValue("aanderson")
                         .updateSearch()
                         .and()
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                     .assertTableContainsLinkTextPartially("aanderson")
                     .assertTableContainsColumnWithValue("UserType.givenName", "Ann")
                     .assertTableContainsColumnWithValue("UserType.familyName", "Anderson");
@@ -236,7 +236,7 @@ public class M2AdvancedResourceFeatures extends AbstractAdvancedLabTest {
                 .selectAssignmentsPanel()
                     .clickAddAssignment()
                         .table()
-                            .selectCheckboxByName("Internal Employee")
+                            .selectRowByName("Internal Employee")
                             .and()
                         .clickAdd()
                         .and()

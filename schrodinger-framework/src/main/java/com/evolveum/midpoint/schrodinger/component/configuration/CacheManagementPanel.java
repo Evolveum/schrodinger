@@ -29,7 +29,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class CacheManagementPanel extends Component<InternalsConfigurationPage> {
+public class CacheManagementPanel extends Component<InternalsConfigurationPage, CacheManagementPanel> {
 
     public CacheManagementPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

@@ -33,6 +33,7 @@ public class ConstantsUtil {
     public static final String MENU_ALL_MANUAL_CASES_MENU_ITEM_LABEL_TEXT = "All manual cases";
     public static final String MENU_ALL_REQUESTS_MENU_ITEM_LABEL_TEXT = "All work items";
     public static final String MENU_ALL_REQUESTS_MENU_ITEM_RESOURCE_KEY = "PageAdmin.menu.top.caseWorkItems.listAll";
+    public static final String MENU_MY_WORK_ITEMS_MENU_ITEM_RESOURCE_KEY = "PageAdmin.menu.top.caseWorkItems.list";
     public static final String MENU_ALL_APPROVALS_MENU_ITEM_LABEL_TEXT = "All approvals";
 
     //add new assignment popup - tabs names

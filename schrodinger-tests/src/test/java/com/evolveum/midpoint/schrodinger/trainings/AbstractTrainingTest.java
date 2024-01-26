@@ -18,9 +18,11 @@ package com.evolveum.midpoint.schrodinger.trainings;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 public class AbstractTrainingTest extends AbstractSchrodingerTest {
 
@@ -33,6 +35,10 @@ public class AbstractTrainingTest extends AbstractSchrodingerTest {
     protected static final String MODULE_2_GROUP = "Module2";
     protected static final String MODULE_3_GROUP = "Module3";
     protected static final String MODULE_4_GROUP = "Module4";
+    protected static final String MODULE_5_GROUP = "Module5";
+    protected static final String MODULE_6_GROUP = "Module6";
+    protected static final String MODULE_7_GROUP = "Module7";
+    protected static final String MODULE_8_GROUP = "Module8";
 
     protected static File hrCsvFile;
 
@@ -50,4 +56,9 @@ public class AbstractTrainingTest extends AbstractSchrodingerTest {
         return false;
     }
 
+    @BeforeMethod
+    protected void setDefaultScreenshotName(Method m) {
+        var screenshotName = m.getDeclaringClass().getSimpleName() + "_" + m.getName();
+        basicPage.setScreenshotNamePrefix(screenshotName);
+    }
 }

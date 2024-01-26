@@ -30,7 +30,7 @@ public class ExportPopupPanel<T> extends ModalBox<T> {
         super(parent, parentElement);
     }
 
-    public Table<ExportPopupPanel<T>> table() {
+    public Table<ExportPopupPanel<T>, Table> table() {
         return new Table<>(this,
                 getParentElement().$(Schrodinger.byDataId("div", "table"))
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));

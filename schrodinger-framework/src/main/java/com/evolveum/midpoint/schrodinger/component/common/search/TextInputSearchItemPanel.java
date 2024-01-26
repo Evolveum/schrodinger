@@ -28,7 +28,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class TextInputSearchItemPanel<T extends Search> extends Component<T> {
+public class TextInputSearchItemPanel<T extends Search> extends Component<T, TextInputSearchItemPanel<T>> {
 
     public TextInputSearchItemPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

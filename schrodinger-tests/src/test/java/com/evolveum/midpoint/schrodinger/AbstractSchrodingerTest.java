@@ -34,6 +34,7 @@ import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceConfigurationPanel;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceShadowTable;
+import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.AboutPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
@@ -43,6 +44,7 @@ import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
+import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
@@ -88,7 +90,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final String CSV_RESOURCE_ATTR_UNIQUE = "Unique attribute name";
 
     protected static final String SCHRODINGER_PROPERTIES = "./src/test/resources/configuration/schrodinger.properties";
-
+    protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
             new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
 
@@ -244,6 +246,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
         FormLoginPage login = midPoint.formLogin();
         String locale = getConfigurationPropertyValue("locale");
+        LOG.info("Logging to midpoint with credentials: " + username + "-" + password);
         basicPage = login.loginIfUserIsNotLog(username, password, locale);
 
         if (resetToDefaultBeforeTests()) {
@@ -612,7 +615,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         return role;
     }
 
-    public AssignmentHolderObjectListTable<ListUsersPage, UserPage> showUserInTable(String userName) {
+    public UsersPageTable showUserInTable(String userName) {
         return basicPage.listUsers()
                 .table()
                 .search()
@@ -622,7 +625,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .and();
     }
 
-    public AssignmentHolderObjectListTable<ListRolesPage, RolePage> showRoleInTable(String roleName) {
+    public RolesPageTable showRoleInTable(String roleName) {
         return basicPage.listRoles()
                 .table()
                 .search()
@@ -833,6 +836,16 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected void resetToDefaultAndRelogin() {
         resetToDefault();
 
+        basicPage.loggedUser().logoutIfUserIsLogin();
+
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
+    }
+
+    protected void reimportDefaultSystemConfigurationAndRelogin() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+
+        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         FormLoginPage login = midPoint.formLogin();

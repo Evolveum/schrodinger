@@ -25,7 +25,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar.
  */
-public class MyPasswordQuestionsPanel<T> extends Component<T> {
+public class MyPasswordQuestionsPanel<T> extends Component<T, MyPasswordQuestionsPanel<T>> {
 
     public MyPasswordQuestionsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

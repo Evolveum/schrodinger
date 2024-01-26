@@ -20,7 +20,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.table.EditableRowTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-public class ListOfReactionsTable<T> extends EditableRowTable<T> {
+public class ListOfReactionsTable<T> extends EditableRowTable<T, ListOfReactionsTable> {
 
     public ListOfReactionsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

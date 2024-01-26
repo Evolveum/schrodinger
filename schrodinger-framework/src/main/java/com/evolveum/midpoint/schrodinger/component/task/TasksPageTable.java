@@ -35,7 +35,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 6/25/2018.
  */
-public class TasksPageTable extends AssignmentHolderObjectListTable<ListTasksPage, TaskPage> {
+public class TasksPageTable extends AssignmentHolderObjectListTable<ListTasksPage, TaskPage, TasksPageTable> {
     public TasksPageTable(ListTasksPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

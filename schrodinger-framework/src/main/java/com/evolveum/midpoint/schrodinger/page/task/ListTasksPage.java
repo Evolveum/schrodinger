@@ -15,13 +15,13 @@
  */
 package com.evolveum.midpoint.schrodinger.page.task;
 
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.task.TasksPageTable;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ListTasksPage extends AssignmentHolderObjectListPage<TasksPageTable, TaskPage> {
+public class ListTasksPage extends ObjectListPageWithPageRedirect<TasksPageTable, TaskPage> {
 
     @Override
     public TasksPageTable table() {

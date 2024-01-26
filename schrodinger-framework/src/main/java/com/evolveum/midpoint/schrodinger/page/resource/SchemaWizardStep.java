@@ -22,7 +22,7 @@ import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
 /**
  * Created by honchar.
  */
-public class SchemaWizardStep extends Component<ResourceWizardPage> {
+public class SchemaWizardStep extends Component<ResourceWizardPage, SchemaWizardStep> {
     public SchemaWizardStep(ResourceWizardPage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

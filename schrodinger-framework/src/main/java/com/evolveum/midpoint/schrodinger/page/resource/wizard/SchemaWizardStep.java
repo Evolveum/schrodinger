@@ -18,15 +18,17 @@ package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.wizard.PreviousStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TableWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.page.resource.SchemaHandlingTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class SchemaWizardStep extends TableWizardStepPanel<ResourceWizardPage>
+public class SchemaWizardStep extends TableWizardStepPanel<ResourceWizardPage, SchemaHandlingTable<ResourceWizardPage>>
         implements PreviousStepAction<DiscoveryWizardStep> {
     public SchemaWizardStep(ResourceWizardPage parent) {
         super(parent);
@@ -49,5 +51,10 @@ public class SchemaWizardStep extends TableWizardStepPanel<ResourceWizardPage>
     public DiscoveryWizardStep back() {
         clickBack();
         return new DiscoveryWizardStep(getParent());
+    }
+
+    @Override
+    public SchemaHandlingTable<ResourceWizardPage> table() {
+        return new SchemaHandlingTable<>(getParent(), getTableElement());
     }
 }

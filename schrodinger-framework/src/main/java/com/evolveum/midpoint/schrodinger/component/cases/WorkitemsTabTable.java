@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel> {
+public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel, WorkitemsTabTable> {
 
     public WorkitemsTabTable(WorkitemsPanel parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -35,7 +35,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
      * @return
      */
     public WorkitemDetailsPanel<WorkitemsPanel> clickNameByState(String state) {
-        TableRow row = findRowByColumnLabel("State", state);
+        TableRow row = findRowByColumnLabelAndRowValue("State", state);
         if (row == null) {
             assertion.fail("Unable to find row with the the value " + state + "in State column");
         }
@@ -52,7 +52,7 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
     }
 
     public WorkitemDetailsPanel<WorkitemsPanel> clickNameByActor(String actor) {
-        findRowByColumnLabel("Actor(s)", actor)
+        findRowByColumnLabelAndRowValue("Actor(s)", actor)
                 .clickColumnByName("Name");
 //                    getParentElement()
 //                            .$(Schrodinger.byDataId("tableContainer"))
@@ -62,12 +62,6 @@ public class WorkitemsTabTable extends TableWithComponentRedirect<WorkitemsPanel
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
 
         return new WorkitemDetailsPanel<WorkitemsPanel>(WorkitemsTabTable.this.getParent(), detailsPanel);
-    }
-
-    @Override
-    public TableWithComponentRedirect<WorkitemsPanel, WorkitemDetailsPanel> selectCheckboxByName(String name) {
-        //do nothing as there is no checkbox column in the table
-        return this;
     }
 
 }

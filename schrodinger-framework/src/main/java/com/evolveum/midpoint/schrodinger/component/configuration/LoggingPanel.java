@@ -22,7 +22,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class LoggingPanel extends Component<SystemPage> {
+public class LoggingPanel extends Component<SystemPage, LoggingPanel> {
 
     public LoggingPanel(SystemPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

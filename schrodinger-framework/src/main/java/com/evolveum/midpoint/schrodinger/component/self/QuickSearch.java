@@ -27,7 +27,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by matus on 5/10/2018.
  */
-public class QuickSearch<T> extends Component<T> {
+public class QuickSearch<T> extends Component<T, QuickSearch<T>> {
     public QuickSearch(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

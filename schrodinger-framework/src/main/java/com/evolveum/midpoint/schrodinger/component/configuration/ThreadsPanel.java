@@ -25,7 +25,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ThreadsPanel extends Component<InternalsConfigurationPage> {
+public class ThreadsPanel extends Component<InternalsConfigurationPage, ThreadsPanel> {
 
     public ThreadsPanel(InternalsConfigurationPage parent, SelenideElement parentElement) {
         super(parent, parentElement);

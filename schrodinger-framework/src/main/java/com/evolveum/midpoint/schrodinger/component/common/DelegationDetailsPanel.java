@@ -31,7 +31,7 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by honchar
  */
-public class DelegationDetailsPanel<T> extends Component<T> {
+public class DelegationDetailsPanel<T> extends Component<T, DelegationDetailsPanel<T>> {
 
     public DelegationDetailsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -68,8 +68,10 @@ public class DelegationDetailsPanel<T> extends Component<T> {
     }
 
     public boolean isDescriptionEnabled() {
-        return $(Schrodinger.byDataId("delegationDescription")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .isEnabled();
+        SelenideElement description = $(Schrodinger.byDataId("delegationDescription"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String readonlyAttr = description.getAttribute("readonly");
+        return readonlyAttr == null || (!readonlyAttr.equals("readonly") && !readonlyAttr.equals("true"));
     }
 
     public DateTimePanel<DelegationDetailsPanel<T>> getValidFromPanel() {

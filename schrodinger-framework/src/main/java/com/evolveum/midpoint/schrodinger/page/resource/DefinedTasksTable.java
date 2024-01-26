@@ -21,10 +21,11 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
+import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-public class DefinedTasksTable<T> extends TableWithPageRedirect<T> {
+public class DefinedTasksTable<T> extends TableWithPageRedirect<T, TaskPage, DefinedTasksTable<T>> {
 
     public DefinedTasksTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -40,12 +41,7 @@ public class DefinedTasksTable<T> extends TableWithPageRedirect<T> {
     }
 
     @Override
-    public DefinedTasksTable<T> selectCheckboxByName(String name) {
-        return null;
-    }
-
-    @Override
-    protected TableHeaderDropDownMenu<DefinedTasksTable<T>> clickHeaderActionDropDown() {
-        return null;
+    public TaskPage getObjectDetailsPage() {
+        return new TaskPage();
     }
 }

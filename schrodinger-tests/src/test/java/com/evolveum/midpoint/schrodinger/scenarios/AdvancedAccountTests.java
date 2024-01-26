@@ -65,7 +65,7 @@ public class AdvancedAccountTests extends AbstractSchrodingerTest {
                           .inputValue(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
                         .updateSearch()
                       .and()
-                      .selectCheckboxByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
+                      .selectRowByName(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME)
                     .and()
                 .clickAdd()
               .and()

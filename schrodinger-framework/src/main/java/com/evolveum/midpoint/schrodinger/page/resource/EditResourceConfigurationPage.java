@@ -27,10 +27,8 @@ import com.evolveum.midpoint.schrodinger.component.resource.TestConnectionModal;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import io.github.classgraph.ResourceList;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
 
 
 public class EditResourceConfigurationPage extends BasicPage {

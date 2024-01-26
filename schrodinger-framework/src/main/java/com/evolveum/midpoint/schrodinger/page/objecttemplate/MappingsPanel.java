@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2021 Evolveum
+ * Copyright (c) 2024  Evolveum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.component.self;
+
+package com.evolveum.midpoint.schrodinger.page.objecttemplate;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.org.OrgHierarchyPanel;
-import com.evolveum.midpoint.schrodinger.page.self.RequestRolePage;
+import com.evolveum.midpoint.schrodinger.component.PanelWithTableAndPrismView;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-/**
- * Created by honchar
- */
-public class RoleCatalogViewTab extends RequestRoleTab {
+import static com.codeborne.selenide.Selenide.$;
 
-    public RoleCatalogViewTab(RequestRolePage parent, SelenideElement parentElement) {
+public class MappingsPanel extends PanelWithTableAndPrismView<ObjectTemplatePage> {
+
+    public MappingsPanel(ObjectTemplatePage parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public OrgHierarchyPanel<RoleCatalogViewTab> getRoleCatalogHierarchyPanel() {
-        SelenideElement treePanel = getParentElement().$(Schrodinger.byDataId("div", "treePanel"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return new OrgHierarchyPanel<>(this, treePanel);
+    @Override
+    protected SelenideElement getPrismViewPanel() {
+        return $(Schrodinger.byDataId("div", "valueForm"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
-
-
 }

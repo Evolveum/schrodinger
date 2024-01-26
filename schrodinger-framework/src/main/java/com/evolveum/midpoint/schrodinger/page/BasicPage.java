@@ -32,6 +32,7 @@ import com.evolveum.midpoint.schrodinger.page.certification.*;
 import com.evolveum.midpoint.schrodinger.page.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
+import com.evolveum.midpoint.schrodinger.page.objecttemplate.ListObjectTemplatesPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
@@ -74,6 +75,7 @@ import static com.codeborne.selenide.Selenide.*;
  */
 public class BasicPage {
 
+    private static String screenshotNamePrefix;
     public LoggedUser loggedUser() {
         return new LoggedUser();
     }
@@ -236,8 +238,8 @@ public class BasicPage {
         return new AllApprovalsPage();
     }
 
-    public MyWorkitemsPage myItems() {
-        clickAdministrationMenu("PageAdmin.menu.top.workItems", "PageAdmin.menu.top.workItems.list");
+    public MyWorkitemsPage myWorkItems() {
+        clickAdministrationMenu(ConstantsUtil.MENU_TOP_CASES, ConstantsUtil.MENU_MY_WORK_ITEMS_MENU_ITEM_RESOURCE_KEY);
         return new MyWorkitemsPage();
     }
 
@@ -286,7 +288,7 @@ public class BasicPage {
         return new CampaignsSchedulingPage();
     }
 
-    public MyWorkItemsPage myWorkItems() {
+    public MyWorkItemsPage myCertificationWorkItems() {
         clickAdministrationMenu("PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.decisions");
         return new MyWorkItemsPage();
     }
@@ -355,6 +357,11 @@ public class BasicPage {
     public ObjectCollectionPage newObjectCollection() {
         clickAdministrationMenu("PageAdmin.menu.top.objectCollections", "PageAdmin.menu.top.objectCollections.new");
         return new ObjectCollectionPage();
+    }
+
+    public ListObjectTemplatesPage listObjectTemplates() {
+        clickConfigurationMenu("PageAdmin.menu.top.objectTemplates", "PageAdmin.menu.top.objectTemplates.list");
+        return new ListObjectTemplatesPage();
     }
 
     public ImportResourceDefinitionPage importResourceDefinition() {
@@ -765,5 +772,13 @@ public class BasicPage {
     public void waitForDetailsPageIsLoaded() {
         Utils.waitForMainPanelOnDetailsPage();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
+    }
+
+    public String getScreenshotNamePrefix() {
+        return screenshotNamePrefix;
+    }
+
+    public void setScreenshotNamePrefix(String screenshotNamePrefix) {
+        this.screenshotNamePrefix = screenshotNamePrefix;
     }
 }

@@ -22,8 +22,11 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.user.ProjectionsDropDown;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.activation.ActivationConfigurationStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.MappingsWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.mappings.credentials.CredentialsConfigurationStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.objecttype.ObjectTypeBasicInformationWizardStep;
+import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.CorrelationWizardStep;
 import com.evolveum.midpoint.schrodinger.page.resource.wizard.synchronization.SynchronizationWizardStep;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -34,7 +37,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by matus on 5/22/2018.
  */
-public class ResourceAccountsPanel<T> extends Component<T> {
+public class ResourceAccountsPanel<T> extends Component<T, ResourceAccountsPanel<T>> {
     public ResourceAccountsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
@@ -166,20 +169,23 @@ public class ResourceAccountsPanel<T> extends Component<T> {
         return new SynchronizationWizardStep<>(ResourceAccountsPanel.this);
     }
 
-    public void configureCorrelation() {
+    public CorrelationWizardStep<ResourceAccountsPanel<T>> configureCorrelation() {
         clickButton("ResourceObjectTypePreviewTileType.CORRELATION");
+        return new CorrelationWizardStep<>(ResourceAccountsPanel.this);
     }
 
     public void configureCapabilities() {
         clickButton("ResourceObjectTypePreviewTileType.CAPABILITIES");
     }
 
-    public void configureActivation() {
+    public ActivationConfigurationStep<ResourceAccountsPanel<T>> configureActivation() {
         clickButton("ResourceObjectTypePreviewTileType.ACTIVATION");
+        return new ActivationConfigurationStep<>(ResourceAccountsPanel.this);
     }
 
-    public void configureCredentials() {
+    public CredentialsConfigurationStep<ResourceAccountsPanel<T>> configureCredentials() {
         clickButton("ResourceObjectTypePreviewTileType.CREDENTIALS");
+        return new CredentialsConfigurationStep<>(ResourceAccountsPanel.this);
     }
 
     public void configureAssociations() {
@@ -188,9 +194,11 @@ public class ResourceAccountsPanel<T> extends Component<T> {
 
     private void clickButton(String title) {
         String translatedTitle = Utils.translate(title);
-        SelenideElement buttonsContainer = $(Schrodinger.byDataId("configuration"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        buttonsContainer.click();
+        SelenideElement buttonsContainer = $(Schrodinger.byDataId("configuration"));
+        Utils.scrollToElement(buttonsContainer);
+        buttonsContainer
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
         ElementsCollection buttons = buttonsContainer.$$x(".//a");
         SelenideElement button = buttons.findBy(Condition.text(translatedTitle));

@@ -15,20 +15,15 @@
  */
 package com.evolveum.midpoint.schrodinger.page.role;
 
-import com.codeborne.selenide.SelenideElement;
-
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListPage;
+import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class ListRolesPage extends AssignmentHolderObjectListPage<RolesPageTable, RolePage> {
+public class ListRolesPage extends ObjectListPageWithPageRedirect<RolesPageTable, RolePage> {
 
     @Override
     public RolesPageTable table() {

@@ -24,7 +24,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by honchar
  */
-public class ItemPathPanel<T> extends Component<T> {
+public class ItemPathPanel<T> extends Component<T, ItemPathPanel<T>> {
 
     public ItemPathPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

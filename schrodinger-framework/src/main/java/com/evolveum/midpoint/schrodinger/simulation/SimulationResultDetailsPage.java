@@ -17,14 +17,15 @@
 package com.evolveum.midpoint.schrodinger.simulation;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.prism.show.VisualizationPanel;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class SimulationResultDetailsPage extends BasicPage {
 
@@ -44,8 +45,43 @@ public class SimulationResultDetailsPage extends BasicPage {
         return new VisualizationPanel<>(SimulationResultDetailsPage.this, changesElement);
     }
 
+    public SimulationTaskDetailsTable simulationTaskDetails() {
+        SelenideElement taskDetailsElement = $(Schrodinger.byDataId("div", "details"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new SimulationTaskDetailsTable(this, taskDetailsElement);
+    }
+
+    public SimulationResultDetailsPage assertMarkValueEquals(String markName, int expectedCount) {
+        SelenideElement markTile = getMarkTileElement(markName);
+        String markValue = markTile.$(Schrodinger.byDataId("h3", "value"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .getText();
+        assertion.assertEquals(markValue, String.valueOf(expectedCount), "Mark value doesn't match");
+        return this;
+    }
+
+    public ProcessedObjectsPage selectMark(String markName) {
+        SelenideElement markTile = getMarkTileElement(markName);
+        markTile.$(Schrodinger.byDataId("a", "moreInfo"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return new ProcessedObjectsPage();
+    }
+
+    private SelenideElement getMarkTileElement(String markName) {
+        ElementsCollection marks = $$(Schrodinger.byDataId("div", "mark"));
+        return marks.asFixedIterable().stream()
+                .filter(mark -> mark.$x(".//span[@title='" + markName + "']").isDisplayed())
+                .findFirst()
+                .orElse(null);
+    }
+
     public ProcessedObjectsPage back() {
-        $(Schrodinger.byDataId("a", "back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        SelenideElement backButton = $(Schrodinger.byDataId("a", "back"));
+        Utils.scrollToElement(backButton);
+        backButton
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         return new ProcessedObjectsPage();
     }

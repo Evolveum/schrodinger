@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class ChangePasswordPanel<T> extends Component<T> {
+public class ChangePasswordPanel<T> extends Component<T, ChangePasswordPanel<T>> {
 
     public ChangePasswordPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
@@ -66,21 +66,21 @@ public class ChangePasswordPanel<T> extends Component<T> {
         return this;
     }
 
-    public Table<ChangePasswordPanel<T>> accountsTable() {
+    public Table<ChangePasswordPanel<T>, Table> accountsTable() {
         return new Table<>(this, $(Schrodinger.byDataId("individualSystemsTable")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
     public ChangePasswordPanel<T> assertPasswordPropagationResultSuccess(String userName) {
         assertion.assertTrue(accountsTable()
-                .findRowByColumnLabel("Name", userName)
+                .findRowByColumnLabelAndRowValue("Name", userName)
                     .getColumnCellElementByColumnName("Propagation result")
                         .$x(".//i[@data-s-id='basicIcon'][contains(@class,\"fa-check-circle\") and contains(@class, \"text-success\")]")
                         .isDisplayed(), "Propagation result is not successfull, ");
         return this;
     }
 
-    public ChangePasswordPanel clickAccountCheckboxIconByResourceValue(String resourceValue) {
-        Table<ChangePasswordPanel> accountsTable = new Table<>(this, $(Schrodinger.byDataId("accounts"))
+    public ChangePasswordPanel<T> clickAccountCheckboxIconByResourceValue(String resourceValue) {
+        Table<ChangePasswordPanel<T>, Table> accountsTable = new Table<>(this, $(Schrodinger.byDataId("accounts"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
         TableRow row = accountsTable.rowByColumnResourceKey("ChangePasswordPanel.resourceName", resourceValue);
         row.clickColumnByName("Name", "i");

@@ -13,7 +13,7 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class Toast<T> extends Component<T> {
+public class Toast<T> extends Component<T, Toast<T>> {
 
     public Toast(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

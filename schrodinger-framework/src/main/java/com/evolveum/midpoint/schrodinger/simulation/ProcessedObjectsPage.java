@@ -16,8 +16,11 @@
 
 package com.evolveum.midpoint.schrodinger.simulation;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -25,8 +28,19 @@ import static com.codeborne.selenide.Selenide.$;
 public class ProcessedObjectsPage extends BasicPage {
 
     public ProcessedObjectsTable<ProcessedObjectsPage> table() {
-        SelenideElement tableBox = $(Schrodinger.byDataId("div", "itemsTable"));
+        SelenideElement tableBox = $(Schrodinger.byDataId("itemsTable"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new ProcessedObjectsTable<>(ProcessedObjectsPage.this, tableBox);
+    }
+
+    public SimulationResultDetailsPage backToSimulationResultPage() {
+        $(Schrodinger.byDataId("a", "back")).click();
+        return new SimulationResultDetailsPage();
+    }
+
+    public ResourcePage backToResourcePage() {
+        $(Schrodinger.byDataId("a", "back")).click();
+        return new ResourcePage();
     }
 
 }

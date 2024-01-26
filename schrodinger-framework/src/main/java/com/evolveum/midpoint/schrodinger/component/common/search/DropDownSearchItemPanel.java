@@ -25,7 +25,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 /**
  * Created by honchar
  */
-public class DropDownSearchItemPanel<T> extends Component<T> {
+public class DropDownSearchItemPanel<T> extends Component<T, DropDownSearchItemPanel<T>> {
     public DropDownSearchItemPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }

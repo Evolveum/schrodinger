@@ -44,7 +44,7 @@ public class ReportTests extends AbstractSchrodingerTest {
                     .inputValue("TestReport")
                     .updateSearch()
                     .and()
-                .assertTableObjectsCountEquals(1);
+                .assertVisibleObjectsCountEquals(1);
         basicPage.listReports().table().assertTableContainsText("TestReport");
     }
 
@@ -64,6 +64,6 @@ public class ReportTests extends AbstractSchrodingerTest {
                     .inputValue("All audit records report")
                     .updateSearch()
                     .and()
-                .assertTableObjectsCountEquals(1);
+                .assertVisibleObjectsCountEquals(1);
     }
 }

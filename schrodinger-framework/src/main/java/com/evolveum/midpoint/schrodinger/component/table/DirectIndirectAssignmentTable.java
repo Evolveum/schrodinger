@@ -29,7 +29,7 @@ import java.util.List;
  * @author skublik
  */
 
-public class DirectIndirectAssignmentTable<T> extends Component<T> {
+public class DirectIndirectAssignmentTable<T> extends Component<T, DirectIndirectAssignmentTable<T>> {
 
     public DirectIndirectAssignmentTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);

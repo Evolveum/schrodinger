@@ -19,22 +19,13 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import com.codeborne.selenide.Selenide;
-
-import com.evolveum.midpoint.schema.constants.SchemaConstants;
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.org.MemberPanel;
 import com.evolveum.midpoint.schrodinger.component.org.MemberTable;
 
 import com.evolveum.midpoint.schrodinger.component.org.OrgRootTab;
 
-import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
-import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
-import com.evolveum.midpoint.schrodinger.page.role.RolePage;
-
 import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.testng.annotations.Test;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
@@ -109,7 +100,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .inputValue(USER_NAME)
                             .updateSearch()
                         .and()
-                        .selectCheckboxByName(USER_NAME)
+                        .selectRowByName(USER_NAME)
                     .and()
                     .clickAdd();
         orgTreePage = basicPage.orgStructure();
@@ -137,11 +128,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                                 .inputValue("UniqueNameUserForMemberTest")
                                 .updateSearch()
                             .and()
-                            .selectCheckboxByName("UniqueNameUserForMemberTest")
+                            .selectRowByName("UniqueNameUserForMemberTest")
                         .and()
                         .clickAdd();
 
-        AssignmentHolderObjectListTable<MemberPanel<OrgRootTab>, AssignmentHolderDetailsPage> membersTable =
                 basicPage.orgStructure()
                     .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                         .getMemberPanel()
@@ -151,10 +141,8 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                                     .inputValue("UniqueNameUserForMemberTest")
                                 .updateSearch()
                             .and()
-                        .clickRefreshButton();
-        Selenide.screenshot("test00300assignExistingUserAsMember_membersPanel_" + System.currentTimeMillis());
-
-        membersTable
+                        .clickRefreshButton()
+                                .screenshot("test00300assignExistingUserAsMember_membersPanel_" + System.currentTimeMillis())
                     .assertTableContainsText("UniqueNameUserForMemberTest");
     }
 
@@ -183,7 +171,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                             .inputValue("NewUserAsOrgApprover")
                             .updateSearch()
                         .and()
-                        .assertTableObjectsCountEquals(1)
+                        .assertVisibleObjectsCountEquals(1)
                         .assertTableContainsText("Approver");
     }
 
@@ -220,7 +208,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                     .updateSearch();
 
         memberTable
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                 .assertTableContainsText("Manager");
     }
 
@@ -260,7 +248,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .inputValue("NewOrgAsOrgOwner")
                     .updateSearch()
                 .and()
-                    .assertTableObjectsCountEquals(1)
+                    .assertVisibleObjectsCountEquals(1)
                     .assertTableContainsText("Owner");
     }
 
@@ -296,7 +284,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                         .inputValue("NewOrgAsOrgApprover")
                 .updateSearch()
                 .and()
-                .assertTableObjectsCountEquals(1)
+                .assertVisibleObjectsCountEquals(1)
                 .assertTableContainsText("Approver");
     }
 }
