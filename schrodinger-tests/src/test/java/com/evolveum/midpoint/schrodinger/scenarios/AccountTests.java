@@ -77,7 +77,7 @@ public class AccountTests extends AbstractSchrodingerTest {
                         .addAttributeValue(UserType.F_FAMILY_NAME, "di Lodovico Buonarroti Simoni")
                         .and()
                     .and()
-                .addPasswordAttributeValue("Test5ecr3tPassword")
+                .addPasswordAttributeValue("Test5ecr3tPass")
                 .checkKeepDisplayingResults()
                     .clickSave()
                     .feedback()
