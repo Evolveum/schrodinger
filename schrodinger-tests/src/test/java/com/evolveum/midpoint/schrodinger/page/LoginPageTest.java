@@ -52,7 +52,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelfRegistrationPage registrationPage = login.register();
-        registrationPage.setGivenName("Test").setFamilyName("User")
+        registrationPage.setGivenName("Jack").setFamilyName("Black")
                 .setEmail("test.user@evolveum.com").setPassword("Test5ecr3t").setCaptcha().submit();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         basicPage.feedback().isSuccess();
@@ -125,8 +125,8 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
         securityQuestionsPage
                 .getChangePasswordPanel()
-                .setNewPasswordValue("newPassword")
-                .setRepeatPasswordValue("newPassword")
+                .setNewPasswordValue("newPassword12")
+                .setRepeatPasswordValue("newPassword12")
                 .changePassword();
 
         login.loginWithReloadLoginPage(NAME_OF_RESET_PASSWORD_TEST_USER, "newPassword").assertUserMenuExist();

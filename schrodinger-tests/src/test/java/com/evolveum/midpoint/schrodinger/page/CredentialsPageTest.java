@@ -38,11 +38,11 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
     public void test0010changeUserPasswordSuccessfully() {
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password");
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password123");
         basicPage.credentials()
                 .passwordTab()
                     .changePasswordPanel()
-                        .setOldPasswordValue("password")
+                        .setOldPasswordValue("Password123")
                         .setNewPasswordValue("Password1")
                         .setRepeatPasswordValue("Password1")
                         .changePassword()
@@ -66,8 +66,8 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .passwordTab()
                     .changePasswordPanel()
                         .setOldPasswordValue("wrongPassword")
-                        .setNewPasswordValue("passwordNew")
-                        .setRepeatPasswordValue("passwordNew")
+                        .setNewPasswordValue("passwordNew1")
+                        .setRepeatPasswordValue("passwordNew1")
                 .changePassword()
                 .and()
                 .and()
@@ -75,7 +75,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .assertError();
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "passwordNew");
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "passwordNew1");
         basicPage.assertUserMenuDoesntExist();
         midPoint.formLogin()
                 .loginWithReloadLoginPage("CredentialsPageTestUser", "password1")

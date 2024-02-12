@@ -43,7 +43,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
                 .clickAdd()
                 .and()
                 .selectPasswordPanel()
-                .setPasswordValue("password ")
+                .setPasswordValue("Password123 ")
                 .and()
                 .clickSave()
                 .feedback()
@@ -52,12 +52,12 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
         basicPage.loggedUser().logout();
 
         FormLoginPage login = new FormLoginPage();
-        login.login("PasswordPanelTest", "password")
+        login.login("PasswordPanelTest", "Password123")
                 .assertUserMenuDoesntExist()
                         .feedback()
                                 .assertError();
 
-        login.login("PasswordPanelTest", "password ")
+        login.login("PasswordPanelTest", "Password123 ")
                 .assertUserMenuExist();
     }
 
