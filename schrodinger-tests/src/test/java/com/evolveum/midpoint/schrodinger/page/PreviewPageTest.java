@@ -37,6 +37,9 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
 
     private static final String TEST_DIR = "./src/test/resources/objects/roles";
 
+    private static final String USER_JACK_NAME = "jack";
+    private static final String USER_JACK_PASSWORD = "Password123";
+
     private static final File ROLE_USER_PREVIEW_FILE = new File(TEST_DIR, "role-user-preview.xml");
     private static final String ROLE_USER_PREVIEW_NAME = "rolePreviewChanges";
 
@@ -56,11 +59,11 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
 
         PreviewPage previewPage = user.selectBasicPanel()
                 .form()
-                    .addAttributeValue("Name", "jack")
+                    .addAttributeValue("Name", USER_JACK_NAME)
                     .addAttributeValue(UserType.F_GIVEN_NAME, "Jack")
                     .and()
                 .and()
-                .addPasswordAttributeValue("asd123")
+                .addPasswordAttributeValue(USER_JACK_PASSWORD)
                 .clickPreview();
         //@formatter:on
 
@@ -139,7 +142,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
 
         midPoint.logout();
 
-        basicPage = midPoint.formLogin().login("jack", "asd123");
+        basicPage = midPoint.formLogin().login(USER_JACK_NAME, USER_JACK_PASSWORD);
 
         PreviewPage previewPage = basicPage.profile()
                 .selectBasicPanel()
@@ -216,7 +219,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
 
         midPoint.logout();
 
-        basicPage = midPoint.formLogin().login("jack", "asd123");
+        basicPage = midPoint.formLogin().login(USER_JACK_NAME, USER_JACK_PASSWORD);
 
         UserPage userPage = basicPage.profile()
                 .selectBasicPanel()
