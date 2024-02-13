@@ -88,10 +88,10 @@ public class ResultPanel extends Component<TaskPage, ResultPanel> {
     public ResultPanel assertTimestampValueByTokenMatch(String tokenValue, String expectedValue) {
         String realValue = getTimestampValueByToken(tokenValue);
         if (realValue != null) {
-            realValue = StringUtils.trimAllWhitespace(realValue);   //needed because the real value contains non-breaking space
+            realValue = realValue.replaceAll("[\\p{C}\\p{Z}]", "");   //needed because the real value contains non-breaking space
         }
         if (expectedValue != null) {
-            expectedValue = StringUtils.trimAllWhitespace(expectedValue);
+            expectedValue = expectedValue.replaceAll("[\\p{C}\\p{Z}]", "");
         }
         assertion.assertEquals(realValue, expectedValue, "'Timestamp' value doesn't match to " + expectedValue);
         return this;
