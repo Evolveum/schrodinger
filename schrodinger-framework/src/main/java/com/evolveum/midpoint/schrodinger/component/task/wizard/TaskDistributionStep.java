@@ -18,10 +18,17 @@ public class TaskDistributionStep  extends PrismFormWizardStepPanel<TaskWizardPa
     //todo fill in the form attributes
 
     public BasicPage saveAndRun() {
+        return saveAndRun(false);
+    }
+
+    public BasicPage saveAndRun(boolean waitTaskToFinish) {
+        Utils.waitForAjaxCallFinish();
         $x(".//a[@data-s-id='submit']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-        Selenide.sleep(30000);
+        if (waitTaskToFinish) {
+            Selenide.sleep(30000);
+        }
         return new BasicPage();
     }
 }
