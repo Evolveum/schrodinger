@@ -2,6 +2,7 @@ package com.evolveum.midpoint.schrodinger.component.task.wizard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.PrismFormWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
@@ -23,9 +24,17 @@ public class TaskDistributionStep  extends PrismFormWizardStepPanel<TaskWizardPa
 
     public BasicPage saveAndRun(boolean waitTaskToFinish) {
         Utils.waitForAjaxCallFinish();
-        $x(".//a[@data-s-id='submit']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(2000);
+        SelenideElement submitButton = $x(".//a[@data-s-id='submit']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        submitButton.click();
+        Selenide.screenshot("debugScreenshotForSaveAndRunTaskButton");
         Utils.waitForAjaxCallFinish();
+        Selenide.sleep(2000);
+        if (submitButton.exists() && submitButton.isDisplayed()) {
+            submitButton.click();
+            Utils.waitForAjaxCallFinish();
+        }
         if (waitTaskToFinish) {
             Selenide.sleep(30000);
         }
