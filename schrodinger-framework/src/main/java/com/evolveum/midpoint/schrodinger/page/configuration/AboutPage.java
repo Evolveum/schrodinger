@@ -166,12 +166,12 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage assertVersionValueEquals(String expectedVersionValue) {
-        assertion.assertEquals(expectedVersionValue, version(), "Version value doesn't match");
+        assertion.assertEquals(version(), expectedVersionValue, "Version value doesn't match");
         return this;
     }
 
     public AboutPage assertGitDescribeValueEquals(String expectedGitDescribeValue) {
-        assertion.assertEquals(expectedGitDescribeValue, gitDescribe(), "Git describe value doesn't match");
+        assertion.assertEquals(gitDescribe(), expectedGitDescribeValue, "Git describe value doesn't match");
         return this;
     }
 
@@ -181,7 +181,7 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage assertBuildAtValueEquals(String expectedBuildAtValue) {
-        assertion.assertEquals(expectedBuildAtValue, buildAt(), "Build at value doesn't match");
+        assertion.assertEquals(buildAt(), expectedBuildAtValue, "Build at value doesn't match");
         return this;
     }
 
@@ -202,7 +202,7 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage assertJVMPropertyValueEquals(String propertyName, String expectedValue) {
-        assertion.assertEquals(expectedValue, getJVMproperty(propertyName), "JVM property " + propertyName + " value doesn't match");
+        assertion.assertEquals(getJVMproperty(propertyName), expectedValue, "JVM property " + propertyName + " value doesn't match");
         return this;
     }
 
@@ -212,7 +212,7 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage assertSystemPropertyValueEquals(String propertyName, String expectedValue) {
-        assertion.assertEquals(expectedValue, getSystemProperty(propertyName), "System property " + propertyName + " value doesn't match");
+        assertion.assertEquals(getSystemProperty(propertyName), expectedValue, "System property " + propertyName + " value doesn't match");
         return this;
     }
 
