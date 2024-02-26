@@ -26,6 +26,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.springframework.util.StringUtils;
 
 /**
  * @author honchar
@@ -87,7 +88,10 @@ public class ResultPanel extends Component<TaskPage, ResultPanel> {
     public ResultPanel assertTimestampValueByTokenMatch(String tokenValue, String expectedValue) {
         String realValue = getTimestampValueByToken(tokenValue);
         if (realValue != null) {
-            realValue = realValue.replaceAll("&nbsp;", " ");
+            realValue = realValue.replaceAll("[\\p{C}\\p{Z}]", "");   //needed because the real value contains non-breaking space
+        }
+        if (expectedValue != null) {
+            expectedValue = expectedValue.replaceAll("[\\p{C}\\p{Z}]", "");
         }
         assertion.assertEquals(realValue, expectedValue, "'Timestamp' value doesn't match to " + expectedValue);
         return this;

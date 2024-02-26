@@ -38,13 +38,13 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
     public void test0010changeUserPasswordSuccessfully() {
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password");
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password123");
         basicPage.credentials()
                 .passwordTab()
                     .changePasswordPanel()
-                        .setOldPasswordValue("password")
-                        .setNewPasswordValue("password1")
-                        .setRepeatPasswordValue("password1")
+                        .setOldPasswordValue("Password123")
+                        .setNewPasswordValue("Password1")
+                        .setRepeatPasswordValue("Password1")
                         .changePassword()
                             .assertPasswordPropagationResultSuccess("CredentialsPageTestUser")
                             .and()
@@ -53,7 +53,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password1")
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password1")
                 .assertUserMenuExist();
     }
 
@@ -61,13 +61,13 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
     public void test0020changeUserPasswordWrongOldPassword() {
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password1");
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password1");
         basicPage.credentials()
                 .passwordTab()
                     .changePasswordPanel()
                         .setOldPasswordValue("wrongPassword")
-                        .setNewPasswordValue("passwordNew")
-                        .setRepeatPasswordValue("passwordNew")
+                        .setNewPasswordValue("passwordNew1")
+                        .setRepeatPasswordValue("passwordNew1")
                 .changePassword()
                 .and()
                 .and()
@@ -75,10 +75,10 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .assertError();
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "passwordNew");
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "passwordNew1");
         basicPage.assertUserMenuDoesntExist();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password1")
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password1")
                 .assertUserMenuExist();
     }
 
@@ -86,11 +86,11 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
     public void test0030changeUserPasswordNewPasswordDoesntMatch() {
         basicPage.loggedUser().logout();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password1");
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password1");
         basicPage.credentials()
                 .passwordTab()
                     .changePasswordPanel()
-                        .setOldPasswordValue("password1")
+                        .setOldPasswordValue("Password1")
                         .setNewPasswordValue("passwordNew1")
                         .setRepeatPasswordValue("passwordNew2")
                 .changePassword()
@@ -103,7 +103,7 @@ public class CredentialsPageTest extends AbstractSchrodingerTest {
                 .loginWithReloadLoginPage("CredentialsPageTestUser", "passwordNew1")
                 .assertUserMenuDoesntExist();
         midPoint.formLogin()
-                .loginWithReloadLoginPage("CredentialsPageTestUser", "password1")
+                .loginWithReloadLoginPage("CredentialsPageTestUser", "Password1")
                 .assertUserMenuExist();
     }
 

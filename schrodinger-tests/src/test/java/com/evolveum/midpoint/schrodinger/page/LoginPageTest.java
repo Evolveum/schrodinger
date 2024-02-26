@@ -52,7 +52,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelfRegistrationPage registrationPage = login.register();
-        registrationPage.setGivenName("Test").setFamilyName("User")
+        registrationPage.setGivenName("Jack").setFamilyName("Black")
                 .setEmail("test.user@evolveum.com").setPassword("Test5ecr3t").setCaptcha().submit();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         basicPage.feedback().isSuccess();
@@ -96,6 +96,8 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
     @Test
     public void test031resetPasswordSecurityQuestionAndMailNonce() throws InterruptedException, IOException {
+        String newPassword = "newPassword12";
+
         clearBrowser();
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
@@ -119,17 +121,18 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open(link);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         String actualUrl = basicPage.getCurrentUrl();
+        Selenide.screenshot("test031resetPasswordSecurityQuestionAndMailNonce_actualUrl");
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
                 "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
         clearNotificationFile();
 
         securityQuestionsPage
                 .getChangePasswordPanel()
-                .setNewPasswordValue("newPassword")
-                .setRepeatPasswordValue("newPassword")
+                .setNewPasswordValue(newPassword)
+                .setRepeatPasswordValue(newPassword)
                 .changePassword();
 
-        login.loginWithReloadLoginPage(NAME_OF_RESET_PASSWORD_TEST_USER, "newPassword").assertUserMenuExist();
+        login.loginWithReloadLoginPage(NAME_OF_RESET_PASSWORD_TEST_USER, newPassword).assertUserMenuExist();
     }
 
     @Test

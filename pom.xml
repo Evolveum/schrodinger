@@ -83,7 +83,7 @@
         <guava.version>31.1-jre</guava.version>
         <midpoint.version>4.8.2-SNAPSHOT</midpoint.version>
         <midpoint.client.version>4.9-SNAPSHOT</midpoint.client.version>
-        <connid.version>1.5.1.10</connid.version>
+        <connid.version>1.5.2.0</connid.version>
     </properties>
 
     <scm>
