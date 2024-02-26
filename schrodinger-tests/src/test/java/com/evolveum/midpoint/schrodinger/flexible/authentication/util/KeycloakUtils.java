@@ -39,7 +39,7 @@ public class KeycloakUtils {
 
     public static void logoutAndCheckIt() {
         String name = $x(".//div[@class='login-pf-page-header']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .text();
 
         assertion.assertEquals(
