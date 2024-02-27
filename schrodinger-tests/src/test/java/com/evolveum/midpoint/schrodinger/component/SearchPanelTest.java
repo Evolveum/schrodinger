@@ -281,6 +281,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .selectTabWithRootOrg("orgRootMemberSearch")
                     .getMemberPanel()
                         .table();
+        Selenide.screenshot("test012OrgMemberPanelConfiguration_debug");
         table.assertTableContainsColumnWithValue("Name", "orgMembershipByTypeSearch");
         table.search().assertExistSearchItem("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
                 .assertActualOptionOfSelectSearchItem("Type2", "Organization");
