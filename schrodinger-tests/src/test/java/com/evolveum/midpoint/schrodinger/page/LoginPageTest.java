@@ -102,7 +102,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         open("/login");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
         open("/");
         login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
         importObject(SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
@@ -116,10 +116,12 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setAnswerValue("10")
                 .and()
                 .clickSendButton();
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
+        Selenide.screenshot("test031resetPasswordSecurityQuestionAndMailNonce_sendSecQuestion");
+
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
         String actualUrl = basicPage.getCurrentUrl();
         Selenide.screenshot("test031resetPasswordSecurityQuestionAndMailNonce_actualUrl");
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
