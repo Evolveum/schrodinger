@@ -153,7 +153,7 @@
                     <q:equal>
                         <q:matching>stringIgnoreCase</q:matching>
                         <q:path>attributes/ri:login</q:path>
-                        <q:value>Cheif</q:value>
+                        <q:value>Chief</q:value>
                     </q:equal>
                 </filter>
             </protected>
