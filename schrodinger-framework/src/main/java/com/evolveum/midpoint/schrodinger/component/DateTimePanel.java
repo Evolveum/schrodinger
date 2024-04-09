@@ -16,12 +16,14 @@
 package com.evolveum.midpoint.schrodinger.component;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import org.testng.Assert;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 
 /**
  * Created by honchar
@@ -36,75 +38,80 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         super(parent, parentElement);
     }
 
+    public DateTimePanel<T> setDateTimeValue(String date) {
+        return setDateTimeValue(date, null, null, null);
+    }
+
     public DateTimePanel<T> setDateTimeValue(String date, String hours, String minutes, AmOrPmChoice amOrPmChoice) {
-        SelenideElement dateEle = findDate();
-        dateEle.click();
-        dateEle.clear();
-        dateEle.setValue(date);
 
-        SelenideElement hoursEle = findHours();
-        hoursEle.doubleClick();
-        hoursEle.doubleClick();
-        hoursEle.sendKeys(hours);
+        String dateAsString = date;
+        if (StringUtils.isNotEmpty(hours)) {
+            dateAsString += " " + hours + ":" + minutes + " " + amOrPmChoice.name();
+        }
 
-        SelenideElement minutesEle = findMinutes();
-        minutesEle.doubleClick();
-        minutesEle.doubleClick();
-        minutesEle.sendKeys(minutes);
-
-        SelenideElement amOrPmChoiceEle = findAmOrPmChoice();
-        amOrPmChoiceEle.click();
-        amOrPmChoiceEle.selectOption(amOrPmChoice.name());
+        SelenideElement inputEle = findInput();
+        inputEle.click();
+        inputEle.clear();
+        inputEle.setValue(dateAsString);
 
         return this;
     }
 
-    public String date() {
-        return findDate().getValue();
-    }
+    public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
+        findButton().click();
 
-    public String hours() {
-        return findHours().getValue();
-    }
+        SelenideElement widget = Selenide.$(By.className("tempus-dominus-widget"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
 
-    public String minutes() {
-        return findMinutes().getValue();
-    }
+        clickOnChangeCalendarView(widget);
+        clickOnChangeCalendarView(widget);
 
-    public String amOrPmChoice() {
-        return findAmOrPmChoice().getSelectedText();
-    }
+        widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (mount - 1) + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']")).click();
 
-    public SelenideElement findDate() {
-        return getParentElement().$(Schrodinger.byDataId("date")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-    }
+        widget.$(By.cssSelector("div[data-action='togglePicker']")).click();
 
-    public SelenideElement findHours() {
-        return getParentElement().$(Schrodinger.byDataId("hours")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-    }
+        widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).click();
+        widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']")).click();
 
-    public SelenideElement findMinutes() {
-        return getParentElement().$(Schrodinger.byDataId("minutes")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-    }
+        widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']")).click();
 
-    public SelenideElement findAmOrPmChoice() {
-        return getParentElement().$(Schrodinger.byDataId("amOrPmChoice")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-    }
+        SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"));
+        String currentMeridian = meridianButton.getText();
+        if (!amOrPmChoice.name().equals(currentMeridian)) {
+            meridianButton.click();
+        }
 
-    public DateTimePanel<T> assertDateValueEquals(String expectedValue) {
-        assertion.assertEquals(expectedValue, date(), "Date value doesn't match.");
+        findButton().click();
+
         return this;
     }
-    public DateTimePanel<T> assertHoursValueEquals(String expectedValue) {
-        assertion.assertEquals(expectedValue, hours(), "Hours value doesn't match.");
-        return this;
+
+    private void clickOnChangeCalendarView(SelenideElement widget) {
+        widget.$(By.cssSelector("div[data-action='changeCalendarView']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
     }
-    public DateTimePanel<T> assertMinutesValueEquals(String expectedValue) {
-        assertion.assertEquals(expectedValue, minutes(), "Minutes value doesn't match.");
-        return this;
+
+    public String dateTime() {
+        return findInput().getValue();
     }
-    public DateTimePanel<T> assertAmPmValueEquals(String expectedValue) {
-        assertion.assertEquals(expectedValue, amOrPmChoice(), "Am/Pm value doesn't match.");
+
+    public SelenideElement findInput() {
+        return getParentElement().$(Schrodinger.byDataId("container")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .$(Schrodinger.byDataId("input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    public SelenideElement findButton() {
+        return getParentElement().$(Schrodinger.byDataId("iconContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    public DateTimePanel<T> assertDateTimeValueEquals(String expectedValue) {
+        String dataValue = dateTime();
+        dataValue = dataValue.replace((char) 8239, ' ');
+        assertion.assertEquals(dataValue, expectedValue, "Date Time value doesn't match.");
         return this;
     }
 }

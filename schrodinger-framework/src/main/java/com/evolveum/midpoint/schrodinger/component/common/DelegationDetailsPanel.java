@@ -80,15 +80,15 @@ public class DelegationDetailsPanel<T> extends Component<T, DelegationDetailsPan
     }
 
     public boolean isValidFromPanelEnabled () {
-        if (!getValidFromPanel().findDate().isEnabled()) {
+        if (!getValidFromPanel().findInput().isEnabled()) {
             return false;
         }
-        if (!getValidFromPanel().findHours().isEnabled()) {
+
+        String buttonClasses = getValidFromPanel().findButton().getAttribute("class");
+        if (buttonClasses != null && buttonClasses.contains("disabled")) {
             return false;
         }
-        if (!getValidFromPanel().findMinutes().isEnabled()) {
-            return false;
-        }
+
         return true;
     }
 

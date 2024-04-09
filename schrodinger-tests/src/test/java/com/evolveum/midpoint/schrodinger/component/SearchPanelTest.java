@@ -256,13 +256,13 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0110dateIntervalSearch() {
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("MMMM dd, yyyy");
         basicPage.auditLogViewer()
                 .table()
                     .search()
                         .dateIntervalPanelByItemName("Time")
                             .getFromDateTimeFieldPanel()
-                                .setDateTimeValue(formater.format(new Date()), "", "", DateTimePanel.AmOrPmChoice.AM);
+                                .setDateTimeValue(formater.format(new Date()));
     }
 
     @Test

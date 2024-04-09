@@ -17,10 +17,7 @@
 package com.evolveum.midpoint.schrodinger.scenarios;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -107,6 +104,10 @@ public class UserTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0030createDelegationTest() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -1);
+        int prevYear = calendar.get(Calendar.YEAR);
+
         showUser("DelegateFromUser")
                 .selectDelegationsPanel()
                     .clickAddDelegation()
@@ -117,6 +118,17 @@ public class UserTest extends AbstractSchrodingerTest {
                             .updateSearch()
                         .and()
                         .clickByName("DelegateToUser")
+                        .getDelegationDetailsPanel("DelegateToUser")
+                        .getValidFromPanel()
+                            .setDateTimeValueByPicker(
+                                    1,
+                                    1,
+                                    prevYear,
+                                    1,
+                                    10,
+                                    DateTimePanel.AmOrPmChoice.AM)
+                            .and()
+                        .and()
                     .and()
                 .clickSave()
                     .feedback()
@@ -131,7 +143,9 @@ public class UserTest extends AbstractSchrodingerTest {
                         .assertApprovalWorkItemsSelected()
                         .assertCertificationWorkItemsSelected()
                         .assertDescriptionDisabled()
-                        .assertValidFromPanelDisabled();
+                        .assertValidFromPanelDisabled()
+                        .getValidFromPanel()
+                            .assertDateTimeValueEquals("January 1, " + prevYear + " 01:10 AM");
 
         showUser("DelegateFromUser")
                 .selectDelegationsPanel()
@@ -165,7 +179,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .clickByName("DelegateEndUserRoleToUser")
                             .getDelegationDetailsPanel("DelegateEndUserRoleToUser")
                             .getValidFromPanel()
-                            .setDateTimeValue("11/11/2019", "10", "30", DateTimePanel.AmOrPmChoice.PM)
+                            .setDateTimeValue("November 11, 2019", "10", "30", DateTimePanel.AmOrPmChoice.PM)
                             .and()
                         .and()
                     .and()
