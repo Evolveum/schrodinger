@@ -46,9 +46,9 @@ public class UserPage extends FocusPage<UserPage> {
         return new UserHistoryPanel(this, element);
     }
 
-    public UserDelegationsPanel selectDelegationsPanel() {
+    public UserDelegationsPanel<UserPage> selectDelegationsPanel() {
         SelenideElement element = getNavigationPanelSelenideElement("Delegations");
-        return new UserDelegationsPanel(this, element);
+        return new UserDelegationsPanel<>(this, element);
     }
 
     public UserDelegatedToMePanel selectDelegatedToMePanel() {

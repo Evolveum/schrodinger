@@ -42,7 +42,7 @@ public class InternalsConfigurationPageTest extends AbstractSchrodingerTest {
         InternalsConfigurationPage configPage = basicPage.internalsConfiguration();
         ClockPanel clockPanel = configPage.clockTab();
 
-        clockPanel.changeTime("5/15/2099", "10", "30", DateTimePanel.AmOrPmChoice.PM);
+        clockPanel.changeTime("May 15, 2099", "10", "30", DateTimePanel.AmOrPmChoice.PM);
 
         basicPage.feedback().assertSuccess();
 
@@ -51,10 +51,7 @@ public class InternalsConfigurationPageTest extends AbstractSchrodingerTest {
                 .internalsConfiguration()
                     .clockTab()
                         .getOffsetPanel()
-                            .assertDateValueEquals("5/15/2099")
-                            .assertHoursValueEquals("10")
-                            .assertMinutesValueEquals("30")
-                            .assertAmPmValueEquals(DateTimePanel.AmOrPmChoice.PM.name());
+                            .assertDateTimeValueEquals("May 15, 2099 10:30 " + DateTimePanel.AmOrPmChoice.PM.name());
     }
 
     @Test

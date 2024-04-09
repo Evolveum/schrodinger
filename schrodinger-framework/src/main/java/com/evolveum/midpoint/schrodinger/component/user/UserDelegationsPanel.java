@@ -37,13 +37,13 @@ import static com.codeborne.selenide.Selenide.sleep;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class UserDelegationsPanel extends Component<UserPage, UserDelegationsPanel> {
+public class UserDelegationsPanel<T> extends Component<T, UserDelegationsPanel<T>> {
 
-    public UserDelegationsPanel(UserPage parent, SelenideElement parentElement) {
+    public UserDelegationsPanel(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
-    public ObjectBrowserModal<UserDelegationsPanel> clickAddDelegation() {
+    public ObjectBrowserModal<UserDelegationsPanel<T>> clickAddDelegation() {
         SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//button[@data-toggle='dropdown']");
         button.click();
@@ -73,7 +73,7 @@ public class UserDelegationsPanel extends Component<UserPage, UserDelegationsPan
         return this;
     }
 
-    public DelegationDetailsPanel<UserDelegationsPanel> getDelegationDetailsPanel(String delegateToUser) {
+    public DelegationDetailsPanel<UserDelegationsPanel<T>> getDelegationDetailsPanel(String delegateToUser) {
         return new DelegationDetailsPanel<>(this,
                 $(By.linkText(delegateToUser))
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));

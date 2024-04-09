@@ -66,7 +66,8 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     public int findColumnByLabel(String label) {
-        ElementsCollection headers = getParentElement().findAll("thead th[data-s-id=header]");
+        ElementsCollection headers = getParentElement().shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .findAll("thead th[data-s-id=header]");
         SelenideElement headerWithLabel = headers.asFixedIterable()
                 .stream()
                 .filter(h -> h.$x(".//span[contains(text(), '" + label + "')]").isDisplayed())
@@ -76,7 +77,8 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     public int findColumnByResourceKey(String key) {
-        ElementsCollection headers = getParentElement().findAll(Schrodinger.byDataId("th", "header"));
+        ElementsCollection headers = getParentElement().shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .findAll(Schrodinger.byDataId("th", "header"));
         if (headers.isEmpty()) {
             headers = getParentElement().findAll(Schrodinger.byDataId("header"));
         }
@@ -132,7 +134,9 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     private TableRow<T, Table<T, P>> getTableRowByIndexAndText(int index, String rowValue, boolean partialText) {
-        ElementsCollection rows = getParentElement().findAll("tbody tr");
+        ElementsCollection rows = getParentElement()
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .findAll("tbody tr");
         for (SelenideElement row : rows) {
             SelenideElement cell = row.$$x(".//td").get(index - 1);
             if (!cell.exists()) {
