@@ -15,13 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.flexible.authentication.identity.recovery;
 
-import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
-import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.page.login.CorrelationPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -108,18 +103,15 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100threeCorrelatorsCalebJamesIsFound() {
-        CorrelationPage correlationPage = midPoint.formLogin()
+        midPoint.formLogin()
                 .identityRecovery()
                 .selectArchetype("Applicant")
                 .send()
                 .setAttributeValue("Given name", "Caleb")
                 .setAttributeValue("Family name", "James")
                 .send()
-                .setAttributeValue("Date of birth", "April 23, 2003");
-
-        Selenide.sleep(MidPoint.TIMEOUT_EXTRA_LONG_10_M.toMillis());
-
-        correlationPage.setAttributeValue("City of birth", "Vienna")
+                .setAttributeValue("Date of birth", "April 23, 2003")
+                .setAttributeValue("City of birth", "Vienna")
                 .setAttributeValue("Country of birth", "Austria")
                 .send()
                 .setAttributeValue("National ID", "718204-18")
