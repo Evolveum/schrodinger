@@ -30,6 +30,14 @@ import org.openqa.selenium.By;
  */
 public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
+    public void checkShowingOfPopover() {
+        SelenideElement button = findButton();
+        button.click();
+        SelenideElement widget = getWidget();
+        button.click();
+        widget.shouldNotBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
     public enum AmOrPmChoice {
         AM, PM
     }
@@ -57,11 +65,14 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         return this;
     }
 
+    public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes) {
+        return setDateTimeValueByPicker(mount, day, year, hours, minutes, null);
+    }
+
     public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
         findButton().click();
 
-        SelenideElement widget = Selenide.$(By.className("tempus-dominus-widget"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement widget = getWidget();
 
         clickOnChangeCalendarView(widget);
         clickOnChangeCalendarView(widget);
@@ -78,15 +89,22 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']")).click();
         widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']")).click();
 
-        SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"));
-        String currentMeridian = meridianButton.getText();
-        if (!amOrPmChoice.name().equals(currentMeridian)) {
-            meridianButton.click();
+        if (amOrPmChoice != null) {
+            SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"));
+            String currentMeridian = meridianButton.getText();
+            if (!amOrPmChoice.name().equals(currentMeridian)) {
+                meridianButton.click();
+            }
         }
 
         findButton().click();
 
         return this;
+    }
+
+    private SelenideElement getWidget() {
+        return Selenide.$(By.className("tempus-dominus-widget"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     private void clickOnChangeCalendarView(SelenideElement widget) {

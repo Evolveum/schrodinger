@@ -27,6 +27,7 @@ import javax.xml.namespace.QName;
 
 import com.codeborne.selenide.*;
 
+import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import org.openqa.selenium.By;
@@ -576,4 +577,9 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
+    public DateTimePanel<PrismForm<T>> getDatePanel(String name) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(name);
+        return new DateTimePanel<>(this, property);
+    }
 }
