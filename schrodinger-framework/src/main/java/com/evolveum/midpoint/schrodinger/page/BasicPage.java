@@ -515,6 +515,11 @@ public class BasicPage {
         return new FeedbackBox<>(this, feedback);
     }
 
+    public FeedbackBox<? extends BasicPage> uncheckedFeedback() {
+        SelenideElement feedback = $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]");
+        return new FeedbackBox<>(this, feedback);
+    }
+
     public BasicPage assertFeedbackExists() {
         assertion.assertTrue($x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .is(Condition.visible), "Feedback message box is absent");
