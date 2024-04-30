@@ -44,7 +44,7 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
         getParentElement().$x(".//input[@data-s-id='password2']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         Utils.waitForAjaxCallFinish();
         getParentElement().$x(".//input[@data-s-id='password2']").shouldBe(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(2000);
         return this;
     }
 

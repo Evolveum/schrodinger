@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.common.search;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -37,10 +38,12 @@ public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertie
 
     public SearchPropertiesConfigPanel<T> addPropertyToTable(String propertyName) {
         Utils.waitForAjaxCallFinish();
+        Selenide.sleep(2000);
         getPropertyChoiceElement().selectOption(propertyName);
         Utils.waitForAjaxCallFinish();
         getParentElement().$(Schrodinger.byDataId("a", "addButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
         getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }

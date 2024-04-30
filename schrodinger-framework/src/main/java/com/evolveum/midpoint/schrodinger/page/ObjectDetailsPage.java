@@ -49,6 +49,7 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
         } catch (ElementClickInterceptedException e) {
             button.parent().click();
         }
+        Utils.waitForAjaxCallFinish();
     }
 
     public void clickOperationButtonByLabelKey(String titleKey) {
@@ -88,13 +89,13 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
 
     public ProgressPage clickSave() {
         clickOperationButtonByClassName("fa fa-save");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(2000);
         return new ProgressPage();
     }
 
     public PreviewPage clickPreview() {
         clickOperationButtonByClassName("fa fa-eye");
-        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        Selenide.sleep(2000);
         feedback().isSuccess();
         return new PreviewPage();
     }

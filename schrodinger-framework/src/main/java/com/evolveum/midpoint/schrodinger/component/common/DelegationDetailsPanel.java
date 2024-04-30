@@ -71,7 +71,10 @@ public class DelegationDetailsPanel<T> extends Component<T, DelegationDetailsPan
         SelenideElement description = $(Schrodinger.byDataId("delegationDescription"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         String readonlyAttr = description.getAttribute("readonly");
-        return readonlyAttr == null || (!readonlyAttr.equals("readonly") && !readonlyAttr.equals("true"));
+        boolean notReadonly = readonlyAttr == null || (!readonlyAttr.equals("readonly") && !readonlyAttr.equals("true"));
+        String disabledAttr = description.getAttribute("disabled");
+        boolean notDisabled = disabledAttr == null || (!disabledAttr.equals("disabled") && !disabledAttr.equals("true"));
+        return notReadonly && notDisabled;
     }
 
     public DateTimePanel<DelegationDetailsPanel<T>> getValidFromPanel() {
