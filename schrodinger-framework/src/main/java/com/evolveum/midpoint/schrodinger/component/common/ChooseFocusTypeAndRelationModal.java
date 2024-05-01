@@ -58,32 +58,24 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T, ChooseFocus
     }
 
     public ChooseFocusTypeAndRelationModal<T> setRelation(String relation) {
-        if (getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected")).exists()) {
-            getParentElement().$(Schrodinger.byElementAttributeValue("button", "title", "None selected"))
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
-        }
-        SelenideElement relationButton = getParentElement()
-                .$x(".//button[@class='multiselect dropdown-toggle btn btn-default']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        String relationButtonTitle = relationButton.getAttribute("title");
-        if (relation.equals(relationButtonTitle)) {
-            return this;
-        }
-        relationButton
-                .click();
-        getParentElement().$(By.partialLinkText(relationButtonTitle))
+        getParentElement().$x(".//div[@data-s-id='relation']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
-        getParentElement().$(By.partialLinkText(relation))
+                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
+                .selectOption(relation);
+        return this;
+    }
+
+    public ChooseFocusTypeAndRelationModal<T> setArchetype(String archetype) {
+        getParentElement().$x(".//div[@data-s-id='archetype']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
+                .selectOption(archetype);
         return this;
     }
 
     public BasicPage clickOk() {
         String selectedType = getType();
-        getParentElement().$(Schrodinger.byDataId("ok"))
+        getParentElement().$(Schrodinger.byDataId("okButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
