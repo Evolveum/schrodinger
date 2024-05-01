@@ -107,7 +107,7 @@ public class M9OrganizationalStructure extends AbstractLabTest {
                         .selectOrgInTree("Transportation and Logistics Department")
                         .and()
                     .getMemberPanel()
-                        .newMember("Create Organization type member with Member relation", "Organization");
+                        .newPredefinedMemberByTitle("Create Organization type member with Member relation", "Organization");
         orgPage
                 .selectBasicPanel()
                     .form()
