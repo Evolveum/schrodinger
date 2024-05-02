@@ -145,7 +145,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .assertDescriptionDisabled()
                         .assertValidFromPanelDisabled()
                         .getValidFromPanel()
-                            .assertDateTimeValueEquals("January 1, " + prevYear + " 01:10 AM");
+                            .assertDateTimeValueEquals("January 1, " + prevYear + ", 01:10 AM");
 
         showUser("DelegateFromUser")
                 .selectDelegationsPanel()
