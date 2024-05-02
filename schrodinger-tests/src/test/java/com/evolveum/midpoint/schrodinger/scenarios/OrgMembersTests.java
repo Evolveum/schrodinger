@@ -151,7 +151,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create User type member with Approver relation", "User");
+                .newMember()
+                .setRelation("Approver")
+                .setType("User")
+                .clickOk();
         newUserPage.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", "NewUserAsOrgApprover")
@@ -182,7 +185,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         UserPage newUserPage = (UserPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create User type member with Manager relation", "User");
+                .newMember()
+                .setType("User")
+                .setRelation("Manager")
+                .clickOk();
         newUserPage.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", "NewUserAsOrgManager")
@@ -219,7 +225,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         OrgPage newOrgPage = (OrgPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create Organization type member with Owner relation", "Organization");
+                .newMember()
+                .setType("Organization")
+                .setRelation("Owner")
+                .clickOk();
         newOrgPage.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", "NewOrgAsOrgOwner")
@@ -259,7 +268,10 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
         ServicePage newServicePage = (ServicePage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
-                        .newMember("Create Organization type member with Approver relation", "Service");
+                .newMember()
+                .setType("Organization")
+                .setRelation("Approver")
+                .clickOk();
         newServicePage.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", "NewOrgAsOrgApprover")

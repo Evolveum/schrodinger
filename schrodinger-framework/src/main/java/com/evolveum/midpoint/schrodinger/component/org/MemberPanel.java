@@ -48,7 +48,7 @@ public class MemberPanel<T> extends Component<T, MemberPanel<T>> {
     }
 
     public ChooseFocusTypeAndRelationModal<MemberPanel<T>> newMember() {
-        SelenideElement mainButton = $(By.xpath(".//a[@data-s-id='button'][@title='New']"))
+        SelenideElement mainButton = $(By.xpath(".//a[@data-s-id='button'][@title='Create member']"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent();
         if (!mainButton.$x(".//div[@data-s-id='additionalButton']").is(Condition.exist)) {
             mainButton.click();
@@ -64,7 +64,7 @@ public class MemberPanel<T> extends Component<T, MemberPanel<T>> {
         }
     }
 
-    public BasicPage newMember(String title, String newMemberType) {
+    public BasicPage newPredefinedMemberByTitle(String title, String newMemberType) {
         Utils.waitForAjaxCallFinish();
         getParentElement().find(By.cssSelector(".fa.fa-plus"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent().click();
