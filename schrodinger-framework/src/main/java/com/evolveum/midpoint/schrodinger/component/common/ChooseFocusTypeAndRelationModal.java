@@ -22,7 +22,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.page.FocusPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourceWizardPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
@@ -30,24 +29,10 @@ import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import org.openqa.selenium.By;
-
-import javax.management.relation.Role;
-
-import static com.codeborne.selenide.Selectors.byText;
-
 public class ChooseFocusTypeAndRelationModal<T> extends Component<T, ChooseFocusTypeAndRelationModal<T>> {
 
     public ChooseFocusTypeAndRelationModal(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
-    }
-
-    public ChooseFocusTypeAndRelationModal<T> setType(String type) {
-        getParentElement().$x(".//div[@data-s-id='type']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
-                .selectOption(type);
-        return this;
     }
 
     public String getType() {
@@ -57,20 +42,27 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T, ChooseFocus
                 .getSelectedOption().getText();
     }
 
+    public ChooseFocusTypeAndRelationModal<T> setType(String type) {
+        setOption("type", type);
+        return this;
+    }
+
     public ChooseFocusTypeAndRelationModal<T> setRelation(String relation) {
-        getParentElement().$x(".//div[@data-s-id='relation']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
-                .selectOption(relation);
+        setOption("relation", relation);
         return this;
     }
 
     public ChooseFocusTypeAndRelationModal<T> setArchetype(String archetype) {
-        getParentElement().$x(".//div[@data-s-id='archetype']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']")
-                .selectOption(archetype);
+        setOption("archetype", archetype);
         return this;
+    }
+
+    private void setOption(String type, String value) {
+        SelenideElement select = getParentElement().$x(".//div[@data-s-id='"+type+"']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']");
+        select.selectOption(value);
+        select.should(Condition.text(value), MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public BasicPage clickOk() {

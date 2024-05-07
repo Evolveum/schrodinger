@@ -265,14 +265,16 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
     public void test00700createNewOrganizationApproverObject() {
         resetToDefaultAndRelogin();
         addObjectFromFile(ORG_WITH_MEMBER_FILE);
-        ServicePage newServicePage = (ServicePage) basicPage.orgStructure()
+
+        OrgPage newOrgPage = (OrgPage) basicPage.orgStructure()
                 .selectTabWithRootOrg(ORG_WITH_MEMBER_NAME)
                     .getMemberPanel()
                 .newMember()
                 .setType("Organization")
                 .setRelation("Approver")
                 .clickOk();
-        newServicePage.selectBasicPanel()
+
+        newOrgPage.selectBasicPanel()
                     .form()
                         .addAttributeValue("name", "NewOrgAsOrgApprover")
                         .and()
@@ -285,9 +287,7 @@ public class OrgMembersTests extends AbstractSchrodingerTest {
                 .getMemberPanel();
         MemberTable<MemberPanel<OrgRootTab>> memberTable = memberPanel
                 .table();
-//        memberPanel
-//                .selectType("All")
-//                .selectRelation("Approver");
+
         memberTable
                 .search()
                     .byType("All")
