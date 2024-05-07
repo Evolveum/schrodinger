@@ -19,7 +19,7 @@
     <test name="Oidc" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
             <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.oidc.AzureOidcAuthModuleTest"/>
-<!--            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.oidc.KeycloakOidcAuthModuleTest"/>-->
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.oidc.KeycloakOidcAuthModuleTest"/>
         </classes>
     </test>
     <test name="Saml" preserve-order="true" parallel="false" verbose="3" enabled="true">

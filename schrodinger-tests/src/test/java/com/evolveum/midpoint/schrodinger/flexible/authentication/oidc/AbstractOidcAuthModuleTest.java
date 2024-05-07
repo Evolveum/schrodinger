@@ -16,7 +16,6 @@
 package com.evolveum.midpoint.schrodinger.flexible.authentication.oidc;
 
 import com.codeborne.selenide.Selenide;
-import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.flexible.authentication.AbstractRemoteAuthModuleTest;
 import org.testng.annotations.Test;
 
@@ -142,8 +141,6 @@ public abstract class AbstractOidcAuthModuleTest extends AbstractRemoteAuthModul
         securityContent = securityContent.replace(createTag(KEY_ALIAS_KEY), getProperty(KEY_ALIAS_KEY));
         securityContent = securityContent.replace(KEY_PASSWORD_TAG, getProperty(PASSWORD_FOR_PRIVATE_KEY));
         applyBasicSecurityPolicy(securityContent);
-
-        Selenide.sleep(MidPoint.TIMEOUT_EXTRA_LONG_10_M.toMillis());
 
         successLoginAndLogout();
     }
