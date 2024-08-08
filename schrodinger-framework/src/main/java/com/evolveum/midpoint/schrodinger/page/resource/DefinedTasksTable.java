@@ -34,7 +34,7 @@ public class DefinedTasksTable<T> extends TableWithPageRedirect<T, TaskPage, Def
     @Override
     public TaskPage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
-        getParentElement().$x(".//span[@data-s-id='label' and contains(text(), '" + name + "')]")
+        getParentElement().$x(".//span[@data-s-id='title' and contains(text(), '" + name + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForSummaryDisplayNameOnDetailsPage(name);
         return new TaskPage();
