@@ -197,7 +197,9 @@ public class Search<T> extends Component<T, Search<T>> {
 
     public Search<T> addSearchItemByNameLinkClick(String name) {
         SelenideElement popover = getMorePopover();
-        popover.$(Schrodinger.byElementValue("a", name))
+        SelenideElement link = popover.$x(".//span[@data-s-id='itemName' and contains(text(), '" + name + "')]");
+        Utils.scrollToElement(link);
+        link
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());

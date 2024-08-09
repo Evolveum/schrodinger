@@ -36,7 +36,7 @@ public class ResourcesPageTable extends AssignmentHolderObjectListTable<ListReso
     @Override
     public ResourcePage clickByName(String name) {
         Utils.waitForAjaxCallFinish();
-        getParentElement().$(Schrodinger.byElementValue("span", Schrodinger.DATA_S_ID, "label", name))
+        getParentElement().$(Schrodinger.byElementValue("span", Schrodinger.DATA_S_ID, "title", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForMainPanelOnDetailsPage();
         return new ResourcePage();
