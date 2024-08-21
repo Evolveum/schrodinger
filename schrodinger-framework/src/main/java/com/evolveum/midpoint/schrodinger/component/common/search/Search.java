@@ -197,7 +197,7 @@ public class Search<T> extends Component<T, Search<T>> {
 
     public Search<T> addSearchItemByNameLinkClick(String name) {
         SelenideElement popover = getMorePopover();
-        SelenideElement link = popover.$x(".//span[@data-s-id='itemName' and contains(text(), '" + name + "')]");
+        SelenideElement link = findSearchItemByNameLinkInMorePopover(popover, name);
         Utils.scrollToElement(link);
         link
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
@@ -209,15 +209,35 @@ public class Search<T> extends Component<T, Search<T>> {
 
     public Search<T> addSearchItemByAddButtonClick(String name) {
         SelenideElement popover = getMorePopover();
-        popover.$(Schrodinger.byElementValue("a", name))            //click checkbox next to search attribute
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .parent().$(By.tagName("input")).click();
+        SelenideElement link = findSearchItemByNameLinkInMorePopover(popover, name);
+        if (link == null) {
+            return this;
+        }
+        link
+                .parent()
+                .parent()
+                .$(By.tagName("input"))
+                .click();
         Utils.waitForAjaxCallFinish();
         popover.$x(".//a[contains(@class, 'btn-success')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click(); //click Add button
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         Utils.waitForAjaxCallFinish();
         popover.shouldBe(Condition.hidden, MidPoint.TIMEOUT_MEDIUM_6_S);
         return this;
+    }
+
+    private SelenideElement findSearchItemByNameLinkInMorePopover(SelenideElement popover, String name) {
+        ElementsCollection links = popover.$$x(".//span[@data-s-id='itemName' and contains(text(), '" + name + "')]");
+        SelenideElement link = links
+                .asFixedIterable()
+                .stream()
+                .filter(l -> l.getText().equals(name))
+                .findFirst()
+                .orElse(null);
+        if (link != null) {
+            Utils.scrollToElement(link);
+        }
+        return link;
     }
 
     private SelenideElement getMorePopover() {
