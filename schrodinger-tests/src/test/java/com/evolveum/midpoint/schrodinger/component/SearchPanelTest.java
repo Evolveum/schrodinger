@@ -76,7 +76,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final String REQUESTABLE_ATTRIBUTE = "Requestable";
     private static final String ADMINISTRATIVE_STATUS_ATTRIBUTE = "Administrative status";
     private static final String ROLE_MEMBERSHIP_ATTRIBUTE = "Role membership";
-    private static final String REF_SEARCH_FIELD_VALUE = "roleMembershipByNameSearch; Oid:95986f96-5b63-11ed-9b6a-0242ac120002; Relation:default; RoleType";
+    private static final String REF_SEARCH_FIELD_VALUE = "roleMembershipByNameSearch";
 
     @Override
     protected List<File> getObjectListToImport(){
