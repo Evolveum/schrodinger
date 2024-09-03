@@ -125,7 +125,7 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         List<String> assignmentNamesList = new ArrayList<String>();
         for (TableRow<?, ?> row : rows) {
             SelenideElement label = row.getParentElement().$(Schrodinger.byDataId("td", "3"))
-                    .$(Schrodinger.byDataId("span", "label"));
+                    .$(Schrodinger.byDataId("span", "title"));
             if (label.exists() && !label.getText().isEmpty()) {
                 assignmentNamesList.add(label.getText());
             }

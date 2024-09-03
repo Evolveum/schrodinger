@@ -84,6 +84,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
     }
 
     public RoleCatalogStepPanel addItemToCart(String itemLabel) {
+        search().byName().inputValue(itemLabel).updateSearch();
         SelenideElement item = findTileByLabel(itemLabel);
         if (item != null) {
             item.$x(".//a[@data-s-id='add']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
