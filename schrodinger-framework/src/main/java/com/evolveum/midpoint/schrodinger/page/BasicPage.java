@@ -15,10 +15,7 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.*;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.LoggedUser;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
@@ -584,8 +581,20 @@ public class BasicPage {
     }
 
     private SelenideElement getMainMenuItemElement(String topLevelMenuValue, String mainMenuKey, int index){
+        if (StringUtils.isEmpty(topLevelMenuValue)) {
+            return null;
+        }
         Utils.waitForAjaxCallFinish();
-        SelenideElement topLevelMenu = $x(".//span[@data-s-id='name' and contains(text(), '" + topLevelMenuValue + "')]");
+        ElementsCollection topLevelMenuItems = $$x(".//span[@data-s-id='name']");
+        SelenideElement topLevelMenu = topLevelMenuItems
+                .asFixedIterable()
+                .stream()
+                .filter(menuItem -> StringUtils.equalsIgnoreCase(menuItem.getText(), topLevelMenuValue))
+                .findFirst()
+                .orElse(null);
+        if (topLevelMenu == null) {
+            return null;
+        }
         Utils.scrollToElement(topLevelMenu);
         topLevelMenu.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
