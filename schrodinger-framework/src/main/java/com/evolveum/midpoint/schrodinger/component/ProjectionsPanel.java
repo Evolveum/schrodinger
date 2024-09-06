@@ -65,7 +65,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
             @Override
             public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>> clickByName(String name) {
                 Utils.waitForAjaxCallFinish();
-                SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "label", name));
+                SelenideElement linkElement = $(Schrodinger.byElementValue("span", "data-s-id", "title", name));
                 linkElement
                         .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
 //                Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
