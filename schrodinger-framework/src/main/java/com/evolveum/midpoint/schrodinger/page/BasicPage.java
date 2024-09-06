@@ -377,7 +377,7 @@ public class BasicPage {
     }
 
     public BulkActionsPage bulkActions() {
-        clickConfigurationMenu("PageAdmin.menu.top.configuration.bulkActions");
+        clickConfigurationMenu("PageAdmin.menu.top.configuration.actions");
         return new BulkActionsPage();
     }
 

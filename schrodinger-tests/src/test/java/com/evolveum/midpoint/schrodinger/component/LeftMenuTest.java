@@ -45,7 +45,7 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
         assertTaskMenuItemExists("Certification-related tasks");
         assertTaskMenuItemExists("Cleanup tasks");
         assertTaskMenuItemExists("Import tasks");
-        assertTaskMenuItemExists("Iterative bulk action tasks");
+        assertTaskMenuItemExists("Iterative action tasks");
         assertTaskMenuItemExists("Live synchronization tasks");
         assertTaskMenuItemExists("Recomputation tasks");
         assertTaskMenuItemExists("Reconciliation tasks");
