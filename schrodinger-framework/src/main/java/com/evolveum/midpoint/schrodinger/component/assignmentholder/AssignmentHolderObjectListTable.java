@@ -135,6 +135,7 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         mainButtonElement.click();
         try {
             Utils.getModalWindowSelenideElement();
+            Utils.waitForAjaxCallFinish();
         } catch (Error e) {
             //nothing to do here, the popup can appear or not; depends on configuration;
         }
