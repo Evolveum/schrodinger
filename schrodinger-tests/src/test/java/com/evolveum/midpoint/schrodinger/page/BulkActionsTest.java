@@ -24,7 +24,7 @@ import org.testng.annotations.Test;
  */
 public class BulkActionsTest extends AbstractSchrodingerTest {
 
-    private static final String PARSING_ERROR_MESSAGE = "Couldn't parse bulk action object";
+    private static final String PARSING_ERROR_MESSAGE = "Couldn't parse action object";
 
     @Test
     public void test0010wrongBulkActionXmlExecution(){

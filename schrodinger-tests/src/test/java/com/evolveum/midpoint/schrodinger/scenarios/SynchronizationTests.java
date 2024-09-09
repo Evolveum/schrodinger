@@ -18,9 +18,11 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
+import com.evolveum.midpoint.schrodinger.page.FocusPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
+import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -329,7 +331,7 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     @Test (priority = 8, dependsOnMethods = {RESOURCE_ACCOUNT_CREATED_WHEN_UNREACHABLE})
     public void test0090resourceAccountCreatedWhenResourceUnreachableToBeLinked() throws IOException {
         ListUsersPage listUsersPage= basicPage.listUsers();
-        listUsersPage
+        FocusPage focusPage = listUsersPage
                     .table()
                         .search()
                             .byName()
@@ -345,9 +347,12 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                                     .delete()
                                     .clickYes()
                             .and()
-                        .and()
-                        .clickSave()
-                            .feedback()
+                        .and();
+        Selenide.screenshot("SynchTest_test0090_debug1");
+        ProgressPage progressPage = focusPage
+                        .clickSave();
+        Selenide.screenshot("SynchTest_test0090_debug2");
+        progressPage.feedback()
                     .assertSuccess();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.toMillis());
 
