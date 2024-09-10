@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -84,12 +85,17 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
     }
 
     public RoleCatalogStepPanel addItemToCart(String itemLabel) {
+        Selenide.screenshot("addItemToCart_1");
         search().byName().inputValue(itemLabel).updateSearch();
+        Selenide.screenshot("addItemToCart_2");
         SelenideElement item = findTileByLabel(itemLabel);
         if (item != null) {
+            Selenide.screenshot("addItemToCart_3");
             item.$x(".//a[@data-s-id='add']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
             Utils.waitForAjaxCallFinish();
         }
+        Selenide.screenshot("addItemToCart_4");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
         return RoleCatalogStepPanel.this;
     }
 
