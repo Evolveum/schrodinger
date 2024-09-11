@@ -34,10 +34,15 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
     public SystemPage addNewObjectCollection(String identifier, String type, String objectCollectionType, String objectCollectionName) {
         objectCollectionViewsPanel()
                 .clickAddButton()
+                .selectBasicPanel()
                     .getPrismContainerPanel("GuiObjectListViewType.details.newValue")
                         .getContainerFormFragment()
                         .addAttributeValue("Identifier", identifier)
                         .setDropDownAttributeValue("Type", type)
+                .and()
+                .and()
+                .and()
+                .selectDisplayPanel()
                             .getPrismContainerPanel("Display")
                                 .getContainerFormFragment()
                                 .addAttributeValue("Label", identifier)
@@ -45,6 +50,8 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
                                 .addAttributeValue("Plural label", identifier)
                             .and()
                         .and()
+                .and()
+                .selectCollectionPanel()
                             .getPrismContainerPanel("Collection")
                                 .getContainerFormFragment()
                                 .editRefValue("Collection ref")
@@ -60,7 +67,6 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
                             .and()
                         .and()
                     .and()
-                .and()
                 .and()
                 .clickSave();
         return getParent();
