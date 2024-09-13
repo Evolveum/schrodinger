@@ -209,5 +209,8 @@
                 </reaction>
             </objectSynchronization>
         </synchronization>
+    <caching>
+        <defaultCacheUse>useFresh</defaultCacheUse>
+    </caching>
 </resource>
 

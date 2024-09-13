@@ -236,4 +236,7 @@
     <consistency>
         <deadShadowRetentionPeriod>PT0H</deadShadowRetentionPeriod>
     </consistency>
+    <caching>
+        <defaultCacheUse>useFresh</defaultCacheUse>
+    </caching>
 </resource>

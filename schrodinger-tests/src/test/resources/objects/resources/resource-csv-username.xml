@@ -113,4 +113,7 @@
             </cap:activation>
         </configured>
     </capabilities>
+    <caching>
+        <defaultCacheUse>useFresh</defaultCacheUse>
+    </caching>
 </resource>
