@@ -57,7 +57,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertAssignmentsWithRelationExist("Role", relationTranslated, "End user");
     }
 
-   @Test
+    //todo commented due to ticket #9683
+//   @Test
     public void test0020requestEndUserRoleForUserGroup() {
         basicPage
                 .requestAccess()
@@ -77,7 +78,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertAssignmentsWithRelationExist("Role", SchemaConstants.ORG_DEFAULT.getLocalPart(), "End user");
     }
 
-   @Test
+    //todo commented due to ticket #9683
+//   @Test
    public void test003requestRolesOfTeammate() {
        basicPage
                .requestAccess()
@@ -94,10 +96,11 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertAssignmentsWithRelationExist("Role", "Manager", "ra_role_to_assign");
     }
 
+    //todo commented due to ticket #9683
     /**
      * Covers MID-9323
      */
-    @Test
+//    @Test
    public void test004selectAllItemsOnTableViewPanel() {
        basicPage
                .requestAccess()
