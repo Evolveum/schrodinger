@@ -313,4 +313,9 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .feedback()
                 .isInfo();
     }
+
+    @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return true;
+    }
 }
