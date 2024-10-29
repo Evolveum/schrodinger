@@ -18,11 +18,15 @@ package com.evolveum.midpoint.schrodinger.flexible.authentication.oidc;
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.flexible.authentication.util.AzureUtils;
-import org.testng.annotations.Test;
+
+import java.io.File;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class AzureOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
+
+    protected static final File SECURITY_POLICY_PKCE_FILE =
+            new File (BASE_DIR_FOR_SECURITY_FILES + "using-pkce-azure.xml");
 
     protected String getServerPrefix() {
         return AzureUtils.SERVER_PREFIX;
@@ -62,5 +66,10 @@ public class AzureOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
 
     protected String getEnabledUserFilePath() {
         return USER_FILE_PREFIX + getServerPrefix() + "-" + ENABLED_USER_FILE_SUFFIX;
+    }
+
+    @Override
+    protected File getSecurityPolicyPKCEFile() {
+        return SECURITY_POLICY_PKCE_FILE;
     }
 }

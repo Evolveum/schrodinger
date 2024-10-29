@@ -17,7 +17,12 @@ package com.evolveum.midpoint.schrodinger.flexible.authentication.oidc;
 
 import com.evolveum.midpoint.schrodinger.flexible.authentication.util.KeycloakUtils;
 
+import java.io.File;
+
 public class KeycloakOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
+
+    protected static final File SECURITY_POLICY_PKCE_FILE =
+            new File (BASE_DIR_FOR_SECURITY_FILES + "using-pkce-keycloak.xml");
 
     protected String getServerPrefix() {
         return KeycloakUtils.SERVER_PREFIX;
@@ -31,5 +36,10 @@ public class KeycloakOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
     @Override
     protected void logoutAndCheckIt(String username) {
         KeycloakUtils.logoutAndCheckIt();
+    }
+
+    @Override
+    protected File getSecurityPolicyPKCEFile() {
+        return SECURITY_POLICY_PKCE_FILE;
     }
 }

@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public abstract class AbstractOidcAuthModuleTest extends AbstractRemoteAuthModuleTest {
 
-    private static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/authentication/oidc/";
+    static final String BASE_DIR_FOR_SECURITY_FILES = "src/test/resources/objects/securitypolicies/authentication/oidc/";
     private static final File SECURITY_POLICY_ISSUER_URI_FILE =
             new File (BASE_DIR_FOR_SECURITY_FILES + "issuer-uri.xml");
     private static final File SECURITY_POLICY_ALL_URI_CONFIG_FILE =
@@ -56,6 +56,7 @@ public abstract class AbstractOidcAuthModuleTest extends AbstractRemoteAuthModul
     private static final String KEY_PASSWORD_TAG = "||keyPassword||";
 
     private static final String SIGNING_PREFIX = "signedJwt.";
+    private static final String PKCE_PREFIX = "pkce.";
 
 
     @Override
@@ -177,4 +178,18 @@ public abstract class AbstractOidcAuthModuleTest extends AbstractRemoteAuthModul
             Selenide.closeWindow();
         }
     }
+
+    @Test
+    public void test008SuccessLoginAndLogoutPKCE() throws Exception {
+        String securityContent = super.getSecurityPolicy(getSecurityPolicyPKCEFile());
+        securityContent = securityContent.replace(createTag(CLIENT_ID_KEY), getProperty(PKCE_PREFIX + CLIENT_ID_KEY));
+        securityContent = securityContent.replace(createTag(ISSUER_URI_KEY), getProperty(ISSUER_URI_KEY));
+        securityContent = securityContent.replace(createTag(CLIENT_SECRET_KEY), getClientSecret());
+
+        applyBasicSecurityPolicy(securityContent);
+
+        successLoginAndLogout();
+    }
+
+    protected abstract File getSecurityPolicyPKCEFile();
 }
