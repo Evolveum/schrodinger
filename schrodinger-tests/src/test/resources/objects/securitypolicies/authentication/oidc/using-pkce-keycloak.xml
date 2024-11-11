@@ -41,6 +41,7 @@
                         <clearValue>||clientSecret||</clearValue>
                     </clientSecret>
                     <clientAuthenticationMethod>clientSecretJwt</clientAuthenticationMethod>
+                    <idTokenSigningAlgorithm>RS512</idTokenSigningAlgorithm>
                     <nameOfUsernameAttribute>preferred_username</nameOfUsernameAttribute>
                     <openIdProvider>
                         <issuerUri>||issuerUri||</issuerUri>
