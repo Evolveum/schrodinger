@@ -75,9 +75,6 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     @Test(priority = 0)
     public void test0010setUpResourceAndSynchronizationTask() throws IOException {
         reimportDefaultSystemConfigurationAndRelogin();
-        //just for debugging, remove later
-        basicPage.dashboard();
-        Selenide.screenshot("dashboardPage");
 
         addCsvResourceFromFileAndTestConnection(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_FILE, ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, csvTargetFile.getAbsolutePath());
         addObjectFromFile(ScenariosCommons.USER_TEST_RAPHAEL_FILE);
