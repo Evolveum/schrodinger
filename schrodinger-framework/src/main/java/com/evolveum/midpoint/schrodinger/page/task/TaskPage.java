@@ -86,7 +86,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
     }
 
     public TaskPage clickRunNow() {
-        $(Schrodinger.byElementAttributeValue("a", "title", "Run now")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//a[contains(text(), 'Run now')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
         return this;
     }
