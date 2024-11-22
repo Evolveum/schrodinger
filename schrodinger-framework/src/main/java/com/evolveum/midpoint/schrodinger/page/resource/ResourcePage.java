@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
 
@@ -33,7 +34,7 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
     }
 
     public ResourcePage refreshSchema() {
-        $(Schrodinger.byElementAttributeValue("a", "title", "Refresh schema"))
+        $x(".//a[contains(text(), 'Refresh schema')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         return this;
