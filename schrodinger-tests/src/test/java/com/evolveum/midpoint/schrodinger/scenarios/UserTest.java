@@ -136,7 +136,7 @@ public class UserTest extends AbstractSchrodingerTest {
 
         showUser("DelegateToUser")
                 .selectDelegatedToMePanel()
-                    .getDelegationDetailsPanel("DelegateFromUser")
+                    .getDelegationDetailsPanel("Current user")
                         .expandDetailsPanel()
                         .assertAssignmentPrivilegesNotSelected()
                         .assertAssignmentLimitationsNotSelected()

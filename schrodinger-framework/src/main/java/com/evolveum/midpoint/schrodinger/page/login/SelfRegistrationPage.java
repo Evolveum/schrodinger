@@ -31,24 +31,27 @@ import static com.codeborne.selenide.Selenide.$x;
 public class SelfRegistrationPage extends LoginPage {
 
     public SelfRegistrationPage setGivenName(String value) {
-        $(By.name("contentArea:staticForm:firstName:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        $(By.name("contentArea:staticForm:firstName:input")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        setAttributeValue("firstName", value);
         return  this;
     }
 
     public SelfRegistrationPage setFamilyName(String value) {
-        $(By.name("contentArea:staticForm:lastName:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        $(By.name("contentArea:staticForm:lastName:input")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        setAttributeValue("lastName", value);
         return  this;
     }
 
     public SelfRegistrationPage setEmail(String value) {
-        $(By.name("contentArea:staticForm:email:input")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        $(By.name("contentArea:staticForm:email:input")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        setAttributeValue("email", value);
         return  this;
+    }
+
+    private void setAttributeValue(String attributeName, String value) {
+        String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
+        $(Schrodinger.byElementAttributeValue("input", "name", nameAttrValue))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byElementAttributeValue("input", "name", nameAttrValue))
+                .shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public SelfRegistrationPage setPassword(String value) {
