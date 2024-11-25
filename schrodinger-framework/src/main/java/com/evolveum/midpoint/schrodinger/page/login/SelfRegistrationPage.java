@@ -47,10 +47,10 @@ public class SelfRegistrationPage extends LoginPage {
 
     private void setAttributeValue(String attributeName, String value) {
         String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
-        $(Schrodinger.byElementAttributeValue("input", "name", nameAttrValue))
+        $x(".//input[@name='" + nameAttrValue + "']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
         Utils.waitForAjaxCallFinish();
-        $(Schrodinger.byElementAttributeValue("input", "name", nameAttrValue))
+        $x(".//input[@name='" + nameAttrValue + "']")
                 .shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
