@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -48,7 +49,8 @@ public class SelfRegistrationPage extends LoginPage {
     private void setAttributeValue(String attributeName, String value) {
         String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
         $x(".//input[@name='" + nameAttrValue + "']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(value);
+        Selenide.sleep(1000);
         Utils.waitForAjaxCallFinish();
         $x(".//input[@name='" + nameAttrValue + "']")
                 .shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
