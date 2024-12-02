@@ -47,9 +47,11 @@ public class SelfRegistrationPage extends LoginPage {
     }
 
     private void setAttributeValue(String attributeName, String value) {
+        Utils.waitForAjaxCallFinish();
         String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
         $x(".//input[@name='" + nameAttrValue + "']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(value);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Selenide.screenshot("setAttributeValue_" + attributeName);
         Selenide.sleep(1000);
         Utils.waitForAjaxCallFinish();
         $x(".//input[@name='" + nameAttrValue + "']")
