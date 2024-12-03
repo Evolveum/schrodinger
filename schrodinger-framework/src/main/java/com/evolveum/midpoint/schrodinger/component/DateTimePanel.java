@@ -22,6 +22,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 
@@ -78,26 +79,36 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         clickOnChangeCalendarView(widget);
 
         widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']")).click();
+        Utils.waitForAjaxCallFinish();
         widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (mount - 1) + "']")).click();
+        Utils.waitForAjaxCallFinish();
         widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']")).click();
+        Utils.waitForAjaxCallFinish();
 
         widget.$(By.cssSelector("div[data-action='togglePicker']")).click();
+        Utils.waitForAjaxCallFinish();
 
         widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).click();
+        Utils.waitForAjaxCallFinish();
         widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']")).click();
+        Utils.waitForAjaxCallFinish();
 
         widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']")).click();
+        Utils.waitForAjaxCallFinish();
         widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']")).click();
+        Utils.waitForAjaxCallFinish();
 
         if (amOrPmChoice != null) {
             SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"));
             String currentMeridian = meridianButton.getText();
             if (!amOrPmChoice.name().equals(currentMeridian)) {
                 meridianButton.click();
+                Utils.waitForAjaxCallFinish();
             }
         }
 
         findButton().click();
+        Utils.waitForAjaxCallFinish();
 
         return this;
     }
