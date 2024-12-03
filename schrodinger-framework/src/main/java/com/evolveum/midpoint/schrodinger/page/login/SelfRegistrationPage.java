@@ -52,8 +52,12 @@ public class SelfRegistrationPage extends LoginPage {
         if (schrodingerElement.exists()) {
             SelenideElement inputParent = schrodingerElement.parent();
             if (inputParent.exists()) {
-                inputParent.$x(".//input")
-                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+                for (SelenideElement el : inputParent.$$x(".//*")) {
+                    System.out.println("Parent contains: " + el.getTagName());
+                }
+                inputParent.$(By.tagName("input"))
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                        .sendKeys(value);
                 Selenide.screenshot("setAttributeValue_" + attributeName);
                 Utils.waitForAjaxCallFinish();
             }
