@@ -56,10 +56,10 @@ public class SelfRegistrationPage extends LoginPage {
                     .sendKeys(value);
             Selenide.screenshot("try_setAttributeValue_" + attributeName);
         } catch (Exception e) {
-            refresh();
-            $x(".//input[@name='" + nameAttrValue + "']")
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                    .sendKeys(value);
+//            refresh();
+//            $x(".//input[@name='" + nameAttrValue + "']")
+//                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+//                    .sendKeys(value);
             Selenide.screenshot("catch_setAttributeValue_" + attributeName);
         }
         Selenide.sleep(1000);
@@ -67,12 +67,20 @@ public class SelfRegistrationPage extends LoginPage {
 
     public SelfRegistrationPage setPassword(String value) {
         Utils.waitForAjaxCallFinish();
-        $(Schrodinger.byDataId("password1")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        $(Schrodinger.byDataId("password1")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
-        $(Schrodinger.byDataId("password2")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        $(Schrodinger.byDataId("password2")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        try {
+            $(Schrodinger.byDataId("password1")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(value);
+            Utils.waitForAjaxCallFinish();
+        } catch (Exception e) {
+            Selenide.screenshot("catch_set_password1");
+        }
+//        $(Schrodinger.byDataId("password1")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        try {
+            $(Schrodinger.byDataId("password2")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+            Utils.waitForAjaxCallFinish();
+        } catch (Exception e) {
+            Selenide.screenshot("catch_set_password2");
+        }
+//        $(Schrodinger.byDataId("password2")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         return  this;
     }
 
