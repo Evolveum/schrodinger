@@ -23,8 +23,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -48,29 +47,22 @@ public class SelfRegistrationPage extends LoginPage {
 
     private void setAttributeValue(String attributeName, String value) {
         Utils.waitForAjaxCallFinish();
-        SelenideElement schrodingerElement = $(Schrodinger.byDataId(attributeName));
-        if (schrodingerElement.exists()) {
-            SelenideElement inputParent = schrodingerElement.parent();
-            if (inputParent.exists()) {
-                for (SelenideElement el : inputParent.$$x(".//*")) {
-                    System.out.println("Parent contains: " + el.getTagName());
-                }
-                inputParent.$(By.tagName("input"))
-                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                        .sendKeys(value);
-                Selenide.screenshot("setAttributeValue_" + attributeName);
-                Utils.waitForAjaxCallFinish();
-            }
+        Selenide.sleep(1000);
+        String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
+        SelenideElement inputField = $x(".//input[@name='" + nameAttrValue + "']");
+        try {
+            inputField
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                    .sendKeys(value);
+            Selenide.screenshot("try_setAttributeValue_" + attributeName);
+        } catch (Exception e) {
+            refresh();
+            $x(".//input[@name='" + nameAttrValue + "']")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                    .sendKeys(value);
+            Selenide.screenshot("catch_setAttributeValue_" + attributeName);
         }
-//        //if the value wasn't set by the previous code, we will try to set it again
-//        String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
-//        $x(".//input[@name='" + nameAttrValue + "']")
-//                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-//        Selenide.screenshot("setAttributeValue_" + attributeName);
-//        Selenide.sleep(1000);
-//        Utils.waitForAjaxCallFinish();
-//        $x(".//input[@name='" + nameAttrValue + "']")
-//                .shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        Selenide.sleep(1000);
     }
 
     public SelfRegistrationPage setPassword(String value) {
