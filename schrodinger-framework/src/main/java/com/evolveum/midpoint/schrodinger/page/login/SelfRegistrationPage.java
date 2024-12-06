@@ -18,10 +18,11 @@ package com.evolveum.midpoint.schrodinger.page.login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -51,9 +52,12 @@ public class SelfRegistrationPage extends LoginPage {
         String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
         SelenideElement inputField = $x(".//input[@name='" + nameAttrValue + "']");
         try {
+            JavascriptExecutor js = (JavascriptExecutor) WebDriverRunner.getWebDriver();
+            js.executeScript("window.stop();");
             inputField
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                     .sendKeys(value);
+            js.executeScript("window.stop();");
             Selenide.screenshot("try_setAttributeValue_" + attributeName);
         } catch (Exception e) {
 //            refresh();
