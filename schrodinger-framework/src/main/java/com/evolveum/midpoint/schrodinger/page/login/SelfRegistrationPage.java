@@ -71,16 +71,19 @@ public class SelfRegistrationPage extends LoginPage {
 
     public SelfRegistrationPage setPassword(String value) {
         Utils.waitForAjaxCallFinish();
+        JavascriptExecutor js = (JavascriptExecutor) WebDriverRunner.getWebDriver();
         try {
             $(Schrodinger.byDataId("password1")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(value);
-            Utils.waitForAjaxCallFinish();
+            js.executeScript("window.stop();");
+            Selenide.screenshot("try_setPassword1_" + value);
         } catch (Exception e) {
             Selenide.screenshot("catch_set_password1");
         }
 //        $(Schrodinger.byDataId("password1")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
         try {
-            $(Schrodinger.byDataId("password2")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-            Utils.waitForAjaxCallFinish();
+            $(Schrodinger.byDataId("password2")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).sendKeys(value);
+            js.executeScript("window.stop();");
+            Selenide.screenshot("try_setPassword2_" + value);
         } catch (Exception e) {
             Selenide.screenshot("catch_set_password2");
         }

@@ -117,13 +117,11 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .and()
                 .clickSendButton();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
-        Selenide.screenshot("test031resetPasswordSecurityQuestionAndMailNonce_sendSecQuestion");
 
         String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
         open(link);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
         String actualUrl = basicPage.getCurrentUrl();
-        Selenide.screenshot("test031resetPasswordSecurityQuestionAndMailNonce_actualUrl");
         Assert.assertTrue(actualUrl.endsWith("/resetPassword"),
                 "Url is expected to end up with /resetPassword, but actual ends with " + actualUrl);
         clearNotificationFile();
