@@ -89,7 +89,7 @@ public class SystemPage extends AssignmentHolderDetailsPage {
     private SystemPage panelSelectionButtonClick(String panelTitle) {
         Utils.waitForAjaxCallFinish();
         String translatedTitle = Utils.translate(panelTitle);
-        $x(".//span[@data-s-id='title' and contains(@class, 'text-secondary') and contains(text(), '" + translatedTitle + "')]")
+        $x(".//span[@data-s-id='title' and contains(@class, 'tile-title') and contains(text(), '" + translatedTitle + "')]")
                 .shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Utils.waitForAjaxCallFinish();
         return this;
