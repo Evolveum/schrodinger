@@ -92,12 +92,13 @@ public class SelfRegistrationPage extends LoginPage {
     }
 
     public SelfRegistrationPage setCaptcha() {
-        Utils.waitForAjaxCallFinish();
         try {
             JavascriptExecutor js = (JavascriptExecutor) WebDriverRunner.getWebDriver();
+            js.executeScript("window.stop();");
             SelenideElement captcha = $x(".//input[@data-s-id='text']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-            //todo we need to set any value, it will be ignored during the test
-            captcha.sendKeys("1234");
+//            todo we need to set any value, it will be ignored during the test
+            js.executeScript("document.getElementById('" + captcha.getAttribute("id") + "').setAttribute('value', '1234')");
+//            captcha.sendKeys("1234");
             js.executeScript("window.stop();");
             Selenide.screenshot("try_setCaptcha");
         } catch (Exception e) {
