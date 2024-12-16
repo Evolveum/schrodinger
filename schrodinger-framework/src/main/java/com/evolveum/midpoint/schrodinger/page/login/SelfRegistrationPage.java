@@ -91,26 +91,7 @@ public class SelfRegistrationPage extends LoginPage {
         return  this;
     }
 
-    public SelfRegistrationPage setCaptcha() {
-        try {
-            JavascriptExecutor js = (JavascriptExecutor) WebDriverRunner.getWebDriver();
-            js.executeScript("window.stop();");
-            SelenideElement captcha = $x(".//input[@data-s-id='text']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-//            todo we need to set any value, it will be ignored during the test
-//            js.executeScript("document.getElementById('" + captcha.getAttribute("id") + "').setAttribute('value', '1234')");
-            captcha.sendKeys("1234");
-            js.executeScript("window.stop();");
-            Selenide.screenshot("try_setCaptcha");
-        } catch (Exception e) {
-            Selenide.screenshot("catch_set_captcha");
-        }
-        return  this;
-    }
-
     public SelfRegistrationPage submit() {
-//        $(Schrodinger.byDataId("text")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue("text");
-//        Utils.waitForAjaxCallFinish();
-//        $(Schrodinger.byDataId("text")).shouldHave(Condition.value("text"), MidPoint.TIMEOUT_DEFAULT_2_S);
         Selenide.screenshot("self_reg_before_submit");
         $(Schrodinger.byDataId("submitRegistration")).click();
         Selenide.screenshot("self_reg_after_submit");

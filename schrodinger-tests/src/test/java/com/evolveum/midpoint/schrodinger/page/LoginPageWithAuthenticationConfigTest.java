@@ -155,7 +155,6 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
                 .setFamilyName("User")
                 .setEmail("test.user@evolveum.com")
                 .setPassword("Passw5ecr3t")
-                .setCaptcha()
                 .submit()
                 .feedback()
                 .assertSuccess();
