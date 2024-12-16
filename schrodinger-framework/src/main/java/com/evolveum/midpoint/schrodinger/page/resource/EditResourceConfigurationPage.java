@@ -29,6 +29,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 
 public class EditResourceConfigurationPage extends BasicPage {
@@ -75,7 +76,8 @@ public class EditResourceConfigurationPage extends BasicPage {
     }
 
     public TestConnectionModal<EditResourceConfigurationPage> clickTestConnection() {
-        $(Schrodinger.byElementAttributeValue("span", "title", "Test connection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
+        $x(".//span[contains(text(), 'Test connection']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
 //        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
     }

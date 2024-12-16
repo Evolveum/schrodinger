@@ -48,7 +48,7 @@ public class ResourcePage extends AssignmentHolderDetailsPage<ResourcePage> {
     }
 
     public TestConnectionModal<ResourcePage> clickTestConnection() {
-        $(Schrodinger.byElementAttributeValue("a", "title", "Test connection")).shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
+        $x(".//a[contains(text(), 'Test connection')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_EXTRA_LONG_10_M).click();
 //        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         return new TestConnectionModal<>(this, Utils.getModalWindowSelenideElement(MidPoint.TIMEOUT_LONG_1_M));
     }
