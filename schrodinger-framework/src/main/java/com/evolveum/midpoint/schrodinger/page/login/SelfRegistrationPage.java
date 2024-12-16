@@ -62,19 +62,9 @@ public class SelfRegistrationPage extends LoginPage {
         return  this;
     }
 
-    public SelfRegistrationPage setCaptcha() {
-        SelenideElement captcha = $x(".//input[@data-s-id='text']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        //todo we need to set any value, it will be ignored during the test
-        captcha.setValue("1234");
-        Utils.waitForAjaxCallFinish();
-        return  this;
-    }
-
     public SelfRegistrationPage submit() {
-        $(Schrodinger.byDataId("text")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue("text");
-        Utils.waitForAjaxCallFinish();
-        $(Schrodinger.byDataId("text")).shouldHave(Condition.value("text"), MidPoint.TIMEOUT_DEFAULT_2_S);
         $(Schrodinger.byDataId("submitRegistration")).click();
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 
