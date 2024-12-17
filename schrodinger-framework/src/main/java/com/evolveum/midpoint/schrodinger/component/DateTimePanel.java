@@ -72,6 +72,7 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
     public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
         findButton().click();
+        Utils.waitForAjaxCallFinish();
 
         SelenideElement widget = getWidget();
 
@@ -80,8 +81,10 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
         widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']")).click();
         Utils.waitForAjaxCallFinish();
+
         widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (mount - 1) + "']")).click();
         Utils.waitForAjaxCallFinish();
+
         widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']")).click();
         Utils.waitForAjaxCallFinish();
 
@@ -90,11 +93,13 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
         widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).click();
         Utils.waitForAjaxCallFinish();
+
         widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']")).click();
         Utils.waitForAjaxCallFinish();
 
         widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']")).click();
         Utils.waitForAjaxCallFinish();
+
         widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']")).click();
         Utils.waitForAjaxCallFinish();
 
@@ -122,6 +127,7 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         widget.$(By.cssSelector("div[data-action='changeCalendarView']"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
+        Utils.waitForAjaxCallFinish();
     }
 
     public String dateTime() {
