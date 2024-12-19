@@ -151,10 +151,10 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         Selenide.sleep(2000);
         SelfRegistrationPage registrationPage = login.register();
         registrationPage
-                .setGivenName("Test")
+                .setPassword("Passw5ecr3t")
+                .setGivenName("Test22")
                 .setFamilyName("User")
                 .setEmail("test.user@evolveum.com")
-                .setPassword("Passw5ecr3t")
                 .submit()
                 .feedback()
                 .assertSuccess();
