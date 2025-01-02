@@ -78,30 +78,47 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         clickOnChangeCalendarView(widget);
         clickOnChangeCalendarView(widget);
 
-        widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
-        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (month - 1) + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (month - 1) + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
-        widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='togglePicker']")).click();
+        widget.$(By.cssSelector("div[data-action='togglePicker']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).click();
+        widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
         widget.$x(".//div[@class='time-container-hour']").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
 
-        widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']")).click();
+        widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
-        widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
         if (amOrPmChoice != null) {
-            SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"));
+            SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             String currentMeridian = meridianButton.getText();
             if (!amOrPmChoice.name().equals(currentMeridian)) {
                 meridianButton.click();
