@@ -66,11 +66,11 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         return this;
     }
 
-    public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes) {
-        return setDateTimeValueByPicker(mount, day, year, hours, minutes, null);
+    public DateTimePanel<T> setDateTimeValueByPicker(int month, int day, int year, int hours, int minutes) {
+        return setDateTimeValueByPicker(month, day, year, hours, minutes, null);
     }
 
-    public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
+    public DateTimePanel<T> setDateTimeValueByPicker(int month, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
         findButton().click();
 
         SelenideElement widget = getWidget();
@@ -80,7 +80,7 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
         widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']")).click();
         Utils.waitForAjaxCallFinish();
-        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (mount - 1) + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (month - 1) + "']")).click();
         Utils.waitForAjaxCallFinish();
         widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']")).click();
         Utils.waitForAjaxCallFinish();
@@ -90,6 +90,8 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
         widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).click();
         Utils.waitForAjaxCallFinish();
+        widget.$x(".//div[@class='time-container-hour']").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+
         widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']")).click();
         Utils.waitForAjaxCallFinish();
 
