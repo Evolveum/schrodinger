@@ -66,11 +66,11 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         return this;
     }
 
-    public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes) {
-        return setDateTimeValueByPicker(mount, day, year, hours, minutes, null);
+    public DateTimePanel<T> setDateTimeValueByPicker(int month, int day, int year, int hours, int minutes) {
+        return setDateTimeValueByPicker(month, day, year, hours, minutes, null);
     }
 
-    public DateTimePanel<T> setDateTimeValueByPicker(int mount, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
+    public DateTimePanel<T> setDateTimeValueByPicker(int month, int day, int year, int hours, int minutes, AmOrPmChoice amOrPmChoice) {
         findButton().click();
         Utils.waitForAjaxCallFinish();
 
@@ -79,32 +79,50 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
         clickOnChangeCalendarView(widget);
         clickOnChangeCalendarView(widget);
 
-        widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectYear'][data-value='" + year + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (mount - 1) + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMonth'][data-value='" + (month - 1) + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectDay'][data-day='" + day + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='togglePicker']")).click();
+        widget.$(By.cssSelector("div[data-action='togglePicker']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).click();
+        widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        widget.$x(".//div[@class='time-container-hour']").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+
+        widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='selectHour'][data-value='" + hours + "']")).click();
+        widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='showMinutes'][data-time-component='minutes']")).click();
-        Utils.waitForAjaxCallFinish();
-
-        widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']")).click();
+        widget.$(By.cssSelector("div[data-action='selectMinute'][data-value='" + minutes + "']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Utils.waitForAjaxCallFinish();
 
         if (amOrPmChoice != null) {
-            SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"));
+            SelenideElement meridianButton = widget.$(By.cssSelector("button[data-action='toggleMeridiem']"))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             String currentMeridian = meridianButton.getText();
             if (!amOrPmChoice.name().equals(currentMeridian)) {
                 meridianButton.click();
