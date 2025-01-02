@@ -88,6 +88,7 @@ public class SelfRegistrationPage extends LoginPage {
             Selenide.screenshot("catch_set_password2");
         }
 //        $(Schrodinger.byDataId("password2")).shouldHave(Condition.value(value), MidPoint.TIMEOUT_DEFAULT_2_S);
+        js.executeScript("document.querySelectorAll('div[data-s-id=\"validationPanel\"]').item(0).style.display = \"none\";");
         return  this;
     }
 
