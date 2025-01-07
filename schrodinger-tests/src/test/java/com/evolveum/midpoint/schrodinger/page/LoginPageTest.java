@@ -69,6 +69,23 @@ public class LoginPageTest extends AbstractLoginPageTest {
     }
 
     @Test
+    public void test025SecurityOfSelfRegistrationAttribute() throws IOException, InterruptedException {
+        securityOfSelfRegistrationPasswords(
+                (registrationPage) ->
+                        registrationPage.setPassword("Test5ecr3t").setAllGivenNames("Test25").setAllFamilyNames("UserFail")
+                                .setAllEmails("test.user@evolveum.com").submit());
+        Selenide.sleep(3000);
+    }
+
+    @Test
+    public void test026SecurityOfSelfRegistrationPasswords() throws IOException, InterruptedException {
+        securityOfSelfRegistrationPasswords(
+                (registrationPage) ->
+                        registrationPage.setAllPasswords("Test5ecr3t").setGivenName("Test26").setFamilyName("UserFail")
+                                .setEmail("test.user@evolveum.com").submit());
+    }
+
+    @Test
     public void test030resetPasswordMailNonce() throws IOException, InterruptedException {
         clearBrowser();
         basicPage.loggedUser().logoutIfUserIsLogin();
