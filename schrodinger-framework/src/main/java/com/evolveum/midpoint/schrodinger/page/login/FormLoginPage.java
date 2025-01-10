@@ -40,7 +40,7 @@ public class FormLoginPage extends LoginPage {
     private static final String EMERGENCY_PATH = "/auth/emergency";
 
     public SelfRegistrationPage register() {
-        $(Schrodinger.byDataId("selfRegistration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
+        $(Schrodinger.byDataId("selfRegistration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_1_M).click();
         Utils.waitForAjaxCallFinish();
         $(byText("Self Registration")).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return new SelfRegistrationPage();

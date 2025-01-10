@@ -195,6 +195,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         FormLoginPage login = midPoint.formLogin();
         open("/login");
         open("/");
+        open("/");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelfRegistrationPage registrationPage = login.register();
         process.accept(registrationPage);
