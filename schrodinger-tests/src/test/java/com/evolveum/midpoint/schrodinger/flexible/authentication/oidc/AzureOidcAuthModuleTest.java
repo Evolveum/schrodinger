@@ -18,7 +18,6 @@ package com.evolveum.midpoint.schrodinger.flexible.authentication.oidc;
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.flexible.authentication.util.AzureUtils;
-import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.$x;
 
@@ -36,9 +35,9 @@ public class AzureOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
     @Override
     protected void logoutAndCheckIt(String username) {
         $x(".//div[@class='table' and @role='button' and @data-test-id='" + username + "']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).click();
 
-        $x(".//div[@id='login_workload_logo_text']").shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
+        $x(".//div[@id='login_workload_logo_text']").shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
     }
 
     @Override
