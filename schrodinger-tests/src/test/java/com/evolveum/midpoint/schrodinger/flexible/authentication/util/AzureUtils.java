@@ -33,12 +33,12 @@ public class AzureUtils {
     }
 
     public static void login(String username, String password) {
-        $(By.name("loginfmt")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
-        $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(By.name("loginfmt")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).setValue(username);
+        $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).click();
 
-        $(By.name("passwd")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
-        $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $(By.name("passwd")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).setValue(password);
+        $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).click();
 
-        $x(".//input[@type='button']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        $x(".//input[@type='button']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).click();
     }
 }
