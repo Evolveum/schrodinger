@@ -66,7 +66,7 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
 
 
         basicPage.loggedUser().logoutIfUserIsLogin();
-        basicPage.getUserMenu().shouldBe(Condition.hidden, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
+        basicPage.getUserMenu().shouldBe(Condition.hidden, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         Selenide.clearBrowserCookies();
         Selenide.closeWindow();
@@ -124,7 +124,7 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
         try {
             failLogin(username, expectedError);
 
-            $x(".//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).click();
+            $x(".//button[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
 
             logoutAndCheckIt(username);
         } finally {
@@ -171,7 +171,7 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
 
     protected void applyBasicSecurityPolicy(String securityPolicy) {
         addObjectFromString(securityPolicy, new ImportOptions(true, true).createOptionList());
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_LONG_3_M.toMillis());
+        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.toMillis());
     }
 
     protected abstract void applyBasicSecurityPolicy() throws IOException;
