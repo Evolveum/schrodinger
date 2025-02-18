@@ -35,9 +35,9 @@ public class AzureOidcAuthModuleTest extends AbstractOidcAuthModuleTest {
     @Override
     protected void logoutAndCheckIt(String username) {
         $x(".//div[@class='table' and @role='button' and @data-test-id='" + username + "']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_LONG_3_M).click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
 
-        $x(".//div[@id='login_workload_logo_text']").shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_LONG_3_M);
+        $x(".//div[@id='login_workload_logo_text']").shouldBe(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
     @Override
