@@ -53,6 +53,9 @@ public class MemberPanel<T> extends Component<T, MemberPanel<T>> {
         if (!mainButton.$x(".//div[@data-s-id='additionalButton']").is(Condition.exist)) {
             mainButton.click();
             Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+            if (Utils.isModalWindowSelenideElementVisible()) {
+                mainButton.click();
+            }
             return new ChooseFocusTypeAndRelationModal<>(this, Utils.getModalWindowSelenideElement());
         } else {
             mainButton.click();

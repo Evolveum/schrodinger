@@ -18,6 +18,7 @@ package com.evolveum.midpoint.schrodinger.component.common.search;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import com.codeborne.selenide.ex.ElementNotFound;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
@@ -36,13 +37,30 @@ public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertie
     }
 
     public SearchPropertiesConfigPanel<T> addPropertyToTable(String propertyName) {
-        Utils.waitForAjaxCallFinish();
-        getPropertyChoiceElement().selectOption(propertyName);
-        Utils.waitForAjaxCallFinish();
+        try {
+            Utils.waitForAjaxCallFinish();
+            getPropertyChoiceElement().selectOption(propertyName);
+            Utils.waitForAjaxCallFinish();
+            clickOnAdd();
+            try {
+                getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+            } catch (ElementNotFound e) {
+                if (!getPropertiesTable().getParentElement().$(byText(propertyName)).is(Condition.visible)) {
+                    clickOnAdd();
+                    getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
+                } else {
+                    throw e;
+                }
+            }
+            return this;
+        } finally {
+
+        }
+    }
+
+    private void clickOnAdd() {
         getParentElement().$(Schrodinger.byDataId("a", "addButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        getPropertiesTable().getParentElement().$(byText(propertyName)).shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
-        return this;
     }
 
     public SearchPropertiesConfigPanel<T> removePropertyFromTable(String propertyName) {
