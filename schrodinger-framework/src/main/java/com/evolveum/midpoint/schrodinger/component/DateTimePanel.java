@@ -19,6 +19,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
+import com.codeborne.selenide.ex.ElementShould;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
@@ -94,9 +95,15 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
                 .click();
         Utils.waitForAjaxCallFinish();
 
-        widget.$(By.cssSelector("div[data-action='togglePicker']"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+        try {
+            widget.$(By.cssSelector("div[data-action='togglePicker']"))
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                    .click();
+        } catch (ElementShould e) {
+            if (!widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']")).is(Condition.visible)) {
+                throw e;
+            }
+        }
         Utils.waitForAjaxCallFinish();
 
         widget.$(By.cssSelector("div[data-action='showHours'][data-time-component='hours']"))
