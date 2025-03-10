@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -66,6 +68,23 @@ public class LoginPageTest extends AbstractLoginPageTest {
         String actualUrl = basicPage.getCurrentUrl();
         Assert.assertTrue(actualUrl.endsWith("/registration/result"));
         clearNotificationFile();
+    }
+
+    @Test
+    public void test025SecurityOfSelfRegistrationAttribute() throws IOException, InterruptedException {
+        securityOfSelfRegistrationPasswords(
+                (registrationPage) ->
+                        registrationPage.setPassword("Test5ecr3t").setAllGivenNames("Test25").setAllFamilyNames("UserFail")
+                                .setAllEmails("test.user@evolveum.com").submit());
+        Selenide.sleep(3000);
+    }
+
+    @Test
+    public void test026SecurityOfSelfRegistrationPasswords() throws IOException, InterruptedException {
+        securityOfSelfRegistrationPasswords(
+                (registrationPage) ->
+                        registrationPage.setAllPasswords("Test5ecr3t").setGivenName("Test26").setFamilyName("UserFail")
+                                .setEmail("test.user@evolveum.com").submit());
     }
 
     @Test

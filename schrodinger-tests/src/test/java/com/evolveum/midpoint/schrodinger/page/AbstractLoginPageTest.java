@@ -15,11 +15,14 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.configuration.InfrastructurePanel;
 import com.evolveum.midpoint.schrodinger.component.report.AuditRecordTable;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.login.SelfRegistrationPage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -32,6 +35,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.function.Consumer;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -184,5 +188,18 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
 
     protected void clearNotificationFile() throws FileNotFoundException {
         new PrintWriter(notificationFile.getAbsolutePath()).close();
+    }
+
+    protected void securityOfSelfRegistrationPasswords(Consumer<SelfRegistrationPage> process) throws IOException, InterruptedException {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        FormLoginPage login = midPoint.formLogin();
+        open("/login");
+        open("/");
+        open("/");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        SelfRegistrationPage registrationPage = login.register();
+        process.accept(registrationPage);
+        basicPage.feedback().isError();
+        basicPage.feedback().assertMessageExists("Invalid request.");
     }
 }

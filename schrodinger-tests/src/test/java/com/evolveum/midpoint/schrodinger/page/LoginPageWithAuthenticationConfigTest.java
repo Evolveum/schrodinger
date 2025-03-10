@@ -175,6 +175,22 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
     }
 
     @Test
+    public void test045SecurityOfSelfRegistrationAttribute() throws IOException, InterruptedException {
+        securityOfSelfRegistrationPasswords(
+                (registrationPage) ->
+                        registrationPage.setPassword("Passw5ecr3t").setAllGivenNames("Test45").setAllFamilyNames("UserFail")
+                                .setAllEmails("test.user@evolveum.com").submit());
+    }
+
+    @Test
+    public void test046SecurityOfSelfRegistrationPasswords() throws IOException, InterruptedException {
+        securityOfSelfRegistrationPasswords(
+                (registrationPage) ->
+                        registrationPage.setAllPasswords("Passw5ecr3t").setGivenName("Test56").setFamilyName("UserFail")
+                                .setEmail("test.user@evolveum.com").submit());
+    }
+
+    @Test
     public void test050UseSequenceForNodeArchetype() throws Exception {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
