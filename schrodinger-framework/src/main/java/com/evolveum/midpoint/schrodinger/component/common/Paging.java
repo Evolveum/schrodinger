@@ -27,6 +27,8 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import org.apache.commons.lang3.Validate;
 
+import static com.codeborne.selenide.Selectors.byText;
+
 /**
  * Created by Viliam Repan (lazyman).
  */
@@ -111,6 +113,25 @@ public class Paging<T> extends Component<T, Paging<T>> {
 
         pagingSize.$x(".//select[@data-s-id='size']").selectOption("" + size);
         Selenide.sleep(2000);
+        return this;
+    }
+
+    public Paging<T> assertCurrentPage(int expectedPage) {
+        int currentPage = currentPageNumber();
+        if (currentPage != expectedPage) {
+            throw new AssertionError("Expected page number: " + expectedPage + ", but was: " + currentPage);
+        }
+        return this;
+    }
+
+    public Paging<T> assertPageSizeValuesListContain(int... values) {
+        SelenideElement parent = getParentElement();
+        SelenideElement pagingSize = parent.parent().$x(".//div[contains(@class, 'paging-size')]");
+        for (int value : values) {
+            if (!pagingSize.$x(".//select[@data-s-id='size']").$(byText("" + value)).exists()) {
+                throw new AssertionError("One of the expected page size value is absent among the possible options: " + value);
+            }
+        }
         return this;
     }
 
