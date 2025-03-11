@@ -13,9 +13,15 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.open;
+
 public class TablePagingTest extends AbstractSchrodingerTest {
 
     private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
+    private static final File ARCHETYPE_PERSON = new File("./src/test/resources/features/paging/archetype/702-archetype-person.xml");
+    private static final File USER_ENDUSER_1 = new File("./src/test/resources/features/paging/user/enduser1-user.xml");
+    private static final File USER_PERSON_1 = new File("./src/test/resources/features/paging/user/person1-user.xml");
+    private static final File ROLE_END_USER = new File("./src/test/resources/features/paging/role/040-role-enduser.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -100,6 +106,45 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                     .paging()
                         .assertCurrentPageSize(22)
                         .assertPageSizeValuesListContain(11, 22, 100);
+    }
+
+    /**
+     * Paging options are overridden in the Persons archetype.
+     * Check if the page size options contains those from configuration for Persons details page, Assignments -> All panel.
+     * The values are: 10, 30, 60, 80. Default page size is set to 30
+     */
+    @Test
+    public void test0050personsArchetypeSettingOverridingForAssignmentsPanel() {
+        addObjectFromFile(ARCHETYPE_PERSON);
+        addObjectFromFile(USER_PERSON_1);
+
+        showUser("person1")
+                .selectAssignmentsPanel()
+                    .selectTypeAll()
+                        .table()
+                            .paging()
+                                .assertCurrentPageSize(30)
+                                .assertPageSizeValuesListContain(10, 30, 60, 80);
+    }
+
+    /**
+     * Paging options are overridden in the Persons archetype.
+     * Check if the page size options contains those from configuration for Persons details page, Assignments -> All panel.
+     * The values are: 10, 30, 60, 80. Default page size is set to 30
+     */
+    @Test
+    public void test0060personsArchetypeSettingOverridingForPersonsList() {
+        addObjectFromFile(ROLE_END_USER);
+        addObjectFromFile(USER_ENDUSER_1);
+
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin().login("enduser1", "Password123!");
+
+        basicPage.listUsers("Persons")
+                .table()
+                    .paging()
+                        .assertCurrentPageSize(22)
+                        .assertPageSizeValuesListContain(18, 28, 38, 48);
     }
 
 }
