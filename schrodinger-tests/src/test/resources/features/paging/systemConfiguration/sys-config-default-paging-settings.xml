@@ -282,6 +282,9 @@
                 </pagingOptions>
             </defaultSettings>
             <objectCollectionView id="80">
+                <paging>
+                    <maxSize>22</maxSize>
+                </paging>
                 <pagingOptions>
                     <availablePageSize>11</availablePageSize>
                     <availablePageSize>22</availablePageSize>
