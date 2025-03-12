@@ -20,7 +20,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.selector.ByAttribute;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.SchrodingerException;
 import com.evolveum.midpoint.schrodinger.component.Component;
@@ -123,7 +122,17 @@ public class Paging<T> extends Component<T, Paging<T>> {
         return this;
     }
 
-    public Paging<T> assertPageSizeValuesListContain(int... values) {
+    public Paging<T> assertPageSizeValuesListDoesntContain(int... values) {
+        SelenideElement parent = getParentElement();
+        SelenideElement pagingSize = parent.parent().$x(".//div[contains(@class, 'paging-size')]");
+        for (int value : values) {
+            boolean found = pagingSize.$x(".//select[@data-s-id='size']").$(byText("" + value)).exists();
+            assertion.assertFalse(found, "Page size value shouldn't be present in the page size options: " + value);
+        }
+        return this;
+    }
+
+    public Paging<T> assertPageSizeValuesListContains(int... values) {
         SelenideElement parent = getParentElement();
         SelenideElement pagingSize = parent.parent().$x(".//div[contains(@class, 'paging-size')]");
         for (int value : values) {

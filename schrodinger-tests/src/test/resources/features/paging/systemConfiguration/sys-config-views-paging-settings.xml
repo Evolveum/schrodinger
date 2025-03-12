@@ -282,6 +282,14 @@
                 </pagingOptions>
             </defaultSettings>
             <objectCollectionView id="80">
+                <paging>
+                    <maxSize>22</maxSize>
+                </paging>
+                <pagingOptions>
+                    <availablePageSize>11</availablePageSize>
+                    <availablePageSize>22</availablePageSize>
+                    <availablePageSize>100</availablePageSize>
+                </pagingOptions>
                 <identifier>person-view</identifier>
                 <description>Persons</description>
                 <documentation>This view displays all users with archetype "Person"</documentation>
@@ -1110,6 +1118,12 @@
                     <applicableForOperation>modify</applicableForOperation>
                     <panelType>roleMemberships</panelType>
                     <listView>
+                        <pagingOptions>
+                            <availablePageSize>1</availablePageSize>
+                            <availablePageSize>2</availablePageSize>
+                            <availablePageSize>5</availablePageSize>
+                            <availablePageSize>11</availablePageSize>
+                        </pagingOptions>
                         <identifier>applications</identifier>
                         <searchBoxConfiguration>
                             <objectTypeConfiguration>
