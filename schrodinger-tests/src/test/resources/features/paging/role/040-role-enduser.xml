@@ -333,7 +333,8 @@
                     <availablePageSize>38</availablePageSize>
                     <availablePageSize>48</availablePageSize>
                 </pagingOptions>
-                <identifier>allUsers</identifier>
+                <identifier>person-view</identifier>
+                <type>UserType</type>
             </objectCollectionView>
         </objectCollectionViews>
     </adminGuiConfiguration>
