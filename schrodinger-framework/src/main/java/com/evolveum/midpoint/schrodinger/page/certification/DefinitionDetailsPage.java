@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2021 Evolveum
+ * Copyright (c) 2025 Evolveum
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,7 @@
  */
 package com.evolveum.midpoint.schrodinger.page.certification;
 
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
+import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 
-/**
- * Created by Viliam Repan (lazyman).
- */
-public class CampaignDefinitionsPage extends ObjectListPageWithPageRedirect<DefinitionsPageTable, DefinitionDetailsPage> {
-
-    @Override
-    public DefinitionsPageTable table() {
-        return new DefinitionsPageTable(this, getTableBoxElement());
-    }
-
-    @Override
-    public DefinitionDetailsPage getObjectDetailsPage() {
-        return new DefinitionDetailsPage();
-    }
-
+public class DefinitionDetailsPage extends AssignmentHolderDetailsPage<DefinitionDetailsPage> {
 }

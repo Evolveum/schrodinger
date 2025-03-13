@@ -1,0 +1,20 @@
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd">
+        <name>roleTestCertification1</name>
+    </role>
+
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd">
+        <name>roleTestCertification2</name>
+    </role>
+
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd">
+        <name>roleTestCertification3</name>
+    </role>
+
+</objects>
