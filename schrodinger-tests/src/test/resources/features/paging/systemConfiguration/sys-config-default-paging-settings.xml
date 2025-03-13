@@ -117,10 +117,6 @@
             <details>false</details>
         </auditing>
     </logging>
-    <defaultObjectPolicyConfiguration id="822235">
-        <objectTemplateRef oid="10000000-0000-0000-0000-000000000222" relation="org:default" type="c:ObjectTemplateType"/>
-        <type>c:UserType</type>
-    </defaultObjectPolicyConfiguration>
     <roleManagement>
         <defaultAssignmentConstraints>
             <allowSameTarget>true</allowSameTarget>
