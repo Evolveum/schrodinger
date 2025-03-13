@@ -36,6 +36,8 @@ public class TablePagingTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0010objectListTableDefaultSettings() {
+        reloginAsAdministrator();
+
         ListUsersPage users = basicPage.listUsers();
 
         Paging<Table<ListUsersPage, UsersPageTable>> usersPaging = users
@@ -118,8 +120,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
     public void test0050personsArchetypeSettingOverridingForAssignmentsPanel() {
         addObjectFromFile(ARCHETYPE_PERSON);
 
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        midPoint.formLogin().login(getUsername(), getPassword());
+        reloginAsAdministrator();
 
         showUser("person1")
                 .selectAssignmentsPanel()
@@ -208,5 +209,10 @@ public class TablePagingTest extends AbstractSchrodingerTest {
     @Override
     protected boolean resetToDefaultBeforeTests() {
         return true;
+    }
+
+    private void reloginAsAdministrator() {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin().login(getUsername(), getPassword());
     }
 }
