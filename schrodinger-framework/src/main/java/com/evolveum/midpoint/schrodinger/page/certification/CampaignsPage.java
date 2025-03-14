@@ -31,7 +31,7 @@ import static com.codeborne.selenide.Selenide.*;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class CampaignsPage extends BasicPage {
+public class CampaignsPage extends CampaignsBasePage<CampaignsPage> {
 
     public CampaignsPage() {
     }
@@ -55,29 +55,4 @@ public class CampaignsPage extends BasicPage {
         return this;
     }
 
-    public CampaignsPage assertCampaignInReviewStage(String campaignName) {
-        SelenideElement campaignTile = getCampaignTileElement(campaignName);
-
-        if (campaignTile == null) {
-            throw new IllegalStateException("Campaign with name '" + campaignName + "' not found.");
-        }
-        String statusTranslated = Utils.translate("CertCampaignStateFilter.IN_REVIEW_STAGE", "In review stage");
-        SelenideElement status = campaignTile.$x(".//span[@data-s-id='status' and contains(text(), \"" + statusTranslated + "\")]");
-
-        assertion.assertTrue(status.exists() && status.isDisplayed(), "Campaign should be in review stage");
-
-        return this;
-
-    }
-
-    private SelenideElement getCampaignTileElement(@NotNull String campaignName) {
-        ElementsCollection campaignTiles = $$x(".//div[contains(@class, 'campaign-tile-panel')]");
-        for (SelenideElement campaignTile : campaignTiles) {
-            SelenideElement campaignTitle = campaignTile.$(Schrodinger.byDataId("title"));
-            if (campaignTitle.exists() && campaignTitle.isDisplayed() && campaignName.equals(campaignTitle.getText())) {
-                return campaignTile;
-            }
-        }
-        return null;
-    }
 }
