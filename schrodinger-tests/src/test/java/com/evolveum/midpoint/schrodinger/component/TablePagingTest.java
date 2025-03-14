@@ -1,5 +1,7 @@
 package com.evolveum.midpoint.schrodinger.component;
 
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.component.common.Paging;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
@@ -7,11 +9,17 @@ import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.apache.commons.lang3.StringUtils;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.codeborne.selenide.Selenide.$$;
 
 public class TablePagingTest extends AbstractSchrodingerTest {
 
@@ -26,7 +34,14 @@ public class TablePagingTest extends AbstractSchrodingerTest {
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(SYS_CONFIG_VIEWS_SETTINGS, USER_ENDUSER_1, USER_PERSON_1);
+        return Arrays.asList(USER_ENDUSER_1, USER_PERSON_1);
+    }
+
+    @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+        importObject(SYS_CONFIG_VIEWS_SETTINGS, true);
     }
 
     /**
