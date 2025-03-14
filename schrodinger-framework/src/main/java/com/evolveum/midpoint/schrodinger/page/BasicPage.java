@@ -280,14 +280,24 @@ public class BasicPage {
         return new CampaignsPage();
     }
 
+    public ActiveCampaignsPage activeCampaigns() {
+        clickAdministrationMenu("PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.certificationActiveCampaigns");
+        return new ActiveCampaignsPage();
+    }
+
+    public MyActiveCampaignsPage myActiveCampaigns() {
+        clickAdministrationMenu("PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.myCertificationActiveCampaigns");
+        return new MyActiveCampaignsPage();
+    }
+
     public CampaignsSchedulingPage campaignsScheduling() {
         clickAdministrationMenu("PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.scheduling");
         return new CampaignsSchedulingPage();
     }
 
-    public MyWorkItemsPage myCertificationWorkItems() {
+    public CertificationItemsPage myCertificationWorkItems() {
         clickAdministrationMenu("PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.decisions");
-        return new MyWorkItemsPage();
+        return new CertificationItemsPage();
     }
 
     public ListTasksPage listTasks() {

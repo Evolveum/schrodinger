@@ -57,7 +57,24 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0010resolvingCertItemsByDeputy() {
-        String r = "resolvingCertItemsByDeputy";
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin()
+                .loginWithReloadLoginPage("certReviewerUser", "Password123!");
+
+        basicPage.myActiveCampaigns()
+                .showItemsForCampaign(CAMPAIGN_NAME)
+                .table()
+                .assertAllObjectsCountEquals(30);
+
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin()
+                .loginWithReloadLoginPage("certDeputyUser", "Password123!");
+
+        basicPage.myActiveCampaigns()
+                .showItemsForCampaign(CAMPAIGN_NAME)
+                .table()
+                .assertAllObjectsCountEquals(30);
+
     }
 
     @Override

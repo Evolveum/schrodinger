@@ -17,15 +17,13 @@ package com.evolveum.midpoint.schrodinger.page.certification;
 
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.cases.WorkitemsTable;
-import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class MyWorkItemsPage extends ObjectListPageWithPageRedirect<WorkitemsTable, WorkitemPage> {
+public class CertificationItemsPage extends ObjectListPageWithPageRedirect<WorkitemsTable, WorkitemPage> {
 
     @Override
     public WorkitemsTable table() {
