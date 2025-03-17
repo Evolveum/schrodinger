@@ -83,7 +83,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
             @Override
             public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> selectCheckboxByName(String name) {
 
-                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
+                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "align-middle check", "data-s-id", "3", name))
                         .$(By.tagName("input"))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
@@ -92,7 +92,7 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
 
             @Override
             public AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView> selectHeaderCheckbox() {
-                $(Schrodinger.byFollowingSiblingEnclosedValue("th", "class", "check", "data-s-id", "3", ""))
+                $(Schrodinger.byFollowingSiblingEnclosedValue("th", "class", "align-middle check", "data-s-id", "3", ""))
                         .$(By.tagName("input"))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
                 Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
