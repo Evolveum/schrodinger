@@ -15,10 +15,44 @@
  */
 package com.evolveum.midpoint.schrodinger.page.certification;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.jetbrains.annotations.NotNull;
+
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class CampaignsPage extends BasicPage {
+public class CampaignsPage extends CampaignsBasePage<CampaignsPage> {
+
+    public CampaignsPage() {
+    }
+
+    public CampaignsPage startCampaign(String campaignName) {
+        SelenideElement campaignTile = getCampaignTileElement(campaignName);
+
+        if (campaignTile == null) {
+            throw new IllegalStateException("Campaign with name '" + campaignName + "' not found.");
+        }
+        SelenideElement startCampaignButton = campaignTile.$x(".//button[@data-s-id='actionButton']");
+        if (startCampaignButton.exists() && startCampaignButton.isDisplayed()) {
+            startCampaignButton.click();
+
+            ConfirmationModal<CampaignsPage> confirmationModal = new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
+            confirmationModal.clickYes();
+
+            Selenide.sleep(10000);   // todo implement proper wait, e.g. wait for the task to be finished
+        }
+
+        return this;
+    }
+
 }

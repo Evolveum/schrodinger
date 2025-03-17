@@ -1,0 +1,322 @@
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="1ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification1</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="2ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification2</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="3ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification3</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="4ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification4</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="5ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification5</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="6ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification6</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="7ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification7</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="8ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification8</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="9ad5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification9</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="10d5dc66-d308-43f3-8ad0-bad5c00063cc" version="3">
+        <name>userTestCertification10</name>
+        <assignment id="3">
+            <targetRef oid="3cd4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <assignment id="4">
+            <targetRef oid="4ca4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+        <assignment id="5">
+            <targetRef oid="2aa4545d-6565-4e1c-b05e-bd968f656fcd" relation="org:default" type="c:RoleType"/>
+            <activation/>
+        </assignment>
+        <activation/>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="287184fd-d573-41e7-9548-82fc19a53e7d" version="0">
+        <name>certReviewerUser</name>
+        <assignment id="1">
+            <targetRef oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
+                <!-- End user -->
+            </targetRef>
+            <activation>
+                <effectiveStatus>enabled</effectiveStatus>
+            </activation>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="00000000-0000-0000-0000-00000000000b" relation="org:default" type="c:RoleType">
+                <!-- Reviewer -->
+            </targetRef>
+            <activation>
+                <effectiveStatus>enabled</effectiveStatus>
+            </activation>
+        </assignment>
+        <roleMembershipRef oid="00000000-0000-0000-0000-00000000000b" relation="org:default" type="c:RoleType">
+            <!-- Reviewer -->
+        </roleMembershipRef>
+        <roleMembershipRef oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
+            <!-- End user -->
+        </roleMembershipRef>
+        <credentials>
+            <password>
+                <value>
+                    <clearValue>Password123!</clearValue>
+                </value>
+            </password>
+        </credentials>
+    </user>
+
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="af180130-b93b-44de-b3fb-0f72aa8a6ec7" version="1">
+        <name>certDeputyUser</name>
+        <assignment id="1">
+            <targetRef oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
+                <!-- End user -->
+            </targetRef>
+        </assignment>
+        <assignment id="2">
+            <targetRef oid="00000000-0000-0000-0000-00000000000b" relation="org:default" type="c:RoleType">
+                <!-- Reviewer -->
+            </targetRef>
+        </assignment>
+        <assignment id="13">
+            <targetRef oid="287184fd-d573-41e7-9548-82fc19a53e7d" relation="org:deputy" type="c:UserType">
+                <!-- certReviewerUser -->
+            </targetRef>
+            <limitTargetContent/>
+            <limitOtherPrivileges>
+                <certificationWorkItems>
+                    <all>true</all>
+                </certificationWorkItems>
+                <caseManagementWorkItems>
+                    <all>true</all>
+                </caseManagementWorkItems>
+            </limitOtherPrivileges>
+        </assignment>
+        <roleMembershipRef oid="00000000-0000-0000-0000-00000000000b" relation="org:default" type="c:RoleType">
+            <!-- Reviewer -->
+        </roleMembershipRef>
+        <roleMembershipRef oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
+            <!-- End user -->
+        </roleMembershipRef>
+        <delegatedRef oid="287184fd-d573-41e7-9548-82fc19a53e7d" relation="org:deputy" type="c:UserType">
+            <!-- certReviewerUser -->
+        </delegatedRef>
+        <credentials>
+            <password>
+                <value>
+                    <clearValue>Password123!</clearValue>
+                </value>
+            </password>
+        </credentials>
+    </user>
+
+</objects>

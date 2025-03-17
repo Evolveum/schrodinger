@@ -573,6 +573,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             addService = service.forms().add((FormType) object.asObjectable());
         } else if (object.isOfType(SequenceType.class)) {
             addService = service.sequences().add((SequenceType) object.asObjectable());
+        } else if (object.isOfType(AccessCertificationDefinitionType.class)) {
+            addService = service.accessCertificationDefinitions().add((AccessCertificationDefinitionType) object.asObjectable());
         }
         return (RestPrismObjectAddService) addService;
     }

@@ -1,0 +1,49 @@
+<accessCertificationDefinition xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                               xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                               xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+                               xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                               xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+                               xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+                               xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               oid="185040c0-220d-4173-8119-6f32ccd50715" version="30">
+    <name>All user assignments</name>
+    <description>Certifies all users' assignments</description>
+    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/certification/handlers-3#direct-assignment</handlerUri>
+    <scopeDefinition xsi:type="c:AccessCertificationAssignmentReviewScopeType">
+        <objectType>UserType</objectType>
+        <includeAssignments>true</includeAssignments>
+        <includeInducements>true</includeInducements>
+        <includeResources>true</includeResources>
+        <includeRoles>true</includeRoles>
+        <includeOrgs>true</includeOrgs>
+        <includeServices>true</includeServices>
+        <includeUsers>true</includeUsers>
+        <enabledItemsOnly>true</enabledItemsOnly>
+        <searchFilter>
+            <q:text>name contains 'userTestCertification'</q:text>
+        </searchFilter>
+    </scopeDefinition>
+    <ownerRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+    <remediationDefinition>
+        <style>automated</style>
+    </remediationDefinition>
+    <stageDefinition id="46127">
+        <number>1</number>
+        <name>Stage 1</name>
+        <duration>P14D</duration>
+        <notifyBeforeDeadline>PT48H</notifyBeforeDeadline>
+        <notifyBeforeDeadline>PT12H</notifyBeforeDeadline>
+        <notifyOnlyWhenNoDecision>true</notifyOnlyWhenNoDecision>
+        <reviewerSpecification>
+            <useTargetOwner>false</useTargetOwner>
+            <useTargetApprover>false</useTargetApprover>
+            <useObjectOwner>false</useObjectOwner>
+            <useObjectApprover>false</useObjectApprover>
+            <defaultReviewerRef oid="287184fd-d573-41e7-9548-82fc19a53e7d" relation="org:default" type="c:UserType"/>
+        </reviewerSpecification>
+    </stageDefinition>
+    <reviewStrategy>
+        <outcomeStrategy>oneDenyDenies</outcomeStrategy>
+    </reviewStrategy>
+</accessCertificationDefinition>

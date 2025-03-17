@@ -20,6 +20,8 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.PanelWithTableAndPrismView;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismContainerPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
@@ -94,4 +96,9 @@ public class UserPage extends FocusPage<UserPage> {
         selectPasswordPanel().setPasswordValue(value);
         return this;
     }
+
+    public UserApplicationsPanel selectApplicationsPanel() {
+        return new UserApplicationsPanel(this, getNavigationPanelSelenideElement("Applications"));
+    }
+
 }
