@@ -187,4 +187,9 @@
             <class name="com.evolveum.midpoint.schrodinger.component.TablePagingTest"/>
         </classes>
     </test>
+    <test name="AccessCertificationTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.scenarios.AccessCertificationTest"/>
+        </classes>
+    </test>
 </suite>
