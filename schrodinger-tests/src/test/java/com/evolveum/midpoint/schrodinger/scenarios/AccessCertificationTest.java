@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.scenarios;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.page.certification.CampaignsPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -77,9 +78,32 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
 
     }
 
+    /**
+     * Coverage for the ticket #10469
+     * use case: go to the Campaigns page -> switch to Table view
+     * -> open campaign details page -> go Back to Campaigns page
+     */
+    @Test
+    public void test0020goBackFromCampaignDetailsPageToCampaignsTablePage() {
+        reloginAsAdministrator();
+
+        CampaignsPage campaignsPage = basicPage.campaigns();
+        campaignsPage
+                .selectTableView()
+                .clickByName(CAMPAIGN_NAME)
+                .clickBack();
+        campaignsPage.assertPageTitleStartsWith("Campaigns");
+        campaignsPage.assertTableViewIsSelected();
+    }
+
     @Override
     protected boolean resetToDefaultBeforeTests() {
         return true;
+    }
+
+    private void reloginAsAdministrator() {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin().login(getUsername(), getPassword());
     }
 
 }
