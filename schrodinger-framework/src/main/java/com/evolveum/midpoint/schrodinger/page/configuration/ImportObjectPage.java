@@ -15,9 +15,7 @@
  */
 package com.evolveum.midpoint.schrodinger.page.configuration;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selectors;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
@@ -25,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.io.File;
 
@@ -160,7 +159,15 @@ public class ImportObjectPage extends BasicPage {
             xmlButton.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         SelenideElement aceEditor = $(By.className("ace_text-input"));
+        Selenide.sleep(1000);
+        //very strange behavior of the ace editor: sometimes the value is sent to the second row
+        // what causes the error (e.g. on the Import page). Selenide.sleep help to avoid this behavior
+        aceEditor.sendKeys("");
+        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].setSelectionRange(0, 0);", aceEditor);
+        Selenide.sleep(1000);
         aceEditor.sendKeys(text);
+        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].setSelectionRange(0, 0);", aceEditor);
+        Selenide.sleep(1000);
 
         return this;
     }
