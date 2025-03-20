@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.certification.CampaignsPage;
+import com.evolveum.midpoint.schrodinger.page.certification.CertificationItemsPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -94,6 +95,47 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .clickBack();
         campaignsPage.assertPageTitleStartsWith("Campaigns");
         campaignsPage.assertTableViewIsSelected();
+    }
+
+    /**
+     * Coverage for the ticket #10469
+     * check that session storage saves the view mode on the campaigns page after switching between pages
+     */
+    @Test
+    public void test0030campaignsPageSessionStorageCheck() {
+        basicPage.campaigns()
+                .selectTableView();
+        basicPage.dashboard();
+        basicPage
+                .campaigns()
+                .assertTableViewIsSelected()
+                .selectTilesView();
+        basicPage.dashboard();
+        basicPage
+                .campaigns()
+                .assertTileViewIsSelected();
+    }
+
+   /**
+     * Coverage for the ticket #10469
+     * use case: reviewer user goes to the My Active Campaigns page -> clicks Show items for campaign
+    * -> check that items page is displayed correctly -> click Back to Campaigns page
+     */
+    @Test
+    public void test0040myActiveCampaignPageRedirectForReviewerUser() {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin()
+                .loginWithReloadLoginPage("certReviewerUser", "Password123!");
+
+        CertificationItemsPage certItemsPage = basicPage
+                .myActiveCampaigns()
+                .showItemsForCampaign(CAMPAIGN_NAME);
+        certItemsPage
+                .table()
+                .assertAllObjectsCountEquals(30);
+        certItemsPage
+                .navigateBackToActiveCampaigns()
+                .assertPageTitleStartsWith("My active campaigns");
     }
 
     @Override
