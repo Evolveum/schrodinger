@@ -37,7 +37,8 @@ public class CampaignsPage extends CampaignsBasePage<CampaignsPage> {
     }
 
     public CampaignsPage startCampaign(String campaignName) {
-        SelenideElement campaignTile = getCampaignTileElement(campaignName);
+        SelenideElement campaignTile = selectTilesView()
+                .findTileByLabel(campaignName);
 
         if (campaignTile == null) {
             throw new IllegalStateException("Campaign with name '" + campaignName + "' not found.");
@@ -54,5 +55,6 @@ public class CampaignsPage extends CampaignsBasePage<CampaignsPage> {
 
         return this;
     }
+
 
 }

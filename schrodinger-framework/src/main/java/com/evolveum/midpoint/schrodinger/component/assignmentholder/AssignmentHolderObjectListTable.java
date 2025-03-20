@@ -50,11 +50,15 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
     @Override
     public PD clickByName(String name) {
         Utils.waitForAjaxCallFinish();
-        getParentElement().$x(".//span[@data-s-id='title' and contains(text(), '" + name + "')]")
+        getParentElement().$x(".//span[@data-s-id='" + getNameColumnElementId() + "' and contains(text(), '" + name + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         PD detailsPage = getObjectDetailsPage();
         Utils.waitForMainPanelOnDetailsPage();
         return detailsPage;
+    }
+
+    protected String getNameColumnElementId() {
+        return "title";
     }
 
     public Duration getDetailsPageLoadingTimeToWait() {

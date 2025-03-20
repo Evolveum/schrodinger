@@ -51,10 +51,6 @@ public class MappingsWizardStep<T> extends WizardStepPanel<T> {
         return new OutboundMappingsPanel<>(MappingsWizardStep.this);
     }
 
-    protected SelenideElement getContentPanelElement() {
-        return $(Schrodinger.byDataId(ID_CONTENT_BODY)).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-    }
-
     public T saveMappings() {
         return clickButtonByTitleKeyAndRedirectToParent("AttributeMappingsTableWizardPanel.saveButton");
     }
