@@ -23,7 +23,7 @@ public class ActiveCampaignsBasePage<ACP extends ActiveCampaignsBasePage> extend
     }
 
     public CertificationItemsPage showItemsForCampaign(String campaignName) {
-        getCampaignTileElement(campaignName).$(Schrodinger.byDataId("details")).click();
+        selectTilesView().findTileByLabel(campaignName).$(Schrodinger.byDataId("details")).click();
         Utils.waitForAjaxCallFinish();
         Selenide.sleep(1000);
         Utils.waitForAjaxCallFinish();

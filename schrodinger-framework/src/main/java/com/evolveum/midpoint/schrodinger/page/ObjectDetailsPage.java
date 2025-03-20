@@ -49,6 +49,7 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
         } catch (ElementClickInterceptedException e) {
             button.parent().click();
         }
+        Utils.waitForAjaxCallFinish();
     }
 
     public void clickOperationButtonByLabelKey(String titleKey) {
