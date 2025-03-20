@@ -52,7 +52,7 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
 
             @Override
             public AbstractTableWithPrismView<T, AbstractTableWithPrismView> selectCheckboxByName(String name) {
-                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "3", name))
+                $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "align-middle check", "data-s-id", "3", name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
                 return this;

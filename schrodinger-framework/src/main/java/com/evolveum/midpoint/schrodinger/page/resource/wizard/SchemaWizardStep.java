@@ -35,7 +35,7 @@ public class SchemaWizardStep extends TableWizardStepPanel<ResourceWizardPage, S
     }
 
     public SchemaWizardStep selectObjectClassByName(String name) {
-        $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "check", "data-s-id", "2", name))
+        $(Schrodinger.byFollowingSiblingEnclosedValue("td", "class", "align-middle check", "data-s-id", "2", name))
                 .$(By.tagName("input"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return this;
