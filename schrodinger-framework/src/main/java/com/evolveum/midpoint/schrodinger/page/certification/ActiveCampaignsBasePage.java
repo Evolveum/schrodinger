@@ -34,4 +34,9 @@ public class ActiveCampaignsBasePage<ACP extends ActiveCampaignsBasePage> extend
         return $(Schrodinger.byDataId("navigationPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
+    @Override
+    protected SelenideElement getContentPanelElement() {
+        return $(Schrodinger.byDataId("campaignsPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
 }

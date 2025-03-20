@@ -15,10 +15,16 @@
  */
 package com.evolveum.midpoint.schrodinger.page.certification;
 
+import com.codeborne.selenide.Condition;
+import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.ObjectListPageWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.cases.WorkitemsTable;
 import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
+
+import static com.codeborne.selenide.Selenide.$;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -38,5 +44,13 @@ public class CertificationItemsPage extends ObjectListPageWithPageRedirect<Worki
     @Override
     protected String getTableAdditionalClass(){
         return ConstantsUtil.OBJECT_USER_BOX_COLOR;
+    }
+
+    public ActiveCampaignsPage navigateBackToActiveCampaigns(){
+        $(Schrodinger.byDataId("navigationPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .$(Schrodinger.byDataId("back")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return new ActiveCampaignsPage();
     }
 }

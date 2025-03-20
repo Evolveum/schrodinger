@@ -51,7 +51,7 @@ public class CampaignsBasePage<CP extends CampaignsBasePage> extends BasicPage {
                 MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
-    private SelenideElement getContentPanelElement() {
+    protected SelenideElement getContentPanelElement() {
         return $(Schrodinger.byDataId("mainForm")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
 
@@ -63,9 +63,9 @@ public class CampaignsBasePage<CP extends CampaignsBasePage> extends BasicPage {
     }
 
     public CP assertTileViewIsSelected() {
-        SelenideElement iconElement = getToggleButtonIconElement(TABLE_VIEW_TOGGLE_ICON_CLASS);
+        SelenideElement iconElement = getToggleButtonIconElement(TILES_VIEW_TOGGLE_ICON_CLASS);
         assertion.assertTrue(iconElement.getAttribute("aria-pressed").equals("true"),
-                "Table view should be selected but now it is not.");
+                "Tile view should be selected but now it is not.");
         return (CP) this;
     }
 
