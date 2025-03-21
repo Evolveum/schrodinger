@@ -82,4 +82,9 @@ public class TileListWizardStepPanel<T> extends WizardStepPanel<T> {
     private TileListPanel<TileListWizardStepPanel<T>> getTileListPanel() {
         return new TileListPanel<>(this, getContentPanelElement());
     }
+
+    @Override
+    protected SelenideElement getContentPanelElement() {
+        return $x(".//div[contains(@class, 'tiles-wizard')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
 }
