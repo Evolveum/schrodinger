@@ -40,6 +40,11 @@ public class CleanupPoliciesTest extends AbstractSchrodingerTest {
         basicPage
                 .listTasks()
                     .table()
+                        .search()
+                            .byName()
+                            .inputValue("ClosedTask")
+                            .updateSearch()
+                            .and()
                         .assertCurrentTableContains("ClosedTask1")
                         .assertCurrentTableContains("ClosedTask2")
                     .and()
