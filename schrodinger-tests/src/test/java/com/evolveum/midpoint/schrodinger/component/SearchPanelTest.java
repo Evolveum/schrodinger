@@ -44,6 +44,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     private static final String COMPONENT_RESOURCES_DIRECTORY = "./src/test/resources/";
     private static final String COMPONENT_OBJECTS_DIRECTORY = COMPONENT_RESOURCES_DIRECTORY + "objects/";
+    private static final String COMPONENT_OBJECT_COLLECTIONS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "objectcollections/";
     private static final String COMPONENT_USERS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "users/";
     private static final String COMPONENT_ROLES_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "roles/";
     private static final String COMPONENT_ORGS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "orgs/";
@@ -67,8 +68,14 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File ORG_MEMBER_SEARCH_ROOT_ORG_FILE = new File(COMPONENT_ORGS_DIRECTORY + "org-root-member-search.xml");
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE = new File(COMPONENT_ROLES_DIRECTORY + "role-membership-search-by-relation.xml");
     private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-configured-user-search.xml");
+    private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
+    private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
+    private static final File USER_WITH_ANOTHER_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-another-cost-center.xml");
+    private static final File USER_WITH_NO_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-no-cost-center.xml");
+    private static final File ADMIN_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-administrator-with-cost-center.xml");
+    private static final File OBJECT_COLLECTION_COST_CENTER_FILE = new File(COMPONENT_OBJECT_COLLECTIONS_DIRECTORY + "object-collection-cost-center-filter.xml");
 
     private static final String NAME_ATTRIBUTE = "Name";
     private static final String GIVEN_NAME_ATTRIBUTE = "Given name";
@@ -85,7 +92,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 SEARCH_BY_ROLE_MEMBERSHIP_TYPE_USER_FILE, ORG_MEMBER_SEARCH_USER_FILE, SEARCH_BY_ROLE_MEMBERSHIP_RELATION_USER_FILE,
                 SEARCH_BY_ROLE_MEMBERSHIP_NAME_ROLE_FILE, SEARCH_BY_ROLE_MEMBERSHIP_OID_ROLE_FILE, ORG_MEMBER_SEARCH_ROOT_ORG_FILE,
                 SEARCH_BY_ROLE_MEMBERSHIP_TYPE_ORG_FILE, SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE, USER_WITH_EMPLOYEE_NUMBER_FILE,
-                USER_WITH_EMAIL_ADDRESS_FILE);
+                USER_WITH_EMAIL_ADDRESS_FILE, USER_WITH_COST_CENTER_FILE, USER_WITH_ANOTHER_COST_CENTER_FILE, USER_WITH_NO_COST_CENTER_FILE,
+                ADMIN_WITH_COST_CENTER_FILE);
     }
 
     @Test
@@ -316,7 +324,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      * covers MID-9324 (Request access: Cannot change search mode)
      */
     @Test
-    public void test014selectAdvancedSearchOnRoleCatalogPage() {
+    public void test0140selectAdvancedSearchOnRoleCatalogPage() {
         reimportDefaultSystemConfigurationAndRelogin();
         basicPage
                 .requestAccess()
@@ -333,7 +341,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      * covers MID-9324 (Request access: Cannot change search mode)
      */
     @Test
-    public void test015selectAdvancedSearchOnRoleCatalogTableView() {
+    public void test0150selectAdvancedSearchOnRoleCatalogTableView() {
         reimportDefaultSystemConfigurationAndRelogin();
         basicPage
                 .requestAccess()
@@ -345,6 +353,37 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .advanced()
                 .assertAdvancedSearchIsSelected();
 
+    }
+
+    /**
+     * covers MID-10487 (Object collection filter not working correctly on All users page)
+     */
+    @Test
+    public void test0160objectCollectionFilterSearch() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(OBJECT_COLLECTION_COST_CENTER_FILE, true);
+        importObject(SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION, true);
+        basicPage.loggedUser().logoutIfUserIsLogin();
+
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
+
+        UsersPageTable table = basicPage.listUsers().table();
+        table.assertTableContainsLinkTextPartially("administrator")
+                .assertTableContainsLinkTextPartially("NoCostCenterTestUser")
+                .assertTableContainsLinkTextPartially("AnotherCostCenterTestUser")
+                .assertTableContainsLinkTextPartially("CostCenterTestUser");
+
+        Search<UsersPageTable> search = table.search();
+        search.dropDownPanelByItemName("Object collection").inputDropDownValue("Test users");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        search.updateSearch();
+
+        table.assertVisibleObjectsCountEquals(2)
+                .assertTableDoesntContainLinksTextPartially("NoCostCenterTestUser")
+                .assertTableDoesntContainLinksTextPartially("AnotherCostCenterTestUser")
+                .assertTableContainsLinkTextPartially("administrator")
+                .assertTableContainsLinkTextPartially("CostCenterTestUser");
     }
 
     private void logoutLoginToRefreshSearch() {
