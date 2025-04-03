@@ -42,7 +42,7 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
         return new AbstractTableWithPrismView<T, AbstractTableWithPrismView>((T) this, tableBox) {
             @Override
             public PrismFormWithActionButtons<AbstractTableWithPrismView<T, AbstractTableWithPrismView>> clickByName(String name) {
-                $(Schrodinger.byElementValue("span", "data-s-id", "label", name))
+                $(Schrodinger.byElementValue("span", "data-s-id", getNameColumnSpanId(), name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
                 SelenideElement prismElement = getPrismViewPanel();
@@ -83,4 +83,8 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
     }
 
     abstract protected SelenideElement getPrismViewPanel();
+
+    protected String getNameColumnSpanId() {
+        return "label";
+    }
 }

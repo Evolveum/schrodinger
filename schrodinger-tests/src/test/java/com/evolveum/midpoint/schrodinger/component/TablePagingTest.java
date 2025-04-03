@@ -225,8 +225,4 @@ public class TablePagingTest extends AbstractSchrodingerTest {
         return true;
     }
 
-    private void reloginAsAdministrator() {
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        midPoint.formLogin().login(getUsername(), getPassword());
-    }
 }

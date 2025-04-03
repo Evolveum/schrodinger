@@ -129,6 +129,15 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         }
     }
 
+    public Boolean inputAttributeValueEmpty(String name) {
+        SelenideElement property = findProperty(name);
+        SelenideElement value = property.$(By.xpath(".//input[contains(@class,\"form-control\")]"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        String valueElement = value.getValue();
+
+        return valueElement == null || valueElement.isEmpty();
+    }
+
     public Boolean inputAttributeValueContains(String name, String expectedPartialValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.parent().$x(".//input[@data-s-id='input']")
@@ -538,6 +547,12 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
     public PrismForm<T> assertPropertyInputValue(String attributeName, String expectedValue) {
         assertion.assertTrue(inputAttributeValueEquals(attributeName, expectedValue), "The value of the input attribute " + attributeName
                 + " doesn't match to expected value '" + expectedValue + "'.");
+        return this;
+    }
+
+    public PrismForm<T> assertPropertyIsNotEmpty(String attributeName) {
+        assertion.assertTrue(!inputAttributeValueEmpty(attributeName), "The value of the input attribute " + attributeName
+                + " should not be empty but it is.");
         return this;
     }
 

@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.wizard.WizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -35,5 +36,39 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
                 .click();
         Utils.waitForAjaxCallFinish();
         return getParent();
+    }
+
+    public ShoppingCartStepPanel comment(String comment) {
+        SelenideElement commentElement = getParentElement().$x(".//textarea[@data-s-id='comment']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        commentElement.setValue(comment);
+        return this;
+    }
+
+    public ShoppingCartStepPanel selectValidityOption(String validityLabel) {
+        SelenideElement validityDropDown = getValidityDropDown();
+        validityDropDown.selectOption(validityLabel);
+        return this;
+    }
+
+    public ShoppingCartStepPanel assertValidityOptionPresent(String validityLabel) {
+        SelenideElement validityDropDown = getValidityDropDown();
+        SelenideElement validityOptionElement = validityDropDown.$x(".//option[contains(text(), '" + validityLabel + "')]");
+        assertion.assertTrue(validityOptionElement.exists(),
+                "Validity option '" + validityLabel + "' doesn't exist in the validity dropdown.");
+        return this;
+    }
+
+    public ShoppingCartStepPanel assertValidityOptionSelected(String validityLabel) {
+        SelenideElement validityDropDown = getValidityDropDown();
+        SelenideElement validityOptionElement = validityDropDown.$x(".//option[contains(text(), '" + validityLabel + "')]");
+        assertion.assertTrue(validityOptionElement.exists() && validityOptionElement.isSelected(),
+                "Validity option '" + validityLabel + "' isn't selected though it should be.");
+        return this;
+    }
+
+    private SelenideElement getValidityDropDown() {
+        return getParentElement().$x(".//select[@data-s-id='validity']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 }
