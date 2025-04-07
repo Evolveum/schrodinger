@@ -48,6 +48,7 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
     public ShoppingCartStepPanel selectValidityOption(String validityLabel) {
         SelenideElement validityDropDown = getValidityDropDown();
         validityDropDown.selectOption(validityLabel);
+        validityDropDown.should(Condition.text(validityLabel), MidPoint.TIMEOUT_DEFAULT_2_S);
         return this;
     }
 
