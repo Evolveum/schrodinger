@@ -126,7 +126,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .selectMyself()
                 .selectDefaultRelation()
                 .selectAllRolesMenu()
-                .addItemToCart("End user")
+                .addItemToCart("validity_test_role")
                 .next()
                 .assertValidityOptionPresent("10 Years")
                 .selectValidityOption("10 Years")
@@ -136,9 +136,9 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertSuccess();
         showUser("administrator")
                 .selectAssignmentsPanel()
-                .assertAssignmentExists("End user")
+                .assertAssignmentExists("validity_test_role")
                 .table()
-                .clickByName("End user")
+                .clickByName("validity_test_role")
                 .selectFormTabByName("Activation")
                 .assertPropertyIsNotEmpty("validFrom")
                 .assertPropertyIsNotEmpty("validTo");

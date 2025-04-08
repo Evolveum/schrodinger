@@ -19,4 +19,9 @@
           xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
         <name>ra_role_to_assign</name>
     </role>
+
+    <role oid="95334218-5a63-12ed-9b6a-0242ac120002"
+          xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
+        <name>validity_test_role</name>
+    </role>
 </objects>
