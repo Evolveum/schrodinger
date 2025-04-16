@@ -20,6 +20,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 /**
@@ -36,5 +37,14 @@ public class ReportConfigurationModal<T> extends ModalBox<T>{
         runReportButton.click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return getParent();
+    }
+
+    public Table table() {
+        return new Table(this, getTableBoxElement());
+    }
+
+    protected SelenideElement getTableBoxElement(){
+        return getParentElement().$x(".//div[@data-s-id='table']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 }

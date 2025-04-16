@@ -112,6 +112,26 @@ public class ReferenceSearchItemPanel<T> extends Component<T, ReferenceSearchIte
             Utils.waitForAjaxCallFinish();
             return getParent();
         }
+
+        public ReferenceSearchItemPopup assertObjectSelectionButtonPresentNextToNameField() {
+            SelenideElement editButton = getNameFieldEditButtonElement();
+            assertion.assertTrue(editButton.exists() && editButton.isDisplayed(),
+                    "Edit button next to name field is not present though it should be");
+            return ReferenceSearchItemPopup.this;
+        }
+
+        public ReferenceSearchItemPopup assertObjectSelectionButtonNotPresentNextToNameField() {
+            SelenideElement editButton = getNameFieldEditButtonElement();
+            assertion.assertFalse(editButton.exists(),
+                    "Edit button next to name field is present though it shouldn't be");
+            return ReferenceSearchItemPopup.this;
+        }
+
+        private SelenideElement getNameFieldEditButtonElement() {
+            SelenideElement nameField = getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='name']")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            return nameField.$x(".//button[@" + Schrodinger.DATA_S_ID + "='edit']");
+        }
     }
 
 }

@@ -386,6 +386,24 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .assertTableContainsLinkTextPartially("CostCenterTestUser");
     }
 
+    /**
+     * covers MID-10436, check if there is no possibility to open object selection popup dialog from
+     * referencable search item panel which is already situated in the modal dialog (use case for
+     * Reconciliation report running)
+     */
+    @Test
+    public void test0170noArrowButtonForReferencableSearchItemInPopup() {
+        basicPage
+                .listReports()
+                .table()
+                .runReport("Reconciliation report")
+                .table()
+                .search()
+                .referencePanelByItemName("Resource")
+                .propertySettings()
+                .assertObjectSelectionButtonNotPresentNextToNameField();
+    }
+
     private void logoutLoginToRefreshSearch() {
         basicPage.loggedUser().logout();
         FormLoginPage loginPage = midPoint.formLogin();
