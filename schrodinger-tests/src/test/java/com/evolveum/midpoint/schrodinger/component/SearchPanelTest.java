@@ -134,7 +134,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
         search.addSearchItemByAddButtonClick(REQUESTABLE_ATTRIBUTE)
-                .assertExistSearchItem(REQUESTABLE_ATTRIBUTE);
+                .assertSearchItemExists(REQUESTABLE_ATTRIBUTE);
     }
 
     @Test
@@ -143,7 +143,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         Search<ServicesPageTable> search = (Search<ServicesPageTable>) table.search();
         search
                 .addSearchItemByNameLinkClick(ROLE_MEMBERSHIP_ATTRIBUTE)
-                .assertExistSearchItem(ROLE_MEMBERSHIP_ATTRIBUTE);
+                .assertSearchItemExists(ROLE_MEMBERSHIP_ATTRIBUTE);
     }
 
     @Test
@@ -290,16 +290,16 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                     .getMemberPanel()
                         .table();
         table.assertTableContainsColumnWithValue("Name", "orgMembershipByTypeSearch");
-        table.search().assertExistSearchItem("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
+        table.search().assertSearchItemExists("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
                 .assertActualOptionOfSelectSearchItem("Type2", "Organization");
-        table.search().assertExistSearchItem("Relation2").assertHelpTextOfSearchItem("Relation2", "Help relation")
+        table.search().assertSearchItemExists("Relation2").assertHelpTextOfSearchItem("Relation2", "Help relation")
                 .assertActualOptionOfSelectSearchItem("Relation2", SchemaConstants.ORG_DEFAULT.getLocalPart());
-        table.search().assertExistSearchItem("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
+        table.search().assertSearchItemExists("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
                 .assertActualOptionOfSelectSearchItem("Scope2", "Subtree");
         table.search().dropDownPanelByItemName("Scope2").inputDropDownValue("One level");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         table.search().updateSearch();
-        table.search().assertExistSearchItem("Indirect2").assertHelpTextOfSearchItem("Indirect2", "Indirect help")
+        table.search().assertSearchItemExists("Indirect2").assertHelpTextOfSearchItem("Indirect2", "Indirect help")
                 .assertActualOptionOfSelectSearchItem("Indirect2", "True");
     }
 
@@ -314,10 +314,10 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .getMemberPanel()
                 .table();
         table.assertTableDoesntContainText("orgMembershipByTypeSearch");
-        table.search().assertDoesntExistSearchItem("Type2");
-        table.search().assertDoesntExistSearchItem("Relation2");
-        table.search().assertDoesntExistSearchItem("Scope2");
-        table.search().assertDoesntExistSearchItem("Indirect2");
+        table.search().assertSearchItemDoesntExist("Type2");
+        table.search().assertSearchItemDoesntExist("Relation2");
+        table.search().assertSearchItemDoesntExist("Scope2");
+        table.search().assertSearchItemDoesntExist("Indirect2");
     }
 
     /**
