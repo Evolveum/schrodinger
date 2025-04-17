@@ -40,7 +40,7 @@ public class ReportTable extends AssignmentHolderObjectListTable<ListReportsPage
         return new ReportPage();
     }
     
-    public ReportConfigurationModal runReport(String report) {
+    public ReportConfigurationModal<ListReportsPage> runReport(String report) {
         clickMenuItemButton("ObjectType.name", report, ".fa.fa-play");
         return new ReportConfigurationModal<>(getParent(), Utils.getModalWindowSelenideElement());
     }

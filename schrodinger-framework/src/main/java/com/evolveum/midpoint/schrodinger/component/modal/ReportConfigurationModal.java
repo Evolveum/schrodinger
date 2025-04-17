@@ -39,8 +39,8 @@ public class ReportConfigurationModal<T> extends ModalBox<T>{
         return getParent();
     }
 
-    public Table table() {
-        return new Table(this, getTableBoxElement());
+    public Table<ReportConfigurationModal, Table> table() {
+        return new Table<>(this, getTableBoxElement());
     }
 
     protected SelenideElement getTableBoxElement(){
