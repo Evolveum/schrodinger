@@ -279,12 +279,12 @@ public class Search<T> extends Component<T, Search<T>> {
         return this;
     }
 
-    public Search<T> assertExistSearchItem(String name) {
+    public Search<T> assertSearchItemExists(String name) {
         assertion.assertNotNull(getItemByName(name), "Search item with name '" + name + "' don't exists.");
         return this;
     }
 
-    public Search<T> assertDoesntExistSearchItem(String name) {
+    public Search<T> assertSearchItemDoesntExist(String name) {
         assertion.assertNull(getItemByName(name), "Search item with name '" + name + "' exists.");
         return this;
     }
