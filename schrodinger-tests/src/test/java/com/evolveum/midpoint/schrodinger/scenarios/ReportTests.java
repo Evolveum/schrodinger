@@ -23,9 +23,6 @@ import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.report.ListReportsPage;
 import org.testng.annotations.Test;
 
-/**
- * Created by honchar
- */
 public class ReportTests extends AbstractSchrodingerTest {
 
     @Test
