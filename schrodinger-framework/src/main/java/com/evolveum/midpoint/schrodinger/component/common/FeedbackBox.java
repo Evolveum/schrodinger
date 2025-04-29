@@ -26,7 +26,6 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selectors.byPartialLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -42,10 +41,6 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
 
     public SelenideElement getChildElement(String id){
         return getParentElement().$(Schrodinger.byDataId("div", id)).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
-    }
-
-    public SelenideElement getChildElement(){
-        return getParentElement().$(Schrodinger.byDataId("div", "0")).shouldBe(Condition.appear, MidPoint.TIMEOUT_LONG_1_M);
     }
 
     public Boolean isSuccess() {
@@ -80,13 +75,6 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
         return this;
     }
 
-    public FeedbackBox<T> clickClose() {
-
-        $(Schrodinger.byDataId("close")).click();
-
-        return this;
-    }
-
     public TaskBasicPanel clickShowTask() {
 
         $(Schrodinger.byDataId("backgroundTaskLink")).scrollIntoView(false).click();
@@ -102,10 +90,6 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
         return new CasePage();
     }
 
-    public Boolean isFeedbackBoxPresent() {
-        return getParentElement().isDisplayed();
-    }
-
     public FeedbackBox<T> assertSuccess() {
         assertion.assertTrue(isSuccess(), "Feedback panel status is not success.");
         return this;
@@ -113,11 +97,6 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
 
     public FeedbackBox<T> assertError() {
         assertion.assertTrue(isError(), "Feedback panel status is not error.");
-        return this;
-    }
-
-    public FeedbackBox<T> assertWarning() {
-        assertion.assertTrue(isWarning(), "Feedback panel status is not warning.");
         return this;
     }
 
@@ -152,7 +131,7 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
 
     public String getFeedbackMessage() {
         try {
-            SelenideElement messageElement = getParentElement().$x(".//h3[@data-s-id='message']")
+            SelenideElement messageElement = getParentElement().$x(".//div[@data-s-id='message']")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
             if (messageElement.exists()) {
                 return messageElement.getText();
