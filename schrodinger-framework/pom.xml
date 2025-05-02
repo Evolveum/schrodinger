@@ -23,7 +23,7 @@
     <parent>
         <artifactId>schrodinger</artifactId>
         <groupId>com.evolveum.midpoint</groupId>
-        <version>4.9.3-SNAPSHOT</version>
+        <version>4.9.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>schrodinger-framework</artifactId>

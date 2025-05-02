@@ -33,7 +33,7 @@
     <groupId>com.evolveum.midpoint</groupId>
     <artifactId>schrodinger</artifactId>
     <packaging>pom</packaging>
-    <version>4.9.3-SNAPSHOT</version>
+    <version>4.9.4-SNAPSHOT</version>
     <!-- Notes
             Running GUI tests from Schrodinger module
         mvn clean install  -P build-framework-test
@@ -82,7 +82,7 @@
         <h2.version>1.4.193</h2.version>
         <guava.version>31.1-jre</guava.version>
         <!-- don't forget to change the checked version in AboutPageTest-->
-        <midpoint.version>4.9.3-SNAPSHOT</midpoint.version>
+        <midpoint.version>4.9.4-SNAPSHOT</midpoint.version>
         <midpoint.client.version>4.9</midpoint.client.version>
         <connid.version>1.5.2.0</connid.version>
     </properties>
