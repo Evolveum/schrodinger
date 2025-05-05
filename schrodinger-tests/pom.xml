@@ -156,7 +156,7 @@
         <dependency>
             <groupId>com.evolveum.midpoint.client</groupId>
             <artifactId>midpoint-client-api</artifactId>
-            <version>4.9.2-SNAPSHOT</version>
+            <version>${midpoint.client.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -168,7 +168,7 @@
         <dependency>
             <groupId>com.evolveum.midpoint.client</groupId>
             <artifactId>midpoint-client-impl-prism</artifactId>
-            <version>4.9.2-SNAPSHOT</version>
+            <version>${midpoint.client.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
