@@ -21,7 +21,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.FocusTableWithChoosableElements;
 import com.evolveum.midpoint.schrodinger.component.MultiCompositedButtonPanel;
-import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
@@ -90,6 +89,13 @@ public class FocusSetAssignmentsModal<T> extends ModalBox<T> {
         SelenideElement button = getCompositedButtonsPanel().findCompositedButtonByTitle(buttonTitle).getParentElement();
         button.click();
         button.shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        return this;
+    }
+
+    public FocusSetAssignmentsModal<T> clickCompositedButtonByLabel(String buttonLabel) {
+        SelenideElement button = getCompositedButtonsPanel().findCompositedButtonByLabel(buttonLabel).getParentElement();
+        button.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        button.click();
         return this;
     }
 

@@ -62,6 +62,14 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         return new FocusSetAssignmentsModal<A>((A) this, modalElement);
     }
 
+    public <A extends AssignmentsPanel<P>> FocusSetAssignmentsModal<A> clickAddAllAssignment() {
+        getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement modalElement = getNewAssignmentModal();
+        FocusSetAssignmentsModal<A> modal = new FocusSetAssignmentsModal<A>((A) this, modalElement);
+        return modal.clickCompositedButtonByLabel("All assignments");
+    }
+
     private SelenideElement getCompositedIconsPopupPanel(SelenideElement modalElement) {
         return modalElement.$x(".//div[@data-s-id='compositedButtons']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
