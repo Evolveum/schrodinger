@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2023 Evolveum
+  ~ Copyright (c) 2010-2021 Evolveum
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,14 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<objects>
-    <role oid="9538ab18-5a63-12ed-9b6a-0242ac120002"
-          xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
-        <name>ra_role_to_assign</name>
-    </role>
-
-    <role oid="95334218-5a63-12ed-9b6a-0242ac120002"
-          xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
-        <name>validity_test_role</name>
-    </role>
-</objects>
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="88da85e7-7ee6-43f1-a382-e6277098539e">
+    <name>NoCostCenterTestUser</name>
+    <activation/>
+</user>

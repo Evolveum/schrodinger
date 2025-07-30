@@ -28,6 +28,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File SYSTEM_CONFIGURATION_MANDATORY_VALIDITY = new File("./src/test/resources/objects/systemconfiguration/sys-config-request-access-mandatory-validity.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -80,7 +81,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     //todo commented due to ticket #9683
 //   @Test
-   public void test003requestRolesOfTeammate() {
+   public void test0030requestRolesOfTeammate() {
        basicPage
                .requestAccess()
                .selectGroup("ra_wizard_user_1")
@@ -101,7 +102,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
      * Covers MID-9323
      */
 //    @Test
-   public void test004selectAllItemsOnTableViewPanel() {
+   public void test0040selectAllItemsOnTableViewPanel() {
        basicPage
                .requestAccess()
                .selectMyself()
@@ -111,5 +112,35 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                .table()
                .addAll()
                .assertShoppingCartCountEqualsTableItemsCount();
+    }
+
+    /**
+     * Covers MID-10459
+     */
+    @Test
+    public void test0050mandatoryValidityConfigurationTest() {
+        importObject(SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
+        reloginAsAdministrator();
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .selectAllRolesMenu()
+                .addItemToCart("validity_test_role")
+                .next()
+                .assertValidityOptionPresent("10 Years")
+                .selectValidityOption("10 Years")
+                .comment("Test comment")
+                .clickSubmitButton()
+                .feedback()
+                .assertSuccess();
+        showUser("administrator")
+                .selectAssignmentsPanel()
+                .assertAssignmentExists("validity_test_role")
+                .table()
+                .clickByName("validity_test_role")
+                .selectFormTabByName("Activation")
+                .assertPropertyIsNotEmpty("validFrom")
+                .assertPropertyIsNotEmpty("validTo");
     }
 }

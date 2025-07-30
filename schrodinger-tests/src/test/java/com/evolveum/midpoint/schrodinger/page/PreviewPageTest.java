@@ -89,6 +89,11 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         //@formatter:off
         PreviewPage previewPage = basicPage.listUsers()
                 .table()
+                .search()
+                .byName()
+                .inputValue("jack")
+                .updateSearch()
+                .and()
                     .clickByName("jack")
                     .selectBasicPanel()
                         .form()
@@ -116,9 +121,14 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         //@formatter:off
         ProgressPage previewPage = basicPage.listUsers()
                 .table()
-                    .clickByName("jack")
+                .search()
+                .byName()
+                .inputValue("jack")
+                .updateSearch()
+                .and()
+                .clickByName("jack")
                     .selectAssignmentsPanel()
-                        .clickAddAssignment()
+                        .clickAddAllAssignment()
                             .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                             .table()
                                 .search()
@@ -165,7 +175,7 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                 .assertIsNotLink();
 
         midPoint.logout();
-        basicPage = midPoint.formLogin().login("administrator", "Test5ecr3t");
+        basicPage = midPoint.formLogin().login(getUsername(), getPassword());
 
     }
 
@@ -174,6 +184,11 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         //@formatter:off
         ProgressPage previewPage = basicPage.listUsers()
                 .table()
+                .search()
+                .byName()
+                .inputValue("jack")
+                .updateSearch()
+                .and()
                     .clickByName("jack")
                         .selectAssignmentsPanel()
                             .table()
@@ -193,9 +208,14 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
         //@formatter:off
         ProgressPage previewPage = basicPage.listUsers()
                 .table()
+                .search()
+                .byName()
+                .inputValue("jack")
+                .updateSearch()
+                .and()
                     .clickByName("jack")
                         .selectAssignmentsPanel()
-                            .clickAddAssignment()
+                            .clickAddAllAssignment()
                                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                                 .table()
                                     .search()

@@ -27,7 +27,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
      * Covers MID-9333
      */
     @Test
-    private void test00100setPasswordValueWithLastSpace() {
+    public void test00100setPasswordValueWithLastSpace() {
         basicPage.newUser()
                 .selectBasicPanel()
                 .form()
@@ -35,7 +35,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .and()
                 .selectAssignmentsPanel()
-                .clickAddAssignment()
+                .clickAddAllAssignment()
                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                 .table()
                 .selectRowByName("End user")

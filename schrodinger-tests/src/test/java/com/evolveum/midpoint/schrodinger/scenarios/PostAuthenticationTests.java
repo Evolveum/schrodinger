@@ -23,8 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.codeborne.selenide.Selenide;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
@@ -50,9 +48,6 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
     protected static final String TEST_FLOW_WITHOUT_POST_AUTH_ROLE_ASSIGNED = "test0030flowWithoutPostAuthRoleAssigned";
 
     protected static final String ACTIVATION_STATE_ENABLED_VALUE = "Enabled";
-    protected static final String ACTIVATION_STATE_ARCHIVAED_VALUE = "Archived";
-
-    private static final Logger LOG = LoggerFactory.getLogger(PostAuthenticationTests.class);
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -137,7 +132,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
                 .and()
                 .clickByName(TEST_USER_TITIAN_NAME)
                 .selectAssignmentsPanel()
-                .clickAddAssignment()
+                .clickAddAllAssignment()
                 .table()
                 .search()
                 .byName()

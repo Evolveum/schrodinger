@@ -15,14 +15,14 @@
  */
 package com.evolveum.midpoint.schrodinger.scenarios;
 
+import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.component.modal.ReportConfigurationModal;
 import com.evolveum.midpoint.schrodinger.component.report.ReportTable;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
+import com.evolveum.midpoint.schrodinger.page.report.ListReportsPage;
 import org.testng.annotations.Test;
 
-/**
- * Created by honchar
- */
 public class ReportTests extends AbstractSchrodingerTest {
 
     @Test
@@ -66,4 +66,37 @@ public class ReportTests extends AbstractSchrodingerTest {
                     .and()
                 .assertVisibleObjectsCountEquals(1);
     }
+
+    /**
+     * covers MID-10436, run Reconciliation report with Situation and Kind parameters
+     */
+    @Test
+    public void test00300defineSituationAndKindParameters() {
+        ReportConfigurationModal<ListReportsPage> runReportModal = basicPage
+                .listReports()
+                .table()
+                .runReport("Reconciliation report");
+        runReportModal
+                .table()
+                .search()
+                .textInputPanelByItemName("Situation")
+                .inputValue("Linked")
+                .textInputPanelByItemName("Kind")
+                .inputValue("account")
+                .updateSearch();
+        runReportModal.runReport();
+
+        Selenide.sleep(5000);
+
+        basicPage.createdReports()
+                .table()
+                .search()
+                .byName()
+                .inputValue("Reconciliation report")
+                .updateSearch()
+                .and()
+                .assertTableContainsText("Reconciliation report")
+                .assertAllObjectsCountEquals(1);
+    }
+
 }

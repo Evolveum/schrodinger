@@ -49,7 +49,6 @@ public class CaseTests extends AbstractSchrodingerTest {
     public static final String ASSIGNING_ROLE_CASE_NAME = "Assigning role \"Role with admin approver\" to user \"";
 
     public static final String REJECT_WORKITEM_TEST_USER_NAME = "rejectWorkitemTestUser";
-    public static final String CLAIM_WORKITEM_TEST_USER_NAME = "claimWorkitemTestUser";
     public static final String FORWARD_WORKITEM_TEST_USER_NAME = "forwardWorkitemTestUser";
     public static final String FORWARD_WORKITEM_TO_USER_NAME = "forwardToUser";
 
@@ -297,7 +296,7 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .and()
                 .clickByName(userName)
                 .selectAssignmentsPanel()
-                .clickAddAssignment()
+                .clickAddAllAssignment()
                 .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
                 .table()
                 .search()

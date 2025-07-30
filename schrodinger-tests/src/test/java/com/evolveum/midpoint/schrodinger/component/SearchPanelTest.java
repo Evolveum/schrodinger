@@ -44,6 +44,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     private static final String COMPONENT_RESOURCES_DIRECTORY = "./src/test/resources/";
     private static final String COMPONENT_OBJECTS_DIRECTORY = COMPONENT_RESOURCES_DIRECTORY + "objects/";
+    private static final String COMPONENT_OBJECT_COLLECTIONS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "objectcollections/";
     private static final String COMPONENT_USERS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "users/";
     private static final String COMPONENT_ROLES_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "roles/";
     private static final String COMPONENT_ORGS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "orgs/";
@@ -67,8 +68,14 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File ORG_MEMBER_SEARCH_ROOT_ORG_FILE = new File(COMPONENT_ORGS_DIRECTORY + "org-root-member-search.xml");
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE = new File(COMPONENT_ROLES_DIRECTORY + "role-membership-search-by-relation.xml");
     private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-configured-user-search.xml");
+    private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
+    private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
+    private static final File USER_WITH_ANOTHER_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-another-cost-center.xml");
+    private static final File USER_WITH_NO_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-no-cost-center.xml");
+    private static final File ADMIN_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-administrator-with-cost-center.xml");
+    private static final File OBJECT_COLLECTION_COST_CENTER_FILE = new File(COMPONENT_OBJECT_COLLECTIONS_DIRECTORY + "object-collection-cost-center-filter.xml");
 
     private static final String NAME_ATTRIBUTE = "Name";
     private static final String GIVEN_NAME_ATTRIBUTE = "Given name";
@@ -85,7 +92,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 SEARCH_BY_ROLE_MEMBERSHIP_TYPE_USER_FILE, ORG_MEMBER_SEARCH_USER_FILE, SEARCH_BY_ROLE_MEMBERSHIP_RELATION_USER_FILE,
                 SEARCH_BY_ROLE_MEMBERSHIP_NAME_ROLE_FILE, SEARCH_BY_ROLE_MEMBERSHIP_OID_ROLE_FILE, ORG_MEMBER_SEARCH_ROOT_ORG_FILE,
                 SEARCH_BY_ROLE_MEMBERSHIP_TYPE_ORG_FILE, SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE, USER_WITH_EMPLOYEE_NUMBER_FILE,
-                USER_WITH_EMAIL_ADDRESS_FILE);
+                USER_WITH_EMAIL_ADDRESS_FILE, USER_WITH_COST_CENTER_FILE, USER_WITH_ANOTHER_COST_CENTER_FILE, USER_WITH_NO_COST_CENTER_FILE,
+                ADMIN_WITH_COST_CENTER_FILE);
     }
 
     @Test
@@ -126,7 +134,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
         search.addSearchItemByAddButtonClick(REQUESTABLE_ATTRIBUTE)
-                .assertExistSearchItem(REQUESTABLE_ATTRIBUTE);
+                .assertSearchItemExists(REQUESTABLE_ATTRIBUTE);
     }
 
     @Test
@@ -135,7 +143,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         Search<ServicesPageTable> search = (Search<ServicesPageTable>) table.search();
         search
                 .addSearchItemByNameLinkClick(ROLE_MEMBERSHIP_ATTRIBUTE)
-                .assertExistSearchItem(ROLE_MEMBERSHIP_ATTRIBUTE);
+                .assertSearchItemExists(ROLE_MEMBERSHIP_ATTRIBUTE);
     }
 
     @Test
@@ -282,16 +290,16 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                     .getMemberPanel()
                         .table();
         table.assertTableContainsColumnWithValue("Name", "orgMembershipByTypeSearch");
-        table.search().assertExistSearchItem("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
+        table.search().assertSearchItemExists("Type2").assertHelpTextOfSearchItem("Type2", "Type help")
                 .assertActualOptionOfSelectSearchItem("Type2", "Organization");
-        table.search().assertExistSearchItem("Relation2").assertHelpTextOfSearchItem("Relation2", "Help relation")
+        table.search().assertSearchItemExists("Relation2").assertHelpTextOfSearchItem("Relation2", "Help relation")
                 .assertActualOptionOfSelectSearchItem("Relation2", SchemaConstants.ORG_DEFAULT.getLocalPart());
-        table.search().assertExistSearchItem("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
+        table.search().assertSearchItemExists("Scope2").assertHelpTextOfSearchItem("Scope2", "Help scope")
                 .assertActualOptionOfSelectSearchItem("Scope2", "Subtree");
         table.search().dropDownPanelByItemName("Scope2").inputDropDownValue("One level");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         table.search().updateSearch();
-        table.search().assertExistSearchItem("Indirect2").assertHelpTextOfSearchItem("Indirect2", "Indirect help")
+        table.search().assertSearchItemExists("Indirect2").assertHelpTextOfSearchItem("Indirect2", "Indirect help")
                 .assertActualOptionOfSelectSearchItem("Indirect2", "True");
     }
 
@@ -306,17 +314,17 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .getMemberPanel()
                 .table();
         table.assertTableDoesntContainText("orgMembershipByTypeSearch");
-        table.search().assertDoesntExistSearchItem("Type2");
-        table.search().assertDoesntExistSearchItem("Relation2");
-        table.search().assertDoesntExistSearchItem("Scope2");
-        table.search().assertDoesntExistSearchItem("Indirect2");
+        table.search().assertSearchItemDoesntExist("Type2");
+        table.search().assertSearchItemDoesntExist("Relation2");
+        table.search().assertSearchItemDoesntExist("Scope2");
+        table.search().assertSearchItemDoesntExist("Indirect2");
     }
 
     /**
      * covers MID-9324 (Request access: Cannot change search mode)
      */
     @Test
-    public void test014selectAdvancedSearchOnRoleCatalogPage() {
+    public void test0140selectAdvancedSearchOnRoleCatalogPage() {
         reimportDefaultSystemConfigurationAndRelogin();
         basicPage
                 .requestAccess()
@@ -333,7 +341,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      * covers MID-9324 (Request access: Cannot change search mode)
      */
     @Test
-    public void test015selectAdvancedSearchOnRoleCatalogTableView() {
+    public void test0150selectAdvancedSearchOnRoleCatalogTableView() {
         reimportDefaultSystemConfigurationAndRelogin();
         basicPage
                 .requestAccess()
@@ -345,6 +353,55 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .advanced()
                 .assertAdvancedSearchIsSelected();
 
+    }
+
+    /**
+     * covers MID-10487 (Object collection filter not working correctly on All users page)
+     */
+    @Test
+    public void test0160objectCollectionFilterSearch() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(OBJECT_COLLECTION_COST_CENTER_FILE, true);
+        importObject(SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION, true);
+        basicPage.loggedUser().logoutIfUserIsLogin();
+
+        FormLoginPage login = midPoint.formLogin();
+        basicPage = login.loginIfUserIsNotLog(username, password);
+
+        UsersPageTable table = basicPage.listUsers().table();
+        table.assertTableContainsLinkTextPartially("administrator")
+                .assertTableContainsLinkTextPartially("NoCostCenterTestUser")
+                .assertTableContainsLinkTextPartially("AnotherCostCenterTestUser")
+                .assertTableContainsLinkTextPartially("CostCenterTestUser");
+
+        Search<UsersPageTable> search = table.search();
+        search.dropDownPanelByItemName("Object collection").inputDropDownValue("Test users");
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        search.updateSearch();
+
+        table.assertVisibleObjectsCountEquals(2)
+                .assertTableDoesntContainLinksTextPartially("NoCostCenterTestUser")
+                .assertTableDoesntContainLinksTextPartially("AnotherCostCenterTestUser")
+                .assertTableContainsLinkTextPartially("administrator")
+                .assertTableContainsLinkTextPartially("CostCenterTestUser");
+    }
+
+    /**
+     * covers MID-10436, check if there is no possibility to open object selection popup dialog from
+     * referencable search item panel which is already situated in the modal dialog (use case for
+     * Reconciliation report running)
+     */
+    @Test
+    public void test0170noArrowButtonForReferencableSearchItemInPopup() {
+        basicPage
+                .listReports()
+                .table()
+                .runReport("Reconciliation report")
+                .table()
+                .search()
+                .referencePanelByItemName("Resource")
+                .propertySettings()
+                .assertObjectSelectionButtonNotPresentNextToNameField();
     }
 
     private void logoutLoginToRefreshSearch() {

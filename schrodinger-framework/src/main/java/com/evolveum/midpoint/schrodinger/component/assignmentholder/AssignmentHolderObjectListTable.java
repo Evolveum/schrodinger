@@ -32,6 +32,7 @@ import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 
@@ -140,13 +141,14 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         try {
             Utils.getModalWindowSelenideElement();
             Utils.waitForAjaxCallFinish();
+            Selenide.sleep(1000);
         } catch (Error e) {
             //nothing to do here, the popup can appear or not; depends on configuration;
         }
         if (Utils.isModalWindowSelenideElementVisible()) {
             SelenideElement modal = Utils.getModalWindowSelenideElement();
             ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");
-            int count = childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
+            int count = childrenButtonCollection.size();
             modal.$x(".//a[@data-s-id='cancelButton']").click();
             Selenide.sleep(1000);
             Utils.waitForAjaxCallFinish();

@@ -14,16 +14,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
-    <name>TestUser1</name>
-    <assignment id="1">
-        <targetRef oid="00000000-0000-0000-0000-000000000702" relation="org:default" type="c:ArchetypeType"/>
-        <activation>
-            <effectiveStatus>enabled</effectiveStatus>
-        </activation>
-    </assignment>
-    <archetypeRef oid="00000000-0000-0000-0000-000000000702" relation="org:default" type="c:ArchetypeType"/>
-    <roleMembershipRef oid="00000000-0000-0000-0000-000000000702" relation="org:default" type="c:ArchetypeType">
-    </roleMembershipRef>
-    <costCenter>cc01</costCenter>
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" oid="7d244417-76f2-4dbc-9f7c-1f4fdfb3803f">
+    <name>CostCenterTestUser</name>
+    <activation/>
+    <costCenter>centerTest</costCenter>
 </user>

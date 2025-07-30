@@ -28,7 +28,6 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,7 +165,7 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage assertVersionValueEquals(String expectedVersionValue) {
-        assertion.assertEquals(expectedVersionValue, version(), "Version value doesn't match");
+        assertion.assertEquals(version(), expectedVersionValue, "Version value doesn't match");
         return this;
     }
 

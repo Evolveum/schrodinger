@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page.service;
 
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
+import com.evolveum.midpoint.schrodinger.component.ClassificationsPanel;
 import com.evolveum.midpoint.schrodinger.component.ProjectionsPanel;
 import com.evolveum.midpoint.schrodinger.page.AbstractRolePage;
 
@@ -39,6 +40,11 @@ public class ServicePage extends AbstractRolePage {
     public AssignmentsPanel<ServicePage> selectAssignmentsPanel() {
         return super.selectAssignmentsPanel();
     }
+
+    public ClassificationsPanel selectClassificationsPanel() {
+        return new ClassificationsPanel(ServicePage.this, getNavigationPanelSelenideElement("Classifications"));
+    }
+
 
     public ServicePage assertName(String expectedValue) {
         selectBasicPanel().form().assertPropertyInputValue("name", expectedValue);

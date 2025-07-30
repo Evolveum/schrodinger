@@ -20,7 +20,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
-import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
@@ -30,22 +29,28 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
     }
 
     public UserPasswordPanel<T> setPasswordValue(String value) {
-//        PrismForm passwordContainer = form()
-//                .expandContainerPropertiesPanel("Password")
-//                .getPrismContainerPanel("Password")
-//                .getContainerFormFragment();
 
         boolean existValue = getParentElement().$x(".//a[@data-s-id='changePasswordLink']").exists();
         if (existValue) {
             getParentElement().$x(".//a[@data-s-id='changePasswordLink']").click();
         }
-        getParentElement().$x(".//input[@data-s-id='password1']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        getParentElement().$x(".//input[@data-s-id='password2']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
-        Utils.waitForAjaxCallFinish();
-        getParentElement().$x(".//input[@data-s-id='password2']").shouldBe(Condition.value(value), MidPoint.TIMEOUT_SHORT_4_S);
+
+        checkPasswordField(".//input[@data-s-id='password1']", value);
+        checkPasswordField(".//input[@data-s-id='password2']", value);
+
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
+    }
+
+    private void checkPasswordField(String identifier, String value) {
+        SelenideElement passwordField = getParentElement().$x(identifier);
+        passwordField.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
+        Utils.waitForAjaxCallFinish();
+
+        SelenideElement eyeIcon = passwordField.$x("following::i[contains(@class, 'fa-eye')][1]");
+        eyeIcon.shouldBe(Condition.visible).click();
+        Utils.waitForAjaxCallFinish();
+        passwordField.shouldBe(Condition.value(value));
     }
 
 }

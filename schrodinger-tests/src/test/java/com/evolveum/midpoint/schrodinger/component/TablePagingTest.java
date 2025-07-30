@@ -110,7 +110,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                     .table()
                         .paging()
                             .assertCurrentPageSize(21)
-                            .assertPageSizeValuesListContains(1, 2, 5, 11, 21);
+                            .assertPageSizeValuesListContains(1, 2, 5, 11, 21, 110, 120, 150);
     }
 
     /**
@@ -123,16 +123,15 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .table()
                     .paging()
                         .assertCurrentPageSize(22)
-                        .assertPageSizeValuesListContains(11, 22, 100);
+                        .assertPageSizeValuesListContains(15, 25, 55, 105, 115, 11, 22, 100);
     }
 
     /**
-     * Paging options are overridden in the Persons archetype.
+     * Paging options are merged for the Persons archetype.
      * Check if the page size options contains those from configuration for Persons details page, Assignments -> All panel.
-     * The values are: 10, 30, 60, 80. Default page size is set to 30
      */
     @Test
-    public void test0050personsArchetypeSettingOverridingForAssignmentsPanel() {
+    public void test0050personsArchetypeSettingMergedForAssignmentsPanel() {
         addObjectFromFile(ARCHETYPE_PERSON);
 
         reloginAsAdministrator();
@@ -143,15 +142,15 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                         .table()
                             .paging()
                                 .assertCurrentPageSize(30)
-                                .assertPageSizeValuesListContains(10, 30, 60, 80);
+                                .assertPageSizeValuesListContains(10, 30, 60, 80, 110, 120, 150);
     }
 
     /**
-     * Paging options are overridden in the End user role, max page size is taken from Persons view configuration
+     * Paging options are merged for End user role, max page size is taken from Persons view configuration
      * in system configuration.
      */
     @Test
-    public void test0060enduserRoleSettingOverridingForPersonsList() {
+    public void test0060enduserRoleSettingMergedForPersonsList() {
         addObjectFromFile(ROLE_END_USER_PAGING_OPTIONS);
 
         basicPage.loggedUser().logoutIfUserIsLogin();
@@ -161,7 +160,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .table()
                     .paging()
                         .assertCurrentPageSize(22)
-                        .assertPageSizeValuesListContains(18, 28, 38, 48);
+                        .assertPageSizeValuesListContains(15, 18, 25, 28, 38, 48, 55, 105, 115, 11, 22, 100);
     }
 
     /**
@@ -179,11 +178,11 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .table()
                 .paging()
                 .assertCurrentPageSize(17)
-                .assertPageSizeValuesListContains(11, 22, 100);
+                .assertPageSizeValuesListContains(15, 25, 55, 105, 115, 11, 22, 100);
     }
 
     /**
-     * In this test we check if the default paging settings are overridden correctly in the End user role.
+     * In this test we check if the default paging settings are merged correctly for the End user role.
      */
     @Test
     public void test0080defaultSettingsMergingTest() {
@@ -198,8 +197,8 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .table()
                     .paging()
                         .assertCurrentPageSize(51)
-                        .assertPageSizeValuesListContains(16, 26, 56, 106)
-                        .assertPageSizeValuesListDoesntContain(15, 25, 55, 105, 115);
+                        .assertPageSizeValuesListContains(16, 26, 56, 106)      //from end user role
+                        .assertPageSizeValuesListContains(15, 25, 55, 105, 115);    //from system configuration
 
 
         showUser("enduser1")
@@ -209,7 +208,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .paging()
                 .assertCurrentPageSize(23)
                 .assertPageSizeValuesListContains(113, 123, 153)
-                .assertPageSizeValuesListDoesntContain(110, 120, 150)
+                .assertPageSizeValuesListContains(110, 120, 150)
                 .and()
                 .and()
                 .and()
@@ -218,7 +217,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .paging()
                 .assertCurrentPageSize(23)
                 .assertPageSizeValuesListContains(113, 123, 153)
-                .assertPageSizeValuesListDoesntContain(110, 120, 150);
+                .assertPageSizeValuesListContains(110, 120, 150);
     }
 
     @Override
@@ -226,8 +225,4 @@ public class TablePagingTest extends AbstractSchrodingerTest {
         return true;
     }
 
-    private void reloginAsAdministrator() {
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        midPoint.formLogin().login(getUsername(), getPassword());
-    }
 }

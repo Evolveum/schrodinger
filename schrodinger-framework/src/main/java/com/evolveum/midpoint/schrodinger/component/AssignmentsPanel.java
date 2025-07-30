@@ -17,7 +17,6 @@
 package com.evolveum.midpoint.schrodinger.component;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -63,6 +62,14 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         return new FocusSetAssignmentsModal<A>((A) this, modalElement);
     }
 
+    public <A extends AssignmentsPanel<P>> FocusSetAssignmentsModal<A> clickAddAllAssignment() {
+        getParentElement().$x(".//i[contains(@class, \"fe fe-assignment\")]")
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement modalElement = getNewAssignmentModal();
+        FocusSetAssignmentsModal<A> modal = new FocusSetAssignmentsModal<A>((A) this, modalElement);
+        return modal.clickCompositedButtonByLabel("All assignments");
+    }
+
     private SelenideElement getCompositedIconsPopupPanel(SelenideElement modalElement) {
         return modalElement.$x(".//div[@data-s-id='compositedButtons']").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
     }
@@ -71,13 +78,14 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         return Utils.getModalWindowSelenideElement();
     }
 
+    public <A extends AssignmentsPanel<P>> A assertAssignmentExists(String assignmentName) {
+        assertion.assertTrue(assignmentExists(assignmentName),
+                "Assignment '" + assignmentName + "' doesn't exist though it should.");
+        return (A) this;
+    }
 
     public boolean assignmentExists(String assignmentName){
-        SelenideElement assignmentSummaryDisplayName = table()
-                .clickByName(assignmentName)
-                    .getParentElement()
-                        .$(Schrodinger.byDataId("displayName"));
-        return assignmentName.equals(assignmentSummaryDisplayName.getText());
+        return table().containsText(assignmentName);
     }
 
     public <A extends AssignmentsPanel<P>> A selectTypeAll() {
@@ -149,4 +157,10 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         assertion.assertEquals(el.$x(".//span[@data-s-id='count']").getText(), expectedValue, "Assignments count label doesn't equal to expected value");
         return this;
     }
+
+    @Override
+    protected String getNameColumnSpanId() {
+        return "title";
+    }
+
 }
