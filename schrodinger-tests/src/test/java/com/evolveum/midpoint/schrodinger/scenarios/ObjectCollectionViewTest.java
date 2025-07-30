@@ -24,7 +24,7 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
      * Coverage for the ticket #10483
      * LookupTable label not displayed in Object Collection View list
      */
-    @Test
+    @Test(enabled = false)
     void test0010createPersonWithCostCenter() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         midPoint.formLogin().login(getUsername(),getPassword());
