@@ -272,6 +272,23 @@ public class CaseTests extends AbstractSchrodingerTest {
 
     }
 
+    //covers #10772
+    @Test
+    public void test150defaultSortingByTimestamp() {
+        basicPage
+                .home()
+                .myRequestsTable()
+                .assertTableColumnIsUnsorted("Name")
+                .assertTableColumnIsUnsorted("State")
+                .assertTableColumnIsSortedDesc("Opened");
+        basicPage
+                .listAllCases()
+                .table()
+                .assertTableColumnIsUnsorted("Name")
+                .assertTableColumnIsUnsorted("State")
+                .assertTableColumnIsSortedDesc("Opened");
+    }
+
     private SelenideElement getCaseMenuItemElement(String menuIdentifier, boolean checkByLabelText){
         SelenideElement casesMenuItemElement;
         if (!checkByLabelText) {

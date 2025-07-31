@@ -429,6 +429,24 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return this;
     }
 
+    public Table<T, P> assertTableColumnIsSortedAsc(String columnTitle) {
+        assertion.assertTrue(isSortedAscending(columnTitle),
+                "Table column '" + columnTitle + "' is not sorted ascending as expected.");
+        return this;
+    }
+
+    public Table<T, P> assertTableColumnIsSortedDesc(String columnTitle) {
+        assertion.assertTrue(isSortedDescending(columnTitle),
+                "Table column '" + columnTitle + "' is not sorted descending as expected.");
+        return this;
+    }
+
+    public Table<T, P> assertTableColumnIsUnsorted(String columnTitle) {
+        assertion.assertTrue(isUnsorted(columnTitle),
+                "Table column '" + columnTitle + "' is not unsorted as expected.");
+        return this;
+    }
+
     public int rowsCount() {
         Utils.waitForAjaxCallFinish();
         return getParentElement()
@@ -461,4 +479,59 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return new InlineMenu<>((P) this, element);
     }
 
+    /**
+     * returns true if the column is sorted ascending
+     * @param columnTitle can be either column title value or column title key
+     * @return
+     */
+    protected boolean isSortedAscending(String columnTitle) {
+        SelenideElement column = getTableColumn(columnTitle);
+        if (column != null) {
+            String columnClass = column.getAttribute("class");
+            return columnClass != null && columnClass.contains("sortable") && columnClass.contains("asc");
+        }
+        return false;
+    }
+
+    /**
+     * returns true if the column is sorted descending
+     * @param columnTitle can be either column title value or column title key
+     * @return
+     */
+    protected boolean isSortedDescending(String columnTitle) {
+        SelenideElement column = getTableColumn(columnTitle);
+        if (column != null) {
+            String columnClass = column.getAttribute("class");
+            return columnClass != null && columnClass.contains("sortable") && columnClass.contains("desc");
+        }
+        return false;
+    }
+
+    /**
+     * returns true if the column is unsorted
+     * @param columnTitle can be either column title value or column title key
+     * @return
+     */
+    protected boolean isUnsorted(String columnTitle) {
+        SelenideElement column = getTableColumn(columnTitle);
+        if (column != null) {
+            String columnClass = column.getAttribute("class");
+            return columnClass != null && columnClass.contains("sortable")
+                    && !columnClass.contains("asc") && !columnClass.contains("desc");
+        }
+        return false;
+    }
+
+    protected SelenideElement getTableColumn(String columnTitle) {
+        ElementsCollection columns = getParentElement().findAll("thead th");
+        for (SelenideElement column : columns) {
+            boolean containsTitle = column.$(byText(columnTitle)).isDisplayed();
+            boolean containsKey = column.$(Schrodinger.byDataResourceKey(columnTitle)).isDisplayed();
+            if (containsTitle || containsKey) {
+                return column;
+            }
+        }
+        return null;
+
+    }
 }

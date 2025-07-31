@@ -16,9 +16,11 @@
 package com.evolveum.midpoint.schrodinger.page.self;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.cases.WorkitemDetailsPanel;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithComponentRedirect;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.self.QuickSearch;
@@ -27,9 +29,11 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -44,7 +48,8 @@ public class HomePage extends BasicPage {
     }
 
     public <T extends TableWithPageRedirect<HomePage, CasePage, T>> TableWithPageRedirect<HomePage, CasePage, T> myRequestsTable() {
-        SelenideElement table = $(Schrodinger.byDataId("workItemsPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+        SelenideElement table = getTableWidgetElementByHeaderTitle("My requests")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .$x(".//table[@data-s-id='table']");
         return new TableWithPageRedirect<>(HomePage.this, table) {
             @Override
@@ -61,5 +66,16 @@ public class HomePage extends BasicPage {
             }
 
         };
+    }
+
+    private SelenideElement getTableWidgetElementByHeaderTitle(String headerTitle) {
+        String titleTranslated = Utils.translate(headerTitle);
+         ElementsCollection tables = $$x(".//div[@data-s-id='objectCollectionViewWidget']");
+         for (SelenideElement table : tables) {
+             if (table.$(byText(titleTranslated)).exists()) {
+                 return table;
+             }
+         }
+         return null;
     }
 }
