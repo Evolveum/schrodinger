@@ -287,6 +287,20 @@ public class CaseTests extends AbstractSchrodingerTest {
                 .assertTableColumnIsUnsorted("Name")
                 .assertTableColumnIsUnsorted("State")
                 .assertTableColumnIsSortedDesc("Opened");
+        //just to check that the default sorting is set correctly after second page loading
+        //when sorting is taken from page storage
+        basicPage
+                .home()
+                .myRequestsTable()
+                .assertTableColumnIsUnsorted("Name")
+                .assertTableColumnIsUnsorted("State")
+                .assertTableColumnIsSortedDesc("Opened");
+        basicPage
+                .listAllCases()
+                .table()
+                .assertTableColumnIsUnsorted("Name")
+                .assertTableColumnIsUnsorted("State")
+                .assertTableColumnIsSortedDesc("Opened");
     }
 
     private SelenideElement getCaseMenuItemElement(String menuIdentifier, boolean checkByLabelText){
