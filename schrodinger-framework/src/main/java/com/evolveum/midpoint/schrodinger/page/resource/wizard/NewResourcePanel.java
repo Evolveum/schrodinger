@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
 import com.codeborne.selenide.Condition;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.TileListPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -39,7 +40,13 @@ public class NewResourcePanel extends TileListWizardStepPanel<ResourceWizardPage
 
     public BasicInformationWizardStep copyFromTemplate(String templateTitle) {
         selectTileByLabel("Copy from template");
-        selectTileByLabel(templateTitle);
+        getTemplateTilesListPanel().selectTileByLabel(templateTitle);
         return new BasicInformationWizardStep(getParent());
+    }
+
+    private TileListPanel<?> getTemplateTilesListPanel() {
+        return new TileListPanel<>(NewResourcePanel.this,
+                $(Schrodinger.byDataId("div", "tilesContainer"))
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
     }
 }

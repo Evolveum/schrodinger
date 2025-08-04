@@ -35,7 +35,7 @@ public class ObjectTypeManagerPanel<T> extends Component<T, ObjectTypeManagerPan
     public ObjectTypeBasicInformationWizardStep<ObjectTypeManagerPanel<T>> addObjectType() {
         String addNewObjectTypeKey = "ResourceSchemaHandlingPanel.newObject";
         String titleTranslated = Utils.translate(addNewObjectTypeKey);
-        $(Schrodinger.byElementAttributeValue("a", "title", titleTranslated))
+        $x(".//a[@data-s-id='button' and contains(text(), '" + titleTranslated + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();

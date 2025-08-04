@@ -39,7 +39,7 @@ public class ObjectTypeWizardChoiceStep<T> extends TileListWizardStepPanel<T> {
     }
 
     public ResourceDataPreviewPanel<ObjectTypeWizardChoiceStep<T>> previewData() {
-        $x(".//a[@title='Preview data']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        $x(".//a[contains(text(), 'Preview data')]").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Utils.waitForAjaxCallFinish();
         return new ResourceDataPreviewPanel<>(ObjectTypeWizardChoiceStep.this);

@@ -15,7 +15,13 @@
  */
 package com.evolveum.midpoint.schrodinger.page.resource.wizard;
 
+import com.codeborne.selenide.Condition;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.TileListPanel;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class ConnectorSelectionStep extends TileListWizardStepPanel<ResourceWizardPage> {
 
@@ -44,8 +50,13 @@ public class ConnectorSelectionStep extends TileListWizardStepPanel<ResourceWiza
     }
 
     private BasicInformationWizardStep selectConnectorTile(String connectorLabel) {
-        selectTileByLabel(connectorLabel);
+        getConnectorTilesListPanel().selectTileByLabel(connectorLabel);
         return new BasicInformationWizardStep(getParent());
     }
 
+    private TileListPanel<?> getConnectorTilesListPanel() {
+        return new TileListPanel<>(ConnectorSelectionStep.this,
+                $(Schrodinger.byDataId("div", "tilesContainer"))
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
+    }
 }
