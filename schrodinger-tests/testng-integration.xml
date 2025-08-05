@@ -170,6 +170,7 @@
     <test name="Wizards" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
             <class name="com.evolveum.midpoint.schrodinger.component.wizard.RequestAccessWizardTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.component.wizard.ResourceWizardTest"/>
         </classes>
     </test>
     <test name="PasswordPanelTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
