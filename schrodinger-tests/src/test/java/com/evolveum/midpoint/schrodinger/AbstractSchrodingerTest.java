@@ -384,16 +384,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected File initTestDirectory(String dir, boolean clearExist) throws IOException {
-
-        String home = fetchTestHomeDir();
-        File parentDir = new File(home, "schrodinger");
-        if (!parentDir.exists()) {
-            LOG.info("Creating schrodinger directory: {}", parentDir.getAbsolutePath());
-            if (!parentDir.mkdir()) {
-                LOG.error("Creating schrodinger directory in {} failed", home);
-                throw new IOException("Cannot create schrodinger directory");
-            }
-        }
+        File parentDir = getSchrodingerDir();
         testTargetDir = new File(parentDir, dir);
 
         if (testTargetDir.mkdir()) {
@@ -410,6 +401,31 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 throw new IOException("Creation of directory \"" + testTargetDir.getAbsolutePath() + "\" unsuccessful. ");
             }
         }
+    }
+
+    protected File copyTestFileToMidpointHome(String directoryName, File testFile) throws IOException {
+        File parentDir = getSchrodingerDir();
+        File testFileDir = new File(parentDir, directoryName);
+        if (testFileDir.mkdir()) {
+            String fileName = testFile.getName();
+            File testFileCopied = new File(testFileDir, fileName);
+            FileUtils.copyFile(testFile, testFileCopied);
+            return testFileCopied;
+        }
+        throw new IOException("Cannot copy test file to the midPoint home directory");
+    }
+
+    private File getSchrodingerDir() throws IOException {
+        String home = fetchTestHomeDir();
+        File parentDir = new File(home, "schrodinger");
+        if (!parentDir.exists()) {
+            LOG.info("Creating schrodinger directory: {}", parentDir.getAbsolutePath());
+            if (!parentDir.mkdir()) {
+                LOG.error("Creating schrodinger directory in {} failed", home);
+                throw new IOException("Cannot create schrodinger directory");
+            }
+        }
+        return parentDir;
     }
 
     // TODO workaround -> factory reset during clean up seems to leave some old cached information breaking the resource until version change
