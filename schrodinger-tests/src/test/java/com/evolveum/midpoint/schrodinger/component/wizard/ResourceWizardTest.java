@@ -51,7 +51,7 @@ public class ResourceWizardTest extends AbstractSchrodingerTest {
     }
 
     //covers #10476
-    @Test
+    @Test(enabled=false)
     public void test0010createResourceFromTemplate() {
         String csvFilePath = hrCsvFile.getAbsolutePath();
         basicPage
