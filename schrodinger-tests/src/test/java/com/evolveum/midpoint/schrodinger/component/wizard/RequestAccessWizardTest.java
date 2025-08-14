@@ -16,8 +16,12 @@
 
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schema.constants.SchemaConstants;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RoleCatalogItemsTable;
+import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RoleCatalogStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.Test;
 
@@ -29,6 +33,10 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
     private static final File SYSTEM_CONFIGURATION_MANDATORY_VALIDITY = new File("./src/test/resources/objects/systemconfiguration/sys-config-request-access-mandatory-validity.xml");
+    private static final File COLLECTION_ORGANIZATIONS = new File("./src/test/resources/objects/objectcollections/all-organizations-custom.xml");
+    private static final File COLLECTION_ROLES = new File("./src/test/resources/objects/objectcollections/all-roles-custom.xml");
+    private static final File COLLECTION_SERVICES = new File("./src/test/resources/objects/objectcollections/all-services-custom.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-customized.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -142,5 +150,46 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .selectFormTabByName("Activation")
                 .assertPropertyIsNotEmpty("validFrom")
                 .assertPropertyIsNotEmpty("validTo");
+    }
+
+    @Test
+    void test0060checkNameColumn() {
+        RoleCatalogItemsTable<RoleCatalogStepPanel> table =  basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .selectTableView()
+                .table();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
+        table.assertTableCellClass("Name", 2, "name-min-width");
+    }
+
+    @Test
+    void test0070checkCustomColumnSettings() {
+        importObject(COLLECTION_ORGANIZATIONS);
+        importObject(COLLECTION_ROLES);
+        importObject(COLLECTION_SERVICES);
+        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG);
+        reloginAsAdministrator();
+
+        RoleCatalogStepPanel panel =  basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .selectTableView();
+
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
+
+        RoleCatalogItemsTable<RoleCatalogStepPanel> table1 = panel.table();
+        table1.assertTableCellStyle("Name ID", 2, "400px");
+        table1.assertTableCellStyle("Description ID", 2, "400px");
+
+        RoleCatalogItemsTable<RoleCatalogStepPanel> table2 = panel.selectAllServicesMenu().table();
+        table2.assertTableCellStyle("Name SRV", 1, "300px");
+        table2.assertTableCellStyle("Description SRV", 2, "500px");
+
+        RoleCatalogItemsTable<RoleCatalogStepPanel> table3 = panel.selectAllOrganizationsMenu().table();
+        table3.assertTableCellStyle("Name General", 1, "345px");
+        table3.assertTableCellStyle("Description General", 2, "543px");
     }
 }
