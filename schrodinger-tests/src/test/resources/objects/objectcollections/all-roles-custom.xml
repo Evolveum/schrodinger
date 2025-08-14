@@ -1,0 +1,23 @@
+<objectCollection xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="aac103d7-0078-4d34-b494-e367164f0fbb">
+    <name>All roles custom</name>
+    <type>RoleType</type>
+    <defaultView>
+        <column id="1">
+            <name>nameColumn</name>
+            <path>name</path>
+            <display>
+                <label>Name ID</label>
+                <cssStyle>min-width:400px;</cssStyle>
+            </display>
+        </column>
+        <column id="2">
+            <name>descriptionColumn</name>
+            <path>description</path>
+            <display>
+                <label>Description ID</label>
+                <cssStyle>min-width:400px;</cssStyle>
+            </display>
+            <previousColumn>nameColumn</previousColumn>
+        </column>
+    </defaultView>
+</objectCollection>

@@ -534,4 +534,21 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return null;
 
     }
+
+    public void assertTableCellClass(String columnResourceKey, int rowIndex, String value) {
+        assertTableCellAttributeValue(columnResourceKey, rowIndex, "class", value);
+    }
+
+    public void assertTableCellStyle(String columnResourceKey, int rowIndex, String value) {
+        assertTableCellAttributeValue(columnResourceKey, rowIndex, "style", value);
+    }
+
+    private void assertTableCellAttributeValue(String columnResourceKey, int rowIndex, String attributeName, String attributeValue) {
+        SelenideElement element = getTableCellElement(columnResourceKey, rowIndex);
+        if (element.exists()) {
+            String value = element.getAttribute(attributeName);
+            assertion.assertNotNull(value);
+            assertion.assertTrue(value.contains(attributeValue));
+        }
+    }
 }
