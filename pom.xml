@@ -83,7 +83,7 @@
         <guava.version>31.1-jre</guava.version>
         <!-- don't forget to change the checked version in AboutPageTest-->
         <midpoint.version>4.9.5-SNAPSHOT</midpoint.version>
-        <midpoint.client.version>4.9.3-SNAPSHOT</midpoint.client.version>
+        <midpoint.client.version>4.9.4-SNAPSHOT</midpoint.client.version>
         <connid.version>1.5.2.0</connid.version>
     </properties>
 
