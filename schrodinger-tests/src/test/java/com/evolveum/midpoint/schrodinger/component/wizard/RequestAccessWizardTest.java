@@ -34,6 +34,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File COLLECTION_ROLES = new File("./src/test/resources/objects/objectcollections/all-roles-custom.xml");
     private static final File COLLECTION_SERVICES = new File("./src/test/resources/objects/objectcollections/all-services-custom.xml");
     private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-customized.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-with-fulltext-search.xml");
+    private static final File ORG_MONKEY_ISLAND_SOURCE_FILE = new File("./src/test/resources/objects/orgs/org-monkey-island-simple.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -131,7 +133,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     void test0060checkCustomColumnSettings() {
         importObject(COLLECTION_ROLES);
         importObject(COLLECTION_SERVICES);
-        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG);
+        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG, true);
         reloginAsAdministrator();
 
         RoleCatalogStepPanel panel =  basicPage
@@ -149,5 +151,66 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
         RoleCatalogItemsTable<RoleCatalogStepPanel> table2 = panel.selectAllServicesMenu().table();
         table2.assertTableCellStyle("Name General", 1, "345px");
         table2.assertTableCellStyle("Description General", 2, "543px");
+    }
+
+    //covers #10819
+    @Test
+    void test0080fullTextSearchTest() {
+        importObject(ORG_MONKEY_ISLAND_SOURCE_FILE, true);
+        importObject(COLLECTION_ROLES, true);
+        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH, true);
+
+        basicPage.aboutPage().reindexRepositoryObjects();
+        Selenide.sleep(30000);
+
+        reloginAsAdministrator();
+
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .assertTableViewIsSelected()
+                .search()
+                .assertFulltextSearchIsDisplayed()
+                .dropDownPanelByItemName("Type")
+                .inputDropDownValue("Abstract role")
+                .updateSearch()
+                .and()
+                .selectMenuByLabel("Ministry of Offense")
+                .search()
+                .fullText("Swashbuckler Section")
+                .updateSearch()
+                .and()
+                .table()
+                .assertTableContainsColumnWithValue("Name", "Swashbuckler Section")
+                .assertTableDoesntContainColumnWithValue("Name", "Scumm Bar")
+                .and()
+                .selectMenuByLabel("Swashbuckler Section")
+                .table()
+                .assertVisibleObjectsCountEquals(0)
+                .and()
+                .search()
+                .fullText("Ministry of Health")
+                .updateSearch()
+                .and()
+                .table()
+                .assertTableContainsColumnWithValue("Name", "Ministry of Health")
+                .assertTableDoesntContainColumnWithValue("Name", "Ministry of Illness")
+                .and()
+                .selectMenuByLabel("All roles custom")
+                .search()
+                .assertFulltextSearchIsDisplayed()
+                .fullText("End user")
+                .updateSearch()
+                .and()
+                .table()
+                .assertTableContainsColumnWithValue("Name ID", "End user")
+                .and()
+                .search()
+                .fullText("Reviewer")
+                .updateSearch()
+                .and()
+                .table()
+                .assertTableContainsColumnWithValue("Name ID", "Reviewer");
     }
 }
