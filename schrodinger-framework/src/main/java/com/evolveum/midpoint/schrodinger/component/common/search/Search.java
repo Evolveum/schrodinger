@@ -323,5 +323,11 @@ public class Search<T> extends Component<T, Search<T>> {
                 .$x("./option[@selected='selected']").has(Condition.text(expectedOption)), "Search item with name '" + name + "' don't contains option '" + expectedOption + "'");
         return this;
     }
+
+    public Search<T> assertFulltextSearchIsDisplayed() {
+        SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        assertion.assertTrue(fullTextField.exists() && fullTextField.isDisplayed(), "Fulltext search is not displayed.");
+        return Search.this;
+    }
 }
 

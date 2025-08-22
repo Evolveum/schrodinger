@@ -323,9 +323,9 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return this;
     }
 
-    public P assertVisibleObjectsCountEquals(int expectedObjectsCount) {
+    public Table<T, P> assertVisibleObjectsCountEquals(int expectedObjectsCount) {
         assertion.assertEquals(rowsCount(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
-        return (P) this;
+        return this;
     }
 
     public Table<T, P> assertAllObjectsCountEquals(int objectsCount) {

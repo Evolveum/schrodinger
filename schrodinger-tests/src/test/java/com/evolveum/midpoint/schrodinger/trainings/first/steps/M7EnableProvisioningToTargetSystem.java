@@ -32,6 +32,8 @@ public class M7EnableProvisioningToTargetSystem extends AbstractTrainingTest {
                 .outboundMappings()
                 .table()
                 .assertVisibleObjectsCountEquals(12)    //todo check if 12 is right number
+                .and()
+                .table()
                 .assertAllLifecycleStateValuesEqual("Draft")
                 .and()
                 .and()
