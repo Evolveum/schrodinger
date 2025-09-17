@@ -22,7 +22,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
-import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
@@ -102,7 +101,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return RoleCatalogStepPanel.this;
     }
 
-    public RoleCatalogItemsTable<RoleCatalogStepPanel> table() {
+    public <RCT extends RoleCatalogItemsTable<RoleCatalogStepPanel, RCT>> RoleCatalogItemsTable<RoleCatalogStepPanel, RCT> table() {
         return new RoleCatalogItemsTable<>(RoleCatalogStepPanel.this);
     }
 

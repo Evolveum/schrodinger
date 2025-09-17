@@ -155,6 +155,11 @@ public class Search<T> extends Component<T, Search<T>> {
         return fullText("");
     }
 
+    public Search<T> basic() {
+        choiceBasicSearch();
+        return this;
+    }
+
     public Search<T> fullText(String valueToSearch) {
         selectSearchType("SearchBoxModeType.FULLTEXT");
 

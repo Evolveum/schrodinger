@@ -38,8 +38,11 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File COLLECTION_SERVICES = new File("./src/test/resources/objects/objectcollections/all-services-custom.xml");
     private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-customized.xml");
     private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-with-fulltext-search.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-only-default-relation-allowed.xml");
+    private static final File OWNER_OF_ENDUSER_ROLE = new File("./src/test/resources/objects/users/owner-of-enduser-role.xml");
     private static final File ORG_MONKEY_ISLAND_SOURCE_FILE = new File("./src/test/resources/objects/orgs/org-monkey-island-simple.xml");
 
+    private static final String OWNER_OF_ENDUSER_ROLE_NAME = "owner_of_enduser_role";
     @Override
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES);
@@ -156,7 +159,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     @Test
     void test0060checkNameColumn() {
-        RoleCatalogItemsTable<RoleCatalogStepPanel> table =  basicPage
+        RoleCatalogItemsTable table =  basicPage
                 .requestAccess()
                 .selectMyself()
                 .selectDefaultRelation()
@@ -182,15 +185,15 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
 
-        RoleCatalogItemsTable<RoleCatalogStepPanel> table1 = panel.table();
+        RoleCatalogItemsTable table1 = panel.table();
         table1.assertTableCellStyle("Name ID", 2, "400px");
         table1.assertTableCellStyle("Description ID", 2, "400px");
 
-        RoleCatalogItemsTable<RoleCatalogStepPanel> table2 = panel.selectAllServicesMenu().table();
+        RoleCatalogItemsTable table2 = panel.selectAllServicesMenu().table();
         table2.assertTableCellStyle("Name SRV", 1, "300px");
         table2.assertTableCellStyle("Description SRV", 2, "500px");
 
-        RoleCatalogItemsTable<RoleCatalogStepPanel> table3 = panel.selectAllOrganizationsMenu().table();
+        RoleCatalogItemsTable table3 = panel.selectAllOrganizationsMenu().table();
         table3.assertTableCellStyle("Name General", 1, "345px");
         table3.assertTableCellStyle("Description General", 2, "543px");
     }
@@ -255,4 +258,31 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .table()
                 .assertTableContainsColumnWithValue("Name ID", "Reviewer");
     }
+
+    //covers #10851
+    @Test
+    void test0090requestSameAssignmentWithAnotherRelationTest() {
+        importObject(OWNER_OF_ENDUSER_ROLE, true);
+        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED, true);
+
+        reloginAsAdministrator();
+
+        basicPage
+                .requestAccess()
+                .selectGroup(OWNER_OF_ENDUSER_ROLE_NAME)
+                .next(true)
+                .assertTableViewIsSelected()
+                .search()
+                .basic()
+                .byName()
+                .inputValue("End user")
+                .updateSearch()
+                .and()
+                .table()
+                .selectRowByName("End user")
+                .addSelectedToCart()
+                .and()
+                .assertShoppingCartCountEquals("1");
+    }
+
 }
