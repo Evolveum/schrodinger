@@ -28,7 +28,10 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-only-default-relation-allowed.xml");
+    private static final File OWNER_OF_ENDUSER_ROLE = new File("./src/test/resources/objects/users/owner-of-enduser-role.xml");
 
+    private static final String OWNER_OF_ENDUSER_ROLE_NAME = "owner_of_enduser_role";
     @Override
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES);
@@ -112,4 +115,31 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                .addAll()
                .assertShoppingCartCountEqualsTableItemsCount();
     }
+
+    //covers #10851
+    @Test
+    void test0090requestSameAssignmentWithAnotherRelationTest() {
+        importObject(OWNER_OF_ENDUSER_ROLE, true);
+        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED, true);
+
+        reloginAsAdministrator();
+
+        basicPage
+                .requestAccess()
+                .selectGroup(OWNER_OF_ENDUSER_ROLE_NAME)
+                .next(true)
+                .assertTableViewIsSelected()
+                .search()
+                .basic()
+                .byName()
+                .inputValue("End user")
+                .updateSearch()
+                .and()
+                .table()
+                .selectRowByName("End user")
+                .addSelectedToCart()
+                .and()
+                .assertShoppingCartCountEquals("1");
+    }
+
 }

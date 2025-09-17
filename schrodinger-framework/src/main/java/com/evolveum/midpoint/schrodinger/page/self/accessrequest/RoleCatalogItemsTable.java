@@ -19,20 +19,20 @@ package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.common.table.Table;
+import com.evolveum.midpoint.schrodinger.component.common.table.SelectableRowTable;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class RoleCatalogItemsTable<T> extends Table<T, RoleCatalogItemsTable> {
+public class RoleCatalogItemsTable<T, RCT extends RoleCatalogItemsTable<T, RCT>> extends SelectableRowTable<T, RCT> {
 
     public RoleCatalogItemsTable(T parent) {
         super(parent, $(Schrodinger.byDataId("tilesTable")));
     }
 
-    public RoleCatalogItemsTable<T> addAll() {
+    public RoleCatalogItemsTable<T, RCT> addAll() {
         getButtonToolbar().$x(".//a[@data-s-id='addAll']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -40,7 +40,7 @@ public class RoleCatalogItemsTable<T> extends Table<T, RoleCatalogItemsTable> {
         return RoleCatalogItemsTable.this;
     }
 
-   public RoleCatalogItemsTable<T> addSelectedToCart() {
+   public RoleCatalogItemsTable<T, RCT> addSelectedToCart() {
         getButtonToolbar().$x(".//a[@data-s-id='addSelected']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
@@ -48,7 +48,7 @@ public class RoleCatalogItemsTable<T> extends Table<T, RoleCatalogItemsTable> {
         return RoleCatalogItemsTable.this;
     }
 
-    public RoleCatalogItemsTable<T> assertShoppingCartCountEqualsTableItemsCount() {
+    public RoleCatalogItemsTable<T, RCT> assertShoppingCartCountEqualsTableItemsCount() {
         SelenideElement shoppingCart = $(Schrodinger.byDataId("mainHeader"))
                 .$x(".//span[@data-s-id='cartCount']");
         String rowsCount = String.valueOf(rowsCount());

@@ -22,7 +22,6 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
-import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.modal.ObjectBrowserModal;
 import com.evolveum.midpoint.schrodinger.component.wizard.NextStepAction;
 import com.evolveum.midpoint.schrodinger.component.wizard.TileListWizardStepPanel;
@@ -38,6 +37,9 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessPage>
         implements NextStepAction<ShoppingCartStepPanel> {
+
+    private static final String TABLE_VIEW_ICON_CLASS = "fa-table-list";
+    private static final String TILES_VIEW_ICON_CLASS = "fa-table-cells";
 
     public RoleCatalogStepPanel(RequestAccessPage parent) {
         super(parent, $(Schrodinger.byDataId("contentBody")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S));
@@ -75,7 +77,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return Arrays.stream(itemLabels).allMatch(item -> findTileByLabel(item) != null);
     }
 
-    private RoleCatalogStepPanel selectMenuByLabel(String label) {
+    public RoleCatalogStepPanel selectMenuByLabel(String label) {
         $x(".//div[@data-s-id='link' " +
                 "and descendant-or-self::*[contains(., '" + label + "')]]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
@@ -99,28 +101,32 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return RoleCatalogStepPanel.this;
     }
 
-    public RoleCatalogItemsTable<RoleCatalogStepPanel> table() {
+    public <RCT extends RoleCatalogItemsTable<RoleCatalogStepPanel, RCT>> RoleCatalogItemsTable<RoleCatalogStepPanel, RCT> table() {
         return new RoleCatalogItemsTable<>(RoleCatalogStepPanel.this);
     }
 
     public RoleCatalogStepPanel selectTableView() {
-        clickHeaderToggleButton("fa-table-list");
+        clickHeaderToggleButton(TABLE_VIEW_ICON_CLASS);
         return RoleCatalogStepPanel.this;
     }
 
     public RoleCatalogStepPanel selectTilesView() {
-        clickHeaderToggleButton("fa-table-cells");
+        clickHeaderToggleButton(TILES_VIEW_ICON_CLASS);
         return RoleCatalogStepPanel.this;
     }
 
     private void clickHeaderToggleButton(String iconClass) {
-        SelenideElement item = $(Schrodinger.byDataId("div", "viewToggle"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        SelenideElement iconElement = item.$x(".//i[contains(@class, '" + iconClass + "')]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement iconElement = getViewToggleButtonByIconClass(iconClass);
         iconElement.click();
         iconElement.parent().shouldHave(Condition.attribute("aria-pressed", "true"),
                 MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    private SelenideElement getViewToggleButtonByIconClass(String iconClass) {
+        SelenideElement item = $(Schrodinger.byDataId("div", "viewToggle"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return item.$x(".//i[contains(@class, '" + iconClass + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public RoleCatalogStepPanel assertShoppingCartIsEmpty() {
@@ -145,6 +151,20 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         assertion.assertTrue(shoppingCart.exists() && shoppingCart.isDisplayed() &&
                 StringUtils.equals(expectedValue, shoppingCart.getText()),
                 "Shopping cart items count doesn't equal to expected value (" + expectedValue + ")");
+        return RoleCatalogStepPanel.this;
+    }
+
+    public RoleCatalogStepPanel assertTableViewIsSelected() {
+        SelenideElement iconElement = getViewToggleButtonByIconClass(TABLE_VIEW_ICON_CLASS);
+        String ariaPressedAttribute = iconElement.parent().getAttribute("aria-pressed");
+        assertion.assertTrue("true".equals(ariaPressedAttribute), "Table view is not selected.");
+        return RoleCatalogStepPanel.this;
+    }
+
+    public RoleCatalogStepPanel assertTilesViewIsSelected() {
+        SelenideElement iconElement = getViewToggleButtonByIconClass(TILES_VIEW_ICON_CLASS);
+        String ariaPressedAttribute = iconElement.parent().getAttribute("aria-pressed");
+        assertion.assertTrue("true".equals(ariaPressedAttribute), "Tiles view is not selected.");
         return RoleCatalogStepPanel.this;
     }
 

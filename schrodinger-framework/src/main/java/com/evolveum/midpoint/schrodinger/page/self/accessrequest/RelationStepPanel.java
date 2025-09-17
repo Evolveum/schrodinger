@@ -88,4 +88,13 @@ public class RelationStepPanel extends TileListWizardStepPanel<RequestAccessPage
         clickNext();
         return new RoleCatalogStepPanel(getParent());
     }
+
+    //Request access can be configured in such a way, that relation step would be skipped
+    //may be this suits for other wizards as well? implement in the parent class?
+    public RoleCatalogStepPanel next(boolean skipRelationStep) {
+        if (!skipRelationStep) {
+            clickNext();
+        }
+        return new RoleCatalogStepPanel(getParent());
+    }
 }

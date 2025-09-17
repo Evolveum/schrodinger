@@ -278,7 +278,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     public SelenideElement getButtonToolbar() {
-        return $(Schrodinger.byDataId("buttonToolbar"));
+        return getParentElement().$(Schrodinger.byDataId("buttonToolbar"));
     }
 
     public SelenideElement getToolbarButtonByTitleKey(String titleKey){
