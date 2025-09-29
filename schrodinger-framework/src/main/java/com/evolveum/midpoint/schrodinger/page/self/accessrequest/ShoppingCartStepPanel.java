@@ -72,4 +72,8 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
         return getParentElement().$x(".//select[@data-s-id='validity']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
+
+    public ShoppingCartItemsTable getShoppingCartItemsTable() {
+        return new ShoppingCartItemsTable(ShoppingCartStepPanel.this);
+    }
 }
