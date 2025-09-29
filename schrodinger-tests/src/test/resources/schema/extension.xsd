@@ -11,6 +11,7 @@
             xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
             xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://prism.evolveum.com/xml/ns/public/types-3"/>
 
     <xsd:complexType name="UserTypeExtensionType">
         <xsd:annotation>
@@ -76,5 +77,26 @@
                 </xsd:annotation>
             </xsd:element>
         </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AssignmentExtensionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <a:extension ref="c:AssignmentType" />
+            </xsd:appinfo>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element name="testExtension" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>testExtension</a:displayName>
+                        <a:displayOrder>120</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+
     </xsd:complexType>
 </xsd:schema>

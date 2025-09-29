@@ -213,4 +213,44 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .table()
                 .assertTableContainsColumnWithValue("Name ID", "Reviewer");
     }
+
+    //covers #10861
+    @Test
+    void test0100requestAssignmentWithExtensionAttribute() {
+        reloginAsAdministrator();
+        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
+        reloginAsAdministrator();
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .assertTilesViewIsSelected()
+                .search()
+                .byName()
+                .inputValue("End user")
+                .updateSearch()
+                .and()
+                .addItemToCart("End user")
+                .next()
+                .getShoppingCartItemsTable()
+                .editShoppingCartItem("End user")
+                .addAttributeValue("testExtension", "1")
+                .clickSaveButton()
+                .editShoppingCartItem("End user")
+                .assertPropertyInputValue("testExtension", "1")
+                .addAttributeValue("testExtension", "12")
+                .clickSaveButton()
+                .editShoppingCartItem("End user")
+                .assertPropertyInputValue("testExtension", "12")
+                .clickCloseButton()
+                .and()
+                .clickSubmitButton();
+        basicPage
+                .profile()
+                .selectAssignmentsPanel()
+                .table()
+                .clickByName("End user")
+                .assertPropertyInputValue("testExtension", "12");
+    }
+
 }
