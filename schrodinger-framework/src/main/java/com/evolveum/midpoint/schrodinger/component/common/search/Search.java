@@ -220,7 +220,7 @@ public class Search<T> extends Component<T, Search<T>> {
 
     private SelenideElement getMorePopover() {
         choiceBasicSearch();
-        getParentElement().find(Schrodinger.byDataId("button", "more"))
+        getMoreDropdownButtonElement()
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
@@ -276,6 +276,23 @@ public class Search<T> extends Component<T, Search<T>> {
         TextInputSearchItemPanel searchField = new TextInputSearchItemPanel(this, itemElement);
         searchField.inputValue("");
         updateSearch();
+        return this;
+    }
+
+    private SelenideElement getMoreDropdownButtonElement() {
+        Utils.waitForAjaxCallFinish();
+        return getParentElement().find(Schrodinger.byDataId("button", "more"));
+    }
+
+    public Search<T> assertMoreDropDownButtonVisible() {
+        assertion.assertTrue(getMoreDropdownButtonElement().isDisplayed(),
+                "More dropdown button should be visible.");
+        return this;
+    }
+
+    public Search<T> assertMoreDropDownButtonNotVisible() {
+        assertion.assertFalse(getMoreDropdownButtonElement().isDisplayed(),
+                "More dropdown button should not be visible.");
         return this;
     }
 

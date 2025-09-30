@@ -69,6 +69,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE = new File(COMPONENT_ROLES_DIRECTORY + "role-membership-search-by-relation.xml");
     private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-configured-user-search.xml");
     private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-allow-to-configure-search-items.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
     private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
@@ -148,7 +149,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0040booleanAttributeSearch() {
-        logoutLoginToRefreshSearch();
+        reloginAsAdministrator();
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
 //        search.resetBasicSearch();
@@ -161,7 +162,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0050enumAttributeSearch() {
-        logoutLoginToRefreshSearch();
+        reloginAsAdministrator();
         RolesPageTable table = basicPage.listRoles().table();
         Search<RolesPageTable> search = (Search<RolesPageTable>) table.search();
 //        search.resetBasicSearch();
@@ -174,7 +175,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0060referenceAttributeByOidSearch() {
-        logoutLoginToRefreshSearch();
+        reloginAsAdministrator();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
 //        search.resetBasicSearch();
@@ -191,7 +192,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0070referenceAttributeByTypeSearch() {
-        logoutLoginToRefreshSearch();
+        reloginAsAdministrator();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
 //        search.resetBasicSearch();
@@ -207,7 +208,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0080referenceAttributeByRelationSearch() {
-        logoutLoginToRefreshSearch();
+        reloginAsAdministrator();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
 //        search.resetBasicSearch();
@@ -223,7 +224,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0090referenceAttributeByNameSearch() {
-        logoutLoginToRefreshSearch();
+        reloginAsAdministrator();
         UsersPageTable table = basicPage.listUsers().table();
         Search<UsersPageTable> search = (Search<UsersPageTable>) table.search();
         search.referencePanelByItemName(ROLE_MEMBERSHIP_ATTRIBUTE)
@@ -387,9 +388,23 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .assertTableContainsLinkTextPartially("CostCenterTestUser");
     }
 
-    private void logoutLoginToRefreshSearch() {
-        basicPage.loggedUser().logout();
-        FormLoginPage loginPage = midPoint.formLogin();
-        loginPage.login(getUsername(), getPassword());
+    /**
+     * covers MID-10883, More drop down button should be hidden in case allowToConfigureSearchItems is set to false
+     */
+    @Test
+    public void test0180allowToConfigureSearchItems() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS, true);
+        reloginAsAdministrator();
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .assertMoreDropDownButtonVisible();
+        basicPage
+                .listUsers("Persons")
+                .table()
+                .search()
+                .assertMoreDropDownButtonNotVisible();
     }
 }
