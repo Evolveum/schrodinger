@@ -216,7 +216,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     //covers #10861
     @Test
-    void test0100requestAssignmentWithExtensionAttribute() {
+    void test0095requestAssignmentWithExtensionAttribute() {
         reloginAsAdministrator();
         importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
         reloginAsAdministrator();
