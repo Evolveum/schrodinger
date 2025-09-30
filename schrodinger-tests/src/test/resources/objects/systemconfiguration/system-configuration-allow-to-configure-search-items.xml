@@ -1,45 +1,79 @@
-<systemConfiguration xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="00000000-0000-0000-0000-000000000001">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2010-2021 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+<systemConfiguration oid="00000000-0000-0000-0000-000000000001" version="0"
+                     xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                     xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                     xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                     xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3">
+
     <name>SystemConfiguration</name>
     <indestructible>true</indestructible>
-    <globalSecurityPolicyRef oid="00000000-0000-0000-0000-000000000120" relation="org:default" type="c:SecurityPolicyType"/>
+    <!--         <globalAccountSynchronizationSettings> -->
+    <!--         <assignmentPolicyEnforcement>relative</assignmentPolicyEnforcement> -->
+    <!--         </globalAccountSynchronizationSettings> -->
+    <globalSecurityPolicyRef oid="00000000-0000-0000-0000-000000000120"/>
     <logging>
         <classLogger id="1">
+            <!-- disabled because INFO log during of creating new authentication filter chain -->
             <level>OFF</level>
             <package>org.springframework.security.web.DefaultSecurityFilterChain</package>
         </classLogger>
         <classLogger id="2">
+            <!-- disabled because of MID-744, helper insert messages on ERROR
+            level which should not be there (probably should be on TRACE) -->
             <level>OFF</level>
             <package>org.hibernate.engine.jdbc.spi.SqlExceptionHelper</package>
         </classLogger>
+        <!-- Disabled because we treat locking-related exceptions in the repository.
+             Otherwise the log is filled-in with (innocent but ugly-looking) messages like
+             "ERROR (o.h.engine.jdbc.batch.internal.BatchingBatch): HHH000315: Exception executing batch [Deadlock detected.
+             The current transaction was rolled back." -->
         <classLogger id="3">
             <level>OFF</level>
             <package>org.hibernate.engine.jdbc.batch.internal.BatchingBatch</package>
         </classLogger>
+        <!-- Disabled because of the same reason; this time concerning messages like
+             "INFO (org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl):
+             HHH000010: On release of batch it still contained JDBC statements" -->
         <classLogger id="4">
             <level>WARN</level>
             <package>org.hibernate.engine.jdbc.batch.internal.AbstractBatchImpl</package>
         </classLogger>
+        <!-- Disabled because of MID-4636 -->
         <classLogger id="5">
             <level>OFF</level>
             <package>org.hibernate.internal.ExceptionMapperStandardImpl</package>
         </classLogger>
         <classLogger id="6">
+            <!-- disabled because we don't need to see every property file
+            loading message (unnecessary log pollution) -->
             <level>WARN</level>
             <package>org.apache.wicket.resource.PropertiesFactory</package>
         </classLogger>
         <classLogger id="7">
+            <!-- disabled because we don't need to see every log message for every key
+            when resource bundle doesn't exist for specific locale (unnecessary log pollution) -->
             <level>ERROR</level>
             <package>org.springframework.context.support.ResourceBundleMessageSource</package>
         </classLogger>
         <classLogger id="8">
+            <!-- Standard useful logger -->
             <level>INFO</level>
             <package>com.evolveum.midpoint.model.impl.lens.projector.Projector</package>
         </classLogger>
         <classLogger id="9">
+            <!-- Standard useful logger -->
             <level>INFO</level>
             <package>com.evolveum.midpoint.model.impl.lens.Clockwork</package>
         </classLogger>
-        <appender id="10" xsi:type="c:FileAppenderConfigurationType">
+
+        <appender id="10" xsi:type="c:FileAppenderConfigurationType"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <pattern>%date [%X{subsystem}] [%thread] %level \(%logger\): %msg%n</pattern>
             <name>MIDPOINT_LOG</name>
             <fileName>${midpoint.home}/log/midpoint.log</fileName>
@@ -48,7 +82,9 @@
             <maxFileSize>100MB</maxFileSize>
             <append>true</append>
         </appender>
-        <appender id="11" xsi:type="c:FileAppenderConfigurationType">
+        <!-- Appender for profiling purposes -->
+        <appender id="11" xsi:type="c:FileAppenderConfigurationType"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <pattern>%date %level: %msg%n</pattern>
             <name>MIDPOINT_PROFILE_LOG</name>
             <fileName>${midpoint.home}/log/midpoint-profile.log</fileName>
@@ -73,11 +109,6 @@
         </closedTasks>
     </cleanupPolicy>
     <internals>
-        <shadowCaching>
-            <defaultPolicy>
-                <cachingStrategy>passive</cachingStrategy>
-            </defaultPolicy>
-        </shadowCaching>
         <tracing>
             <profile id="12">
                 <name>performance</name>
@@ -137,33 +168,277 @@
                 </tracingTypeProfile>
             </profile>
         </tracing>
-        <repository>
-            <autoCreatePartitionsOnAdd>true</autoCreatePartitionsOnAdd>
-        </repository>
-        <operationExecutionRecording>
-            <skipWhenSuccess>true</skipWhenSuccess>
-        </operationExecutionRecording>
     </internals>
     <adminGuiConfiguration>
+        <homePage id="21">
+            <type>UserType</type>
+            <widget id="22">
+                <identifier>search</identifier>
+            </widget>
+            <widget id="23">
+                <identifier>myAccesses</identifier>
+                <display>
+                    <label>
+                        <orig>My accesses</orig>
+                        <translation>
+                            <key>PageSelfDashboard.myAccesses</key>
+                        </translation>
+                    </label>
+                    <cssClass>col-12 col-xxl-6</cssClass>
+                    <icon>
+                        <cssClass>fe fe-assignment</cssClass>
+                    </icon>
+                </display>
+                <displayOrder>10</displayOrder>
+                <action id="31">
+                    <identifier>viewAll</identifier>
+                    <display>
+                        <label>
+                            <orig>View all</orig>
+                            <translation>
+                                <key>PageSelfDashboard.button.viewAll</key>
+                            </translation>
+                        </label>
+                        <icon>
+                            <cssClass>fa fa-search</cssClass>
+                        </icon>
+                    </display>
+                    <target>
+                        <targetUrl>/self/profile/user</targetUrl>
+                        <panelIdentifier>allAssignments</panelIdentifier>
+                    </target>
+                </action>
+                <action id="32">
+                    <identifier>requestAccess</identifier>
+                    <display>
+                        <label>
+                            <orig>Request access</orig>
+                            <translation>
+                                <key>PageRequestAccess.title</key>
+                            </translation>
+                        </label>
+                        <icon>
+                            <cssClass>fas fa-plus-circle</cssClass>
+                        </icon>
+                    </display>
+                    <target>
+                        <targetUrl>/self/requestAccess</targetUrl>
+                    </target>
+                </action>
+                <panelType>allAssignments</panelType>
+                <previewSize>5</previewSize>
+            </widget>
+            <widget id="24">
+                <identifier>myRequests</identifier>
+                <display>
+                    <label>
+                        <orig>My requests</orig>
+                        <translation>
+                            <key>PageSelfDashboard.myRequests</key>
+                        </translation>
+                    </label>
+                    <cssClass>col-12 col-xxl-6</cssClass>
+                    <icon>
+                        <cssClass>fe fe-case</cssClass>
+                    </icon>
+                </display>
+                <displayOrder>20</displayOrder>
+                <action id="33">
+                    <identifier>viewAll</identifier>
+                    <display>
+                        <label>
+                            <orig>View all</orig>
+                            <translation>
+                                <key>PageSelfDashboard.button.viewAll</key>
+                            </translation>
+                        </label>
+                        <icon>
+                            <cssClass>fa fa-search</cssClass>
+                        </icon>
+                    </display>
+                    <target>
+                        <targetUrl>/admin/casesAll</targetUrl>
+                        <collectionIdentifier>my-cases</collectionIdentifier>
+                    </target>
+                </action>
+                <panelType>myRequests</panelType>
+                <previewSize>5</previewSize>
+            </widget>
+            <widget id="25">
+                <identifier>myWorkItems</identifier>
+                <display>
+                    <label>
+                        <orig>My work items</orig>
+                        <translation>
+                            <key>PageSelfDashboard.workItems</key>
+                        </translation>
+                    </label>
+                    <cssClass>col-12 col-xxl-6</cssClass>
+                    <icon>
+                        <cssClass>fa fa-inbox</cssClass>
+                    </icon>
+                </display>
+                <displayOrder>40</displayOrder>
+                <action id="34">
+                    <identifier>viewAll</identifier>
+                    <display>
+                        <label>
+                            <orig>View all</orig>
+                            <translation>
+                                <key>PageSelfDashboard.button.viewAll</key>
+                            </translation>
+                        </label>
+                        <icon>
+                            <cssClass>fa fa-search</cssClass>
+                        </icon>
+                    </display>
+                    <target>
+                        <targetUrl>/admin/myWorkItems</targetUrl>
+                    </target>
+                </action>
+                <panelType>myWorkItems</panelType>
+                <previewSize>5</previewSize>
+            </widget>
+            <widget id="26">
+                <identifier>myAccounts</identifier>
+                <display>
+                    <label>
+                        <orig>My accounts</orig>
+                        <translation>
+                            <key>PageDashboard.accounts</key>
+                        </translation>
+                    </label>
+                    <cssClass>col-12 col-xxl-6</cssClass>
+                    <icon>
+                        <cssClass>fa fa-male</cssClass>
+                    </icon>
+                </display>
+                <displayOrder>30</displayOrder>
+                <action id="35">
+                    <identifier>viewAll</identifier>
+                    <display>
+                        <label>
+                            <orig>View all</orig>
+                            <translation>
+                                <key>PageSelfDashboard.button.viewAll</key>
+                            </translation>
+                        </label>
+                        <icon>
+                            <cssClass>fa fa-search</cssClass>
+                        </icon>
+                    </display>
+                    <target>
+                        <targetUrl>/self/profile/user</targetUrl>
+                        <panelIdentifier>projections</panelIdentifier>
+                    </target>
+                </action>
+                <panelType>projections</panelType>
+                <previewSize>5</previewSize>
+            </widget>
+            <widget id="27">
+                <identifier>profileWidget</identifier>
+                <display>
+                    <label>
+                        <orig>Profile</orig>
+                        <translation>
+                            <key>PageSelfDashboard.profile</key>
+                        </translation>
+                    </label>
+                    <help>PageSelfDashboard.profile.description</help>
+                    <cssClass>col-md-3</cssClass>
+                    <icon>
+                        <cssClass>bg-green fa fa-user</cssClass>
+                    </icon>
+                </display>
+                <panelType>linkWidget</panelType>
+                <action id="36">
+                    <identifier>profile-widget-action</identifier>
+                    <target>
+                        <targetUrl>/self/profile/user</targetUrl>
+                    </target>
+                </action>
+            </widget>
+            <widget id="28">
+                <identifier>credentialsWidget</identifier>
+                <display>
+                    <label>
+                        <orig>Credentials</orig>
+                        <translation>
+                            <key>PageSelfDashboard.credentials</key>
+                        </translation>
+                    </label>
+                    <help>PageSelfDashboard.credentials.description</help>
+                    <cssClass>col-md-3</cssClass>
+                    <icon>
+                        <cssClass>bg-blue fa fa-shield-alt</cssClass>
+                    </icon>
+                </display>
+                <panelType>linkWidget</panelType>
+                <action id="37">
+                    <identifier>credentials-widget-action</identifier>
+                    <target>
+                        <targetUrl>/self/credentials</targetUrl>
+                    </target>
+                </action>
+            </widget>
+            <widget id="29">
+                <identifier>listResourcesWidget</identifier>
+                <display>
+                    <label>
+                        <orig>List resources</orig>
+                        <translation>
+                            <key>PageSelfDashboard.listResources</key>
+                        </translation>
+                    </label>
+                    <cssClass>col-md-3</cssClass>
+                    <icon>
+                        <cssClass>bg-purple fa fa-database</cssClass>
+                    </icon>
+                </display>
+                <panelType>linkWidget</panelType>
+                <action id="38">
+                    <identifier>list-resources-widget-action</identifier>
+                    <target>
+                        <targetUrl>/admin/resources</targetUrl>
+                    </target>
+                </action>
+            </widget>
+            <widget id="30">
+                <identifier>listUsersWidget</identifier>
+                <display>
+                    <label>
+                        <orig>List users</orig>
+                        <translation>
+                            <key>PageSelfDashboard.listUsers</key>
+                        </translation>
+                    </label>
+                    <cssClass>col-md-3</cssClass>
+                    <icon>
+                        <cssClass>bg-red fa fa-user</cssClass>
+                    </icon>
+                </display>
+                <panelType>linkWidget</panelType>
+                <action id="39">
+                    <identifier>list-resources-widget-action</identifier>
+                    <target>
+                        <targetUrl>/admin/users</targetUrl>
+                    </target>
+                </action>
+            </widget>
+        </homePage>
         <objectCollectionViews>
             <objectCollectionView id="40">
                 <identifier>my-cases</identifier>
                 <display>
-                    <label>
-                        <t:orig>My cases</t:orig>
-                        <t:norm>my cases</t:norm>
-                        <t:translation>
-                            <t:key>MyCases.title</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>My case</singularLabel>
+                    <label>My cases</label>
+                    <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
-                        <t:orig>My cases</t:orig>
-                        <t:norm>my cases</t:norm>
-                        <t:translation>
-                            <t:key>MyCases.title</t:key>
-                        </t:translation>
+                        <orig>My cases</orig>
+                        <translation>
+                            <key>MyCases.title</key>
+                        </translation>
                     </pluralLabel>
+                    <singularLabel>My case</singularLabel>
                     <icon>
                         <cssClass>fe fe-case-object</cssClass>
                     </icon>
@@ -171,105 +446,85 @@
                 <displayOrder>1000</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000344" relation="org:default" type="c:ObjectCollectionType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000344" relation="org:default" type="c:ObjectCollectionType">
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="41">
                 <identifier>manual-case-view</identifier>
                 <display>
-                    <label>
-                        <t:orig>Manual cases</t:orig>
-                        <t:norm>manual cases</t:norm>
-                        <t:translation>
-                            <t:key>ManualCases.label</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>Manual case</singularLabel>
+                    <label>Manual cases</label> <!-- "Manual provisioning cases" is too long for the menu -->
+                    <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
-                        <t:orig>All manual cases</t:orig>
-                        <t:norm>all manual cases</t:norm>
-                        <t:translation>
-                            <t:key>AllManualCases.title</t:key>
-                        </t:translation>
+                        <orig>All manual cases</orig>
+                        <translation>
+                            <key>AllManualCases.title</key>
+                        </translation>
                     </pluralLabel>
+                    <singularLabel>Manual case</singularLabel>
                     <tooltip>Manual provisioning cases</tooltip>
                 </display>
                 <displayOrder>1010</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000340" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000340" relation="org:default" type="c:ArchetypeType">
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="42">
                 <identifier>operation-request-case-view</identifier>
                 <display>
-                    <label>
-                        <t:orig>Requests</t:orig>
-                        <t:norm>requests</t:norm>
-                        <t:translation>
-                            <t:key>Requests.label</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>Request</singularLabel>
+                    <label>Requests</label> <!-- "Operation requests" is too long for the menu -->
+                    <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
-                        <t:orig>All requests</t:orig>
-                        <t:norm>all requests</t:norm>
-                        <t:translation>
-                            <t:key>AllRequests.title</t:key>
-                        </t:translation>
+                        <orig>All requests</orig>
+                        <translation>
+                            <key>AllRequests.title</key>
+                        </translation>
                     </pluralLabel>
+                    <singularLabel>Request</singularLabel>
                     <tooltip>Operation requests</tooltip>
                 </display>
                 <displayOrder>1020</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000341" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000341" relation="org:default" type="c:ArchetypeType">
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="43">
                 <identifier>approval-case-view</identifier>
                 <display>
-                    <label>
-                        <t:orig>Approvals</t:orig>
-                        <t:norm>approvals</t:norm>
-                        <t:translation>
-                            <t:key>Approvals.label</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>Approval</singularLabel>
+                    <label>Approvals</label> <!-- "Approval cases" is too long for the menu -->
+                    <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
-                        <t:orig>All approvals</t:orig>
-                        <t:norm>all approvals</t:norm>
-                        <t:translation>
-                            <t:key>AllApprovals.title</t:key>
-                        </t:translation>
+                        <orig>All approvals</orig>
+                        <translation>
+                            <key>AllApprovals.title</key>
+                        </translation>
                     </pluralLabel>
+                    <singularLabel>Approval</singularLabel>
                     <tooltip>Approval cases</tooltip>
                 </display>
                 <displayOrder>1030</displayOrder>
                 <type>CaseType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000342" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000342" relation="org:default" type="c:ArchetypeType">
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="44">
                 <identifier>correlation-case-view</identifier>
                 <display>
-                    <label>
-                        <t:orig>Correlations</t:orig>
-                        <t:norm>correlations</t:norm>
-                        <t:translation>
-                            <t:key>Correlations.label</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>Correlation</singularLabel>
+                    <label>Correlations</label> <!-- "Correlation cases" is too long for the menu -->
+                    <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
-                        <t:orig>All correlations</t:orig>
-                        <t:norm>all correlations</t:norm>
-                        <t:translation>
-                            <t:key>AllCorrelations.title</t:key>
-                        </t:translation>
+                        <orig>All correlations</orig>
+                        <translation>
+                            <key>AllCorrelations.title</key>
+                        </translation>
                     </pluralLabel>
+                    <singularLabel>Correlation</singularLabel>
                     <tooltip>Correlation cases</tooltip>
                 </display>
                 <displayOrder>1040</displayOrder>
@@ -329,19 +584,13 @@
             <objectCollectionView id="51">
                 <identifier>report-tasks-view</identifier>
                 <display>
-                    <label>
-                        <t:orig>Report task</t:orig>
-                        <t:norm>report task</t:norm>
-                        <t:translation>
-                            <t:key>ReportTask.label</t:key>
-                        </t:translation>
-                    </label>
+                    <label>Report task</label>
                     <pluralLabel>
-                        <t:orig>Report tasks</t:orig>
-                        <t:norm>report tasks</t:norm>
-                        <t:translation>
-                            <t:key>ReportTasks.title</t:key>
-                        </t:translation>
+                        <orig>Report tasks</orig>
+                        <norm>report tasks</norm>
+                        <translation>
+                            <key>ReportTasks.title</key>
+                        </translation>
                     </pluralLabel>
                     <icon>
                         <cssClass>fa fa-chart-pie</cssClass>
@@ -372,8 +621,8 @@
             </objectCollectionView>
             <objectCollectionView id="54">
                 <identifier>report-import-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000510" relation="org:default" type="c:ArchetypeType"/>
@@ -385,7 +634,9 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000511" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000511" relation="org:default" type="c:ArchetypeType">
+                        <!-- Report export task -->
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="56">
@@ -394,13 +645,15 @@
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000512" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000512" relation="org:default" type="c:ArchetypeType">
+                        <!-- Distributed report export task -->
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="57">
                 <identifier>shadow-integrity-check-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000513" relation="org:default" type="c:ArchetypeType"/>
@@ -408,8 +661,8 @@
             </objectCollectionView>
             <objectCollectionView id="58">
                 <identifier>shadows-refresh-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000514" relation="org:default" type="c:ArchetypeType"/>
@@ -417,8 +670,8 @@
             </objectCollectionView>
             <objectCollectionView id="59">
                 <identifier>objects-delete-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000515" relation="org:default" type="c:ArchetypeType"/>
@@ -426,8 +679,8 @@
             </objectCollectionView>
             <objectCollectionView id="60">
                 <identifier>shadows-delete-long-time-not-updated-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000516" relation="org:default" type="c:ArchetypeType"/>
@@ -435,8 +688,8 @@
             </objectCollectionView>
             <objectCollectionView id="61">
                 <identifier>execute-change-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000517" relation="org:default" type="c:ArchetypeType"/>
@@ -444,8 +697,8 @@
             </objectCollectionView>
             <objectCollectionView id="62">
                 <identifier>execute-deltas-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000518" relation="org:default" type="c:ArchetypeType"/>
@@ -453,8 +706,8 @@
             </objectCollectionView>
             <objectCollectionView id="63">
                 <identifier>reindex-repository-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000519" relation="org:default" type="c:ArchetypeType"/>
@@ -462,8 +715,8 @@
             </objectCollectionView>
             <objectCollectionView id="64">
                 <identifier>object-integrity-check-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000522" relation="org:default" type="c:ArchetypeType"/>
@@ -471,8 +724,8 @@
             </objectCollectionView>
             <objectCollectionView id="65">
                 <identifier>validity-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000530" relation="org:default" type="c:ArchetypeType"/>
@@ -480,8 +733,8 @@
             </objectCollectionView>
             <objectCollectionView id="66">
                 <identifier>trigger-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000531" relation="org:default" type="c:ArchetypeType"/>
@@ -489,8 +742,8 @@
             </objectCollectionView>
             <objectCollectionView id="67">
                 <identifier>propagation-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000532" relation="org:default" type="c:ArchetypeType"/>
@@ -498,8 +751,8 @@
             </objectCollectionView>
             <objectCollectionView id="68">
                 <identifier>multi-propagation-task-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
+                <applicableForOperation>add</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000533" relation="org:default" type="c:ArchetypeType"/>
@@ -507,27 +760,6 @@
             </objectCollectionView>
             <objectCollectionView id="69">
                 <identifier>certification-tasks-view</identifier>
-                <display>
-                    <label>
-                        <t:orig>Certification-related task</t:orig>
-                        <t:norm>certificationrelated task</t:norm>
-                        <t:translation>
-                            <t:key>CertificationRelatedTask.label</t:key>
-                        </t:translation>
-                    </label>
-                    <pluralLabel>
-                        <t:orig>Certification-related tasks</t:orig>
-                        <t:norm>certificationrelated tasks</t:norm>
-                        <t:translation>
-                            <t:key>CertificationRelatedTasks.title</t:key>
-                        </t:translation>
-                    </pluralLabel>
-                    <icon>
-                        <cssClass>fa fa-certificate</cssClass>
-                        <color>green</color>
-                    </icon>
-                </display>
-                <applicableForOperation>modify</applicableForOperation>
                 <refreshInterval>30</refreshInterval>
                 <type>TaskType</type>
                 <collection>
@@ -574,7 +806,7 @@
             </objectCollectionView>
             <objectCollectionView id="75">
                 <identifier>application-role</identifier>
-                <displayOrder>180</displayOrder>
+                <applicableForOperation>add</applicableForOperation>
                 <type>RoleType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000328" relation="org:default" type="c:ArchetypeType"/>
@@ -582,7 +814,7 @@
             </objectCollectionView>
             <objectCollectionView id="76">
                 <identifier>business-role</identifier>
-                <displayOrder>190</displayOrder>
+                <applicableForOperation>add</applicableForOperation>
                 <type>RoleType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000321" relation="org:default" type="c:ArchetypeType"/>
@@ -590,6 +822,9 @@
             </objectCollectionView>
             <objectCollectionView id="77">
                 <identifier>application</identifier>
+                <display>
+                    <label>Application.panel.applications</label>
+                </display>
                 <type>ServiceType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000329" relation="org:default" type="c:ArchetypeType"/>
@@ -599,31 +834,38 @@
                 <identifier>event-mark</identifier>
                 <type>c:MarkType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000700" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000700" relation="org:default" type="c:ArchetypeType">
+                        <!-- Event mark -->
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="79">
                 <identifier>object-mark</identifier>
                 <type>c:MarkType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000701" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="269">
-                <identifier>shadow-policy-mark</identifier>
-                <type>c:MarkType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000705" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000701" relation="org:default" type="c:ArchetypeType">
+                        <!-- Object mark -->
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
             <objectCollectionView id="80">
-                <identifier>person-view</identifier>
                 <description>Persons</description>
                 <documentation>This view displays all users with archetype "Person"</documentation>
+                <identifier>person-view</identifier>
                 <displayOrder>10</displayOrder>
+                <type>UserType</type>
+                <collection>
+                    <collectionRef oid="00000000-0000-0000-0000-000000000702" relation="org:default" type="c:ArchetypeType">
+                        <!-- Person -->
+                    </collectionRef>
+                </collection>
                 <searchBoxConfiguration>
                     <searchItems>
                         <searchItem id="81">
+                            <description>Allow searching for users having account on specific resource. Intent is not considered. The search item is not displayed by default
+                                (visibleByDefault=false).
+                            </description>
+                            <visibleByDefault>true</visibleByDefault>
                             <filter>
                                 <q:text>
                                     linkRef/@ matches (
@@ -632,26 +874,20 @@
                                     and kind = "account" )
                                 </q:text>
                             </filter>
-                            <description>Allow searching for users having account on specific resource. Intent is not considered. The search item is not displayed by default
-                                (visibleByDefault=false).
-                            </description>
                             <display>
-                                <label>
-                                    <t:orig>Users with account</t:orig>
-                                    <t:norm>users with account</t:norm>
-                                    <t:translation>
-                                        <t:key>searchItem.usersWithAccount.label</t:key>
-                                    </t:translation>
-                                </label>
+                                <label>Users with account</label>
                             </display>
                             <parameter>
                                 <name>resourceParameter</name>
                                 <type>c:ObjectReferenceType</type>
                                 <targetType>ResourceType</targetType>
                             </parameter>
-                            <visibleByDefault>true</visibleByDefault>
                         </searchItem>
                         <searchItem id="82">
+                            <description>Allow searching for users not having account on specific resource. Intent is not considered. The search item is not displayed by default
+                                (visibleByDefault=false).
+                            </description>
+                            <visibleByDefault>true</visibleByDefault>
                             <filter>
                                 <q:text>
                                     linkRef/@ not matches (
@@ -660,134 +896,43 @@
                                     and kind = "account" )
                                 </q:text>
                             </filter>
-                            <description>Allow searching for users not having account on specific resource. Intent is not considered. The search item is not displayed by default
-                                (visibleByDefault=false).
-                            </description>
                             <display>
-                                <label>
-                                    <t:orig>Users without account</t:orig>
-                                    <t:norm>users without account</t:norm>
-                                    <t:translation>
-                                        <t:key>searchItem.usersWithoutAccount.label</t:key>
-                                    </t:translation>
-                                </label>
+                                <label>Users without account</label>
                             </display>
                             <parameter>
                                 <name>resourceParameter</name>
                                 <type>c:ObjectReferenceType</type>
                                 <targetType>ResourceType</targetType>
                             </parameter>
-                            <visibleByDefault>true</visibleByDefault>
                         </searchItem>
                     </searchItems>
                     <allowToConfigureSearchItems>false</allowToConfigureSearchItems>
                 </searchBoxConfiguration>
-                <type>UserType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000702" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
             </objectCollectionView>
-            <objectCollectionView id="822607">
+            <objectCollectionView>
                 <identifier>resource-templates</identifier>
                 <display>
                     <label>
-                        <t:orig>Resource templates</t:orig>
-                        <t:norm>resource templates</t:norm>
-                        <t:translation>
-                            <t:key>ResourceType.templates.title</t:key>
-                        </t:translation>
+                        <orig>Resource templates</orig>
+                        <translation>
+                            <key>ResourceType.templates.title</key>
+                        </translation>
                     </label>
-                    <singularLabel>Resource template</singularLabel>
                     <pluralLabel>
-                        <t:orig>All resource templates</t:orig>
-                        <t:norm>all resource templates</t:norm>
-                        <t:translation>
-                            <t:key>ResourceType.template.all.title</t:key>
-                        </t:translation>
+                        <orig>All resource templates</orig>
+                        <translation>
+                            <key>ResourceType.template.all.title</key>
+                        </translation>
                     </pluralLabel>
+                    <singularLabel>Resource template</singularLabel>
                     <icon>
                         <cssClass>fa fa-file-alt</cssClass>
                     </icon>
                 </display>
                 <type>ResourceType</type>
                 <collection>
-                    <collectionRef oid="00000000-0000-0000-0001-000000000340" relation="org:default" type="c:ObjectCollectionType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="100">
-                <identifier>classification-view</identifier>
-                <display>
-                    <label>
-                        <t:orig>Classifications</t:orig>
-                        <t:norm>classifications</t:norm>
-                        <t:translation>
-                            <t:key>classifications.pluralLabel</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>
-                        <t:orig>Classification</t:orig>
-                        <t:norm>classification</t:norm>
-                        <t:translation>
-                            <t:key>classification.label</t:key>
-                        </t:translation>
-                    </singularLabel>
-                    <tooltip>Information classifications (labels)</tooltip>
-                </display>
-                <displayOrder>200</displayOrder>
-                <type>PolicyType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000330" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="101">
-                <identifier>clearance-view</identifier>
-                <display>
-                    <label>
-                        <t:orig>Clearances</t:orig>
-                        <t:norm>clearances</t:norm>
-                        <t:translation>
-                            <t:key>clearance.pluralLabel</t:key>
-                        </t:translation>
-                    </label>
-                    <singularLabel>
-                        <t:orig>Clearance</t:orig>
-                        <t:norm>clearance</t:norm>
-                        <t:translation>
-                            <t:key>clearance.label</t:key>
-                        </t:translation>
-                    </singularLabel>
-                    <tooltip>Security clearances</tooltip>
-                </display>
-                <displayOrder>210</displayOrder>
-                <type>PolicyType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000331" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="254">
-                <identifier>shadow-reclassification-tasks-view</identifier>
-                <refreshInterval>30</refreshInterval>
-                <type>TaskType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000523" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="259">
-                <identifier>certification-campaign-open-next-stage-tasks-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
-                <refreshInterval>30</refreshInterval>
-                <type>TaskType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000534" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="260">
-                <identifier>certification-campaign-remediation-tasks-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
-                <refreshInterval>30</refreshInterval>
-                <type>TaskType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000535" relation="org:default" type="c:ArchetypeType"/>
+                    <collectionRef oid="00000000-0000-0000-0001-000000000340" relation="org:default" type="c:ObjectCollectionType">
+                    </collectionRef>
                 </collection>
             </objectCollectionView>
         </objectCollectionViews>
@@ -798,156 +943,136 @@
                     <identifier>advanced-options-panel</identifier>
                     <display>
                         <label>
-                            <t:orig>Advanced options</t:orig>
-                            <t:norm>advanced options</t:norm>
-                            <t:translation>
-                                <t:key>TaskType.advancedOptions</t:key>
-                            </t:translation>
+                            <orig>Advanced options</orig>
+                            <translation>
+                                <key>TaskType.advancedOptions</key>
+                            </translation>
                         </label>
                     </display>
+                    <panelType>formPanel</panelType>
                     <container id="87">
                         <identifier>advanced-options</identifier>
-                        <display>
-                            <label>
-                                <t:orig>Advanced options</t:orig>
-                                <t:norm>advanced options</t:norm>
-                                <t:translation>
-                                    <t:key>TaskType.advancedOptions</t:key>
-                                </t:translation>
-                            </label>
-                        </display>
                         <displayOrder>150</displayOrder>
+                        <display>
+                            <label>Advanced options</label>
+                        </display>
                         <item id="88">
-                            <path>cleanupAfterCompletion</path>
+                            <c:path>cleanupAfterCompletion</c:path>
                         </item>
                         <item id="89">
-                            <path>threadStopAction</path>
+                            <c:path>threadStopAction</c:path>
                         </item>
                         <item id="90">
-                            <path>binding</path>
+                            <c:path>binding</c:path>
                         </item>
                         <item id="91">
-                            <path>dependent</path>
+                            <c:path>dependent</c:path>
                         </item>
                     </container>
                     <container id="1">
                         <identifier>execution-constraints</identifier>
-                        <expanded>true</expanded>
                         <path>executionConstraints</path>
+                        <expanded>true</expanded>
                     </container>
-                    <panelType>formPanel</panelType>
                 </panel>
                 <panel id="86">
                     <identifier>operational-attributes-panel</identifier>
                     <display>
                         <label>
-                            <t:orig>Operational attributes</t:orig>
-                            <t:norm>operational attributes</t:norm>
-                            <t:translation>
-                                <t:key>TaskType.operationalAttributes</t:key>
-                            </t:translation>
+                            <orig>Operational attributes</orig>
+                            <translation>
+                                <key>TaskType.operationalAttributes</key>
+                            </translation>
                         </label>
                     </display>
+                    <panelType>formPanel</panelType>
                     <container id="92">
                         <identifier>operational-attributes</identifier>
-                        <display>
-                            <label>
-                                <t:orig>Operational attributes (state)</t:orig>
-                                <t:norm>operational attributes state</t:norm>
-                                <t:translation>
-                                    <t:key>operationalAttributes.state.container.label</t:key>
-                                </t:translation>
-                            </label>
-                        </display>
                         <displayOrder>900</displayOrder>
+                        <display>
+                            <label>Operational attributes (state)</label>
+                        </display>
                         <item id="94">
-                            <path>executionState</path>
+                            <c:path>executionState</c:path>
                         </item>
                         <item id="95">
-                            <path>schedulingState</path>
+                            <c:path>schedulingState</c:path>
                         </item>
                         <item id="96">
-                            <path>node</path>
+                            <c:path>node</c:path>
                         </item>
                         <item id="97">
-                            <path>nodeAsObserved</path>
+                            <c:path>nodeAsObserved</c:path>
                         </item>
                         <item id="98">
-                            <path>resultStatus</path>
+                            <c:path>resultStatus</c:path>
                         </item>
                         <item id="99">
-                            <path>result</path>
+                            <c:path>result</c:path>
                         </item>
                         <item id="100">
-                            <path>nextRunStartTimestamp</path>
+                            <c:path>nextRunStartTimestamp</c:path>
                         </item>
                         <item id="101">
-                            <path>nextRetryTimestamp</path>
+                            <c:path>nextRetryTimestamp</c:path>
                         </item>
                         <item id="102">
-                            <path>unpauseAction</path>
+                            <c:path>unpauseAction</c:path>
                         </item>
                         <item id="103">
-                            <path>taskIdentifier</path>
+                            <c:path>taskIdentifier</c:path>
                         </item>
                         <item id="104">
-                            <path>parent</path>
+                            <c:path>parent</c:path>
                         </item>
                         <item id="105">
-                            <path>waitingReason</path>
+                            <c:path>waitingReason</c:path>
                         </item>
                         <item id="106">
-                            <path>stateBeforeSuspend</path>
+                            <c:path>stateBeforeSuspend</c:path>
                         </item>
                         <item id="107">
                             <path>schedulingStateBeforeSuspend</path>
                         </item>
                         <item id="108">
-                            <path>otherHandlersUriStack</path>
+                            <c:path>otherHandlersUriStack</c:path>
                         </item>
                         <item id="109">
-                            <path>channel</path>
+                            <c:path>channel</c:path>
                         </item>
                         <item id="110">
-                            <path>subtaskRef</path>
+                            <c:path>subtaskRef</c:path>
                         </item>
                         <item id="111">
-                            <path>dependentTaskRef</path>
+                            <c:path>dependentTaskRef</c:path>
                         </item>
                         <item id="112">
-                            <path>lastRunStartTimestamp</path>
+                            <c:path>lastRunStartTimestamp</c:path>
                         </item>
                         <item id="113">
-                            <path>lastRunFinishTimestamp</path>
+                            <c:path>lastRunFinishTimestamp</c:path>
                         </item>
                         <item id="114">
-                            <path>completionTimestamp</path>
+                            <c:path>completionTimestamp</c:path>
                         </item>
                     </container>
                     <container id="93">
+                        <displayOrder>910</displayOrder>
+                        <visibility>hidden</visibility>
                         <identifier>operation-attributes-progress</identifier>
                         <display>
-                            <label>
-                                <t:orig>Operational attributes (progress)</t:orig>
-                                <t:norm>operational attributes progress</t:norm>
-                                <t:translation>
-                                    <t:key>operationalAttributes.progress.container.label</t:key>
-                                </t:translation>
-                            </label>
+                            <label>Operational attributes (progress)</label>
                         </display>
-                        <visibility>hidden</visibility>
-                        <displayOrder>910</displayOrder>
                         <item id="115">
-                            <path>progress</path>
+                            <c:path>progress</c:path>
                         </item>
                         <item id="116">
-                            <path>expectedTotal</path>
+                            <c:path>expectedTotal</c:path>
                         </item>
                         <item id="117">
-                            <path>stalledSince</path>
+                            <c:path>stalledSince</c:path>
                         </item>
                     </container>
-                    <panelType>formPanel</panelType>
                 </panel>
             </objectDetailsPage>
             <objectDetailsPage id="84">
@@ -955,18 +1080,16 @@
                 <panel id="118">
                     <identifier>applications</identifier>
                     <display>
-                        <label>
-                            <t:orig>Applications</t:orig>
-                            <t:norm>applications</t:norm>
-                            <t:translation>
-                                <t:key>Application.panel.applications</t:key>
-                            </t:translation>
-                        </label>
+                        <label>Application.panel.applications</label>
                     </display>
                     <applicableForOperation>modify</applicableForOperation>
                     <panelType>roleMemberships</panelType>
                     <listView>
                         <identifier>applications</identifier>
+                        <type>c:ServiceType</type>
+                        <collection>
+                            <collectionRef oid="00000000-0000-0000-0001-000000000017" type="c:ObjectCollectionType"/>
+                        </collection>
                         <searchBoxConfiguration>
                             <objectTypeConfiguration>
                                 <visibility>hidden</visibility>
@@ -974,43 +1097,6 @@
                                 <supportedTypes>ServiceType</supportedTypes>
                             </objectTypeConfiguration>
                         </searchBoxConfiguration>
-                        <type>c:ServiceType</type>
-                        <collection>
-                            <collectionRef oid="00000000-0000-0000-0001-000000000017" relation="org:default" type="c:ObjectCollectionType"/>
-                        </collection>
-                    </listView>
-                </panel>
-                <panel id="123">
-                    <identifier>clearances</identifier>
-                    <display>
-                        <label>
-                            <t:orig>Clearances</t:orig>
-                            <t:norm>clearances</t:norm>
-                            <t:translation>
-                                <t:key>clearance.pluralLabel</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-award</cssClass>
-                        </icon>
-                    </display>
-                    <panelType>roleAssignments</panelType>
-                    <listView>
-                        <identifier>clearances-view</identifier>
-                        <searchBoxConfiguration>
-                            <objectTypeConfiguration>
-                                <visibility>hidden</visibility>
-                                <defaultValue>RoleType</defaultValue>
-                                <supportedTypes>RoleType</supportedTypes>
-                            </objectTypeConfiguration>
-                        </searchBoxConfiguration>
-                        <dataProvider xsi:type="c:RepositoryAssignmentDataProviderType"/>
-                        <type>c:AssignmentType</type>
-                        <collection>
-                            <filter>
-                                <q:text>targetRef/@/archetypeRef matches ( oid = "00000000-0000-0000-0000-000000000331" )</q:text>
-                            </filter>
-                        </collection>
                     </listView>
                 </panel>
             </objectDetailsPage>
@@ -1046,13 +1132,8 @@
                             <path>schemaHandling/objectType/default</path>
                             <visibility>visible</visibility>
                         </item>
-                        <item id="268">
-                            <path>schemaHandling/objectType/lifecycleState</path>
-                            <visibility>visible</visibility>
-                        </item>
                     </container>
                     <container id="131">
-                        <identifier>objectType</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType</path>
                     </container>
@@ -1087,7 +1168,6 @@
                         </item>
                     </container>
                     <container id="139">
-                        <identifier>delineation-hidden</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/delineation</path>
                     </container>
@@ -1126,7 +1206,6 @@
                         </item>
                     </container>
                     <container id="146">
-                        <identifier>limitations</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/attribute/limitations</path>
                     </container>
@@ -1153,7 +1232,6 @@
                         </item>
                     </container>
                     <container id="154">
-                        <identifier>reaction</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/synchronization/reaction</path>
                     </container>
@@ -1180,55 +1258,8 @@
                         </item>
                     </container>
                     <container id="159">
-                        <identifier>reaction</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/synchronization/reaction</path>
-                    </container>
-                    <panelType>rw-synchronization-reaction-optional</panelType>
-                </panel>
-                <panel id="261">
-                    <identifier>rw-association-synchronization-reaction-main</identifier>
-                    <container id="262">
-                        <identifier>associationReactionMainSetting</identifier>
-                        <display>
-                            <label>PageResource.wizard.step.synchronization.reaction.mainSettings</label>
-                        </display>
-                        <item id="263">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/name</path>
-                            <visibility>visible</visibility>
-                        </item>
-                        <item id="264">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/description</path>
-                            <visibility>visible</visibility>
-                        </item>
-                        <item id="265">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/situation</path>
-                            <visibility>visible</visibility>
-                        </item>
-                    </container>
-                    <container id="266">
-                        <identifier>associationReactionMain</identifier>
-                        <visibility>hidden</visibility>
-                        <path>schemaHandling/associationType/subject/association/synchronization/reaction</path>
-                    </container>
-                    <panelType>rw-synchronization-reaction-main</panelType>
-                </panel>
-                <panel id="255">
-                    <identifier>rw-association-synchronization-reaction-optional</identifier>
-                    <container id="256">
-                        <identifier>associationReactionOptionalSetting</identifier>
-                        <display>
-                            <label>PageResource.wizard.step.synchronization.reaction.optionalSettings</label>
-                        </display>
-                        <item id="257">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/order</path>
-                            <visibility>visible</visibility>
-                        </item>
-                    </container>
-                    <container id="258">
-                        <identifier>associationReactionOptional</identifier>
-                        <visibility>hidden</visibility>
-                        <path>schemaHandling/associationType/subject/association/synchronization/reaction</path>
                     </container>
                     <panelType>rw-synchronization-reaction-optional</panelType>
                 </panel>
@@ -1275,17 +1306,8 @@
                             <path>schemaHandling/objectType/attribute/matchingRule</path>
                             <visibility>visible</visibility>
                         </item>
-                        <item id="270">
-                            <path>schemaHandling/objectType/attribute/volatility/incoming/operation</path>
-                            <visibility>visible</visibility>
-                        </item>
-                        <item id="271">
-                            <path>schemaHandling/objectType/attribute/volatility/outgoing/operation</path>
-                            <visibility>visible</visibility>
-                        </item>
                     </container>
                     <container id="164">
-                        <identifier>attribute</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/attribute</path>
                     </container>
@@ -1346,13 +1368,8 @@
                             <path>schemaHandling/objectType/association/explicitReferentialIntegrity</path>
                             <visibility>visible</visibility>
                         </item>
-                        <item id="253">
-                            <path>schemaHandling/objectType/association/tolerant</path>
-                            <visibility>visible</visibility>
-                        </item>
                     </container>
                     <container id="175">
-                        <identifier>association-hidden</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/association</path>
                     </container>
@@ -1390,17 +1407,16 @@
                         </item>
                     </container>
                     <container id="190">
-                        <identifier>configurationProperties</identifier>
                         <visibility>hidden</visibility>
                         <path>connectorConfiguration/configurationProperties</path>
                     </container>
                     <panelType>rw-connectorConfiguration-partial</panelType>
                 </panel>
-                <connectorRef relation="org:default" type="c:ConnectorType">
+                <connectorRef type="ConnectorType">
+                    <resolutionTime>run</resolutionTime>
                     <filter>
                         <q:text>connectorType = 'org.identityconnectors.databasetable.DatabaseTableConnector' and available = true</q:text>
                     </filter>
-                    <resolutionTime>run</resolutionTime>
                 </connectorRef>
             </resourceDetailsPage>
             <resourceDetailsPage id="121">
@@ -1430,17 +1446,16 @@
                         </item>
                     </container>
                     <container id="200">
-                        <identifier>configurationProperties</identifier>
                         <visibility>hidden</visibility>
                         <path>connectorConfiguration/configurationProperties</path>
                     </container>
                     <panelType>rw-connectorConfiguration-partial</panelType>
                 </panel>
-                <connectorRef relation="org:default" type="c:ConnectorType">
+                <connectorRef type="ConnectorType">
+                    <resolutionTime>run</resolutionTime>
                     <filter>
                         <q:text>connectorType = 'com.evolveum.polygon.connector.ldap.LdapConnector' and available = true</q:text>
                     </filter>
-                    <resolutionTime>run</resolutionTime>
                 </connectorRef>
             </resourceDetailsPage>
             <resourceDetailsPage id="122">
@@ -1470,27 +1485,22 @@
                         </item>
                     </container>
                     <container id="208">
-                        <identifier>configurationProperties</identifier>
                         <visibility>hidden</visibility>
                         <path>connectorConfiguration/configurationProperties</path>
                     </container>
                     <panelType>rw-connectorConfiguration-partial</panelType>
                 </panel>
-                <connectorRef relation="org:default" type="c:ConnectorType">
+                <connectorRef type="ConnectorType">
+                    <resolutionTime>run</resolutionTime>
                     <filter>
                         <q:text>connectorType = 'com.evolveum.polygon.connector.ldap.ad.AdLdapConnector' and available = true</q:text>
                     </filter>
-                    <resolutionTime>run</resolutionTime>
                 </connectorRef>
             </resourceDetailsPage>
         </objectDetails>
         <configurableUserDashboard id="214">
             <identifier>admin-dashboard</identifier>
             <configurableDashboardRef oid="00000000-0000-0000-0001-000000000001" relation="org:default" type="c:DashboardType"/>
-        </configurableUserDashboard>
-        <configurableUserDashboard id="272">
-            <identifier>compliance-dashboard</identifier>
-            <configurableDashboardRef oid="f941f3fc-dcef-4415-9e79-ae56b185a501" relation="org:default" type="c:DashboardType"/>
         </configurableUserDashboard>
         <accessRequest>
             <roleCatalog>
@@ -1509,312 +1519,8 @@
                 </collection>
             </roleCatalog>
         </accessRequest>
-        <homePage id="21">
-            <type>UserType</type>
-            <widget id="22">
-                <identifier>search</identifier>
-            </widget>
-            <widget id="23">
-                <identifier>myAccesses</identifier>
-                <display>
-                    <label>
-                        <t:orig>My accesses</t:orig>
-                        <t:norm>my accesses</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.myAccesses</t:key>
-                        </t:translation>
-                    </label>
-                    <cssClass>col-12 col-xxl-6</cssClass>
-                    <icon>
-                        <cssClass>fe fe-assignment</cssClass>
-                    </icon>
-                </display>
-                <displayOrder>10</displayOrder>
-                <panelType>allAssignments</panelType>
-                <previewSize>5</previewSize>
-                <action id="31">
-                    <identifier>viewAll</identifier>
-                    <display>
-                        <label>
-                            <t:orig>View all</t:orig>
-                            <t:norm>view all</t:norm>
-                            <t:translation>
-                                <t:key>PageSelfDashboard.button.viewAll</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-search</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <panelIdentifier>allAssignments</panelIdentifier>
-                        <targetUrl>/self/profile/user</targetUrl>
-                    </target>
-                </action>
-                <action id="32">
-                    <identifier>requestAccess</identifier>
-                    <display>
-                        <label>
-                            <t:orig>Request access</t:orig>
-                            <t:norm>request access</t:norm>
-                            <t:translation>
-                                <t:key>PageRequestAccess.title</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fas fa-plus-circle</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <targetUrl>/self/requestAccess</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="24">
-                <identifier>myRequests</identifier>
-                <display>
-                    <label>
-                        <t:orig>My requests</t:orig>
-                        <t:norm>my requests</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.myRequests</t:key>
-                        </t:translation>
-                    </label>
-                    <cssClass>col-12 col-xxl-6</cssClass>
-                    <icon>
-                        <cssClass>fe fe-case</cssClass>
-                    </icon>
-                </display>
-                <displayOrder>20</displayOrder>
-                <panelType>myRequests</panelType>
-                <previewSize>5</previewSize>
-                <action id="33">
-                    <identifier>viewAll</identifier>
-                    <display>
-                        <label>
-                            <t:orig>View all</t:orig>
-                            <t:norm>view all</t:norm>
-                            <t:translation>
-                                <t:key>PageSelfDashboard.button.viewAll</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-search</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <collectionIdentifier>my-cases</collectionIdentifier>
-                        <targetUrl>/admin/casesAll</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="25">
-                <identifier>myWorkItems</identifier>
-                <display>
-                    <label>
-                        <t:orig>My work items</t:orig>
-                        <t:norm>my work items</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.workItems</t:key>
-                        </t:translation>
-                    </label>
-                    <cssClass>col-12 col-xxl-6</cssClass>
-                    <icon>
-                        <cssClass>fa fa-inbox</cssClass>
-                    </icon>
-                </display>
-                <displayOrder>40</displayOrder>
-                <panelType>myWorkItems</panelType>
-                <previewSize>5</previewSize>
-                <action id="34">
-                    <identifier>viewAll</identifier>
-                    <display>
-                        <label>
-                            <t:orig>View all</t:orig>
-                            <t:norm>view all</t:norm>
-                            <t:translation>
-                                <t:key>PageSelfDashboard.button.viewAll</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-search</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <targetUrl>/admin/myWorkItems</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="26">
-                <identifier>myAccounts</identifier>
-                <display>
-                    <label>
-                        <t:orig>My accounts</t:orig>
-                        <t:norm>my accounts</t:norm>
-                        <t:translation>
-                            <t:key>PageDashboard.accounts</t:key>
-                        </t:translation>
-                    </label>
-                    <cssClass>col-12 col-xxl-6</cssClass>
-                    <icon>
-                        <cssClass>fa fa-male</cssClass>
-                    </icon>
-                </display>
-                <displayOrder>30</displayOrder>
-                <panelType>projections</panelType>
-                <previewSize>5</previewSize>
-                <action id="35">
-                    <identifier>viewAll</identifier>
-                    <display>
-                        <label>
-                            <t:orig>View all</t:orig>
-                            <t:norm>view all</t:norm>
-                            <t:translation>
-                                <t:key>PageSelfDashboard.button.viewAll</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-search</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <panelIdentifier>projections</panelIdentifier>
-                        <targetUrl>/self/profile/user</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="27">
-                <identifier>profileWidget</identifier>
-                <display>
-                    <label>
-                        <t:orig>Profile</t:orig>
-                        <t:norm>profile</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.profile</t:key>
-                        </t:translation>
-                    </label>
-                    <help>PageSelfDashboard.profile.description</help>
-                    <cssClass>col-md-3</cssClass>
-                    <icon>
-                        <cssClass>bg-green fa fa-user</cssClass>
-                    </icon>
-                </display>
-                <panelType>linkWidget</panelType>
-                <action id="36">
-                    <identifier>profile-widget-action</identifier>
-                    <target>
-                        <targetUrl>/self/profile/user</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="28">
-                <identifier>credentialsWidget</identifier>
-                <display>
-                    <label>
-                        <t:orig>Credentials</t:orig>
-                        <t:norm>credentials</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.credentials</t:key>
-                        </t:translation>
-                    </label>
-                    <help>PageSelfDashboard.credentials.description</help>
-                    <cssClass>col-md-3</cssClass>
-                    <icon>
-                        <cssClass>bg-blue fa fa-shield-alt</cssClass>
-                    </icon>
-                </display>
-                <panelType>linkWidget</panelType>
-                <action id="37">
-                    <identifier>credentials-widget-action</identifier>
-                    <target>
-                        <targetUrl>/self/credentials</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="29">
-                <identifier>listResourcesWidget</identifier>
-                <display>
-                    <label>
-                        <t:orig>List resources</t:orig>
-                        <t:norm>list resources</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.listResources</t:key>
-                        </t:translation>
-                    </label>
-                    <cssClass>col-md-3</cssClass>
-                    <icon>
-                        <cssClass>bg-purple fa fa-database</cssClass>
-                    </icon>
-                </display>
-                <panelType>linkWidget</panelType>
-                <action id="38">
-                    <identifier>list-resources-widget-action</identifier>
-                    <target>
-                        <targetUrl>/admin/resources</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="30">
-                <identifier>listUsersWidget</identifier>
-                <display>
-                    <label>
-                        <t:orig>List users</t:orig>
-                        <t:norm>list users</t:norm>
-                        <t:translation>
-                            <t:key>PageSelfDashboard.listUsers</t:key>
-                        </t:translation>
-                    </label>
-                    <cssClass>col-md-3</cssClass>
-                    <icon>
-                        <cssClass>bg-red fa fa-user</cssClass>
-                    </icon>
-                </display>
-                <panelType>linkWidget</panelType>
-                <action id="39">
-                    <identifier>list-resources-widget-action</identifier>
-                    <target>
-                        <targetUrl>/admin/users</targetUrl>
-                    </target>
-                </action>
-            </widget>
-            <widget id="268">
-                <identifier>myCertificationItems</identifier>
-                <display>
-                    <label>
-                        <t:orig>Certification items</t:orig>
-                        <t:norm>certification items</t:norm>
-                        <t:translation>
-                            <t:key>PageCertItems.title</t:key>
-                        </t:translation>
-                    </label>
-                    <icon>
-                        <cssClass>fa fa-certificate</cssClass>
-                    </icon>
-                </display>
-                <displayOrder>50</displayOrder>
-                <panelType>myCertificationItems</panelType>
-                <previewSize>5</previewSize>
-                <action id="822606">
-                    <identifier>viewAll</identifier>
-                    <display>
-                        <label>
-                            <t:orig>View all</t:orig>
-                            <t:norm>view all</t:norm>
-                            <t:translation>
-                                <t:key>PageSelfDashboard.button.viewAll</t:key>
-                            </t:translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-search</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <targetUrl>/admin/certification/myActiveCampaigns</targetUrl>
-                    </target>
-                </action>
-            </widget>
-        </homePage>
     </adminGuiConfiguration>
+
     <expressions>
         <expressionProfile id="218">
             <identifier>safe</identifier>
@@ -1826,7 +1532,7 @@
                 Proper security testing of this profile was not yet conducted. It is provided here "AS IS",
                 without any guarantees. Use at your own risk.
             </description>
-            <decision>deny</decision>
+            <decision>deny</decision> <!-- default decision of those evaluators that are not explicitly enumerated. -->
             <evaluator id="219">
                 <type>asIs</type>
                 <decision>allow</decision>
@@ -1845,7 +1551,7 @@
             </evaluator>
             <evaluator id="223">
                 <type>script</type>
-                <decision>deny</decision>
+                <decision>deny</decision> <!-- default decision of those script languages that are not explicitly enumerated. -->
                 <script id="224">
                     <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                     <decision>allow</decision>
@@ -1856,7 +1562,7 @@
         </expressionProfile>
         <permissionProfile id="225">
             <identifier>script-safe</identifier>
-            <decision>deny</decision>
+            <decision>deny</decision> <!-- Default decision for those classes that are not explicitly enumerated. -->
             <package id="226">
                 <name>com.evolveum.midpoint.xml.ns._public.common.common_3</name>
                 <description>MidPoint common schema - generated bean classes</description>
@@ -1887,7 +1593,7 @@
             <class id="230">
                 <name>java.lang.String</name>
                 <description>String operations are generally safe. But Groovy is adding execute() method which is very dangerous.</description>
-                <decision>allow</decision>
+                <decision>allow</decision> <!-- Default decision for those methods that are not explicitly enumerated. -->
                 <method id="249">
                     <name>execute</name>
                     <decision>deny</decision>
@@ -1980,4 +1686,5 @@
             </class>
         </permissionProfile>
     </expressions>
+
 </systemConfiguration>
