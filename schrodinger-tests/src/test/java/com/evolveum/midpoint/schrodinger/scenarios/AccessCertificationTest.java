@@ -64,7 +64,7 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .loginWithReloadLoginPage("certReviewerUser", "Password123!");
 
         basicPage.myActiveCampaigns()
-                .showItemsForCampaign(CAMPAIGN_NAME)
+                .selectTilesViewAndShowItemsForCampaign(CAMPAIGN_NAME)
                 .table()
                 .assertAllObjectsCountEquals(30);
 
@@ -73,7 +73,7 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .loginWithReloadLoginPage("certDeputyUser", "Password123!");
 
         basicPage.myActiveCampaigns()
-                .showItemsForCampaign(CAMPAIGN_NAME)
+                .selectTilesViewAndShowItemsForCampaign(CAMPAIGN_NAME)
                 .table()
                 .assertAllObjectsCountEquals(30);
 
@@ -129,7 +129,7 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
 
         CertificationItemsPage certItemsPage = basicPage
                 .myActiveCampaigns()
-                .showItemsForCampaign(CAMPAIGN_NAME);
+                .selectTilesViewAndShowItemsForCampaign(CAMPAIGN_NAME);
         certItemsPage
                 .table()
                 .assertAllObjectsCountEquals(30);
@@ -138,7 +138,26 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .assertPageTitleStartsWith("My active campaigns");
     }
 
-    @Override
+    /**
+     * covers #10879
+     */
+    @Test
+    public void test0050activeCampaignsBackButton() {
+        //several times navigating to cert. items page and returning back to Active campaigns page
+        basicPage
+                .activeCampaigns()
+                .selectTableViewAndShowItemsForCampaign(CAMPAIGN_NAME)
+                .navigateBackToActiveCampaigns()
+                .selectTableViewAndShowItemsForCampaign(CAMPAIGN_NAME)
+                .navigateBackToActiveCampaigns()
+                .assertTableViewIsSelected()
+                .selectTableViewAndShowItemsForCampaign(CAMPAIGN_NAME)
+                .navigateBackToActiveCampaigns()
+                .assertTableViewIsSelected()
+                .assertPageTitleStartsWith("Active campaigns");
+    }
+
+        @Override
     protected boolean resetToDefaultBeforeTests() {
         return true;
     }
