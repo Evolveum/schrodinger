@@ -22,10 +22,16 @@ public class ActiveCampaignsBasePage<ACP extends ActiveCampaignsBasePage> extend
         return new CertificationItemsPage();
     }
 
-    public CertificationItemsPage showItemsForCampaign(String campaignName) {
+    public CertificationItemsPage selectTilesViewAndShowItemsForCampaign(String campaignName) {
         selectTilesView().findTileByLabel(campaignName).$(Schrodinger.byDataId("details")).click();
         Utils.waitForAjaxCallFinish();
         Selenide.sleep(1000);
+        Utils.waitForAjaxCallFinish();
+        return new CertificationItemsPage();
+    }
+
+    public CertificationItemsPage selectTableViewAndShowItemsForCampaign(String campaignName) {
+        selectTableView().clickByName(campaignName);
         Utils.waitForAjaxCallFinish();
         return new CertificationItemsPage();
     }
