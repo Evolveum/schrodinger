@@ -31,7 +31,10 @@ public class ActiveCampaignsBasePage<ACP extends ActiveCampaignsBasePage> extend
     }
 
     public CertificationItemsPage selectTableViewAndShowItemsForCampaign(String campaignName) {
-        selectTableView().clickByName(campaignName);
+        selectTableView()
+                .getParentElement()
+                .$x(".//span[@data-s-id='label' and contains(text(), '" + campaignName + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
         return new CertificationItemsPage();
     }
