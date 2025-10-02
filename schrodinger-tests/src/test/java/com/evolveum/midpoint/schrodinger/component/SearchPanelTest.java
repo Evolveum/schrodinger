@@ -407,4 +407,42 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .search()
                 .assertMoreDropDownButtonNotVisible();
     }
+
+    /**
+     * covers MID-10876
+     */
+    @Test
+    public void test0190savedArchetypeRefFilter() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        String archetypeRefFilter = "archetypeRef not exists";
+        String archetypeRefFilterName = "No archetype filter";
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .advanced(archetypeRefFilter)
+                .updateSearch()
+                .and()
+                .assertTableContainsLinkTextPartially("searchByEmailAddressUser")
+                .search()
+                .clickSaveSearchButton()
+                .setFilterName(archetypeRefFilterName)
+                .save()
+                .and()
+                .and()
+                .assertFeedbackExists()
+                .feedback()
+                .assertSuccess();
+        reloginAsAdministrator();
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .selectFilterFromSavedFilters(archetypeRefFilterName)
+                .and()
+                .assertTableContainsLinkTextPartially("searchByEmailAddressUser")
+                .and()
+                .assertFeedbackDoesntExists()
+                .assertPageTitleStartsWith("All users");
+    }
 }
