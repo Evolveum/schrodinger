@@ -351,5 +351,36 @@ public class Search<T> extends Component<T, Search<T>> {
         assertion.assertTrue(fullTextField.exists() && fullTextField.isDisplayed(), "Fulltext search is not displayed.");
         return Search.this;
     }
+
+    public SaveSearchPopupPanel<T> clickSaveSearchButton() {
+        getParentElement().$(Schrodinger.byDataId("saveSearchButton"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return new SaveSearchPopupPanel<>(Search.this);
+    }
+
+    public Search<T> selectFilterFromSavedFilters(String filterName) {
+        getParentElement().$(Schrodinger.byDataId("savedSearchMenu"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        SelenideElement savedFiltersListPopup = getParentElement().$x(".//div[@data-s-id='savedFilterMenu']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        ElementsCollection savedFiltersList = savedFiltersListPopup.$$(Schrodinger.byDataId("savedFilterName"));
+        SelenideElement filterToSelect = null;
+        for (SelenideElement el : savedFiltersList) {
+            if (filterName.equals(el.text())) {
+                filterToSelect = el;
+                break;
+            }
+        }
+        if (filterToSelect != null) {
+            filterToSelect.click();
+            Utils.waitForAjaxCallFinish();
+        }
+        return Search.this;
+    }
+
 }
 
