@@ -143,6 +143,7 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0050activeCampaignsBackButton() {
+        reloginAsAdministrator();
         //several times navigating to cert. items page and returning back to Active campaigns page
         basicPage
                 .activeCampaigns()

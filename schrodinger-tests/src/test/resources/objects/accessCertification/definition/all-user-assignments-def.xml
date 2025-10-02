@@ -41,6 +41,7 @@
             <useObjectOwner>false</useObjectOwner>
             <useObjectApprover>false</useObjectApprover>
             <defaultReviewerRef oid="287184fd-d573-41e7-9548-82fc19a53e7d" relation="org:default" type="c:UserType"/>
+            <defaultReviewerRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         </reviewerSpecification>
     </stageDefinition>
     <reviewStrategy>
