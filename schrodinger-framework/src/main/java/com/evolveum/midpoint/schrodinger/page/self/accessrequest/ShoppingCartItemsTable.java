@@ -33,7 +33,6 @@ public class ShoppingCartItemsTable extends Table<ShoppingCartStepPanel, Shoppin
 
     public ShoppingCartSummaryPanel editShoppingCartItem(String nameColumnValue) {
         clickEditButton(nameColumnValue);
-        Selenide.screenshot("shoppingCartDetails" + System.currentTimeMillis());
         return new ShoppingCartSummaryPanel(ShoppingCartItemsTable.this, getPrismFormElement());
     }
 
