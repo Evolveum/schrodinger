@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -43,6 +44,16 @@ public class DateIntervalSearchItemPanel<T> extends Component<T, DateIntervalSea
         return new DateTimePanel<>(this, getPopupPanel().$(Schrodinger.byDataId("dateToValue")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 
+    public DateIntervalSearchItemPanel<T> selectPredefinedTimeInterval(String intervalTitle) {
+        SelenideElement intervalsComponent = getPopupPanel().$x(".//div[@data-s-id='intervalPresetsContainer']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        intervalsComponent.$x(".//a[contains(text(), '" + intervalTitle + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return DateIntervalSearchItemPanel.this;
+    }
+
     public T confirm() {
         getParentElement().$x(".//a[@data-s-id='confirmButton']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         return getParent();
@@ -54,6 +65,14 @@ public class DateIntervalSearchItemPanel<T> extends Component<T, DateIntervalSea
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='popover']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    public T remove() {
+        getParentElement().$x(".//a[@data-s-id='removeButton']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return getParent();
     }
 
 }

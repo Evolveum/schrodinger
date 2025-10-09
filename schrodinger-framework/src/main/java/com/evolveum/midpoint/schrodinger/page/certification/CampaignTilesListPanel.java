@@ -41,4 +41,10 @@ public class CampaignTilesListPanel<T> extends TileListPanel<T> {
         return new CampaignTilePanel<>(CampaignTilesListPanel.this, findTileByLabel(campaignName));
     }
 
+    public CampaignTilesListPanel<T> assertCampaignTilesCountEqual(int expectedValue) {
+        assertion.assertEquals(countTilesNumber(), expectedValue,
+                "Campaign tile components number doesn't equal the expected value.");
+        return CampaignTilesListPanel.this;
+    }
+
 }

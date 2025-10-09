@@ -71,6 +71,12 @@ public class TileListPanel<T> extends Component<T, TileListPanel<T>> {
         return null;
     }
 
+    protected int countTilesNumber() {
+        ElementsCollection collection = getParentElement().$$x(".//div[@data-s-id='tile']");
+        return collection.size();
+    }
+
+
     public SelenideElement findTileByCssClass(int cssClass) {
         return $x(".//div[@data-s-id='tile' and contains(@class, '" + cssClass + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
@@ -82,6 +88,14 @@ public class TileListPanel<T> extends Component<T, TileListPanel<T>> {
 
     public SelenideElement findTileByLabel(String tileLabel) {
         return Utils.findTileElementByTitle(tileLabel);
+    }
+
+    public TileListPanel<T> assertTilesCountEqual(int expectedValue) {
+        int tilesCount = countTilesNumber();
+        assertion.assertEquals(countTilesNumber(), expectedValue,
+                "Tiles components number doesn't equal the expected value. Expected: "
+                        + expectedValue + ", actual value: " + tilesCount);
+        return TileListPanel.this;
     }
 
 }

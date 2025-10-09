@@ -31,6 +31,7 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
     private static final File ROLES_TEST_CERTIFICATION = new File("./src/test/resources/objects/roles/roles-test-certification.xml");
     private static final File USERS_TEST_CERTIFICATION = new File("./src/test/resources/objects/users/users-test-certification.xml");
     private static final File ACCESS_CERTIFICATION_DEFINITION = new File("./src/test/resources/objects/accessCertification/definition/all-user-assignments-def.xml");
+    private static final File ACCESS_CERT_CAMPAIGN_2024 = new File("./src/test/resources/objects/accessCertification/definition/all-user-assignments-started-2024.xml");
 
     private static final String CAMPAIGN_DEFINITION_NAME = "All user assignments";
     private static final String CAMPAIGN_NAME = "All user assignments 1";
@@ -175,6 +176,36 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .and()
                 .and()
                 .assertNoConfirmationPopupVisible();
+    }
+
+
+    /**
+     * covers MID-10900
+     */
+    @Test
+    public void test0070updateSearchAfterDateSearchItemRemoved() {
+        reloginAsAdministrator();
+        importObject(ACCESS_CERT_CAMPAIGN_2024);
+        basicPage
+                .campaigns()
+                .campaignTilesListPanel()
+                .assertCampaignTilesCountEqual(2)
+                .and()
+                .search()
+                .dateIntervalPanelByItemName("Start timestamp")
+                .selectPredefinedTimeInterval("Last 15 minutes")
+                .confirm()
+                .updateSearch()
+                .and()
+                .campaignTilesListPanel()
+                .assertCampaignTilesCountEqual(1)
+                .and()
+                .search()
+                .dateIntervalPanelByItemName("Start timestamp")
+                .remove()
+                .and()
+                .campaignTilesListPanel()
+                .assertCampaignTilesCountEqual(2);
     }
 
     @Override
