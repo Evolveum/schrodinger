@@ -402,7 +402,7 @@ public class Utils {
         } else {
             tiles = $$x(".//div[@data-s-id='tile']");
         }
-        return tiles.findBy(Condition.text(translateTitle));
+        return tiles.findBy(Condition.text(translateTitle)).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
     public static boolean elementContainsTextCaseInsensitive(SelenideElement el, String text) {

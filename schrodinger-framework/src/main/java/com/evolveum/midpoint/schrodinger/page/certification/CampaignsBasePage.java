@@ -17,20 +17,6 @@ public class CampaignsBasePage<CP extends CampaignsBasePage> extends BasicPage {
     public CampaignsBasePage() {
     }
 
-    public CP assertCampaignInReviewStage(String campaignName) {
-        SelenideElement campaignTile = selectTilesView().findTileByLabel(campaignName);
-
-        if (campaignTile == null) {
-            throw new IllegalStateException("Campaign with name '" + campaignName + "' not found.");
-        }
-        String statusTranslated = Utils.translate("CertCampaignStateFilter.IN_REVIEW_STAGE", "In review stage");
-        SelenideElement status = campaignTile.$x(".//span[@data-s-id='status']");
-        assertion.assertTrue(status.exists() && statusTranslated.equals(status.getText()),
-                "Campaign should be in review stage but now the state is: " + status.getText());
-
-        return (CP) this;
-    }
-
     public CampaignsTablePanel selectTableView() {
         clickHeaderToggleButton(TABLE_VIEW_TOGGLE_ICON_CLASS);
         return new CampaignsTablePanel((CP) this, getContentPanelElement());

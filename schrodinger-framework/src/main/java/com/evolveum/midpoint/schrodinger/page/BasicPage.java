@@ -811,4 +811,13 @@ public class BasicPage {
     public void setScreenshotNamePrefix(String screenshotNamePrefix) {
         this.screenshotNamePrefix = screenshotNamePrefix;
     }
+
+    public BasicPage assertNoConfirmationPopupVisible() {
+        SelenideElement confirmationPopup = $(Schrodinger.byDataId("mainPopup"))
+                .find(Schrodinger.byDataId("div", "overlay"));
+        assertion.assertTrue(!confirmationPopup.isDisplayed(),
+                "No confirmation window should be displayed but it is.");
+        return BasicPage.this;
+    }
+
 }

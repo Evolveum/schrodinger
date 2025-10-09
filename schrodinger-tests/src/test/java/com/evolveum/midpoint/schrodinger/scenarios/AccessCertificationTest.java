@@ -50,8 +50,10 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .createCampaign(CAMPAIGN_DEFINITION_NAME);
 
         basicPage.campaigns()
-                .startCampaign(CAMPAIGN_NAME)
-                .assertCampaignInReviewStage(CAMPAIGN_NAME);
+                .campaignTilesListPanel()
+                .campaign(CAMPAIGN_NAME)
+                .startCampaign()
+                .assertCampaignInReviewStage();
     }
 
     /**
@@ -158,7 +160,24 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .assertPageTitleStartsWith("Active campaigns");
     }
 
-        @Override
+    /**
+     * covers #10897
+     */
+    @Test
+    public void test0060actionButtonDisabledWhileTaskRunning() {
+        reloginAsAdministrator();
+        basicPage
+                .campaigns()
+                .campaignTilesListPanel()
+                .campaign(CAMPAIGN_NAME)
+                .clickActionButtonAndConfirmAction()
+                .assertActionButtonIsInProgress()
+                .and()
+                .and()
+                .assertNoConfirmationPopupVisible();
+    }
+
+    @Override
     protected boolean resetToDefaultBeforeTests() {
         return true;
     }

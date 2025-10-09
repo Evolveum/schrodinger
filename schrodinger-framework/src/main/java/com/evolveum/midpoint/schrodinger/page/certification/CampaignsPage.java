@@ -36,25 +36,9 @@ public class CampaignsPage extends CampaignsBasePage<CampaignsPage> {
     public CampaignsPage() {
     }
 
-    public CampaignsPage startCampaign(String campaignName) {
-        SelenideElement campaignTile = selectTilesView()
-                .findTileByLabel(campaignName);
-
-        if (campaignTile == null) {
-            throw new IllegalStateException("Campaign with name '" + campaignName + "' not found.");
-        }
-        SelenideElement startCampaignButton = campaignTile.$x(".//button[@data-s-id='actionButton']");
-        if (startCampaignButton.exists() && startCampaignButton.isDisplayed()) {
-            startCampaignButton.click();
-
-            ConfirmationModal<CampaignsPage> confirmationModal = new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
-            confirmationModal.clickYes();
-
-            Selenide.sleep(10000);   // todo implement proper wait, e.g. wait for the task to be finished
-        }
-
-        return this;
+    public CampaignTilesListPanel<CampaignsPage> campaignTilesListPanel() {
+        return new CampaignTilesListPanel<>(CampaignsPage.this,
+                $(Schrodinger.byDataId("tilesContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
-
 
 }

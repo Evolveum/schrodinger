@@ -16,9 +16,12 @@
 package com.evolveum.midpoint.schrodinger.page.certification;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.TileListPanel;
+import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.jetbrains.annotations.NotNull;
 
 import static com.codeborne.selenide.Selenide.$$x;
@@ -34,10 +37,8 @@ public class CampaignTilesListPanel<T> extends TileListPanel<T> {
         return this;
     }
 
-    protected SelenideElement getCampaignTileElement(@NotNull String campaignName) {
-        selectTileByLabel(campaignName);
-        return null;
+    public CampaignTilePanel<CampaignTilesListPanel<T>> campaign(@NotNull String campaignName) {
+        return new CampaignTilePanel<>(CampaignTilesListPanel.this, findTileByLabel(campaignName));
     }
-
 
 }
