@@ -31,6 +31,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
     private static final File ROLE_END_USER_DEFAULT_PAGING_SETTINGS = new File("./src/test/resources/features/paging/role/role-enduser-default-paging-settings.xml");
     private static final File ROLE_END_USER_PAGING_OPTIONS = new File("./src/test/resources/features/paging/role/role-enduser-paging-options.xml");
     private static final File ROLE_END_USER_MAX_PAGE_SIZE = new File("./src/test/resources/features/paging/role/role-enduser-max-page-size.xml");
+    private static final File ROLE_END_USER_MAX_SIZE_2000 = new File("./src/test/resources/features/paging/role/role-enduser-max-size-2000.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -218,6 +219,36 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                 .assertCurrentPageSize(23)
                 .assertPageSizeValuesListContains(113, 123, 153)
                 .assertPageSizeValuesListContains(110, 120, 150);
+    }
+
+    /**
+     * The biggest page size should be restricted by the default max value (1000).
+     */
+    @Test
+    public void test0090defaultSettingsMergingTest() {
+        addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+        addObjectFromFile(ROLE_END_USER_MAX_SIZE_2000);
+
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin().login("enduser1", "Password123!");
+
+
+        basicPage.listUsers()
+                .table()
+                    .paging()
+                        .assertCurrentPageSize(1000)
+                        .assertPageSizeValuesListContains(500, 1000)
+                        .assertPageSizeValuesListDoesntContain(1500, 2000);
+
+
+        showUser("enduser1")
+                .selectAssignmentsPanel()
+                .selectTypeAll()
+                .table()
+                .paging()
+                .assertCurrentPageSize(1000)
+                .assertPageSizeValuesListContains(500, 1000)
+                .assertPageSizeValuesListDoesntContain(1500, 2000);
     }
 
     @Override
