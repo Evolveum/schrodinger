@@ -178,6 +178,27 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .assertNoConfirmationPopupVisible();
     }
 
+    /**
+     * covers MID-10901
+     */
+    @Test
+    public void test0065searchCampaignByCreatedTimestamp() {
+        reloginAsAdministrator();
+        basicPage
+                .campaigns()
+                .search()
+                .resetBasicSearch()
+                .dateIntervalPanelByItemName("Created at")
+                .selectPredefinedTimeInterval("Last 30 minutes")
+                .confirm()
+                .updateSearch()
+                .and()
+                .campaignTilesListPanel()
+                .assertCampaignTilesCountEqual(1)
+                .and()
+                .search()
+                .resetBasicSearch();
+    }
 
     /**
      * covers MID-10900
