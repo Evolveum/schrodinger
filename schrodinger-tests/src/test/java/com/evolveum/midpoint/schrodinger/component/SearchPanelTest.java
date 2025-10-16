@@ -462,4 +462,27 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .assertFeedbackDoesntExists()
                 .assertPageTitleStartsWith("All users");
     }
+
+    /**
+     * covers MID-10899
+     */
+    @Test
+    public void test0200clearDateIntervalValue() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .dateIntervalPanelByItemName("Created at")
+                .selectPredefinedTimeInterval("Last 15 minutes")
+                .confirm()
+                .dateIntervalPanelByItemName("Created at")
+                .assertDateValueFieldNotEmpty()
+                .configure()
+                .clearSettings()
+                .confirm()
+                .dateIntervalPanelByItemName("Created at")
+                .assertDateValueFieldEmpty();
+    }
+
 }

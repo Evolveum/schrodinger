@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -60,11 +61,32 @@ public class DateIntervalSearchItemPanel<T> extends Component<T, DateIntervalSea
     }
 
     private SelenideElement getPopupPanel() {
+        return getPopupPanel(true);
+    }
+
+    private SelenideElement getPopupPanel(boolean clickConfigure) {
+        if (clickConfigure) {
+            getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+            Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+        }
+        return getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='popover']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    public DateIntervalSearchItemPanel<T> configure() {
         getParentElement().$x(".//a[@" + Schrodinger.DATA_S_ID + "='configure']")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        return getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='popover']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return this;
+    }
+
+    public DateIntervalSearchItemPanel<T> clearSettings() {
+        getPopupPanel(false).$(Schrodinger.byDataId("remove"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return this;
     }
 
     public T remove() {
@@ -73,6 +95,24 @@ public class DateIntervalSearchItemPanel<T> extends Component<T, DateIntervalSea
                 .click();
         Utils.waitForAjaxCallFinish();
         return getParent();
+    }
+
+    public DateIntervalSearchItemPanel<T> assertDateValueFieldNotEmpty() {
+        SelenideElement inputEl = getParentElement()
+                .$(Schrodinger.byDataId("valueTextField"))
+                        .$(Schrodinger.byDataId("input"));
+        String value = inputEl.getValue();
+        assertion.assertTrue(StringUtils.isNotEmpty(value), "Date search item value shouldn't be empty.");
+        return this;
+    }
+
+    public DateIntervalSearchItemPanel<T> assertDateValueFieldEmpty() {
+        SelenideElement inputEl = getParentElement()
+                .$(Schrodinger.byDataId("valueTextField"))
+                        .$(Schrodinger.byDataId("input"));
+        String value = inputEl.getValue();
+        assertion.assertTrue(StringUtils.isEmpty(value), "Date search item value should be empty.");
+        return this;
     }
 
 }
