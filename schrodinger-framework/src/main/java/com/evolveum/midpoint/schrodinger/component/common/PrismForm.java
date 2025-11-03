@@ -502,7 +502,7 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
     public PrismContainerPanel<PrismForm<T>> getPrismContainerPanel(String containerName) {
         SelenideElement panel = null;
-        panel = getParentElement().$x(".//a[@class='prism-title'][@data-s-resource-key='" +
+        panel = getParentElement().$x(".//span[@class='prism-title'][@data-s-resource-key='" +
                         containerName + "' or @data-s-resource-key='" + Utils.translate(containerName) + "']")
                 .should(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S);
         SelenideElement containerPanel = panel
