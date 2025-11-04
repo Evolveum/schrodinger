@@ -401,7 +401,9 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
     }
 
     public PrismForm<T> expandContainerPropertiesPanel(String containerHeaderKey){
-        SelenideElement panelHeader = getParentElement().$(Schrodinger.byElementAttributeValue("a", "data-s-resource-key", containerHeaderKey))
+        SelenideElement panelHeader = getParentElement().$x(".//span[@class='prism-title'][@data-s-resource-key='" +
+                        containerHeaderKey + "' or @data-s-resource-key='" + Utils.translate(containerHeaderKey) + "']")
+                .should(Condition.exist, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .parent()
                 .parent();
