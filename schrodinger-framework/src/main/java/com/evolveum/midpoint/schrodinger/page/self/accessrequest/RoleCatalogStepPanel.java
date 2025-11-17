@@ -93,7 +93,7 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         SelenideElement item = findTileByLabel(itemLabel);
         if (item != null) {
             Selenide.screenshot("addItemToCart_3");
-            item.$x(".//a[@data-s-id='add']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+            item.$x(".//button[@data-s-id='add']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
             Utils.waitForAjaxCallFinish();
         }
         Selenide.screenshot("addItemToCart_4");

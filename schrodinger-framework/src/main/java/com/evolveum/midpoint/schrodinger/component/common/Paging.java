@@ -39,25 +39,29 @@ public class Paging<T> extends Component<T, Paging<T>> {
     }
 
     public Paging<T> first() {
-        getParentElement().$(Schrodinger.byDataId("a", "firstLink")).click();
+        getParentElement().$(Schrodinger.byDataId("a", "firstLink"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Selenide.sleep(1000);
         return this;
     }
 
     public Paging<T> previous() {
-        getParentElement().$(Schrodinger.byDataId("a", "previousLink")).click();
+        getParentElement().$(Schrodinger.byDataId("a", "previousLink"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Selenide.sleep(1000);
         return this;
     }
 
     public Paging<T> next() {
-        getParentElement().$(Schrodinger.byDataId("a", "nextLink")).click();
+        getParentElement().$(Schrodinger.byDataId("a", "nextLink"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Selenide.sleep(1000);
         return this;
     }
 
     public Paging<T> last() {
-        getParentElement().$(Schrodinger.byDataId("a", "lastLink")).click();
+        getParentElement().$(Schrodinger.byDataId("a", "lastLink"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).click();
         Selenide.sleep(1000);
         return this;
     }

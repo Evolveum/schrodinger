@@ -53,7 +53,12 @@ public class DetailsNavigationPanel<T extends ObjectDetailsPage> extends Compone
             }
             Utils.scrollToElement(nav);
             nav.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            SelenideElement parentEl = nav.parent().parent().parent();
+            if (parentEl.getAttribute("class").contains("open")) {
+                continue;
+            }
             nav.click();
+            Utils.waitForAjaxCallFinish();
             nav.parent().parent().parent().shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_LONG_20_S);
         }
         return $(Schrodinger.byDataId("mainPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
