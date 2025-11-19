@@ -55,6 +55,7 @@ public class CorrelationPage extends BasicPage {
 
     public CorrelationPage send() {
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 
