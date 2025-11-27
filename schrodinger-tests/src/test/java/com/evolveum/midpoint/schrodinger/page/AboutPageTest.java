@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
  */
 public class AboutPageTest extends AbstractSchrodingerTest {
 
-    private static final String VERSION_EXPECTED = "4.10"; // Static value, should be changed each version change.
+    private static final String VERSION_EXPECTED = "4.11-SNAPSHOT"; // Static value, should be changed each version change.
     private static final String CONNID_VERSION_EXPECTED = "1.6.0.0"; // Static value, should be changed each version change.
     private static final String UTILITY_TASK_EXPECTED = "Utility task";
     private static final String REINDEX_REPO_TASK_DISPLAY_NAME_EXPECTED = "Reindex repository objects";
