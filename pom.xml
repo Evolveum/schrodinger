@@ -33,7 +33,7 @@
     <groupId>com.evolveum.midpoint</groupId>
     <artifactId>schrodinger</artifactId>
     <packaging>pom</packaging>
-    <version>4.10-SNAPSHOT</version>
+    <version>4.10</version>
     <!-- Notes
             Running GUI tests from Schrodinger module
         mvn clean install  -P build-framework-test
@@ -82,8 +82,8 @@
         <h2.version>1.4.193</h2.version>
         <guava.version>31.1-jre</guava.version>
         <!-- don't forget to change the checked version in AboutPageTest-->
-        <midpoint.version>4.10-SNAPSHOT</midpoint.version>
-        <midpoint.client.version>4.10-SNAPSHOT</midpoint.client.version>
+        <midpoint.version>4.10</midpoint.version>
+        <midpoint.client.version>4.10</midpoint.client.version>
         <connid.version>1.5.2.0</connid.version>
     </properties>
 
@@ -97,13 +97,13 @@
         <repository>
             <id>evolveum-nexus</id>
             <name>Internal Releases</name>
-            <url>https://nexus.evolveum.com/nexus/content/repositories/releases/</url>
+            <url>https://nexus.evolveum.com/nexus/repository/releases/</url>
         </repository>
 
         <snapshotRepository>
             <id>evolveum-nexus</id>
             <name>Internal Releases</name>
-            <url>https://nexus.evolveum.com/nexus/content/repositories/snapshots/</url>
+            <url>https://nexus.evolveum.com/nexus/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -111,12 +111,12 @@
         <repository>
             <id>evolveum</id>
             <name>Evolveum Public Releases</name>
-            <url>https://nexus.evolveum.com/nexus/content/groups/public/</url>
+            <url>https://nexus.evolveum.com/nexus/repository/public/</url>
         </repository>
         <repository>
             <id>evolveum-snapshots</id>
             <name>Evolveum Snapshots</name>
-            <url>https://nexus.evolveum.com/nexus/content/repositories/snapshots/</url>
+            <url>https://nexus.evolveum.com/nexus/repository/snapshots/</url>
         </repository>
     </repositories>
 
@@ -124,7 +124,7 @@
         <pluginRepository>
             <id>evolveum</id>
             <name>Evolveum</name>
-            <url>https://nexus.evolveum.com/nexus/content/groups/public</url>
+            <url>https://nexus.evolveum.com/nexus/repository/public/</url>
         </pluginRepository>
     </pluginRepositories>
 
