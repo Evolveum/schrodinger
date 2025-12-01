@@ -30,6 +30,7 @@ import com.evolveum.midpoint.schrodinger.page.configuration.*;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ListObjectCollectionsPage;
 import com.evolveum.midpoint.schrodinger.page.objectcollection.ObjectCollectionPage;
 import com.evolveum.midpoint.schrodinger.page.objecttemplate.ListObjectTemplatesPage;
+import com.evolveum.midpoint.schrodinger.page.org.ListOrgsPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
 import com.evolveum.midpoint.schrodinger.page.org.OrgTreePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
@@ -171,6 +172,11 @@ public class BasicPage {
         }
         waitForDetailsPageIsLoaded();
         return new RolePage();
+    }
+
+    public ListOrgsPage listOrgs() {
+        clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.list");
+        return new ListOrgsPage();
     }
 
     public ListServicesPage listServices() {

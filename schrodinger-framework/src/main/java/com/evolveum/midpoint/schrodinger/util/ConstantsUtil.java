@@ -47,6 +47,7 @@ public class ConstantsUtil {
     public static final String OBJECT_USER_BOX_COLOR = "object-user-box";
     public static final String OBJECT_ROLE_BOX_COLOR = "object-role-box";
     public static final String OBJECT_SERVICE_BOX_COLOR = "object-service-box";
+    public static final String OBJECT_ORG_BOX_COLOR = "object-org-box";
     public static final String OBJECT_RESOURCE_BOX_COLOR = "object-resource-box";
 
     public static final String COLLECTION_REF_ATTRIBUTE_NAME = "Collection ref";
