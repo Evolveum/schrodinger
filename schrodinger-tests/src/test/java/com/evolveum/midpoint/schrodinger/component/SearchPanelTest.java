@@ -70,6 +70,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-configured-user-search.xml");
     private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-allow-to-configure-search-items.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-supported-object-types-on-members-panel.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
     private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
@@ -444,5 +445,37 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .assertFeedbackDoesntExists()
                 .assertPageTitleStartsWith("All users");
+    }
+
+    /**
+     * covers MID-10896
+     */
+    @Test
+    public void test0250defaultObjectTypeValueTestOnMembersPanel() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL, true);
+        reloginAsAdministrator();
+        basicPage
+                .listOrgs()
+                .table()
+                .search()
+                .byName()
+                .inputValue("orgRootMemberSearch")
+                .updateSearch()
+                .and()
+                .clickByName("orgRootMemberSearch")
+                .selectTabMembers()
+                .membersPanel()
+                .table()
+                .search()
+                .assertActualOptionOfSelectSearchItem("Type", "User")
+                .textInputPanelByItemName("Family name")
+                .inputValue("Test")
+                .updateSearch()
+                .and()
+                .and()
+                .and()
+                .and()
+                .assertFeedbackDoesntExists();
     }
 }
