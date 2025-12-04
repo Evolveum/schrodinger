@@ -18,5 +18,8 @@
 <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>searchByEmployeeNumberUser</name>
     <employeeNumber>544</employeeNumber>
+    <extension xmlns:gen987="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <gen987:middleName>michael</gen987:middleName>
+    </extension>
 </user>
 

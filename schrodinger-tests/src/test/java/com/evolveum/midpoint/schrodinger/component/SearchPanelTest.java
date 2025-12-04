@@ -71,6 +71,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-allow-to-configure-search-items.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-supported-object-types-on-members-panel.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-search-box-expression-filter.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
     private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
@@ -516,5 +517,32 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .and()
                 .assertFeedbackDoesntExists();
+    }
+
+    /**
+     * covers MID-10977
+     */
+    @Test
+    public void test0260expressionFilterTest() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER, true);
+        reloginAsAdministrator();
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .dropDownPanelByItemName("Middle name")
+                .inputDropDownValue("Michael")
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsLinkTextPartially("searchByEmployeeNumberUser")
+                .search()
+                .dropDownPanelByItemName("Middle name")
+                .inputDropDownValue("Jack")
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsLinkTextPartially("searchByEmailAddressUser");
     }
 }
