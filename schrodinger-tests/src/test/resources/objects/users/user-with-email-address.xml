@@ -18,5 +18,8 @@
 <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
     <name>searchByEmailAddressUser</name>
     <emailAddress>testEmailAddress@test.com</emailAddress>
+    <extension xmlns:gen987="http://midpoint.evolveum.com/xml/ns/samples/gen">
+        <gen987:middleName>jack</gen987:middleName>
+    </extension>
 </user>
 
