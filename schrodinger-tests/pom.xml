@@ -182,12 +182,12 @@
             <artifactId>spring-beans</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.evolveum.midpoint.repo</groupId>
-            <artifactId>repo-sql-impl</artifactId>
-            <version>${midpoint.version}</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.evolveum.midpoint.repo</groupId>-->
+<!--            <artifactId>repo-sql-impl</artifactId>-->
+<!--            <version>${midpoint.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
