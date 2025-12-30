@@ -32,6 +32,7 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
     private static final File USERS_TEST_CERTIFICATION = new File("./src/test/resources/objects/users/users-test-certification.xml");
     private static final File ACCESS_CERTIFICATION_DEFINITION = new File("./src/test/resources/objects/accessCertification/definition/all-user-assignments-def.xml");
     private static final File ACCESS_CERT_CAMPAIGN_2024 = new File("./src/test/resources/objects/accessCertification/definition/all-user-assignments-started-2024.xml");
+    private static final File SYSTEM_CONFIGURATION_WITH_CONFIGURED_ACTION = new File("./src/test/resources/objects/systemconfiguration/system-configuration-with-cert-item-configured-action.xml");
 
     private static final String CAMPAIGN_DEFINITION_NAME = "All user assignments";
     private static final String CAMPAIGN_NAME = "All user assignments 1";
@@ -227,6 +228,22 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .and()
                 .campaignTilesListPanel()
                 .assertCampaignTilesCountEqual(2);
+    }
+
+    /**
+     * Covers #10974
+     */
+    @Test
+    public void test0080testMandatoryCommentFieldWhileApproving() {
+        reloginAsAdministrator();
+        importObject(SYSTEM_CONFIGURATION_WITH_CONFIGURED_ACTION);
+        reloginAsAdministrator();
+        basicPage
+                .activeCampaigns()
+                .showAllItems()
+                .table()
+                .approveWorkitemByNameWithConfirmation("userTestCertification1")
+                .assertValidationErrorExistsAfterConfirmation();
     }
 
     @Override

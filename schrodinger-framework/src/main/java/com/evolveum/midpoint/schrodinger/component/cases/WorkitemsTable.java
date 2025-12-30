@@ -20,9 +20,10 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
+import com.evolveum.midpoint.schrodinger.component.modal.ConfigurableActionConfirmationModal;
 import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
-import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 /**
  * Created by honchar
@@ -47,6 +48,14 @@ public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemPage, Wo
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         return this;
+    }
+
+    public ConfigurableActionConfirmationModal<WorkitemsTable<T>> approveWorkitemByNameWithConfirmation(String itemName) {
+        findRowByColumnLabelAndRowValue("Object", itemName)
+                .getParentElement().$x(".//i[contains(@class, 'fa-check')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
+        return new ConfigurableActionConfirmationModal<>(WorkitemsTable.this, Utils.getModalWindowSelenideElement());
     }
 
     @Override
