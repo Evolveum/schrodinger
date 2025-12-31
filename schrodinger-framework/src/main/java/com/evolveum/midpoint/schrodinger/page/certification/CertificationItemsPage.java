@@ -29,11 +29,11 @@ import static com.codeborne.selenide.Selenide.$;
 /**
  * Created by Viliam Repan (lazyman).
  */
-public class CertificationItemsPage extends ObjectListPageWithPageRedirect<WorkitemsTable, WorkitemPage> {
+public class CertificationItemsPage extends ObjectListPageWithPageRedirect<CertificationItemsTable, WorkitemPage> {
 
     @Override
-    public WorkitemsTable table() {
-        return new WorkitemsTable(this, getTableBoxElement());
+    public CertificationItemsTable<CertificationItemsPage> table() {
+        return new CertificationItemsTable<>(this, getTableBoxElement());
     }
 
     @Override
