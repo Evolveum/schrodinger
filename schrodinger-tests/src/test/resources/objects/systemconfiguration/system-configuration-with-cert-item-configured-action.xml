@@ -80,7 +80,7 @@
             <fileName>${midpoint.home}/log/midpoint.log</fileName>
             <filePattern>${midpoint.home}/log/midpoint-%d{yyyy-MM-dd}.%i.log</filePattern>
             <maxHistory>10</maxHistory>
-            <maxFileSize>100MB</maxFileSize>
+            <maxFileSize>200MB</maxFileSize>
             <append>true</append>
         </appender>
         <!-- Appender for profiling purposes -->
@@ -202,9 +202,6 @@
         <repository>
             <autoCreatePartitionsOnAdd>true</autoCreatePartitionsOnAdd>
         </repository>
-        <operationExecutionRecording>
-            <skipWhenSuccess>true</skipWhenSuccess>
-        </operationExecutionRecording>
     </internals>
     <adminGuiConfiguration>
         <homePage id="21">
@@ -500,17 +497,6 @@
             </widget>
         </homePage>
         <objectCollectionViews>
-            <defaultSettings>
-                <paging>
-                    <maxSize>20</maxSize>
-                </paging>
-                <pagingOptions>
-                    <availablePageSize>10</availablePageSize>
-                    <availablePageSize>20</availablePageSize>
-                    <availablePageSize>50</availablePageSize>
-                    <availablePageSize>100</availablePageSize>
-                </pagingOptions>
-            </defaultSettings>
             <objectCollectionView id="40">
                 <identifier>my-cases</identifier>
                 <display>
@@ -1160,17 +1146,6 @@
             </objectCollectionView>
         </objectCollectionViews>
         <objectDetails>
-            <defaultSettings>
-                <paging>
-                    <maxSize>20</maxSize>
-                </paging>
-                <pagingOptions>
-                    <availablePageSize>10</availablePageSize>
-                    <availablePageSize>20</availablePageSize>
-                    <availablePageSize>50</availablePageSize>
-                    <availablePageSize>100</availablePageSize>
-                </pagingOptions>
-            </defaultSettings>
             <objectDetailsPage id="83">
                 <type>c:TaskType</type>
                 <panel id="85">
@@ -1861,10 +1836,6 @@
         <configurableUserDashboard id="214">
             <identifier>admin-dashboard</identifier>
             <configurableDashboardRef oid="00000000-0000-0000-0001-000000000001" relation="org:default" type="c:DashboardType"/>
-        </configurableUserDashboard>
-        <configurableUserDashboard id="272">
-            <identifier>compliance-dashboard</identifier>
-            <configurableDashboardRef oid="f941f3fc-dcef-4415-9e79-ae56b185a501" type="c:DashboardType"/>
         </configurableUserDashboard>
 
         <accessRequest>
