@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evolveum.midpoint.schrodinger.component.cases;
+package com.evolveum.midpoint.schrodinger.page.certification;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfigurableActionConfirmationModal;
+import com.evolveum.midpoint.schrodinger.page.BasicPage;
+import com.evolveum.midpoint.schrodinger.page.ObjectDetailsPage;
 import com.evolveum.midpoint.schrodinger.page.cases.WorkitemPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -28,30 +29,38 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 /**
  * Created by honchar
  */
-public class WorkitemsTable<T> extends TableWithPageRedirect<T, WorkitemPage, WorkitemsTable<T>> {
+public class CertificationItemsTable<T> extends TableWithPageRedirect<T, ObjectDetailsPage, CertificationItemsTable<T>> {
 
-    public WorkitemsTable(T parent, SelenideElement parentElement) {
+    public CertificationItemsTable(T parent, SelenideElement parentElement) {
         super(parent, parentElement);
     }
 
     @Override
-    public WorkitemPage clickByName(String name) {
+    public ObjectDetailsPage clickByName(String name) {
         getParentElement().$(Schrodinger.byElementValue("span", "data-s-id", "label", name))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-        return new WorkitemPage();
+        return new ObjectDetailsPage();
     }
 
 
-    public WorkitemsTable<T> approveWorkitemByName(String itemName) {
-        findRowByColumnLabelAndRowValue("Name", itemName)
-                .getParentElement().$x(".//i[@class='fa fa-check ']")
+    public CertificationItemsTable<T> approveWorkitemByName(String itemName) {
+        findRowByColumnLabelAndRowValue("Object", itemName)
+                .getParentElement().$x(".//i[contains(@class, 'fa-check')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                 .click();
         return this;
     }
 
+    public ConfigurableActionConfirmationModal<CertificationItemsTable<T>> approveWorkitemByNameWithConfirmation(String itemName) {
+        findRowByColumnLabelAndRowValue("Object", itemName)
+                .getParentElement().$x(".//i[contains(@class, 'fa-check')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .click();
+        return new ConfigurableActionConfirmationModal<>(CertificationItemsTable.this, Utils.getModalWindowSelenideElement());
+    }
+
     @Override
-    public WorkitemPage getObjectDetailsPage() {
-        return new WorkitemPage();
+    public ObjectDetailsPage getObjectDetailsPage() {
+        return new ObjectDetailsPage();
     }
 }
