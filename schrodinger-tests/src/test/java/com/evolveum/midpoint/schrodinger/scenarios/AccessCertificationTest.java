@@ -163,23 +163,6 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
     }
 
     /**
-     * covers #10897
-     */
-    @Test
-    public void test0060actionButtonDisabledWhileTaskRunning() {
-        reloginAsAdministrator();
-        basicPage
-                .campaigns()
-                .campaignTilesListPanel()
-                .campaign(CAMPAIGN_NAME)
-                .clickActionButtonAndConfirmAction()
-                .assertActionButtonIsInProgress()
-                .and()
-                .and()
-                .assertNoConfirmationPopupVisible();
-    }
-
-    /**
      * covers MID-10901
      */
     @Test
@@ -243,7 +226,27 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .showAllItems()
                 .table()
                 .approveWorkitemByNameWithConfirmation("userTestCertification1")
-                .assertValidationErrorExistsAfterConfirmation();
+                .assertValidationErrorExistsAfterConfirmation()
+                .clickNo();
+    }
+
+    /**
+     * covers #10897
+     * This test should be the last in the queue as it changes the state of the campaign
+     * (the campaign is not in the open stage after this test anymore).
+     */
+    @Test
+    public void test9999actionButtonDisabledWhileTaskRunning() {
+        reloginAsAdministrator();
+        basicPage
+                .campaigns()
+                .campaignTilesListPanel()
+                .campaign(CAMPAIGN_NAME)
+                .clickActionButtonAndConfirmAction()
+                .assertActionButtonIsInProgress()
+                .and()
+                .and()
+                .assertNoConfirmationPopupVisible();
     }
 
     @Override
