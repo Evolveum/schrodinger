@@ -112,4 +112,22 @@ public class PolyStringTests extends AbstractSchrodingerTest {
                         .assertCurrentTableContains(TEST_USER_JOZKO_NAME);
 
     }
+
+    /**
+     * covers #10996
+     */
+    @Test
+    public void test0040origValueShouldNotBeTranslated(){
+        createUser("ObjectTypeGuiDescriptor.user");
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .resetBasicSearch()
+                .byName()
+                .inputValue("ObjectTypeGuiDescriptor.user")
+                .updateSearch()
+                .and()
+                .assertCurrentTableContains("ObjectTypeGuiDescriptor.user");
+    }
 }
