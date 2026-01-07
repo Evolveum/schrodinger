@@ -1,0 +1,29 @@
+<objectCollection xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                  xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                  xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+                  oid="82db6562-6652-4895-b6e9-afcf6e561611">
+    <name>All users over collection</name>
+    <type>UserType</type>
+    <defaultView>
+        <display>
+            <label>
+                <t:orig>test</t:orig>
+                <t:translation>
+                    <t:key>PageAdmin.menu.top.users.list</t:key>
+                </t:translation>
+            </label>
+            <singularLabel>
+                <t:orig>test</t:orig>
+                <t:translation>
+                    <t:key>SearchPanel.properties</t:key>
+                </t:translation>
+            </singularLabel>
+            <pluralLabel>
+                <t:orig>test</t:orig>
+                <t:translation>
+                    <t:key>SearchPanel.properties</t:key>
+                </t:translation>
+            </pluralLabel>
+        </display>
+    </defaultView>
+</objectCollection>
