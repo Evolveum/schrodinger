@@ -567,15 +567,18 @@ public class BasicPage {
         return getMenuItemElement(topLevelMenuValue, mainMenuKey, menuItemKey, 0);
     }
 
-    public SelenideElement getMenuItemElement(String topLevelMenuValue, String mainMenuKey, String menuItemKey, int index){
+    public SelenideElement getMenuItemElement(String topLevelMenuValue, String mainMenuKey, String menuItemKeyOrLabel, int index){
         SelenideElement mainMenu = getMainMenuItemElement(topLevelMenuValue, mainMenuKey, index);
-        if (menuItemKey == null){
+        if (menuItemKeyOrLabel == null){
             return mainMenu;
         }
 
-        SelenideElement menuItem = $(Schrodinger.byDataResourceKey(menuItemKey));
+        SelenideElement menuItem = $(Schrodinger.byDataResourceKey(menuItemKeyOrLabel));
         if (!menuItem.exists()) {
-            menuItem = $(Schrodinger.byDataResourceKey(Utils.translate(menuItemKey)));
+            menuItem = $(Schrodinger.byDataResourceKey(Utils.translate(menuItemKeyOrLabel)));
+        }
+        if (!menuItem.exists()) {
+            menuItem = $x(".//div[@data-s-id='subLabel' and contains(text(), '" + menuItemKeyOrLabel + "')]");
         }
         Utils.scrollToElement(menuItem);
         return menuItem.parent();
