@@ -27,11 +27,13 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
 
     private static final File END_USER = new File("./src/test/resources/objects/users/end-user-tasks-view-auth.xml");
     private static final File END_USER_ROLE_WITH_TASKS_VIEW_AUTH = new File("./src/test/resources/objects/roles/role-enduser-task-views-auth.xml");
+    private static final File ALL_USERS_ADDITIONAL_COLLECTION = new File("./src/test/resources/objects/objectcollections/all-users-additional-collection.xml");
     private static final File SYSTEM_CONFIG_DEFAULT = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
+    private static final File SYSTEM_CONFIG_DEFAULT_WITH_USER_COLLECTION = new File("./src/test/resources/objects/systemconfiguration/system-configuration-with-additional-users-collection.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(SYSTEM_CONFIG_DEFAULT, END_USER_ROLE_WITH_TASKS_VIEW_AUTH, END_USER);
+        return Arrays.asList(SYSTEM_CONFIG_DEFAULT, END_USER_ROLE_WITH_TASKS_VIEW_AUTH, END_USER, ALL_USERS_ADDITIONAL_COLLECTION);
     }
 
     //covers MID-9267
@@ -55,6 +57,34 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
         assertTaskMenuItemExists("Utility tasks");
         assertTaskMenuItemDoesntExists("All tasks");
         assertTaskMenuItemDoesntExists("New task");
+
+    }
+
+    //covers #10998
+    @Test
+    public void test00200testObjectCollectionViewMenuTranslated() {
+        importObject(SYSTEM_CONFIG_DEFAULT_WITH_USER_COLLECTION, true);
+        basicPage
+                .listUsers()
+                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "All users")
+                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Persons")
+                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Properties")
+                .changeLanguageAfterLogin("de")
+                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Alle Benutzer")
+                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Personen")
+                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Eigenschaften")
+                .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "All users")
+                .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Persons")
+                .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.users", "Properties");
 
     }
 
