@@ -76,13 +76,9 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
                 .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
                         "PageAdmin.menu.top.users", "Alle Benutzer")
                 .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
-                        "PageAdmin.menu.top.users", "Personen")
-                .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
                         "PageAdmin.menu.top.users", "Eigenschaften")
                 .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
                         "PageAdmin.menu.top.users", "All users")
-                .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
-                        "PageAdmin.menu.top.users", "Persons")
                 .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
                         "PageAdmin.menu.top.users", "Properties");
 

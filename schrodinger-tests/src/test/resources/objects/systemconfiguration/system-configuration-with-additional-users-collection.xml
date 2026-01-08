@@ -9,8 +9,7 @@
                      xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
                      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
                      xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
-                     xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
-                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                     xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3">
 
     <name>SystemConfiguration</name>
     <indestructible>true</indestructible>
@@ -110,11 +109,6 @@
         </closedTasks>
     </cleanupPolicy>
     <internals>
-        <shadowCaching>
-            <defaultPolicy>
-                <cachingStrategy>passive</cachingStrategy>
-            </defaultPolicy>
-        </shadowCaching>
         <tracing>
             <profile id="12">
                 <name>performance</name>
@@ -174,12 +168,6 @@
                 </tracingTypeProfile>
             </profile>
         </tracing>
-        <repository>
-            <autoCreatePartitionsOnAdd>true</autoCreatePartitionsOnAdd>
-        </repository>
-        <operationExecutionRecording>
-            <skipWhenSuccess>true</skipWhenSuccess>
-        </operationExecutionRecording>
     </internals>
     <adminGuiConfiguration>
         <homePage id="21">
@@ -437,64 +425,12 @@
                     </target>
                 </action>
             </widget>
-            <widget id="268">
-                <identifier>myCertificationItems</identifier>
-                <display>
-                    <label>
-                        <orig>Certification items</orig>
-                        <norm>certification items</norm>
-                        <translation>
-                            <key>PageCertItems.title</key>
-                        </translation>
-                    </label>
-                    <icon>
-                        <cssClass>fa fa-certificate</cssClass>
-                    </icon>
-                </display>
-                <displayOrder>50</displayOrder>
-                <panelType>myCertificationItems</panelType>
-                <previewSize>5</previewSize>
-                <action>
-                    <identifier>viewAll</identifier>
-                    <display>
-                        <label>
-                            <orig>View all</orig>
-                            <norm>view all</norm>
-                            <translation>
-                                <key>PageSelfDashboard.button.viewAll</key>
-                            </translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-search</cssClass>
-                        </icon>
-                    </display>
-                    <target>
-                        <targetUrl>/admin/certification/myActiveCampaigns</targetUrl>
-                    </target>
-                </action>
-            </widget>
         </homePage>
         <objectCollectionViews>
-            <defaultSettings>
-                <paging>
-                    <maxSize>20</maxSize>
-                </paging>
-                <pagingOptions>
-                    <availablePageSize>10</availablePageSize>
-                    <availablePageSize>20</availablePageSize>
-                    <availablePageSize>50</availablePageSize>
-                    <availablePageSize>100</availablePageSize>
-                </pagingOptions>
-            </defaultSettings>
             <objectCollectionView id="40">
                 <identifier>my-cases</identifier>
                 <display>
-                    <label>
-                        <orig>My cases</orig>
-                        <translation>
-                            <key>MyCases.title</key>
-                        </translation>
-                    </label>
+                    <label>My cases</label>
                     <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
                         <orig>My cases</orig>
@@ -517,12 +453,7 @@
             <objectCollectionView id="41">
                 <identifier>manual-case-view</identifier>
                 <display>
-                    <label>
-                        <orig>Manual cases</orig>   <!-- "Manual provisioning cases" is too long for the menu -->
-                        <translation>
-                            <key>ManualCases.label</key>
-                        </translation>
-                    </label>
+                    <label>Manual cases</label> <!-- "Manual provisioning cases" is too long for the menu -->
                     <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
                         <orig>All manual cases</orig>
@@ -543,12 +474,7 @@
             <objectCollectionView id="42">
                 <identifier>operation-request-case-view</identifier>
                 <display>
-                    <label>
-                        <orig>Requests</orig>   <!-- "Operation requests" is too long for the menu -->
-                        <translation>
-                            <key>Requests.label</key>
-                        </translation>
-                    </label>
+                    <label>Requests</label> <!-- "Operation requests" is too long for the menu -->
                     <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
                         <orig>All requests</orig>
@@ -569,12 +495,7 @@
             <objectCollectionView id="43">
                 <identifier>approval-case-view</identifier>
                 <display>
-                    <label>
-                        <orig>Approvals</orig>  <!-- "Approval cases" is too long for the menu -->
-                        <translation>
-                            <key>Approvals.label</key>
-                        </translation>
-                    </label>
+                    <label>Approvals</label> <!-- "Approval cases" is too long for the menu -->
                     <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
                         <orig>All approvals</orig>
@@ -595,12 +516,7 @@
             <objectCollectionView id="44">
                 <identifier>correlation-case-view</identifier>
                 <display>
-                    <label>
-                        <orig>Correlations</orig>  <!-- "Correlation cases" is too long for the menu -->
-                        <translation>
-                            <key>Correlations.label</key>
-                        </translation>
-                    </label>
+                    <label>Correlations</label> <!-- "Correlation cases" is too long for the menu -->
                     <!-- We need to explicitly specify plural label here. Otherwise it will be overwritten by a plural label from archetype. -->
                     <pluralLabel>
                         <orig>All correlations</orig>
@@ -668,12 +584,7 @@
             <objectCollectionView id="51">
                 <identifier>report-tasks-view</identifier>
                 <display>
-                    <label>
-                        <orig>Report task</orig>
-                        <translation>
-                            <key>ReportTask.label</key>
-                        </translation>
-                    </label>
+                    <label>Report task</label>
                     <pluralLabel>
                         <orig>Report tasks</orig>
                         <norm>report tasks</norm>
@@ -849,27 +760,7 @@
             </objectCollectionView>
             <objectCollectionView id="69">
                 <identifier>certification-tasks-view</identifier>
-                <display>
-                    <label>
-                        <orig>Certification-related task</orig>
-                        <translation>
-                            <key>CertificationRelatedTask.label</key>
-                        </translation>
-                    </label>
-                    <pluralLabel>
-                        <orig>Certification-related tasks</orig>
-                        <norm>certificationrelated tasks</norm>
-                        <translation>
-                            <key>CertificationRelatedTasks.title</key>
-                        </translation>
-                    </pluralLabel>
-                    <icon>
-                        <cssClass>fa fa-certificate</cssClass>
-                        <color>green</color>
-                    </icon>
-                </display>
                 <refreshInterval>30</refreshInterval>
-                <applicableForOperation>modify</applicableForOperation>
                 <type>TaskType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000520" relation="org:default" type="c:ArchetypeType"/>
@@ -915,7 +806,7 @@
             </objectCollectionView>
             <objectCollectionView id="75">
                 <identifier>application-role</identifier>
-                <displayOrder>180</displayOrder>
+                <applicableForOperation>add</applicableForOperation>
                 <type>RoleType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000328" relation="org:default" type="c:ArchetypeType"/>
@@ -923,7 +814,7 @@
             </objectCollectionView>
             <objectCollectionView id="76">
                 <identifier>business-role</identifier>
-                <displayOrder>190</displayOrder>
+                <applicableForOperation>add</applicableForOperation>
                 <type>RoleType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000321" relation="org:default" type="c:ArchetypeType"/>
@@ -931,6 +822,9 @@
             </objectCollectionView>
             <objectCollectionView id="77">
                 <identifier>application</identifier>
+                <display>
+                    <label>Application.panel.applications</label>
+                </display>
                 <type>ServiceType</type>
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000329" relation="org:default" type="c:ArchetypeType"/>
@@ -951,15 +845,6 @@
                 <collection>
                     <collectionRef oid="00000000-0000-0000-0000-000000000701" relation="org:default" type="c:ArchetypeType">
                         <!-- Object mark -->
-                    </collectionRef>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="269">
-                <identifier>shadow-policy-mark</identifier>
-                <type>c:MarkType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000705" relation="org:default" type="c:ArchetypeType">
-                        <!-- Shadow policy mark -->
                     </collectionRef>
                 </collection>
             </objectCollectionView>
@@ -1001,12 +886,7 @@
                                 </q:text>
                             </filter>
                             <display>
-                                <label>
-                                    <orig>Users with account</orig>
-                                    <translation>
-                                        <key>searchItem.usersWithAccount.label</key>
-                                    </translation>
-                                </label>
+                                <label>Users with account</label>
                             </display>
                             <parameter>
                                 <name>resourceParameter</name>
@@ -1028,12 +908,7 @@
                                 </q:text>
                             </filter>
                             <display>
-                                <label>
-                                    <orig>Users without account</orig>
-                                    <translation>
-                                        <key>searchItem.usersWithoutAccount.label</key>
-                                    </translation>
-                                </label>
+                                <label>Users without account</label>
                             </display>
                             <parameter>
                                 <name>resourceParameter</name>
@@ -1044,142 +919,21 @@
                     </searchItems>
                 </searchBoxConfiguration>
             </objectCollectionView>
-            <objectCollectionView>
-                <identifier>resource-templates</identifier>
-                <display>
-                    <label>
-                        <orig>Resource templates</orig>
-                        <translation>
-                            <key>ResourceType.templates.title</key>
-                        </translation>
-                    </label>
-                    <pluralLabel>
-                        <orig>All resource templates</orig>
-                        <translation>
-                            <key>ResourceType.template.all.title</key>
-                        </translation>
-                    </pluralLabel>
-                    <singularLabel>Resource template</singularLabel>
-                    <icon>
-                        <cssClass>fa fa-file-alt</cssClass>
-                    </icon>
-                </display>
-                <type>ResourceType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0001-000000000340" relation="org:default" type="c:ObjectCollectionType">
-                    </collectionRef>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="100"> <!-- TODO: change id as needed -->
-                <identifier>classification-view</identifier>
-                <display>
-                    <label>
-                        <orig>Classifications</orig>
-                        <translation>
-                            <key>classifications.pluralLabel</key>
-                        </translation>
-                    </label>
-                    <singularLabel>
-                        <orig>Classification</orig>
-                        <translation>
-                            <key>classification.label</key>
-                        </translation>
-                    </singularLabel>
-                    <tooltip>Information classifications (labels)</tooltip>
-                </display>
-                <displayOrder>200</displayOrder>
-                <type>PolicyType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000330" relation="org:default" type="c:ArchetypeType">
-                    </collectionRef>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="101"> <!-- TODO: change id as needed -->
-                <identifier>clearance-view</identifier>
-                <display>
-                    <label>
-                        <orig>Clearances</orig>
-                        <translation>
-                            <key>clearance.pluralLabel</key>
-                        </translation>
-                    </label>
-                    <singularLabel>
-                        <orig>Clearance</orig>
-                        <translation>
-                            <key>clearance.label</key>
-                        </translation>
-                    </singularLabel>
-                    <tooltip>Security clearances</tooltip>
-                </display>
-                <displayOrder>210</displayOrder>
-                <type>PolicyType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000331" relation="org:default" type="c:ArchetypeType">
-                    </collectionRef>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="254">
-                <identifier>shadow-reclassification-tasks-view</identifier>
-                <refreshInterval>30</refreshInterval>
-                <type>TaskType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000523" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="259">
-                <identifier>certification-campaign-open-next-stage-tasks-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
-                <refreshInterval>30</refreshInterval>
-                <type>TaskType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000534" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
-            <objectCollectionView id="260">
-                <identifier>certification-campaign-remediation-tasks-view</identifier>
-                <applicableForOperation>add</applicableForOperation>
-                <refreshInterval>30</refreshInterval>
-                <type>TaskType</type>
-                <collection>
-                    <collectionRef oid="00000000-0000-0000-0000-000000000535" relation="org:default" type="c:ArchetypeType"/>
-                </collection>
-            </objectCollectionView>
         </objectCollectionViews>
         <objectDetails>
-            <defaultSettings>
-                <paging>
-                    <maxSize>20</maxSize>
-                </paging>
-                <pagingOptions>
-                    <availablePageSize>10</availablePageSize>
-                    <availablePageSize>20</availablePageSize>
-                    <availablePageSize>50</availablePageSize>
-                    <availablePageSize>100</availablePageSize>
-                </pagingOptions>
-            </defaultSettings>
             <objectDetailsPage id="83">
                 <type>c:TaskType</type>
                 <panel id="85">
                     <identifier>advanced-options-panel</identifier>
                     <display>
-                        <label>
-                            <orig>Advanced options</orig>
-                            <translation>
-                                <key>TaskType.advancedOptions</key>
-                            </translation>
-                        </label>
+                        <label>Advanced options</label>
                     </display>
                     <panelType>formPanel</panelType>
                     <container id="87">
                         <identifier>advanced-options</identifier>
                         <displayOrder>150</displayOrder>
                         <display>
-                            <label>
-                                <orig>Advanced options</orig>
-                                <translation>
-                                    <key>TaskType.advancedOptions</key>
-                                </translation>
-                            </label>
+                            <label>Advanced options</label>
                         </display>
                         <item id="88">
                             <c:path>cleanupAfterCompletion</c:path>
@@ -1194,33 +948,18 @@
                             <c:path>dependent</c:path>
                         </item>
                     </container>
-                    <container id="1">
-                        <identifier>execution-constraints</identifier>
-                        <path>executionConstraints</path>
-                        <expanded>true</expanded>
-                    </container>
                 </panel>
                 <panel id="86">
                     <identifier>operational-attributes-panel</identifier>
                     <display>
-                        <label>
-                            <orig>Operational attributes</orig>
-                            <translation>
-                                <key>TaskType.operationalAttributes</key>
-                            </translation>
-                        </label>
+                        <label>Operational attributes</label>
                     </display>
                     <panelType>formPanel</panelType>
                     <container id="92">
                         <identifier>operational-attributes</identifier>
                         <displayOrder>900</displayOrder>
                         <display>
-                            <label>
-                                <orig>Operational attributes (state)</orig>
-                                <translation>
-                                    <key>operationalAttributes.state.container.label</key>
-                                </translation>
-                            </label>
+                            <label>Operational attributes (state)</label>
                         </display>
                         <item id="94">
                             <c:path>executionState</c:path>
@@ -1291,12 +1030,7 @@
                         <visibility>hidden</visibility>
                         <identifier>operation-attributes-progress</identifier>
                         <display>
-                            <label>
-                                <orig>Operational attributes (progress)</orig>
-                                <translation>
-                                    <key>operationalAttributes.progress.container.label</key>
-                                </translation>
-                            </label>
+                            <label>Operational attributes (progress)</label>
                         </display>
                         <item id="115">
                             <c:path>progress</c:path>
@@ -1315,14 +1049,8 @@
                 <panel id="118">
                     <identifier>applications</identifier>
                     <display>
-                        <label>
-                            <orig>Applications</orig>
-                            <translation>
-                                <key>Application.panel.applications</key>
-                            </translation>
-                        </label>
+                        <label>Application.panel.applications</label>
                     </display>
-                    <applicableForOperation>modify</applicableForOperation>
                     <panelType>roleMemberships</panelType>
                     <listView>
                         <identifier>applications</identifier>
@@ -1335,40 +1063,6 @@
                                 <visibility>hidden</visibility>
                                 <defaultValue>ServiceType</defaultValue>
                                 <supportedTypes>ServiceType</supportedTypes>
-                            </objectTypeConfiguration>
-                        </searchBoxConfiguration>
-                    </listView>
-                </panel>
-                <panel id="123">
-                    <identifier>clearances</identifier>
-                    <display>
-                        <label>
-                            <orig>Clearances</orig>
-                            <translation>
-                                <key>clearance.pluralLabel</key>
-                            </translation>
-                        </label>
-                        <icon>
-                            <cssClass>fa fa-award</cssClass>
-                        </icon>
-                    </display>
-                    <panelType>roleAssignments</panelType>
-                    <listView>
-                        <identifier>clearances-view</identifier>
-                        <type>c:AssignmentType</type>
-                        <dataProvider xsi:type="c:RepositoryAssignmentDataProviderType"/>
-                        <collection>
-                            <filter>
-                                <q:text>targetRef/@/archetypeRef matches ( oid = "00000000-0000-0000-0000-000000000331" )</q:text>
-                            </filter>
-                            <!--                            <collectionRef oid="00000000-0000-0000-0000-000000000331" type="c:ArchetypeType">
-                                                        </collectionRef> -->
-                        </collection>
-                        <searchBoxConfiguration>
-                            <objectTypeConfiguration>
-                                <visibility>hidden</visibility>
-                                <defaultValue>RoleType</defaultValue>
-                                <supportedTypes>RoleType</supportedTypes>
                             </objectTypeConfiguration>
                         </searchBoxConfiguration>
                     </listView>
@@ -1406,13 +1100,8 @@
                             <path>schemaHandling/objectType/default</path>
                             <visibility>visible</visibility>
                         </item>
-                        <item id="268">
-                            <path>schemaHandling/objectType/lifecycleState</path>
-                            <visibility>visible</visibility>
-                        </item>
                     </container>
                     <container id="131">
-                        <identifier>objectType</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType</path>
                     </container>
@@ -1447,7 +1136,6 @@
                         </item>
                     </container>
                     <container id="139">
-                        <identifier>delineation-hidden</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/delineation</path>
                     </container>
@@ -1486,7 +1174,6 @@
                         </item>
                     </container>
                     <container id="146">
-                        <identifier>limitations</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/attribute/limitations</path>
                     </container>
@@ -1513,7 +1200,6 @@
                         </item>
                     </container>
                     <container id="154">
-                        <identifier>reaction</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/synchronization/reaction</path>
                     </container>
@@ -1540,55 +1226,8 @@
                         </item>
                     </container>
                     <container id="159">
-                        <identifier>reaction</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/synchronization/reaction</path>
-                    </container>
-                    <panelType>rw-synchronization-reaction-optional</panelType>
-                </panel>
-                <panel id="261">
-                    <identifier>rw-association-synchronization-reaction-main</identifier>
-                    <container id="262">
-                        <identifier>associationReactionMainSetting</identifier>
-                        <display>
-                            <label>PageResource.wizard.step.synchronization.reaction.mainSettings</label>
-                        </display>
-                        <item id="263">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/name</path>
-                            <visibility>visible</visibility>
-                        </item>
-                        <item id="264">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/description</path>
-                            <visibility>visible</visibility>
-                        </item>
-                        <item id="265">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/situation</path>
-                            <visibility>visible</visibility>
-                        </item>
-                    </container>
-                    <container id="266">
-                        <identifier>associationReactionMain</identifier>
-                        <visibility>hidden</visibility>
-                        <path>schemaHandling/associationType/subject/association/synchronization/reaction</path>
-                    </container>
-                    <panelType>rw-synchronization-reaction-main</panelType>
-                </panel>
-                <panel id="255">
-                    <identifier>rw-association-synchronization-reaction-optional</identifier>
-                    <container id="256">
-                        <identifier>associationReactionOptionalSetting</identifier>
-                        <display>
-                            <label>PageResource.wizard.step.synchronization.reaction.optionalSettings</label>
-                        </display>
-                        <item id="257">
-                            <path>schemaHandling/associationType/subject/association/synchronization/reaction/order</path>
-                            <visibility>visible</visibility>
-                        </item>
-                    </container>
-                    <container id="258">
-                        <identifier>associationReactionOptional</identifier>
-                        <visibility>hidden</visibility>
-                        <path>schemaHandling/associationType/subject/association/synchronization/reaction</path>
                     </container>
                     <panelType>rw-synchronization-reaction-optional</panelType>
                 </panel>
@@ -1635,17 +1274,8 @@
                             <path>schemaHandling/objectType/attribute/matchingRule</path>
                             <visibility>visible</visibility>
                         </item>
-                        <item id="270">
-                            <path>schemaHandling/objectType/attribute/volatility/incoming/operation</path>
-                            <visibility>visible</visibility>
-                        </item>
-                        <item id="271">
-                            <path>schemaHandling/objectType/attribute/volatility/outgoing/operation</path>
-                            <visibility>visible</visibility>
-                        </item>
                     </container>
                     <container id="164">
-                        <identifier>attribute</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/attribute</path>
                     </container>
@@ -1706,13 +1336,8 @@
                             <path>schemaHandling/objectType/association/explicitReferentialIntegrity</path>
                             <visibility>visible</visibility>
                         </item>
-                        <item id="253">
-                            <path>schemaHandling/objectType/association/tolerant</path>
-                            <visibility>visible</visibility>
-                        </item>
                     </container>
                     <container id="175">
-                        <identifier>association-hidden</identifier>
                         <visibility>hidden</visibility>
                         <path>schemaHandling/objectType/association</path>
                     </container>
@@ -1750,7 +1375,6 @@
                         </item>
                     </container>
                     <container id="190">
-                        <identifier>configurationProperties</identifier>
                         <visibility>hidden</visibility>
                         <path>connectorConfiguration/configurationProperties</path>
                     </container>
@@ -1759,7 +1383,16 @@
                 <connectorRef type="ConnectorType">
                     <resolutionTime>run</resolutionTime>
                     <filter>
-                        <q:text>connectorType = 'org.identityconnectors.databasetable.DatabaseTableConnector' and available = true</q:text>
+                        <q:and>
+                            <q:equal>
+                                <q:path>connectorType</q:path>
+                                <q:value>org.identityconnectors.databasetable.DatabaseTableConnector</q:value>
+                            </q:equal>
+                            <q:equal>
+                                <q:path>available</q:path>
+                                <q:value>true</q:value>
+                            </q:equal>
+                        </q:and>
                     </filter>
                 </connectorRef>
             </resourceDetailsPage>
@@ -1790,7 +1423,6 @@
                         </item>
                     </container>
                     <container id="200">
-                        <identifier>configurationProperties</identifier>
                         <visibility>hidden</visibility>
                         <path>connectorConfiguration/configurationProperties</path>
                     </container>
@@ -1799,7 +1431,16 @@
                 <connectorRef type="ConnectorType">
                     <resolutionTime>run</resolutionTime>
                     <filter>
-                        <q:text>connectorType = 'com.evolveum.polygon.connector.ldap.LdapConnector' and available = true</q:text>
+                        <q:and>
+                            <q:equal>
+                                <q:path>connectorType</q:path>
+                                <q:value>com.evolveum.polygon.connector.ldap.LdapConnector</q:value>
+                            </q:equal>
+                            <q:equal>
+                                <q:path>available</q:path>
+                                <q:value>true</q:value>
+                            </q:equal>
+                        </q:and>
                     </filter>
                 </connectorRef>
             </resourceDetailsPage>
@@ -1830,7 +1471,6 @@
                         </item>
                     </container>
                     <container id="208">
-                        <identifier>configurationProperties</identifier>
                         <visibility>hidden</visibility>
                         <path>connectorConfiguration/configurationProperties</path>
                     </container>
@@ -1839,7 +1479,16 @@
                 <connectorRef type="ConnectorType">
                     <resolutionTime>run</resolutionTime>
                     <filter>
-                        <q:text>connectorType = 'com.evolveum.polygon.connector.ldap.ad.AdLdapConnector' and available = true</q:text>
+                        <q:and>
+                            <q:equal>
+                                <q:path>connectorType</q:path>
+                                <q:value>com.evolveum.polygon.connector.ldap.ad.AdLdapConnector</q:value>
+                            </q:equal>
+                            <q:equal>
+                                <q:path>available</q:path>
+                                <q:value>true</q:value>
+                            </q:equal>
+                        </q:and>
                     </filter>
                 </connectorRef>
             </resourceDetailsPage>
@@ -1848,11 +1497,6 @@
             <identifier>admin-dashboard</identifier>
             <configurableDashboardRef oid="00000000-0000-0000-0001-000000000001" relation="org:default" type="c:DashboardType"/>
         </configurableUserDashboard>
-        <configurableUserDashboard id="272">
-            <identifier>compliance-dashboard</identifier>
-            <configurableDashboardRef oid="f941f3fc-dcef-4415-9e79-ae56b185a501" type="c:DashboardType"/>
-        </configurableUserDashboard>
-
         <accessRequest>
             <roleCatalog>
                 <collection id="215">
@@ -1870,28 +1514,7 @@
                 </collection>
             </roleCatalog>
         </accessRequest>
-
     </adminGuiConfiguration>
-
-    <!--<roleAnalysis>-->
-    <!--    <attributeStatistics>-->
-    <!--        <type>UserType</type>-->
-    <!--        <path>title</path>-->
-    <!--        <path>locality</path>-->
-    <!--        <path>archetypeRef</path>-->
-    <!--        <path>extension/manager</path>-->
-    <!--        <assignment>-->
-    <!--            <targetType></targetType>-->
-    <!--            <rootOrgRef oid="my-root-department-oid" /> &lt;!&ndash; or archetypeRef &ndash;&gt;-->
-    <!--            <archetypeRef oid="department-archetype-oid" /> &lt;!&ndash; or rootOrgRef &ndash;&gt;-->
-    <!--        </assignment>-->
-    <!--        <organization>-->
-    <!--            <rootOrgRef oid="my-root-department-oid" /> &lt;!&ndash; or archetypeRef &ndash;&gt;-->
-    <!--            <archetypeRef oid="department-archetype-oid" /> &lt;!&ndash; or rootOrgRef &ndash;&gt;-->
-    <!--        </organization>-->
-    <!--    </attributeStatistics>-->
-
-    <!--</roleAnalysis>-->
 
     <expressions>
         <expressionProfile id="218">
