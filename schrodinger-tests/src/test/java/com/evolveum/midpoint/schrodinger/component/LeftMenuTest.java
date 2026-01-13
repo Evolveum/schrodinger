@@ -63,6 +63,7 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
     //covers #10998
     @Test
     public void test00200testObjectCollectionViewMenuTranslated() {
+        reloginAsAdministrator();
         importObject(SYSTEM_CONFIG_DEFAULT_WITH_USER_COLLECTION, true);
         basicPage
                 .listUsers()
