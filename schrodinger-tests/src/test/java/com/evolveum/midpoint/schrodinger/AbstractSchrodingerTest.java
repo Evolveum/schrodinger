@@ -874,4 +874,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         basicPage.loggedUser().logoutIfUserIsLogin();
         midPoint.formLogin().login(getUsername(), getPassword());
     }
+
+    protected void loginAsUser(String username, String password) {
+        basicPage.loggedUser().logoutIfUserIsLogin();
+        midPoint.formLogin().login(username, password);
+    }
 }

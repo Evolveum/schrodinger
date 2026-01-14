@@ -1,0 +1,106 @@
+<accessCertificationCampaign xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="1f4475b0-84c6-4f6a-8550-200c723b150c" version="3">
+    <name>Certification of critical roles 1</name>
+    <description>Certification of critical roles. First the review is done by users' managers, then by Elaine the Governor.</description>
+    <iteration>1</iteration>
+    <definitionRef oid="33333333-0000-0000-0000-000000000003" relation="org:default" type="c:AccessCertificationDefinitionType">
+        <!-- Certification of critical roles -->
+    </definitionRef>
+    <ownerRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+        <!-- administrator -->
+    </ownerRef>
+    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/certification/handlers-3#direct-assignment</handlerUri>
+    <scopeDefinition xsi:type="c:AccessCertificationAssignmentReviewScopeType">
+        <objectType>UserType</objectType>
+        <includeRoles>true</includeRoles>
+        <includeOrgs>false</includeOrgs>
+        <includeResources>false</includeResources>
+        <relation>default</relation>
+        <includeAssignments>true</includeAssignments>
+        <includeInducements>true</includeInducements>
+        <includeServices>true</includeServices>
+        <includeUsers>true</includeUsers>
+        <includePolicies>true</includePolicies>
+        <enabledItemsOnly>true</enabledItemsOnly>
+    </scopeDefinition>
+    <remediationDefinition>
+        <style>automated</style>
+    </remediationDefinition>
+    <stageDefinition id="3">
+        <number>1</number>
+        <duration>P3D</duration>
+        <deadlineRounding>hour</deadlineRounding>
+        <notifyOnlyWhenNoDecision>false</notifyOnlyWhenNoDecision>
+        <reviewerSpecification>
+            <useTargetOwner>false</useTargetOwner>
+            <useTargetApprover>false</useTargetApprover>
+            <useObjectOwner>false</useObjectOwner>
+            <useObjectApprover>false</useObjectApprover>
+            <defaultReviewerRef oid="9f3a2c4e-7b6d-4a91-b8f3-2c6d9a1e4f72" relation="org:default" type="c:UserType">
+            </defaultReviewerRef>
+        </reviewerSpecification>
+        <outcomeStrategy>oneAcceptAccepts</outcomeStrategy>
+        <outcomeIfNoReviewers>accept</outcomeIfNoReviewers>
+        <stopReviewOn>revoke</stopReviewOn>
+    </stageDefinition>
+    <reviewStrategy>
+        <outcomeStrategy>allMustAccept</outcomeStrategy>
+        <advanceToNextStageOn>delegate</advanceToNextStageOn>
+    </reviewStrategy>
+    <startTimestamp>2026-01-13T14:55:10.349+01:00</startTimestamp>
+    <state>inReviewStage</state>
+    <stageNumber>1</stageNumber>
+    <stage id="259">
+        <iteration>1</iteration>
+        <number>1</number>
+        <startTimestamp>2026-01-13T14:55:10.254+01:00</startTimestamp>
+    </stage>
+    <case id="255" xsi:type="c:AccessCertificationAssignmentCaseType">
+        <objectRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+            <!-- administrator -->
+        </objectRef>
+        <targetRef oid="00000000-0000-0000-0000-000000000004" relation="org:default" type="c:RoleType">
+            <!-- Superuser -->
+        </targetRef>
+        <activation>
+            <effectiveStatus>enabled</effectiveStatus>
+        </activation>
+        <stageNumber>1</stageNumber>
+        <iteration>1</iteration>
+        <workItem id="256">
+            <stageNumber>1</stageNumber>
+            <originalAssigneeRef oid="9f3a2c4e-7b6d-4a91-b8f3-2c6d9a1e4f72" relation="org:default" type="c:UserType">
+            </originalAssigneeRef>
+            <assigneeRef oid="9f3a2c4e-7b6d-4a91-b8f3-2c6d9a1e4f72" relation="org:default" type="c:UserType">
+            </assigneeRef>
+            <iteration>1</iteration>
+        </workItem>
+        <currentStageCreateTimestamp>2026-01-13T14:55:10.254+01:00</currentStageCreateTimestamp>
+        <currentStageOutcome>http://midpoint.evolveum.com/xml/ns/public/model/certification/outcome#noResponse</currentStageOutcome>
+        <outcome>http://midpoint.evolveum.com/xml/ns/public/model/certification/outcome#noResponse</outcome>
+        <assignment id="1">
+            <_metadata id="253">
+                <storage>
+                    <createTimestamp>2026-01-12T14:14:00.180+01:00</createTimestamp>
+                    <createChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#init</createChannel>
+                </storage>
+                <process>
+                    <requestTimestamp>2026-01-12T14:14:00.053+01:00</requestTimestamp>
+                </process>
+                <provenance>
+                    <acquisition id="254">
+                        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#init</channel>
+                        <timestamp>2026-01-12T14:14:00.053+01:00</timestamp>
+                    </acquisition>
+                </provenance>
+            </_metadata>
+            <identifier>superuserRole</identifier>
+            <targetRef oid="00000000-0000-0000-0000-000000000004" relation="org:default" type="c:RoleType">
+                <!-- Superuser -->
+            </targetRef>
+            <activation>
+                <effectiveStatus>enabled</effectiveStatus>
+            </activation>
+        </assignment>
+        <isInducement>false</isInducement>
+    </case>
+</accessCertificationCampaign>

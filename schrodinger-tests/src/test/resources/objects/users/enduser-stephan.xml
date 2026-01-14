@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2010-2021 Evolveum
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+      xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+        oid="9f3a2c4e-7b6d-4a91-b8f3-2c6d9a1e4f72">
+    <name>stephan</name>
+    <assignment>
+        <targetRef oid="00001110-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
+        </targetRef>
+    </assignment>
+    <assignment>
+        <targetRef oid="00000000-0000-0000-0000-00000000000b" relation="org:default" type="c:RoleType">
+        </targetRef>
+    </assignment>
+
+    <credentials>
+        <password>
+            <value>
+                <t:clearValue>Test5ecr3t</t:clearValue>
+            </value>
+        </password>
+    </credentials>
+</user>

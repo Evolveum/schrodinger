@@ -22,6 +22,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 /**
  * Created by honchar
@@ -33,8 +34,12 @@ public class ReportConfigurationModal<T> extends ModalBox<T>{
     }
 
     public T runReport() {
-        SelenideElement runReportButton = getParentElement().$(Schrodinger.byDataId("a", "runReport")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement runReportButton = getParentElement()
+                .$(Schrodinger.byDataId("a", "runReport"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         runReportButton.click();
+        Utils.waitForAjaxCallFinish();
+        getParentElement().shouldBe(Condition.disappear, MidPoint.TIMEOUT_LONG_20_S);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return getParent();
     }

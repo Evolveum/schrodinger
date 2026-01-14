@@ -118,6 +118,13 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return this;
     }
 
+    public TaskPage assertDownloadReportButtonNotVisible() {
+        SelenideElement button = $(Schrodinger.byDataResourceKey("PageTask.download.report"));
+        assertion.assertTrue(!button.exists(),
+                "'Download report' button shouldn't be visible but it is.");
+        return this;
+    }
+
     public ConfirmationModal<TaskPage> cleanupEnvironmentalPerformanceInfo() {
         $x(".//i[contains(@class, \"fa fa-chart-area\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();

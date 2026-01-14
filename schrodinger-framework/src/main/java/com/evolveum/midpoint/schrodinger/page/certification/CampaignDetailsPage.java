@@ -30,4 +30,18 @@ public class CampaignDetailsPage extends AssignmentHolderDetailsPage<CampaignDet
         return $(Schrodinger.byDataId("div", "buttonsContainer"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S).parent();
     }
+
+    public CampaignDetailsPage assertCreateReportButtonVisible() {
+        SelenideElement button = getButtonPanelElement().$x(".//div[@role='button and contains(text(), 'Create report')']");
+        assertion.assertTrue(button.exists() && button.isDisplayed(),
+                "'Create report' button should be visible but it isn't.");
+        return CampaignDetailsPage.this;
+    }
+
+    public CampaignDetailsPage assertCreateReportButtonNotVisible() {
+        SelenideElement button = getButtonPanelElement().$x(".//div[@role='button' and contains(text(), 'Create report')]");
+        assertion.assertTrue(!button.exists(),
+                "'Create report' button should not be visible but it is.");
+        return CampaignDetailsPage.this;
+    }
 }
