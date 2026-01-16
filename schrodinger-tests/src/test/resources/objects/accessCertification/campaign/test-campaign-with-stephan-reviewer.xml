@@ -5,7 +5,7 @@
     <definitionRef oid="33333333-0000-0000-0000-000000000003" relation="org:default" type="c:AccessCertificationDefinitionType">
         <!-- Certification of critical roles -->
     </definitionRef>
-    <ownerRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+    <ownerRef oid="9f3a2c4e-7b6d-4a91-b8f3-2c6d9a1e4f72" relation="org:default" type="c:UserType">
         <!-- administrator -->
     </ownerRef>
     <handlerUri>http://midpoint.evolveum.com/xml/ns/public/certification/handlers-3#direct-assignment</handlerUri>

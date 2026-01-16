@@ -37,7 +37,7 @@ public class ReportTests extends AbstractSchrodingerTest {
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(ENDUSER_ROLE_WITH_REPORT_RESTRICTIONS, ENDUSER_STEPHAN, TEST_CAMPAIGN_WITH_STEPHAN_REVIEWER,
+        return Arrays.asList(ENDUSER_ROLE_WITH_REPORT_RESTRICTIONS, ENDUSER_STEPHAN,
                 AUDIT_REPORT_DATA, EXPORT_TASK_FOR_AUDIT_RECORDS);
     }
 
@@ -161,6 +161,8 @@ public class ReportTests extends AbstractSchrodingerTest {
      */
     @Test
     public void test00400denyCreateReport() {
+        reloginAsAdministrator();
+        importObject(TEST_CAMPAIGN_WITH_STEPHAN_REVIEWER);
         loginAsUser("stephan", "Test5ecr3t");
         final String createReportButtonIcon = "fa fa-chart-pie";
         basicPage
