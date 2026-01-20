@@ -162,7 +162,7 @@ public class ReportTests extends AbstractSchrodingerTest {
     @Test
     public void test00400denyCreateReport() {
         reloginAsAdministrator();
-        importObject(TEST_CAMPAIGN_WITH_STEPHAN_REVIEWER);
+        importObject(TEST_CAMPAIGN_WITH_STEPHAN_REVIEWER, true, true);
         loginAsUser("stephan", "Test5ecr3t");
         final String createReportButtonIcon = "fa fa-chart-pie";
         basicPage
@@ -192,7 +192,7 @@ public class ReportTests extends AbstractSchrodingerTest {
                 .and()
                 .campaigns()
                 .selectTableView()
-                .clickByName("Certification of critical roles 1")
+                .clickByName("All user assignments 1")
                 .assertCreateReportButtonNotVisible();
         basicPage
                 .listReports()

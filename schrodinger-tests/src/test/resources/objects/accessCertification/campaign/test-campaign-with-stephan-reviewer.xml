@@ -1,12 +1,10 @@
 <accessCertificationCampaign xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="1f4475b0-84c6-4f6a-8550-200c723b150c" version="3">
-    <name>Certification of critical roles 1</name>
-    <description>Certification of critical roles. First the review is done by users' managers, then by Elaine the Governor.</description>
+    <name>All user assignments 1</name>
+    <description>Certifies all users' assignments</description>
     <iteration>1</iteration>
-    <definitionRef oid="33333333-0000-0000-0000-000000000003" relation="org:default" type="c:AccessCertificationDefinitionType">
-        <!-- Certification of critical roles -->
+    <definitionRef oid="185040c0-220d-4173-8119-6f32ccd50715" relation="org:default" type="c:AccessCertificationDefinitionType">
     </definitionRef>
     <ownerRef oid="9f3a2c4e-7b6d-4a91-b8f3-2c6d9a1e4f72" relation="org:default" type="c:UserType">
-        <!-- administrator -->
     </ownerRef>
     <handlerUri>http://midpoint.evolveum.com/xml/ns/public/certification/handlers-3#direct-assignment</handlerUri>
     <scopeDefinition xsi:type="c:AccessCertificationAssignmentReviewScopeType">
