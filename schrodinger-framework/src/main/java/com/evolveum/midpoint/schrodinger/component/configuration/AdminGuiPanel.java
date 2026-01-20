@@ -18,6 +18,8 @@ package com.evolveum.midpoint.schrodinger.component.configuration;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
+import com.evolveum.midpoint.schrodinger.component.common.PrismContainerPanel;
+import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.page.configuration.SystemPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
@@ -31,34 +33,43 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
     }
 
     public SystemPage addNewObjectCollection(String identifier, String type, String objectCollectionType, String objectCollectionName) {
-        objectCollectionViewsPanel()
+        return addNewObjectCollection(identifier, type, objectCollectionType, objectCollectionName, true);
+    }
+
+    public SystemPage addNewObjectCollection(String identifier, String type, String objectCollectionType,
+                                             String objectCollectionName, boolean userIdentifierForLabel) {
+        PrismForm<PrismContainerPanel<PrismForm<ObjectCollectionViewsPanel>>> viewPanel = objectCollectionViewsPanel()
                 .clickAddButton()
-                    .getPrismContainerPanel("GuiObjectListViewType.details.newValue")
-                        .getContainerFormFragment()
-                        .addAttributeValue("Identifier", identifier)
-                        .setDropDownAttributeValue("Type", type)
-                            .getPrismContainerPanel("Display")
-                                .getContainerFormFragment()
-                                .addAttributeValue("Label", identifier)
-                                .addAttributeValue("Singular label", identifier)
-                                .addAttributeValue("Plural label", identifier)
-                            .and()
-                        .and()
-                            .getPrismContainerPanel("Collection")
-                                .getContainerFormFragment()
-                                .editRefValue("Collection ref")
-                                    .selectType(objectCollectionType)
-                                    .table()
-                                        .search()
-                                            .byName()
-                                            .inputValue(objectCollectionName)
-                                        .updateSearch()
-                                    .and()
-                                    .clickByName(objectCollectionName)
-                                .and()
-                            .and()
-                        .and()
+                .getPrismContainerPanel("GuiObjectListViewType.details.newValue")
+                .getContainerFormFragment()
+                .addAttributeValue("Identifier", identifier)
+                .setDropDownAttributeValue("Type", type);
+        if (userIdentifierForLabel) {
+            viewPanel = viewPanel
+                    .getPrismContainerPanel("Display")
+                    .getContainerFormFragment()
+                    .addAttributeValue("Label", identifier)
+                    .addAttributeValue("Singular label", identifier)
+                    .addAttributeValue("Plural label", identifier)
                     .and()
+                    .and();
+        }
+        viewPanel
+                .getPrismContainerPanel("Collection")
+                .getContainerFormFragment()
+                .editRefValue("Collection ref")
+                .selectType(objectCollectionType)
+                .table()
+                .search()
+                .byName()
+                .inputValue(objectCollectionName)
+                .updateSearch()
+                .and()
+                .clickByName(objectCollectionName)
+                .and()
+                .and()
+                .and()
+                .and()
                 .and()
                 .and()
                 .clickSave();
