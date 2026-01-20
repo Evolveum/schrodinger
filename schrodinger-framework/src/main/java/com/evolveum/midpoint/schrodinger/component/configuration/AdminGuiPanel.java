@@ -32,7 +32,12 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
     }
 
     public SystemPage addNewObjectCollection(String identifier, String type, String objectCollectionType, String objectCollectionName) {
-        objectCollectionViewsPanel()
+        return addNewObjectCollection(identifier, type, objectCollectionType, objectCollectionName, true);
+    }
+
+    public SystemPage addNewObjectCollection(String identifier, String type, String objectCollectionType,
+                                             String objectCollectionName, boolean userIdentifierForLabel) {
+        ObjectCollectionViewDetailsPanel viewPanel = objectCollectionViewsPanel()
                 .clickAddButton()
                 .selectBasicPanel()
                     .getPrismContainerPanel("GuiObjectListViewType.details.newValue")
@@ -41,16 +46,20 @@ public class AdminGuiPanel extends PanelWithContainerWrapper<SystemPage> {
                         .setDropDownAttributeValue("Type", type)
                 .and()
                 .and()
-                .and()
-                .selectDisplayPanel()
-                            .getPrismContainerPanel("Display")
-                                .getContainerFormFragment()
-                                .addAttributeValue("Label", identifier)
-                                .addAttributeValue("Singular label", identifier)
-                                .addAttributeValue("Plural label", identifier)
-                            .and()
-                        .and()
-                .and()
+                .and();
+        if (userIdentifierForLabel) {
+            viewPanel = viewPanel
+                    .selectDisplayPanel()
+                    .getPrismContainerPanel("Display")
+                    .getContainerFormFragment()
+                    .addAttributeValue("Label", identifier)
+                    .addAttributeValue("Singular label", identifier)
+                    .addAttributeValue("Plural label", identifier)
+                    .and()
+                    .and()
+                    .and();
+        }
+        viewPanel
                 .selectCollectionPanel()
                             .getPrismContainerPanel("Collection")
                                 .getContainerFormFragment()
