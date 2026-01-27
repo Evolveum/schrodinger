@@ -18,6 +18,8 @@ package com.evolveum.midpoint.schrodinger.page;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Selenide.open;
 
 /**
@@ -25,6 +27,11 @@ import static com.codeborne.selenide.Selenide.open;
  */
 
 public class HomePageTest extends AbstractSchrodingerTest {
+
+    protected static final File TEST_ROLE_WITH_ADMIN_GUI_CONFIG = new File("src/test/resources/objects/roles/role-with-same-container-id.xml");
+    protected static final File TEST_ENDUSER = new File("src/test/resources/objects/users/enduser-with-custom-admin-gui-config.xml");
+    private static final String ENDUSER_NAME = "enduserWithCustomAdminGuiConfig";
+    private static final String ENDUSER_PASSWORD = "Test5ecr3t";
 
     @Test
     public void test001OpenPageWithSlashOnEndOfUrl() {
@@ -39,4 +46,20 @@ public class HomePageTest extends AbstractSchrodingerTest {
         //when request will be redirect to error page, then couldn't click on home menu button
         basicPage.home();
     }
+
+    //covers #11045
+    @Test
+    public void test0030mergeAdminGuiConfigurationWithSameContainerId() {
+        reimportDefaultSystemConfigurationAndRelogin();
+        importObject(TEST_ROLE_WITH_ADMIN_GUI_CONFIG, true);
+        importObject(TEST_ENDUSER, true);
+
+        loginAsUser(ENDUSER_NAME, ENDUSER_PASSWORD);
+        basicPage
+                .home()
+                .assertMyAccessesWidgetVisible()
+                .assertMyAccountsWidgetVisible()
+                .assertMyRequestsWidgetVisible();
+    }
+
 }
