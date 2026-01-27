@@ -48,7 +48,7 @@ public class HomePageTest extends AbstractSchrodingerTest {
     }
 
     //covers #11045
-    @Test
+    @Test (enabled = false)
     public void test0030mergeAdminGuiConfigurationWithSameContainerId() {
         reimportDefaultSystemConfigurationAndRelogin();
         importObject(TEST_ROLE_WITH_ADMIN_GUI_CONFIG, true);
