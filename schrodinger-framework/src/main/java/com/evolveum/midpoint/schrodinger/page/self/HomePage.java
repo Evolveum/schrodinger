@@ -78,4 +78,39 @@ public class HomePage extends BasicPage {
          }
          return null;
     }
+
+    public HomePage assertMyAccessesWidgetVisible() {
+        SelenideElement table = getTableWidgetElementByHeaderTitle("My accesses");
+        assertion.assertTrue(table != null && table.exists() && table.isDisplayed(),
+                "'My accesses' widget is not displayed though it should be.");
+        return HomePage.this;
+    }
+
+    public HomePage assertMyRequestsWidgetVisible() {
+        SelenideElement table = getTableWidgetElementByHeaderTitle("My requests");
+        assertion.assertTrue(table != null && table.exists() && table.isDisplayed(),
+                "'My requests' widget is not displayed though it should be.");
+        return HomePage.this;
+    }
+
+    public HomePage assertMyAccountsWidgetVisible() {
+        SelenideElement table = getTableWidgetElementByHeaderTitle("My accounts");
+        assertion.assertTrue(table != null && table.exists() && table.isDisplayed(),
+                "'My accounts' widget is not displayed though it should be.");
+        return HomePage.this;
+    }
+
+    public HomePage assertMyWorkItemsWidgetVisible() {
+        SelenideElement table = getTableWidgetElementByHeaderTitle("My work items");
+        assertion.assertTrue(table != null && table.exists() && table.isDisplayed(),
+                "'My work items' widget is not displayed though it should be.");
+        return HomePage.this;
+    }
+
+    public HomePage assertCertificationItemsWidgetVisible() {
+        SelenideElement table = getTableWidgetElementByHeaderTitle("Certification items");
+        assertion.assertTrue(table != null && table.exists() && table.isDisplayed(),
+                "'Certification items' widget is not displayed though it should be.");
+        return HomePage.this;
+    }
 }
