@@ -121,6 +121,10 @@ public class BasicPage {
         return newUser("All users");
     }
 
+    public UserPage newPerson() {
+        return newUser("Person");
+    }
+
     public UserPage newUser(String templateTitle) {
         clickAdministrationMenu("PageAdmin.menu.top.users", "PageAdmin.menu.top.users.new");
         getPageTitleElement().shouldBe(Condition.text("New"), MidPoint.TIMEOUT_MEDIUM_6_S);
