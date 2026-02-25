@@ -155,9 +155,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
         // Covers MID-11077 where the password change in resetPassword form was logged as Self Service
         // check audit log after resetPassword if all operations was logged as Reset password
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        login = midPoint.formLogin();
-        basicPage = login.loginIfUserIsNotLog(username, password);
+        reloginAsAdministrator();
 
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable<AuditLogViewerPage> auditRecordsTable = auditLogViewer.table();
