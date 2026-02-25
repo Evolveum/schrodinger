@@ -66,9 +66,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test00101MultipleProtectedStringTypeFieldsInSamePanel() {
-        basicPage.loggedUser().logoutIfUserIsLogin();
-        FormLoginPage login = midPoint.formLogin();
-        basicPage = login.loginIfUserIsNotLog(username, password);
+        reloginAsAdministrator();
 
         basicPage.newPerson()
                 .selectBasicPanel()
@@ -94,7 +92,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
 
         basicPage.loggedUser().logout();
 
-        login = new FormLoginPage();
+        FormLoginPage login = new FormLoginPage();
         login.login("ProtectedStringTypeTest", "Password123*")
                 .assertUserMenuExist();
     }
