@@ -207,12 +207,12 @@ public class BasicPage {
     }
 
     public ListResourcesPage listResources() {
-        clickAdministrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.list");
+        clickIntegrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.list");
         return new ListResourcesPage();
     }
 
     public NewResourcePanel newResource() {
-        clickAdministrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.new");
+        clickIntegrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.new");
         return new NewResourcePanel(new ResourceWizardPage());
     }
 
@@ -378,12 +378,12 @@ public class BasicPage {
     }
 
     public ImportResourceDefinitionPage importResourceDefinition() {
-        clickAdministrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.import");
+        clickIntegrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.resources.import");
         return new ImportResourceDefinitionPage();
     }
 
     public ListConnectorHostsPage listConnectorHosts() {
-        clickAdministrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.connectorHosts.list");
+        clickIntegrationMenu("PageAdmin.menu.top.resources", "PageAdmin.menu.top.connectorHosts.list");
         return new ListConnectorHostsPage();
     }
 
@@ -479,6 +479,10 @@ public class BasicPage {
 
     private void clickAdministrationMenu(String mainMenuKey, String menuItemKey) {
         clickMenuItem(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey);
+    }
+
+    private void clickIntegrationMenu(String mainMenuKey, String menuItemKey) {
+        clickMenuItem(ConstantsUtil.INTEGRATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey);
     }
 
     public BasicPage assertAdministrationMenuItemIconClassEquals(String mainMenuKey, String menuItemKey, String expectedIconClass){

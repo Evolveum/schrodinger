@@ -24,6 +24,7 @@ public class ConstantsUtil {
     public static final String ADMINISTRATION_MENU_ITEMS_SECTION_VALUE = "ADMINISTRATION";
     public static final String SELF_SERVICE_MENU_ITEMS_SECTION_VALUE = "SELF SERVICE";
     public static final String CONFIGURATION_MENU_ITEMS_SECTION_VALUE = "CONFIGURATION";
+    public static final String INTEGRATION_MENU_ITEMS_SECTION_VALUE = "INTEGRATION";
     public static final String MENU_TOP_CASES = "PageAdmin.menu.top.cases";
     public static final String MENU_ALL_CASES = "PageAdmin.menu.top.cases.list";
 
