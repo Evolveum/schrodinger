@@ -72,6 +72,10 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewer
         checkTextInColumn(row, 4, name);
     }
 
+    public void checkChannel(int row, String name) {
+        checkTextInColumn(row, 7, name);
+    }
+
     public void checkOutcome(int row, String name) {
         checkTextInColumn(row, 8, name);
     }
@@ -84,6 +88,12 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewer
         } else {
             getCell(row, column).shouldHave(Condition.text(name));
         }
+    }
+
+    public void checkRow(int row, String initiatorName, String channelName, String outcome) {
+        checkInitiator(row, initiatorName);
+        checkChannel(row, channelName);
+        checkOutcome(row, outcome);
     }
 
     public SelenideElement getCell(int row, int column) {

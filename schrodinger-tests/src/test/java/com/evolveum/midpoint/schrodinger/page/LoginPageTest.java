@@ -19,8 +19,10 @@ package com.evolveum.midpoint.schrodinger.page;
 import com.codeborne.selenide.Selenide;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.report.AuditRecordTable;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
+import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +33,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -123,7 +123,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         open("/login");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
         open("/");
-        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
+        login.loginWithReloadLoginPage(username, password);
         importObject(SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         basicPage.loggedUser().logoutIfUserIsLogin();
         login.forgotPassword();
@@ -152,6 +152,18 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .changePassword();
 
         login.loginWithReloadLoginPage(NAME_OF_RESET_PASSWORD_TEST_USER, newPassword).assertUserMenuExist();
+
+        // Covers MID-11077 where the password change in resetPassword form was logged as Self Service
+        // check audit log after resetPassword if all operations was logged as Reset password
+        reloginAsAdministrator();
+
+        AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
+        AuditRecordTable<AuditLogViewerPage> auditRecordsTable = auditLogViewer.table();
+        auditRecordsTable.checkRow(6, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "Success");
+        auditRecordsTable.checkRow(7, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "");
+        auditRecordsTable.checkRow(8, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "Success");
+        auditRecordsTable.checkRow(9, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "Success");
+        auditRecordsTable.checkRow(10, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "");
     }
 
     @Test
