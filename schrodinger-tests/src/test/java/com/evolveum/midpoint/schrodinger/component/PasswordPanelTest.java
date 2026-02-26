@@ -61,5 +61,39 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
                 .assertUserMenuExist();
     }
 
+    /**
+     * Covers MID-11072
+     */
+    @Test
+    public void test00101MultipleProtectedStringTypeFieldsInSamePanel() {
+        reloginAsAdministrator();
 
+        basicPage.newPerson()
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Name", "ProtectedStringTypeTest")
+                .and()
+                .formContainer("2")
+                .addProtectedAttributeValue("secretPassword", "Password123")
+                .addProtectedAttributeValue("Value", "Password123*")
+                .and()
+                .and()
+                .selectAssignmentsPanel()
+                .clickAddAssignment()
+                .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
+                .table()
+                .selectRowByName("End user")
+                .and()
+                .clickAdd()
+                .and()
+                .clickSave()
+                .feedback()
+                .isSuccess();
+
+        basicPage.loggedUser().logout();
+
+        FormLoginPage login = new FormLoginPage();
+        login.login("ProtectedStringTypeTest", "Password123*")
+                .assertUserMenuExist();
+    }
 }

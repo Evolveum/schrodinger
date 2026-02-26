@@ -63,6 +63,19 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
+    public PrismForm<T> addProtectedAttributeValue(String name, String value) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(name);
+
+        ElementsCollection values = property.$$x(".//div[contains(@class, \"prism-property-value\")]");
+        if (values.size() >= 1) {
+            values.first().$x(".//*[@data-s-id='password1' and contains(@class,\"form-control\")]").setValue(value);
+            values.first().$x(".//*[@data-s-id='password2' and contains(@class,\"form-control\")]").setValue(value);
+        }
+
+        return this;
+    }
+
     public PrismForm<T> removeAttributeValue(String name, String value) {
         SelenideElement property = findProperty(name);
         if (property != null && property.$(Schrodinger.byDataResourceKey("removeButton")).exists()) {
