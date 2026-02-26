@@ -1,0 +1,59 @@
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+           xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+           xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+           xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="00000000-0000-0000-0000-000000000702">
+    <name>Person</name>
+    <description>Archetype for person users.</description>
+    <assignment id="1">
+        <identifier>holderType</identifier>
+        <activation/>
+        <assignmentRelation id="2">
+            <holderType>UserType</holderType>
+        </assignmentRelation>
+    </assignment>
+    <activation/>
+    <archetypePolicy>
+        <display>
+            <label>
+                <t:orig>Person</t:orig>
+                <t:norm>person</t:norm>
+                <t:translation>
+                    <t:key>Person.label</t:key>
+                </t:translation>
+            </label>
+            <pluralLabel>
+                <t:orig>Persons</t:orig>
+                <t:norm>persons</t:norm>
+                <t:translation>
+                    <t:key>Persons.pluralLabel</t:key>
+                </t:translation>
+            </pluralLabel>
+            <tooltip>Person</tooltip>
+            <icon>
+                <cssClass>fa fa-user</cssClass>
+                <color>green</color>
+            </icon>
+        </display>
+        <objectTemplateRef oid="00000000-0000-0000-0000-000000000380" relation="org:default" type="c:ObjectTemplateType"/>
+        <adminGuiConfiguration>
+            <objectDetails>
+                <type>UserType</type>
+                <panel>
+                    <identifier>basic</identifier>
+                    <container>
+                        <identifier>validity</identifier>
+                        <display>
+                            <label>Passwords</label>
+                        </display>
+                        <item>
+                            <path>extension/secretPassword</path>
+                        </item>
+                        <item>
+                            <path>credentials/password/value</path>
+                        </item>
+                    </container>
+                </panel>
+            </objectDetails>
+        </adminGuiConfiguration>
+    </archetypePolicy>
+</archetype>

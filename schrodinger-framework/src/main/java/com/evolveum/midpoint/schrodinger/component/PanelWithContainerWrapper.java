@@ -34,4 +34,9 @@ public class PanelWithContainerWrapper<P> extends Component<P, PanelWithContaine
         SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "class", "container-wrapper"));
         return new PrismForm<T>((T) this, element);
     }
+
+    public <T extends PanelWithContainerWrapper<P>> PrismForm<T> formContainer(final String containerDataSid) {
+        SelenideElement element = getParentElement().$(Schrodinger.byElementAttributeValue("div", "data-s-id", containerDataSid));
+        return new PrismForm<T>((T) this, element);
+    }
 }
