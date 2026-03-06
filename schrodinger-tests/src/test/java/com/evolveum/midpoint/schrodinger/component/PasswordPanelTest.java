@@ -66,6 +66,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test00101MultipleProtectedStringTypeFieldsInSamePanel() {
+        basicPage.loggedUser().logout();
         reimportDefaultSystemConfigurationAndRelogin();
 
         basicPage.newPerson()
