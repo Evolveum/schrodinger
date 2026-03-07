@@ -16,6 +16,7 @@
 
 package com.evolveum.midpoint.schrodinger.component;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
@@ -90,7 +91,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
                 .clickSave()
                 .feedback()
                 .isSuccess();
-
+        Selenide.screenshot("00101MultipleProtectedStringTypeFieldsInSamePanel.png");
         basicPage.loggedUser().logout();
 
         FormLoginPage login = new FormLoginPage();
