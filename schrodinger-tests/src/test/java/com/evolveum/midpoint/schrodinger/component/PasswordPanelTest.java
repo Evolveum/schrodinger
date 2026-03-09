@@ -16,13 +16,24 @@
 
 package com.evolveum.midpoint.schrodinger.component;
 
-import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 public class PasswordPanelTest extends AbstractSchrodingerTest {
+
+    private static final File CUSTOM_PERSON_ARCHETYPE_FILE = new File("./src/test/resources/objects/archetypes/archetype-person.xml");
+    protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
+
+    @Override
+    protected List<File> getObjectListToImport() {
+        return Arrays.asList(CUSTOM_PERSON_ARCHETYPE_FILE, SYSTEM_CONFIGURATION_INITIAL_FILE);
+    }
 
     /**
      * Covers MID-9333
@@ -55,8 +66,8 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
         FormLoginPage login = new FormLoginPage();
         login.login("PasswordPanelTest", "Password123")
                 .assertUserMenuDoesntExist()
-                        .feedback()
-                                .assertError();
+                .feedback()
+                .assertError();
 
         login.login("PasswordPanelTest", "Password123 ")
                 .assertUserMenuExist();
@@ -67,8 +78,7 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test00101MultipleProtectedStringTypeFieldsInSamePanel() {
-        basicPage.loggedUser().logout();
-        reimportDefaultSystemConfigurationAndRelogin();
+        reloginAsAdministrator();
 
         basicPage.newPerson()
                 .selectBasicPanel()
@@ -91,7 +101,6 @@ public class PasswordPanelTest extends AbstractSchrodingerTest {
                 .clickSave()
                 .feedback()
                 .isSuccess();
-        Selenide.screenshot("00101MultipleProtectedStringTypeFieldsInSamePanel.png");
         basicPage.loggedUser().logout();
 
         FormLoginPage login = new FormLoginPage();
