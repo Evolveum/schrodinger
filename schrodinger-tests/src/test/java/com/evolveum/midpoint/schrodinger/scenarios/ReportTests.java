@@ -156,6 +156,130 @@ public class ReportTests extends AbstractSchrodingerTest {
     }
 
     /**
+     * Tests if the admin user see 'Csv export' and 'Xlsx export' buttons in the object list table toolbar.
+     * Also, user should see Download report button on the task details page
+     */
+    @Test
+    public void test00301CsvXlsxExportVisible() {
+        loginAsUser(username, password);
+        final String exportButtonIcon = "fa fa-download";
+        basicPage
+                .listUsers()// users page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)
+                .clickExportButton()
+                .clickExportOption("CSV export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .table()
+                .clickExportButton()
+                .clickExportOption("XLSX export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .listRoles()// roles page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)
+                .clickExportButton()
+                .clickExportOption("CSV export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .table()
+                .clickExportButton()
+                .clickExportOption("XLSX export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .auditLogViewer()// audit log page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)//TODO
+//                .clickExportButton()
+//                .clickExportOption("CSV export")
+//                .table()
+//                .assertTableRowExists("Column name", "Name")
+//                .and()
+//                .cancel()
+//                .table()
+//                .clickExportButton()
+//                .clickExportOption("XLSX export")
+//                .table()
+//                .assertTableRowExists("Column name", "Name")
+//                .and()
+//                .cancel()
+                .and()
+                .createdReports()// created report page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)
+                .clickExportButton()
+                .clickExportOption("CSV export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .table()
+                .clickExportButton()
+                .clickExportOption("XLSX export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .listServices()// services page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)
+                .clickExportButton()
+                .clickExportOption("CSV export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .table()
+                .clickExportButton()
+                .clickExportOption("XLSX export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .listArchetypes()// archetypes page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)
+                .clickExportButton()
+                .clickExportOption("CSV export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .table()
+                .clickExportButton()
+                .clickExportOption("XLSX export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .listTasks()// tasks page
+                .table()
+                .assertToolbarButtonExists(exportButtonIcon)
+                .clickExportButton()
+                .clickExportOption("CSV export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel()
+                .table()
+                .clickExportButton()
+                .clickExportOption("XLSX export")
+                .table()
+                .assertTableRowExists("Column name", "Name")
+                .and()
+                .cancel();
+    }
+
+    /**
      * Tests if the user doesn't see 'Create report' button in the object list table toolbar.
      * Also, checks if the user doesn't see 'Create report' button on the campaigns details page.
      */
