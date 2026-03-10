@@ -20,21 +20,16 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
-import com.evolveum.midpoint.schrodinger.component.common.InlineMenu;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
+import com.evolveum.midpoint.schrodinger.component.modal.ExportPopupPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
-import com.evolveum.midpoint.schrodinger.page.ObjectDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
-import org.openqa.selenium.By;
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.screenshot;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Created by matus on 5/2/2018.
@@ -63,23 +58,23 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
         return dropDownMenu;
     }
 
-    protected  void clickMenu(String columnTitleKey, String rowValue, String menuItemKey) {
+    protected void clickMenu(String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
     }
 
-    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation
+    protected <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickMenuItemWithConfirmation
             (String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
 
-    protected  <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation
+    protected <P extends TableWithPageRedirect<T, DP, TWPR>> ConfirmationModal<P> clickButtonMenuItemWithConfirmation
             (String columnTitleKey, String rowValue, String iconClass) {
         clickMenuItemButton(columnTitleKey, rowValue, iconClass);
         return new ConfirmationModal<P>((P) this, Utils.getModalWindowSelenideElement());
     }
 
-    protected  <P extends TableWithPageRedirect> FocusSetAssignmentsModal<P> clickMenuItemWithFocusSetAssignmentsModal
+    protected <P extends TableWithPageRedirect> FocusSetAssignmentsModal<P> clickMenuItemWithFocusSetAssignmentsModal
             (String columnTitleKey, String rowValue, String menuItemKey) {
         clickMenuItem(columnTitleKey, rowValue, menuItemKey);
         return new FocusSetAssignmentsModal<P>((P) this, Utils.getModalWindowSelenideElement());
@@ -88,11 +83,12 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
     /**
      * click menu item for the row specified by columnTitleKey and rowValue
      * or click menu item from header menu drop down if no row is specified
+     *
      * @param columnTitleKey
      * @param rowValue
      * @param menuItemKey
      */
-    private void clickMenuItem(String columnTitleKey, String rowValue, String menuItemKey){
+    private void clickMenuItem(String columnTitleKey, String rowValue, String menuItemKey) {
         Utils.waitForAjaxCallFinish();
         if (columnTitleKey == null && rowValue == null) {
             SelenideElement menuItem = clickAndGetHeaderDropDownMenu()
@@ -112,24 +108,25 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
     /**
      * click button menu for the row specified by columnTitleKey and rowValue
      * or click button menu from header if no row is specified
+     *
      * @param columnTitleKey
      * @param rowValue
      * @param iconClass
      */
-    public void clickMenuItemButton(String columnTitleKey, String rowValue, String iconClass){
+    public void clickMenuItemButton(String columnTitleKey, String rowValue, String iconClass) {
         if (columnTitleKey == null && rowValue == null) {
             clickHeaderInlineMenuButton(iconClass);
         } else {
             TableRow tableRow = rowByColumnResourceKey(columnTitleKey, rowValue);
             assertion.assertNotNull(tableRow, "Unable to find table row with columnTitleKey='" + columnTitleKey
-                    + "' and rowValue='" + rowValue + "'; ") ;
+                    + "' and rowValue='" + rowValue + "'; ");
             tableRow
                     .getInlineMenu()
                     .clickInlineMenuButtonByIconClass(iconClass);
         }
     }
 
-    public DP newObjectButtonByCssClick(String iconCssClass){
+    public DP newObjectButtonByCssClick(String iconCssClass) {
         if (!getToolbarButtonByCss(iconCssClass).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
@@ -152,7 +149,7 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
         return getObjectDetailsPage();
     }
 
-    public DP newObjectButtonByTitleClick(String buttonTitle){
+    public DP newObjectButtonByTitleClick(String buttonTitle) {
         if (!getToolbarButtonByTitleKey(buttonTitle).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
@@ -170,5 +167,22 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
 
     public abstract DP getObjectDetailsPage();
 
+    public TableWithPageRedirect<T, DP, TWPR> clickExportButton() {
+        getToolbarButtonByCss("fa fa-download")
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Selenide.sleep(2000);
+        return this;
+    }
 
+    public ExportPopupPanel<T> clickExportOption(String exportOption) {
+        $x(".//a[@data-s-id='" + getNameMenuItemId() + "' and contains(text(), '" + exportOption + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.sleep(2000);
+        return new ExportPopupPanel<>(getParent(), Utils.getModalWindowSelenideElement());
+    }
+
+    protected String getNameMenuItemId() {
+        return "menuItemLink";
+    }
 }
