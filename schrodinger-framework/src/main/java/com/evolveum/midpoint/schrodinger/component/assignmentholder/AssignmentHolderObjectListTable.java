@@ -62,6 +62,10 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return "title";
     }
 
+    protected String getNameMenuItemId() {
+        return "menuItemLink";
+    }
+
     public Duration getDetailsPageLoadingTimeToWait() {
         return MidPoint.TIMEOUT_DEFAULT_2_S;
     }
@@ -95,10 +99,17 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         return this;
     }
 
-    public ExportPopupPanel<P> clickExportButton() {
+    public AssignmentHolderObjectListTable<P, PD, T> clickExportButton() {
         getToolbarButtonByCss("fa fa-download")
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
+        Selenide.sleep(2000);
+        return this;
+    }
+
+    public ExportPopupPanel<P> clickExportOption(String exportOption) {
+        $x(".//a[@data-s-id='" + getNameMenuItemId() + "' and contains(text(), '" + exportOption + "')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(2000);
         return new ExportPopupPanel<>(getParent(), Utils.getModalWindowSelenideElement());
     }

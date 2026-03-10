@@ -23,8 +23,6 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.search.Search;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRedirect;
-import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
-import com.evolveum.midpoint.schrodinger.page.cases.CasePage;
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.lang3.StringUtils;
@@ -51,7 +49,7 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewer
     }
 
     public AuditLogViewerDetailsPage openDetailsPageForTargetObject(String targetObjectName) {
-        TableRow<?,?> row = rowByColumnResourceKey("Target", targetObjectName);
+        TableRow<?, ?> row = rowByColumnResourceKey("Target", targetObjectName);
         row.clickColumnByName("Time");
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new AuditLogViewerDetailsPage();
@@ -99,9 +97,9 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewer
     public SelenideElement getCell(int row, int column) {
         SelenideElement tbody = getParentElement().$(Schrodinger.byElementAttributeValue("tbody", "data-s-id", "body")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         ElementsCollection rowsElement = tbody.findAll(By.tagName("tr"));
-        SelenideElement rowElement = rowsElement.get(row > 0 ? (row-1) : row);
+        SelenideElement rowElement = rowsElement.get(row > 0 ? (row - 1) : row);
         ElementsCollection columnsElement = rowElement.findAll(By.tagName("td"));
-        return columnsElement.get(column > 0 ? (column-1) : column);
+        return columnsElement.get(column > 0 ? (column - 1) : column);
     }
 
     @Override

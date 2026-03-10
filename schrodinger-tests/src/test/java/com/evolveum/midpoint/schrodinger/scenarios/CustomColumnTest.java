@@ -81,6 +81,7 @@ public class CustomColumnTest extends AbstractSchrodingerTest {
         basicPage.listUsers("Custom columns view")
                 .table()
                 .clickExportButton()
+                .clickExportOption("CSV export")
                 .table()
                 .assertTableRowExists("Column name", "Name (custom)")
                 .assertTableRowExists("Column name", "Role membership")
