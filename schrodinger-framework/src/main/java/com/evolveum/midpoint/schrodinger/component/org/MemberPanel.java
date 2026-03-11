@@ -48,8 +48,8 @@ public class MemberPanel<T> extends Component<T, MemberPanel<T>> {
     }
 
     public ChooseFocusTypeAndRelationModal<MemberPanel<T>> newMember() {
-        SelenideElement mainButton = $(By.xpath(".//a[@data-s-id='button'][@title='Create member']"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).parent();
+        SelenideElement mainButton = $x(".//a[@data-s-id='button'][@title='Create member']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         if (!mainButton.$x(".//div[@data-s-id='additionalButton']").is(Condition.exist)) {
             mainButton.click();
             Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
