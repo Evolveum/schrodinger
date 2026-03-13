@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.evolveum.midpoint.client.api.ObjectAddService;
 import com.evolveum.midpoint.client.api.exception.CommonException;
@@ -28,7 +29,6 @@ import com.evolveum.midpoint.prism.PrismObject;
 import com.evolveum.midpoint.prism.util.PrismContextFactory;
 import com.evolveum.midpoint.schema.MidPointPrismContextFactory;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
-import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
 import com.evolveum.midpoint.schrodinger.component.resource.ResourceAccountsPanel;
@@ -42,11 +42,9 @@ import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
-import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
-import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
@@ -57,6 +55,7 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openqa.selenium.WindowType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +70,9 @@ import org.xml.sax.SAXException;
 
 import java.io.*;
 import java.util.*;
+
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -257,8 +259,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected EnvironmentConfiguration buildEnvironmentConfiguration() throws IOException {
-        EnvironmentConfiguration config = new EnvironmentConfiguration();
-        config.driver(WebDriver.valueOf(getConfigurationPropertyValue("webdriver")));
+        EnvironmentConfiguration config = new EnvironmentConfiguration()
+                .driver(WebDriver.valueOf(getConfigurationPropertyValue("webdriver")));
 
         if (Boolean.parseBoolean(getConfigurationPropertyValue("useRemoteWebdriver"))) {
             config.useRemoteWebdriver(true);
@@ -266,10 +268,12 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         } else {
             config.driverLocation(getConfigurationPropertyValue("webdriverLocation"));
         }
-        config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")));
-        config.locale(getConfigurationPropertyValue("locale"));
         String urlPropertyName = startMidpoint ? "base_url" : "base_url_mp_already_started";
-        config.baseUrl(getConfigurationPropertyValue(urlPropertyName));
+        config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")))
+                .locale(getConfigurationPropertyValue("locale"))
+                .baseUrl(getConfigurationPropertyValue(urlPropertyName))
+                .amountOfTabs(Integer.parseInt(getConfigurationPropertyValue("amountOfTabs")))
+                .amountOfWindows(Integer.parseInt(getConfigurationPropertyValue("amountOfWindows")));
 
         return config;
     }
@@ -293,15 +297,15 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected void resetToDefault() {
-        midPoint.formLogin().loginIfUserIsNotLog(username, password);
-
-        LOG.info("Cleaning up midPoint.");
-
-        AboutPage aboutPage = basicPage.aboutPage();
-        aboutPage
-                .clickSwitchToFactoryDefaults()
-                .clickYes();
-        Selenide.sleep(60000); //todo go to task page and wait the task to be finished
+//        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+//
+//        LOG.info("Cleaning up midPoint.");
+//
+//        AboutPage aboutPage = basicPage.aboutPage();
+//        aboutPage
+//                .clickSwitchToFactoryDefaults()
+//                .clickYes();
+//        Selenide.sleep(60000); //todo go to task page and wait the task to be finished
     }
 
     /**
@@ -879,4 +883,73 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         basicPage.loggedUser().logoutIfUserIsLogin();
         midPoint.formLogin().login(username, password);
     }
+
+    protected void prepareTabs() {
+        reloginAsAdministrator();
+
+        int amountOfTabs = configuration.getAmountOfTabs();
+
+        if (amountOfTabs <= 1) {
+            return;
+        }
+
+        for (int i = 0; i < amountOfTabs - 1; i++) {
+            openNewTab();
+        }
+
+        switchToTab(0);
+    }
+
+    protected void prepareWindows() {
+        reloginAsAdministrator();
+
+        int amountOfWindows = configuration.getAmountOfWindows();
+
+        if (amountOfWindows <= 1) {
+            return;
+        }
+
+        for (int i = 0; i < amountOfWindows - 1; i++) {
+            openNewWindow();
+        }
+
+        switchToTab(0);
+    }
+
+    private void openNewTab() {
+        switchTo().newWindow(WindowType.TAB);
+        open("/");
+    }
+
+    private void openNewWindow() {
+        switchTo().newWindow(WindowType.WINDOW);
+        open("/");
+    }
+
+    /**
+     * todo be aware, in the docs it's said that indexes can be inconsistent
+     * may be set tab/window name?
+     * @param tabIndex
+     */
+    protected void switchToTab(int tabIndex) {
+        if (tabIndex < 0) {
+            LOG.error("Tab index cannot be less then 0.");
+            return;
+        }
+        Set<String> tabs = WebDriverRunner.getWebDriver().getWindowHandles();
+        if (tabIndex >= tabs.size()) {
+            LOG.error("Tab index cannot exceed the amount of the opened tabs.");
+            return;
+        }
+        switchTo().window(tabIndex);
+    }
+
+    /**
+     * Opens the tab by page title; or window/tab name; or handle.
+     * @param nameOrHandleOrTitle
+     */
+    protected void switchToTab(@NotNull String nameOrHandleOrTitle) {
+        switchTo().window(nameOrHandleOrTitle);
+    }
+
 }
