@@ -87,21 +87,21 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
         refreshResourceSchema(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
         basicPage.listResources()
                 .table()
-                    .clickByName("CSV (target with groups) authoritative")
-                        .selectAccountsPanel()
-                        .tasks()
-                            .clickCreateTask()
-                            .liveSynchronizationTask()
-                            .clickCreateTaskButton()
-                                .configuration()
-                                    .name("LiveSyncTest")
+                .clickByName("CSV (target with groups) authoritative")
+                .selectAccountsPanel()
+                .tasks()
+                .clickCreateTask()
+                .liveSynchronizationTask()
+                .clickCreateTaskButton()
+                .configuration()
+                .name("LiveSyncTest")
                 .next()
                 .nextToSchedule()
                 .interval("5")
                 .next()
                 .saveAndRun()
-                                    .feedback()
-                                    .assertSuccess();
+                .feedback()
+                .assertSuccess();
     }
 
 
@@ -282,25 +282,26 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
     @Test(priority = 7, dependsOnMethods = {LINKED_USER_ACCOUNT_DELETED})
     public void test0080resourceAccountCreatedWhenResourceUnreachable() throws IOException {
 
-        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME,  ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath()+"err", false);
+        File csvTargetFileParent = csvTargetFile.getParentFile();
+        File incorrectFile = new File(csvTargetFileParent, csvTargetFile.getName() + "err");
 
-        FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
-
-        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.toMillis());
+        // can't change resource CSV file path as it would not go through validation
+        FileUtils.moveFile(csvTargetFile, incorrectFile);
 
         ListUsersPage usersPage = basicPage.listUsers();
         usersPage
-                    .table()
-                        .search()
-                            .byName()
-                            .inputValue(ScenariosCommons.TEST_USER_DON_NAME)
-                        .updateSearch()
-                    .and()
-                    .assertCurrentTableDoesntContain(ScenariosCommons.TEST_USER_DON_NAME);
+                .table()
+                .search()
+                .byName()
+                .inputValue(ScenariosCommons.TEST_USER_DON_NAME)
+                .updateSearch()
+                .and()
+                .assertCurrentTableDoesntContain(ScenariosCommons.TEST_USER_DON_NAME);
 
-        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME, ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(), true);
+        FileUtils.delete(incorrectFile);
+        FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
 
-        ListTasksPage  tasksPage = basicPage.listTasks();
+        ListTasksPage tasksPage = basicPage.listTasks();
         tasksPage
                 .table()
                 .search()
@@ -316,13 +317,13 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
 
         usersPage = basicPage.listUsers();
         usersPage
-                    .table()
-                        .search()
-                            .byName()
-                            .inputValue(ScenariosCommons.TEST_USER_DON_NAME)
-                        .updateSearch()
-                    .and()
-                    .assertCurrentTableContains(ScenariosCommons.TEST_USER_DON_NAME);
+                .table()
+                .search()
+                .byName()
+                .inputValue(ScenariosCommons.TEST_USER_DON_NAME)
+                .updateSearch()
+                .and()
+                .assertCurrentTableContains(ScenariosCommons.TEST_USER_DON_NAME);
     }
 
     @Test (priority = 8, dependsOnMethods = {RESOURCE_ACCOUNT_CREATED_WHEN_UNREACHABLE})
@@ -353,12 +354,16 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                     .assertSuccess();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.toMillis());
 
-        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME , ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath()+"err",false);
+        File csvTargetFileParent = csvTargetFile.getParentFile();
+        File incorrectFile = new File(csvTargetFileParent, csvTargetFile.getName() + "err");
 
-        FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
+        // can't change resource CSV file path as it would not go through validation
+        FileUtils.moveFile(csvTargetFile, incorrectFile);
+
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.toMillis());
 
-        changeResourceAttribute(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME , ScenariosCommons.CSV_RESOURCE_ATTR_FILE_PATH, csvTargetFile.getAbsolutePath(),true);
+        FileUtils.delete(incorrectFile);
+        FileUtils.copyFile(ScenariosCommons.CSV_SOURCE_FILE, csvTargetFile);
 
         ListTasksPage  tasksPage = basicPage.listTasks();
         tasksPage
