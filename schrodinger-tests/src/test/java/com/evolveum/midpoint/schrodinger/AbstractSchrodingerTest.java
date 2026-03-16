@@ -114,6 +114,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     private boolean startMidpoint = true;
 
+    private final Map<String, String> windowIdHandleMap = new HashMap<>();
+    public static final String FIRST_TAB_ID = "firstTab";
+
     public EnvironmentConfiguration getConfiguration() {
         return configuration;
     }
@@ -250,6 +253,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         String locale = getConfigurationPropertyValue("locale");
         LOG.info("Logging to midpoint with credentials: " + username + "-" + password);
         basicPage = login.loginIfUserIsNotLog(username, password, locale);
+        windowIdHandleMap.put(FIRST_TAB_ID, WebDriverRunner.getWebDriver().getWindowHandle());
 
         if (resetToDefaultBeforeTests()) {
             resetToDefaultAndRelogin();
@@ -884,7 +888,25 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         midPoint.formLogin().login(username, password);
     }
 
-    protected void prepareTabs() {
+    protected BasicPage tab(String tabId) {
+        if (tabExists(tabId)) {
+            switchToTab(windowIdHandleMap.get(tabId));
+        } else {
+            openNewTab(tabId);
+        }
+        return basicPage;
+    }
+
+    private boolean tabExists(String tabId) {
+        if (!windowIdHandleMap.containsKey(tabId)) {
+            return false;
+        }
+        String windowHandle = windowIdHandleMap.get(tabId);
+        Set<String> tabs = WebDriverRunner.getWebDriver().getWindowHandles();
+        return tabs.stream().anyMatch(t -> t.equals(windowHandle));
+    }
+
+    private void prepareTabs() {
         reloginAsAdministrator();
 
         int amountOfTabs = configuration.getAmountOfTabs();
@@ -894,13 +916,13 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         }
 
         for (int i = 0; i < amountOfTabs - 1; i++) {
-            openNewTab();
+            openNewTab("" + i);
         }
 
         switchToTab(0);
     }
 
-    protected void prepareWindows() {
+    private void prepareWindows() {
         reloginAsAdministrator();
 
         int amountOfWindows = configuration.getAmountOfWindows();
@@ -916,9 +938,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         switchToTab(0);
     }
 
-    private void openNewTab() {
+    private void openNewTab(String tabId) {
         switchTo().newWindow(WindowType.TAB);
         open("/");
+        windowIdHandleMap.put(tabId, WebDriverRunner.getWebDriver().getWindowHandle());
     }
 
     private void openNewWindow() {
@@ -931,7 +954,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
      * may be set tab/window name?
      * @param tabIndex
      */
-    protected void switchToTab(int tabIndex) {
+    private void switchToTab(int tabIndex) {
         if (tabIndex < 0) {
             LOG.error("Tab index cannot be less then 0.");
             return;
@@ -948,7 +971,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
      * Opens the tab by page title; or window/tab name; or handle.
      * @param nameOrHandleOrTitle
      */
-    protected void switchToTab(@NotNull String nameOrHandleOrTitle) {
+    private void switchToTab(@NotNull String nameOrHandleOrTitle) {
         switchTo().window(nameOrHandleOrTitle);
     }
 
