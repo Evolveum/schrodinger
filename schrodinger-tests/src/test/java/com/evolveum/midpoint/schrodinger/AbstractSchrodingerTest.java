@@ -297,15 +297,15 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected void resetToDefault() {
-//        midPoint.formLogin().loginIfUserIsNotLog(username, password);
-//
-//        LOG.info("Cleaning up midPoint.");
-//
-//        AboutPage aboutPage = basicPage.aboutPage();
-//        aboutPage
-//                .clickSwitchToFactoryDefaults()
-//                .clickYes();
-//        Selenide.sleep(60000); //todo go to task page and wait the task to be finished
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+
+        LOG.info("Cleaning up midPoint.");
+
+        AboutPage aboutPage = basicPage.aboutPage();
+        aboutPage
+                .clickSwitchToFactoryDefaults()
+                .clickYes();
+        Selenide.sleep(60000); //todo go to task page and wait the task to be finished
     }
 
     /**
