@@ -71,9 +71,9 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
     public TaskPage clickResume() {
         $(Schrodinger.byDataId("taskButtonsContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                    .$x(".//a[contains(text(), 'Resume')]")
-                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                    .click();
+                .$x(".//a[contains(text(), 'Resume')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }
@@ -97,8 +97,8 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
         SelenideElement statusTag = summary().getParentElement()
                 .$(Schrodinger.byElementAttributeValue("div", "class", "summary-tag-box"))
-                        .$(Schrodinger.byDataId("summaryTag"))
-                                .$(Schrodinger.byDataId("summaryTagLabel"));
+                .$(Schrodinger.byDataId("summaryTag"))
+                .$(Schrodinger.byDataId("summaryTagLabel"));
         statusTag.shouldHave(Condition.text("Closed"), MidPoint.TIMEOUT_LONG_1_M);
         return this;
     }
@@ -108,7 +108,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return this;
     }
 
-    public boolean isRunNowVisible(){
+    public boolean isRunNowVisible() {
         return $(Schrodinger.byDataResourceKey("a", "pageTaskEdit.button.runNow")).is(Condition.visible);
     }
 
@@ -159,20 +159,24 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return null;
     }
 
-    public PanelWithContainerWrapper<TaskPage> selectSchedulePanel(){
+    public PanelWithContainerWrapper<TaskPage> selectSchedulePanel() {
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement(("Schedule")));
     }
 
-    public PanelWithContainerWrapper<TaskPage> selectActivityPanel(){
+    public PanelWithContainerWrapper<TaskPage> selectActivityPanel() {
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Activity"));
     }
 
-    public PanelWithContainerWrapper<TaskPage> selectActivityWorkPanel(){
+    public PanelWithContainerWrapper<TaskPage> selectActivityWorkPanel() {
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Activity", "Work"));
     }
 
-    public PanelWithContainerWrapper<TaskPage> selectAdvancedOptionsPanel(){
+    public PanelWithContainerWrapper<TaskPage> selectAdvancedOptionsPanel() {
         return new PanelWithContainerWrapper<TaskPage>(this, getNavigationPanelSelenideElement("Advanced options"));
+    }
+
+    public SubtasksPanel selectSubtasksPanel() {
+        return new SubtasksPanel(this, getNavigationPanelSelenideElement(("Subtasks")));
     }
 
     public OperationStatisticsPanel selectOperationStatisticsPanel() {
@@ -191,7 +195,7 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         return new ResultPanel(this, getNavigationPanelSelenideElement(("Result")));
     }
 
-     public ErrorsPanel selectErrorsPanel() {
+    public ErrorsPanel selectErrorsPanel() {
         return new ErrorsPanel(this, getNavigationPanelSelenideElement(("Title")));
     }
 

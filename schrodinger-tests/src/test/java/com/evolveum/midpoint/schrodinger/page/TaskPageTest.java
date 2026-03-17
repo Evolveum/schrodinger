@@ -17,7 +17,10 @@ package com.evolveum.midpoint.schrodinger.page;
 
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsPanel;
+import com.evolveum.midpoint.schrodinger.component.task.SubtasksPanel;
+import com.evolveum.midpoint.schrodinger.component.task.TasksPageTable;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
@@ -28,8 +31,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author skublik
@@ -40,6 +41,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
     private static final File OPERATION_STATISTICS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/operation-statistics-clean-up.xml");
     private static final File ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/environmental-performance-clean-up.xml");
     private static final File RESULTS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/results-clean-up.xml");
+    private static final String taskName = "NewTest";
 
     @BeforeClass(alwaysRun = true)
     @Override
@@ -50,20 +52,13 @@ public class TaskPageTest extends AbstractSchrodingerTest {
         basicPage = login.loginIfUserIsNotLog(username, password);
     }
 
-//    @Override
-//    protected List<File> getObjectListToImport(){
-//        return Arrays .asList(OPERATION_STATISTICS_CLEANUP_TASK_FILE, ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, RESULTS_CLEANUP_TASK_FILE);
-//    }
-
     @Test
     public void test001createNewTask() {
-
-        String name = "NewTest";
         String handler = "Recomputation task";
         TaskPage task = basicPage.newTask(handler);
         task.selectBasicPanel()
                 .form()
-                    .addAttributeValue("name", name)
+                    .addAttributeValue("name", taskName)
                     .and()
                 .and()
                 .selectSchedulePanel()
@@ -98,14 +93,14 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                 .table()
                     .search()
                         .byName()
-                            .inputValue(name)
+                            .inputValue(taskName)
                             .updateSearch()
                         .and()
-                    .clickByName(name)
+                    .clickByName(taskName)
                         .selectBasicPanel()
                             .form();
 
-        taskForm.assertPropertyInputValue("name", name)
+        taskForm.assertPropertyInputValue("name", taskName)
                 .and()
                     .and()
                         .assertPageTitleStartsWith("Edit Recomputation task");
@@ -201,6 +196,39 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .assertStatusValueByTokenMatch(tokenValue, null)
                     .assertTimestampValueByTokenMatch(tokenValue, null)
                     .assertMessageValueByTokenMatch(tokenValue, null);
+    }
 
+    @Test
+    public void test005checkButtonOptionsInTaskAndSubtasksTableMenu() {
+        TasksPageTable tasksPageTable = basicPage
+                .listTasks()
+                .table();
+
+        tasksPageTable.clickMenuItemButton(null, null, "dropdown-toggle");
+        tasksPageTable
+                .assertInlineMenuButtonExists("Suspend")
+                .assertInlineMenuButtonExists("Resume")
+                .assertInlineMenuButtonExists("Run now")
+                .assertInlineMenuButtonExists("Delete")
+                .assertInlineMenuButtonExists("Suspend and delete work state")
+                .assertInlineMenuButtonExists("Delete all closed tasks");
+
+        SubtasksPanel subtasksPanel = tasksPageTable.search()
+                .byName()
+                .inputValue(taskName)
+                .updateSearch()
+                .and()
+                .clickByName(taskName)
+                .selectSubtasksPanel();
+
+        Table<SubtasksPanel, Table> subtasksTable = subtasksPanel.getSubtasksTable();
+        subtasksTable.clickHeaderInlineMenuButton("dropdown-toggle");
+        subtasksTable
+                .assertInlineMenuButtonExists("Suspend")
+                .assertInlineMenuButtonExists("Resume")
+                .assertInlineMenuButtonExists("Run now")
+                .assertInlineMenuButtonExists("Delete")
+                .assertInlineMenuButtonExists("Suspend and delete work state")
+                .assertInlineMenuButtonNotExist("Delete all closed tasks");
     }
 }
