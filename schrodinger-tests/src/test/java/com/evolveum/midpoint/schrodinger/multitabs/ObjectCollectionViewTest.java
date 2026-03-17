@@ -1,0 +1,112 @@
+/*
+ * Copyright (c) 2026 Evolveum
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.evolveum.midpoint.schrodinger.multitabs;
+
+import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * Test class covering multi-tab behavior of object collection views.
+ * <p>
+ * These tests verify that object collection pages opened from the main left sidebar menu
+ * behave correctly when used across multiple browser tabs. In particular, they focus on
+ * preservation and isolation of UI state stored in browser session storage.
+ *
+ * <p>
+ * The following aspects are validated:
+ * <ul>
+ *     <li>Opening multiple collection views in separate tabs.</li>
+ *     <li>Independent manipulation of collection state (e.g. paging, search filters).</li>
+ *     <li>Correct persistence of state within each tab using session storage.</li>
+ *     <li>Consistency of data after performing actions (e.g. updates, navigation).</li>
+ * </ul>
+ */
+public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
+
+    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
+    private static final String SECOND_TAB_ID = "secondTab";
+
+    @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
+    @Override
+    public void beforeClass() throws IOException {
+        super.beforeClass();
+        addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+
+    }
+
+    @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return true;
+    }
+
+    @Test
+    public void test00100allUsersAndPersonViewsPaging() {
+        ListUsersPage allUsersView = tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .paging()
+                .assertCurrentPageSize(50)
+                .pageSize(105)
+                .and()
+                .and();
+
+        ListUsersPage personsView = tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers("Persons")
+                .table()
+                .paging()
+                .assertCurrentPageSize(50)
+                .pageSize(25)
+                .and()
+                .and();
+
+        //reopen users list page, check the page size is restored from session storage
+        tab(FIRST_TAB_ID)
+                .activate()
+                .lastActive(allUsersView)
+                .table()
+                .paging()
+                .assertCurrentPageSize(105)
+                .and()
+                .and()
+                .listUsers()
+                .table()
+                .paging()
+                .assertCurrentPageSize(105);
+
+        //reopen Persons view page, check the page size is restored from session storage
+        tab(SECOND_TAB_ID)
+                .activate()
+                .lastActive(personsView)
+                .table()
+                .paging()
+                .assertCurrentPageSize(25)
+                .and()
+                .and()
+                .listUsers("Persons")
+                .table()
+                .paging()
+                .assertCurrentPageSize(25);
+    }
+}

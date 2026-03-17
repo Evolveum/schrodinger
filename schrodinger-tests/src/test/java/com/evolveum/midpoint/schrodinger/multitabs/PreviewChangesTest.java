@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger.multitabs;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.PreviewPage;
+import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -102,6 +103,91 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                 .form()
                 .assertPropertyInputValue("Given name", "Jacky");
+    }
+
+    @Test
+    public void test00200previewUserAndRoleChanges() {
+        PreviewPage preview1 = tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .byName()
+                .inputValue("jack3")
+                .updateSearch()
+                .and()
+                .clickByName("jack3")
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Family name", "Black")
+                .and()
+                .and()
+                .selectAssignmentsPanel()
+                .clickAddAllAssignment()
+                .selectType(ConstantsUtil.ASSIGNMENT_TYPE_SELECTOR_ROLE)
+                .table()
+                .search()
+                .byName()
+                .inputValue("End user")
+                .updateSearch()
+                .and()
+                .selectRowByName("End user")
+                .and()
+                .clickAdd()
+                .and()
+                .clickPreview();
+
+        PreviewPage preview2 = tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRoles()
+                .table()
+                .search()
+                .byName()
+                .inputValue("End user")
+                .updateSearch()
+                .and()
+                .clickByName("End user")
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Description", "Role for end user")
+                .and()
+                .and()
+                .clickPreview();
+
+        tab(FIRST_TAB_ID)
+                .activate()
+                .lastActive(preview1)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All users");
+
+
+        tab(SECOND_TAB_ID)
+                .activate()
+                .lastActive(preview2)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All roles");
+
+        showUser("jack3")
+                .selectBasicPanel()
+                .form()
+                .assertPropertyInputValue("Family name", "Black")
+                .and()
+                .and()
+                .selectAssignmentsPanel()
+                .assertAssignmentExists("End user");
+
+        showRole("End user")
+                .selectBasicPanel()
+                .form()
+                .assertPropertyTextareaValueContainsText("Description", "Role for end user");
     }
 
         //todo tests for configured preview changes page ()
