@@ -17,7 +17,6 @@
 package com.evolveum.midpoint.schrodinger;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.evolveum.midpoint.client.api.ObjectAddService;
 import com.evolveum.midpoint.client.api.exception.CommonException;
@@ -46,6 +45,8 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.tab.TabContext;
+import com.evolveum.midpoint.schrodinger.tab.TabManager;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -114,7 +115,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     private boolean startMidpoint = true;
 
-    private final Map<String, String> windowIdHandleMap = new HashMap<>();
+    protected TabManager tabManager = new TabManager();
+    protected TabContext mainTabContext;    //main is the first one, which is initialized during BeforeClass running
     public static final String FIRST_TAB_ID = "firstTab";
 
     public EnvironmentConfiguration getConfiguration() {
@@ -253,7 +255,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         String locale = getConfigurationPropertyValue("locale");
         LOG.info("Logging to midpoint with credentials: " + username + "-" + password);
         basicPage = login.loginIfUserIsNotLog(username, password, locale);
-        windowIdHandleMap.put(FIRST_TAB_ID, WebDriverRunner.getWebDriver().getWindowHandle());
+        mainTabContext = new TabContext(tabManager, FIRST_TAB_ID, basicPage);
 
         if (resetToDefaultBeforeTests()) {
             resetToDefaultAndRelogin();
@@ -888,91 +890,14 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         midPoint.formLogin().login(username, password);
     }
 
-    protected BasicPage tab(String tabId) {
-        if (tabExists(tabId)) {
-            switchToTab(windowIdHandleMap.get(tabId));
+    protected TabContext tab(String tabId) {
+        if (tabManager.tabExists(tabId)) {
+            tabManager.switchTo(tabId);
         } else {
-            openNewTab(tabId);
+            tabManager.openNewTab(tabId);
         }
-        return basicPage;
+        return new TabContext(tabManager, tabId, basicPage);
     }
 
-    private boolean tabExists(String tabId) {
-        if (!windowIdHandleMap.containsKey(tabId)) {
-            return false;
-        }
-        String windowHandle = windowIdHandleMap.get(tabId);
-        Set<String> tabs = WebDriverRunner.getWebDriver().getWindowHandles();
-        return tabs.stream().anyMatch(t -> t.equals(windowHandle));
-    }
-
-    private void prepareTabs() {
-        reloginAsAdministrator();
-
-        int amountOfTabs = configuration.getAmountOfTabs();
-
-        if (amountOfTabs <= 1) {
-            return;
-        }
-
-        for (int i = 0; i < amountOfTabs - 1; i++) {
-            openNewTab("" + i);
-        }
-
-        switchToTab(0);
-    }
-
-    private void prepareWindows() {
-        reloginAsAdministrator();
-
-        int amountOfWindows = configuration.getAmountOfWindows();
-
-        if (amountOfWindows <= 1) {
-            return;
-        }
-
-        for (int i = 0; i < amountOfWindows - 1; i++) {
-            openNewWindow();
-        }
-
-        switchToTab(0);
-    }
-
-    private void openNewTab(String tabId) {
-        switchTo().newWindow(WindowType.TAB);
-        open("/");
-        windowIdHandleMap.put(tabId, WebDriverRunner.getWebDriver().getWindowHandle());
-    }
-
-    private void openNewWindow() {
-        switchTo().newWindow(WindowType.WINDOW);
-        open("/");
-    }
-
-    /**
-     * todo be aware, in the docs it's said that indexes can be inconsistent
-     * may be set tab/window name?
-     * @param tabIndex
-     */
-    private void switchToTab(int tabIndex) {
-        if (tabIndex < 0) {
-            LOG.error("Tab index cannot be less then 0.");
-            return;
-        }
-        Set<String> tabs = WebDriverRunner.getWebDriver().getWindowHandles();
-        if (tabIndex >= tabs.size()) {
-            LOG.error("Tab index cannot exceed the amount of the opened tabs.");
-            return;
-        }
-        switchTo().window(tabIndex);
-    }
-
-    /**
-     * Opens the tab by page title; or window/tab name; or handle.
-     * @param nameOrHandleOrTitle
-     */
-    private void switchToTab(@NotNull String nameOrHandleOrTitle) {
-        switchTo().window(nameOrHandleOrTitle);
-    }
 
 }

@@ -38,7 +38,17 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100previewChangesForTwoUsersAndSave() {
-        PreviewPage preview1 = showUser("jack1")
+        PreviewPage preview1 = tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .byName()
+                .inputValue("jack1")
+                .updateSearch()
+                .and()
+                .clickByName("jack1")
                 .selectBasicPanel()
                 .form()
                 .addAttributeValue("Given name", "Jackson")
@@ -46,9 +56,17 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .and()
                 .clickPreview();
 
-        tab(SECOND_TAB_ID);
-
-        PreviewPage preview2 = showUser("jack2")
+        PreviewPage preview2 = tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .byName()
+                .inputValue("jack2")
+                .updateSearch()
+                .and()
+                .clickByName("jack2")
                 .selectBasicPanel()
                 .form()
                 .addAttributeValue("Given name", "Jacky")
@@ -56,9 +74,9 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .and()
                 .clickPreview();
 
-        tab(FIRST_TAB_ID);
-
-        preview1
+        tab(FIRST_TAB_ID)
+                .activate()
+                .lastActive(preview1)
                 .clickSave()
                 .feedback()
                 .assertSuccess()
@@ -66,9 +84,9 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .assertPageTitleStartsWith("All users");
 
 
-        tab(SECOND_TAB_ID);
-
-        preview2
+        tab(SECOND_TAB_ID)
+                .activate()
+                .lastActive(preview2)
                 .clickSave()
                 .feedback()
                 .assertSuccess()
@@ -84,7 +102,6 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                 .form()
                 .assertPropertyInputValue("Given name", "Jacky");
-
     }
 
         //todo tests for configured preview changes page ()
