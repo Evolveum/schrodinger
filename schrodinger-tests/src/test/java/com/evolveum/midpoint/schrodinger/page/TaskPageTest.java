@@ -15,21 +15,24 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.component.AssignmentHolderBasicPanel;
 import com.evolveum.midpoint.schrodinger.component.common.PrismForm;
+import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.task.OperationStatisticsPanel;
+import com.evolveum.midpoint.schrodinger.component.task.SubtasksPanel;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.task.ListTasksPage;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 
+import org.apache.commons.io.FileUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author skublik
@@ -41,6 +44,15 @@ public class TaskPageTest extends AbstractSchrodingerTest {
     private static final File ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/environmental-performance-clean-up.xml");
     private static final File RESULTS_CLEANUP_TASK_FILE = new File("./src/test/resources/objects/tasks/results-clean-up.xml");
 
+    protected static final String CSV_RESOURCE_ATTR_FILE_PATH = "File path";
+    protected static final String CSV_RESOURCE_NAME = "HR for reconciliation";
+    private static final String CSV_SOURCE_OLDVALUE = "target/midpoint.csv";
+    private static final String DIRECTORY_CURRENT_TEST = "taskTests";
+    private static final String FILE_RESOUCE_NAME = "hr-reconciliation-subtaskstests.csv";
+    private static final File CSV_INITIAL_SOURCE_FILE = new File("./src/test/resources/sources/hr-reconciliation-data.csv");
+    private static final File RESOURCE_FILE = new File("./src/test/resources/objects/resources/resource-csv-hr.xml");
+    private static final File RECONSILIATION_TASK_FILE = new File("./src/test/resources/objects/tasks/reconciliation-task.xml");
+
     @BeforeClass(alwaysRun = true)
     @Override
     public void beforeClass() throws IOException {
@@ -49,11 +61,6 @@ public class TaskPageTest extends AbstractSchrodingerTest {
         FormLoginPage login = midPoint.formLogin();
         basicPage = login.loginIfUserIsNotLog(username, password);
     }
-
-//    @Override
-//    protected List<File> getObjectListToImport(){
-//        return Arrays .asList(OPERATION_STATISTICS_CLEANUP_TASK_FILE, ENVIRONMENTAL_PERFORMANCE_CLEANUP_TASK_FILE, RESULTS_CLEANUP_TASK_FILE);
-//    }
 
     @Test
     public void test001createNewTask() {
@@ -202,5 +209,61 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .assertTimestampValueByTokenMatch(tokenValue, null)
                     .assertMessageValueByTokenMatch(tokenValue, null);
 
+    }
+
+    /**
+     * Covers MID-11107
+     */
+    @Test
+    public void test005checkSubtasksTableExistsAfterRunReconciliation() throws IOException {
+        importObject(RESOURCE_FILE, true, true);
+
+        initTestDirectory(DIRECTORY_CURRENT_TEST);
+
+        File csvTargetFile = new File(testTargetDir, FILE_RESOUCE_NAME);
+        FileUtils.copyFile(CSV_INITIAL_SOURCE_FILE, csvTargetFile);
+
+        ListResourcesPage listResourcesPage = basicPage.listResources();
+
+        listResourcesPage
+                .table()
+                .clickByName(CSV_RESOURCE_NAME)
+                .selectConnectorConfigurationPanel()
+                .selectConfigurationTab()
+                .form()
+                .changeAttributeValue(CSV_RESOURCE_ATTR_FILE_PATH, CSV_SOURCE_OLDVALUE, csvTargetFile.getAbsolutePath())
+                .and()
+                .and()
+                .and()
+                .clickSave()
+                .feedback()
+                .assertSuccess();
+        listResourcesPage
+                .testConnectionClick(CSV_RESOURCE_NAME)
+                .feedback()
+                .assertSuccess();
+
+        importObject(RECONSILIATION_TASK_FILE, true, true);
+
+        String taskName = "Reconciliation subtasks test";
+
+        SubtasksPanel subtasksPanel = basicPage
+                .listTasks()
+                .table()
+                .search()
+                .byName()
+                .inputValue(taskName)
+                .updateSearch()
+                .and()
+                .clickByName(taskName)
+                .clickResume()
+                .selectSubtasksPanel();
+        Table<SubtasksPanel, Table> subtasksTable = subtasksPanel.getSubtasksTable();
+        subtasksTable
+                .assertTableContainsColumnWithValue(
+                        "Name",
+                        "Worker DefaultNode:1 for activity 'resourceObjects' in Reconciliation subtasks test")
+                .clickHeaderInlineMenuButton("dropdown-toggle");
+        subtasksTable.assertInlineMenuButtonExists("Suspend");
     }
 }
