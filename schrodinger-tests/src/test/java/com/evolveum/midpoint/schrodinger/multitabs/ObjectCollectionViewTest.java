@@ -17,11 +17,13 @@ package com.evolveum.midpoint.schrodinger.multitabs;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
+import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Test class covering multi-tab behavior of object collection views.
@@ -43,13 +45,18 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
 
     private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
     private static final String SECOND_TAB_ID = "secondTab";
+    private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
         addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+    }
 
+    @Override
+    protected List<File> getObjectListToImport(){
+        return List.of(MULTIPLE_USERS);
     }
 
     @Override
