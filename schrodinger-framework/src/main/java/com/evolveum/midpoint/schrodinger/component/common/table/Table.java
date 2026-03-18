@@ -19,13 +19,13 @@ package com.evolveum.midpoint.schrodinger.component.common.table;
 import static com.codeborne.selenide.Selectors.byPartialLinkText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.InlineMenu;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -213,7 +213,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
         if (rowIndex > rows.size()) {
             return null;
         }
-        SelenideElement element = rows.get(rowIndex -1).find("td:nth-child(" + (columnIndex) + ")");
+        SelenideElement element = rows.get(rowIndex - 1).find("td:nth-child(" + (columnIndex) + ")");
         if (!element.exists()) {
             return null;
         }
@@ -281,12 +281,12 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return getParentElement().$(Schrodinger.byDataId("buttonToolbar"));
     }
 
-    public SelenideElement getToolbarButtonByTitleKey(String titleKey){
+    public SelenideElement getToolbarButtonByTitleKey(String titleKey) {
         String title = Utils.translate(titleKey);
         return getToolbarButtonByTitle(title);
     }
 
-    public SelenideElement getToolbarButtonByTitle(String buttonTitle){
+    public SelenideElement getToolbarButtonByTitle(String buttonTitle) {
         SelenideElement el = getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
         if (el.exists() && el.isDisplayed()) {
             return el;
@@ -294,7 +294,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return getButtonToolbar().$x(".//button[@title='" + buttonTitle + "']");
     }
 
-    public SelenideElement getToolbarButtonByCss(String iconCssClass){
+    public SelenideElement getToolbarButtonByCss(String iconCssClass) {
         return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
     }
 
@@ -325,7 +325,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
     }
 
     public P assertVisibleObjectsCountEquals(int expectedObjectsCount) {
-        assertion.assertEquals(rowsCount(), expectedObjectsCount,"Table objects count doesn't equal to expected value " + expectedObjectsCount);
+        assertion.assertEquals(rowsCount(), expectedObjectsCount, "Table objects count doesn't equal to expected value " + expectedObjectsCount);
         return (P) this;
     }
 
@@ -339,32 +339,32 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return this;
     }
 
-    public Table<T, P> assertTableContainsText (String text) {
+    public Table<T, P> assertTableContainsText(String text) {
         assertion.assertTrue(containsText(text), "Table doesn't contain text '" + text + "'.");
         return this;
     }
 
-    public Table<T, P> assertTableDoesntContainText (String text) {
+    public Table<T, P> assertTableDoesntContainText(String text) {
         assertion.assertFalse(containsText(text), "Table shouldn't contain text '" + text + "'.");
         return this;
     }
 
-    public Table<T, P> assertTableContainsLinkTextPartially (String linkText) {
+    public Table<T, P> assertTableContainsLinkTextPartially(String linkText) {
         assertion.assertTrue(containsLinkTextPartially(linkText), "Table doesn't contain link text '" + linkText + "'.");
         return this;
     }
 
-    public Table<T, P> assertTableDoesntContainLinkTextPartially (String linkText) {
+    public Table<T, P> assertTableDoesntContainLinkTextPartially(String linkText) {
         assertion.assertFalse(containsLinkTextPartially(linkText), "Table shouldn't contain link text '" + linkText + "'.");
         return this;
     }
 
-    public Table<T, P> assertTableContainsLinksTextPartially (String... linkTextValues) {
+    public Table<T, P> assertTableContainsLinksTextPartially(String... linkTextValues) {
         assertion.assertTrue(containsLinksTextPartially(linkTextValues), "Table doesn't contain links text.");
         return this;
     }
 
-    public Table<T, P> assertTableDoesntContainLinksTextPartially (String... linkTextValues) {
+    public Table<T, P> assertTableDoesntContainLinksTextPartially(String... linkTextValues) {
         assertion.assertFalse(containsLinksTextPartially(linkTextValues), "Table shouldn't contain links text.");
         return this;
     }
@@ -447,7 +447,7 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return new TableRow<>(this, rows.get(rowIndex - 1));
     }
 
-    protected void clickHeaderInlineMenuButton(String iconClass) {
+    public void clickHeaderInlineMenuButton(String iconClass) {
         getHeaderInlineMenuPanel()
                 .clickInlineMenuButtonByIconClass(iconClass);
     }
@@ -461,4 +461,21 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return new InlineMenu<>((P) this, element);
     }
 
+    public P assertInlineMenuButtonExists(String taskOption) {
+        SelenideElement button = getInlineMenuButtonByText(taskOption);
+        assertion.assertTrue(button.exists() && button.isDisplayed(),
+                "InlineMenu button with text '" + taskOption + "' should exist, but it doesn't.");
+        return (P) this;
+    }
+
+    public P assertInlineMenuButtonNotExist(String taskOption) {
+        SelenideElement button = getInlineMenuButtonByText(taskOption);
+        assertion.assertTrue(!button.exists(),
+                "InlineMenu button with text '" + taskOption + "' should not exist, but it does.");
+        return (P) this;
+    }
+
+    public SelenideElement getInlineMenuButtonByText(String taskOption) {
+        return $x(".//a[@data-s-id='menuItemLink' and contains(text(), '" + taskOption + "')]");
+    }
 }
