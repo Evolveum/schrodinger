@@ -107,6 +107,11 @@ public class BasicPage {
         return new DashboardPage();
     }
 
+    public DashboardPage dashboard(String dashboardLabel) {
+        clickAdministrationMenu("PageAdmin.menu.dashboard", dashboardLabel);
+        return new DashboardPage();
+    }
+
     public ListUsersPage listUsers() {
         return listUsers("");
     }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<dashboard xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+           xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+           oid="11111111-1111-1111-1111-111111111111">
+    <name>shadow-count-dashboard</name>
+    <display>
+        <label>
+           Shadow count dashboard
+        </label>
+    </display>
+    <widget id="1">
+        <identifier>broken-shadows</identifier>
+        <display>
+            <label>
+                Broken shadows
+            </label>
+            <color>#00a65a</color>
+            <icon>
+                <cssClass>fa fa-database</cssClass>
+            </icon>
+        </display>
+        <data>
+            <sourceType>objectCollection</sourceType>
+            <collection>
+                <collectionRef oid="72b1f98e-f587-4b9f-b92b-72e251dbb2f7" type="c:ObjectCollectionType"/>
+            </collection>
+        </data>
+        <presentation>
+            <dataField id="2">
+                <fieldType>value</fieldType>
+                <expression>
+                    <proportional>
+                        <style>value-only</style>
+                    </proportional>
+                </expression>
+            </dataField>
+        </presentation>
+    </widget>
+</dashboard>
