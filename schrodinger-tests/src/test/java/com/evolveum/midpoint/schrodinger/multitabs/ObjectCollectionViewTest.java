@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.multitabs;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
