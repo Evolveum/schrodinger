@@ -15,8 +15,41 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
+import static com.codeborne.selenide.Selenide.$$x;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class DashboardPage extends BasicPage {
+
+    public SelenideElement widgetByLabel(String label) {
+        return $$x("//div[contains(@class,'small-box')]")
+                .findBy(Condition.text(label))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+    }
+
+    public String getWidgetValue(String label) {
+        return widgetByLabel(label)
+                .$x(".//h3")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
+                .getText()
+                .trim();
+    }
+
+    public DashboardPage assertWidgetValueEquals(String label, String expectedValue) {
+        assertion.assertEquals(getWidgetValue(label), expectedValue,
+                "Dashboard widget value doesn't equal expected value '" + expectedValue + "'.");
+        return this;
+    }
+
+    public DashboardPage assertWidgetValueNotEquals(String label, String unexpectedValue) {
+        assertion.assertNotEquals(getWidgetValue(label), unexpectedValue,
+                "Dashboard widget value shouldn't equal '" + unexpectedValue + "'.");
+        return this;
+    }
+
 }
