@@ -15,7 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.multitabs;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
 import org.testng.annotations.Test;
 
@@ -43,6 +45,7 @@ public class NavigationTest extends AbstractSchrodingerTest {
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     private static final String SECOND_TAB_ID = "secondTab";
+    private static final String THIRD_TAB_ID = "thirdTab";
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -93,6 +96,59 @@ public class NavigationTest extends AbstractSchrodingerTest {
                 .lastActive(rolePage2)
                 .clickBack()
                 .assertPageTitleStartsWith("All roles");
+    }
+
+    /**
+     * The state of the left side menu items (active/inactive) stored in session storage.
+     * Check that each browser tab displays the activated menu items correctly after the page refresh.
+     */
+    @Test
+    public void test00200leftMenuState() {
+        tab(FIRST_TAB_ID)
+                .getBasicPage()
+                .profile();
+        var profileMenuElement = basicPage.getMenuItemElementByMenuLabelText(
+                ConstantsUtil.SELF_SERVICE_MENU_ITEMS_SECTION_VALUE, "PageAdmin.menu.profile", "");
+        tab(SECOND_TAB_ID)
+                .getBasicPage()
+                .credentials();
+        var credentialsMenuElement = basicPage.getMenuItemElementByMenuLabelText(
+                ConstantsUtil.SELF_SERVICE_MENU_ITEMS_SECTION_VALUE, "PageAdmin.menu.credentials", "");
+        tab(THIRD_TAB_ID)
+                .getBasicPage()
+                .listServices();
+        var servicesMenuElement = basicPage.getMenuItemElementByMenuLabelText(
+                ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE, "PageAdmin.menu.top.services",
+                "All services");
+        //check Profile menu item is active on the first tab
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .assertMenuItemActive(profileMenuElement);
+        Selenide.refresh();
+        tab(FIRST_TAB_ID)
+                .getBasicPage()
+                .assertMenuItemActive(profileMenuElement);
+
+        //check Credentials menu item is active on the first tab
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .assertMenuItemActive(credentialsMenuElement);
+        Selenide.refresh();
+        tab(SECOND_TAB_ID)
+                .getBasicPage()
+                .assertMenuItemActive(credentialsMenuElement);
+
+        //check All services menu item is active on the first tab
+        tab(THIRD_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .assertMenuItemActive(servicesMenuElement);
+        Selenide.refresh();
+        tab(THIRD_TAB_ID)
+                .getBasicPage()
+                .assertMenuItemActive(servicesMenuElement);
     }
 
 }
