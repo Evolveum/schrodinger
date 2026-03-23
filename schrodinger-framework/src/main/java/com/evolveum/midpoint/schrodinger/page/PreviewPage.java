@@ -64,8 +64,7 @@ public class PreviewPage extends BasicPage {
      */
     public boolean isTabPanelDisplayed() {
         try {
-            $(Schrodinger.byDataId("tabbedPanel"));
-            return true;
+            return $(Schrodinger.byDataId("tabbedPanel")).isDisplayed();
         } catch (Exception e) {
             return false;
         }

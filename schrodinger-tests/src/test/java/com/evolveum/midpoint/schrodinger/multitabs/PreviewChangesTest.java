@@ -43,7 +43,12 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addAttributeValue("Given name", "Jackson")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertItemValueEquals("Given name", "Jackson")
+                .and()
+                .and();
 
         PreviewPage preview2 = showUser(SECOND_TAB_ID, "jack2")
                 .selectBasicPanel()
@@ -51,7 +56,12 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addAttributeValue("Given name", "Jacky")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertItemValueEquals("Given name", "Jacky")
+                .and()
+                .and();
 
         tab(FIRST_TAB_ID)
                 .activate()
@@ -104,7 +114,14 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .and()
                 .clickAdd()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertItemValueEquals("Family name", "Black")
+                .assertRoleAssigned("End user")
+                .and()
+                .and();
+
 
         PreviewPage preview2 = showRole(SECOND_TAB_ID, "End user")
                 .selectBasicPanel()
@@ -112,7 +129,13 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addAttributeValue("Description", "Role for end user")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertItemValueEquals("Description", "Role for end user")
+                .and()
+                .and();
+
 
         tab(FIRST_TAB_ID)
                 .activate()
@@ -176,7 +199,12 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addAttributeValue("Middle name", "Tenth")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertExtensionItemValueEquals("Middle name", "Tenth")
+                .and()
+                .and();
 
         PreviewPage jack11Preview = showUser(SECOND_TAB_ID, "jack11")
                 .selectBasicPanel()
@@ -184,7 +212,12 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addAttributeValue("Middle name", "Eleventh")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertExtensionItemValueEquals("Middle name", "Eleventh")
+                .and()
+                .and();
 
         PreviewPage jack12Preview = showUser(THIRD_TAB_ID, "jack12")
                 .selectBasicPanel()
@@ -192,7 +225,12 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addAttributeValue("Middle name", "Twelfth")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertExtensionItemValueEquals("Middle name", "Twelfth")
+                .and()
+                .and();
 
         tab(FIRST_TAB_ID)
                 .activate()
@@ -268,7 +306,13 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addMultivalueAttributeValue("Mail Domain", 1, "domain1")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertItemValueEquals("Mail Domain", "domain0")
+                .assertItemValueEquals("Mail Domain", "domain1")
+                .and()
+                .and();
 
         PreviewPage teamsOrgPage = showOrganization(SECOND_TAB_ID, "Teams")
                 .selectBasicPanel()
@@ -279,7 +323,13 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .addMultivalueAttributeValue("Mail Domain", 1, "domain3")
                 .and()
                 .and()
-                .clickPreview();
+                .clickPreview()
+                .selectPanelForCurrentUser()
+                .primaryDeltas()
+                .assertItemValueEquals("Mail Domain", "domain2")
+                .assertItemValueEquals("Mail Domain", "domain3")
+                .and()
+                .and();
 
         tab(FIRST_TAB_ID)
                 .activate()

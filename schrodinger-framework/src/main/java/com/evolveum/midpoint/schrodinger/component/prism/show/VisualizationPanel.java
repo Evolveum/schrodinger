@@ -94,6 +94,36 @@ public class VisualizationPanel<T> extends Component<T, VisualizationPanel<T>> {
         return assertItemValueEquals(null, itemName, itemValue);
     }
 
+    public VisualizationPanel<T> assertExtensionItemValueEquals(String itemName, String itemValue) {
+        ElementsCollection headers = getParentElement().$$x(".//div[@data-s-id='headerPanel']");
+        String containerName = "Add Extension";
+        SelenideElement extensionHeader = headers
+                .find(Condition.partialText(containerName));
+        if (!extensionHeader.exists()) {
+            containerName = "Modify Extension";
+            extensionHeader = headers.find(Condition.partialText("Modify Extension"));
+        }
+        if (extensionHeader.isDisplayed()) {
+            boolean isExpanded = extensionHeader.$x(".//i[contains(@class, 'fa-chevron-down')]")
+                    .isDisplayed();
+            if (!isExpanded) {
+                extensionHeader.$x(".//a[@data-s-id='minimize']")
+                        .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                        .click();
+                Utils.waitForAjaxCallFinish();
+            }
+        }
+        return assertItemValueEquals(containerName, itemName, itemValue);
+    }
+
+    public VisualizationPanel<T> assertRoleAssigned(String roleName) {
+        ElementsCollection headers = getParentElement().$$x(".//div[@data-s-id='headerPanel']");
+        SelenideElement assignmentHeader = headers
+                .find(Condition.text("Role " + roleName + " assigned."));
+        assertion.assertTrue(assignmentHeader.isDisplayed(), "Assignment " + roleName + " should be displayed on the Preview changes panel.");
+        return VisualizationPanel.this;
+    }
+
     public VisualizationPanel<T> assertItemValueEquals(String containerName, String itemName, String itemValue) {
         assertion.assertTrue(getObjectItemsDeltaPanel(containerName).itemLineExists(itemName, itemValue),
                 "Item '" + itemName + "' value doesn't match, expected " + itemValue);
@@ -171,7 +201,8 @@ public class VisualizationPanel<T> extends Component<T, VisualizationPanel<T>> {
                 .$$x(".//div[@data-s-id='partialVisualization']");
         return partialVisualizations.asFixedIterable().stream()
                 .filter(partialVisualization -> partialVisualization
-                        .$x(".//span[@data-s-id='nameLink' and contains(text(), '" + containerName + "')]")
+                        .$x(".//div[@data-s-id='headerPanel']")
+                        .shouldBe(Condition.partialText(containerName))
                         .isDisplayed())
                 .findFirst()
                 .orElse(null);
