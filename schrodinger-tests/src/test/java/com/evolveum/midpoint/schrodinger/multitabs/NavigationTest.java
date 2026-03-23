@@ -44,9 +44,6 @@ public class NavigationTest extends AbstractSchrodingerTest {
 
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
-    private static final String SECOND_TAB_ID = "secondTab";
-    private static final String THIRD_TAB_ID = "thirdTab";
-
     @Override
     protected List<File> getObjectListToImport(){
         return List.of(MULTIPLE_USERS);
@@ -61,31 +58,13 @@ public class NavigationTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test00100navigationToRoleDetailsPageAndBack() {
-        var rolePage1 = tab(FIRST_TAB_ID)
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("administrator")
-                .updateSearch()
-                .and()
-                .clickByName("administrator")
+        var rolePage1 = showUser(FIRST_TAB_ID, "administrator")
                 .selectAssignmentsPanel()
                 .selectTypeRole()
                 .table()
                 .clickByName("Superuser")
                 .navigateToTargetRefDetailsPage(RoleType.class);
-        var rolePage2 = tab(SECOND_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listRoles()
-                .table()
-                .search()
-                .byName()
-                .inputValue("Superuser")
-                .and()
-                .clickByName("Superuser");
+        var rolePage2 = showRole(SECOND_TAB_ID, "Superuser");
         tab(FIRST_TAB_ID)
                 .activate()
                 .lastActive(rolePage1)

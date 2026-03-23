@@ -116,8 +116,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     private boolean startMidpoint = true;
 
     protected TabManager tabManager = new TabManager();
-    protected TabContext mainTabContext;    //main is the first one, which is initialized during BeforeClass running
     public static final String FIRST_TAB_ID = "firstTab";
+    public static final String SECOND_TAB_ID = "secondTab";
+    public static final String THIRD_TAB_ID = "thirdTab";
 
     public EnvironmentConfiguration getConfiguration() {
         return configuration;
@@ -634,17 +635,32 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     public UserPage showUser(String userName) {
-        UserPage user = showUserInTable(userName).clickByName(userName);
+        return showUser(FIRST_TAB_ID, userName);
+    }
+
+    public UserPage showUser(String tabId, String userName) {
+        UserPage user = showUserInTable(tabId, userName).clickByName(userName);
         return user;
     }
 
     public RolePage showRole(String roleName) {
-        RolePage role = showRoleInTable(roleName).clickByName(roleName);
+        return showRole(FIRST_TAB_ID, roleName);
+    }
+
+    public RolePage showRole(String tabId, String roleName) {
+        RolePage role = showRoleInTable(tabId, roleName).clickByName(roleName);
         return role;
     }
 
     public UsersPageTable showUserInTable(String userName) {
-        return basicPage.listUsers()
+        return showUserInTable(FIRST_TAB_ID, userName);
+    }
+
+    public UsersPageTable showUserInTable(String tabId, String userName) {
+        return tab(tabId)
+                .activate()
+                .getBasicPage()
+                .listUsers()
                 .table()
                 .search()
                 .byName()
@@ -654,7 +670,14 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     public RolesPageTable showRoleInTable(String roleName) {
-        return basicPage.listRoles()
+        return showRoleInTable(FIRST_TAB_ID, roleName);
+    }
+
+    public RolesPageTable showRoleInTable(String tabId, String roleName) {
+        return tab(tabId)
+                .activate()
+                .getBasicPage()
+                .listRoles()
                 .table()
                 .search()
                 .byName()

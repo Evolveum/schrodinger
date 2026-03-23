@@ -26,7 +26,6 @@ import java.util.List;
 public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
 
     private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
-    private static final String SECOND_TAB_ID = "secondTab";
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
@@ -48,17 +47,7 @@ public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100assignmentsPanelPagingForDifferentUsers() {
-        tab(FIRST_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack1")
-                .updateSearch()
-                .and()
-                .clickByName("jack1")
+        showUser(FIRST_TAB_ID, "jack1")
                 .selectAssignmentsPanel()
                 .selectTypeRole()
                 .table()
@@ -77,17 +66,7 @@ public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
                 .assertCurrentPageSize(110);
 
 
-        tab(SECOND_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack2")
-                .updateSearch()
-                .and()
-                .clickByName("jack2")
+        showUser(SECOND_TAB_ID, "jack2")
                 .selectAssignmentsPanel()
                 .selectTypeRole()
                 .table()
@@ -105,34 +84,14 @@ public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
                 .paging()
                 .assertCurrentPageSize(120);
 
-        tab(FIRST_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack2")
-                .updateSearch()
-                .and()
-                .clickByName("jack2")
+        showUser(FIRST_TAB_ID, "jack2")
                 .selectAssignmentsPanel()
                 .selectTypeRole()
                 .table()
                 .paging()
                 .assertCurrentPageSize(110); //should be restored from the session storage of first tab
 
-        tab(SECOND_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack1")
-                .updateSearch()
-                .and()
-                .clickByName("jack1")
+        showUser(SECOND_TAB_ID, "jack1")
                 .selectAssignmentsPanel()
                 .selectTypeRole()
                 .table()

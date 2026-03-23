@@ -43,7 +43,6 @@ import java.util.List;
 public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
 
     private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
-    private static final String SECOND_TAB_ID = "secondTab";
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
