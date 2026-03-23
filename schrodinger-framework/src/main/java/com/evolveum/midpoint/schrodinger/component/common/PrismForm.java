@@ -63,6 +63,20 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
+    public PrismForm<T> addMultivalueAttributeValue(String name, int index, String value) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(name);
+        ElementsCollection values = property.$$x(".//div[@data-s-id='valueContainer']");
+        if (values.size() > index) {
+            values.get(index).$x(".//*[@data-s-id='input' and contains(@class,\"form-control\")]").setValue(value);
+        } else {
+            //
+            values.first().$x(".//*[@data-s-id='input' and contains(@class,\"form-control\")]").setValue(value);
+        }
+        Utils.waitForAjaxCallFinish();
+        return this;
+    }
+
     public PrismForm<T> addProtectedAttributeValue(String name, String value) {
         Utils.waitForAjaxCallFinish();
         SelenideElement property = findProperty(name);
@@ -129,7 +143,7 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
-    public Boolean inputAttributeValueEquals(String name, String expectedValue) {
+    private Boolean inputAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.$(By.xpath(".//input[contains(@class,\"form-control\")]"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
@@ -139,6 +153,26 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
             return valueElement.equals(expectedValue);
         } else {
             return expectedValue.isEmpty();
+        }
+    }
+
+    private Boolean inputMultivalueAttributeValueEquals(String attributeName, int index, String expectedValue) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(attributeName);
+        ElementsCollection values = property.$$x(".//div[@data-s-id='valueContainer']");
+        String attributeValue;
+        if (values.size() > index) {
+            attributeValue = values.get(index).$x(".//*[@data-s-id='input' and contains(@class,\"form-control\")]")
+                    .getValue();
+        } else {
+            attributeValue = values.first().$x(".//*[@data-s-id='input' and contains(@class,\"form-control\")]")
+                    .getValue();
+        }
+
+        if (attributeValue != null && !attributeValue.isEmpty()) {
+            return attributeValue.equals(expectedValue);
+        } else {
+            return expectedValue == null || expectedValue.isEmpty();
         }
     }
 
@@ -458,6 +492,21 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
+    /**
+     * Adds a new value for the specified attribute
+     * @param attributeName
+     * @return
+     */
+    public PrismForm<T> addNewAttributeValue(String attributeName){
+        Utils.waitForAjaxCallFinish();
+        SelenideElement property = findProperty(attributeName);
+        property.$x(".//i[contains(@class, 'fa-plus-circle')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        Utils.waitForAjaxCallFinish();
+        return this;
+    }
+
     public SelenideElement getPrismPropertiesPanel(String containerHeaderKey){
         expandContainerPropertiesPanel(containerHeaderKey);
 
@@ -561,6 +610,13 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
     public PrismForm<T> assertPropertyInputValue(String attributeName, String expectedValue) {
         assertion.assertTrue(inputAttributeValueEquals(attributeName, expectedValue), "The value of the input attribute " + attributeName
+                + " doesn't match to expected value '" + expectedValue + "'.");
+        return this;
+    }
+
+    public PrismForm<T> assertMultivaluePropertyInputValue(String attributeName, int index, String expectedValue) {
+        assertion.assertTrue(inputMultivalueAttributeValueEquals(attributeName, index, expectedValue),
+                "The value of the input attribute " + attributeName
                 + " doesn't match to expected value '" + expectedValue + "'.");
         return this;
     }

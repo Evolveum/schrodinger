@@ -148,6 +148,26 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .assertPropertyTextareaValueContainsText("Description", "Role for end user");
     }
 
+    /**
+     * Verifies that the Preview Changes page works correctly when editing extension attributes
+     * on the user details page across different browser tabs.
+     * <p>
+     * Test goals:
+     * 1. Each browser tab maintains its own preview state for a specific user.
+     * 2. Changes made in one tab do not affect previews in other tabs.
+     * 3. Changes are correctly applied to the corresponding user after saving.
+     * 4. Saving changes from tabs in arbitrary order does not mix or override data between users.
+     * <p>
+     * Scenario:
+     * - Tab 1: Open user "jack10", set Middle name = "Tenth", open preview
+     * - Tab 2: Open user "jack11", set Middle name = "Eleventh", open preview
+     * - Tab 3: Open user "jack12", set Middle name = "Twelfth", open preview
+     * - Save changes in non-sequential order (Tab 1 → Tab 3 → Tab 2)
+     * - After each save, verify:
+     *   - Operation completes successfully
+     *   - The correct value is stored for the corresponding user
+     *   - No cross-tab interference occurs
+     */
     @Test
     public void test00300previewUserExtensionAttributes() {
         PreviewPage jack10Preview = showUser(FIRST_TAB_ID, "jack10")
@@ -212,6 +232,82 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                 .form()
                 .assertPropertyInputValue("Middle name", "Eleventh");
+    }
+
+    /**
+     * Verifies that multivalue attributes are correctly handled when using the Preview Changes page.
+     * <p>
+     * Test goals:
+     * 1. The preview correctly reflects all entered values for multivalue attributes.
+     * 2. Saving from the preview handles all multivalue attribute values correctly.
+     * 3. Changes made in one tab do not affect data in another tab (isolation between tabs).
+     * <p>
+     * Scenario:
+     * - Tab 1: Open organization "Projects"
+     *   - Add Mail Domain[0] = "domain0"
+     *   - Add new value Mail Domain[1] = "domain1"
+     *   - Open preview
+     * - Tab 2: Open organization "Teams"
+     *   - Add Mail Domain[0] = "domain2"
+     *   - Add new value Mail Domain[1] = "domain3"
+     *   - Open preview
+     * - Save changes in both tabs
+     * - After each save, verify:
+     *   - Operation completes successfully
+     *   - All multivalue attributes are stored correctly with expected values and indices
+     *   - No cross-tab interference occurs
+     */
+    @Test
+    public void test00400previewOrganizationMultivalueAttributes() {
+        PreviewPage projectsOrgPage = showOrganization(FIRST_TAB_ID, "Projects")
+                .selectBasicPanel()
+                .form()
+                .showEmptyAttributes("Properties")
+                .addMultivalueAttributeValue("Mail Domain", 0, "domain0")
+                .addNewAttributeValue("Mail Domain")
+                .addMultivalueAttributeValue("Mail Domain", 1, "domain1")
+                .and()
+                .and()
+                .clickPreview();
+
+        PreviewPage teamsOrgPage = showOrganization(SECOND_TAB_ID, "Teams")
+                .selectBasicPanel()
+                .form()
+                .showEmptyAttributes("Properties")
+                .addMultivalueAttributeValue("Mail Domain", 0, "domain2")
+                .addNewAttributeValue("Mail Domain")
+                .addMultivalueAttributeValue("Mail Domain", 1, "domain3")
+                .and()
+                .and()
+                .clickPreview();
+
+        tab(FIRST_TAB_ID)
+                .activate()
+                .lastActive(projectsOrgPage)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All organizations");
+        showOrganization(FIRST_TAB_ID, "Projects")
+                .selectBasicPanel()
+                .form()
+                .assertMultivaluePropertyInputValue("Mail Domain", 0, "domain0")
+                .assertMultivaluePropertyInputValue("Mail Domain", 1, "domain1");
+
+        tab(SECOND_TAB_ID)
+                .activate()
+                .lastActive(teamsOrgPage)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All organizations");
+        showOrganization(FIRST_TAB_ID, "Teams")
+                .selectBasicPanel()
+                .form()
+                .assertMultivaluePropertyInputValue("Mail Domain", 0, "domain2")
+                .assertMultivaluePropertyInputValue("Mail Domain", 1, "domain3");
     }
 
         //todo tests for configured preview changes page ()

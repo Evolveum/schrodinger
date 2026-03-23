@@ -38,6 +38,8 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.AboutPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
+import com.evolveum.midpoint.schrodinger.page.org.OrgsPageTable;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
@@ -652,6 +654,14 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         return role;
     }
 
+    public OrgPage showOrganization(String orgName) {
+        return showOrganization(FIRST_TAB_ID, orgName);
+    }
+
+    public OrgPage showOrganization(String tabId, String orgName) {
+        return showOrgInTable(tabId, orgName).clickByName(orgName);
+    }
+
     public UsersPageTable showUserInTable(String userName) {
         return showUserInTable(FIRST_TAB_ID, userName);
     }
@@ -682,6 +692,19 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
                 .search()
                 .byName()
                 .inputValue(roleName)
+                .updateSearch()
+                .and();
+    }
+
+    public OrgsPageTable showOrgInTable(String tabId, String orgName) {
+        return tab(tabId)
+                .activate()
+                .getBasicPage()
+                .listOrgs()
+                .table()
+                .search()
+                .byName()
+                .inputValue(orgName)
                 .updateSearch()
                 .and();
     }
