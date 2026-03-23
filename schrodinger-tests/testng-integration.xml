@@ -182,4 +182,9 @@
             <class name="com.evolveum.midpoint.schrodinger.component.DateTimePickerTest"/>
         </classes>
     </test>
+    <test name="DashboardPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.page.DashboardPageTest"/>
+        </classes>
+    </test>
 </suite>
