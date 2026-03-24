@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014-2018 Evolveum and contributors
+  ~
+  ~ Licensed under the EUPL-1.2 or later.
+  -->
+
+<securityPolicy oid="00000000-0000-0000-0000-000000000120"
+                xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
+    <name>Simple OTP Security Policy</name>
+    <authentication>
+        <modules>
+            <loginForm id="1">
+                <identifier>loginForm</identifier>
+            </loginForm>
+            <httpBasic id="2">
+                <identifier>httpBasic</identifier>
+            </httpBasic>
+            <totp>
+                <identifier>mytotp</identifier>
+                <issuer>schrodingermidpoint</issuer>
+                <label>fullName</label>
+            </totp>
+        </modules>
+        <sequence id="3">
+            <identifier>admin-gui-default</identifier>
+            <displayName>Default gui sequence</displayName>
+            <channel>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channelId>
+                <default>true</default>
+                <urlSuffix>gui-default</urlSuffix>
+            </channel>
+            <module id="6">
+                <identifier>loginForm</identifier>
+                <order>10</order>
+                <necessity>requisite</necessity>
+            </module>
+            <module id="12">
+                <identifier>mytotp</identifier>
+                <order>20</order>
+                <necessity>requisite</necessity>
+            </module>
+        </sequence>
+        <sequence id="4">
+            <identifier>rest-default</identifier>
+            <channel>
+                <default>true</default>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#rest</channelId>
+                <urlSuffix>rest-default</urlSuffix>
+            </channel>
+            <module id="7">
+                <identifier>httpBasic</identifier>
+                <order>1</order>
+                <necessity>sufficient</necessity>
+            </module>
+        </sequence>
+        <sequence id="5">
+            <identifier>actuator-default</identifier>
+            <channel>
+                <default>true</default>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#actuator</channelId>
+                <urlSuffix>actuator-default</urlSuffix>
+            </channel>
+            <module id="8">
+                <identifier>httpBasic</identifier>
+                <order>1</order>
+                <necessity>sufficient</necessity>
+            </module>
+        </sequence>
+        <ignoredLocalPath>/actuator/health</ignoredLocalPath>
+    </authentication>
+    <credentials>
+        <password>
+            <minOccurs>0</minOccurs>
+            <lockoutMaxFailedAttempts>3</lockoutMaxFailedAttempts>
+            <lockoutFailedAttemptsDuration>PT3M</lockoutFailedAttemptsDuration>
+            <lockoutDuration>PT15M</lockoutDuration>
+            <valuePolicyRef oid="00000000-0000-0000-0000-000000000003"/>
+        </password>
+    </credentials>
+</securityPolicy>

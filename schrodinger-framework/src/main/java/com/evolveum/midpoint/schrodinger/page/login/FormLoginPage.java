@@ -101,8 +101,9 @@ public class FormLoginPage extends LoginPage {
         return "PageLogin.loginToYourAccount".equals(title);
     }
 
-    public void assertIsOnLoginPage() {
+    public FormLoginPage assertIsOnLoginPage() {
         assertion.assertTrue(isOnLoginPage(), "The login page is not displayed.");
+        return this;
     }
 
     public BasicPage loginWithReloadLoginPage(String username, String password) {
