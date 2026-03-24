@@ -48,15 +48,21 @@ public class OtpLoginPageTest extends AbstractSchrodingerTest {
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
+        addObjectFromFile(SECURITY_POLICY_DEFAULT);
+
         super.beforeClass();
 
-        importObject(USER_TOTP);
-        importObject(USER_NO_TOTP);
+        addObjectFromFile(USER_TOTP);
+        addObjectFromFile(USER_NO_TOTP);
     }
 
     @AfterClass
     @Override
     public void afterClass() {
+        if (basicPage.userMenuExists()) {
+            midPoint.logout();
+        }
+
         addObjectFromFile(SECURITY_POLICY_DEFAULT);
 
         super.afterClass();
