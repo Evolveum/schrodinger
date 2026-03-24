@@ -1,0 +1,3 @@
+"id","employeenumber","firstname","surname","status","locality","country","emptype","job"
+"1","1001","Geena","Green","In","Small Red Rock City","_loc:Rocky State","FTE","124#CEO"
+"2","1002","Ana","Lopez","In","Hot Lava City","_lcl:Lava State","FTE","125#CFO"

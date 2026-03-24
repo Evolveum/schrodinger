@@ -1,0 +1,41 @@
+<resource xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="d090e856-7bbd-469b-a1e0-f372ea64f35a">
+    <_metadata id="1">
+        <storage>
+            <createTimestamp>2026-03-17T10:22:24.452+01:00</createTimestamp>
+            <creatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+            <createChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</createChannel>
+        </storage>
+        <process>
+            <requestTimestamp>2026-03-17T10:22:24.407+01:00</requestTimestamp>
+            <requestorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        </process>
+    </_metadata>
+    <name>HR for reconciliation</name>
+    <lifecycleState>proposed</lifecycleState>
+    <connectorRef type="c:ConnectorType">
+        <filter>
+            <q:text>connectorType = 'com.evolveum.polygon.connector.csv.CsvConnector' and connectorVersion = '2.8' and available = true</q:text>
+        </filter>
+    </connectorRef>
+    <connectorConfiguration xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
+        <icfc:configurationProperties
+                xmlns:cfg="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-csv/com.evolveum.polygon.connector.csv.CsvConnector">
+            <cfg:fieldDelimiter>,</cfg:fieldDelimiter>
+            <cfg:quote>"</cfg:quote>
+            <cfg:filePath>
+                target/midpoint.csv
+            </cfg:filePath>
+            <cfg:uniqueAttribute>employeenumber</cfg:uniqueAttribute>
+        </icfc:configurationProperties>
+    </connectorConfiguration>
+    <schema>
+        <generationConstraints>
+            <generateObjectClass>ri:AccountObjectClass</generateObjectClass>
+        </generationConstraints>
+    </schema>
+    <capabilities/>
+</resource>
