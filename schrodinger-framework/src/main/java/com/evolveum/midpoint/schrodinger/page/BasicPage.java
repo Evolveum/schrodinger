@@ -104,6 +104,11 @@ public class BasicPage {
         return new DashboardPage();
     }
 
+    public DashboardPage dashboard(String dashboardLabel) {
+        clickAdministrationMenu("PageAdmin.menu.dashboard", dashboardLabel);
+        return new DashboardPage();
+    }
+
     public ListUsersPage listUsers() {
         return listUsers("");
     }
@@ -744,8 +749,9 @@ public class BasicPage {
     }
 
     public BasicPage assertMenuItemActive(SelenideElement menuItemElement) {
-        SelenideElement menuItemLink = menuItemElement.parent();
-        assertion.assertTrue(menuItemElement.has(Condition.cssClass("active")), "Menu item should be active");
+        SelenideElement menuItemLink = menuItemElement.$x(".//a[contains(@class, 'active')]");
+        assertion.assertTrue(menuItemElement.has(Condition.cssClass("active")) || menuItemLink.isDisplayed(),
+                "Menu item should be active");
         return this;
     }
 

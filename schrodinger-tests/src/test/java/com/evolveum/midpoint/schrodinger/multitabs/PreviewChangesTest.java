@@ -30,8 +30,6 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
 
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
-    private static final String SECOND_TAB_ID = "secondTab";
-
     @Override
     protected List<File> getObjectListToImport(){
         return List.of(MULTIPLE_USERS);
@@ -39,17 +37,7 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00100previewChangesForTwoUsersAndSave() {
-        PreviewPage preview1 = tab(FIRST_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack1")
-                .updateSearch()
-                .and()
-                .clickByName("jack1")
+        PreviewPage preview1 = showUser(FIRST_TAB_ID, "jack1")
                 .selectBasicPanel()
                 .form()
                 .addAttributeValue("Given name", "Jackson")
@@ -57,17 +45,7 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .and()
                 .clickPreview();
 
-        PreviewPage preview2 = tab(SECOND_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack2")
-                .updateSearch()
-                .and()
-                .clickByName("jack2")
+        PreviewPage preview2 = showUser(SECOND_TAB_ID, "jack2")
                 .selectBasicPanel()
                 .form()
                 .addAttributeValue("Given name", "Jacky")
@@ -107,17 +85,7 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
 
     @Test
     public void test00200previewUserAndRoleChanges() {
-        PreviewPage preview1 = tab(FIRST_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listUsers()
-                .table()
-                .search()
-                .byName()
-                .inputValue("jack3")
-                .updateSearch()
-                .and()
-                .clickByName("jack3")
+        PreviewPage preview1 = showUser(FIRST_TAB_ID, "jack3")
                 .selectBasicPanel()
                 .form()
                 .addAttributeValue("Family name", "Black")
@@ -138,17 +106,7 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .and()
                 .clickPreview();
 
-        PreviewPage preview2 = tab(SECOND_TAB_ID)
-                .activate()
-                .getBasicPage()
-                .listRoles()
-                .table()
-                .search()
-                .byName()
-                .inputValue("End user")
-                .updateSearch()
-                .and()
-                .clickByName("End user")
+        PreviewPage preview2 = showRole(SECOND_TAB_ID, "End user")
                 .selectBasicPanel()
                 .form()
                 .addAttributeValue("Description", "Role for end user")
@@ -188,6 +146,72 @@ public class PreviewChangesTest extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                 .form()
                 .assertPropertyTextareaValueContainsText("Description", "Role for end user");
+    }
+
+    @Test
+    public void test00300previewUserExtensionAttributes() {
+        PreviewPage jack10Preview = showUser(FIRST_TAB_ID, "jack10")
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Middle name", "Tenth")
+                .and()
+                .and()
+                .clickPreview();
+
+        PreviewPage jack11Preview = showUser(SECOND_TAB_ID, "jack11")
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Middle name", "Eleventh")
+                .and()
+                .and()
+                .clickPreview();
+
+        PreviewPage jack12Preview = showUser(THIRD_TAB_ID, "jack12")
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("Middle name", "Twelfth")
+                .and()
+                .and()
+                .clickPreview();
+
+        tab(FIRST_TAB_ID)
+                .activate()
+                .lastActive(jack10Preview)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All users");
+        showUser(FIRST_TAB_ID, "jack10")
+                .selectBasicPanel()
+                .form()
+                .assertPropertyInputValue("Middle name", "Tenth");
+
+        tab(THIRD_TAB_ID)
+                .activate()
+                .lastActive(jack12Preview)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All users");
+        showUser(THIRD_TAB_ID, "jack12")
+                .selectBasicPanel()
+                .form()
+                .assertPropertyInputValue("Middle name", "Twelfth");
+
+        tab(SECOND_TAB_ID)
+                .activate()
+                .lastActive(jack11Preview)
+                .clickSave()
+                .feedback()
+                .assertSuccess()
+                .and()
+                .assertPageTitleStartsWith("All users");
+        showUser(THIRD_TAB_ID, "jack11")
+                .selectBasicPanel()
+                .form()
+                .assertPropertyInputValue("Middle name", "Eleventh");
     }
 
         //todo tests for configured preview changes page ()

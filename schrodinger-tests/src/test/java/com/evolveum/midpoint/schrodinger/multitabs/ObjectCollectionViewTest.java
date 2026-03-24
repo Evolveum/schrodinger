@@ -17,7 +17,6 @@ package com.evolveum.midpoint.schrodinger.multitabs;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
-import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -44,7 +43,6 @@ import java.util.List;
 public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
 
     private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
-    private static final String SECOND_TAB_ID = "secondTab";
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
@@ -115,5 +113,115 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
                 .table()
                 .paging()
                 .assertCurrentPageSize(25);
+    }
+
+    /**
+     * Verifies that search state is stored in session storage independently per browser tab.
+     * <p>
+     * Test goals:
+     * 1. Each tab maintains its own search criteria (isolation between tabs).
+     * 2. Search values persist after navigation to a different page.
+     * 3. Search values are restored from session storage after returning back.
+     * 4. Search state is not overridden by actions in another tab.
+     * <p>
+     * Scenario:
+     * - Tab 1: search by Nickname = "Ja"
+     * - Tab 2: search by Nickname = "JJ"
+     * - Verify both tabs keep their own state
+     * - Navigate to another page ("Persons") and perform a different search
+     * - Return back and verify original search is restored
+     */
+    @Test
+    public void test00200allUsersViewSearch() {
+        // Set search in first tab (Nickname = "Ja")
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .textInputPanelByItemName("Nickname")
+                .inputValue("Ja")
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(2);
+
+        // Set different search in second tab (Nickname = "JJ")
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .textInputPanelByItemName("Nickname")
+                .inputValue("JJ")
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1);
+
+        // Verify first tab still has its own search preserved
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .assertSearchItemExists("Nickname")
+                .assertTextSearchItemValue("Nickname", "Ja")
+                .and()
+                .assertAllObjectsCountEquals(2);
+
+        // Verify second tab still has its own search preserved
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers()
+                .table()
+                .search()
+                .assertSearchItemExists("Nickname")
+                .assertTextSearchItemValue("Nickname", "JJ")
+                .and()
+                .assertAllObjectsCountEquals(1);
+
+        // In first tab, navigate to another page and perform a different search
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers("Persons")
+                .table()
+                .search()
+                .byName()
+                .inputValue("admin")
+                .updateSearch()
+                .and()
+                .and()
+                .listUsers()
+                .table()
+                .search()
+                .assertSearchItemExists("Nickname")
+                .assertTextSearchItemValue("Nickname", "Ja")
+                .and()
+                .assertAllObjectsCountEquals(2);
+
+        // Repeat navigation scenario in second tab
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listUsers("Persons")
+                .table()
+                .search()
+                .assertTextSearchItemValue("Name", "")
+                .byName()
+                .inputValue("jack")
+                .updateSearch()
+                .and()
+                .and()
+                .listUsers()
+                .table()
+                .search()
+                .assertSearchItemExists("Nickname")
+                .assertTextSearchItemValue("Nickname", "JJ")
+                .and()
+                .assertAllObjectsCountEquals(1);
     }
 }

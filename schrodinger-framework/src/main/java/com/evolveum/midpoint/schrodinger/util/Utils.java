@@ -20,6 +20,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$x;
 
 import com.codeborne.selenide.*;
+import com.evolveum.midpoint.schrodinger.component.common.AssignmentsTableWithDetailsPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.page.user.ProgressPage;
 import org.apache.commons.io.FileUtils;
@@ -102,7 +103,7 @@ public class Utils {
     }
 
     public static <P extends AssignmentHolderDetailsPage> void removeAssignments(AssignmentsPanel<P> tab, String... assignments) {
-        AbstractTableWithPrismView<AssignmentsPanel<P>, AbstractTableWithPrismView> table = tab.table();
+        AssignmentsTableWithDetailsPanel<AssignmentsPanel<P>, AssignmentsTableWithDetailsPanel> table = tab.table();
         for (String assignment : assignments) {
             table.removeByName(assignment);
         }
