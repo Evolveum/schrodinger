@@ -1,121 +1,161 @@
-<report xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-        xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
-        xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
-        xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
-        xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
-        xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
-        xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
-        oid="7753b50f-071b-40c6-a00b-444cfd934e1c">
-    <name>Test report of audit events</name>
-    <description>Testing of report - query modification</description>
-    <assignment id="1">
-        <identifier>archetype</identifier>
-        <targetRef oid="00000000-0000-0000-0000-000000000171" relation="org:default" type="c:ArchetypeType"/>
-        <activation/>
-    </assignment>
-    <objectCollection>
-        <collection>
-            <filter>
-                <q:text>
-                    timestamp >= "2026-01-15T13:31:00" and timestamp &lt; "2026-01-15T13:31:02"
-                </q:text>
-            </filter>
-            <baseCollectionRef>
-                <collectionRef oid="d211d921-511e-4ce8-a0c1-f61bb02a29b4" relation="org:default"
-                               type="c:ObjectCollectionType"/>
-            </baseCollectionRef>
-        </collection>
-        <view>
-            <column id="1">
-                <name>eventIdColumn</name>
-                <path>repoId</path>
-                <display>
-                    <label>Event ID</label>
-                </display>
-            </column>
-            <column id="2">
-                <name>timestampColumn</name>
-                <path>timestamp</path>
-                <previousColumn>eventIdColumn</previousColumn>
-                <export>
-                    <expression>
-                        <script>
-                            <code>
-                                import javax.xml.datatype.DatatypeFactory
-                                import javax.xml.datatype.XMLGregorianCalendar
-                                import java.time.ZoneId
-                                import java.time.ZonedDateTime
-                                import java.time.format.DateTimeFormatter
+<?xml version="1.0" encoding="UTF-8"?>
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
 
-                                if (basic.isEmpty(input)) {
-                                    return null
-                                }
-
-                                ZonedDateTime zonedDateTime = input.toGregorianCalendar().toZonedDateTime()
-                                ZonedDateTime localTime = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
-
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-                                String formattedDate = localTime.format(formatter)
-
-                                return formattedDate
-                            </code>
-                        </script>
-                    </expression>
-                </export>
-            </column>
-            <column id="3">
-                <name>initiatorColumn</name>
-                <path>initiatorRef</path>
-                <previousColumn>timestampColumn</previousColumn>
-            </column>
-            <column id="4">
-                <name>channelColumn</name>
-                <path>channel</path>
-                <previousColumn>initiatorColumn</previousColumn>
-                <export>
-                    <expression>
-                        <script>
-                            <code>
-                                def out = input?.contains('#')
-                                        ? "...${input.substring(input.lastIndexOf('#'))}"
-                                        : null
-
-                                return out
-                            </code>
-                        </script>
-                    </expression>
-                </export>
-            </column>
-            <column id="6">
-                <name>eventTypeColumn</name>
-                <path>eventType</path>
-                <previousColumn>channelColumn</previousColumn>
-            </column>
-            <column id="7">
-                <name>eventStageColumn</name>
-                <path>eventStage</path>
-                <previousColumn>eventTypeColumn</previousColumn>
-            </column>
-            <column id="8">
-                <name>targetColumn</name>
-                <path>targetRef</path>
-                <previousColumn>eventStageColumn</previousColumn>
-            </column>
-            <column id="9">
-                <name>outcomeColumn</name>
-                <path>outcome</path>
-                <previousColumn>targetColumn</previousColumn>
-            </column>
-            <column id="10">
-                <name>parameterColumn</name>
-                <path>parameter</path>
-                <previousColumn>outcomeColumn</previousColumn>
-            </column>
-            <column id="11">
-                <name>messageColumn</name>
-                <path>message</path>
-                <previousColumn>parameterColumn</previousColumn>
-            </column>
-        </view>
+    <objectCollection xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+                      xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+                      xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+                      xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      oid="d211d921-511e-4ce8-a0c1-f61bb02a29b4"
+                      version="1">
+        <name>objCol-audit</name>
+        <operationExecution id="2">
+            <recordType>simple</recordType>
+            <timestamp>2026-03-23T12:35:49.321+01:00</timestamp>
+            <operation>
+                <objectDelta>
+                    <t:changeType>add</t:changeType>
+                    <t:objectType>c:ObjectCollectionType</t:objectType>
+                </objectDelta>
+                <executionResult>
+                    <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                    <status>success</status>
+                    <importance>normal</importance>
+                    <token>1000000000000008979</token>
+                </executionResult>
+                <objectName>objCol-audit</objectName>
+            </operation>
+            <status>success</status>
+            <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType">
+                <!-- administrator -->
+            </initiatorRef>
+            <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
+        </operationExecution>
+        <iteration>0</iteration>
+        <iterationToken/>
+        <type xmlns:audit="http://midpoint.evolveum.com/xml/ns/public/common/audit-3">audit:AuditEventRecordType</type>
     </objectCollection>
-</report>
+
+    <report xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+            xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+            xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+            xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+            xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+            xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+            xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+            oid="7753b50f-071b-40c6-a00b-444cfd934e1c">
+        <name>Test report of audit events</name>
+        <description>Testing of report - query modification</description>
+        <assignment id="1">
+            <identifier>archetype</identifier>
+            <targetRef oid="00000000-0000-0000-0000-000000000171" relation="org:default" type="c:ArchetypeType"/>
+            <activation/>
+        </assignment>
+        <objectCollection>
+            <collection>
+                <filter>
+                    <q:text>
+                        timestamp >= "2026-01-15T13:31:00" and timestamp &lt; "2026-01-15T13:31:02"
+                    </q:text>
+                </filter>
+                <baseCollectionRef>
+                    <collectionRef oid="d211d921-511e-4ce8-a0c1-f61bb02a29b4" relation="org:default"
+                                   type="c:ObjectCollectionType"/>
+                </baseCollectionRef>
+            </collection>
+            <view>
+                <column id="1">
+                    <name>eventIdColumn</name>
+                    <path>repoId</path>
+                    <display>
+                        <label>Event ID</label>
+                    </display>
+                </column>
+                <column id="2">
+                    <name>timestampColumn</name>
+                    <path>timestamp</path>
+                    <previousColumn>eventIdColumn</previousColumn>
+                    <export>
+                        <expression>
+                            <script>
+                                <code>
+                                    import javax.xml.datatype.DatatypeFactory
+                                    import javax.xml.datatype.XMLGregorianCalendar
+                                    import java.time.ZoneId
+                                    import java.time.ZonedDateTime
+                                    import java.time.format.DateTimeFormatter
+
+                                    if (basic.isEmpty(input)) {
+                                    return null
+                                    }
+
+                                    ZonedDateTime zonedDateTime = input.toGregorianCalendar().toZonedDateTime()
+                                    ZonedDateTime localTime = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
+
+                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
+                                    String formattedDate = localTime.format(formatter)
+
+                                    return formattedDate
+                                </code>
+                            </script>
+                        </expression>
+                    </export>
+                </column>
+                <column id="3">
+                    <name>initiatorColumn</name>
+                    <path>initiatorRef</path>
+                    <previousColumn>timestampColumn</previousColumn>
+                </column>
+                <column id="4">
+                    <name>channelColumn</name>
+                    <path>channel</path>
+                    <previousColumn>initiatorColumn</previousColumn>
+                    <export>
+                        <expression>
+                            <script>
+                                <code>
+                                    def out = input?.contains('#')
+                                    ? "...${input.substring(input.lastIndexOf('#'))}"
+                                    : null
+
+                                    return out
+                                </code>
+                            </script>
+                        </expression>
+                    </export>
+                </column>
+                <column id="6">
+                    <name>eventTypeColumn</name>
+                    <path>eventType</path>
+                    <previousColumn>channelColumn</previousColumn>
+                </column>
+                <column id="7">
+                    <name>eventStageColumn</name>
+                    <path>eventStage</path>
+                    <previousColumn>eventTypeColumn</previousColumn>
+                </column>
+                <column id="8">
+                    <name>targetColumn</name>
+                    <path>targetRef</path>
+                    <previousColumn>eventStageColumn</previousColumn>
+                </column>
+                <column id="9">
+                    <name>outcomeColumn</name>
+                    <path>outcome</path>
+                    <previousColumn>targetColumn</previousColumn>
+                </column>
+                <column id="10">
+                    <name>parameterColumn</name>
+                    <path>parameter</path>
+                    <previousColumn>outcomeColumn</previousColumn>
+                </column>
+                <column id="11">
+                    <name>messageColumn</name>
+                    <path>message</path>
+                    <previousColumn>parameterColumn</previousColumn>
+                </column>
+            </view>
+        </objectCollection>
+    </report>
+</objects>
