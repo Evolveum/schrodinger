@@ -16,13 +16,22 @@
 package com.evolveum.midpoint.schrodinger.multitabs;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.List;
+
+import static com.codeborne.selenide.Selenide.open;
 
 /**
  * Test class covering navigation behavior within the multi-tab feature.
@@ -41,6 +50,8 @@ import java.util.List;
  * </ul>
  */
 public class NavigationTest extends AbstractSchrodingerTest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(NavigationTest.class);
 
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
@@ -128,6 +139,52 @@ public class NavigationTest extends AbstractSchrodingerTest {
         tab(THIRD_TAB_ID)
                 .getBasicPage()
                 .assertMenuItemActive(servicesMenuElement);
+    }
+
+    /**
+     * If wrong id is passed to URL, the correct one should be still present in url
+     */
+    @Test
+    public void test00300urlWithWrongWindowId() {
+        basicPage
+                .listUsers();
+        String windowId = getCurrentWindowId();
+        open("/admin/users?w=wrongId");
+        Utils.waitForAjaxCallFinish();
+        String windowIdAfterReload = getCurrentWindowId();
+        assertion.assertEquals(windowId, windowIdAfterReload, "Window id should stay the same.");
+    }
+
+    /**
+     * If no id is passed to URL, the correct one should be still present in url
+     * */
+    @Test
+    public void test00400urlWithoutWindowId() {
+        open("/admin/roles");
+        Utils.waitForAjaxCallFinish();
+        Selenide.sleep(2000);
+        String windowId = getCurrentWindowId();
+        assertion.assertTrue(StringUtils.isNotEmpty(windowId), "Window id should not be empty.");
+    }
+
+    private String getCurrentWindowId() {
+        String actualUrl = WebDriverRunner.url();
+        String wValue = null;
+        try {
+            String query = new URL(actualUrl).getQuery();
+            if (query == null) {
+                return null;
+            }
+            for (String param : query.split("&")) {
+                String[] pair = param.split("=");
+                if (pair[0].equals("w")) {
+                    wValue = URLDecoder.decode(pair[1], "UTF-8");
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Wrong url {}", actualUrl);
+        }
+        return wValue;
     }
 
 }
