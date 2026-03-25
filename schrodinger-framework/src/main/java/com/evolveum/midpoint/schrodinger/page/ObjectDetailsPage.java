@@ -122,6 +122,10 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
         return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("Basic"));
     }
 
+    public AssignmentHolderBasicPanel<P> selectCollectionPanel() {
+        return new AssignmentHolderBasicPanel<>((P) this, getNavigationPanelSelenideElement("Collection"));
+    }
+
     public SelenideElement getNavigationPanelSelenideElement(String... panelTitle) {
         Utils.waitForMainPanelOnDetailsPage();
         Utils.waitForAjaxCallFinish();
