@@ -40,6 +40,14 @@ public class OtpLoginPageTest extends AbstractSchrodingerTest {
 
     private static final File USER_NO_TOTP = new File(OBJECTS_DIR, "/users/user-no-totp.xml");
 
+    private static final String USER_NAME = "totp-user";
+
+    private static final String USER_PASSWORD = "Test5ecr3t";
+
+    private static final String USER_NO_TOTP_NAME = "no-totp-user";
+
+    private static final String USER_NO_TOTP_PASSWORD = "Test5ecr3t";
+
     private static final String TOTP_SECRET = "R2YTPJHLUUYEJ2BUUEXDRWTMWMAU73ZF";
 
     @Autowired
@@ -75,14 +83,26 @@ public class OtpLoginPageTest extends AbstractSchrodingerTest {
     public void test100LoginWithFormLoginAndOtp() throws Exception {
         addObjectFromFile(SECURITY_POLICY_SIMPLE_OTP);
 
-        loginWithOtp("totp-user", "Test5ecr3t", computeCode());
+        loginWithOtp(USER_NAME, USER_PASSWORD, computeCode());
 
         basicPage.assertUserMenuExist();
     }
 
     @Test
     public void test110LoginWithWrongCode() throws Exception {
-        loginWithOtp("totp-user", "Test5ecr3t", "12345");   // wrong code
+        loginWithOtp(USER_NAME, USER_PASSWORD, "123456");   // wrong code
+
+        midPoint.formLogin()
+                .assertIsOnLoginPage()
+                .feedback()
+                .assertError();
+
+        // todo assert proper error message
+    }
+
+    @Test
+    public void test120LoginWithoutTotpSetup() throws Exception {
+        loginWithOtp(USER_NO_TOTP_NAME, USER_NO_TOTP_PASSWORD, "123456"); // there's no good code for this user
 
         midPoint.formLogin()
                 .assertIsOnLoginPage()
