@@ -343,7 +343,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .addItemToCart(roleConflict2)
                 .next()
                 .assertOpenConflictExist()
-                .assertWarningBudgeExist()
+                .assertWarningBadgeExist()
                 .clickSubmitButton()
                 .requestAccess()
                 .selectMyself()
@@ -352,7 +352,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .addItemToCart(roleUnrelated)
                 .next()
                 .assertOpenConflictNotExist()
-                .assertWarningBudgeNotExist()
+                .assertWarningBadgeNotExist()
                 .clickSubmitButton();
     }
 }

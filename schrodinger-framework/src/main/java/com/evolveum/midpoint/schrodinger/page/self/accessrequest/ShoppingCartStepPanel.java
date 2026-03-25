@@ -92,17 +92,17 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
         return this;
     }
 
-    public ShoppingCartStepPanel assertWarningBudgeExist() {
-        SelenideElement warningBudge = $x(".//span[contains(@class,\"badge badge-warning\")]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
-        assertion.assertTrue(warningBudge.exists() && warningBudge.isDisplayed(),
-                "Warning budge should exist, but it doesn't.");
+    public ShoppingCartStepPanel assertWarningBadgeExist() {
+        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge badge-warning\")]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        assertion.assertTrue(warningBadge.exists() && warningBadge.isDisplayed(),
+                "Warning badge should exist, but it doesn't.");
         return this;
     }
 
-    public ShoppingCartStepPanel assertWarningBudgeNotExist() {
-        SelenideElement warningBudge = $x(".//span[contains(@class,\"badge badge-warning\")]");
-        assertion.assertTrue(!warningBudge.exists(),
-                "Warning budge should not exist, but it does.");
+    public ShoppingCartStepPanel assertWarningBadgeNotExist() {
+        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge badge-warning\")]");
+        assertion.assertTrue(!warningBadge.exists(),
+                "Warning badge should not exist, but it does.");
         return this;
     }
 }
