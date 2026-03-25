@@ -20,7 +20,6 @@
                 <identifier>mytotp</identifier>
                 <issuer>schrodingermidpoint</issuer>
                 <label>fullName</label>
-                <strategy>enrolled</strategy>
             </totp>
         </modules>
         <sequence id="3">
@@ -40,6 +39,7 @@
                 <identifier>mytotp</identifier>
                 <order>20</order>
                 <necessity>requisite</necessity>
+                <acceptEmpty>true</acceptEmpty>
             </module>
         </sequence>
         <sequence id="4">

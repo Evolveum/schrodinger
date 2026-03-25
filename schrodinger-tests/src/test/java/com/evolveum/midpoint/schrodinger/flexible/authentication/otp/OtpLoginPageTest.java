@@ -134,6 +134,8 @@ public class OtpLoginPageTest extends AbstractSchrodingerTest {
 
         Utils.waitForAjaxCallFinish();
 
+        Thread.sleep(2000L);
+
         Assertions.assertThat(WebDriverRunner.url()).contains(OtpCodePage.PAGE_PATH);
 
         OtpCodePage otp = midPoint.otpCode();
