@@ -98,6 +98,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
             new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
+    protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-fulltext.xml");
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
 

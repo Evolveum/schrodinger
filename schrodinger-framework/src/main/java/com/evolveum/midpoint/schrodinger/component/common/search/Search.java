@@ -359,6 +359,14 @@ public class Search<T> extends Component<T, Search<T>> {
         return Search.this;
     }
 
+    public Search<T> assertFulltextValueEquals(String expectedValue) {
+        assertFulltextSearchIsDisplayed();
+        SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String fulltextValue = fullTextField.getValue();
+        assertion.assertEquals(fulltextValue, expectedValue, "Fulltext value doesn't match to expected one.");
+        return Search.this;
+    }
+
     public SaveSearchPopupPanel<T> clickSaveSearchButton() {
         getParentElement().$(Schrodinger.byDataId("saveSearchButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)

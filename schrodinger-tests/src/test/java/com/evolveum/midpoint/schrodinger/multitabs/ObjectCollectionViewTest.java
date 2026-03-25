@@ -224,4 +224,64 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
                 .and()
                 .assertAllObjectsCountEquals(1);
     }
+
+    @Test
+    public void test00300fullTextSearchOnRolesListPage() {
+        importObject(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
+        basicPage.aboutPage().reindexRepositoryObjects();
+        reloginAsAdministrator();
+
+        // Set search in first tab (Fulltext search = "approval decisions")
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRoles()
+                .table()
+                .search()
+                .assertFulltextSearchIsDisplayed()
+                .fullText("approval decisions") //from Approver role description
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsText("Approver");
+
+        // Set search in second tab (Fulltext search = "delegate")
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRoles()
+                .table()
+                .search()
+                .assertFulltextSearchIsDisplayed()
+                .assertFulltextValueEquals("")
+                .fullText("delegate ") //from Delegator role description
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsText("Delegator");
+
+        // Verify first tab still has its own search preserved
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRoles()
+                .table()
+                .search()
+                .assertFulltextSearchIsDisplayed()
+                .assertFulltextValueEquals("approval decisions")
+                .and()
+                .assertAllObjectsCountEquals(1);
+
+        // Verify second tab still has its own search preserved
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRoles()
+                .table()
+                .search()
+                .assertFulltextSearchIsDisplayed()
+                .assertFulltextValueEquals("delegate")
+                .and()
+                .assertAllObjectsCountEquals(1);
+    }
 }

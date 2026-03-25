@@ -39,11 +39,9 @@ public class PolyStringTests extends AbstractSchrodingerTest {
     private static final String CREATE_USER_WITH_DIACRITIC_DEPENDENCY = "test0010createUserWithDiacritic";
     private static final String SEARCH_USER_WITH_DIACRITIC_DEPENDENCY = "test0020searchForUserWithDiacritic";
 
-    private static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-fulltext.xml");
-
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
+        return List.of(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
     }
 
     @Test
