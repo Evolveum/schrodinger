@@ -24,6 +24,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
 public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
 
@@ -75,5 +76,33 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
 
     public ShoppingCartItemsTable getShoppingCartItemsTable() {
         return new ShoppingCartItemsTable(ShoppingCartStepPanel.this);
+    }
+
+    public ShoppingCartStepPanel assertOpenConflictExist() {
+        SelenideElement openConflict = getParentElement().$(Schrodinger.byDataId("openConflict")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        assertion.assertTrue(openConflict.exists() && openConflict.isDisplayed(),
+                "Open conflict solver button should exist, but it doesn't.");
+        return this;
+    }
+
+    public ShoppingCartStepPanel assertOpenConflictNotExist() {
+        SelenideElement openConflict = getParentElement().$(Schrodinger.byDataId("openConflict"));
+        assertion.assertTrue(!openConflict.exists(),
+                "Open conflict solver button should not exist, but it does.");
+        return this;
+    }
+
+    public ShoppingCartStepPanel assertWarningBadgeExist() {
+        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge badge-warning\")]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        assertion.assertTrue(warningBadge.exists() && warningBadge.isDisplayed(),
+                "Warning badge should exist, but it doesn't.");
+        return this;
+    }
+
+    public ShoppingCartStepPanel assertWarningBadgeNotExist() {
+        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge badge-warning\")]");
+        assertion.assertTrue(!warningBadge.exists(),
+                "Warning badge should not exist, but it does.");
+        return this;
     }
 }
