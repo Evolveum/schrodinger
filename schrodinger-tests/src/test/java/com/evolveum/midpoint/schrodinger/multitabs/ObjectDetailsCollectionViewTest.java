@@ -98,4 +98,81 @@ public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
                 .paging()
                 .assertCurrentPageSize(120); //should be restored from the session storage of second tab
     }
+
+    /**
+     * Verifies correct behavior of session storage for the Assignments panel search filter
+     * across multiple browser tabs.
+     *
+     * <p>The test ensures that each browser tab maintains its own independent session storage
+     * and that search filters are properly stored and restored within the same tab context.</p>
+     *
+     * <p>Test scenario:</p>
+     * <ul>
+     *     <li>In the first tab, a search filter ("Name" = "end") is applied on the Assignments panel.</li>
+     *     <li>In the second tab, a different search filter ("Name" = "user") is applied.</li>
+     *     <li>The test verifies that:
+     *         <ul>
+     *             <li>The filter in the first tab is preserved and correctly restored when navigating
+     *             between different user detail pages.</li>
+     *             <li>The filter in the second tab is also preserved independently and restored correctly.</li>
+     *             <li>Filters from one tab do not affect the other tab.</li>
+     *         </ul>
+     *     </li>
+     * </ul>
+     *
+     * <p>Expected result:</p>
+     * <ul>
+     *     <li>Each tab restores its own search filter from session storage.</li>
+     *     <li>The applied filter is consistently reflected on the Assignments panel
+     *     across different user detail pages within the same tab.</li>
+     *     <li>No leakage of session storage data occurs between tabs.</li>
+     * </ul>
+     */
+    @Test
+    public void test00200assignmentsPanelSearchFromSessionStorage() {
+        showUser(FIRST_TAB_ID, "jack1")
+                .selectAssignmentsPanel()
+                .table()
+                .search()
+                .textInputPanelByItemName("Name")
+                .inputValue("end")
+                .updateSearch();
+
+        showUser(SECOND_TAB_ID, "jack1")
+                .selectAssignmentsPanel()
+                .table()
+                .search()
+                .textInputPanelByItemName("Name")
+                .and()
+                .assertTextSearchItemValue("Name", "")
+                .byName()
+                .inputValue("user")
+                .updateSearch();
+
+        showUser(FIRST_TAB_ID, "jack1")
+                .selectAssignmentsPanel()
+                .table()
+                .search()
+                .assertSearchItemExists("Name")
+                .assertTextSearchItemValue("Name", "end");
+        showUser(FIRST_TAB_ID, "jack2")
+                .selectAssignmentsPanel()
+                .table()
+                .search()
+                .assertSearchItemExists("Name")
+                .assertTextSearchItemValue("Name", "end");
+
+        showUser(SECOND_TAB_ID, "jack1")
+                .selectAssignmentsPanel()
+                .table()
+                .search()
+                .assertSearchItemExists("Name")
+                .assertTextSearchItemValue("Name", "user");
+        showUser(SECOND_TAB_ID, "jack3")
+                .selectAssignmentsPanel()
+                .table()
+                .search()
+                .assertSearchItemExists("Name")
+                .assertTextSearchItemValue("Name", "user");
+    }
 }
