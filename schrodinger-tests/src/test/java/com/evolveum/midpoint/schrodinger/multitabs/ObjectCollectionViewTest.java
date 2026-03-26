@@ -49,7 +49,8 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+        importObject(SYS_CONFIG_DEFAULT_SETTINGS);
+        reloginAsAdministrator();
     }
 
     @Override
@@ -225,6 +226,20 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
                 .assertAllObjectsCountEquals(1);
     }
 
+    /**
+     * Verifies that fulltext search filter is stored in session storage independently per browser tab.
+     * <p>
+     * Test goals:
+     * 1. Each tab maintains its own fulltext search filter.
+     * 2. Search values persist after page reloading.
+     * 3. Search filters are restored from session storage after page reloading.
+     * 4. Search state is not overridden by actions in another tab.
+     * <p>
+     * Scenario:
+     * - Tab 1: search on roles list page by fulltext search value = "approval decisions"
+     * - Tab 2: search on roles list page by fulltext search value = "delegate"
+     * - Reload the page on each tab and verify both tabs keep their own state
+     */
     @Test
     public void test00300fullTextSearchOnRolesListPage() {
         importObject(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
