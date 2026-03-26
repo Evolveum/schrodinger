@@ -32,6 +32,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File ROLES_CONFLICT = new File("./src/test/resources/objects/roles/request-access-wizard-conflict-roles.xml");
     private static final File SYSTEM_CONFIGURATION_MANDATORY_VALIDITY = new File("./src/test/resources/objects/systemconfiguration/sys-config-request-access-mandatory-validity.xml");
     private static final File COLLECTION_ORGANIZATIONS = new File("./src/test/resources/objects/objectcollections/all-organizations-custom.xml");
     private static final File COLLECTION_ROLES = new File("./src/test/resources/objects/objectcollections/all-roles-custom.xml");
@@ -325,4 +326,33 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertPropertyInputValue("testExtension", "12");
     }
 
+    //covers #10994
+    @Test
+    void test0096requestAssignmentUnrelatedToConflictRoles() {
+        importObject(ROLES_CONFLICT, true, true);
+        String roleConflict1 = "able-abundant-white-saloon";
+        String roleConflict2 = "able-affable-salmon-bay";
+        String roleUnrelated = "able-abundant-orange-park";
+
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .assertTilesViewIsSelected()
+                .addItemToCart(roleConflict1)
+                .addItemToCart(roleConflict2)
+                .next()
+                .assertOpenConflictExist()
+                .assertWarningBadgeExist()
+                .clickSubmitButton()
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .assertTilesViewIsSelected()
+                .addItemToCart(roleUnrelated)
+                .next()
+                .assertOpenConflictNotExist()
+                .assertWarningBadgeNotExist()
+                .clickSubmitButton();
+    }
 }

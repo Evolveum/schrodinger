@@ -34,6 +34,7 @@ public class ReportTests extends AbstractSchrodingerTest {
     public static final File TEST_CAMPAIGN_WITH_STEPHAN_REVIEWER = new File("./src/test/resources/objects/accessCertification/campaign/test-campaign-with-stephan-reviewer.xml");
     public static final File AUDIT_REPORT_DATA = new File("./src/test/resources/objects/reportdata/audit-report-data.xml");
     public static final File EXPORT_TASK_FOR_AUDIT_RECORDS = new File("./src/test/resources/objects/tasks/export-task-for-audit-records.xml");
+    public static final File REPORT_TIMESTAMP_UPDATE = new File("./src/test/resources/objects/reports/report-timestamp-update.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -62,6 +63,32 @@ public class ReportTests extends AbstractSchrodingerTest {
                     .and()
                 .assertVisibleObjectsCountEquals(1);
         basicPage.listReports().table().assertTableContainsText("TestReport");
+    }
+
+    @Test
+    public void test00101updateReportCollectionFilterWithTimestamp() {
+        importObject(REPORT_TIMESTAMP_UPDATE, true, true);
+        final String reportName = "Test report of audit events";
+        final String attributeName = "Filter";
+        final String oldValue = "timestamp >= \"2026-01-15T13:31:00\" and timestamp < \"2026-01-15T13:31:02\"";
+        final String newValue = "timestamp >= \"2026-01-21T12:21:00\" and timestamp < \"2026-01-21T12:31:02\"";
+
+        basicPage.listReports()
+                .table()
+                .search()
+                .byName()
+                .inputValue(reportName)
+                .updateSearch()
+                .and()
+                .clickByName(reportName)
+                .selectCollectionPanel()
+                .form()
+                .changeAttributeValue(attributeName, oldValue, newValue)
+                .and()
+                .and()
+                .clickSave()
+                .feedback()
+                .assertSuccess();
     }
 
     @Test

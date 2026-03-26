@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<objects>
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="e86fde02-492b-42dd-9cd2-3dcb4f5ccbaf">
+        <name>able-abundant-white-saloon</name>
+        <assignment>
+            <identifier>sod-able-affable-salmon-bay</identifier>
+            <policyRule>
+                <name>sod-able-affable-salmon-bay</name>
+                <policyConstraints>
+                    <exclusion>
+                        <targetRef type="RoleType">
+                            <filter>
+                                <q:text>name = 'able-affable-salmon-bay'</q:text>
+                            </filter>
+                            <resolutionTime>run</resolutionTime>
+                        </targetRef>
+                    </exclusion>
+                </policyConstraints>
+                <markRef oid="00000000-0000-0000-0000-000000000811">
+                    <description>[able-abundant-white-saloon] - [able-affable-salmon-bay] exclusion violation</description>
+                </markRef>
+                <policyActions>
+                    <record>
+                        <description>Record the marks for use in dashboards and reports.</description>
+                    </record>
+                </policyActions>
+            </policyRule>
+        </assignment>
+        <displayName>able-abundant-white-saloon</displayName>
+        <requestable>true</requestable>
+    </role>
+
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="07febe33-4dee-43db-bd07-b91a0dd5f086">
+        <name>able-affable-salmon-bay</name>
+        <displayName>able-affable-salmon-bay</displayName>
+        <requestable>true</requestable>
+    </role>
+
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+          xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          oid="d5550302-4111-4423-b08c-b30eeb5a779f">
+        <name>able-abundant-orange-park</name>
+        <displayName>able-abundant-orange-park</displayName>
+        <requestable>true</requestable>
+    </role>
+</objects>
