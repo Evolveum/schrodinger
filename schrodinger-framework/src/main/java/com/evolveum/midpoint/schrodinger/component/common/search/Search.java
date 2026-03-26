@@ -346,9 +346,24 @@ public class Search<T> extends Component<T, Search<T>> {
         return this;
     }
 
+    public Search<T> assertTextSearchItemValue(String searchItemName, String expectedValue) {
+        var searchItemElement = getItemByName(searchItemName).$x(".//input[@data-s-id='input']");
+        var value = searchItemElement.getValue();
+        assertion.assertTrue(StringUtils.equals(expectedValue, value), "Search item with name '" + searchItemName + "' doesn't contain value '" + expectedValue + "'");
+        return this;
+    }
+
     public Search<T> assertFulltextSearchIsDisplayed() {
         SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         assertion.assertTrue(fullTextField.exists() && fullTextField.isDisplayed(), "Fulltext search is not displayed.");
+        return Search.this;
+    }
+
+    public Search<T> assertFulltextValueEquals(String expectedValue) {
+        assertFulltextSearchIsDisplayed();
+        SelenideElement fullTextField = getParentElement().$(Schrodinger.byDataId("input", "fullTextField")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String fulltextValue = fullTextField.getValue();
+        assertion.assertEquals(fulltextValue, expectedValue, "Fulltext value doesn't match to expected one.");
         return Search.this;
     }
 

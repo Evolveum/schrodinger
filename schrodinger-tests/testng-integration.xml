@@ -198,4 +198,17 @@
             <class name="com.evolveum.midpoint.schrodinger.scenarios.ObjectCollectionViewTest"/>
         </classes>
     </test>
+    <test name="DashboardPageTest" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.page.DashboardPageTest"/>
+        </classes>
+    </test>
+    <test name="MultiTabTests" preserve-order="true" parallel="false" verbose="3" enabled="true">
+        <classes>
+            <class name="com.evolveum.midpoint.schrodinger.multitabs.NavigationTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.multitabs.ObjectCollectionViewTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.multitabs.ObjectDetailsCollectionViewTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.multitabs.PreviewChangesTest"/>
+        </classes>
+    </test>
 </suite>

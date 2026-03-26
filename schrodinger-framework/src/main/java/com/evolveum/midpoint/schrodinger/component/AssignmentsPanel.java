@@ -20,6 +20,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.component.common.AssignmentsTableWithDetailsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
 import com.evolveum.midpoint.schrodinger.component.common.table.TableRow;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
@@ -45,6 +46,11 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
         super(parent, parentElement);
     }
 
+    public AssignmentsTableWithDetailsPanel<AssignmentsPanel<P>, AssignmentsTableWithDetailsPanel> table() {
+        SelenideElement mainPanel = $(Schrodinger.byDataId("div", "itemsTable"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return new AssignmentsTableWithDetailsPanel<>(AssignmentsPanel.this, mainPanel);
+    }
 
     public <A extends AssignmentsPanel<P>> FocusSetAssignmentsModal<A> clickAddAssignment() {
         return clickAddAssignment("");
@@ -128,7 +134,7 @@ public class AssignmentsPanel<P extends AssignmentHolderDetailsPage> extends Pan
     public boolean containsAssignmentsWithRelation(String targetType, String relation, String... expectedAssignments) {
         getParent().getNavigationPanelSelenideElement("Assignments", targetType);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
-        List<TableRow<PanelWithTableAndPrismView<P>, Table>> rows =
+        List<TableRow<AssignmentsPanel<P>, Table>> rows =
                 table().findAllRowsByColumnLabel("Relation", relation);
         List<String> assignmentNamesList = new ArrayList<String>();
         for (TableRow<?, ?> row : rows) {

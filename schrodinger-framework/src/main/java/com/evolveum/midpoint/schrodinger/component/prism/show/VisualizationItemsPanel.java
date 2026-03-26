@@ -24,8 +24,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.$$x;
 
 public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsPanel<T>> {
 
@@ -48,8 +46,20 @@ public class VisualizationItemsPanel<T> extends Component<T, VisualizationItemsP
 
     public boolean itemLineExists(SelenideElement parentElement, String itemName, String itemValue) {
         ElementsCollection items = getItemsElementList(parentElement);
+        SelenideElement itemNameEl = null;
+        int remainingRowSpan = 0;
         for (SelenideElement item : items) {
-            SelenideElement itemNameEl = item.$(Schrodinger.byDataId("name"));
+            SelenideElement nameContainer = item.$(Schrodinger.byDataId("nameContainer"));
+
+            // If no active rowspan, resolve a new name element
+            if (remainingRowSpan == 0) {
+                String rowSpanAttr = nameContainer.getAttribute("rowSpan");
+                remainingRowSpan = rowSpanAttr != null ? Integer.parseInt(rowSpanAttr) : 1;
+
+                itemNameEl = item.$(Schrodinger.byDataId("name"));
+            }
+
+            remainingRowSpan--;
             SelenideElement itemValueEl = item.$(Schrodinger.byDataId("newValueContainer"))
                     .$(Schrodinger.byDataId("label"));
             if (!itemValueEl.isDisplayed()) {

@@ -38,6 +38,8 @@ import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.AboutPage;
 import com.evolveum.midpoint.schrodinger.page.configuration.ImportObjectPage;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
+import com.evolveum.midpoint.schrodinger.page.org.OrgPage;
+import com.evolveum.midpoint.schrodinger.page.org.OrgsPageTable;
 import com.evolveum.midpoint.schrodinger.page.resource.AccountPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ListResourcesPage;
 import com.evolveum.midpoint.schrodinger.page.resource.ResourcePage;
@@ -45,6 +47,8 @@ import com.evolveum.midpoint.schrodinger.page.role.RolePage;
 import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.schrodinger.tab.TabContext;
+import com.evolveum.midpoint.schrodinger.tab.TabManager;
 import com.evolveum.midpoint.schrodinger.util.AssertionWithScreenshot;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
@@ -54,6 +58,7 @@ import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.openqa.selenium.WindowType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +76,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -93,6 +101,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
             new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
+    protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-fulltext.xml");
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
 
@@ -111,6 +120,11 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static AssertionWithScreenshot assertion = new AssertionWithScreenshot();
 
     private boolean startMidpoint = true;
+
+    protected TabManager tabManager = new TabManager();
+    public static final String FIRST_TAB_ID = "firstTab";
+    public static final String SECOND_TAB_ID = "secondTab";
+    public static final String THIRD_TAB_ID = "thirdTab";
 
     public EnvironmentConfiguration getConfiguration() {
         return configuration;
@@ -248,6 +262,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         String locale = getConfigurationPropertyValue("locale");
         LOG.info("Logging to midpoint with credentials: " + username + "-" + password);
         basicPage = login.loginIfUserIsNotLog(username, password, locale);
+        tabManager.register(FIRST_TAB_ID);
 
         if (resetToDefaultBeforeTests()) {
             resetToDefaultAndRelogin();
@@ -257,8 +272,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected EnvironmentConfiguration buildEnvironmentConfiguration() throws IOException {
-        EnvironmentConfiguration config = new EnvironmentConfiguration();
-        config.driver(WebDriver.valueOf(getConfigurationPropertyValue("webdriver")));
+        EnvironmentConfiguration config = new EnvironmentConfiguration()
+                .driver(WebDriver.valueOf(getConfigurationPropertyValue("webdriver")));
 
         if (Boolean.parseBoolean(getConfigurationPropertyValue("useRemoteWebdriver"))) {
             config.useRemoteWebdriver(true);
@@ -266,10 +281,12 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         } else {
             config.driverLocation(getConfigurationPropertyValue("webdriverLocation"));
         }
-        config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")));
-        config.locale(getConfigurationPropertyValue("locale"));
         String urlPropertyName = startMidpoint ? "base_url" : "base_url_mp_already_started";
-        config.baseUrl(getConfigurationPropertyValue(urlPropertyName));
+        config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")))
+                .locale(getConfigurationPropertyValue("locale"))
+                .baseUrl(getConfigurationPropertyValue(urlPropertyName))
+                .amountOfTabs(Integer.parseInt(getConfigurationPropertyValue("amountOfTabs")))
+                .amountOfWindows(Integer.parseInt(getConfigurationPropertyValue("amountOfWindows")));
 
         return config;
     }
@@ -624,17 +641,40 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     public UserPage showUser(String userName) {
-        UserPage user = showUserInTable(userName).clickByName(userName);
+        return showUser(FIRST_TAB_ID, userName);
+    }
+
+    public UserPage showUser(String tabId, String userName) {
+        UserPage user = showUserInTable(tabId, userName).clickByName(userName);
         return user;
     }
 
     public RolePage showRole(String roleName) {
-        RolePage role = showRoleInTable(roleName).clickByName(roleName);
+        return showRole(FIRST_TAB_ID, roleName);
+    }
+
+    public RolePage showRole(String tabId, String roleName) {
+        RolePage role = showRoleInTable(tabId, roleName).clickByName(roleName);
         return role;
     }
 
+    public OrgPage showOrganization(String orgName) {
+        return showOrganization(FIRST_TAB_ID, orgName);
+    }
+
+    public OrgPage showOrganization(String tabId, String orgName) {
+        return showOrgInTable(tabId, orgName).clickByName(orgName);
+    }
+
     public UsersPageTable showUserInTable(String userName) {
-        return basicPage.listUsers()
+        return showUserInTable(FIRST_TAB_ID, userName);
+    }
+
+    public UsersPageTable showUserInTable(String tabId, String userName) {
+        return tab(tabId)
+                .activate()
+                .getBasicPage()
+                .listUsers()
                 .table()
                 .search()
                 .byName()
@@ -644,11 +684,31 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     public RolesPageTable showRoleInTable(String roleName) {
-        return basicPage.listRoles()
+        return showRoleInTable(FIRST_TAB_ID, roleName);
+    }
+
+    public RolesPageTable showRoleInTable(String tabId, String roleName) {
+        return tab(tabId)
+                .activate()
+                .getBasicPage()
+                .listRoles()
                 .table()
                 .search()
                 .byName()
                 .inputValue(roleName)
+                .updateSearch()
+                .and();
+    }
+
+    public OrgsPageTable showOrgInTable(String tabId, String orgName) {
+        return tab(tabId)
+                .activate()
+                .getBasicPage()
+                .listOrgs()
+                .table()
+                .search()
+                .byName()
+                .inputValue(orgName)
                 .updateSearch()
                 .and();
     }
@@ -879,4 +939,15 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         basicPage.loggedUser().logoutIfUserIsLogin();
         midPoint.formLogin().login(username, password);
     }
+
+    protected TabContext tab(String tabId) {
+        if (tabManager.tabExists(tabId)) {
+            tabManager.switchTo(tabId);
+        } else {
+            tabManager.openNewTab(tabId);
+        }
+        return new TabContext(tabManager, tabId, basicPage);
+    }
+
+
 }

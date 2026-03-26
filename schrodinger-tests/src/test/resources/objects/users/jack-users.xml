@@ -33,14 +33,17 @@
 
     <user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
         <name>jack5</name>
+        <nickName>Jaxx</nickName>
     </user>
 
     <user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
         <name>jack6</name>
+        <nickName>Jay</nickName>
     </user>
 
     <user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
         <name>jack7</name>
+        <nickName>JJ</nickName>
     </user>
 
     <user xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>

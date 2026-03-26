@@ -25,6 +25,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWit
 
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -44,9 +45,8 @@ abstract public class PanelWithTableAndPrismView<P> extends Component<P, PanelWi
             public PrismFormWithActionButtons<AbstractTableWithPrismView<T, AbstractTableWithPrismView>> clickByName(String name) {
                 $(Schrodinger.byElementValue("span", "data-s-id", getNameColumnSpanId(), name))
                         .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
-
+                Utils.waitForAjaxCallFinish();
                 SelenideElement prismElement = getPrismViewPanel();
-
                 return new PrismFormWithActionButtons<>(this, prismElement);
             }
 
