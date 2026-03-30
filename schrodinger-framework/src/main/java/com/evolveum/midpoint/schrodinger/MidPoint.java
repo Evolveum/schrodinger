@@ -17,6 +17,7 @@ package com.evolveum.midpoint.schrodinger;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.schrodinger.page.login.OtpCodePage;
 import org.apache.commons.lang3.Validate;
 
 import com.evolveum.midpoint.schrodinger.component.LoggedUser;
@@ -86,6 +87,10 @@ public class MidPoint {
 
     public FormLoginPage formLogin() {
         return new FormLoginPage();
+    }
+
+    public OtpCodePage otpCode() {
+        return new OtpCodePage();
     }
 
     public SamlSelectPage samlSelect() {
