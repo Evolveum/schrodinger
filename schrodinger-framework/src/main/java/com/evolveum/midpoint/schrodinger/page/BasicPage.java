@@ -843,4 +843,10 @@ public class BasicPage {
         return BasicPage.this;
     }
 
+    public BasicPage refresh() {
+        Selenide.refresh();
+        Utils.waitForAjaxCallFinish();
+        return this;
+    }
+
 }

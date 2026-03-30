@@ -32,7 +32,8 @@ public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+        importObject(SYS_CONFIG_DEFAULT_SETTINGS);
+        reloginAsAdministrator();
     }
 
     @Override

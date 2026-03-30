@@ -242,13 +242,14 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test00300fullTextSearchOnRolesListPage() {
+        tab(FIRST_TAB_ID)
+                .activate();
         importObject(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
         basicPage.aboutPage().reindexRepositoryObjects();
         reloginAsAdministrator();
 
         // Set search in first tab (Fulltext search = "approval decisions")
         tab(FIRST_TAB_ID)
-                .activate()
                 .getBasicPage()
                 .listRoles()
                 .table()
@@ -264,6 +265,7 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
         tab(SECOND_TAB_ID)
                 .activate()
                 .getBasicPage()
+                .refresh()
                 .listRoles()
                 .table()
                 .search()
@@ -299,4 +301,59 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
                 .and()
                 .assertAllObjectsCountEquals(1);
     }
+
+    //    @Test
+//    public void test00400repositoryObjectsListAdvancedSearch() {
+//        ListUsersPage allUsersView = tab(FIRST_TAB_ID)
+//                .activate()
+//                .getBasicPage()
+//                .listRepositoryObjects().listUsers();
+//                .table()
+//                .paging()
+//                .assertCurrentPageSize(50)
+//                .pageSize(105)
+//                .and()
+//                .and();
+//
+//        ListUsersPage personsView = tab(SECOND_TAB_ID)
+//                .activate()
+//                .getBasicPage()
+//                .listUsers("Persons")
+//                .table()
+//                .paging()
+//                .assertCurrentPageSize(50)
+//                .pageSize(25)
+//                .and()
+//                .and();
+//
+//        //reopen users list page, check the page size is restored from session storage
+//        tab(FIRST_TAB_ID)
+//                .activate()
+//                .lastActive(allUsersView)
+//                .table()
+//                .paging()
+//                .assertCurrentPageSize(105)
+//                .and()
+//                .and()
+//                .listUsers()
+//                .table()
+//                .paging()
+//                .assertCurrentPageSize(105);
+//
+//        //reopen Persons view page, check the page size is restored from session storage
+//        tab(SECOND_TAB_ID)
+//                .activate()
+//                .lastActive(personsView)
+//                .table()
+//                .paging()
+//                .assertCurrentPageSize(25)
+//                .and()
+//                .and()
+//                .listUsers("Persons")
+//                .table()
+//                .paging()
+//                .assertCurrentPageSize(25);
+//    }
+
+
 }

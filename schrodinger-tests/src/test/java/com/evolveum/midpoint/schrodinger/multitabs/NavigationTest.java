@@ -152,6 +152,7 @@ public class NavigationTest extends AbstractSchrodingerTest {
         open("/admin/users?w=wrongId");
         Utils.waitForAjaxCallFinish();
         String windowIdAfterReload = getCurrentWindowId();
+        Utils.waitForAjaxCallFinish();
         assertion.assertEquals(windowId, windowIdAfterReload, "Window id should stay the same.");
     }
 
