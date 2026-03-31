@@ -49,7 +49,7 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        importObject(SYS_CONFIG_DEFAULT_SETTINGS);
+        importObject(SYS_CONFIG_DEFAULT_SETTINGS, true);
         reloginAsAdministrator();
     }
 
@@ -227,6 +227,84 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
     }
 
     /**
+     * Verifies that advanced search filters and paging configuration are stored
+     * independently per browser tab and correctly restored from tab-specific session storage
+     * on the Repository objects page. This page has its independent page storage.
+     *
+     * <p>Test goals:
+     * <ol>
+     *     <li>Each tab maintains its own advanced search filter.</li>
+     *     <li>Search filters is persisted after page reopening.</li>
+     *     <li>State from one tab does not override the state in another tab.</li>
+     * </ol>
+     *
+     * <p>Scenario:
+     * <ul>
+     *     <li>Tab 1: search repository objects (User) using advanced filter {@code "name contains '10'"},</li>
+     *     <li>Tab 2: search repository objects (User) using advanced filter {@code "name contains '11'"},</li>
+     *     <li>Reopen the repository objects page in each tab.</li>
+     *     <li>Verify that each tab restores its own search filter.</li>
+     * </ul>
+     */
+    @Test
+    public void test00300repositoryObjectsListAdvancedSearch() {
+        String filterUserJack10 = "name contains '10'";
+        String filterUserJack11 = "name contains '11'";
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRepositoryObjects()
+                .table()
+                .selectType("User")
+                .search()
+                .advanced(filterUserJack10)
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsText("jack10");
+
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRepositoryObjects()
+                .table()
+                .selectType("User")
+                .search()
+                .advanced(filterUserJack11)
+                .updateSearch()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsText("jack11");
+
+
+        //reopen repository objects page on the first tab, check the page size and search filter are restored from session storage
+        tab(FIRST_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRepositoryObjects()
+                .table()
+                .assertType("User")
+                .search()
+                .assertAdvancedSearchIsSelected()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsText("jack10");
+
+        //reopen repository objects page on the second tab, check the page size and search filter are restored from session storage
+        tab(SECOND_TAB_ID)
+                .activate()
+                .getBasicPage()
+                .listRepositoryObjects()
+                .table()
+                .assertType("User")
+                .search()
+                .assertAdvancedSearchIsSelected()
+                .and()
+                .assertAllObjectsCountEquals(1)
+                .assertTableContainsText("jack11");
+    }
+
+    /**
      * Verifies that fulltext search filter is stored in session storage independently per browser tab.
      * <p>
      * Test goals:
@@ -241,7 +319,7 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
      * - Reload the page on each tab and verify both tabs keep their own state
      */
     @Test
-    public void test00300fullTextSearchOnRolesListPage() {
+    public void test00400fullTextSearchOnRolesListPage() {
         tab(FIRST_TAB_ID)
                 .activate();
         importObject(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
@@ -301,59 +379,5 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
                 .and()
                 .assertAllObjectsCountEquals(1);
     }
-
-    //    @Test
-//    public void test00400repositoryObjectsListAdvancedSearch() {
-//        ListUsersPage allUsersView = tab(FIRST_TAB_ID)
-//                .activate()
-//                .getBasicPage()
-//                .listRepositoryObjects().listUsers();
-//                .table()
-//                .paging()
-//                .assertCurrentPageSize(50)
-//                .pageSize(105)
-//                .and()
-//                .and();
-//
-//        ListUsersPage personsView = tab(SECOND_TAB_ID)
-//                .activate()
-//                .getBasicPage()
-//                .listUsers("Persons")
-//                .table()
-//                .paging()
-//                .assertCurrentPageSize(50)
-//                .pageSize(25)
-//                .and()
-//                .and();
-//
-//        //reopen users list page, check the page size is restored from session storage
-//        tab(FIRST_TAB_ID)
-//                .activate()
-//                .lastActive(allUsersView)
-//                .table()
-//                .paging()
-//                .assertCurrentPageSize(105)
-//                .and()
-//                .and()
-//                .listUsers()
-//                .table()
-//                .paging()
-//                .assertCurrentPageSize(105);
-//
-//        //reopen Persons view page, check the page size is restored from session storage
-//        tab(SECOND_TAB_ID)
-//                .activate()
-//                .lastActive(personsView)
-//                .table()
-//                .paging()
-//                .assertCurrentPageSize(25)
-//                .and()
-//                .and()
-//                .listUsers("Persons")
-//                .table()
-//                .paging()
-//                .assertCurrentPageSize(25);
-//    }
-
 
 }
