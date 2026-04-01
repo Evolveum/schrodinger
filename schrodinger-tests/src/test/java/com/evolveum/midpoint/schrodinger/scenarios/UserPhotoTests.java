@@ -28,15 +28,20 @@ import java.io.File;
  */
 public class UserPhotoTests extends AbstractSchrodingerTest {
 
-    private static final String TEST_USER_LEO_NAME= "leonardo";
+    private static final String TEST_USER_LEO_NAME = "leonardo";
+    private static final String TEST_USER_JAN_NAME = "jan8";
     private static final File PHOTO_SOURCE_FILE_LARGE = new File("./src/test/resources/images/leonardo_large_nc.jpg");
     private static final File PHOTO_SOURCE_FILE_SMALL = new File("./src/test/resources/images/leonardo_small_nc.jpg");
+    private static final File PHOTO_SOURCE_FILE_XML_XML = new File("./src/test/resources/objects/policy/classification-tlp-clear.xml");
+    private static final File PHOTO_SOURCE_FILE_XML_PNG = new File("./src/test/resources/images/test_xml.png");
+    private static final File PHOTO_SOURCE_FILE_PNG_JPG = new File("./src/test/resources/images/test_png.jpg");
+    private static final File PHOTO_SOURCE_FILE_PNG_PNG = new File("./src/test/resources/images/test_png.png");
 
     private static final String CREATE_USER_WITH_LARGE_PHOTO_DEPENDENCY = "test0010createMidpointUserWithPhotoLarge";
     private static final String CREATE_USER_WITH_NORMAL_PHOTO_DEPENDENCY = "test0020createMidpointUserWithPhotoJustRight";
 
     //@Test TODO test commented out because of MID-4774
-    public void test0010createMidpointUserWithPhotoLarge(){
+    public void test0010createMidpointUserWithPhotoLarge() {
         UserPage user = basicPage.newUser();
         user
                     .selectBasicPanel()
@@ -54,7 +59,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     }
 
     @Test //(dependsOnMethods = {CREATE_USER_WITH_LARGE_PHOTO_DEPENDENCY}) // TODO uncomment test dependency after MID-4774 fix
-    public void test0020createMidpointUserWithPhotoJustRight(){
+    public void test0020createMidpointUserWithPhotoJustRight() {
         UserPage user = basicPage.newUser();
         user
                         .selectBasicPanel()
@@ -72,7 +77,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
     }
 
     @Test (dependsOnMethods = {CREATE_USER_WITH_NORMAL_PHOTO_DEPENDENCY})
-    public void test0030deleteUserPhoto(){
+    public void test0030deleteUserPhoto() {
          ListUsersPage usersPage = basicPage.listUsers();
          usersPage
                     .table()
@@ -91,5 +96,52 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
                     .clickSave()
                         .feedback()
                         .assertSuccess();
+    }
+
+    @Test
+    public void test0040PhotoValidatorTest() {
+        UserPage user = basicPage.newUser();
+        user.selectBasicPanel()
+                .form()
+                .addAttributeValue("name", TEST_USER_JAN_NAME)
+                .setFileForUploadAsAttributeValue("Jpeg photo", PHOTO_SOURCE_FILE_XML_XML)
+                .and()
+                .and()
+                .clickSave()
+                .feedback()
+                .assertError()
+                .assertMessageExists("Jpeg photo: Content type not allowed: text/xml");
+
+        user.selectBasicPanel()
+                .form()
+                .addAttributeValue("name", TEST_USER_JAN_NAME)
+                .setFileForUploadAsAttributeValue("Jpeg photo", PHOTO_SOURCE_FILE_XML_PNG)
+                .and()
+                .and()
+                .clickSave()
+                .feedback()
+                .assertError()
+                .assertMessageExists("Jpeg photo: File content does not match Content type: image/png");
+
+        user.selectBasicPanel()
+                .form()
+                .addAttributeValue("name", TEST_USER_JAN_NAME)
+                .setFileForUploadAsAttributeValue("Jpeg photo", PHOTO_SOURCE_FILE_PNG_JPG)
+                .and()
+                .and()
+                .clickSave()
+                .feedback()
+                .assertError()
+                .assertMessageExists("Jpeg photo: File content does not match Content type: image/jpeg");
+
+        user.selectBasicPanel()
+                .form()
+                .addAttributeValue("name", TEST_USER_JAN_NAME)
+                .setFileForUploadAsAttributeValue("Jpeg photo", PHOTO_SOURCE_FILE_PNG_PNG)
+                .and()
+                .and()
+                .clickSave()
+                .feedback()
+                .assertSuccess();
     }
 }
