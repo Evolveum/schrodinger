@@ -310,6 +310,9 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     protected void resetToDefault() {
+        Selenide.refresh();
+        Utils.waitForAjaxCallFinish();
+
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
 
         LOG.info("Cleaning up midPoint.");
