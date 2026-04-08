@@ -107,7 +107,9 @@ public class ReportTests extends AbstractSchrodingerTest {
                     .inputValue("All audit records report")
                     .updateSearch()
                     .and()
-                .assertVisibleObjectsCountEquals(1);
+                .assertVisibleObjectsCountEquals(1)
+                .search()
+                .resetBasicSearch();
     }
 
     /**
