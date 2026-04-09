@@ -518,6 +518,7 @@ public class BasicPage {
     }
 
     private void clickConfigurationMenu(String mainMenuKey, String menuItemKey, int index) {
+        Selenide.screenshot("ClickConfigurationMenu" + System.currentTimeMillis());
         clickMenuItem(ConstantsUtil.CONFIGURATION_MENU_ITEMS_SECTION_VALUE, mainMenuKey, menuItemKey, index);
     }
 
