@@ -640,6 +640,7 @@ public class BasicPage {
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
         if (!topLevelMenuChevron.has(Condition.cssClass("fa-chevron-down"))) {
             topLevelMenu.click();
+            Selenide.sleep(1000);
             topLevelMenuChevron.shouldBe(Condition.cssClass("fa-chevron-down"), MidPoint.TIMEOUT_DEFAULT_2_S);
             Utils.waitForAjaxCallFinish();
         }
@@ -663,6 +664,8 @@ public class BasicPage {
         if (!mainMenuLi.has(Condition.cssClass(cssClass))) {
             Utils.scrollToElement(mainMenuLi);
             mainMenuLi.click();
+            Utils.waitForAjaxCallFinish();
+            Selenide.sleep(1000);
             mainMenuLi.shouldBe(Condition.cssClass(cssClass), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
     }
