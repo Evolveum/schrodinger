@@ -87,7 +87,6 @@ public class SelfRegistrationPage extends LoginPage {
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                     .sendKeys(value);
             js.executeScript("window.stop();");
-            Selenide.screenshot("try_setAttributeValue_" + attributeName);
         } catch (ElementShould e) {
             if (!inputField.is(Condition.visible)) {
                 js.executeScript("document.getElementById(\"" + inputField.getAttribute("id") + "\").value = \"" + value + "\"");

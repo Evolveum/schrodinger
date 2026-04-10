@@ -38,7 +38,6 @@ public class IdentificationPage extends FormLoginPage {
         SelenideElement nameInput = $(Schrodinger.byDataId("attributeValue")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         Utils.setValueToElementAndFireBlurEvent(nameInput, nameValue);
         Utils.waitForAjaxCallFinish();
-        Selenide.screenshot("IdentificationPage_setUsername");
         return this;
     }
 
@@ -46,7 +45,6 @@ public class IdentificationPage extends FormLoginPage {
         $x(".//input[@type='submit']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-        Selenide.screenshot("IdentificationPage_sendButtonClick");
         return this;
     }
 }

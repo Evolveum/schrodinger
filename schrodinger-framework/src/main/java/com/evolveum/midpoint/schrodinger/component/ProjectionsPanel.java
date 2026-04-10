@@ -52,7 +52,6 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
 
         sleep(100);
         SelenideElement dropDownMenu = inlineMenu.$(Schrodinger.byDataId("div", "dropDownMenu"));
-        screenshot("expanded_projection_menu_" + System.currentTimeMillis());
         return new ProjectionsDropDown<>(this, dropDownMenu);
     }
 
