@@ -1003,13 +1003,6 @@
                                 <targetType>ResourceType</targetType>
                             </parameter>
                         </searchItem>
-                        <searchItem>
-                            <path>name</path>
-                            <display>
-                                <label>Name</label>
-                            </display>
-                            <visibleByDefault>true</visibleByDefault>
-                        </searchItem>
                         <searchItem id="82">
                             <description>Allow searching for users not having account on specific resource. Intent is not considered. The search item is not displayed by default
                                 (visibleByDefault=false).
@@ -1141,9 +1134,9 @@
                 </collection>
             </objectCollectionView>
             <objectCollectionView>
-                <identifier>system-users-view</identifier>
+                <identifier>system-users-display-max-order-view</identifier>
                 <display>
-                    <label>System Users</label>
+                    <label>System Users Display Max Order</label>
                 </display>
                 <searchBoxConfiguration>
                     <searchItems>
@@ -1153,6 +1146,7 @@
                                 <label>Given Name</label>
                             </display>
                             <visibleByDefault>true</visibleByDefault>
+                            <displayOrder>20</displayOrder>
                         </searchItem>
                         <searchItem>
                             <path>familyName</path>
@@ -1160,6 +1154,7 @@
                                 <label>Family Name</label>
                             </display>
                             <visibleByDefault>true</visibleByDefault>
+                            <displayOrder>10</displayOrder>
                         </searchItem>
                         <searchItem>
                             <path>emailAddress</path>
@@ -1167,6 +1162,7 @@
                                 <label>Email Address</label>
                             </display>
                             <visibleByDefault>true</visibleByDefault>
+                            <displayOrder>2147483645</displayOrder><!-- value near Integer.MAX_VALUE-->
                         </searchItem>
                     </searchItems>
                 </searchBoxConfiguration>
