@@ -56,13 +56,15 @@ public class CorrelationPage extends BasicPage {
     public CorrelationPage send() {
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
+        $(Schrodinger.byDataResourceKey("PageIdentityRecovery.foundIdentities"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         return this;
     }
 
     public CorrelationPage assertSingleIdentityFound(String identityName) {
         ElementsCollection detailsPanels = $$x(".//div[@data-s-id='detailsPanel']");
         assertion.assertEquals(detailsPanels.size(), 1, "Found identities count doesn't match expected " +
-                "count (expected 1, actual )" + detailsPanels.size());
+                "count (expected 1, actual " + detailsPanels.size() + "), ");
         SelenideElement userDetailsPanel = detailsPanels.get(0);
         userDetailsPanel.$x(".//div[@data-s-id='displayName' and contains(., '" + identityName + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
