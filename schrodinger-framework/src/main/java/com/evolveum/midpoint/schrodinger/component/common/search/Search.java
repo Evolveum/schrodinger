@@ -306,6 +306,33 @@ public class Search<T> extends Component<T, Search<T>> {
         return this;
     }
 
+    public Search<T> assertVisibleSearchItemsSize(int size) {
+        ElementsCollection items = getParentElement()
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .findAll(Schrodinger.byDataId("searchItemContainer"));
+        assertion.assertTrue(
+                items.size() == size,
+                "Expected search items list size is '" + size + "', but actual is '" + items.size() + "'."
+        );
+        return this;
+    }
+
+    public Search<T> assertSearchItemDisplayOrder(String name, int order) {
+        ElementsCollection items = getParentElement()
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .findAll(Schrodinger.byDataId("searchItemContainer"));
+        assertion.assertTrue(
+                items.size() > order,
+                "Display order index '" + order + "' is out of Search item list size '" + items.size() + "'."
+        );
+        SelenideElement item = items.get(order);
+        assertion.assertTrue(
+                item.$(Schrodinger.byElementValue("div", name)).exists(),
+                "Search item with name '" + name + "' is not on display order index '" + order + "'."
+        );
+        return this;
+    }
+
     public Search<T> assertHelpTextOfSearchItem(String name, String expectedHelpText) {
         assertion.assertTrue(getItemByName(name).$x(".//i[@"+ Schrodinger.DATA_S_ID +"='help']")
                         .has(Condition.attribute("title", expectedHelpText)),
