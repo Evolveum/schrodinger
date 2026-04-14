@@ -623,7 +623,8 @@ public class BasicPage {
             return null;
         }
         Utils.waitForAjaxCallFinish();
-        ElementsCollection topLevelMenuItems = $$x(".//span[@data-s-id='name']");
+        ElementsCollection topLevelMenuItems = $$x(".//span[@data-s-id='name']")
+                .shouldBe(CollectionCondition.sizeGreaterThan(0), MidPoint.TIMEOUT_DEFAULT_2_S);
         SelenideElement topLevelMenu = topLevelMenuItems
                 .asFixedIterable()
                 .stream()
@@ -647,7 +648,8 @@ public class BasicPage {
         if (StringUtils.isEmpty(mainMenuKey)) {
             return topLevelMenu;
         }
-        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("li", "data-s-resource-key", mainMenuKey));
+        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("li", "data-s-resource-key", mainMenuKey))
+                .should(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
         ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
         mainMenu.shouldBe(Condition.visible);
 
