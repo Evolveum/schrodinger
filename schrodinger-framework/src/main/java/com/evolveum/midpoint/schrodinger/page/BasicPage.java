@@ -610,8 +610,8 @@ public class BasicPage {
     private SelenideElement getMainMenuItemElement(String topLevelMenuValue, String mainMenuKey, int index){
         Utils.waitForAjaxCallFinish();
         SelenideElement topLevelMenu = $x(".//span[@data-s-id='name' and contains(text(), '" + topLevelMenuValue + "')]");
+        topLevelMenu.shouldBe(Condition.exist, MidPoint.TIMEOUT_LONG_20_S);
         Utils.scrollToElement(topLevelMenu);
-        topLevelMenu.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
 
         SelenideElement topLevelMenuChevron = topLevelMenu.parent().$(By.tagName("i"));
         if (!topLevelMenuChevron.has(Condition.cssClass("fa-chevron-down"))) {
@@ -623,7 +623,8 @@ public class BasicPage {
         if (StringUtils.isEmpty(mainMenuKey)) {
             return topLevelMenu;
         }
-        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("li", "data-s-resource-key", mainMenuKey));
+        SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("li", "data-s-resource-key", mainMenuKey))
+                .should(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
         ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
         mainMenu.shouldBe(Condition.visible);
 
