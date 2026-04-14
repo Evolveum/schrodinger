@@ -31,14 +31,19 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
     private static final File ROLES_TEST_CERTIFICATION = new File("./src/test/resources/objects/roles/roles-test-certification.xml");
     private static final File USERS_TEST_CERTIFICATION = new File("./src/test/resources/objects/users/users-test-certification.xml");
     private static final File ACCESS_CERTIFICATION_DEFINITION = new File("./src/test/resources/objects/accessCertification/definition/all-user-assignments-def.xml");
+    private static final File DUPLICATE_NO_RESPONSE_ACCESS_CERTIFICATION_DEFINITION = new File("./src/test/resources/objects/accessCertification/definition/duplicate-no-response-campaign-def.xml");
     private static final File ACCESS_CERT_CAMPAIGN_2024 = new File("./src/test/resources/objects/accessCertification/definition/all-user-assignments-started-2024.xml");
 
     private static final String CAMPAIGN_DEFINITION_NAME = "All user assignments";
     private static final String CAMPAIGN_NAME = "All user assignments 1";
 
+    private static final String DUPLICATE_NO_RESPONSE_CAMPAIGN_DEFINITION_NAME = "Duplicate No Response";
+    private static final String DUPLICATE_NO_RESPONSE_CAMPAIGN_NAME = "Duplicate No Response 1";
+
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(ROLES_TEST_CERTIFICATION, USERS_TEST_CERTIFICATION, ACCESS_CERTIFICATION_DEFINITION);
+        return Arrays.asList(ROLES_TEST_CERTIFICATION, USERS_TEST_CERTIFICATION, ACCESS_CERTIFICATION_DEFINITION,
+                DUPLICATE_NO_RESPONSE_ACCESS_CERTIFICATION_DEFINITION);
     }
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
@@ -227,6 +232,31 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 .and()
                 .campaignTilesListPanel()
                 .assertCampaignTilesCountEqual(2);
+    }
+
+    /**
+     * Covers #11166
+     */
+    @Test
+    public void test0090duplicateNoResponseTest() {
+        basicPage.campaignDefinitions()
+                .table()
+                .createCampaign(DUPLICATE_NO_RESPONSE_CAMPAIGN_DEFINITION_NAME);
+
+        basicPage.campaigns()
+                .campaignTilesListPanel()
+                .campaign(DUPLICATE_NO_RESPONSE_CAMPAIGN_NAME)
+                .startCampaign()
+                .assertCampaignInReviewStage();
+
+        basicPage
+                .myActiveCampaigns()
+                .showAllItems()
+                .table()
+                .search()
+                .dropDownPanelByItemName("Response")
+                .assertDropDownOptionExist("No response")
+                .assertDropDownOptionUnique("No response");
     }
 
     @Override

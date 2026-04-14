@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<accessCertificationDefinition
+        xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>Duplicate No Response</name>
+    <handlerUri>http://midpoint.evolveum.com/xml/ns/public/certification/handlers-3#direct-assignment</handlerUri>
+    <scopeDefinition xsi:type="AccessCertificationAssignmentReviewScopeType">
+        <objectType>UserType</objectType>
+        <includeRoles>true</includeRoles>
+        <includeOrgs>false</includeOrgs>
+        <includeResources>false</includeResources>
+        <includeServices>false</includeServices>
+        <itemSelectionExpression>
+            <script>
+                <code>
+                    assignment?.targetRef?.oid == '00000000-0000-0000-0000-000000000004'
+                </code>
+            </script>
+        </itemSelectionExpression>
+    </scopeDefinition>
+    <stageDefinition>
+        <number>1</number>
+        <duration>P14D</duration>
+        <reviewerSpecification>
+            <defaultReviewerRef oid="00000000-0000-0000-0000-000000000002" type="UserType"/> <!-- administrator -->
+        </reviewerSpecification>
+    </stageDefinition>
+    <view>
+        <includeDefaultColumns>true</includeDefaultColumns>
+        <type>AccessCertificationWorkItemType</type>
+        <action>
+            <identifier>certItemAccept</identifier>
+        </action>
+        <action>
+            <identifier>certItemRevoke</identifier>
+        </action>
+        <action>
+            <identifier>certItemNoResponse</identifier>
+        </action>
+    </view>
+</accessCertificationDefinition>
