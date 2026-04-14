@@ -92,7 +92,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final String REF_SEARCH_FIELD_VALUE = "roleMembershipByNameSearch";
 
     @Override
-    protected List<File> getObjectListToImport(){
+    protected List<File> getObjectListToImport() {
         return Arrays.asList(SEARCH_BY_NAME_USER_FILE, SEARCH_BY_GIVEN_NAME_USER_FILE, SEARCH_BY_FAMILY_NAME_USER_FILE,
                 REQUESTABLE_ROLE_FILE, DISABLED_ROLE_FILE, SEARCH_BY_ROLE_MEMBERSHIP_NAME_USER_FILE, SEARCH_BY_ROLE_MEMBERSHIP_OID_USER_FILE,
                 SEARCH_BY_ROLE_MEMBERSHIP_TYPE_USER_FILE, ORG_MEMBER_SEARCH_USER_FILE, SEARCH_BY_ROLE_MEMBERSHIP_RELATION_USER_FILE,
@@ -554,6 +554,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
         importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW, true);
         reloginAsAdministrator();
+        final String savedFilterName = "saveTestFilter";
         // default searchItems only
         basicPage
                 .listUsers()
@@ -600,6 +601,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .inputValue("town")
                 .textInputPanelByItemName("Additional Name")
                 .inputValue("test name")
+                .textInputPanelByItemName("Given Name")
+                .inputValue("given")
                 .assertSearchItemExists("Given Name")
                 .assertSearchItemExists("Family Name")
                 .assertSearchItemExists("Email Address")
@@ -611,6 +614,29 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .assertSearchItemDisplayOrder("Email Address", 2)
                 .assertSearchItemDisplayOrder("Locality", 3)
                 .assertSearchItemDisplayOrder("Additional Name", 4);
+        // saved filter searchItems preserve order
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .clickSaveSearchButton()
+                .setFilterName(savedFilterName)
+                .save()
+                .and()
+                .and()
+                .assertFeedbackExists()
+                .feedback()
+                .assertSuccess();
+        reloginAsAdministrator();
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .selectFilterFromSavedFilters(savedFilterName)
+                .assertVisibleSearchItemsSize(3)
+                .assertSearchItemDisplayOrder("Given Name", 0)
+                .assertSearchItemDisplayOrder("Locality", 1)
+                .assertSearchItemDisplayOrder("Additional Name", 2);
     }
 
     @Test
@@ -662,7 +688,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 // so all added items have values of displayOrder starting from minimal int value, so they are added from the beginning
                 .assertSearchItemDisplayOrder("Title", 0)
                 .assertSearchItemDisplayOrder("Nickname", 1)
-                .assertSearchItemDisplayOrder("Family Name",2)
+                .assertSearchItemDisplayOrder("Family Name", 2)
                 .assertSearchItemDisplayOrder("Given Name", 3)
                 .assertSearchItemDisplayOrder("Email Address", 4)
                 .assertSearchItemDisplayOrder("Locality", 5)
