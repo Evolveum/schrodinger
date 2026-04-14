@@ -88,11 +88,12 @@ public class FormLoginPage extends LoginPage {
     }
 
     private boolean isOnLoginPage() {
-        SelenideElement box = $(".login-card-body");
+        SelenideElement box = $(".login-card-body").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         if (!box.exists()) {
             return false;
         }
-        SelenideElement titleBox = box.$(".login-box-msg");
+        SelenideElement titleBox = box.$(".login-box-msg")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         if (!titleBox.exists()) {
             return false;
         }
