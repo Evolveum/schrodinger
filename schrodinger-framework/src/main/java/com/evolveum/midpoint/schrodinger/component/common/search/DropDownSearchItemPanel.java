@@ -21,6 +21,11 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by honchar
@@ -34,9 +39,35 @@ public class DropDownSearchItemPanel<T> extends Component<T, DropDownSearchItemP
         if (getParentElement() == null){
             return getParent();
         }
-        SelenideElement inputField = getParentElement().find(Schrodinger.byDataId("select", "input"))//.$x(".//select[@" + Schrodinger.DATA_S_ID + "='input']")
+        SelenideElement inputField = getParentElement().find(Schrodinger.byDataId("select", "input"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         inputField.selectOptionContainingText(value);
         return getParent();
+    }
+
+    public DropDownSearchItemPanel<T> assertDropDownOptionExist(String option) {
+        boolean exists = getDropDownOptionsList().contains(option);
+        assertion.assertTrue(exists, "Drop down option '" + option + "' doesn't exist.");
+
+        return DropDownSearchItemPanel.this;
+    }
+
+    public DropDownSearchItemPanel<T> assertDropDownOptionUnique(String option) {
+        boolean isUnique = Collections.frequency(getDropDownOptionsList(), option) == 1;
+        assertion.assertTrue(isUnique, "Drop down option '" + option + "' is not unique.");
+
+        return DropDownSearchItemPanel.this;
+    }
+
+    private @NotNull List<String> getDropDownOptionsList() {
+        SelenideElement inputField = getParentElement().find(Schrodinger.byDataId("select", "input"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        if (!inputField.exists()) {
+            return new ArrayList<>();
+        }
+        inputField.click();
+        return inputField
+                .$$x("option")
+                .texts();
     }
 }
