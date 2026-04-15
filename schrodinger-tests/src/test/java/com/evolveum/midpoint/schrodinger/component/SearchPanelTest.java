@@ -72,6 +72,9 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-allow-to-configure-search-items.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-supported-object-types-on-members-panel.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-search-box-expression-filter.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-view.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-order-view.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_MAX_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-max-order-view.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
     private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
@@ -505,5 +508,151 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .assertAllObjectsCountEquals(1)
                 .assertTableContainsLinkTextPartially("searchByEmailAddressUser");
+    }
+
+    @Test
+    public void test0310objectCollectionViewOnlyCustomItemsIfSpecifiedPreserveOrderTest() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW, true);
+        reloginAsAdministrator();
+        final String savedFilterName = "saveTestFilter";
+        // default searchItems only
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .textInputPanelByItemName("Locality")
+                .inputValue("town")
+                .textInputPanelByItemName("Additional Name")
+                .inputValue("test name")
+                .assertSearchItemExists("Object collection")
+                .assertSearchItemExists("Full name")
+                .assertSearchItemExists("Name")
+                .assertVisibleSearchItemsSize(5)
+                .assertSearchItemDisplayOrder("Object collection", 0)
+                .assertSearchItemDisplayOrder("Full name", 1)
+                .assertSearchItemDisplayOrder("Name", 2)
+                .assertSearchItemDisplayOrder("Locality", 3)
+                .assertSearchItemDisplayOrder("Additional Name", 4);
+        // default searchItems only if defined in .xml
+        basicPage
+                .listUsers("Persons")
+                .table()
+                .search()
+                .textInputPanelByItemName("Locality")
+                .inputValue("town")
+                .textInputPanelByItemName("Additional Name")
+                .inputValue("test name")
+                .assertSearchItemDoesntExist("Full name")
+                .assertSearchItemExists("Users with account")
+                .assertSearchItemExists("Name")
+                .assertSearchItemExists("Users without account")
+                .assertVisibleSearchItemsSize(5)
+                .assertSearchItemDisplayOrder("Users with account", 0)
+                .assertSearchItemDisplayOrder("Name", 1)
+                .assertSearchItemDisplayOrder("Users without account", 2)
+                .assertSearchItemDisplayOrder("Locality", 3)
+                .assertSearchItemDisplayOrder("Additional Name", 4);
+        // custom searchItems only, defined in .xml
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .textInputPanelByItemName("Locality")
+                .inputValue("town")
+                .textInputPanelByItemName("Additional Name")
+                .inputValue("test name")
+                .textInputPanelByItemName("Given Name")
+                .inputValue("given")
+                .assertSearchItemExists("Given Name")
+                .assertSearchItemExists("Family Name")
+                .assertSearchItemExists("Email Address")
+                .assertSearchItemDoesntExist("Full name")
+                .assertSearchItemDoesntExist("Name")
+                .assertVisibleSearchItemsSize(5)
+                .assertSearchItemDisplayOrder("Given Name", 0)
+                .assertSearchItemDisplayOrder("Family Name", 1)
+                .assertSearchItemDisplayOrder("Email Address", 2)
+                .assertSearchItemDisplayOrder("Locality", 3)
+                .assertSearchItemDisplayOrder("Additional Name", 4);
+        // saved filter searchItems preserve order
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .clickSaveSearchButton()
+                .setFilterName(savedFilterName)
+                .save()
+                .and()
+                .and()
+                .assertFeedbackExists()
+                .feedback()
+                .assertSuccess();
+        reloginAsAdministrator();
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .selectFilterFromSavedFilters(savedFilterName)
+                .assertVisibleSearchItemsSize(3)
+                .assertSearchItemDisplayOrder("Given Name", 0)
+                .assertSearchItemDisplayOrder("Locality", 1)
+                .assertSearchItemDisplayOrder("Additional Name", 2);
+    }
+
+    @Test
+    public void test0320objectCollectionViewOnlyCustomItemsDisplayOrderDefinedTest() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW, true);
+        reloginAsAdministrator();
+        // custom searchItems only, displayOrder defined in .xml
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .assertSearchItemExists("Given Name")
+                .assertSearchItemExists("Family Name")
+                .assertSearchItemExists("Email Address")
+                .assertSearchItemDoesntExist("Full name")
+                .assertSearchItemDoesntExist("Name")
+                .assertVisibleSearchItemsSize(3)
+                .assertSearchItemDisplayOrder("Family Name", 0)
+                .assertSearchItemDisplayOrder("Given Name", 1)
+                .assertSearchItemDisplayOrder("Email Address", 2);
+    }
+
+    @Test
+    public void test0330objectCollectionViewOnlyCustomItemsDisplayOrderMaxValueTest() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_MAX_ORDER_VIEW, true);
+        reloginAsAdministrator();
+        // custom searchItems only, displayOrder defined in .xml
+        basicPage
+                .listUsers("System users")
+                .table()
+                .search()
+                .textInputPanelByItemName("Locality")
+                .inputValue("town")
+                .textInputPanelByItemName("Additional Name")
+                .inputValue("test name")
+                .textInputPanelByItemName("Title")
+                .inputValue("test title")
+                .textInputPanelByItemName("Nickname")
+                .inputValue("test name")
+                .assertSearchItemExists("Given Name")
+                .assertSearchItemExists("Family Name")
+                .assertSearchItemExists("Email Address")
+                .assertSearchItemDoesntExist("Full name")
+                .assertSearchItemDoesntExist("Name")
+                .assertVisibleSearchItemsSize(7)
+                // order of last added items do not match adding order to the end of the list, because max displayOrder was reached
+                // so all added items have values of displayOrder starting from minimal int value, so they are added from the beginning
+                .assertSearchItemDisplayOrder("Title", 0)
+                .assertSearchItemDisplayOrder("Nickname", 1)
+                .assertSearchItemDisplayOrder("Family Name", 2)
+                .assertSearchItemDisplayOrder("Given Name", 3)
+                .assertSearchItemDisplayOrder("Email Address", 4)
+                .assertSearchItemDisplayOrder("Locality", 5)
+                .assertSearchItemDisplayOrder("Additional Name", 6);
     }
 }
