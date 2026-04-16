@@ -309,7 +309,8 @@ public class Utils {
         new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver driver) {
                 JavascriptExecutor executor = (JavascriptExecutor)driver;
-                if((Boolean) executor.executeScript("return window.jQuery != undefined")){
+                if((Boolean) executor.executeScript("return (typeof window.jQuery != 'undefined') && " +
+                        "(jQuery.active === 0);")){
                     while(!(Boolean) executor.executeScript("return jQuery.active == 0")){
                         Selenide.sleep(1000);
                     }
