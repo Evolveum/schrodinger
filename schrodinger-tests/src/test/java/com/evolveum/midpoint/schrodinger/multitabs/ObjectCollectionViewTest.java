@@ -211,6 +211,8 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
                 .listUsers("Persons")
                 .table()
                 .search()
+                .byName()
+                .and()
                 .assertTextSearchItemValue("Name", "")
                 .byName()
                 .inputValue("jack")
