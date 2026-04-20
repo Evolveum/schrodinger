@@ -146,10 +146,10 @@ public abstract class AssignmentHolderObjectListTable<P, PD extends AssignmentHo
         if (Utils.isModalWindowSelenideElementVisible()) {
             SelenideElement modal = Utils.getModalWindowSelenideElement();
             ElementsCollection childrenButtonCollection = modal.$$x(".//div[@data-s-id='additionalButton']");
-            int count = childrenButtonCollection != null ? childrenButtonCollection.size() : 0;
+            int count = childrenButtonCollection.size();
             modal.$x(".//a[@data-s-id='cancelButton']").click();
-            Selenide.sleep(1000);
             Utils.waitForAjaxCallFinish();
+            Selenide.sleep(1500);
             modal.shouldBe(Condition.disappear, MidPoint.TIMEOUT_LONG_20_S);
             return count;
         }
