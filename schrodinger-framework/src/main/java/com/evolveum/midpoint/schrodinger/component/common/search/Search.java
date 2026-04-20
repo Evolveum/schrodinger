@@ -289,6 +289,7 @@ public class Search<T> extends Component<T, Search<T>> {
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
                     .click();
             Utils.waitForAjaxCallFinish();
+            Selenide.sleep(500);
         }
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
         return this;
