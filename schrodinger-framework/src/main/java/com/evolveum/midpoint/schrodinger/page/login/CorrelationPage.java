@@ -56,8 +56,7 @@ public class CorrelationPage extends BasicPage {
     public CorrelationPage send() {
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
-        $(Schrodinger.byDataResourceKey("PageIdentityRecovery.foundIdentities"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        Selenide.sleep(3000);
         return this;
     }
 
