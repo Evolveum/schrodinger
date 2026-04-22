@@ -28,6 +28,7 @@ public class ObjectCollectionViewTests extends AbstractSchrodingerTest {
 
     private static final File END_USER_ROLE_FILE = new File("src/test/resources/objects/roles/role-enduser-hidden-person-view.xml");
     private static final File END_USER_FILE = new File("src/test/resources/objects/users/enduser-user-hidden-person-view.xml");
+    private static final File SYSTEM_CONFIGURATION_HIDDEN_CAMPAIGNS_SCHEDULING = new File("src/test/resources/objects/systemconfiguration/system-configuration-hidden-campaigns-scheduling.xml");
 
     private static final String ENDUSER_NAME = "enduser";
     private static final String ENDUSER_PASSWORD = "Password123!";
@@ -65,4 +66,20 @@ public class ObjectCollectionViewTests extends AbstractSchrodingerTest {
                 .assertSearchItemDoesntExist("Object collection");
     }
 
+    /**
+     * Tests that Campaigns scheduling menu item is hidden in case Certifications tasks
+     * collection view is configured with hidden visibility.
+     * Covers #11176
+     */
+    @Test
+    public void test00200campaignsSchedulingHiddenMenuItemTest() {
+        importObject(SYSTEM_CONFIGURATION_HIDDEN_CAMPAIGNS_SCHEDULING, true);
+        reloginAsAdministrator();
+
+        basicPage
+                .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.serverTasks", "CertificationRelatedTasks.title")
+                .assertMenuItemDoesntExist(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
+                        "PageAdmin.menu.top.certification", "PageAdmin.menu.top.certification.scheduling");
+    }
 }
