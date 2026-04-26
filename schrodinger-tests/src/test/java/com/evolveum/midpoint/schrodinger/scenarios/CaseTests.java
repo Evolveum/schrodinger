@@ -108,11 +108,10 @@ public class CaseTests extends AbstractSchrodingerTest {
 
      }
 
-     //commented due to MID-8834
-//    @Test (dependsOnMethods = {"test110isCaseCreated"})
+    @Test (dependsOnMethods = {"test110isCaseCreated"})
     public void test120approveCaseAction() {
-        AllRequestsPage allRequestsPage = basicPage.listAllRequests();
-        ChildrenCaseTable childrenCaseTable = allRequestsPage
+        AllCasesPage allCasesPage = basicPage.listAllCases();
+        ChildrenCaseTable childrenCaseTable = allCasesPage
                 .table()
                 .search()
                 .byName()
@@ -138,8 +137,8 @@ public class CaseTests extends AbstractSchrodingerTest {
 
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 
-        allRequestsPage = basicPage.listAllRequests();
-        CasePage casePage = allRequestsPage
+        allCasesPage = basicPage.listAllCases();
+        CasePage casePage = allCasesPage
                 .table()
                 .search()
                 .byName()
