@@ -44,6 +44,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     private static final String COMPONENT_RESOURCES_DIRECTORY = "./src/test/resources/";
     private static final String COMPONENT_OBJECTS_DIRECTORY = COMPONENT_RESOURCES_DIRECTORY + "objects/";
+    private static final String COMPONENT_MISC = COMPONENT_OBJECTS_DIRECTORY + "misc/";
     private static final String COMPONENT_OBJECT_COLLECTIONS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "objectcollections/";
     private static final String COMPONENT_USERS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "users/";
     private static final String COMPONENT_ROLES_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "roles/";
@@ -82,6 +83,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File USER_WITH_NO_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-no-cost-center.xml");
     private static final File ADMIN_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-administrator-with-cost-center.xml");
     private static final File OBJECT_COLLECTION_COST_CENTER_FILE = new File(COMPONENT_OBJECT_COLLECTIONS_DIRECTORY + "object-collection-cost-center-filter.xml");
+    private static final File TEST_0195_OBJECTS = new File(COMPONENT_MISC + "11183-ticket-objects.xml");
 
     private static final String NAME_ATTRIBUTE = "Name";
     private static final String GIVEN_NAME_ATTRIBUTE = "Given name";
@@ -466,6 +468,48 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .assertFeedbackDoesntExists()
                 .assertPageTitleStartsWith("All users");
+    }
+
+    /**
+     * covers MID-11183
+     */
+    @Test
+    public void test0195savedAdvancedFilterIsCorrectlyReused() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(TEST_0195_OBJECTS, true);
+        String advancedFilter = "not (assignment/targetRef matches ( targetType = RoleType and @ matches ( archetypeRef matches ( oid = \"f111a2b0-f13b-4020-ad2c-58cab886d91b\" ))))";
+        String savedFilterName = "advanced filter";
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .advanced(advancedFilter)
+                .updateSearch()
+                .and()
+                .assertTableContainsLinkTextPartially("test A")
+                .assertTableContainsLinkTextPartially("test B")
+                .assertTableDoesntContainLinkTextPartially("test C")
+                .search()
+                .clickSaveSearchButton()
+                .setFilterName(savedFilterName)
+                .save()
+                .and()
+                .and()
+                .assertFeedbackExists()
+                .feedback()
+                .assertSuccess();
+        reloginAsAdministrator();
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .selectFilterFromSavedFilters(savedFilterName)
+                .and()
+                .assertTableContainsLinkTextPartially("test A")
+                .assertTableContainsLinkTextPartially("test B")
+                .assertTableDoesntContainLinkTextPartially("test C")
+                .and()
+                .assertFeedbackDoesntExists();
     }
 
     /**

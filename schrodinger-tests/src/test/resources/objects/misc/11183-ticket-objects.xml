@@ -1,0 +1,49 @@
+<objects>
+    <archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+               oid="f111a2b0-f13b-4020-ad2c-58cab886d91b">
+        <name>use case's test Archetype</name>
+    </archetype>
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          oid="2848fc63-c1f8-4813-af28-d4db1f5a2fed">
+        <name>role A</name>
+    </role>
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          oid="fad79aac-dd8c-4f66-a941-f47089c7b7b3">
+        <name>role B</name>
+    </role>
+    <role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          oid="b2816f90-b55d-415c-a367-03638f3fb2f9">
+        <name>role C</name>
+        <assignment>
+            <targetRef oid="f111a2b0-f13b-4020-ad2c-58cab886d91b" relation="org:default" type="ArchetypeType" />
+        </assignment>
+    </role>
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          oid="67e986c0-f1b7-416c-82cc-b2ba339b11a0">
+        <name>test A</name>
+        <description>not (assignment/targetRef matches ( targetType = RoleType and @ matches ( archetypeRef matches ( oid = "f111a2b0-f13b-4020-ad2c-58cab886d91b" ))))</description>
+        <assignment>
+            <targetRef oid="2848fc63-c1f8-4813-af28-d4db1f5a2fed" relation="org:default" type="RoleType" />
+        </assignment>
+    </user>
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          oid="317e0af3-d379-4ec9-be48-f31237426755">
+        <name>test B</name>
+        <description>not (assignment/targetRef matches ( targetType = RoleType and @ matches ( archetypeRef matches ( oid = "f111a2b0-f13b-4020-ad2c-58cab886d91b" ))))</description>
+        <assignment>
+            <targetRef oid="fad79aac-dd8c-4f66-a941-f47089c7b7b3" relation="org:default" type="RoleType" />
+        </assignment>
+    </user>
+    <user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+          xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+          oid="e861dcf7-13bd-44f4-9318-43c5eadabe26">
+        <name>test C</name>
+        <description>not (assignment/targetRef matches ( targetType = RoleType and @ matches ( archetypeRef matches ( oid = "f111a2b0-f13b-4020-ad2c-58cab886d91b" ))))</description>
+        <assignment>
+            <targetRef oid="b2816f90-b55d-415c-a367-03638f3fb2f9" relation="org:default" type="RoleType" />
+        </assignment>
+    </user>
+</objects>

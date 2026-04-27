@@ -547,6 +547,7 @@ public class BasicPage {
     }
 
     public BasicPage assertFeedbackExists() {
+        Utils.waitForAjaxCallFinish();
         assertion.assertTrue($x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .is(Condition.visible), "Feedback message box is absent");
         return this;
