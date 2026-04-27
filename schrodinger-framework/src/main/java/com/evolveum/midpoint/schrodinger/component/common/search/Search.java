@@ -147,6 +147,7 @@ public class Search<T> extends Component<T, Search<T>> {
         SelenideElement dropDownButton = getParentElement()
                 .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchButtonPanel']")
                 .$x(".//button[@data-toggle='dropdown']");
+        Utils.scrollToElement(dropDownButton);
         dropDownButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         dropDownButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
     }
@@ -404,8 +405,10 @@ public class Search<T> extends Component<T, Search<T>> {
     }
 
     public Search<T> selectFilterFromSavedFilters(String filterName) {
-        getParentElement().$(Schrodinger.byDataId("savedSearchMenu"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+        SelenideElement filters = getParentElement().$(Schrodinger.byDataId("savedSearchMenu"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(filters);
+        filters
                 .click();
         Utils.waitForAjaxCallFinish();
         SelenideElement savedFiltersListPopup = getParentElement().$x(".//div[@data-s-id='savedFilterMenu']")

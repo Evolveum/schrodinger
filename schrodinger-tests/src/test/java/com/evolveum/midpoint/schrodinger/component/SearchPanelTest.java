@@ -482,6 +482,9 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         basicPage
                 .listUsers()
                 .table()
+                .paging()
+                .pageSize(100)
+                .and()
                 .search()
                 .advanced(advancedFilter)
                 .updateSearch()
@@ -502,6 +505,9 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
         basicPage
                 .listUsers()
                 .table()
+                .paging()
+                .pageSize(100)
+                .and()
                 .search()
                 .selectFilterFromSavedFilters(savedFilterName)
                 .and()
