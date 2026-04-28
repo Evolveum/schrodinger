@@ -37,10 +37,9 @@ public class OperationRequestPanel extends Component<CasePage, OperationRequestP
     }
 
     public boolean changesAreApplied(){
-        return $(Schrodinger.byDataId("operationRequestCasePanel"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(By.className("card-success"))
-                .$(byText("Changes applied (successfully or not)"))
+        SelenideElement panel = $(Schrodinger.byDataId("operationRequestCasePanel"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        return panel.$(byText("Changes applied (successfully or not)"))
                 .is(Condition.visible);
     }
 
