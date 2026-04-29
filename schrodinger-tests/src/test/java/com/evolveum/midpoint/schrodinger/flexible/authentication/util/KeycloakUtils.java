@@ -31,10 +31,16 @@ public class KeycloakUtils {
     protected static AssertionWithScreenshot assertion = new AssertionWithScreenshot();
 
     public static void login(String username, String password) {
+        Selenide.screenshot("failedLogin_Keycloak_loginform" + System.currentTimeMillis());
+
         $(By.name("username")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(username);
 
         $(By.name("password")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(password);
         $x(".//input[@type='submit']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        Selenide.screenshot("failedLogin_Keycloak_loginform_submitIsPressed" + System.currentTimeMillis());
+        Selenide.sleep(5000);
+        Selenide.screenshot("failedLogin_Keycloak_loginform_submitIsPressed_afterSleep" + System.currentTimeMillis());
+
     }
 
     public static void logoutAndCheckIt() {
