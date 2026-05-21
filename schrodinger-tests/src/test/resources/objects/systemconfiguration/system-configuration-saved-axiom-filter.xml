@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (C) 2026 Evolveum and contributors
+  ~ Copyright (C) 2010-2021 Evolveum and contributors
   ~
-  ~ Licensed under the EUPL-1.2 or later.
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
   -->
-
 <systemConfiguration oid="00000000-0000-0000-0000-000000000001" version="0"
                      xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
                      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
@@ -181,11 +181,6 @@
             <skipWhenSuccess>true</skipWhenSuccess>
         </operationExecutionRecording>
     </internals>
-    <smartIntegration>
-        <statisticsTtl>P1D</statisticsTtl>
-        <schemaMatchTtl>P1D</schemaMatchTtl>
-        <mappingSuggestionRetryCount>0</mappingSuggestionRetryCount>
-    </smartIntegration>
     <adminGuiConfiguration>
         <homePage id="21">
             <type>UserType</type>
@@ -216,12 +211,6 @@
                                 <key>PageSelfDashboard.button.viewAll</key>
                             </translation>
                         </label>
-                        <help>
-                            <orig>View all accesses.</orig>
-                            <translation>
-                                <key>PageSelfDashboard.widget.myAccesses.viewAll.help</key>
-                            </translation>
-                        </help>
                         <icon>
                             <cssClass>fa fa-search</cssClass>
                         </icon>
@@ -240,12 +229,6 @@
                                 <key>PageRequestAccess.title</key>
                             </translation>
                         </label>
-                        <help>
-                            <orig>Initiate access request.</orig>
-                            <translation>
-                                <key>PageSelfDashboard.widget.requestAccess.wizard.help</key>
-                            </translation>
-                        </help>
                         <icon>
                             <cssClass>fas fa-plus-circle</cssClass>
                         </icon>
@@ -281,12 +264,6 @@
                                 <key>PageSelfDashboard.button.viewAll</key>
                             </translation>
                         </label>
-                        <help>
-                            <orig>View all requests.</orig>
-                            <translation>
-                                <key>PageSelfDashboard.widget.myRequests.viewAll.help</key>
-                            </translation>
-                        </help>
                         <icon>
                             <cssClass>fa fa-search</cssClass>
                         </icon>
@@ -323,12 +300,6 @@
                                 <key>PageSelfDashboard.button.viewAll</key>
                             </translation>
                         </label>
-                        <help>
-                            <orig>View all work items.</orig>
-                            <translation>
-                                <key>PageSelfDashboard.widget.myWorkItems.viewAll.help</key>
-                            </translation>
-                        </help>
                         <icon>
                             <cssClass>fa fa-search</cssClass>
                         </icon>
@@ -364,12 +335,6 @@
                                 <key>PageSelfDashboard.button.viewAll</key>
                             </translation>
                         </label>
-                        <help>
-                            <orig>View all accounts.</orig>
-                            <translation>
-                                <key>PageSelfDashboard.widget.myAccounts.viewAll.help</key>
-                            </translation>
-                        </help>
                         <icon>
                             <cssClass>fa fa-search</cssClass>
                         </icon>
@@ -391,12 +356,7 @@
                             <key>PageSelfDashboard.profile</key>
                         </translation>
                     </label>
-                    <help>
-                        <orig>Profile</orig>
-                        <translation>
-                            <key>PageSelfDashboard.profile.description</key>
-                        </translation>
-                    </help>
+                    <help>PageSelfDashboard.profile.description</help>
                     <cssClass>col-md-3</cssClass>
                     <icon>
                         <cssClass>bg-green fa fa-user</cssClass>
@@ -419,12 +379,7 @@
                             <key>PageSelfDashboard.credentials</key>
                         </translation>
                     </label>
-                    <help>
-                        <orig>Credentials</orig>
-                        <translation>
-                            <key>PageSelfDashboard.credentials.description</key>
-                        </translation>
-                    </help>
+                    <help>PageSelfDashboard.credentials.description</help>
                     <cssClass>col-md-3</cssClass>
                     <icon>
                         <cssClass>bg-blue fa fa-shield-alt</cssClass>
@@ -509,12 +464,6 @@
                                 <key>PageSelfDashboard.button.viewAll</key>
                             </translation>
                         </label>
-                        <help>
-                            <orig>View all certification items.</orig>
-                            <translation>
-                                <key>PageSelfDashboard.widget.myCertificationItems.viewAll.help</key>
-                            </translation>
-                        </help>
                         <icon>
                             <cssClass>fa fa-search</cssClass>
                         </icon>
@@ -553,12 +502,7 @@
                             <key>MyCases.title</key>
                         </translation>
                     </pluralLabel>
-                    <singularLabel>
-                        <orig>My case</orig>
-                        <translation>
-                            <key>MyCases.objectCollectionView.singularLabel</key>
-                        </translation>
-                    </singularLabel>
+                    <singularLabel>My case</singularLabel>
                     <icon>
                         <cssClass>fe fe-case-object</cssClass>
                     </icon>
@@ -586,18 +530,8 @@
                             <key>AllManualCases.title</key>
                         </translation>
                     </pluralLabel>
-                    <singularLabel>
-                        <orig>Manual case</orig>
-                        <translation>
-                            <key>AllManualCases.objectCollectionView.singularLabel</key>
-                        </translation>
-                    </singularLabel>
-                    <tooltip>
-                        <orig>Manual provisioning cases</orig>
-                        <translation>
-                            <key>AllManualCases.objectCollectionView.tooltip</key>
-                        </translation>
-                    </tooltip>
+                    <singularLabel>Manual case</singularLabel>
+                    <tooltip>Manual provisioning cases</tooltip>
                 </display>
                 <displayOrder>1010</displayOrder>
                 <type>CaseType</type>
@@ -622,18 +556,8 @@
                             <key>AllRequests.title</key>
                         </translation>
                     </pluralLabel>
-                    <singularLabel>
-                        <orig>Request</orig>
-                        <translation>
-                            <key>OperationRequestCase.objectCollectionView.singularLabel</key>
-                        </translation>
-                    </singularLabel>
-                    <tooltip>
-                        <orig>Operation requests</orig>
-                        <translation>
-                            <key>OperationRequestCase.objectCollectionView.tooltip</key>
-                        </translation>
-                    </tooltip>
+                    <singularLabel>Request</singularLabel>
+                    <tooltip>Operation requests</tooltip>
                 </display>
                 <displayOrder>1020</displayOrder>
                 <type>CaseType</type>
@@ -658,18 +582,8 @@
                             <key>AllApprovals.title</key>
                         </translation>
                     </pluralLabel>
-                    <singularLabel>
-                        <orig>Approval</orig>
-                        <translation>
-                            <key>ApprovalCase.objectCollectionView.singularLabel</key>
-                        </translation>
-                    </singularLabel>
-                    <tooltip>
-                        <orig>Approval cases</orig>
-                        <translation>
-                            <key>ApprovalCase.objectCollectionView.tooltip</key>
-                        </translation>
-                    </tooltip>
+                    <singularLabel>Approval</singularLabel>
+                    <tooltip>Approval cases</tooltip>
                 </display>
                 <displayOrder>1030</displayOrder>
                 <type>CaseType</type>
@@ -694,18 +608,8 @@
                             <key>AllCorrelations.title</key>
                         </translation>
                     </pluralLabel>
-                    <singularLabel>
-                        <orig>Correlation</orig>
-                        <translation>
-                            <key>CorrelationCase.objectCollectionView.singularLabel</key>
-                        </translation>
-                    </singularLabel>
-                    <tooltip>
-                        <orig>Correlation cases</orig>
-                        <translation>
-                            <key>CorrelationCase.objectCollectionView.tooltip</key>
-                        </translation>
-                    </tooltip>
+                    <singularLabel>Correlation</singularLabel>
+                    <tooltip>Correlation cases</tooltip>
                 </display>
                 <displayOrder>1040</displayOrder>
                 <type>CaseType</type>
@@ -1166,12 +1070,7 @@
                             <key>ResourceType.template.all.title</key>
                         </translation>
                     </pluralLabel>
-                    <singularLabel>
-                        <orig>Resource template</orig>
-                        <translation>
-                            <key>ResourceTemplates.objectCollectionView.singularLabel</key>
-                        </translation>
-                    </singularLabel>
+                    <singularLabel>Resource template</singularLabel>
                     <icon>
                         <cssClass>fa fa-file-alt</cssClass>
                     </icon>
@@ -1197,12 +1096,7 @@
                             <key>classification.label</key>
                         </translation>
                     </singularLabel>
-                    <tooltip>
-                        <orig>Information classifications (labels)</orig>
-                        <translation>
-                            <key>Classification.objectCollectionView.tooltip</key>
-                        </translation>
-                    </tooltip>
+                    <tooltip>Information classifications (labels)</tooltip>
                 </display>
                 <displayOrder>200</displayOrder>
                 <type>PolicyType</type>
@@ -1226,12 +1120,7 @@
                             <key>clearance.label</key>
                         </translation>
                     </singularLabel>
-                    <tooltip>
-                        <orig>Security clearances</orig>
-                        <translation>
-                            <key>Clearance.objectCollectionView.tooltip</key>
-                        </translation>
-                    </tooltip>
+                    <tooltip>Security clearances</tooltip>
                 </display>
                 <displayOrder>210</displayOrder>
                 <type>PolicyType</type>
@@ -1502,12 +1391,7 @@
                     <container id="130">
                         <identifier>basic</identifier>
                         <display>
-                            <label>
-                                <orig>Basic information</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.objectType.basicSettings</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.objectType.basicSettings</label>
                         </display>
                         <item id="132">
                             <path>schemaHandling/objectType/displayName</path>
@@ -1550,12 +1434,7 @@
                     <container id="138">
                         <identifier>delineation</identifier>
                         <display>
-                            <label>
-                                <orig>Resource data</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.objectType.delineation</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.objectType.delineation</label>
                         </display>
                         <item id="140">
                             <path>schemaHandling/objectType/delineation/objectClass</path>
@@ -1590,12 +1469,7 @@
                     <container id="145">
                         <identifier>limitationsMapping</identifier>
                         <display>
-                            <label>
-                                <orig>Limitations</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.attributes.limitation</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.attributes.limitation</label>
                         </display>
                         <item id="147">
                             <path>schemaHandling/objectType/attribute/limitations/access/read</path>
@@ -1634,12 +1508,7 @@
                     <container id="153">
                         <identifier>reactionMainSetting</identifier>
                         <display>
-                            <label>
-                                <orig>Main configuration</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.synchronization.reaction.mainSettings</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.synchronization.reaction.mainSettings</label>
                         </display>
                         <item id="155">
                             <path>schemaHandling/objectType/synchronization/reaction/name</path>
@@ -1666,12 +1535,7 @@
                     <container id="158">
                         <identifier>reactionOptionalSetting</identifier>
                         <display>
-                            <label>
-                                <orig>Optional settings</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.synchronization.reaction.optionalSettings</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.synchronization.reaction.optionalSettings</label>
                         </display>
                         <item id="160">
                             <path>schemaHandling/objectType/synchronization/reaction/condition</path>
@@ -1698,12 +1562,7 @@
                     <container id="262">
                         <identifier>associationReactionMainSetting</identifier>
                         <display>
-                            <label>
-                                <orig>Main configuration</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.synchronization.reaction.mainSettings</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.synchronization.reaction.mainSettings</label>
                         </display>
                         <item id="263">
                             <path>schemaHandling/associationType/subject/association/synchronization/reaction/name</path>
@@ -1730,12 +1589,7 @@
                     <container id="256">
                         <identifier>associationReactionOptionalSetting</identifier>
                         <display>
-                            <label>
-                                <orig>Optional settings</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.synchronization.reaction.optionalSettings</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.synchronization.reaction.optionalSettings</label>
                         </display>
                         <item id="257">
                             <path>schemaHandling/associationType/subject/association/synchronization/reaction/order</path>
@@ -1754,12 +1608,7 @@
                     <container id="163">
                         <identifier>mainConfigurationAttribute</identifier>
                         <display>
-                            <label>
-                                <orig>Main configuration</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.attributes.mainConfiguration</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.attributes.mainConfiguration</label>
                         </display>
                         <item id="165">
                             <path>schemaHandling/objectType/attribute/ref</path>
@@ -1818,12 +1667,7 @@
                     <container id="174">
                         <identifier>association</identifier>
                         <display>
-                            <label>
-                                <orig>Configuration of the association</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.associations</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.associations</label>
                         </display>
                         <item id="176">
                             <path>schemaHandling/objectType/association/ref</path>
@@ -1892,12 +1736,7 @@
                     <container id="189">
                         <identifier>required</identifier>
                         <display>
-                            <label>
-                                <orig>Configuration</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.configuration</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.configuration</label>
                         </display>
                         <item id="191">
                             <path>connectorConfiguration/configurationProperties/jdbcUrlTemplate</path>
@@ -1941,12 +1780,7 @@
                     <container id="199">
                         <identifier>required</identifier>
                         <display>
-                            <label>
-                                <orig>Configuration</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.configuration</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.configuration</label>
                         </display>
                         <item id="201">
                             <path>connectorConfiguration/configurationProperties/host</path>
@@ -1986,12 +1820,7 @@
                     <container id="207">
                         <identifier>required</identifier>
                         <display>
-                            <label>
-                                <orig>Configuration</orig>
-                                <translation>
-                                    <key>PageResource.wizard.step.configuration</key>
-                                </translation>
-                            </label>
+                            <label>PageResource.wizard.step.configuration</label>
                         </display>
                         <item id="209">
                             <path>connectorConfiguration/configurationProperties/host</path>
@@ -2103,54 +1932,19 @@
                 <type>const</type>
                 <decision>allow</decision>
             </evaluator>
-            <evaluator id="273">
-                <type>filter</type>
-                <decision>allow</decision>
+            <evaluator id="223">
+                <type>script</type>
+                <decision>deny</decision> <!-- default decision of those script languages that are not explicitly enumerated. -->
+                <script id="224">
+                    <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
+                    <decision>allow</decision>
+                    <typeChecking>true</typeChecking>
+                    <permissionProfile>script-safe</permissionProfile>
+                </script>
             </evaluator>
-            <evaluator id="274">
-                <type>function</type>
-                <decision>allow</decision>
-            </evaluator>
-            <evaluator id="278">
-                <type>generate</type>
-                <decision>allow</decision>
-            </evaluator>
-            <evaluator id="279">
-                <type>proportional</type>
-                <decision>allow</decision>
-            </evaluator>
-            <bulkActionsProfile>prohibitive</bulkActionsProfile>
-            <privilegeElevation>deny</privilegeElevation>
         </expressionProfile>
-        <expressionProfile id="275">
-            <identifier>permissive</identifier>
-            <description>Unlimited access to all expressions</description>
-            <decision>allow</decision>
-            <privilegeElevation>allow</privilegeElevation>
-        </expressionProfile>
-        <expressionProfile id="276">
-            <identifier>prohibitive</identifier>
-            <description>No access to any expressions</description>
-            <decision>deny</decision>
-            <bulkActionsProfile>prohibitive</bulkActionsProfile>
-            <privilegeElevation>deny</privilegeElevation>
-        </expressionProfile>
-        <bulkActionsProfile id="277">
-            <identifier>prohibitive</identifier>
-            <decision>deny</decision>
-        </bulkActionsProfile>
         <permissionProfile id="225">
-            <identifier>script-limited</identifier>
-            <description>
-                "Limited" script permission profile. It is supposed to contain operations that are mostly "safe",
-                i.e. operations that have very little risk to harm the system, circumvent midPoint security
-                and so on.
-                However, this profile may incomplete, and it is likely it is not completely secure.
-                The very nature of script permission checks (a.k.a. sandbox) does not guarantee complete safety.
-                This profile is meant as a means to limit (mostly unintentional) harm done by the scripts,
-                it is not meant as a strict security measure.
-                It is provided here "AS IS", without any guarantees. Use at your own risk.
-            </description>
+            <identifier>script-safe</identifier>
             <decision>deny</decision> <!-- Default decision for those classes that are not explicitly enumerated. -->
             <package id="226">
                 <name>com.evolveum.midpoint.xml.ns._public.common.common_3</name>

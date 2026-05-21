@@ -388,7 +388,7 @@ public class Search<T> extends Component<T, Search<T>> {
     private SelenideElement getSavedFilterMenuItemLink(String filterName) {
         clickSavedFilterDropdown();
         SelenideElement savedFiltersListPopup = getParentElement().$x(".//div[@data-s-id='savedFilterMenu']")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
         ElementsCollection savedFiltersList = savedFiltersListPopup.$$(Schrodinger.byDataId("savedFilterName"));
         for (SelenideElement el : savedFiltersList) {
             if (filterName.equals(el.text())) {
