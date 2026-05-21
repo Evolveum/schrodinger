@@ -405,6 +405,29 @@ public class Search<T> extends Component<T, Search<T>> {
     }
 
     public Search<T> selectFilterFromSavedFilters(String filterName) {
+        SelenideElement filterToSelect = getSavedFilterMenuItemLink(filterName);
+        if (filterToSelect != null) {
+            filterToSelect.click();
+            Utils.waitForAjaxCallFinish();
+        }
+        return Search.this;
+    }
+
+    public Search<T> assertSavedFilterExists(String filterName) {
+        SelenideElement filterToSelect = getSavedFilterMenuItemLink(filterName);
+        assertion.assertTrue(filterToSelect != null && filterToSelect.exists() && filterToSelect.isDisplayed(),
+                "Saved filter '" + filterName + "' should be visible in the Saved filters menu but it's not.");
+        return Search.this;
+    }
+
+    public Search<T> assertSavedFilterDoesntExist(String filterName) {
+        SelenideElement filterToSelect = getSavedFilterMenuItemLink(filterName);
+        assertion.assertTrue(filterToSelect == null,
+                "Saved filter '" + filterName + "' should not exist in the Saved filters menu but it does.");
+        return Search.this;
+    }
+
+    private SelenideElement getSavedFilterMenuItemLink(String filterName) {
         SelenideElement filters = getParentElement().$(Schrodinger.byDataId("savedSearchMenu"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         Utils.scrollToElement(filters);
@@ -414,18 +437,12 @@ public class Search<T> extends Component<T, Search<T>> {
         SelenideElement savedFiltersListPopup = getParentElement().$x(".//div[@data-s-id='savedFilterMenu']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         ElementsCollection savedFiltersList = savedFiltersListPopup.$$(Schrodinger.byDataId("savedFilterName"));
-        SelenideElement filterToSelect = null;
         for (SelenideElement el : savedFiltersList) {
             if (filterName.equals(el.text())) {
-                filterToSelect = el;
-                break;
+                return el;
             }
         }
-        if (filterToSelect != null) {
-            filterToSelect.click();
-            Utils.waitForAjaxCallFinish();
-        }
-        return Search.this;
+        return null;
     }
 
 }

@@ -72,6 +72,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-allow-to-configure-search-items.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-supported-object-types-on-members-panel.xml");
+    private static final File SYSTEM_CONFIG_SAVED_AXIOM_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-saved-axiom-filter.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-search-box-expression-filter.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-view.xml");
     private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-order-view.xml");
@@ -516,6 +517,33 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .assertTableDoesntContainLinkTextPartially("test C")
                 .and()
                 .assertFeedbackDoesntExists();
+    }
+
+    /**
+     * covers MID-11181
+     */
+    @Test
+    public void test0196savedAxiomFilter() {
+        midPoint.formLogin().loginIfUserIsNotLog(username, password);
+        importObject(SYSTEM_CONFIG_SAVED_AXIOM_FILTER, true);
+        reloginAsAdministrator();
+        String predefinedFilerName = "filter";
+        String newFilterName = "Filter admins";
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .selectFilterFromSavedFilters(predefinedFilerName)
+                .assertAdvancedSearchIsSelected()
+                .resetBasicSearch()
+                .byName()
+                .inputValue("admin")
+                .updateSearch()
+                .clickSaveSearchButton()
+                .setFilterName(newFilterName)
+                .save()
+                .assertSavedFilterExists(predefinedFilerName)
+                .assertSavedFilterExists(newFilterName);
     }
 
     /**
