@@ -417,6 +417,7 @@ public class Search<T> extends Component<T, Search<T>> {
         SelenideElement filterToSelect = getSavedFilterMenuItemLink(filterName);
         assertion.assertTrue(filterToSelect != null && filterToSelect.exists() && filterToSelect.isDisplayed(),
                 "Saved filter '" + filterName + "' should be visible in the Saved filters menu but it's not.");
+        clickSavedFilterDropdown();
         return Search.this;
     }
 
@@ -424,16 +425,12 @@ public class Search<T> extends Component<T, Search<T>> {
         SelenideElement filterToSelect = getSavedFilterMenuItemLink(filterName);
         assertion.assertTrue(filterToSelect == null,
                 "Saved filter '" + filterName + "' should not exist in the Saved filters menu but it does.");
+        clickSavedFilterDropdown();
         return Search.this;
     }
 
     private SelenideElement getSavedFilterMenuItemLink(String filterName) {
-        SelenideElement filters = getParentElement().$(Schrodinger.byDataId("savedSearchMenu"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        Utils.scrollToElement(filters);
-        filters
-                .click();
-        Utils.waitForAjaxCallFinish();
+        clickSavedFilterDropdown();
         SelenideElement savedFiltersListPopup = getParentElement().$x(".//div[@data-s-id='savedFilterMenu']")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         ElementsCollection savedFiltersList = savedFiltersListPopup.$$(Schrodinger.byDataId("savedFilterName"));
@@ -443,6 +440,15 @@ public class Search<T> extends Component<T, Search<T>> {
             }
         }
         return null;
+    }
+
+    private void clickSavedFilterDropdown() {
+        SelenideElement filters = getParentElement().$(Schrodinger.byDataId("savedSearchMenu"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(filters);
+        filters
+                .click();
+        Utils.waitForAjaxCallFinish();
     }
 
 }
