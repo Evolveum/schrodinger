@@ -491,7 +491,12 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .updateSearch()
                 .clickSaveSearchButton()
                 .setFilterName(newFilterName)
-                .save()
+                .save();
+        reloginAsAdministrator();
+        basicPage
+                .listUsers()
+                .table()
+                .search()
                 .assertSavedFilterExists(predefinedFilerName)
                 .assertSavedFilterExists(newFilterName);
     }
