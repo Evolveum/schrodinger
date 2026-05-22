@@ -155,6 +155,21 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .assertSearchItemExists(ROLE_MEMBERSHIP_ATTRIBUTE);
     }
 
+    /**
+     * Covers MID-10908: help tooltips in the search More popover must not
+     * duplicate, remain stuck, or survive mouse leave/popover close.
+     */
+    @Test
+    public void test0035morePopoverHelpTooltipLifecycle() {
+        basicPage
+                .listUsers()
+                .table()
+                .search()
+                .assertMorePopoverHelpTooltipLifecycle(
+                        ADMINISTRATIVE_STATUS_ATTRIBUTE,
+                        "Filter by administrative status.");
+    }
+
     @Test
     public void test0040booleanAttributeSearch() {
         reloginAsAdministrator();
