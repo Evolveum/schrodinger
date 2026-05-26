@@ -20,11 +20,9 @@ import java.io.File;
 import java.util.*;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
-import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
@@ -40,15 +38,20 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File DELEGATE_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegate-from-user.xml");
     private static final File DELEGATE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-to-user.xml");
     private static final File DELEGABLE_END_USER_ROLE_FILE = new File("./src/test/resources/objects/roles/delegable-end-user-role.xml");
+    private static final File READ_USERS_ACCESS_ROLE_FILE = new File("./src/test/resources/objects/roles/role-enduser-read-users.xml");
     private static final File DELEGATE_END_USER_ROLE_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-from-user.xml");
+    private static final File MULTILINE_DESCRIPTION_USER_FILE = new File("./src/test/resources/objects/users/end-user-with-multiline-description.xml");
     private static final File DELEGATE_END_USER_ROLE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-to-user.xml");
     private static final File OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE = new File("./src/test/resources/objects/objecttemplate/object-template-required-email.xml");
     private static final File SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-email-required-template.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(DELEGATE_FROM_USER_FILE, DELEGATE_TO_USER_FILE,
-                DELEGABLE_END_USER_ROLE_FILE, DELEGATE_END_USER_ROLE_FROM_USER_FILE, DELEGATE_END_USER_ROLE_TO_USER_FILE);
+        return Arrays.asList(
+                DELEGATE_FROM_USER_FILE, DELEGATE_TO_USER_FILE,
+                DELEGABLE_END_USER_ROLE_FILE, DELEGATE_END_USER_ROLE_FROM_USER_FILE,
+                DELEGATE_END_USER_ROLE_TO_USER_FILE,
+                READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE);
     }
 
     @Test
@@ -201,7 +204,7 @@ public class UserTest extends AbstractSchrodingerTest {
      *  inspired by mid-8886
      */
     @Test
-    private void test0050checkRequiredFieldValidationErrorVisibility() {
+    public void test0050checkRequiredFieldValidationErrorVisibility() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
         importObject(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE, true);
 
@@ -220,7 +223,7 @@ public class UserTest extends AbstractSchrodingerTest {
      *  inspired by mid-8886
      */
     @Test
-    private void test0060checkRequiredFieldValidationErrorVisibilityAfterSecondFormSubmit() {
+    public void test0060checkRequiredFieldValidationErrorVisibilityAfterSecondFormSubmit() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
         importObject(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE, true);
 
@@ -242,7 +245,7 @@ public class UserTest extends AbstractSchrodingerTest {
     }
 
     @Test
-    private void test0070checkWrongEmailValidationError() {
+    public void test0070checkWrongEmailValidationError() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
         importObject(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE, true);
 
@@ -260,6 +263,46 @@ public class UserTest extends AbstractSchrodingerTest {
                 .feedback()
                 .assertMessageExists("The emailAddress is invalid: a");
 
+    }
+
+    /**
+     * Checks that formatting (multiple lines) of the description value is displayed
+     * correctly in case the filed is disabled.
+     * Covers #11216
+     */
+    @Test
+    public void test0080testDescriptionTextFormatting() {
+        String descriptionValue = "First line\n" +
+                "Second line\n" +
+                "Third line";
+        reloginAsAdministrator();
+        basicPage.listUsers()
+                .table()
+                .search()
+                .byName()
+                .inputValue("endUserWithMultilineDescription")
+                .updateSearch()
+                .and()
+                .clickByName("endUserWithMultilineDescription")
+                .selectBasicPanel()
+                .form()
+                .addAttributeValue("description", descriptionValue)
+                .and()
+                .and()
+                .clickSave();
+
+        loginAsUser("endUserWithMultilineDescription", "Test5ecr3t");
+        basicPage.listUsers()
+                .table()
+                .search()
+                .byName()
+                .inputValue("endUserWithMultilineDescription")
+                .updateSearch()
+                .and()
+                .clickByName("endUserWithMultilineDescription")
+                .selectBasicPanel()
+                .form()
+                .assertPropertyLabelValue("description", descriptionValue);
     }
 
 }
