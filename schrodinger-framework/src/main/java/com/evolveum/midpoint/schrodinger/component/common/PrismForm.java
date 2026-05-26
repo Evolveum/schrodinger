@@ -143,6 +143,20 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
+    //in case the attribute is read only, it is displayed as a label in the form
+    private Boolean labelAttributeValueEquals(String name, String expectedValue) {
+        SelenideElement property = findProperty(name);
+        SelenideElement value = property.$(By.xpath(".//div[@data-s-id='input']"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        String actualText = value.getText();
+
+        if (actualText != null && !actualText.isEmpty()) {
+            return actualText.equals(expectedValue);
+        } else {
+            return expectedValue.isEmpty();
+        }
+    }
+
     private Boolean inputAttributeValueEquals(String name, String expectedValue) {
         SelenideElement property = findProperty(name);
         SelenideElement value = property.$(By.xpath(".//input[contains(@class,\"form-control\")]"))
@@ -610,6 +624,12 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
     public PrismForm<T> assertPropertyInputValue(String attributeName, String expectedValue) {
         assertion.assertTrue(inputAttributeValueEquals(attributeName, expectedValue), "The value of the input attribute " + attributeName
+                + " doesn't match to expected value '" + expectedValue + "'.");
+        return this;
+    }
+
+    public PrismForm<T> assertPropertyLabelValue(String attributeName, String expectedValue) {
+        assertion.assertTrue(labelAttributeValueEquals(attributeName, expectedValue), "The value of the input attribute " + attributeName
                 + " doesn't match to expected value '" + expectedValue + "'.");
         return this;
     }
