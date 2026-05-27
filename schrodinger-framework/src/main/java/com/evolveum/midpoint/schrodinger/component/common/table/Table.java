@@ -28,6 +28,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.common.InlineMenu;
+import com.evolveum.midpoint.schrodinger.page.report.ReportPage;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -275,6 +276,16 @@ public class Table<T, P extends Table> extends Component<T, P> {
         getToolbarButtonByTitleKey("MainObjectListPanel.refresh").click();
         Utils.waitForAjaxCallFinish();
         return (P) this;
+    }
+
+    public ReportPage clickCreateReportToolbarButton() {
+         SelenideElement titleElement = $(Schrodinger.byDataId("span", "pageTitle"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        String oldPageTitle = titleElement.getText();
+        getToolbarButtonByTitleKey("MainObjectListPanel.createReport").click();
+        Utils.waitForAjaxCallFinish();
+        titleElement.shouldNotHave(Condition.text(oldPageTitle), MidPoint.TIMEOUT_MEDIUM_6_S);
+        return new ReportPage();
     }
 
     public SelenideElement getButtonToolbar() {
@@ -585,5 +596,11 @@ public class Table<T, P extends Table> extends Component<T, P> {
             assertion.assertNotNull(value);
             assertion.assertTrue(value.contains(attributeValue));
         }
+    }
+
+    public Table<T, P> assertColumnExists(String columnTitle) {
+        assertion.assertNotNull(getTableColumn(columnTitle),
+                "Column '" + columnTitle + "' doesn't exist in the table");
+        return this;
     }
 }

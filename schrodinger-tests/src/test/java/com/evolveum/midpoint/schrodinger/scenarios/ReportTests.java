@@ -35,6 +35,7 @@ public class ReportTests extends AbstractSchrodingerTest {
     public static final File AUDIT_REPORT_DATA = new File("./src/test/resources/objects/reportdata/audit-report-data.xml");
     public static final File EXPORT_TASK_FOR_AUDIT_RECORDS = new File("./src/test/resources/objects/tasks/export-task-for-audit-records.xml");
     public static final File REPORT_TIMESTAMP_UPDATE = new File("./src/test/resources/objects/reports/report-timestamp-update.xml");
+    private static final File SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW = new File("src/test/resources/objects/systemconfiguration/system-configuration-with-delta-column-in-audit-view.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -354,5 +355,28 @@ public class ReportTests extends AbstractSchrodingerTest {
                 .assertFeedbackExists()
                 .feedback()
                 .assertError();
+    }
+
+    /**
+     * Tests if the created report contains all the columns from the view
+     * in case there are configured columns for this view
+     * Covers #10967
+     */
+    @Test(enabled = false)
+    public void test00500testReportColumnsWhenCustomColumnIsDefined() {
+        importObject(SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW, true);
+        basicPage
+                .auditLogViewer()
+                .table()
+                .clickCreateReportToolbarButton()
+                .clickShowReportReviewButton()
+                .assertColumnExists("Time")
+                .assertColumnExists("Initiator")
+                .assertColumnExists("Event Stage")
+                .assertColumnExists("Event Type")
+                .assertColumnExists("Target owner")
+                .assertColumnExists("Channel")
+                .assertColumnExists("Outcome")
+                .assertColumnExists("Delta");
     }
 }
