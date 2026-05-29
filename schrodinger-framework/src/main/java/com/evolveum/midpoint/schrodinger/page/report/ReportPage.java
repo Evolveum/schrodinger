@@ -57,7 +57,7 @@ public class ReportPage extends AssignmentHolderDetailsPage<ReportPage> {
         Utils.waitForAjaxCallFinish();
         String reportPreviewTranslated = Utils.translate("PageReport.reportPreview");
         SelenideElement tableEl = $x(".//div[@data-s-id='tableContainer']" +
-                "[.//h3[text()='" + reportPreviewTranslated + "']]")
+                "[.//h3[contains(text(), '" + reportPreviewTranslated + "')]]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         return new Table<>(ReportPage.this, tableEl);
     }

@@ -362,7 +362,7 @@ public class ReportTests extends AbstractSchrodingerTest {
      * in case there are configured columns for this view
      * Covers #10967
      */
-    @Test(enabled = false)
+    @Test
     public void test00500testReportColumnsWhenCustomColumnIsDefined() {
         importObject(SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW, true);
         basicPage
@@ -372,8 +372,8 @@ public class ReportTests extends AbstractSchrodingerTest {
                 .clickShowReportReviewButton()
                 .assertColumnExists("Time")
                 .assertColumnExists("Initiator")
-                .assertColumnExists("Event Stage")
-                .assertColumnExists("Event Type")
+                .assertColumnExists("Event stage")
+                .assertColumnExists("Event type")
                 .assertColumnExists("Target owner")
                 .assertColumnExists("Channel")
                 .assertColumnExists("Outcome")
