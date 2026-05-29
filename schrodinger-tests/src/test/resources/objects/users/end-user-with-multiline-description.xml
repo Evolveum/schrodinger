@@ -20,6 +20,7 @@
       xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
       oid="637e056e-7e01-41a0-9d79-4fffa9fbb691">
     <name>endUserWithMultilineDescription</name>
+    <description>one line</description>
     <assignment>
         <targetRef oid="11100000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
             <!-- End user -->
