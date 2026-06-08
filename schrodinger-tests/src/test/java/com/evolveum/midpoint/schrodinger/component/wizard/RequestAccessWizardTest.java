@@ -31,6 +31,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File ROLES_WITH_CONFLICT_AND_PRUNE_ACTION = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File USER_SOD_PRUNE_TEST = new File("./src/test/resources/objects/users/user-sod-prune-test.xml");
     private static final File COLLECTION_ROLES = new File("./src/test/resources/objects/objectcollections/all-roles-custom.xml");
     private static final File COLLECTION_SERVICES = new File("./src/test/resources/objects/objectcollections/all-services-custom.xml");
     private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-customized.xml");
@@ -39,7 +41,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     @Override
     protected List<File> getObjectListToImport(){
-        return List.of(USERS, ROLES);
+        return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST);
     }
 
     @Override
@@ -253,4 +255,20 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertPropertyInputValue("testExtension", "12");
     }
 
+    /**
+     * Tests that conflict is not displayed in case conflicting roles are to be resolved by prune action.
+     * covers #11250
+     */
+    @Test(enabled = false)
+    void test0100hiddenConflictsForPruneAction() {
+        String testUserName = "sodPruneTestUser";
+        String conflictingRoleName = "TEST SoD prune - Role B";
+        basicPage
+                .requestAccess()
+                .selectGroup(testUserName)
+                .next()
+                .addItemToCart(conflictingRoleName)
+                .next()
+                .assertOpenConflictNotExist();
+    }
 }
