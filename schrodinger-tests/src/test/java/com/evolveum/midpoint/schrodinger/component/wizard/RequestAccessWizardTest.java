@@ -32,6 +32,8 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File ROLES_WITH_CONFLICT_AND_PRUNE_ACTION = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File USER_SOD_PRUNE_TEST = new File("./src/test/resources/objects/users/user-sod-prune-test.xml");
     private static final File ROLES_CONFLICT = new File("./src/test/resources/objects/roles/request-access-wizard-conflict-roles.xml");
     private static final File SYSTEM_CONFIGURATION_MANDATORY_VALIDITY = new File("./src/test/resources/objects/systemconfiguration/sys-config-request-access-mandatory-validity.xml");
     private static final File COLLECTION_ORGANIZATIONS = new File("./src/test/resources/objects/objectcollections/all-organizations-custom.xml");
@@ -46,7 +48,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final String OWNER_OF_ENDUSER_ROLE_NAME = "owner_of_enduser_role";
     @Override
     protected List<File> getObjectListToImport(){
-        return List.of(USERS, ROLES);
+        return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST);
     }
 
     @Override
@@ -354,5 +356,22 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertOpenConflictNotExist()
                 .assertWarningBadgeNotExist()
                 .clickSubmitButton();
+    }
+
+    /**
+     * Tests that conflict is not displayed in case conflicting roles are to be resolved by prune action.
+     * covers #11250
+     */
+    @Test(enabled = false)
+    void test0100hiddenConflictsForPruneAction() {
+        String testUserName = "sodPruneTestUser";
+        String conflictingRoleName = "TEST SoD prune - Role B";
+        basicPage
+                .requestAccess()
+                .selectGroup(testUserName)
+                .next()
+                .addItemToCart(conflictingRoleName)
+                .next()
+                .assertOpenConflictNotExist();
     }
 }
