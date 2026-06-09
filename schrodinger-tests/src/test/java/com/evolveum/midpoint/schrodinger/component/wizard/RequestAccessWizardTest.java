@@ -362,7 +362,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
      * Tests that conflict is not displayed in case conflicting roles are to be resolved by prune action.
      * covers #11250
      */
-    @Test(enabled = false)
+    @Test
     void test0100hiddenConflictsForPruneAction() {
         String testUserName = "sodPruneTestUser";
         String conflictingRoleName = "TEST SoD prune - Role B";
