@@ -21,10 +21,13 @@
     <name>sodPruneTestUser</name>
     <assignment>
         <targetRef oid="0a000000-0000-4000-8000-000000000a01" relation="org:default" type="c:RoleType">
-            <!-- End user -->
+            <!-- TEST SoD prune - Role A -->
         </targetRef>
         <activation>
             <effectiveStatus>enabled</effectiveStatus>
         </activation>
     </assignment>
+    <roleMembershipRef oid="0a000000-0000-4000-8000-000000000a01" relation="org:default" type="c:RoleType">
+        <!-- TEST SoD prune - Role A -->
+    </roleMembershipRef>
 </user>
