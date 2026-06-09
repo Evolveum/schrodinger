@@ -31,7 +31,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     private static final File USERS = new File("./src/test/resources/objects/users/request-access-wizard-users.xml");
     private static final File ROLES = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
-    private static final File ROLES_WITH_CONFLICT_AND_PRUNE_ACTION = new File("./src/test/resources/objects/roles/request-access-wizard-roles.xml");
+    private static final File ROLES_WITH_CONFLICT_AND_PRUNE_ACTION = new File("./src/test/resources/objects/roles/conflicting-roles-and-prune-action.xml");
     private static final File USER_SOD_PRUNE_TEST = new File("./src/test/resources/objects/users/user-sod-prune-test.xml");
     private static final File COLLECTION_ROLES = new File("./src/test/resources/objects/objectcollections/all-roles-custom.xml");
     private static final File COLLECTION_SERVICES = new File("./src/test/resources/objects/objectcollections/all-services-custom.xml");
