@@ -17,9 +17,11 @@
 package com.evolveum.midpoint.schrodinger;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.evolveum.midpoint.client.api.ObjectAddService;
 import com.evolveum.midpoint.client.api.exception.CommonException;
+import com.evolveum.midpoint.client.api.exception.ObjectNotFoundException;
 import com.evolveum.midpoint.client.impl.prism.RestPrismObjectAddService;
 import com.evolveum.midpoint.client.impl.prism.RestPrismService;
 import com.evolveum.midpoint.client.impl.prism.RestPrismServiceBuilder;
@@ -57,8 +59,8 @@ import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.api.Assertions;
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.WindowType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +78,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.switchTo;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Viliam Repan (lazyman).
@@ -104,6 +105,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-fulltext.xml");
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
+
+    private static final Pattern UUID_MATCHER = Pattern.compile("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}");
+
+    private static final long DELETE_ALL_OBJECTS_WAIT_TIMEOUT = 60_000L;
 
     protected static File testTargetDir;
 
@@ -318,7 +323,50 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         aboutPage
                 .clickSwitchToFactoryDefaults()
                 .clickYes();
-        Selenide.sleep(60000); //todo go to task page and wait the task to be finished
+
+        waitForDeleteTaskToFinish();
+    }
+
+    private void waitForDeleteTaskToFinish() {
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+
+        basicPage.feedbackContainer()
+                .clickShowTask();
+
+        Utils.waitForAjaxCallFinish();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
+
+        String url = WebDriverRunner.getWebDriver().getCurrentUrl();
+        Matcher matcher = UUID_MATCHER.matcher(url);
+        String oid = matcher.find() ? matcher.group() : null;
+
+        Assertions.assertThat(oid).isNotNull();
+
+        LOG.info("Delete all object task oid: {}", oid);
+
+        long time = System.currentTimeMillis();
+        while (true) {
+            if (System.currentTimeMillis() - time > DELETE_ALL_OBJECTS_WAIT_TIMEOUT) {
+                break;
+            }
+
+            try {
+                TaskType task = getTask(oid);
+                if (task == null ||
+                        (task.getExecutionState() != TaskExecutionStateType.RUNNABLE
+                                && task.getExecutionState() != TaskExecutionStateType.RUNNING)) {
+                    break;
+                }
+                Selenide.sleep(500L);
+            } catch (ObjectNotFoundException ex) {
+                // task is not there
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        long total = System.currentTimeMillis() - time;
+
+        LOG.info("Waited for {}ms to delete all object task oid: {}", total, oid);
     }
 
     /**
@@ -544,6 +592,25 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         } catch (CommonException | SchemaException | IOException ex) {
             LOG.error("Unable to add object, {}", ex);
         }
+    }
+
+    public RestPrismService createRestPrismService() throws IOException, CommonException{
+        RestPrismServiceBuilder builder = RestPrismServiceBuilder.create();
+        return builder
+                .baseUrl(getConfigurationPropertyValue(startMidpoint ? "base_url" : "base_url_mp_already_started") + "/ws/rest")
+                .username(getConfigurationPropertyValue("username"))
+                .password(getConfigurationPropertyValue("password"))
+                .build();
+    }
+
+    public UserType getUser(String oid) throws IOException, CommonException {
+        RestPrismService service = createRestPrismService();
+        return service.users().oid(oid).get();
+    }
+
+    public TaskType getTask(String oid) throws IOException, CommonException {
+        RestPrismService service = createRestPrismService();
+        return service.tasks().oid(oid).get();
     }
 
     private void addObjects(List<PrismObject<?>> objects, @NotNull List<String> optionList) throws IOException, CommonException {

@@ -2,8 +2,10 @@ package com.evolveum.midpoint.schrodinger.component.common;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.component.Component;
+import com.evolveum.midpoint.schrodinger.page.task.TaskPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import java.util.stream.Collectors;
@@ -27,5 +29,13 @@ public class FeedbackContainerPanel<T> extends Component<T, FeedbackContainerPan
     private ElementsCollection getMessagesCollection() {
         return getParentElement().$$(Schrodinger.byDataId("message"))
                 .filterBy(Condition.visible);
+    }
+
+    public TaskPage clickShowTask() {
+        getParentElement().$$(Schrodinger.byDataId("backgroundTaskLink"))
+                .first()
+                .click();
+
+        return new TaskPage();
     }
 }
