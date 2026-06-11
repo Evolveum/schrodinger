@@ -572,13 +572,6 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         return this;
     }
 
-    public PrismForm<T> assertMultivaluePropertyInputValue(String attributeName, int index, String expectedValue) {
-        assertion.assertTrue(inputMultivalueAttributeValueEquals(attributeName, index, expectedValue),
-                "The value of the input attribute " + attributeName
-                + " doesn't match to expected value '" + expectedValue + "'.");
-        return this;
-    }
-
     public PrismForm<T> assertPropertyIsNotEmpty(String attributeName) {
         assertion.assertTrue(!inputAttributeValueEmpty(attributeName), "The value of the input attribute " + attributeName
                 + " should not be empty but it is.");
