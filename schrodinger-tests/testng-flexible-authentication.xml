@@ -40,7 +40,8 @@
     </test>
     <test name="Otp" preserve-order="true" parallel="false" verbose="3" enabled="true">
         <classes>
-            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpLoginPageTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpLoginAcceptEmptyTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpLoginRequisiteTest"/>
         </classes>
     </test>
 </suite>

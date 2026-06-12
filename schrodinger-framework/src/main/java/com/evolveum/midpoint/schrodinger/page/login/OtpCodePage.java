@@ -1,6 +1,7 @@
 package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
@@ -25,5 +26,12 @@ public class OtpCodePage extends FormLoginPage {
         $x(".//button[@type='submit']").click();
         Utils.waitForAjaxCallFinish();
         return new BasicPage();
+    }
+
+    public OtpCodePage assertIsOnOtpPage() {
+        assertion.assertTrue(
+                WebDriverRunner.url().contains(PAGE_PATH),
+                "Expected to be on OTP verification page (" + PAGE_PATH + ") but current URL is: " + WebDriverRunner.url());
+        return this;
     }
 }
