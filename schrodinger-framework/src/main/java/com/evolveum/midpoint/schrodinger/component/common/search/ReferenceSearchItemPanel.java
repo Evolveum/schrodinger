@@ -112,6 +112,40 @@ public class ReferenceSearchItemPanel<T> extends Component<T, ReferenceSearchIte
             Utils.waitForAjaxCallFinish();
             return getParent();
         }
+
+        public ReferenceSearchItemPopup assertObjectSelectionButtonPresentNextToNameField() {
+            SelenideElement editButton = getNameFieldEditButtonElement();
+            assertion.assertTrue(editButton.exists() && editButton.isDisplayed(),
+                    "Edit button next to name field is not present though it should be");
+            return ReferenceSearchItemPopup.this;
+        }
+
+        public ReferenceSearchItemPopup assertObjectSelectionButtonNotPresentNextToNameField() {
+            SelenideElement editButton = getNameFieldEditButtonElement();
+            assertion.assertFalse(editButton.exists(),
+                    "Edit button next to name field is present though it shouldn't be");
+            return ReferenceSearchItemPopup.this;
+        }
+
+        private SelenideElement getNameFieldEditButtonElement() {
+            SelenideElement nameField = getParentElement().$x(".//div[@" + Schrodinger.DATA_S_ID + "='name']")
+                    .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+            return nameField.$x(".//button[@" + Schrodinger.DATA_S_ID + "='edit']");
+        }
+
+        public ReferenceSearchItemPopup assertOidFieldValue(String expectedOid) {
+            SelenideElement inputField = getParentElement().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            try {
+                inputField.shouldHave(Condition.text(expectedOid), MidPoint.TIMEOUT_MEDIUM_6_S);
+            } catch (Exception e) {
+                //nothing to do here, we check the value of the oid filed later
+            }
+            assertion.assertEquals(inputField.getValue(), expectedOid,
+                    "The value of the oid filed should be: " + expectedOid);
+            return ReferenceSearchItemPopup.this;
+        }
+
     }
 
 }

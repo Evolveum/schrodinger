@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -81,6 +82,11 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File ADMIN_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-administrator-with-cost-center.xml");
     private static final File OBJECT_COLLECTION_COST_CENTER_FILE = new File(COMPONENT_OBJECT_COLLECTIONS_DIRECTORY + "object-collection-cost-center-filter.xml");
     private static final File TEST_0195_OBJECTS = new File(COMPONENT_MISC + "11183-ticket-objects.xml");
+
+    private static final File CSV_RESOURCE_FILE = new File("src/test/resources/objects/resources/resource-csv-username.xml");
+    private static final String CSV_RESOURCE_NAME = "Test CSV: username";
+    private static final File CSV_SOURCE_FILE = new File("src/test/resources/sources/midpoint-username.csv");
+    private static final String CSV_RESOURCE_OID = "ef2bc95b-76e0-59e2-86d6-9999cccccccc";
 
     private static final String NAME_ATTRIBUTE = "Name";
     private static final String GIVEN_NAME_ATTRIBUTE = "Given name";
@@ -555,5 +561,30 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .and()
                 .assertAllObjectsCountEquals(1)
                 .assertTableContainsLinkTextPartially("searchByEmailAddressUser");
+    }
+
+    /**
+     * Tests that oid field in the Reference popup search item is automatically
+     * fulfilled after the name of the referenced object is selected.
+     * Covers MID-11400
+     */
+    @Test (enabled = false)
+    public void test0340referencedObjectOidIsFulfilled() {
+        try {
+            addCsvResourceFromFileAndTestConnection(CSV_RESOURCE_FILE, CSV_RESOURCE_NAME, CSV_SOURCE_FILE.getAbsolutePath());
+        } catch (IOException e) {
+            throw new AssertionError("Failed to add resource object", e);
+        }
+        basicPage
+                .listRepositoryObjects()
+                .table()
+                .selectType("Shadow")
+                .search()
+                .referencePanelByItemName("Resource")
+                .propertySettings()
+                .inputRefName(CSV_RESOURCE_NAME)
+                .assertOidFieldValue(CSV_RESOURCE_OID)
+                .applyButtonClick()
+                .assertRefSearchFieldValueMatch(CSV_RESOURCE_NAME);
     }
 }
