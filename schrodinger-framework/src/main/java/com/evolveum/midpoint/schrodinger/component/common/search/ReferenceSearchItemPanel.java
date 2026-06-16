@@ -132,6 +132,20 @@ public class ReferenceSearchItemPanel<T> extends Component<T, ReferenceSearchIte
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
             return nameField.$x(".//button[@" + Schrodinger.DATA_S_ID + "='edit']");
         }
+
+        public ReferenceSearchItemPopup assertOidFieldValue(String expectedOid) {
+            SelenideElement inputField = getParentElement().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
+                    .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+            try {
+                inputField.shouldHave(Condition.text(expectedOid), MidPoint.TIMEOUT_MEDIUM_6_S);
+            } catch (Exception e) {
+                //nothing to do here, we check the value of the oid filed later
+            }
+            assertion.assertEquals(inputField.getValue(), expectedOid,
+                    "The value of the oid filed should be: " + expectedOid);
+            return ReferenceSearchItemPopup.this;
+        }
+
     }
 
 }
