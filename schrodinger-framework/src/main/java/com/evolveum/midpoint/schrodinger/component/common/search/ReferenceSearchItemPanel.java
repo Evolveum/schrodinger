@@ -137,7 +137,7 @@ public class ReferenceSearchItemPanel<T> extends Component<T, ReferenceSearchIte
             SelenideElement inputField = getParentElement().$x(".//input[@" + Schrodinger.DATA_S_ID + "='oid']")
                     .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
             try {
-                inputField.shouldHave(Condition.text(expectedOid), MidPoint.TIMEOUT_MEDIUM_6_S);
+                inputField.shouldHave(Condition.value(expectedOid), MidPoint.TIMEOUT_MEDIUM_6_S);
             } catch (Exception e) {
                 //nothing to do here, we check the value of the oid filed later
             }

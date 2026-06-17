@@ -256,15 +256,10 @@ public class Search<T> extends Component<T, Search<T>> {
     }
 
     public SelenideElement getItemByName(String name) {
-        ElementsCollection items = getParentElement()
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .findAll(Schrodinger.byDataId("searchItemContainer"));
-        for (SelenideElement item : items) {
-            if (item.$(Schrodinger.byElementValue("div", name)).exists()) {
-                return item;
-            }
-        }
-        return null;
+        return getParentElement().$x(
+                ".//div[@data-s-id='searchItemContainer']" +
+                        "[.//div[@data-s-id='searchItemLabel' and normalize-space()='" + name + "']]"
+        );
     }
 
     private SelenideElement getDisplayedPopover() {
