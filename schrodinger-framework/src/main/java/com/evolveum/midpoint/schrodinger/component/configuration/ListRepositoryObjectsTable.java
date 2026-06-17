@@ -86,6 +86,20 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
         return this;
     }
 
+    public ListRepositoryObjectsTable selectType(String type) {
+        search()
+                .dropDownPanelByItemName("Type")
+                .inputDropDownValue(type)
+                .updateSearch();
+        return this;
+    }
+
+    public ListRepositoryObjectsTable assertType(String type) {
+        search()
+                .assertActualOptionOfSelectSearchItem("Type", type);
+        return this;
+    }
+
     public ConfirmationModal<ListRepositoryObjectsTable>  clickDeleteButton() {
         $x(".//a[@data-s-id='delete']").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
