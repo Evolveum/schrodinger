@@ -85,6 +85,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     private static final File CSV_RESOURCE_FILE = new File("src/test/resources/objects/resources/resource-csv-username.xml");
     private static final String CSV_RESOURCE_NAME = "Test CSV: username";
+    private static final String CSV_RESOURCE_SEARCH_ITEM_VALUE = "Test CSV: username; Oid:ef2bc95b-76e0-59e2-86d6-9999cccccccc; Relation:default; ";
     private static final File CSV_SOURCE_FILE = new File("src/test/resources/sources/midpoint-username.csv");
     private static final String CSV_RESOURCE_OID = "ef2bc95b-76e0-59e2-86d6-9999cccccccc";
 
@@ -585,6 +586,6 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .inputRefName(CSV_RESOURCE_NAME)
                 .assertOidFieldValue(CSV_RESOURCE_OID)
                 .applyButtonClick()
-                .assertRefSearchFieldValueMatch(CSV_RESOURCE_NAME);
+                .assertRefSearchFieldValueMatch(CSV_RESOURCE_SEARCH_ITEM_VALUE);
     }
 }
