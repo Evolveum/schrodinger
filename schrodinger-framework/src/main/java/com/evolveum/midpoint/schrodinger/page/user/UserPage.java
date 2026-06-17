@@ -101,4 +101,7 @@ public class UserPage extends FocusPage<UserPage> {
         return new UserApplicationsPanel(this, getNavigationPanelSelenideElement("Applications"));
     }
 
+    public UserOtpPanel selectOtpPanel() {
+        return new UserOtpPanel(this, getNavigationPanelSelenideElement("OTP"));
+    }
 }

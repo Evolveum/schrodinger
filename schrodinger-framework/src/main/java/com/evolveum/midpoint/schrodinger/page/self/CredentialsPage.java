@@ -19,22 +19,34 @@ import com.codeborne.selenide.Condition;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.TabPanel;
+import com.evolveum.midpoint.schrodinger.component.self.OtpTab;
 import com.evolveum.midpoint.schrodinger.component.self.PasswordTab;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * Created by Viliam Repan (lazyman).
  */
 public class CredentialsPage extends BasicPage {
 
-    public PasswordTab passwordTab() {
-        TabPanel<CredentialsPage> tabPanel = new TabPanel<>(this,
+    private TabPanel<CredentialsPage> getTabPanel() {
+        return new TabPanel<>(this,
                 $(Schrodinger.byDataId("tabPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+    }
+
+    public PasswordTab passwordTab() {
+        TabPanel<CredentialsPage> tabPanel = getTabPanel();
+
         return new PasswordTab(this,
                 tabPanel.clickTab("PageSelfCredentials.tabs.password").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+    }
+
+    public OtpTab otpTab() {
+        TabPanel<CredentialsPage> tabPanel = getTabPanel();
+
+        return new OtpTab(this,
+                tabPanel.clickTab("PageSelfCredentials.tabs.otp").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
 }
