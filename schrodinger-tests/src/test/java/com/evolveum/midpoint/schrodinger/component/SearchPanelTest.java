@@ -568,7 +568,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
      * fulfilled after the name of the referenced object is selected.
      * Covers MID-11400
      */
-    @Test (enabled = false)
+    @Test
     public void test0340referencedObjectOidIsFulfilled() {
         try {
             addCsvResourceFromFileAndTestConnection(CSV_RESOURCE_FILE, CSV_RESOURCE_NAME, CSV_SOURCE_FILE.getAbsolutePath());
