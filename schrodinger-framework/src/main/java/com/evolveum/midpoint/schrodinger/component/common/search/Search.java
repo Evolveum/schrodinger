@@ -246,6 +246,48 @@ public class Search<T> extends Component<T, Search<T>> {
         return link;
     }
 
+    /**
+     * Verifies that a help tooltip in the More popover opens once and is cleaned up on mouse leave and popover close.
+     */
+    public void assertMorePopoverHelpTooltipLifecycle(String itemName, String expectedTooltipText) {
+        SelenideElement popover = getMorePopover();
+        SelenideElement help = getMorePopoverItemHelp(popover, itemName);
+        help.hover();
+
+        visibleTooltips().shouldHave(CollectionCondition.size(1), MidPoint.TIMEOUT_MEDIUM_6_S);
+        visibleTooltips().first().shouldHave(Condition.text(expectedTooltipText), MidPoint.TIMEOUT_DEFAULT_2_S);
+
+        popover.$("input[aria-label='Search item']").hover();
+        visibleTooltips().shouldHave(CollectionCondition.size(0), MidPoint.TIMEOUT_MEDIUM_6_S);
+
+        help.hover();
+        visibleTooltips().shouldHave(CollectionCondition.size(1), MidPoint.TIMEOUT_MEDIUM_6_S);
+        popover.$x(".//a[contains(@class, 'btn-default')]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
+                .click();
+        popover.shouldBe(Condition.hidden, MidPoint.TIMEOUT_MEDIUM_6_S);
+        visibleTooltips().shouldHave(CollectionCondition.size(0), MidPoint.TIMEOUT_MEDIUM_6_S);
+
+    }
+
+    /**
+     * Finds the help icon that belongs to a named search item in the More popover.
+     */
+    private SelenideElement getMorePopoverItemHelp(SelenideElement popover, String itemName) {
+        SelenideElement itemNameElement = findSearchItemByNameLinkInMorePopover(popover, itemName);
+        assertion.assertNotNull(itemNameElement, "Search item '" + itemName + "' should be visible in More popover.");
+        return itemNameElement
+                .parent()
+                .parent()
+                .parent()
+                .$(Schrodinger.byDataId("i", "itemHelp"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
+    private ElementsCollection visibleTooltips() {
+        return $$(".tooltip").filter(Condition.visible);
+    }
+
     private SelenideElement getMorePopover() {
         choiceBasicSearch();
         getMoreDropdownButtonElement()
@@ -447,4 +489,3 @@ public class Search<T> extends Component<T, Search<T>> {
     }
 
 }
-
