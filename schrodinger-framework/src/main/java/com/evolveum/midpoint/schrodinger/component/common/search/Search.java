@@ -23,6 +23,7 @@ import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -87,7 +88,7 @@ public class Search<T> extends Component<T, Search<T>> {
         choiceBasicSearch();
 
         SelenideElement itemElement = getItemByName(itemName);
-        if (itemElement == null && addIfAbsent){
+        if ((itemElement == null || !itemElement.exists() || !itemElement.isDisplayed()) && addIfAbsent){
             addSearchItemByNameLinkClick(itemName);
             Utils.waitForAjaxCallFinish();
             itemElement = getItemByName(itemName);
@@ -256,10 +257,15 @@ public class Search<T> extends Component<T, Search<T>> {
     }
 
     public SelenideElement getItemByName(String name) {
-        return getParentElement().$x(
-                ".//div[@data-s-id='searchItemContainer']" +
-                        "[.//div[@data-s-id='searchItemLabel' and normalize-space()='" + name + "']]"
-        );
+        try {
+            return getParentElement().$x(
+                    ".//div[@data-s-id='searchItemContainer']" +
+                            "[.//div[@data-s-id='searchItemLabel' and normalize-space()='" + name + "']]"
+            );
+        } catch (Exception e) {
+            //if the search item is not found, return null
+            return null;
+        }
     }
 
     private SelenideElement getDisplayedPopover() {
