@@ -305,4 +305,8 @@ public class UserTest extends AbstractSchrodingerTest {
                 .assertPropertyLabelValue("description", descriptionValue);
     }
 
+    @Override
+    protected boolean resetToDefaultBeforeTests() {
+        return true;
+    }
 }
