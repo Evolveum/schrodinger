@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Tests TOTP credential management via admin UI: Users → user details → OTP panel.
- * <p>
+ *
  * Uses the same security policy with {@code acceptEmpty=true} and the same user as
  * {@link OtpSelfServiceCredentialsTest}, but exercises the admin-side OTP panel
  * ({@code OtpListPanel}) rather than the self-service credentials page.

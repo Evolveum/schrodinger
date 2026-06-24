@@ -1,7 +1,5 @@
 package com.evolveum.midpoint.schrodinger.flexible.authentication.otp;
 
-import org.testng.annotations.Test;
-
 import java.io.File;
 
 /**

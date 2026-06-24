@@ -23,7 +23,7 @@ import java.io.IOException;
 
 /**
  * Abstract base for two-module TOTP authentication tests (loginForm + TOTP, both REQUISITE).
- * <p>
+ *
  * Each subclass supplies a security policy file via {@link #getSecurityPolicyFile()} and
  * provides concrete assertion methods. This allows the same test scenarios to be verified
  * against different module configurations (e.g. {@code acceptEmpty=false} vs {@code acceptEmpty=true}).
@@ -65,7 +65,7 @@ public abstract class AbstractOtpLoginTest extends AbstractSchrodingerTest {
     /**
      * Whether, under this policy, a user without TOTP credentials is expected
      * to be redirected to the OTP verification page after a successful password login.
-     * <p>
+     *
      * Returns {@code true} when {@code acceptEmpty=false} (user must go through OTP page).
      * Returns {@code false} when {@code acceptEmpty=true} (OTP module is called off; user
      * lands directly on the home page).
@@ -326,7 +326,7 @@ public abstract class AbstractOtpLoginTest extends AbstractSchrodingerTest {
     /**
      * TOTP user: correct password -> 3 wrong OTP codes (each stays on OTP page with
      * error) -> 4th wrong code -> account locked, user ends on login page with locked message.
-     * <p>
+     *
      * This test MUST run last because it permanently locks the TOTP user's OTP credential.
      * {@link #afterClass()} reloads the user to reset the lockout before the next test class runs.
      */

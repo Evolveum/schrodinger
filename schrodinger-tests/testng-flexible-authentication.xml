@@ -44,6 +44,9 @@
             <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpLoginRequisiteTest"/>
             <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpSelfServiceCredentialsTest"/>
             <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpAdminCredentialsTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpCodePageRedirectTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpEmergencySequenceTest"/>
+            <class name="com.evolveum.midpoint.schrodinger.flexible.authentication.otp.OtpNotConfiguredTest"/>
         </classes>
     </test>
 </suite>
