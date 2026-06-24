@@ -40,6 +40,14 @@ public class UserOtpPanel extends Component<UserPage, UserOtpPanel> {
         return this;
     }
 
+    public UserOtpPanel assertAddButtonNotVisible() {
+        boolean exists = getParentElement()
+                .find(Schrodinger.byDataId("button"))
+                .exists();
+        assertion.assertFalse(exists, "Add new credential button should not be visible.");
+        return this;
+    }
+
     /**
      * Returns the currently open OTP setup popup.
      */

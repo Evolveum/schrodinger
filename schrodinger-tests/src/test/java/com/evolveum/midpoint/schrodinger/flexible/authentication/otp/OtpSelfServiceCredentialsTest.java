@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * Tests TOTP credential management via self-service credentials page.
- * <p>
+ *
  * Uses a security policy with {@code acceptEmpty=true} so the user without TOTP credentials
  * can log in with password only and then manage their OTP credentials from self-service.
  */

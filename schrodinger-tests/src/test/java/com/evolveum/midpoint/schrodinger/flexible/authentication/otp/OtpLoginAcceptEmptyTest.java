@@ -1,17 +1,15 @@
 package com.evolveum.midpoint.schrodinger.flexible.authentication.otp;
 
-import org.testng.annotations.Test;
-
 import java.io.File;
 
 /**
  * Runs the TOTP login scenarios with the {@code simple-otp-enrolled.xml} security policy:
  * both modules are REQUISITE and the OTP module has {@code acceptEmpty=true}.
- * <p>
+ *
  * The key difference from {@link OtpLoginRequisiteTest}: users without TOTP credentials
  * have the OTP module "called off" and are logged in directly after a successful password
  * login, without visiting the OTP verification page.
- * <p>
+ *
  * Tests that involve the OTP page for the no-TOTP user are not applicable here
  * and are handled by the {@link #noTotpUserExpectsOtpPage()} guard in the parent.
  */

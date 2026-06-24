@@ -31,7 +31,7 @@ import static com.codeborne.selenide.Selenide.$;
  */
 public class CredentialsPage extends BasicPage {
 
-    private TabPanel<CredentialsPage> getTabPanel() {
+    protected TabPanel<CredentialsPage> getTabPanel() {
         return new TabPanel<>(this,
                 $(Schrodinger.byDataId("tabPanel")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
     }
@@ -48,5 +48,10 @@ public class CredentialsPage extends BasicPage {
 
         return new OtpTab(this,
                 tabPanel.clickTab("PageSelfCredentials.tabs.otp").shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S));
+    }
+
+    public CredentialsPage assertOtpTabNotPresent() {
+        getTabPanel().assertTabDoesntExist("PageSelfCredentials.tabs.otp");
+        return this;
     }
 }

@@ -33,6 +33,16 @@ public class DetailsNavigationPanel<T extends ObjectDetailsPage> extends Compone
         super(parent, parentElement);
     }
 
+    public DetailsNavigationPanel<T> assertNavItemNotVisible(String name) {
+        String translatedName = Utils.translate(name);
+        boolean exists = getParentElement()
+                .$x(".//div[@data-s-id='navItem' and contains(@class, 'text-truncate')" +
+                        " and contains(text(), '" + translatedName + "')]")
+                .exists();
+        assertion.assertFalse(exists, "Navigation panel item '" + name + "' should not be visible.");
+        return this;
+    }
+
     public SelenideElement selectPanelByName(String... name) {
         SelenideElement nav = null;
         for (String navigationItemName : name) {
