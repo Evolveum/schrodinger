@@ -364,6 +364,13 @@ public abstract class AbstractOtpLoginTest extends AbstractSchrodingerTest {
     protected void ensureLoggedOut() {
         if (basicPage.userMenuExists()) {
             midPoint.logout();
+            Utils.waitForAjaxCallFinish();
+
+            // The page we just logged out from (e.g. the dashboard) can have pending AJAX/polling
+            // behaviors still in flight. If clearBrowser()+navigation in openFreshLoginPage() races
+            // with those stray requests, the browser can end up bound to the wrong sequence (e.g.
+            // landing on the default login instead of a custom one). Give them a moment to settle.
+            Selenide.sleep(500L);
         }
     }
 

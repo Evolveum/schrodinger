@@ -6,7 +6,14 @@
 package com.evolveum.midpoint.schrodinger.flexible.authentication.otp;
 
 import com.codeborne.selenide.Selenide;
+import com.evolveum.midpoint.client.impl.prism.RestPrismObjectAddService;
+import com.evolveum.midpoint.client.impl.prism.RestPrismService;
+import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
+import com.evolveum.midpoint.xml.ns._public.common.common_3.ClassLoggerConfigurationType;
+import com.evolveum.midpoint.xml.ns._public.common.common_3.LoggingLevelType;
+import com.evolveum.midpoint.xml.ns._public.common.common_3.SystemConfigurationType;
+import com.evolveum.midpoint.xml.ns._public.common.common_3.SystemObjectsType;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -122,5 +129,43 @@ public class OtpEmergencySequenceTest extends AbstractOtpLoginTest {
 
         basicPage.assertUserMenuExist();
         assertNotOnOtpPage();
+    }
+
+    /**
+     * Test was used to fix race condition - flaky test (problem in test)
+     */
+    @Test(enabled = false)
+    public void test600RepeatedTotpUserLogin() throws Exception {
+        ClassLoggerConfigurationType classLogger = new ClassLoggerConfigurationType()
+                .level(LoggingLevelType.TRACE)
+                ._package("com.evolveum.midpoint.authentication");
+
+        RestPrismService service = createRestPrismService();
+        SystemConfigurationType config = service.systemConfigurations()
+                .oid(SystemObjectsType.SYSTEM_CONFIGURATION.value())
+                .get();
+        config.getLogging().getClassLogger().add(classLogger);
+
+        ((RestPrismObjectAddService<SystemConfigurationType>) service.systemConfigurations()
+                .add(config))
+                .setOptions(new ImportOptions(false, true).createOptionList())
+                .post();
+
+        for (int i = 0; i < 100; i++) {
+            logger.info("Attempt " + i);
+
+            ensureLoggedOut();
+            openFreshLoginPage();
+
+            midPoint.formLogin().login(USER_NAME, USER_PASSWORD);
+            waitForPageTransition();
+
+            assertAfterTotpUserCorrectPasswordLogin();
+
+            midPoint.otpCode().setCode(computeCode()).submit();
+            Utils.waitForAjaxCallFinish();
+
+            assertTotpUserLoggedIn();
+        }
     }
 }
