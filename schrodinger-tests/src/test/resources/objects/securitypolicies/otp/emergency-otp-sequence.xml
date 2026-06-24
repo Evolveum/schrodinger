@@ -7,7 +7,7 @@
 
 <securityPolicy oid="00000000-0000-0000-0000-000000000120"
                 xmlns='http://midpoint.evolveum.com/xml/ns/public/common/common-3'>
-    <name>Simple OTP Security Policy</name>
+    <name>Simple OTP Security Policy Enrolled</name>
     <authentication>
         <modules>
             <loginForm id="1">
@@ -16,6 +16,11 @@
             <httpBasic id="2">
                 <identifier>httpBasic</identifier>
             </httpBasic>
+            <totp>
+                <identifier>mytotp</identifier>
+                <issuer>schrodingermidpoint</issuer>
+                <label>fullName</label>
+            </totp>
         </modules>
         <sequence id="3">
             <identifier>admin-gui-default</identifier>
@@ -29,6 +34,33 @@
                 <identifier>loginForm</identifier>
                 <order>10</order>
                 <necessity>sufficient</necessity>
+            </module>
+        </sequence>
+        <sequence>
+            <identifier>admin-gui-emergency</identifier>
+            <description>
+                Special GUI authentication sequence that is using just the internal user password.
+                It is used only in emergency. It allows to skip SAML authentication cycles, e.g. in case
+                that the SAML authentication is redirecting the browser incorrectly.
+            </description>
+            <channel>
+                <channelId>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channelId>
+                <default>false</default>
+                <urlSuffix>emergency</urlSuffix>
+            </channel>
+            <requireAssignmentTarget oid="00000000-0000-0000-0000-000000000004" type="RoleType">
+                <!-- Superuser -->
+            </requireAssignmentTarget>
+            <module>
+                <identifier>loginForm</identifier>
+                <order>10</order>
+                <necessity>requisite</necessity>
+            </module>
+            <module>
+                <identifier>mytotp</identifier>
+                <order>20</order>
+                <necessity>requisite</necessity>
+                <acceptEmpty>true</acceptEmpty>
             </module>
         </sequence>
         <sequence id="4">
@@ -67,5 +99,10 @@
             <lockoutDuration>PT15M</lockoutDuration>
             <valuePolicyRef oid="00000000-0000-0000-0000-000000000003"/>
         </password>
+        <otp>
+            <lockoutMaxFailedAttempts>3</lockoutMaxFailedAttempts>
+            <lockoutFailedAttemptsDuration>PT3M</lockoutFailedAttemptsDuration>
+            <lockoutDuration>PT15M</lockoutDuration>
+        </otp>
     </credentials>
 </securityPolicy>

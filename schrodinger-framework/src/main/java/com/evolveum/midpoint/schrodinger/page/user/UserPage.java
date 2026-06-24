@@ -104,4 +104,9 @@ public class UserPage extends FocusPage<UserPage> {
     public UserOtpPanel selectOtpPanel() {
         return new UserOtpPanel(this, getNavigationPanelSelenideElement("OTP"));
     }
+
+    public UserPage assertOtpPanelNotVisible() {
+        getNavigationPanel().assertNavItemNotVisible("OTP");
+        return this;
+    }
 }
