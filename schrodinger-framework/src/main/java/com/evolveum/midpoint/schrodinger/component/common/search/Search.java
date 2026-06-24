@@ -88,7 +88,7 @@ public class Search<T> extends Component<T, Search<T>> {
         choiceBasicSearch();
 
         SelenideElement itemElement = getItemByName(itemName);
-        if ((itemElement == null || !itemElement.exists() || !itemElement.isDisplayed()) && addIfAbsent){
+        if (itemElement == null && addIfAbsent){
             addSearchItemByNameLinkClick(itemName);
             Utils.waitForAjaxCallFinish();
             itemElement = getItemByName(itemName);
@@ -298,12 +298,20 @@ public class Search<T> extends Component<T, Search<T>> {
         return getDisplayedPopover();
     }
 
+    /**
+     * @param name The name of the search item element
+     * @return Returns null of the search item element is not found on the search panel
+     */
     public SelenideElement getItemByName(String name) {
         try {
-            return getParentElement().$x(
+            SelenideElement itemElement = getParentElement().$x(
                     ".//div[@data-s-id='searchItemContainer']" +
                             "[.//div[@data-s-id='searchItemLabel' and normalize-space()='" + name + "']]"
             );
+            if (!itemElement.exists() || !itemElement.isDisplayed()) {
+                return null;
+            }
+            return itemElement;
         } catch (Exception e) {
             //if the search item is not found, return null
             return null;

@@ -135,14 +135,12 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
 
     protected void failLogin(String username, String expectedError) {
         open("/");
-        Selenide.screenshot("failedLogin_debug" + System.currentTimeMillis());
         String password = getUserPassword();
 
         login(username, password);
 
         FormLoginPage formLoginPage = new FormLoginPage();
 
-        Selenide.screenshot("failedLogin_debug_LoginPanel" + System.currentTimeMillis());
 
         formLoginPage.assertErrorText(expectedError);
     }
