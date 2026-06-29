@@ -286,6 +286,7 @@ public class UserTest extends AbstractSchrodingerTest {
                 .clickByName("endUserWithMultilineDescription")
                 .selectBasicPanel()
                 .form()
+                .showEmptyAttributes("Properties")
                 .addAttributeValue("description", descriptionValue)
                 .and()
                 .and()
