@@ -1,7 +1,5 @@
 package com.evolveum.midpoint.schrodinger.component;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.component.common.Paging;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
@@ -9,8 +7,6 @@ import com.evolveum.midpoint.schrodinger.component.user.UsersPageTable;
 import com.evolveum.midpoint.schrodinger.page.role.ListRolesPage;
 import com.evolveum.midpoint.schrodinger.page.role.RolesPageTable;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -92,7 +88,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
                             .assertPageSizeValuesListContains(110, 120, 150);
 
         showRole("End user")
-                .selectTabMembers()
+                .selectMembersPanel()
                     .membersPanel()
                         .table()
                             .paging()

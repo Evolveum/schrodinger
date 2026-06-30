@@ -611,7 +611,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .updateSearch()
                 .and()
                 .clickByName("orgRootMemberSearch")
-                .selectTabMembers()
+                .selectMembersPanel()
                 .membersPanel()
                 .table()
                 .search()

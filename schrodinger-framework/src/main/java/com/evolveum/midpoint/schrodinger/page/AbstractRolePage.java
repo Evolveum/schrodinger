@@ -34,19 +34,19 @@ public class AbstractRolePage<A extends AbstractRolePage> extends FocusPage<A> {
         return new InducementsPanel<A>((A) this, element);
     }
 
-    public MembersPanel<A> selectTabMembers() {
+    public MembersPanel<A> selectMembersPanel() {
         SelenideElement element = getNavigationPanelSelenideElement("pageRole.members");
         return new MembersPanel<A>((A) this, element);
 
     }
 
-    public GovernancePanel<A> selectTabGovernance() {
+    public GovernancePanel<A> selectGovernancePanel() {
         SelenideElement element = getNavigationPanelSelenideElement("pageRole.governance");
         return new GovernancePanel<A>((A) this, element);
 
     }
 
-    public ApplicablePoliciesPanel<A> selectTabApplicablePolicies() {
+    public ApplicablePoliciesPanel<A> selectApplicablePoliciesPanel() {
         SelenideElement element = getNavigationPanelSelenideElement("pageAdminFocus.applicablePolicies");
         return new ApplicablePoliciesPanel<A>((A) this, element);
 

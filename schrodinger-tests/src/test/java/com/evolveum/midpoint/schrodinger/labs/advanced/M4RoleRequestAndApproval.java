@@ -155,7 +155,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .setDropDownAttributeValue("Requestable", "True")
                         .and()
                     .and()
-                .selectTabApplicablePolicies()
+                .selectApplicablePoliciesPanel()
                     .selectPolicyByName("Request Approval by Role Approver(s)")
                     .selectPolicyByName("Request Approval by Security Officer for Non-employees")
                     .selectPolicyByName("Request Approval by User Manager(s)");
@@ -171,7 +171,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .setDropDownAttributeValue("Requestable", "True")
                         .and()
                     .and()
-                .selectTabApplicablePolicies()
+                .selectApplicablePoliciesPanel()
                     .selectPolicyByName("Request Approval by Role Approver(s)")
                     .selectPolicyByName("Request Approval by Security Officer for Non-employees")
                     .selectPolicyByName("Request Approval by User Manager(s)");
@@ -187,7 +187,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
                         .setDropDownAttributeValue("Requestable", "True")
                         .and()
                     .and()
-                .selectTabApplicablePolicies()
+                .selectApplicablePoliciesPanel()
                     .selectPolicyByName("Request Approval by Role Approver(s)")
                     .selectPolicyByName("Request Approval by Security Officer for Non-employees")
                     .selectPolicyByName("Request Approval by User Manager(s)")
@@ -204,7 +204,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
         Utils.addAssignmentsWithRelationAndSave(assignmentsTab, "Member", true, "Basic Approver");
 
         FocusSetAssignmentsModal<MemberPanel<GovernancePanel>> modal = showRole("Top Secret Projects I")
-                .selectTabGovernance()
+                .selectGovernancePanel()
                     .membersPanel()
                         .assignMember();
         modal.setRelation("Approver")
@@ -560,7 +560,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
     @Test(groups={"advancedM4"}, dependsOnMethods = "mod04test04selfServiceRequestingRolesForSubordinateEmployees")
     public void mod04test05roleModificationApproval() {
         MemberPanel<GovernancePanel<RolePage>> memberPanel = showRole("Secret Projects I")
-                .selectTabGovernance()
+                .selectGovernancePanel()
                     .membersPanel();
         memberPanel
                 .assignMember()
@@ -616,7 +616,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
         RolePage rolePage = showRole("Secret Projects I");
         rolePage
-                .selectTabApplicablePolicies()
+                .selectApplicablePoliciesPanel()
                     .selectPolicyByName("Role Modification Approval by Role Owner(s)")
                     .selectPolicyByName("Role Modification Approval by Security Officer");
         rolePage
@@ -653,7 +653,7 @@ public class M4RoleRequestAndApproval extends AbstractAdvancedLabTest {
 
         rolePage = showRole("Area 52 Managers");
         rolePage
-                .selectTabApplicablePolicies()
+                .selectApplicablePoliciesPanel()
                     .selectPolicyByName("Role Modification Approval by Role Owner(s)")
                     .selectPolicyByName("Role Modification Approval by Security Officer");
         rolePage.clickSave()
