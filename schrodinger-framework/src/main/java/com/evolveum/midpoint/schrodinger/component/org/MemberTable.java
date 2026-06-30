@@ -21,11 +21,13 @@ import com.codeborne.selenide.SelenideElement;
 
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
+import com.evolveum.midpoint.schrodinger.component.modal.ChooseTypeUnassignPanel;
 import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.modal.FocusSetAssignmentsModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.screenshot;
@@ -63,6 +65,15 @@ public class MemberTable<T> extends AssignmentHolderObjectListTable<T, Assignmen
 
     public FocusSetAssignmentsModal<MemberTable<T>> assign(String columnTitleKey, String rowValue){
         return clickMenuItemWithFocusSetAssignmentsModal(columnTitleKey, rowValue, "abstractRoleMemberPanel.menu.assign");
+    }
+
+    public ChooseTypeUnassignPanel<MemberTable<T>> unassign(){
+        return unassign(null, null);
+    }
+
+    public ChooseTypeUnassignPanel<MemberTable<T>> unassign(String columnTitleKey, String rowValue){
+        clickButtonMenuItemWithConfirmation(columnTitleKey, rowValue, ".fa.fa-unlink");
+        return new ChooseTypeUnassignPanel(MemberTable.this, Utils.getModalWindowSelenideElement());
     }
 
     public ConfirmationModal<MemberTable<T>> recompute(){

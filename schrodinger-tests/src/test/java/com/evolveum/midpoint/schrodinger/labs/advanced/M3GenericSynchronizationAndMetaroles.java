@@ -118,7 +118,7 @@ public class M3GenericSynchronizationAndMetaroles extends AbstractAdvancedLabTes
         addObjectFromFile(HR_SYNCHRONIZATION_TASK_FILE);
 
         showRole("Internal Employee")
-                .selectTabMembers()
+                .selectMembersPanel()
                     .membersPanel()
                         .table()
                             .recompute()

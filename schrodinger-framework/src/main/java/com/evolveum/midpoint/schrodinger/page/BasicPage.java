@@ -548,6 +548,12 @@ public class BasicPage {
         return this;
     }
 
+    public BasicPage assertErrorDoesntExists() {
+        assertion.assertFalse($x(".//div[@class='error-page']")
+                .is(Condition.visible), "Feedback message box is present");
+        return this;
+    }
+
     public Toast<? extends BasicPage> toast() {
         SelenideElement toast = $x(".//div[contains(@class, \"toast\") and contains(@class, \"bg-\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
