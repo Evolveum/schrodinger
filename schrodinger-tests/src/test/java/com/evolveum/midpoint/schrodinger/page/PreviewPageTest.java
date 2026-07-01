@@ -248,7 +248,6 @@ public class PreviewPageTest  extends AbstractSchrodingerTest {
                     .and()
                 .and();
 
-        Selenide.screenshot("previewVisible");
         userPage.assertPreviewButtonIsNotVisible();
         midPoint.logout();
     }

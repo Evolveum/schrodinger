@@ -115,7 +115,6 @@ public class SelfRegistrationPage extends LoginPage {
         try {
             processPassword.accept(elementId, value);
             js.executeScript("window.stop();");
-            Selenide.screenshot("try_set" + StringUtils.capitalize(elementId) + "_" + value);
         } catch (Exception e) {
             Selenide.screenshot("catch_set_" + elementId);
         }
@@ -147,9 +146,7 @@ public class SelfRegistrationPage extends LoginPage {
             JavascriptExecutor js = (JavascriptExecutor) WebDriverRunner.getWebDriver();
             js.executeScript("document.querySelectorAll('div[data-s-id=\"validationPanel\"]').item(0).style.display = \"none\";");
         }
-        Selenide.screenshot("self_reg_before_submit");
         $(Schrodinger.byDataId("submitRegistration")).click();
-        Selenide.screenshot("self_reg_after_submit");
         Utils.waitForAjaxCallFinish();
         return this;
     }

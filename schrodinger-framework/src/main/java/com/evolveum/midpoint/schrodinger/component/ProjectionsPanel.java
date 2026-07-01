@@ -168,7 +168,6 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
     }
 
     public ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>> viewProjectionDetails(String projectionName, String resourceName){
-        Selenide.screenshot("beforeSearch");
         table()
                 .search()
                     .referencePanelByItemName("Resource")
@@ -177,7 +176,6 @@ public class ProjectionsPanel<P extends AssignmentHolderDetailsPage> extends Pan
                         .applyButtonClick()
                 .and()
                     .updateSearch();
-        Selenide.screenshot("afterSearch");
         ProjectionFormPanelWithActionButtons form = table()
                 .clickByName(projectionName);
         ProjectionFormPanelWithActionButtons<AbstractTableWithPrismView<ProjectionsPanel<P>, AbstractTableWithPrismView>> detailsPanel =

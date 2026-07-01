@@ -71,7 +71,6 @@ public class ProjectionsDropDown<T> extends TableHeaderDropDownMenu<T> {
                 .parent()
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
         deleteAction.click();
-        Selenide.screenshot("deleteProjection_" + System.currentTimeMillis());
         return new ConfirmationModal<>(this, Utils.getModalWindowSelenideElement());
     }
 }

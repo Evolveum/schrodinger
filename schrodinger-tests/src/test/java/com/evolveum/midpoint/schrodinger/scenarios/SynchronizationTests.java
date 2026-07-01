@@ -190,7 +190,6 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                 .and()
                 .clickByName(ScenariosCommons.TEST_USER_DON_NAME)
                       .selectProjectionsPanel();
-        Selenide.screenshot("SynchronizationTests_projectionTab_" + System.currentTimeMillis());
         projectionsTab
                         .table()
                         .assertTableContainsText(ScenariosCommons.RESOURCE_CSV_GROUPS_AUTHORITATIVE_NAME);
@@ -346,10 +345,8 @@ public class SynchronizationTests extends AbstractSchrodingerTest {
                                     .clickYes()
                             .and()
                         .and();
-        Selenide.screenshot("SynchTest_test0090_debug1");
         ProgressPage progressPage = focusPage
                         .clickSave();
-        Selenide.screenshot("SynchTest_test0090_debug2");
         progressPage.feedback()
                     .assertSuccess();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.toMillis());
