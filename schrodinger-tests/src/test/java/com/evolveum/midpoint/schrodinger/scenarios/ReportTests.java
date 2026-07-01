@@ -364,6 +364,7 @@ public class ReportTests extends AbstractSchrodingerTest {
      */
     @Test
     public void test00500testReportColumnsWhenCustomColumnIsDefined() {
+        reloginAsAdministrator();
         importObject(SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW, true);
         basicPage
                 .auditLogViewer()
