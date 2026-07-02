@@ -19,6 +19,7 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 import java.io.File;
 import java.util.*;
 
+import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import org.testng.annotations.Test;
 
@@ -276,21 +277,27 @@ public class UserTest extends AbstractSchrodingerTest {
                 "Second line\n" +
                 "Third line";
         reloginAsAdministrator();
-        basicPage.listUsers()
+        var userPage = basicPage.listUsers()
                 .table()
                 .search()
                 .byName()
                 .inputValue("endUserWithMultilineDescription")
                 .updateSearch()
                 .and()
-                .clickByName("endUserWithMultilineDescription")
+                .clickByName("endUserWithMultilineDescription");
+        userPage
                 .selectBasicPanel()
                 .form()
                 .showEmptyAttributes("Properties")
                 .addAttributeValue("description", descriptionValue)
                 .and()
-                .and()
-                .clickSave();
+                .and();
+        Selenide.screenshot("endUserWithMultilineDescription_details");
+        userPage
+                .clickSave()
+                        .feedback()
+                                .assertSuccess();
+        Selenide.screenshot("endUserWithMultilineDescription_after_save");
 
         loginAsUser("endUserWithMultilineDescription", "Test5ecr3t");
         basicPage.listUsers()
