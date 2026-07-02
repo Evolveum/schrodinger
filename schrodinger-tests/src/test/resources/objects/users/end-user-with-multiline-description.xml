@@ -28,6 +28,7 @@
     </assignment>
     <roleMembershipRef oid="11100000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
     </roleMembershipRef>
+    <emailAddress>testEmailAddress@test.com</emailAddress>
     <credentials>
         <password>
             <value>Test5ecr3t</value>
