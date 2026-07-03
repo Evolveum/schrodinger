@@ -277,27 +277,23 @@ public class UserTest extends AbstractSchrodingerTest {
                 "Second line\n" +
                 "Third line";
         reloginAsAdministrator();
-        var userPage = basicPage.listUsers()
+        basicPage.listUsers()
                 .table()
                 .search()
                 .byName()
                 .inputValue("endUserWithMultilineDescription")
                 .updateSearch()
                 .and()
-                .clickByName("endUserWithMultilineDescription");
-        userPage
+                .clickByName("endUserWithMultilineDescription")
                 .selectBasicPanel()
                 .form()
                 .showEmptyAttributes("Properties")
                 .addAttributeValue("description", descriptionValue)
                 .and()
-                .and();
-        Selenide.screenshot("endUserWithMultilineDescription_details");
-        userPage
+                .and()
                 .clickSave()
-                        .feedback()
-                                .assertSuccess();
-        Selenide.screenshot("endUserWithMultilineDescription_after_save");
+                .feedback()
+                .assertSuccess();
 
         loginAsUser("endUserWithMultilineDescription", "Test5ecr3t");
         basicPage.listUsers()
