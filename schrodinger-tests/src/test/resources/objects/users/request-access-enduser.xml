@@ -1,0 +1,21 @@
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"
+      xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+      xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+      xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
+      xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      oid="9f383936-0ec0-4f7a-92ae-a87418ce46cf">
+    <name>enduser</name>
+    <assignment id="9">
+        <targetRef oid="ef1519b5-42d0-42d2-bde9-8d524e796f1d" relation="org:default" type="c:RoleType"/>
+        <activation/>
+    </assignment>
+    <credentials>
+        <password>
+            <value>
+                <t:clearValue>Test5ecr3t</t:clearValue>
+            </value>
+        </password>
+    </credentials>
+</user>

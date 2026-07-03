@@ -1,0 +1,1143 @@
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3"
+      xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+      oid="ef1519b5-42d0-42d2-bde9-8d524e796f1d">
+    <name>Base request access role</name>
+    <description>Role fakticky obsahující jednotlivá oprávnění pro roli ZakladniRole</description>
+    <authorization>
+        <name>gui-preview</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#previewChanges</action>
+    </authorization>
+
+    <authorization>
+        <name>org-details</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#orgDetails</action>
+    </authorization>
+
+    <authorization>
+        <name>gui-self-service-access</name>
+        <description>
+            Allow access to all self-service operations in GUI.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</action>
+    </authorization>
+
+    <authorization>
+        <name>self-read-and-personas-read</name>
+        <description>
+            Allow to read the properties of "self" object according to settings given in CPO-RAM06-696.
+
+            Allow to read all the personas of currently logged-in user. Základní EVOLVEUM auth nefunguje!
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <special>self</special>
+        </object>
+        <object>
+            <type>UserType</type>
+            <filter>
+                <q:equal>
+                    <q:path>personalNumber</q:path>
+                    <expression>
+                        <script>
+                            <code><![CDATA[
+                                subject?.personalNumber
+                                ]]></code>
+                        </script>
+                    </expression>
+                </q:equal>
+            </filter>
+        </object>
+        <c:item>jpegPhoto</c:item>
+        <c:item>name</c:item>
+        <c:item>fullName</c:item>
+        <c:item>title</c:item>
+        <c:item>honorificPrefix</c:item>
+        <c:item>familyName</c:item>
+        <c:item>givenName</c:item>
+        <c:item>honorificSuffix</c:item>
+        <c:item>emailAddress</c:item>
+        <c:item>telephoneNumber</c:item>
+        <c:item>personalNumber</c:item>
+        <c:item>costCenter</c:item>
+        <c:item>assignment</c:item>
+        <c:item>roleMembershipRef</c:item>
+        <c:item>personaRef</c:item>
+        <c:item>parentOrgRef</c:item>
+        <c:item>delegatedRef</c:item>
+        <c:item>linkRef</c:item>
+        <c:item>archetypeRef</c:item>
+    </authorization>
+
+    <authorization>
+        <name>self-shadow-read</name>
+        <description>
+            Allow to read all the properties of all the shadows that belong to "self" object.
+            I.e. every logged-in user can read all his accounts.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ShadowType</type>
+            <owner>
+                <special>self</special>
+            </owner>
+        </object>
+    </authorization>
+    <authorization>
+        <name>self-credentials-request</name>
+        <description>
+            Allow to modify user's own credentials.
+            Note that this is a request phase authorization. It also requires corresponding execution-phase
+            authorization.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#changeCredentials</action>
+        <phase>request</phase>
+        <object>
+            <special>self</special>
+        </object>
+        <c:item>credentials</c:item>
+    </authorization>
+
+    <authorization>
+        <name>gui-unassign-own-assignments</name>
+        <description>
+            Allow to unassign roles in GUI.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminUnassign</action>
+        <phase>request</phase>
+        <object>
+            <special>self</special>
+        </object>
+    </authorization>
+    <authorization>
+        <name>unassign-requestable-roles</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#unassign</action>
+        <phase>request</phase>
+        <object>
+            <special>self</special>
+        </object>
+        <target>
+            <type>RoleType</type>
+            <filter>
+                <q:equal>
+                    <q:path>requestable</q:path>
+                    <q:value>true</q:value>
+                </q:equal>
+            </filter>
+        </target>
+    </authorization>
+    <authorization>
+        <name>self-execution-modify</name>
+        <description>
+            Authorization that allows to self-modification of some properties, but only in execution phase.
+            The limitation real limitation of these operations is done in the request phase.
+            E.g. the modification of assignments is controlled in the request phase by using the #assign
+            authorization.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <phase>execution</phase>
+        <object>
+            <special>self</special>
+        </object>
+        <c:item>credentials</c:item>
+        <c:item>assignment</c:item>
+        <c:item>parentOrgRef</c:item>
+        <c:item>roleMembershipRef</c:item>
+        <c:item>personaRef</c:item>
+    </authorization>
+    <authorization>
+        <name>self-modify-attributes</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <special>self</special>
+        </object>
+        <c:item>jpegPhoto</c:item>
+    </authorization>
+    <authorization>
+        <name>self-shadow-execution-add-modify-delete</name>
+        <description>
+            Authorization that allows to self-modification of user's accounts, but only in execution phase.
+            The real limitation of these operations is done in the request phase.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#delete</action>
+        <phase>execution</phase>
+        <object>
+            <type>ShadowType</type>
+            <owner>
+                <special>self</special>
+            </owner>
+        </object>
+    </authorization>
+    <authorization>
+        <name>get-organizations-which-are-assigned</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object>
+            <type>OrgType</type>
+        </object>
+        <c:item>name</c:item>
+        <c:item>displayName</c:item>
+        <c:item>identifier</c:item>
+        <c:item>description</c:item>
+        <c:item>riskLevel</c:item>
+        <c:item>subtype</c:item>
+        <c:item>displayOrder</c:item>
+        <c:item>archetypeRef</c:item>
+    </authorization>
+
+    <authorization>
+        <name>get-all-attrs-from-already-available-users</name>
+        <description>
+            Tato autorizace byla přidána kvůli zobrazení náhledu u non-super uživatelů
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object>
+            <type>UserType</type>
+            <orgRelation>
+                <subjectRelation>org:manager</subjectRelation>
+                <scope>allDescendants</scope>
+                <includeReferenceOrg>true</includeReferenceOrg>
+            </orgRelation>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>read-role-catalog</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>OrgType</type>
+            <orgRef oid="1d5724d3-3be5-401f-9863-b39d438c9470" />
+        </object>
+        <c:item>name</c:item>
+        <c:item>displayName</c:item>
+        <c:item>identifier</c:item>
+        <c:item>description</c:item>
+        <c:item>riskLevel</c:item>
+        <c:item>subtype</c:item>
+        <c:item>displayOrder</c:item>
+        <c:item>archetypeRef</c:item>
+    </authorization>
+
+    <authorization>
+        <name>read-all-requestable-roles-collection-in-catalog</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ObjectCollectionType</type>
+            <filter>
+                <q:inOid>
+                    <q:value>1546e392-6745-429b-a6aa-c8eaf78c2d39</q:value>
+                </q:inOid>
+            </filter>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>subordinate-visibility</name>
+        <description>Authorization to make users visible under manager post.</description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#findUsers</action>
+        <object>
+            <type>UserType</type>
+        </object>
+    </authorization>
+    <authorization>
+        <name>subordinate-read</name>
+        <description>Authorization that is required to read all attributes of subordinates.</description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>UserType</type>
+            <orgRelation>
+                <subjectRelation>org:manager</subjectRelation>
+                <scope>allDescendants</scope>
+                <includeReferenceOrg>true</includeReferenceOrg>
+            </orgRelation>
+        </object>
+        <c:item>name</c:item>
+        <c:item>fullName</c:item>
+        <c:item>title</c:item>
+        <c:item>honorificPrefix</c:item>
+        <c:item>familyName</c:item>
+        <c:item>givenName</c:item>
+        <c:item>honorificSuffix</c:item>
+        <c:item>emailAddress</c:item>
+        <c:item>telephoneNumber</c:item>
+        <c:item>personalNumber</c:item>
+        <c:item>costCenter</c:item>
+        <c:item>assignment</c:item>
+        <c:item>parentOrgRef</c:item>
+        <c:item>roleMembershipRef</c:item>
+        <c:item>personaRef</c:item>
+        <c:item>delegatedRef</c:item>
+        <c:item>archetypeRef</c:item>
+    </authorization>
+
+    <authorization>
+        <name>subordinate-ui-unassign</name>
+        <description>
+            Allow to unassign roles for subordinates in GUI.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminUnassign</action>
+        <object>
+            <orgRelation>
+                <subjectRelation>org:manager</subjectRelation>
+                <scope>allDescendants</scope>
+                <includeReferenceOrg>true</includeReferenceOrg>
+            </orgRelation>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>subordinate-unassign</name>
+        <description>Authorization that is required to modify subordinates in order to make requests for
+            assignments/unassignments.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#unassign</action>
+        <object>
+            <orgRelation>
+                <subjectRelation>org:manager</subjectRelation>
+                <scope>allDescendants</scope>
+                <includeReferenceOrg>true</includeReferenceOrg>
+            </orgRelation>
+        </object>
+        <target>
+            <type>RoleType</type>
+            <filter>
+                <q:equal>
+                    <q:path>requestable</q:path>
+                    <q:value>true</q:value>
+                </q:equal>
+            </filter>
+        </target>
+    </authorization>
+
+    <authorization>
+        <name>subordinate-allow-tasks</name>
+        <description>Authorization create request task on roles for subordinates.</description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <object>
+            <type>TaskType</type>
+            <orgRelation>
+                <subjectRelation>org:manager</subjectRelation>
+                <scope>allDescendants</scope>
+                <includeReferenceOrg>true</includeReferenceOrg>
+            </orgRelation>
+        </object>
+    </authorization>
+    <authorization>
+        <name>subordinate-shadow-modify</name>
+        <description>Authorization that is required to see requests that end-user triggered- role requests ect..</description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <object>
+            <type>ShadowType</type>
+            <c:owner>
+                <orgRelation>
+                    <subjectRelation>org:manager</subjectRelation>
+                    <c:scope>allDescendants</c:scope>
+                </orgRelation>
+            </c:owner>
+        </object>
+    </authorization>
+    <authorization>
+        <name>gui-delegator-access</name>
+        <description>
+            Allow access to the delegate functionality (e.g. "add delegation" button).
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#delegate</action>
+    </authorization>
+    <authorization>
+        <name>delegator-req</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#delegate</action>
+        <phase>request</phase>
+        <object>
+            <type>UserType</type>
+        </object>
+        <target>
+            <special>self</special>
+        </target>
+    </authorization>
+    <authorization>
+        <name>delegator-exec-user</name>
+        <description>
+            Quite strong universal execution rights are needed here. We are going to modify other users
+            (deputy assignments are in the delegate user, not delegator).
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <phase>execution</phase>
+        <object>
+            <type>UserType</type>
+        </object>
+    </authorization>
+    <authorization>
+        <name>delegator-exec-shadow</name>
+        <description>
+            Quite strong universal execution rights are needed here. We are going to modify other users
+            (deputy assignments are in the delegate user, not delegator). Modification of other users
+            may mean also creation/modification/deletion of their accounts.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#delete</action>
+        <phase>execution</phase>
+        <object>
+            <type>ShadowType</type>
+        </object>
+    </authorization>
+    <authorization>
+        <name>delegator-read-delagate-assignments</name>
+        <description>
+            Authorization to read the assignments and assignment-related items from my delegates.
+            This authorization is necessary so the self-service GUI can properly display user's
+            delegations. Delegations are in fact assignments in the delegate object, not delegator
+            object. Therefore authorization to read just "self" will not display the delegations.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>UserType</type>
+            <delegator>
+                <special>self</special>
+            </delegator>
+        </object>
+        <c:item>assignment</c:item>
+        <c:item>assignment/targetRef</c:item>      <!-- LIM: tohle je fakt zahada, ale je treba explicitne uvest i tuto autorizaci, jinak enduser nevidi na koho delegoval -->
+        <c:item>delegatedRef</c:item>
+        <c:item>archetypeRef</c:item>
+    </authorization>
+
+    <authorization>
+        <name>users-read</name>
+        <description>
+            Allow to read basic user properties according to settings given in CPO-RAM06-696.
+            Needed also to be able to display requestor details in the approval forms.
+        </description>
+        <!-- Upraveno v rámci CPO-SID-613 z #read na #get -->
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object>
+            <type>UserType</type>
+        </object>
+        <c:item>name</c:item>
+        <c:item>fullName</c:item>
+        <c:item>organizationalUnit</c:item> <!-- CPO-ROZ19-52 feature_IDM-206 -->
+        <c:item>title</c:item>
+        <c:item>honorificPrefix</c:item>
+        <c:item>familyName</c:item>
+        <c:item>givenName</c:item>
+        <c:item>honorificSuffix</c:item>
+        <c:item>emailAddress</c:item>
+        <c:item>telephoneNumber</c:item>
+        <c:item>personalNumber</c:item>
+        <c:item>personaRef</c:item>
+        <c:item>delegatedRef</c:item>
+        <c:item>activation</c:item>
+        <c:item>linkRef</c:item>
+        <c:item>parentOrgRef</c:item>
+        <c:item>archetypeRef</c:item>
+    </authorization>
+    <authorization>
+        <name>roles-read</name>
+        <description>
+            Allow to read basic role properties to be able to display details of the requested role.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>RoleType</type>
+        </object>
+    </authorization>
+    <authorization>
+        <name>services-read</name>
+        <description>
+            Allow to read basic service properties to be able to display details of the requested service.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ServiceType</type>
+        </object>
+        <c:item>name</c:item>
+        <c:item>displayName</c:item>
+        <c:item>identifier</c:item>
+        <c:item>description</c:item>
+        <c:item>riskLevel</c:item>
+        <c:item>archetypeRef</c:item>
+        <c:item>assignment</c:item>
+    </authorization>
+
+    <authorization>
+        <name>gui-service-details</name>
+        <description>
+            Allow to show service details
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#serviceDetails</action>
+    </authorization>
+
+    <authorization>
+        <name>application-services-read</name>
+        <description>
+            Allow to read all aspects of application.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ServiceType</type>
+            <archetypeRef oid="c9867139-0403-420d-a6f3-ecfaceeacf9e" />
+        </object>
+    </authorization>
+
+    <!-- REVIEWER -->
+    <authorization>
+        <name>gui-reviewer-access</name>
+        <description>
+            Allow access to list of certification cases in GUI. Allow access to pages that show object details,
+            so the reviewer may examine data related to the request.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#myCertificationDecisions</action>
+    </authorization>
+
+    <authorization>
+        <name>read-and-make-decisions</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#readOwnCertificationDecisions</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#recordCertificationDecision</action>
+    </authorization>
+
+    <authorization>
+        <name>certification-campaign-read</name>
+        <description>
+            Allow to read stageNumber property of certification campaign.
+
+            !!!NEFUNGUJE AUTORIZACE OD EVOLVEA!!! - v případě omezení na určité atributy případu nelze zobrazit např. celkový počet fázi kampaně
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>AccessCertificationCampaignType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>gui-approver-access</name>
+        <description>
+            Allow access to list of work items in GUI. Allow access to pages that show object details,
+            so the approver may examine who is requesting and what is requesting.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#case</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#casesView</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#workItem</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#myWorkItems</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#claimableWorkItems</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#taskDetails</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#userDetails</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#roleDetails</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#assignmentDetails</action>
+    </authorization>
+
+    <authorization>
+        <name>own-workitems-read-complete-delegate</name>
+        <description>
+            Allows reading, completion, and delegation of own work items.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#completeWorkItem</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#delegateWorkItem</action>
+        <object>
+            <parent>
+                <type>CaseType</type>
+                <path>workItem</path>
+            </parent>
+            <assignee>
+                <special>self</special>
+            </assignee>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>assignment-target-read-case</name>
+        <description>
+            Authorization that allows to read approval status of cases. This is used to display requests
+            to the end users, especially in the "My Requests" box in user dashboard.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>CaseType</type>
+            <requester>
+                <special>self</special>
+            </requester>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>cases-get</name>
+        <description>
+            Allow to see the requester of the operation that is being approved and the current delta.
+            In order for the approver to see other properties (e.g. history of the approvals) please allow read access
+            to other items as well.
+
+            !!!NEFUNGUJE AUTORIZACE OD EVOLVEA!!! - v případě omezení na určité atributy případu nelze zobrazit např. komentář žadatele
+            - standardní uživatel je omezen tím, že nemá k dispozici kolekci zobrazující veškeré případy a navíc je zde použita pouze auth. neumožňující vyhledávání
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object>
+            <type>CaseType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>TaskType</type>
+        </object>
+    </authorization>
+
+    <!--
+        Workaround for midPoint bug: Request Access "According to another user's
+        assignment" requires broad #read on all AbstractRoleType subtypes (including
+        those excluded by NOT TYPE()). Without these, the copy dialog is empty.
+        See: https://support.evolveum.com/wp/11221
+    -->
+<!--    <authorization>-->
+<!--        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>-->
+<!--        <object>-->
+<!--            <type>OrgType</type>-->
+<!--            <filter>-->
+<!--                <q:equal>-->
+<!--                    <q:path>requestable</q:path>-->
+<!--                    <q:value>true</q:value>-->
+<!--                </q:equal>-->
+<!--            </filter>-->
+<!--        </object>-->
+<!--    </authorization>-->
+
+    <!--
+        Workaround for midPoint bug: Request Access "According to another user's
+        assignment" requires broad #read on all AbstractRoleType subtypes (including
+        those excluded by NOT TYPE()). Without these, the copy dialog is empty.
+        See: https://support.evolveum.com/wp/11221
+    -->
+<!--    <authorization>-->
+<!--        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>-->
+<!--        <object>-->
+<!--            <type>ArchetypeType</type>-->
+<!--        </object>-->
+<!--    </authorization>-->
+
+    <authorization>
+        <name>Anyone can request role for others</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#assign</action>
+        <phase>request</phase>
+        <object>
+            <type>UserType</type>
+        </object>
+        <c:item>assignment/targetRef</c:item>
+        <c:item>assignment/activation/validFrom</c:item>
+        <c:item>assignment/activation/validTo</c:item>
+        <target>
+            <type>RoleType</type>
+            <filter>
+                <q:equal>
+                    <q:path>requestable</q:path>
+                    <q:value>true</q:value>
+                </q:equal>
+            </filter>
+        </target>
+        <c:relation>org:default</c:relation>
+    </authorization>
+    <authorization>
+        <name>self-owned-task-add-execute-changes</name>
+        <description>
+            Authorization to create a new 'execute changes' task owned by a currently logged-in user.
+            This is needed to execute asynchronous operations from the GUI.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <object>
+            <type>TaskType</type>
+            <filter>
+                <q:or>
+                    <q:equal>
+                        <q:path>handlerUri</q:path>
+                        <q:value>http://midpoint.evolveum.com/xml/ns/public/model/synchronization/task/execute/handler-3</q:value>
+                    </q:equal>
+                    <q:equal>
+                        <q:path>handlerUri</q:path>
+                        <q:value>http://midpoint.evolveum.com/xml/ns/public/model/iterative-scripting/handler-3</q:value>    <!-- members-related operations -->
+                    </q:equal>
+                </q:or>
+            </filter>
+            <owner>
+                <special>self</special>
+            </owner>
+        </object>
+    </authorization>
+
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#unassign</action>
+        <object>
+            <type>UserType</type>
+        </object>
+        <target>
+            <type>RoleType</type>
+            <filter>
+                <q:equal>
+                    <q:path>requestable</q:path>
+                    <q:value>true</q:value>
+                </q:equal>
+            </filter>
+        </target>
+    </authorization>
+
+    <!-- CPO-ROZ20-20 - nechceme povolovat správu kompletní projekce v obou fázích
+        - v návazné roli MR:IDM:UnlockSAPAccount je zpřístupněna záložka "Projekce" -->
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ShadowType</type>
+        </object>
+    </authorization>
+
+    <!-- CPO-ROZ20-20 - V exekuční fázi povolena libovolná změna projekce, princip by měl být tedy stejný jako předtím
+        - dříve byla přímá úprava projekce zamčena nepřítomností záložky "Projekce"-->
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <phase>execution</phase>
+        <object>
+            <type>ShadowType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>requestable-role-details</name>
+        <description>
+            Allow to show details of requestable roles in the user interface.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#roleDetails</action>
+        <!-- Note: object specification should be here to limit this authorization to requestable roles.
+             But this is not yet supported. -->
+    </authorization>
+
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>NodeType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>ability to see change password requires to see resource</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ResourceType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>lookupTableType-read</name>
+        <description>
+            Allow to read lookupTableType for ability to "generate" exchange db from lookup table
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>LookupTableType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>garanted-users-search</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#search</action>
+        <object>
+            <type>UserType</type>
+            <c:filter>
+                <q:ref>
+                    <q:path>roleMembershipRef</q:path>
+                    <expression>
+                        <script>
+                            <code><![CDATA[
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType;
+
+                                ObjectReferenceType ort = new ObjectReferenceType();
+                                ort.setOid('00000000-0000-0000-0000-000000000008');
+                                ort.setType(RoleType.COMPLEX_TYPE);
+                                return ort;
+                                ]]></code>
+                        </script>
+                    </expression>
+                </q:ref>
+            </c:filter>
+        </object>
+    </authorization>
+
+
+    <authorization>
+        <name>Allow creating new persona from selfservice</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <c:phase>execution</c:phase>
+        <object>
+            <type>UserType</type>
+        </object>
+    </authorization>
+
+    <!--  -->
+    <authorization>
+        <name>allow-read-policies</name>
+        <description>
+            BZ11910 11.04.2019
+            Povolit uživatelům číst politiky - prerekvizita pro generování hesla v MidpointPasswordGenerator
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object>
+            <type>ValuePolicyType</type>
+        </object>
+    </authorization>
+
+    <!-- 14.10.2019 Petr Gašparík
+         CPO-SID-402 BZ 12429
+
+   autorizace potřebná pro odebírání členů role -->
+
+    <!-- Upraveno v rámci CPO-SID-613 z #read na #get -->
+    <!-- Obmezeno na lidi kterým sem garantem v rámci CPO-SID-813 -->
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object>
+            <type>UserType</type>
+            <c:filter>
+                <q:ref>
+                    <q:path>roleMembershipRef</q:path>
+                    <expression>
+                        <script>
+                            <code><![CDATA[
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType;
+
+                                ObjectReferenceType ort = new ObjectReferenceType();
+                                ort.setOid('00000000-0000-0000-0000-000000000008');
+                                ort.setType(RoleType.COMPLEX_TYPE);
+                                return ort;
+                                ]]></code>
+                        </script>
+                    </expression>
+                </q:ref>
+            </c:filter>
+        </object>
+        <item>assignment</item>
+    </authorization>
+
+    <!-- Upraveno kvůli WF skriptům - čtení v exekuci -->
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <phase>execution</phase>
+        <object>
+            <type>UserType</type>
+        </object>
+    </authorization>
+
+    <!-- Upraveno kvůli WF skriptům - čtení v exekuci -->
+    <authorization>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <phase>execution</phase>
+        <object>
+            <type>RoleType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>archetype-get-execution</name>
+        <description>
+            OID archetypu lze diky teto autorizaci pouzit v mnoha skriptech/filtrech.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <phase>execution</phase>
+        <object>
+            <type>ArchetypeType</type>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>managers-users-search</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <description>
+            Moji nadrizeni podle organizacni jednotky. Hledame nadrizene podle moji parentOrgRef.
+        </description>
+        <object>
+            <type>UserType</type>
+            <c:filter>
+                <q:ref>
+                    <q:path>parentOrgRef</q:path>
+                    <expression>
+                        <script>
+                            <code><![CDATA[
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.OrgType
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType
+                                import com.evolveum.midpoint.schema.constants.SchemaConstants
+
+                                def createManagerOrgRef(orgOid) {
+                                    ObjectReferenceType ort = new ObjectReferenceType()
+                                    ort?.relation = SchemaConstants.ORG_MANAGER
+                                    ort.setOid(orgOid)
+                                    ort.setType(OrgType.COMPLEX_TYPE)
+
+                                    return ort
+                                }
+
+                                managerRefs = []
+                                subject?.parentOrgRef?.each {
+                                    if (it?.relation?.equals(SchemaConstants.ORG_DEFAULT)) {    // pouze organizace, kde jsem beznym clenem
+                                        managerRefs?.add(createManagerOrgRef(it?.oid))
+                                    }
+                                }
+                                return managerRefs
+                                ]]></code>
+                        </script>
+                    </expression>
+                </q:ref>
+            </c:filter>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>role-owner-modify-role-assignments-thresholds-request</name>
+        <description>Authorization that allow role owner modification of roleAssignemnts and roleAssignmentThreshold
+            atttributes
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#add</action>
+        <phase>request</phase>
+        <object>
+            <type>RoleType</type>
+            <filter>
+                <q:text><![CDATA[. inOid ```
+                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType
+                import com.evolveum.midpoint.schema.constants.SchemaConstants
+
+
+                def assignments = midpoint.principal.focus.getAssignment()
+
+                def roleOwnerOids =
+                    assignments.findAll { a ->
+                        a.targetRef?.type == RoleType.COMPLEX_TYPE &&
+                        a.targetRef?.relation == SchemaConstants.ORG_OWNER
+                    }.collect { a ->
+                        a.targetRef.oid
+                    }
+
+                return roleOwnerOids
+                    ```]]></q:text>
+            </filter>
+        </object>
+    </authorization>
+
+    <authorization>
+        <name>role-owner-modify-role-assignments-thresholds-execution</name>
+        <description>Authorization that allow role owner modification of roleAssignemnts and roleAssignmentThreshold
+            atttributes, filtering handled in request phase.
+        </description>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <phase>execution</phase>
+        <object>
+            <type>RoleType</type>
+        </object>
+    </authorization>
+
+    <adminGuiConfiguration>
+        <homePage>
+            <type>UserType</type>
+            <widget>
+                <identifier>myAccounts</identifier>
+                <visibility>visible</visibility>
+            </widget>
+            <widget>
+                <identifier>myWorkItems</identifier>
+                <visibility>visible</visibility>
+            </widget>
+            <widget>
+                <identifier>profileWidget</identifier>
+                <visibility>visible</visibility>
+            </widget>
+            <widget>
+                <identifier>credentialsWidget</identifier>
+                <visibility>visible</visibility>
+            </widget>
+            <widget>
+                <identifier>myRequests</identifier>
+                <visibility>visible</visibility>
+            </widget>
+            <widget>
+                <identifier>myAccesses</identifier>
+                <visibility>visible</visibility>
+            </widget>
+            <widget>
+                <identifier>profileWidget</identifier>
+                <visibility>vacant</visibility>
+            </widget>
+            <widget>
+                <identifier>listResourcesWidget</identifier>
+                <visibility>vacant</visibility>
+            </widget>
+            <widget>
+                <identifier>listUsersWidget</identifier>
+                <visibility>vacant</visibility>
+            </widget>
+        </homePage>
+
+        <objectDetails>
+            <objectDetailsPage>
+                <type>UserType</type>
+                <panel>
+                    <identifier>igaAccesses</identifier>
+                    <visibility>vacant</visibility>
+                </panel>
+                <panel>
+                    <identifier>activation</identifier>
+                    <visibility>vacant</visibility>
+                </panel>
+                <panel>
+                    <identifier>password</identifier>
+                    <visibility>vacant</visibility>
+                </panel>
+                <panel>
+                    <identifier>personas</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>delegatedToMe</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>assignments</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>delegatedToMe</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>userDelegations</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>subordinateTabPanel-assignments</identifier> <!-- garantovani uzivatele -->
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>approvedObjectsTabPanel-assignments</identifier> <!-- schvalovane role -->
+                    <visibility>visible</visibility>
+                </panel>
+            </objectDetailsPage>
+
+            <objectDetailsPage>
+                <type>RoleType</type>
+                <panel>
+                    <identifier>basic</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+                <panel>
+                    <identifier>assignments</identifier>
+                    <visibility>visible</visibility>
+                    <panel>
+                        <identifier>allAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>constructionAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>indirectAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>dataProtectionAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>orgAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>roleAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>serviceAssignments</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                </panel>
+                <panel>
+                    <identifier>inducements</identifier>
+                    <visibility>visible</visibility>
+                    <panel>
+                        <identifier>constructionInducements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>focusMappingsInducements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>inducedEntitlements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>orgInducements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>policyRuleInducements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>roleInducements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                    <panel>
+                        <identifier>serviceInducements</identifier>
+                        <visibility>visible</visibility>
+                    </panel>
+                </panel>
+                <panel>
+                    <identifier>roleGovernance</identifier>
+                    <visibility>visible</visibility>
+                </panel>
+            </objectDetailsPage>
+        </objectDetails>
+
+        <objectCollectionViews>
+
+
+
+        </objectCollectionViews>
+
+        <feedbackMessagesHook>
+            <operationResultHook>
+                <script>
+                    <code>
+						<![CDATA[
+                        import com.evolveum.midpoint.util.LocalizableMessageBuilder
+                        import com.evolveum.midpoint.gui.api.util.WebComponentUtil
+                        import com.evolveum.midpoint.common.LocalizationServiceImpl
+                        import com.evolveum.midpoint.util.LocalizableMessage
+
+                        if (input && input.getMessage() && (input.getMessage().contains('not authorized for operation') || input.getMessage().contains('Při zpracování žádosti došlo k chybě'))) {
+
+                            LocalizableMessage message = new LocalizableMessageBuilder().key('cpost.default.key').fallbackMessage("Nemáte oprávnění k provedení této operace.").build()
+                            service = new LocalizationServiceImpl()
+                            service.init()
+                            localMessage = service.translate(message, WebComponentUtil.getCurrentLocale())
+                            input.setMessage(localMessage)
+                        } else if (input && input.getMessage() && input.getMessage().contains('item assignment but that value is mandated by a strong mapping')) {
+
+                            LocalizableMessage message = new LocalizableMessageBuilder().key('cpost.default.key').fallbackMessage("Toto přiřazení je řízeno automaticky a nelze ho odebrat ručně.").build()
+                            service = new LocalizationServiceImpl()
+                            service.init()
+                            localMessage = service.translate(message, WebComponentUtil.getCurrentLocale())
+                            input.setMessage(localMessage)
+                        }
+                        return input
+                        ]]>
+	            	</code>
+                </script>
+            </operationResultHook>
+        </feedbackMessagesHook>
+    </adminGuiConfiguration>
+    <requestable>false</requestable>
+    <idempotence>none</idempotence>
+</role>

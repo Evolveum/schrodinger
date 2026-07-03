@@ -60,8 +60,14 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
     public RoleCatalogStepPanel selectRolesOfTeammateMenu(String teammateName) {
         selectMenuByLabel("Roles of teammate");
         RolesOfTeammatePanel panel = new RolesOfTeammatePanel(getParent(), getParentElement().$x(".//ul[@data-s-id='container']"));
-        panel.clickManualButton()
-                .table()
+        var modalTable = panel.clickManualButton()
+                .table();
+        modalTable
+                .search()
+                .byName()
+                .inputValue(teammateName)
+                .updateSearch();
+        modalTable
                 .clickByName(teammateName);
         return RoleCatalogStepPanel.this;
     }

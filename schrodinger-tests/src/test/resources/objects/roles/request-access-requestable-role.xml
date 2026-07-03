@@ -1,0 +1,5 @@
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+      oid="9e22cd6c-f0d3-40a6-858e-52f6c9338882">
+    <name>Requestable role</name>
+    <requestable>true</requestable>
+</role>

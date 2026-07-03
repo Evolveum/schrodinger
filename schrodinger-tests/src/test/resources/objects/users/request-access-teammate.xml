@@ -1,0 +1,19 @@
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="7d244417-76f2-4dbc-9f7c-1f4fdfb3803f" version="6" >
+    <name>teammate</name>
+    <assignment id="1">
+        <targetRef oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType"/>
+        <activation>
+            <effectiveStatus>enabled</effectiveStatus>
+        </activation>
+    </assignment>
+    <assignment id="23">
+        <targetRef oid="9e22cd6c-f0d3-40a6-858e-52f6c9338882" relation="org:default" type="c:RoleType"/>
+        <activation>
+            <effectiveStatus>enabled</effectiveStatus>
+        </activation>
+    </assignment>
+    <roleMembershipRef oid="00000000-0000-0000-0000-000000000008" relation="org:default" type="c:RoleType">
+    </roleMembershipRef>
+    <roleMembershipRef oid="9e22cd6c-f0d3-40a6-858e-52f6c9338882" relation="org:default" type="c:RoleType">
+    </roleMembershipRef>
+</user>
