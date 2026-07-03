@@ -68,7 +68,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         basicPage.loggedUser().logoutIfUserIsLogin();
         open("/auth/emergency/internalLoginForm");
         FormLoginPage login = midPoint.formLogin();
-        login.login("administrator", "Test5ecr3t");
+        login.login("administrator", getPassword());
         basicPage.loggedUser().logout();
         basicPage.assertUserMenuDoesntExist();
     }
@@ -102,7 +102,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         FormLoginPage login = midPoint.formLogin();
         open("/login");
         open("/");
-        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
+        login.loginWithReloadLoginPage("administrator", getPassword());
         importObject(FLEXIBLE_AUTHENTICATION_SEC_QUES_RESET_PASS_SECURITY_POLICY, true);
         TimeUnit.SECONDS.sleep(4);
         basicPage.loggedUser().logoutIfUserIsLogin();
@@ -199,7 +199,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         login.loginWithReloadLoginPage("enabled_user", "Test5ecr3t");
         basicPage.loggedUser().logoutIfUserIsLogin();
 
-        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
+        login.loginWithReloadLoginPage("administrator", getPassword());
         importObject(BULK_TASK);
         basicPage.listTasks().table().clickByName("Add archetype"); //.clickRunNow(); the task is running after import, no need to click run now button
         screenshot("addArchetypeBulkActionTask");
@@ -208,7 +208,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
 
         open("/");
         unsuccessfulLogin("enabled_user", "Test5ecr3t");
-        login.loginWithReloadLoginPage("administrator", "Test5ecr3t");
+        login.loginWithReloadLoginPage("administrator", getPassword());
         basicPage.loggedUser().logoutIfUserIsLogin();
     }
 
