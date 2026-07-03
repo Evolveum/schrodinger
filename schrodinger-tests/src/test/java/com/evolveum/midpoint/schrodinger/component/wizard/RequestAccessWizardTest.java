@@ -38,10 +38,15 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-customized.xml");
     private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-with-fulltext-search.xml");
     private static final File ORG_MONKEY_ISLAND_SOURCE_FILE = new File("./src/test/resources/objects/orgs/org-monkey-island-simple.xml");
+    private static final File REQUEST_ACCESS_ENDUSER = new File("./src/test/resources/objects/users/request-access-enduser.xml");
+    private static final File REQUEST_ACCESS_TEAMMATE_USER = new File("./src/test/resources/objects/users/request-access-teammate.xml");
+    private static final File REQUEST_ACCESS_AUTH_ROLE = new File("./src/test/resources/objects/roles/enduser-role-with-base-request-access-auth.xml");
+    private static final File REQUEST_ACCESS_REQUESTABLE_ROLE = new File("./src/test/resources/objects/roles/request-access-requestable-role.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
-        return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST);
+        return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST, REQUEST_ACCESS_AUTH_ROLE,
+                REQUEST_ACCESS_REQUESTABLE_ROLE, REQUEST_ACCESS_ENDUSER, REQUEST_ACCESS_TEAMMATE_USER);
     }
 
     @Override
@@ -270,5 +275,24 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .addItemToCart(conflictingRoleName)
                 .next()
                 .assertOpenConflictNotExist();
+    }
+
+    /**
+     * Tests that the user with the basic request access rights sees the roles of teammates
+     * in the Role catalog (the user doesn't have ArchetypeType read auth, neither OrgType read auth)
+     * Covers 11221
+     */
+    @Test
+    void test0110rolesOfTeammatesAuthorizationsTest() {
+        final String enduserName = "enduser";
+        final String teammateUserName = "teammate";
+        final String requestableRoleName = "Requestable role";
+        loginAsUser(enduserName, getPassword());
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .next()
+                .selectRolesOfTeammateMenu(teammateUserName)
+                .assertAccessesPanelContainsItems(requestableRoleName);
     }
 }
