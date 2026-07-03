@@ -143,7 +143,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     public void test010auditingSuccessfulLogin() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        login.login("administrator", "Test5ecr3t");
+        login.login("administrator", getPassword());
         auditingSuccessfulLogin("administrator");
     }
 
@@ -160,7 +160,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
         login.login("bad_administrator", "Test5ecr3t");
-        login.login("administrator", "Test5ecr3t");
+        login.login("administrator", getPassword());
 
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable auditRecordsTable = auditLogViewer.table();
@@ -173,9 +173,9 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     public void test012auditingSuccessfulLogout() {
         basicPage.loggedUser().logoutIfUserIsLogin();
         FormLoginPage login = midPoint.formLogin();
-        login.login("administrator", "Test5ecr3t");
+        login.login("administrator", getPassword());
         basicPage.loggedUser().logout();
-        login.login("administrator", "Test5ecr3t");
+        login.login("administrator", getPassword());
 
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable auditRecordsTable = auditLogViewer.table();
