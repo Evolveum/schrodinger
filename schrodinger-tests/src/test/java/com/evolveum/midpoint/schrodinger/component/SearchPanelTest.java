@@ -670,13 +670,15 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 .inputValue("test name")
                 .assertSearchItemExists("Object collection")
                 .assertSearchItemExists("Full name")
+                .assertSearchItemExists("Display name")
                 .assertSearchItemExists("Name")
-                .assertVisibleSearchItemsSize(5)
+                .assertVisibleSearchItemsSize(6)
                 .assertSearchItemDisplayOrder("Object collection", 0)
-                .assertSearchItemDisplayOrder("Full name", 1)
-                .assertSearchItemDisplayOrder("Name", 2)
-                .assertSearchItemDisplayOrder("Locality", 3)
-                .assertSearchItemDisplayOrder("Additional Name", 4);
+                .assertSearchItemDisplayOrder("Display name", 1)
+                .assertSearchItemDisplayOrder("Full name", 2)
+                .assertSearchItemDisplayOrder("Name", 3)
+                .assertSearchItemDisplayOrder("Locality", 4)
+                .assertSearchItemDisplayOrder("Additional Name", 5);
         // default searchItems only if defined in .xml
         basicPage
                 .listUsers("Persons")
