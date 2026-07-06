@@ -17,12 +17,18 @@ package com.evolveum.midpoint.schrodinger.flexible.authentication;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.login.FormLoginPage;
 import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringEscapeUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.Logs;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -140,7 +146,16 @@ public abstract class AbstractRemoteAuthModuleTest extends AbstractSchrodingerTe
         login(username, password);
 
         FormLoginPage formLoginPage = new FormLoginPage();
-
+        Logs logs = WebDriverRunner.getWebDriver().manage().logs();
+        if (logs != null) {
+            System.out.println("logs " + logs);
+            LogEntries logEntries = logs.get(LogType.BROWSER);
+            if (logEntries != null) {
+                for (LogEntry entry : logEntries) {
+                    System.out.println("entry: " + entry.getMessage());
+                }
+            }
+        }
 
         formLoginPage.assertErrorText(expectedError);
     }
