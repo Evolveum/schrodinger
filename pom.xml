@@ -23,11 +23,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>3.0.6</version>
-        <!-- This parent also declares dependencies listed here:
-        https://docs.spring.io/spring-boot/docs/2.5.2/reference/html/dependency-versions.html#dependency-versions
-        Or for current version of Spring Boot:
-        https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-dependency-versions.html
-        -->
     </parent>
 
     <groupId>com.evolveum.midpoint</groupId>
@@ -69,6 +64,8 @@
         <testng.version>7.7.1</testng.version>
         <project.source.version>11</project.source.version>
         <commons.io.version>2.11.0</commons.io.version>
+        <commons.lang3.version>3.19.0</commons.lang3.version>
+        <commons.text.version>1.10.0</commons.text.version>
         <surefire.version>3.0.0</surefire.version>
         <quartz.version>2.3.2.e3</quartz.version>
         <!--
@@ -282,6 +279,19 @@
                 <groupId>dev.samstevens.totp</groupId>
                 <artifactId>totp</artifactId>
                 <version>${java-otp.version}</version>
+            </dependency>
+
+            <!-- Locked to override Spring Boot BOM's older commons-lang3 (3.12.0),
+                 which lacks Range.of used by commons-text. -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons.text.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
