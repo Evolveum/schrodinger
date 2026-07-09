@@ -65,7 +65,7 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
 
     private Boolean containsClass(String cssClass) {
         return getParentElement().getAttribute("class") != null
-                && getParentElement().getAttribute("class").contains("card-" + cssClass);
+                && getParentElement().getAttribute("class").contains("alert-" + cssClass);
     }
 
     public FeedbackBox<T> clickShowAll() {
