@@ -152,7 +152,10 @@ public class AboutPage extends BasicPage {
 
 
     public ConfirmationModal<FormLoginPage> clickSwitchToFactoryDefaults() {
-        $(Schrodinger.byDataResourceKey("PageAbout.button.factoryDefault")).shouldBe(Condition.visible,MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement button = $(Schrodinger.byDataResourceKey("PageAbout.button.factoryDefault"))
+                .shouldBe(Condition.visible,MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return new ConfirmationModal<>(new FormLoginPage(), Utils.getModalWindowSelenideElement());
     }

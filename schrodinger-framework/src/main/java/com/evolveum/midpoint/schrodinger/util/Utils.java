@@ -16,8 +16,7 @@
 package com.evolveum.midpoint.schrodinger.util;
 
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.*;
 
 import com.codeborne.selenide.*;
 import com.evolveum.midpoint.schrodinger.component.common.AssignmentsTableWithDetailsPanel;
@@ -30,7 +29,6 @@ import org.openqa.selenium.By;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.AssignmentsPanel;
 import com.evolveum.midpoint.schrodinger.component.common.CheckFormGroupPanel;
-import com.evolveum.midpoint.schrodinger.component.common.table.AbstractTableWithPrismView;
 import com.evolveum.midpoint.schrodinger.page.AssignmentHolderDetailsPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.ActivationType;
 import org.openqa.selenium.JavascriptExecutor;
@@ -366,7 +364,9 @@ public class Utils {
             try {
                 WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
                 Utils.waitForAjaxCallFinish();
-                element.scrollIntoView(false);//"{behavior: \"instant\", block: \"center\", inline: \"center\"}");
+                executeJavaScript(
+                        "arguments[0].scrollIntoView({behavior: 'instant', block: 'center', inline: 'nearest'});",
+                        element);
                 WebElement clickableElement = wait.until(ExpectedConditions.elementToBeClickable(element));
                 if (clickableElement != null && clickableElement.isDisplayed()) {
                     break;

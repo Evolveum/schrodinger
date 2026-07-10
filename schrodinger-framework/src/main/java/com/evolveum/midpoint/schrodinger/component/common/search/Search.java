@@ -147,7 +147,7 @@ public class Search<T> extends Component<T, Search<T>> {
         Utils.waitForAjaxCallFinish();
         SelenideElement dropDownButton = getParentElement()
                 .$x(".//div[@"+Schrodinger.DATA_S_ID+"='searchButtonPanel']")
-                .$x(".//button[@data-toggle='dropdown']");
+                .$x(".//button[@data-bs-toggle='dropdown']");
         Utils.scrollToElement(dropDownButton);
         dropDownButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         dropDownButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);
