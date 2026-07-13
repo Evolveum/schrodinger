@@ -797,7 +797,7 @@ public class BasicPage {
 
         Utils.waitForAjaxCallFinish();
         $(Schrodinger.byDataId("locale")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                .$x(".//a[@data-toggle=\"dropdown\"]").click();
+                .$x(".//a[@data-bs-toggle=\"dropdown\"]").click();
         Utils.waitForAjaxCallFinish();
         SelenideElement localesMenu = $(Schrodinger.byDataId("localesMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         String flagIconCss = "fi-" + countryCode.trim().toLowerCase();
