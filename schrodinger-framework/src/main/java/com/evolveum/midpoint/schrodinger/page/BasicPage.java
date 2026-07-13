@@ -729,7 +729,7 @@ public class BasicPage {
     }
 
     public SelenideElement getUserMenu() {
-        return $(".main-header.navbar");
+        return $(Schrodinger.byDataId("mainHeader"));
     }
 
     public boolean userMenuExists() {

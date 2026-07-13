@@ -88,13 +88,13 @@ public class FormLoginPage extends LoginPage {
     }
 
     private boolean isOnLoginPage() {
-        SelenideElement box = $(".login-card-body").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
-        if (!box.exists()) {
+        Utils.waitForAjaxCallFinish();
+        SelenideElement box = $(".login-card-body");
+        if (!box.exists() || !box.isDisplayed()) {
             return false;
         }
-        SelenideElement titleBox = box.$(".login-box-msg")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
-        if (!titleBox.exists()) {
+        SelenideElement titleBox = box.$(".login-box-msg");
+        if (!titleBox.exists() || !titleBox.isDisplayed()) {
             return false;
         }
 
