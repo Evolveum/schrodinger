@@ -21,10 +21,7 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.assignmentholder.AssignmentHolderObjectListTable;
-import com.evolveum.midpoint.schrodinger.component.modal.ConfirmationModal;
 import com.evolveum.midpoint.schrodinger.component.table.TableHeaderDropDownMenu;
-import com.evolveum.midpoint.schrodinger.page.service.ListServicesPage;
-import com.evolveum.midpoint.schrodinger.page.service.ServicePage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -38,7 +35,7 @@ public class OrgsPageTable extends AssignmentHolderObjectListTable<ListOrgsPage,
     @Override
     protected TableHeaderDropDownMenu<OrgsPageTable> clickHeaderActionDropDown() {
         //todo looks like the same code for all tables
-        $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
+        $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-bs-toggle", "dropdown", "class", "sortableLabel"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = $(Schrodinger.byDataId("ul", "dropDownMenu"))

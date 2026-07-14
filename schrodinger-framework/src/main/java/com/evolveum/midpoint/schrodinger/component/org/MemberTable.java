@@ -49,7 +49,7 @@ public class MemberTable<T> extends AssignmentHolderObjectListTable<T, Assignmen
 
     @Override
     protected TableHeaderDropDownMenu<MemberTable<T>> clickHeaderActionDropDown() {
-        SelenideElement dropDownButton = $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown",
+        SelenideElement dropDownButton = $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-bs-toggle", "dropdown",
                 "class", "sortableLabel"));
         dropDownButton.shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());

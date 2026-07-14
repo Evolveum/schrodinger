@@ -45,7 +45,7 @@ public class UsersPageTable extends AssignmentHolderObjectListTable<ListUsersPag
     @Override
     protected TableHeaderDropDownMenu<UsersPageTable> clickHeaderActionDropDown() {
 
-        $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
+        $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-bs-toggle", "dropdown", "class", "sortableLabel"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = $(Schrodinger.byDataId("ul", "dropDownMenu"))

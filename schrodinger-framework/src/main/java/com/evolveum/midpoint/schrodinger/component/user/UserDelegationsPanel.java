@@ -45,7 +45,7 @@ public class UserDelegationsPanel<T> extends Component<T, UserDelegationsPanel<T
 
     public ObjectBrowserModal<UserDelegationsPanel<T>> clickAddDelegation() {
         SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$x(".//button[@data-toggle='dropdown']");
+                .$x(".//button[@data-bs-toggle='dropdown']");
         button.click();
 
         button.parent()
@@ -58,7 +58,7 @@ public class UserDelegationsPanel<T> extends Component<T, UserDelegationsPanel<T
 
     public ConfirmationModal<UserDelegationsPanel> clickDeleteDelegation() {
         SelenideElement button = $(Schrodinger.byDataId("assignmentsMenu")).shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .$(Schrodinger.byElementAttributeValue("button", "data-toggle", "dropdown"));
+                .$(Schrodinger.byElementAttributeValue("button", "data-bs-toggle", "dropdown"));
         button.click();
         button.$(Schrodinger.bySelfOrDescendantElementAttributeValue("a", "data-s-id", "menuItemLink",
                 "data-s-resource-key", "AssignmentTablePanel.menu.unassign"))

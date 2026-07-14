@@ -85,7 +85,7 @@ public class ResourceShadowTable<T> extends TableWithPageRedirect<T, AccountPage
 
     @Override
     protected TableHeaderDropDownMenu<ResourceShadowTable<T>> clickHeaderActionDropDown() {
-        $(Schrodinger.byElementAttributeValue("button", "data-toggle", "dropdown"))
+        $(Schrodinger.byElementAttributeValue("button", "data-bs-toggle", "dropdown"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
 
         SelenideElement cog = $(Schrodinger.byElementAttributeValue("ul","role","menu"))

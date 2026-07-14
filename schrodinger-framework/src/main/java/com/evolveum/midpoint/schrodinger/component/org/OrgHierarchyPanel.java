@@ -124,7 +124,7 @@ public class OrgHierarchyPanel<T> extends Component<T, OrgHierarchyPanel<T>> {
         Utils.waitForAjaxCallFinish();
         SelenideElement parentNode = getParentOrgNode(orgName);
         SelenideElement node = parentNode.$x(".//div[@"+Schrodinger.DATA_S_ID+"='node']");
-        SelenideElement menuButton = node.$x(".//button[@data-toggle='dropdown']");
+        SelenideElement menuButton = node.$x(".//button[@data-bs-toggle='dropdown']");
         menuButton.shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S).click();
 //        Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
 //        menuButton.shouldBe(Condition.attribute("aria-expanded", "true"), MidPoint.TIMEOUT_LONG_20_S);

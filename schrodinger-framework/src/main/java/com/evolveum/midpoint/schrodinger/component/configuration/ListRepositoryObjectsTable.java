@@ -49,7 +49,7 @@ public class ListRepositoryObjectsTable extends TableWithPageRedirect<ListReposi
 
     @Override
     protected TableHeaderDropDownMenu<ListRepositoryObjectsTable> clickHeaderActionDropDown() {
-        $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-toggle", "dropdown", "class", "sortableLabel"))
+        $(Schrodinger.bySelfOrAncestorElementAttributeValue("button", "data-bs-toggle", "dropdown", "class", "sortableLabel"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         SelenideElement dropDown = $(Schrodinger.byDataId("ul", "dropDownMenu"))
