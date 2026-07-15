@@ -44,7 +44,7 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
     public void clickOperationButtonByClassName(String className) {
         SelenideElement button = getButtonByIconClass(className);
         try {
-            button.scrollIntoView(false);
+            Utils.scrollToElement(button);
             button.click();
         } catch (ElementClickInterceptedException e) {
             button.parent().click();
@@ -56,7 +56,7 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
         SelenideElement button = getButtonPanelElement()
                 .$(Schrodinger.byDataResourceKey(titleKey));
         try {
-            button.scrollIntoView(false);
+            Utils.scrollToElement(button);
             button.click();
         } catch (ElementClickInterceptedException e) {
             button.parent().click();
@@ -69,7 +69,7 @@ public class ObjectDetailsPage<P extends ObjectDetailsPage> extends BasicPage{
         SelenideElement button = getButtonPanelElement()
                 .$(Schrodinger.byElementAttributeValue("a", "title", translated));
         try {
-            button.scrollIntoView(false);
+            Utils.scrollToElement(button);
             button.click();
         } catch (ElementClickInterceptedException e) {
             button.parent().click();
