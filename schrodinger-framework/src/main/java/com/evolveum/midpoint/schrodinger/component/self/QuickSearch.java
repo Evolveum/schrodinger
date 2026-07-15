@@ -45,7 +45,7 @@ public class QuickSearch<T> extends Component<T, QuickSearch<T>> {
     }
 
     public QuickSearchDropDown<QuickSearch<T>> clickSearchFor() {
-        $(Schrodinger.bySelfOrDescendantElementAttributeValue("button", "data-bs-toggle", "dropdown", "class", "sr-only"))
+        $(Schrodinger.byElementAttributeValue("button", "data-bs-toggle", "dropdown"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         SelenideElement dropDown = $(Schrodinger.byElementAttributeValue("ul", "role", "menu"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
