@@ -657,7 +657,7 @@ public class BasicPage {
         }
         SelenideElement mainMenu = $(Schrodinger.byDescendantElementAttributeValue("li", "data-s-resource-key", mainMenuKey))
                 .should(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S);
-        ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].scrollIntoView(true);", mainMenu);
+        Utils.scrollToElement(mainMenu);
         mainMenu.shouldBe(Condition.visible);
 
         checkCssClass(mainMenu, "menu-open");

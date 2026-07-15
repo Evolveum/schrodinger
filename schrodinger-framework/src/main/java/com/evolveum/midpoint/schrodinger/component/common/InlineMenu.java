@@ -133,9 +133,9 @@ public class InlineMenu<T> extends Component<T, InlineMenu<T>> {
             iconClass = "." + iconClass;
         }
         iconClass = iconClass.replaceAll(" ", ".");
-        getParentElement().$(By.cssSelector(iconClass))
-                .scrollIntoView(false)
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement iconEl = getParentElement().$(By.cssSelector(iconClass));
+        Utils.scrollToElement(iconEl);
+        iconEl.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
         Utils.waitForAjaxCallFinish();
         return this;
     }

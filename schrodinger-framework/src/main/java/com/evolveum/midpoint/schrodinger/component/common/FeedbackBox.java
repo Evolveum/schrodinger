@@ -76,8 +76,9 @@ public class FeedbackBox<T> extends Component<T, FeedbackBox<T>> {
     }
 
     public TaskBasicPanel clickShowTask() {
-
-        $(Schrodinger.byDataId("backgroundTaskLink")).scrollIntoView(false).click();
+        SelenideElement link = $(Schrodinger.byDataId("backgroundTaskLink"));
+        Utils.scrollToElement(link);
+        link.click();
         Utils.waitForMainPanelOnDetailsPage();
         TaskPage taskPage = new TaskPage();
         SelenideElement taskBasicTab = taskPage.getNavigationPanelSelenideElement("Basic");
