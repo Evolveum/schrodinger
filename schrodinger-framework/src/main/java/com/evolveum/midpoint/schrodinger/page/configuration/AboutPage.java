@@ -56,7 +56,10 @@ public class AboutPage extends BasicPage {
     }
 
     public AboutPage reindexRepositoryObjects() {
-        $(Schrodinger.byDataResourceKey("PageAbout.button.reindexRepositoryObjects")).click();
+        SelenideElement button = $(Schrodinger.byDataResourceKey("PageAbout.button.reindexRepositoryObjects"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        Utils.scrollToElement(button);
+        button.click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }

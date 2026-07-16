@@ -67,6 +67,7 @@ public class TabPanel<T> extends Component<T, TabPanel<T>> {
         if (li.getAttribute("class").contains("active")) {
             return li.parent().parent().parent().$(By.cssSelector(".tab-pane.active"));
         }
+        Utils.scrollToElement(link);
         link.click();
         Utils.waitForAjaxCallFinish();
         link.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);

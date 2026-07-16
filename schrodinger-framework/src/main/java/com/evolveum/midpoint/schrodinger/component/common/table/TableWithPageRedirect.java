@@ -168,9 +168,10 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
     public abstract DP getObjectDetailsPage();
 
     public TableWithPageRedirect<T, DP, TWPR> clickExportButton() {
-        getToolbarButtonByCss("fa fa-download")
-                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+        SelenideElement el = getToolbarButtonByCss("fa fa-download")
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(el);
+        el.click();
         Selenide.sleep(2000);
         return this;
     }

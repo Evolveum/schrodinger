@@ -198,7 +198,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                     .assertMessageValueByTokenMatch(tokenValue, null);
     }
 
-    @Test
+    @Test (dependsOnMethods = {"test001createNewTask"})
     public void test005checkButtonOptionsInTaskAndSubtasksTableMenu() {
         TasksPageTable tasksPageTable = basicPage
                 .listTasks()
