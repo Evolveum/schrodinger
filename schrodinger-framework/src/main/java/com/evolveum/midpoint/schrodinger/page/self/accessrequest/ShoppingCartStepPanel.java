@@ -93,14 +93,15 @@ public class ShoppingCartStepPanel extends WizardStepPanel<RequestAccessPage> {
     }
 
     public ShoppingCartStepPanel assertWarningBadgeExist() {
-        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge badge-warning\")]").shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge text-bg-warning\")]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         assertion.assertTrue(warningBadge.exists() && warningBadge.isDisplayed(),
                 "Warning badge should exist, but it doesn't.");
         return this;
     }
 
     public ShoppingCartStepPanel assertWarningBadgeNotExist() {
-        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge badge-warning\")]");
+        SelenideElement warningBadge = $x(".//span[contains(@class,\"badge text-bg-warning\")]");
         assertion.assertTrue(!warningBadge.exists(),
                 "Warning badge should not exist, but it does.");
         return this;

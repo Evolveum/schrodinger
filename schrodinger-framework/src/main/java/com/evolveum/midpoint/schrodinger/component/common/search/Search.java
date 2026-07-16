@@ -263,7 +263,7 @@ public class Search<T> extends Component<T, Search<T>> {
 
         help.hover();
         visibleTooltips().shouldHave(CollectionCondition.size(1), MidPoint.TIMEOUT_MEDIUM_6_S);
-        popover.$x(".//a[contains(@class, 'btn-default')]")
+        popover.$x(".//a[contains(@class, 'btn-light')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         popover.shouldBe(Condition.hidden, MidPoint.TIMEOUT_MEDIUM_6_S);

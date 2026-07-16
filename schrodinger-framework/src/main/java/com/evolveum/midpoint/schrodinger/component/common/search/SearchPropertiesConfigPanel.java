@@ -72,7 +72,7 @@ public class SearchPropertiesConfigPanel<T> extends Component<T, SearchPropertie
 
     private SelenideElement getPropertyChoiceElement(){
         return getParentElement().$(Schrodinger.bySelfOrAncestorElementAttributeValue("select",
-                "class", "form-control form-control-sm", "data-s-id", "propertyChoice"))
+                "class", "form-select", "data-s-id", "propertyChoice"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 
