@@ -29,8 +29,10 @@ public class ObjectCollectionViewsPanel extends PanelWithTableAndPrismView<Syste
     }
 
     public ObjectCollectionViewDetailsPanel clickAddButton() {
-        table().getButtonToolbar().$x(".//i[contains(@class, \"fa fa-plus\")]")
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).click();
+        SelenideElement button = table().getButtonToolbar().$x(".//i[contains(@class, \"fa fa-plus\")]")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         Utils.waitForAjaxCallFinish();
         return new ObjectCollectionViewDetailsPanel(ObjectCollectionViewsPanel.this, getParentElement());
     }

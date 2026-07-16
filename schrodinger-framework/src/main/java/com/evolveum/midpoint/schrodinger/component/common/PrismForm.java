@@ -455,7 +455,7 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
         SelenideElement property = findProperty(attributeName);
 
-        property.$(By.xpath(".//select[contains(@class,\"form-control\")]"))
+        property.$(By.xpath(".//select[contains(@class,\"form-select\")]"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
 
         return this;
