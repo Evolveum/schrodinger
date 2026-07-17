@@ -62,6 +62,7 @@ public class ChooseFocusTypeAndRelationModal<T> extends Component<T, ChooseFocus
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .$x(".//select[@" + Schrodinger.DATA_S_ID + "='select']");
         select.selectOption(value);
+        Selenide.sleep(500);
         select.should(Condition.text(value), MidPoint.TIMEOUT_DEFAULT_2_S);
     }
 

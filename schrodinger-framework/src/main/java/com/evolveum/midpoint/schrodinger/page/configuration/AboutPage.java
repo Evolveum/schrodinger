@@ -44,7 +44,10 @@ public class AboutPage extends BasicPage {
     // public static Trace LOGGER = TraceManager.getTrace(AboutPage.class);
 
     public AboutPage repositorySelfTest() {
-        $(Schrodinger.byDataResourceKey("PageAbout.button.testRepository")).click();
+        SelenideElement button = $(Schrodinger.byDataResourceKey("PageAbout.button.testRepository"))
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+        Utils.scrollToElement(button);
+        button.click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
         return this;
     }

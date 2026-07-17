@@ -44,10 +44,11 @@ public class OperationRequestPanel extends Component<CasePage, OperationRequestP
     }
 
     public boolean changesAreRejected(){
+        String changesRejectedTranslated = Utils.translate("TaskDto.changesRejected");
         SelenideElement header = $(Schrodinger.byDataId("operationRequestCasePanel"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
-        return Utils.elementContainsCssClass(header, "card-outline-left-danger") &&
-                header.$(byText("Changes rejected")).is(Condition.visible);
+        return Utils.elementContainsCssClass(header, "card-outline-start-danger") &&
+                header.$(byText(changesRejectedTranslated)).is(Condition.visible);
     }
 
     public OperationRequestPanel assertChangesAreApplied() {
