@@ -171,7 +171,8 @@ public class FormLoginPage extends LoginPage {
     }
 
     public void assertErrorText(String errorText) {
-        String text = $x(".//div[@class='feedback-message card card-danger']")
+        String text = $x(".//div[contains(@class,'feedback-message') and contains(@class,'alert') " +
+                "and contains(@class,'alert-danger')]")
                 .shouldBe(Condition.exist, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .text();
 
