@@ -143,6 +143,7 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
         if (showEmptyLabel.equals(showEmptyLink.getText())) {
             showEmptyLink.click();
             Utils.waitForAjaxCallFinish();
+            Selenide.sleep(1000);
             showEmptyLink.shouldBe(Condition.text("Hide empty fields"), MidPoint.TIMEOUT_MEDIUM_6_S);
         }
         return this;
