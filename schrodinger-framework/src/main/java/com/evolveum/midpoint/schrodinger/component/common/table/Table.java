@@ -299,10 +299,11 @@ public class Table<T, P extends Table> extends Component<T, P> {
 
     public SelenideElement getToolbarButtonByTitle(String buttonTitle) {
         SelenideElement el = getButtonToolbar().$x(".//a[@title='" + buttonTitle + "']");
-        if (el.exists() && el.isDisplayed()) {
-            return el;
+        if (!el.exists() || !el.isDisplayed()) {
+            el = getButtonToolbar().$x(".//button[@title='" + buttonTitle + "']");
         }
-        return getButtonToolbar().$x(".//button[@title='" + buttonTitle + "']");
+        Utils.scrollToElement(el);
+        return el;
     }
 
     public SelenideElement getToolbarButtonByCss(String iconCssClass) {

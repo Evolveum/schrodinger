@@ -45,30 +45,33 @@ public class WorkitemDetailsPanel<P> extends Component<P, WorkitemDetailsPanel<P
     }
 
     public WorkitemDetailsPanel<P> approveButtonClick(){
-        getParentElement()
+        SelenideElement button = getParentElement()
                 .$(Schrodinger.byDataId("workItemApproveButton"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
     public WorkitemDetailsPanel<P> rejectButtonClick(){
-        getParentElement()
+        SelenideElement button = getParentElement()
                 .$(Schrodinger.byDataId("workItemRejectButton"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         $x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_LONG_20_S);
         return this;
     }
 
     public ForwardWorkitemModal forwardButtonClick(){
-        getParentElement()
+        SelenideElement button = getParentElement()
                 .$(Schrodinger.byDataId("workItemForwardButton"))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
-                .click();
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        Utils.scrollToElement(button);
+        button.click();
         ForwardWorkitemModal<P> forwardWorkitemModal = new ForwardWorkitemModal<P>(getParent(), Utils.getModalWindowSelenideElement());
         return forwardWorkitemModal;
     }

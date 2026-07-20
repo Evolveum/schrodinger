@@ -360,16 +360,39 @@ public class Utils {
             return;
         }
         long endTime = System.currentTimeMillis() + 5000;
+        final String scrollAndCheckVisibleJs =
+                "var el = arguments[0];" +
+                        "el.scrollIntoView({behavior: 'instant', block: 'center', inline: 'nearest'});" +
+                        "var rect = el.getBoundingClientRect();" +
+                        "if (rect.width === 0 || rect.height === 0) { return false; }" +
+                        "var x = rect.left + rect.width / 2;" +
+                        "var y = rect.top + rect.height / 2;" +
+                        "if (x < 0 || y < 0 || x > window.innerWidth || y > window.innerHeight) { return false; }" +
+                        "var topEl = document.elementFromPoint(x, y);" +
+                        "if (!topEl) { return false; }" +
+                        "if (topEl === el || el.contains(topEl) || topEl.contains(el)) { return true; }" +
+                        "var occluderRect = topEl.getBoundingClientRect();" +
+                        "var margin = 10;" +
+                        "if (occluderRect.top <= rect.top) {" +
+                        "    window.scrollBy(0, (occluderRect.bottom - rect.top) + margin);" +
+                        "} else {" +
+                        "    window.scrollBy(0, -((rect.bottom - occluderRect.top) + margin));" +
+                        "}" +
+                        "return false;";
+
         while (System.currentTimeMillis() < endTime) {
             try {
-                WebDriverWait wait = new WebDriverWait(WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
                 Utils.waitForAjaxCallFinish();
-                executeJavaScript(
-                        "arguments[0].scrollIntoView({behavior: 'instant', block: 'center', inline: 'nearest'});",
-                        element);
-                WebElement clickableElement = wait.until(ExpectedConditions.elementToBeClickable(element));
-                if (clickableElement != null && clickableElement.isDisplayed()) {
-                    break;
+
+                Boolean visibleAndUnobstructed = executeJavaScript(scrollAndCheckVisibleJs, element);
+
+                if (Boolean.TRUE.equals(visibleAndUnobstructed)) {
+                    WebDriverWait wait = new WebDriverWait(
+                            WebDriverRunner.getWebDriver(), MidPoint.TIMEOUT_MEDIUM_6_S);
+                    WebElement clickableElement = wait.until(ExpectedConditions.elementToBeClickable(element));
+                    if (clickableElement != null && clickableElement.isDisplayed()) {
+                        break;
+                    }
                 }
                 Utils.waitForAjaxCallFinish();
             } catch (Exception e) {
