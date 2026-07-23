@@ -463,7 +463,7 @@ public class PrismForm<T> extends Component<T, PrismForm<T>> {
 
         property.$(By.xpath(".//select[contains(@class,\"form-select\")]"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).selectOption(option);
-
+        Utils.waitForAjaxCallFinish();
         return this;
     }
 

@@ -216,4 +216,21 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
         clickOperationButtonByTitleAttributeValue("Back");
         return new ResourcePage();
     }
+
+    /**
+     * The method is almost identical with the parent. The reason of the overriding
+     * is repeatedly failing test while attempt to save the task.
+     * The problem occurs because Save button is not clickable (it is not iterceptable)
+     * so we try to scroll to the top of the page just before the click
+     */
+    @Override
+    public void clickOperationButtonByClassName(String className) {
+        Selenide.sleep(1000);
+        SelenideElement button = getButtonByIconClass(className);
+        Utils.scrollToElement(button);
+        Selenide.sleep(1000);
+        Selenide.executeJavaScript("window.scrollTo(0, 0);");
+        button.click();
+        Utils.waitForAjaxCallFinish();
+    }
 }
