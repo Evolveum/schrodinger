@@ -88,18 +88,22 @@ public class FormLoginPage extends LoginPage {
     }
 
     private boolean isOnLoginPage() {
-        Utils.waitForAjaxCallFinish();
-        SelenideElement box = $(".login-card-body");
-        if (!box.exists() || !box.isDisplayed()) {
-            return false;
-        }
-        SelenideElement titleBox = box.$(".login-box-msg");
-        if (!titleBox.exists() || !titleBox.isDisplayed()) {
-            return false;
-        }
+        try {
+            Utils.waitForAjaxCallFinish();
+            SelenideElement box = $(".login-card-body").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+            if (!box.exists() || !box.isDisplayed()) {
+                return false;
+            }
+            SelenideElement titleBox = box.$(".login-box-msg").shouldBe(Condition.visible, MidPoint.TIMEOUT_SHORT_4_S);
+            if (!titleBox.exists() || !titleBox.isDisplayed()) {
+                return false;
+            }
 
-        String title = titleBox.getAttribute("data-s-resource-key");
-        return "PageLogin.loginToYourAccount".equals(title);
+            String title = titleBox.getAttribute("data-s-resource-key");
+            return "PageLogin.loginToYourAccount".equals(title);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public FormLoginPage assertIsOnLoginPage() {
