@@ -1,0 +1,34 @@
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+         xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3">
+
+    <user oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00011">
+        <name>governanceAdminUser</name>
+        <assignment>
+            <targetRef oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00001" relation="org:default" type="c:RoleType"/>
+        </assignment>
+        <credentials>
+            <password>
+                <value>
+                    <t:clearValue>Password123!</t:clearValue>
+                </value>
+            </password>
+        </credentials>
+    </user>
+
+    <user oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00012">
+        <name>memberAdminUser</name>
+        <assignment>
+            <targetRef oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00002" relation="org:default" type="c:RoleType"/>
+        </assignment>
+        <credentials>
+            <password>
+                <value>
+                    <t:clearValue>Password123!</t:clearValue>
+                </value>
+            </password>
+        </credentials>
+    </user>
+
+</objects>
