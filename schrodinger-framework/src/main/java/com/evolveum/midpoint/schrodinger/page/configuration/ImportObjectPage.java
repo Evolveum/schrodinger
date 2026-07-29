@@ -20,7 +20,7 @@ import com.codeborne.selenide.*;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.page.BasicPage;
 
-import com.evolveum.midpoint.schrodinger.util.Schrodinger;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -173,12 +173,16 @@ public class ImportObjectPage extends BasicPage {
     }
 
     public ImportObjectPage clickImportFileButton() {
-        $(".main-button-bar").$x(".//a[@data-s-id='importFileButton']").click();
+        SelenideElement button = $(".main-button-bar").$x(".//a[@data-s-id='importFileButton']");
+        Utils.scrollToElement(button);
+        button.click();
         return this;
     }
 
     public ImportObjectPage clickImportXmlButton() {
-        $(".main-button-bar").$x(".//a[@data-s-id='importXmlButton']").click();
+        SelenideElement button = $(".main-button-bar").$x(".//a[@data-s-id='importXmlButton']");
+        Utils.scrollToElement(button);
+        button.click();
         return this;
     }
 
