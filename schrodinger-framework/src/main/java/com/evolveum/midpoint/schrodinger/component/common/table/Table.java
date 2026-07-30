@@ -298,6 +298,20 @@ public class Table<T, P extends Table> extends Component<T, P> {
         return getButtonToolbar().$x(".//i[contains(@class,\"" + iconCssClass + "\")]");
     }
 
+    public P assertToolbarButtonExists(String iconCssStyle) {
+        SelenideElement button = getToolbarButtonByCss(iconCssStyle);
+        assertion.assertTrue(button.exists() && button.isDisplayed(),
+                "Toolbar button with icon css style '" + iconCssStyle + "' should exist, but it doesn't.");
+        return (P) this;
+    }
+
+    public P assertToolbarButtonNotExist(String iconCssStyle) {
+        SelenideElement button = getToolbarButtonByCss(iconCssStyle);
+        assertion.assertTrue(!button.exists(),
+                "Toolbar button with icon css style '" + iconCssStyle + "' should not exist, but it does.");
+        return (P) this;
+    }
+
     public int countTableObjects() {
         String countStringValue = $(Schrodinger.bySelfOrAncestorElementAttributeValue("span", "class", "align-middle", Schrodinger.DATA_S_ID, "count"))
                 .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S).text();
