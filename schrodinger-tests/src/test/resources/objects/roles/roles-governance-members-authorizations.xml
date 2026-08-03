@@ -1,0 +1,147 @@
+<objects xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+         xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3"
+         xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3">
+
+    <!-- Roles reproducing the scenario from ticket 11850: the same set of authorizations,
+         once with adminAssignGovernance/adminUnassignGovernance UI actions (governance admin)
+         and once with adminAssignMember/adminUnassignMember UI actions (member admin). -->
+
+    <role oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00001">
+        <name>governanceMembersAdminRole</name>
+        <displayName>Assign Governance Members</displayName>
+        <authorization>
+            <name>gui-access</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfDashboard</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#users</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#userDetails</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#findUsers</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#usersView</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#roles</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#roleDetails</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#rolesView</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminAssign</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminUnassign</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminAssignGovernance</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminUnassignGovernance</action>
+        </authorization>
+        <authorization>
+            <name>read-users-and-roles</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+            <object>
+                <type>UserType</type>
+            </object>
+            <object>
+                <type>RoleType</type>
+            </object>
+            <object>
+                <type>LookupTableType</type>
+            </object>
+        </authorization>
+        <authorization>
+            <name>get-assignment-targets</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+            <object>
+                <type>OrgType</type>
+            </object>
+            <object>
+                <type>ServiceType</type>
+            </object>
+            <object>
+                <type>ArchetypeType</type>
+            </object>
+        </authorization>
+        <authorization>
+            <name>assign-unassign</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#assign</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#unassign</action>
+            <object>
+                <type>UserType</type>
+            </object>
+            <target>
+                <type>RoleType</type>
+            </target>
+        </authorization>
+        <authorization>
+            <name>execution-read-modify</name>
+            <phase>execution</phase>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+            <object>
+                <type>UserType</type>
+            </object>
+        </authorization>
+    </role>
+
+    <role oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00002">
+        <name>roleMembersAdminRole</name>
+        <displayName>Assign Role Members</displayName>
+        <authorization>
+            <name>gui-access</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfDashboard</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#users</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#userDetails</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#findUsers</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#usersView</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#roles</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#roleDetails</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#rolesView</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminAssign</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminUnassign</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminAssignMember</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#adminUnassignMember</action>
+        </authorization>
+        <authorization>
+            <name>read-users-and-roles</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+            <object>
+                <type>UserType</type>
+            </object>
+            <object>
+                <type>RoleType</type>
+            </object>
+            <object>
+                <type>LookupTableType</type>
+            </object>
+        </authorization>
+        <authorization>
+            <name>get-assignment-targets</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+            <object>
+                <type>OrgType</type>
+            </object>
+            <object>
+                <type>ServiceType</type>
+            </object>
+            <object>
+                <type>ArchetypeType</type>
+            </object>
+        </authorization>
+        <authorization>
+            <name>assign-unassign</name>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#assign</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#unassign</action>
+            <object>
+                <type>UserType</type>
+            </object>
+            <target>
+                <type>RoleType</type>
+            </target>
+        </authorization>
+        <authorization>
+            <name>execution-read-modify</name>
+            <phase>execution</phase>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+            <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+            <object>
+                <type>UserType</type>
+            </object>
+        </authorization>
+    </role>
+
+    <role oid="8f4a3c2e-0f6b-4e5a-9d2c-11850aa00003">
+        <name>governanceMembersTargetRole</name>
+        <displayName>Governance Members Target Role</displayName>
+    </role>
+
+</objects>
