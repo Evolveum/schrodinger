@@ -63,8 +63,13 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
     //covers #10998
     @Test
     public void test00200testObjectCollectionViewMenuTranslated() {
-        reloginAsAdministrator();
-        importObject(SYSTEM_CONFIG_WITH_OBJ_COLLECTION, true);
+        reimportDefaultSystemConfigurationAndRelogin();
+        basicPage
+                .adminGui()
+                .addNewObjectCollection("users-over-collection", "User",
+                        "Object collection", "All users over collection", false)
+                .feedback()
+                .assertSuccess();
         basicPage
                 .listUsers()
                 .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
