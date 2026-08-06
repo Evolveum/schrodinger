@@ -184,7 +184,15 @@ public class BasicPage {
     }
 
     public ListOrgsPage listOrgs() {
-        clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.list");
+        return listOrgs("");
+    }
+
+    public ListOrgsPage listOrgs(String objectListMenuItemKey) {
+        if (StringUtils.isEmpty(objectListMenuItemKey)) {
+            clickAdministrationMenu("PageAdmin.menu.top.orgs", "PageAdmin.menu.top.orgs.list");
+        } else {
+            clickAdministrationMenu("PageAdmin.menu.top.orgs", objectListMenuItemKey);
+        }
         return new ListOrgsPage();
     }
 

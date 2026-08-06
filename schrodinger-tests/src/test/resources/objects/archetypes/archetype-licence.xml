@@ -1,0 +1,28 @@
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+           oid="35ca4d5c-e358-4e53-bf54-6ccea788cef0">
+
+    <name>DRS Org Archetype: Licence</name>
+    <displayName>Licence</displayName>
+    <archetypePolicy>
+        <display>
+            <label>Licence</label>
+            <pluralLabel>Licences</pluralLabel>
+            <icon>
+                <cssClass>fa fa-key</cssClass>
+                <color>#e8a838</color>
+            </icon>
+        </display>
+        <assignmentHolderRelationApproach>closed</assignmentHolderRelationApproach>
+      
+    </archetypePolicy>
+    <assignment>
+        <identifier>holderType</identifier>
+        <assignmentRelation>
+            <holderType>OrgType</holderType>
+        </assignmentRelation>
+    </assignment>
+
+
+    
+
+</archetype>

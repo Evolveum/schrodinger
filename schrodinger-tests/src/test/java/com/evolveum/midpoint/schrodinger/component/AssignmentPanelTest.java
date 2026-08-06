@@ -26,10 +26,14 @@ import java.util.List;
 public class AssignmentPanelTest extends AbstractSchrodingerTest {
 
     private static final File ASSIGNMENTS_COUNT_TEST_USER = new File("./src/test/resources/objects/assignment/assignments-count-test.xml");
+    private static final File ARCHETYPE_APPLICATION = new File("./src/test/resources/objects/archetypes/archetype-application.xml");
+    private static final File ARCHETYPE_LICENSE = new File("./src/test/resources/objects/archetypes/archetype-licence.xml");
+    private static final File SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW = new File("./src/test/resources/objects/systemconfiguration/system-configuration-with-license-obj-col-view.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(ASSIGNMENTS_COUNT_TEST_USER);
+        return Arrays.asList(ASSIGNMENTS_COUNT_TEST_USER,
+                ARCHETYPE_LICENSE, ARCHETYPE_APPLICATION);
     }
 
     @Test
@@ -61,5 +65,18 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
                             .table()
                                 .assertVisibleObjectsCountEquals(0);
 
+    }
+
+    //covers #11914
+    @Test (enabled = false)
+    public void test0020assignmentWithHolderArchetypeRef() {
+        importObject(SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW);
+        reloginAsAdministrator();
+
+        basicPage
+                .listOrgs("Licenses")
+                .newObjectButtonClick("New Licence")
+                .selectAssignmentsPanel()
+                .clickAddAssignment("Application (Default)");
     }
 }
