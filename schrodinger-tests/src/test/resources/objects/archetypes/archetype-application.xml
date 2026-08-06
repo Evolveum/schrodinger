@@ -1,0 +1,35 @@
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+           oid="d4e5f6a7-b8c9-4012-defa-123456789012">
+
+    <name>DRS Org Archetype: Application</name>
+    <displayName>DRS Application</displayName>
+
+    <assignment>
+        <assignmentRelation>
+            <holderType>OrgType</holderType>
+        </assignmentRelation>
+    </assignment>
+
+    <archetypePolicy>
+        <display>
+            <label>Application</label>
+            <pluralLabel>Applications</pluralLabel>
+            <icon>
+                <cssClass>fa fa-cube</cssClass>
+                <color>#1f7bb5</color>
+            </icon>
+        </display>
+
+        <assignmentHolderRelationApproach>closed</assignmentHolderRelationApproach>
+    </archetypePolicy>
+
+    
+    <inducement>
+        <assignmentRelation>
+            <description>License Org assigned to Application</description>
+            <holderArchetypeRef oid="35ca4d5c-e358-4e53-bf54-6ccea788cef0" type="ArchetypeType"/>
+            <relation>default</relation>
+            <holderType>OrgType</holderType>
+        </assignmentRelation>
+    </inducement>
+</archetype>
