@@ -68,14 +68,14 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
     }
 
     //covers #11914
-    @Test (enabled = false)
+    @Test
     public void test0020assignmentWithHolderArchetypeRef() {
         importObject(SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW);
         reloginAsAdministrator();
 
         basicPage
-                .listOrgs("Licenses")
-                .newObjectButtonClick("New Licence")
+                .listOrgs("Licences")
+                .newObjectButtonClick("New License")
                 .selectAssignmentsPanel()
                 .clickAddAssignment("Application (Default)");
     }

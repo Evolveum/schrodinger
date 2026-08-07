@@ -6,8 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$x;
+import static com.codeborne.selenide.Selenide.*;
 
 public class MultiCompositedButtonPanel<T> extends Component<T, MultiCompositedButtonPanel<T>> {
 
@@ -16,8 +15,12 @@ public class MultiCompositedButtonPanel<T> extends Component<T, MultiCompositedB
     }
 
     public CompositedButtonPanel<MultiCompositedButtonPanel<T>> findCompositedButtonByTitle(String buttonTitle) {
-        SelenideElement button = $(Schrodinger.byElementAttributeValue("button", "title", buttonTitle))
-                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+        SelenideElement button = $(Schrodinger.byElementAttributeValue("button", "title", buttonTitle));
+        if (!button.exists()) {
+            button = $x(".//span[@data-s-id='label' and normalize-space(text())='" +
+                    buttonTitle + "']/ancestor::button[@data-s-id='compositedButton']");
+        }
+        button.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new CompositedButtonPanel<>(this, button);
     }
 
