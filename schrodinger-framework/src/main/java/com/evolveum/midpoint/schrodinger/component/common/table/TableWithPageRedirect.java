@@ -150,6 +150,7 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
     }
 
     public DP newObjectButtonByTitleClick(String buttonTitle) {
+        Utils.waitForAjaxCallFinish();
         if (!getToolbarButtonByTitleKey(buttonTitle).isDisplayed()) {
             getToolbarButtonByCss("fa fa-plus")
                     .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
@@ -160,6 +161,7 @@ public abstract class TableWithPageRedirect<T, DP extends BasicPage,
             Utils.getModalWindowSelenideElement().$x(".//button[@title=\"" + buttonTitle + "\"]").click();
         } else {
             getToolbarButtonByTitleKey(buttonTitle).click();
+            Utils.waitForAjaxCallFinish();
         }
         Utils.waitForMainPanelOnDetailsPage();
         return getObjectDetailsPage();
