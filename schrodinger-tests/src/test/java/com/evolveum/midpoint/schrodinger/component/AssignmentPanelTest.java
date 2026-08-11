@@ -75,7 +75,7 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
 
         basicPage
                 .listOrgs("Licences")
-                .newObjectButtonClick("New License")
+                .newObjectButtonClick("New license")
                 .selectAssignmentsPanel()
                 .clickAddAssignment("Application (Default)");
     }
