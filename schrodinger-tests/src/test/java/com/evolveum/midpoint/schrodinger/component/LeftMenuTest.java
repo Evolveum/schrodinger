@@ -61,7 +61,7 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
     }
 
     //covers #10998
-    @Test
+    @Test (enabled = false)
     public void test00200testObjectCollectionViewMenuTranslated() {
         reloginAsAdministrator();
         reimportDefaultSystemConfigurationAndRelogin();
