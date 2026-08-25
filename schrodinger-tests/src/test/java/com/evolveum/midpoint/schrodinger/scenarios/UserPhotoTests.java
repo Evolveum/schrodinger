@@ -110,7 +110,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
                 .clickSave()
                 .feedback()
                 .assertError()
-                .assertMessageExists("Jpeg photo: Content type not allowed: text/xml");
+                .assertMessageExists("Jpeg photo: Content type not allowed: Uploaded content type text/plain is not allowed.");
 
         user.selectBasicPanel()
                 .form()
@@ -121,7 +121,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
                 .clickSave()
                 .feedback()
                 .assertError()
-                .assertMessageExists("Jpeg photo: File content does not match Content type: image/png");
+                .assertMessageExists("Jpeg photo: Content type not allowed: Uploaded content type text/plain is not allowed.");
 
         user.selectBasicPanel()
                 .form()
@@ -132,7 +132,7 @@ public class UserPhotoTests extends AbstractSchrodingerTest {
                 .clickSave()
                 .feedback()
                 .assertError()
-                .assertMessageExists("Jpeg photo: File content does not match Content type: image/jpeg");
+                .assertMessageExists("Jpeg photo: File content does not match Content type: Declared content type image/jpeg does not match uploaded content type image/png.");
 
         user.selectBasicPanel()
                 .form()
