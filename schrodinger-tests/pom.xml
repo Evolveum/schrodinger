@@ -41,7 +41,7 @@
     <parent>
         <artifactId>schrodinger</artifactId>
         <groupId>com.evolveum.midpoint</groupId>
-        <version>4.9.9-SNAPSHOT</version>
+        <version>4.9.10-SNAPSHOT</version>
     </parent>
 
     <artifactId>schrodinger-tests</artifactId>
