@@ -159,11 +159,8 @@ public class LoginPageTest extends AbstractLoginPageTest {
 
         AuditLogViewerPage auditLogViewer = basicPage.auditLogViewer();
         AuditRecordTable<AuditLogViewerPage> auditRecordsTable = auditLogViewer.table();
-        auditRecordsTable.checkRow(6, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "Success");
-        auditRecordsTable.checkRow(7, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "");
-        auditRecordsTable.checkRow(8, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "Success");
-        auditRecordsTable.checkRow(9, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "Success");
-        auditRecordsTable.checkRow(10, NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password", "");
+        auditRecordsTable.checkRowsByInitiatorAndChannel(NAME_OF_RESET_PASSWORD_TEST_USER, "Reset password",
+                "Success", "", "Success", "Success", "");
     }
 
     @Test

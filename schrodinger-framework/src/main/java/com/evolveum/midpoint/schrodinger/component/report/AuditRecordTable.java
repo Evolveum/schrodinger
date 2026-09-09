@@ -15,6 +15,9 @@
  */
 package com.evolveum.midpoint.schrodinger.component.report;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
@@ -26,6 +29,7 @@ import com.evolveum.midpoint.schrodinger.component.common.table.TableWithPageRed
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerDetailsPage;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -92,6 +96,48 @@ public class AuditRecordTable<T> extends TableWithPageRedirect<T, AuditLogViewer
         checkInitiator(row, initiatorName);
         checkChannel(row, channelName);
         checkOutcome(row, outcome);
+    }
+
+    public void checkRowsByInitiatorAndChannel(String initiatorName, String channelName, String... expectedOutcomes) {
+        $(By.cssSelector(".table.table-hover")).shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+
+        List<String> actualOutcomes = getOutcomesByInitiatorAndChannel(initiatorName, channelName);
+
+        assertion.assertEquals(actualOutcomes.size(), expectedOutcomes.length,
+                "Unexpected number of audit rows for initiator '" + initiatorName + "' and channel '" + channelName
+                        + "'. Expected outcomes " + java.util.Arrays.toString(expectedOutcomes)
+                        + ", but found " + actualOutcomes);
+
+        for (int i = 0; i < expectedOutcomes.length; i++) {
+            String expected = expectedOutcomes[i];
+            String actual = actualOutcomes.get(i);
+            if (StringUtils.isEmpty(expected)) {
+                assertion.assertTrue(StringUtils.isEmpty(actual),
+                        "Outcome of row " + (i + 1) + " for initiator '" + initiatorName + "' and channel '"
+                                + channelName + "' should be empty, but was '" + actual + "'.");
+            } else {
+                assertion.assertEquals(actual, expected,
+                        "Outcome of row " + (i + 1) + " for initiator '" + initiatorName + "' and channel '"
+                                + channelName + "' doesn't match.");
+            }
+        }
+    }
+
+    private List<String> getOutcomesByInitiatorAndChannel(String initiatorName, String channelName) {
+        SelenideElement tbody = getParentElement().$(Schrodinger.byElementAttributeValue("tbody", "data-s-id", "body"))
+                .shouldBe(Condition.appear, MidPoint.TIMEOUT_DEFAULT_2_S);
+        ElementsCollection rows = tbody.findAll(By.tagName("tr"));
+
+        List<String> outcomes = new ArrayList<>();
+        for (SelenideElement row : rows) {
+            ElementsCollection cells = row.findAll(By.tagName("td"));
+            String initiator = cells.get(1).getText().trim();
+            String channel = cells.get(6).getText().trim();
+            if (Strings.CI.equals(initiator, initiatorName) && Strings.CI.equals(channel, channelName)) {
+                outcomes.add(cells.get(7).getText().trim());
+            }
+        }
+        return outcomes;
     }
 
     public SelenideElement getCell(int row, int column) {
