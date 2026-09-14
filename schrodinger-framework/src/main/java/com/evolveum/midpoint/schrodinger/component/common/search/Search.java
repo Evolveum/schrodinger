@@ -280,7 +280,6 @@ public class Search<T> extends Component<T, Search<T>> {
         return itemNameElement
                 .parent()
                 .parent()
-                .parent()
                 .$(Schrodinger.byDataId("i", "itemHelp"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
     }
