@@ -67,7 +67,7 @@ public class SelfRegistrationPage extends LoginPage {
         Utils.waitForAjaxCallFinish();
         Selenide.sleep(1000);
         String nameAttrValue = "contentArea:staticForm:" + attributeName + ":input";
-        ElementsCollection collection = $$x(".//input[@name='" + nameAttrValue + "']");
+        ElementsCollection collection = $$x(".//input[@name='" + nameAttrValue + "' or @data-honeypot-name='" + nameAttrValue + "']");
         collection.asFixedIterable().forEach((inputField) -> setAttributeValue(attributeName, value, inputField));
     }
 
