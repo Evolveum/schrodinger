@@ -783,8 +783,14 @@ public class BasicPage {
 
     public BasicPage assertMenuItemExists(String topMenuIdentifier, String mainMenuIdentifier, String menuIdentifier) {
         SelenideElement menuItem = getMenuItemElement(topMenuIdentifier, mainMenuIdentifier, menuIdentifier);
-        assertion.assertTrue(menuItem.exists() && menuItem.isDisplayed(),
-                "Menu item should be displayed, " + menuIdentifier);
+        boolean displayed;
+        try {
+            menuItem.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+            displayed = true;
+        } catch (Throwable e) {
+            displayed = false;
+        }
+        assertion.assertTrue(displayed, "Menu item should be displayed, " + menuIdentifier);
         return this;
     }
 
