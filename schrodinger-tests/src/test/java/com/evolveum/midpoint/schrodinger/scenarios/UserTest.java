@@ -19,13 +19,14 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 import java.io.File;
 import java.util.*;
 
-import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
+import com.evolveum.midpoint.xml.ns._public.common.common_3.LockoutStatusType;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType;
 
 /**
@@ -45,6 +46,11 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File DELEGATE_END_USER_ROLE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-to-user.xml");
     private static final File OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE = new File("./src/test/resources/objects/objecttemplate/object-template-required-email.xml");
     private static final File SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-email-required-template.xml");
+    private static final File LOCKED_USER_NO_BEHAVIOR_FILE = new File("./src/test/resources/objects/users/locked-user-no-behavior.xml");
+
+    private static final String LOCKED_USER_NO_BEHAVIOR_OID = "18f366ff-ac8c-4589-b2e8-d48b98d2415d";
+    private static final String LOCKED_USER_NO_BEHAVIOR_NAME = "locked-user-no-behavior";
+    private static final String LOCKED_USER_NO_BEHAVIOR_PASSWORD = "Test5ecr3t";
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -52,7 +58,8 @@ public class UserTest extends AbstractSchrodingerTest {
                 DELEGATE_FROM_USER_FILE, DELEGATE_TO_USER_FILE,
                 DELEGABLE_END_USER_ROLE_FILE, DELEGATE_END_USER_ROLE_FROM_USER_FILE,
                 DELEGATE_END_USER_ROLE_TO_USER_FILE,
-                READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE);
+                READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE,
+                LOCKED_USER_NO_BEHAVIOR_FILE);
     }
 
     @Test
@@ -307,6 +314,49 @@ public class UserTest extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                 .form()
                 .assertPropertyLabelValue("description", descriptionValue);
+    }
+
+    /**
+     * The Users list "Unlock" row action used to silently do nothing for a locked
+     * user that has no {@code <behavior>} container (e.g. an account provisioned
+     * from an external source, which never logged into midPoint through the GUI
+     * and therefore never had any authentication behavior data recorded for it).
+     * Covers #12184
+     */
+    @Test
+    public void test0090unlockUserWithoutBehaviorSection() throws Exception {
+        UserType userBeforeUnlock = getUser(LOCKED_USER_NO_BEHAVIOR_OID);
+        Assertions.assertThat(userBeforeUnlock.getActivation().getLockoutStatus())
+                .as("Precondition: imported user should be locked")
+                .isEqualTo(LockoutStatusType.LOCKED);
+        Assertions.assertThat(userBeforeUnlock.getBehavior())
+                .as("Precondition: imported user should have no behavior container")
+                .isNull();
+
+        ListUsersPage usersPage = basicPage.listUsers();
+        usersPage
+                .table()
+                    .search()
+                        .byName()
+                        .inputValue(LOCKED_USER_NO_BEHAVIOR_NAME)
+                    .updateSearch()
+                .and()
+                .selectAll()
+                .and()
+                    .table()
+                        .unlockUser()
+                            .clickYes()
+                        .and()
+                    .feedback()
+                        .isSuccess();
+
+        UserType userAfterUnlock = getUser(LOCKED_USER_NO_BEHAVIOR_OID);
+        Assertions.assertThat(userAfterUnlock.getActivation().getLockoutStatus())
+                .as("User should be unlocked after the Unlock action, even without a behavior container")
+                .isEqualTo(LockoutStatusType.NORMAL);
+
+        loginAsUser(LOCKED_USER_NO_BEHAVIOR_NAME, LOCKED_USER_NO_BEHAVIOR_PASSWORD);
+        basicPage.assertUserMenuExist();
     }
 
     @Override
