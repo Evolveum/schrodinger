@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<role oid="3c0e6b7a-5d0c-4e4b-9d33-12364a000001"
+      xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3">
+    <name>DelegationRequiresValidToRole</name>
+    <description>Induces a policy rule that forbids adding a delegation (deputy assignment) without the "Valid to" date. Covers #12364.</description>
+    <inducement>
+        <policyRule>
+            <name>Delegation must have valid to date</name>
+            <policyConstraints>
+                <modification>
+                    <presentation>
+                        <message>
+                            <fallbackMessage>Delegation must have the valid to date set</fallbackMessage>
+                        </message>
+                    </presentation>
+                    <expression>
+                        <script>
+                            <code>
+                                import com.evolveum.midpoint.prism.path.ItemPath
+                                import com.evolveum.midpoint.schema.constants.SchemaConstants
+                                import com.evolveum.midpoint.util.QNameUtil
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.FocusType
+
+                                def delta = midpoint.focusContext?.primaryDelta
+                                def assignmentDelta = delta?.findContainerDelta(ItemPath.create(FocusType.F_ASSIGNMENT))
+                                def addedAssignments = delta?.isAdd() ? [] : (assignmentDelta?.valuesToAdd ?: [])
+                                return addedAssignments.any { a ->
+                                    def assignment = a.asContainerable()
+                                    assignment.targetRef != null
+                                            &amp;&amp; QNameUtil.match(assignment.targetRef.relation, SchemaConstants.ORG_DEPUTY)
+                                            &amp;&amp; assignment.activation?.validTo == null
+                                }
+                            </code>
+                        </script>
+                    </expression>
+                </modification>
+            </policyConstraints>
+            <policyActions>
+                <enforcement/>
+            </policyActions>
+        </policyRule>
+    </inducement>
+</role>
