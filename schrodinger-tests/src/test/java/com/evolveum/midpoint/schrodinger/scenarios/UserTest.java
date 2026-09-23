@@ -19,7 +19,11 @@ package com.evolveum.midpoint.schrodinger.scenarios;
 import java.io.File;
 import java.util.*;
 
+import com.codeborne.selenide.Selenide;
+
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
@@ -47,10 +51,18 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE = new File("./src/test/resources/objects/objecttemplate/object-template-required-email.xml");
     private static final File SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-email-required-template.xml");
     private static final File LOCKED_USER_NO_BEHAVIOR_FILE = new File("./src/test/resources/objects/users/locked-user-no-behavior.xml");
+    private static final File DELEGATION_REQUIRES_VALID_TO_ROLE_FILE = new File("./src/test/resources/objects/roles/role-delegation-requires-valid-to.xml");
+    private static final File DELEGATION_POLICY_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-from-user.xml");
+    private static final File DELEGATION_POLICY_TO_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-to-user.xml");
 
     private static final String LOCKED_USER_NO_BEHAVIOR_OID = "18f366ff-ac8c-4589-b2e8-d48b98d2415d";
     private static final String LOCKED_USER_NO_BEHAVIOR_NAME = "locked-user-no-behavior";
     private static final String LOCKED_USER_NO_BEHAVIOR_PASSWORD = "Test5ecr3t";
+
+    private static final String DELEGATION_POLICY_FROM_USER_NAME = "DelegationPolicyFromUser";
+    private static final String DELEGATION_POLICY_TO_USER_NAME = "DelegationPolicyToUser";
+    private static final String DELEGATION_POLICY_TO_USER_OID = "3c0e6b7a-5d0c-4e4b-9d33-12364a000003";
+    private static final String DELEGATION_POLICY_VIOLATION_MESSAGE = "Delegation must have the valid to date set";
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -59,7 +71,8 @@ public class UserTest extends AbstractSchrodingerTest {
                 DELEGABLE_END_USER_ROLE_FILE, DELEGATE_END_USER_ROLE_FROM_USER_FILE,
                 DELEGATE_END_USER_ROLE_TO_USER_FILE,
                 READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE,
-                LOCKED_USER_NO_BEHAVIOR_FILE);
+                LOCKED_USER_NO_BEHAVIOR_FILE, DELEGATION_REQUIRES_VALID_TO_ROLE_FILE,
+                DELEGATION_POLICY_FROM_USER_FILE, DELEGATION_POLICY_TO_USER_FILE);
     }
 
     @Test
@@ -357,6 +370,44 @@ public class UserTest extends AbstractSchrodingerTest {
 
         loginAsUser(LOCKED_USER_NO_BEHAVIOR_NAME, LOCKED_USER_NO_BEHAVIOR_PASSWORD);
         basicPage.assertUserMenuExist();
+    }
+
+    /**
+     * Delegation is saved to the deputy user separately from the edited (delegator) user.
+     * When a policy rule prevented the delegation from being saved, the policy violation
+     * message was displayed only for a moment. Then the page was redirected to the users list
+     * with only the "Save (GUI)" info message, so the user didn't know why the delegation was not created.
+     * DelegationPolicyToUser has a role with a policy rule which doesn't allow a delegation without "Valid to" date.
+     * Covers #12364
+     */
+    @Test
+    public void test0100delegationPolicyViolationMessageIsVisible() throws Exception {
+        reloginAsAdministrator();
+        showUser(DELEGATION_POLICY_FROM_USER_NAME)
+                .selectDelegationsPanel()
+                    .clickAddDelegation()
+                        .table()
+                            .search()
+                            .byName()
+                            .inputValue(DELEGATION_POLICY_TO_USER_NAME)
+                            .updateSearch()
+                        .and()
+                        .clickByName(DELEGATION_POLICY_TO_USER_NAME)
+                    .and()
+                .clickSave();
+
+        // the redirect to the users list came a few seconds after the save, give it time to happen
+        Utils.waitForAjaxCallFinish();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
+        Utils.waitForAjaxCallFinish();
+
+        basicPage.feedbackContainer()
+                .assertFeedbackMessageContains(DELEGATION_POLICY_VIOLATION_MESSAGE);
+
+        UserType deputy = getUser(DELEGATION_POLICY_TO_USER_OID);
+        Assertions.assertThat(deputy.getDelegatedRef())
+                .as("Delegation should not be created, it violates the policy rule")
+                .isEmpty();
     }
 
     @Override

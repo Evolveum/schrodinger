@@ -21,6 +21,16 @@ public class FeedbackContainerPanel<T> extends Component<T, FeedbackContainerPan
         return this;
     }
 
+    /**
+     * checks that some of the visible feedback messages contains the text,
+     * regardless of the message panel type (operation result or simple message)
+     */
+    public FeedbackContainerPanel<T> assertFeedbackMessageContains(String messageText) {
+        assertion.assertTrue(getMessagesCollection().filterBy(Condition.text(messageText)).size() > 0,
+                "Feedback message containing '" + messageText + "' is absent");
+        return this;
+    }
+
     private int countFeedbackMessages() {
         return getMessagesCollection().size();
     }
