@@ -24,7 +24,6 @@ import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
