@@ -289,9 +289,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         String urlPropertyName = startMidpoint ? "base_url" : "base_url_mp_already_started";
         config.headless(Boolean.parseBoolean(getConfigurationPropertyValue("headlessStart")))
                 .locale(getConfigurationPropertyValue("locale"))
-                .baseUrl(getConfigurationPropertyValue(urlPropertyName))
-                .amountOfTabs(Integer.parseInt(getConfigurationPropertyValue("amountOfTabs")))
-                .amountOfWindows(Integer.parseInt(getConfigurationPropertyValue("amountOfWindows")));
+                .baseUrl(getConfigurationPropertyValue(urlPropertyName));
 
         return config;
     }

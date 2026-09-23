@@ -36,10 +36,6 @@ public class EnvironmentConfiguration {
 
     private String locale;
 
-    private int amountOfTabs = 1;
-
-    private int amountOfWindows = 1;
-
     public EnvironmentConfiguration driver(final WebDriver driver) {
         Validate.notNull(driver, "Web driver must not be null");
 
@@ -71,16 +67,6 @@ public class EnvironmentConfiguration {
 
     public EnvironmentConfiguration headless(final boolean headless) {
         this.headless = headless;
-        return this;
-    }
-
-    public EnvironmentConfiguration amountOfTabs(final int amountOfTabs) {
-        this.amountOfTabs = amountOfTabs;
-        return this;
-    }
-
-    public EnvironmentConfiguration amountOfWindows(final int amountOfWindows) {
-        this.amountOfWindows = amountOfWindows;
         return this;
     }
 
@@ -119,22 +105,6 @@ public class EnvironmentConfiguration {
 
     public void setLocale(String locale) {
         this.locale = locale;
-    }
-
-    public int getAmountOfTabs() {
-        return amountOfTabs;
-    }
-
-    public void setAmountOfTabs(int amountOfTabs) {
-        this.amountOfTabs = amountOfTabs;
-    }
-
-    public int getAmountOfWindows() {
-        return amountOfWindows;
-    }
-
-    public void setAmountOfWindows(int amountOfWindows) {
-        this.amountOfWindows = amountOfWindows;
     }
 
     public void validate() {
