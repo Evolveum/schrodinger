@@ -38,8 +38,9 @@ public class TabPanel<T> extends Component<T, TabPanel<T>> {
 
     public SelenideElement clickTab(String resourceKey) {
         String translatedLabel = Utils.translate(resourceKey);
+        // a single visible tab is rendered as a non-clickable heading (div) instead of a link
         SelenideElement link = getParentElement()
-                .$x(".//a[@data-s-id='link' and contains(text(), '" + translatedLabel + "')]")
+                .$x(".//*[(self::a or self::div) and @data-s-id='link' and contains(text(), '" + translatedLabel + "')]")
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return verifyAndFetchActiveTab(link);
@@ -64,7 +65,7 @@ public class TabPanel<T> extends Component<T, TabPanel<T>> {
     private SelenideElement verifyAndFetchActiveTab(SelenideElement link) {
         link.shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
         SelenideElement li = link.parent();
-        if (li.getAttribute("class").contains("active")) {
+        if (li.getAttribute("class").contains("active") || isSingleTabHeading(link)) {
             return li.parent().parent().parent().$(By.cssSelector(".tab-pane.active"));
         }
         Utils.scrollToElement(link);
@@ -73,6 +74,10 @@ public class TabPanel<T> extends Component<T, TabPanel<T>> {
         link.shouldBe(Condition.cssClass("active"), MidPoint.TIMEOUT_MEDIUM_6_S);
 
         return li.parent().parent().parent().$(By.cssSelector(".tab-pane.active"));
+    }
+
+    private boolean isSingleTabHeading(SelenideElement link) {
+        return "heading".equals(link.getAttribute("role"));
     }
 
     public SelenideElement getActiveTab() {

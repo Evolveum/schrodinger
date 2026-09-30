@@ -338,6 +338,7 @@ public class UserTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0090unlockUserWithoutBehaviorSection() throws Exception {
+        reloginAsAdministrator();
         UserType userBeforeUnlock = getUser(LOCKED_USER_NO_BEHAVIOR_OID);
         Assertions.assertThat(userBeforeUnlock.getActivation().getLockoutStatus())
                 .as("Precondition: imported user should be locked")
