@@ -297,7 +297,7 @@ public class UserTest extends AbstractSchrodingerTest {
                 "Second line\n" +
                 "Third line";
         reloginAsAdministrator();
-        importObject(DEFAULT_SECURITY_POLICY_FILE);
+        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE);
         basicPage.listUsers()
                 .table()
                 .search()
