@@ -15,7 +15,6 @@
  */
 package com.evolveum.midpoint.schrodinger.component;
 
-import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.util.ConstantsUtil;
 import org.testng.annotations.Test;
@@ -72,8 +71,6 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
                         "Object collection", "All users over collection", false)
                 .feedback()
                 .assertSuccess();
-        //give the time so that new user profile is compiled
-        Selenide.sleep(6000);
         basicPage
                 .listUsers()
                 .assertMenuItemExists(ConstantsUtil.ADMINISTRATION_MENU_ITEMS_SECTION_VALUE,
