@@ -43,16 +43,24 @@ public class CampaignsBasePage<CP extends CampaignsBasePage> extends BasicPage {
 
     public CP assertTableViewIsSelected() {
         SelenideElement buttonElement = getToggleButtonIconElement(TABLE_VIEW_TOGGLE_ICON_CLASS);
-        assertion.assertTrue(buttonElement.getAttribute("aria-pressed").equals("true"),
-                "Table view should be selected but now it is not.");
+        assertion.assertTrue(isPressed(buttonElement), "Table view should be selected but now it is not.");
         return (CP) this;
     }
 
     public CP assertTileViewIsSelected() {
         SelenideElement iconElement = getToggleButtonIconElement(TILES_VIEW_TOGGLE_ICON_CLASS);
-        assertion.assertTrue(iconElement.getAttribute("aria-pressed").equals("true"),
-                "Tile view should be selected but now it is not.");
+        assertion.assertTrue(isPressed(iconElement), "Tile view should be selected but now it is not.");
         return (CP) this;
+    }
+
+    private boolean isPressed(SelenideElement buttonElement) {
+        // the toggle can be re-rendered after the page is loaded, give it some time
+        try {
+            buttonElement.shouldHave(Condition.attribute("aria-pressed", "true"), MidPoint.TIMEOUT_DEFAULT_2_S);
+            return true;
+        } catch (Error e) {
+            return false;
+        }
     }
 
     private SelenideElement getToggleButtonIconElement(String iconClass) {
