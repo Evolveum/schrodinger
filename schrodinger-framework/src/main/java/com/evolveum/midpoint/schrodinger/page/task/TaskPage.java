@@ -71,7 +71,8 @@ public class TaskPage extends AssignmentHolderDetailsPage<TaskPage> {
 
     public TaskPage clickResume() {
         $(Schrodinger.byDataId("taskButtonsContainer")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S)
-                .$x(".//a[contains(text(), 'Resume')]")
+                .$(Schrodinger.byDataId("resumeButton"))
+                .$(Schrodinger.byDataId("primaryButton"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S)
                 .click();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
