@@ -181,7 +181,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                 .table()
                 .deleteObject("Object template", "Full name template");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE);
+        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage
@@ -201,6 +201,8 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                     .form()
                     .assertPropertyInputValue("Full name", "");
+
+        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE);
     }
 
 }
