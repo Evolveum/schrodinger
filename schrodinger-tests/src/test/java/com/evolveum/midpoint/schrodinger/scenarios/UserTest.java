@@ -146,7 +146,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                 .clickSave()
                     .feedback()
-                        .assertInfo();
+                        .assertSuccess();
 
         showUser("DelegateToUser")
                 .selectDelegatedToMePanel()
@@ -199,7 +199,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                 .clickSave()
                 .feedback()
-                .assertInfo();
+                .assertSuccess();
 
         basicPage.loggedUser().logout();
         midPoint.formLogin().login("DelegateEndUserRoleToUser", "pAssword123")
