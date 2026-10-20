@@ -28,7 +28,6 @@ import java.util.List;
 public class PasswordPanelTest extends AbstractSchrodingerTest {
 
     private static final File CUSTOM_PERSON_ARCHETYPE_FILE = new File("./src/test/resources/objects/archetypes/archetype-person.xml");
-    protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
 
     @Override
     protected List<File> getObjectListToImport() {
