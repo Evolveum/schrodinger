@@ -28,11 +28,12 @@ public class LeftMenuTest extends AbstractSchrodingerTest {
     private static final File END_USER = new File("./src/test/resources/objects/users/end-user-tasks-view-auth.xml");
     private static final File END_USER_ROLE_WITH_TASKS_VIEW_AUTH = new File("./src/test/resources/objects/roles/role-enduser-task-views-auth.xml");
     private static final File ALL_USERS_ADDITIONAL_COLLECTION = new File("./src/test/resources/objects/objectcollections/all-users-additional-collection.xml");
+    private static final File SYSTEM_CONFIG_DEFAULT = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
     private static final File SYSTEM_CONFIG_WITH_OBJ_COLLECTION = new File("./src/test/resources/objects/systemconfiguration/system-configuration-with-new-object-collection.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
-        return Arrays.asList(SYSTEM_CONFIGURATION_INITIAL_FILE, END_USER_ROLE_WITH_TASKS_VIEW_AUTH, END_USER, ALL_USERS_ADDITIONAL_COLLECTION);
+        return Arrays.asList(SYSTEM_CONFIG_DEFAULT, END_USER_ROLE_WITH_TASKS_VIEW_AUTH, END_USER, ALL_USERS_ADDITIONAL_COLLECTION);
     }
 
     //covers MID-9267
