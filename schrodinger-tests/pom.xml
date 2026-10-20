@@ -194,12 +194,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.evolveum.midpoint.repo</groupId>
-            <artifactId>repo-sql-impl</artifactId>
-            <version>${midpoint.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
