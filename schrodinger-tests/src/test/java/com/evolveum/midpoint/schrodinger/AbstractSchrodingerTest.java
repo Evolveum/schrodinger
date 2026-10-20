@@ -298,9 +298,17 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     public void afterClass() {
         LOG.info("Finished tests from class {}", getClass().getName());
 
-//        basicPage.loggedUser().logoutIfUserIsLogin();
-        clearBrowser();
-        Selenide.closeWebDriver(); //todo or closeWindow?
+        // The browser is kept open and reused by the next class; only its session is cleared.
+        // Storage access is denied on error pages, so we navigate to the base URL first.
+        // If clearing still fails, the driver is closed so that a broken browser never leaks
+        // into the following classes.
+        try {
+            Selenide.open(configuration.getBaseUrl());
+            clearBrowser();
+        } catch (Exception e) {
+            LOG.warn("Couldn't clear browser state ({}), closing web driver instead", e.toString());
+            Selenide.closeWebDriver();
+        }
 
         if (resetToDefaultAfterTests()) {
             resetToDefault();
