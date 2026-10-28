@@ -17,12 +17,9 @@ package com.evolveum.midpoint.schrodinger.page.login;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-
 import com.evolveum.midpoint.schrodinger.MidPoint;
-import com.evolveum.midpoint.schrodinger.component.Component;
 import com.evolveum.midpoint.schrodinger.component.self.ChangePasswordPanel;
 import com.evolveum.midpoint.schrodinger.util.Schrodinger;
-import org.checkerframework.checker.units.qual.C;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
@@ -33,7 +30,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ForgetPasswordSecurityQuestionsPage {
 
 
-    public MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage> getPasswordQuestionsPanel(){
+    public MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage> getPasswordQuestionsPanel() {
         SelenideElement element = $(Schrodinger.byDataId("questionAnswer"))
                 .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
         return new MyPasswordQuestionsPanel<ForgetPasswordSecurityQuestionsPage>(this, element);
