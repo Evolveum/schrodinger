@@ -19,8 +19,8 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class TablePagingTest extends AbstractSchrodingerTest {
 
-    private static final File SYS_CONFIG_VIEWS_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-views-paging-settings.xml");
-    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
+    private static final File SYS_CONFIG_VIEWS_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/delta/sys-config-views-paging-settings.xml");
+    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/delta/sys-config-default-paging-settings.xml");
     private static final File ARCHETYPE_PERSON = new File("./src/test/resources/features/paging/archetype/archetype-person-object-details-paging-config.xml");
     private static final File USER_ENDUSER_1 = new File("./src/test/resources/features/paging/user/enduser1-user.xml");
     private static final File USER_PERSON_1 = new File("./src/test/resources/features/paging/user/person1-user.xml");
@@ -38,7 +38,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        importObject(SYS_CONFIG_VIEWS_SETTINGS, true);
+        applySystemConfiguration(SYS_CONFIG_VIEWS_SETTINGS);
     }
 
     /**
@@ -183,7 +183,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0080defaultSettingsMergingTest() {
-        addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+        applySystemConfiguration(SYS_CONFIG_DEFAULT_SETTINGS);
         addObjectFromFile(ROLE_END_USER_DEFAULT_PAGING_SETTINGS);
 
         basicPage.loggedUser().logoutIfUserIsLogin();
@@ -222,7 +222,7 @@ public class TablePagingTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0090defaultSettingsMergingTest() {
-        addObjectFromFile(SYS_CONFIG_DEFAULT_SETTINGS);
+        applySystemConfiguration(SYS_CONFIG_DEFAULT_SETTINGS);
         addObjectFromFile(ROLE_END_USER_MAX_SIZE_2000);
 
         basicPage.loggedUser().logoutIfUserIsLogin();

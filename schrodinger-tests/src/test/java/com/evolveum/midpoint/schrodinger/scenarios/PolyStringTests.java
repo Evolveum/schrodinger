@@ -40,7 +40,7 @@ public class PolyStringTests extends AbstractSchrodingerTest {
     private static final String SEARCH_USER_WITH_DIACRITIC_DEPENDENCY = "test0020searchForUserWithDiacritic";
 
     @Override
-    protected List<File> getObjectListToImport(){
+    protected List<File> getSystemConfigurationDeltas() {
         return List.of(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
     }
 

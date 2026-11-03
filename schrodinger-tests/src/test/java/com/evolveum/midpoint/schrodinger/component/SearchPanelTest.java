@@ -52,8 +52,8 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final String COMPONENT_ORGS_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "orgs/";
     private static final String COMPONENT_SYSTEM_CONFIG_DIRECTORY = COMPONENT_OBJECTS_DIRECTORY + "systemconfiguration/";
 
-    private static final File SEARCH_CONFIG_SYSTEM_CONFIG_FILE = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-search-configuration.xml");
-    private static final File SEARCH_CONFIG_WITHOUT_DEFAULT_ITEM_SYSTEM_CONFIG_FILE = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-search-without-def-search-items.xml");
+    private static final File SEARCH_CONFIG_SYSTEM_CONFIG_FILE = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-search-configuration.xml");
+    private static final File SEARCH_CONFIG_WITHOUT_DEFAULT_ITEM_SYSTEM_CONFIG_FILE = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-search-without-def-search-items.xml");
     private static final File SEARCH_BY_NAME_USER_FILE = new File(COMPONENT_USERS_DIRECTORY + "searchByNameUser.xml");
     private static final File SEARCH_BY_GIVEN_NAME_USER_FILE = new File(COMPONENT_USERS_DIRECTORY + "searchByGivenNameUser.xml");
     private static final File SEARCH_BY_FAMILY_NAME_USER_FILE = new File(COMPONENT_USERS_DIRECTORY + "searchByFamilyNameUser.xml");
@@ -69,15 +69,15 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_TYPE_ORG_FILE = new File(COMPONENT_ORGS_DIRECTORY + "org-membership-search-by-type.xml");
     private static final File ORG_MEMBER_SEARCH_ROOT_ORG_FILE = new File(COMPONENT_ORGS_DIRECTORY + "org-root-member-search.xml");
     private static final File SEARCH_BY_ROLE_MEMBERSHIP_RELATIONS_ROLE_FILE = new File(COMPONENT_ROLES_DIRECTORY + "role-membership-search-by-relation.xml");
-    private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-configured-user-search.xml");
-    private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-with-cost-center-object-collection.xml");
-    private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-allow-to-configure-search-items.xml");
-    private static final File SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-supported-object-types-on-members-panel.xml");
-    private static final File SYSTEM_CONFIG_SAVED_AXIOM_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-saved-axiom-filter.xml");
-    private static final File SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-search-box-expression-filter.xml");
-    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-view.xml");
-    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-order-view.xml");
-    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_MAX_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "system-configuration-system-users-max-order-view.xml");
+    private static final File SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-with-configured-user-search.xml");
+    private static final File SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-with-cost-center-object-collection.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-allow-to-configure-search-items.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-supported-object-types-on-members-panel.xml");
+    private static final File SYSTEM_CONFIG_SAVED_AXIOM_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-saved-axiom-filter.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-search-box-expression-filter.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-system-users-view.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-system-users-order-view.xml");
+    private static final File SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_MAX_ORDER_VIEW = new File(COMPONENT_SYSTEM_CONFIG_DIRECTORY + "delta/system-configuration-system-users-max-order-view.xml");
     private static final File USER_WITH_EMPLOYEE_NUMBER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-employee-number.xml");
     private static final File USER_WITH_EMAIL_ADDRESS_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-email-address.xml");
     private static final File USER_WITH_COST_CENTER_FILE = new File(COMPONENT_USERS_DIRECTORY + "user-with-cost-center.xml");
@@ -271,7 +271,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0100configuredAttributesSearch() {
-        addObjectFromFile(SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH);
+        applySystemConfiguration(SYSTEM_CONFIG_WITH_CONFIGURED_USER_SEARCH);
         basicPage.loggedUser().logout();
         midPoint.formLogin()
                 .loginWithReloadLoginPage(getUsername(), getPassword());
@@ -311,7 +311,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                         .table()
                             .assertTableDoesntContainText("orgMembershipByTypeSearch");
 
-        addObjectFromFile(SEARCH_CONFIG_SYSTEM_CONFIG_FILE);
+        applySystemConfiguration(SEARCH_CONFIG_SYSTEM_CONFIG_FILE);
         basicPage.loggedUser().logout();
         basicPage = midPoint.formLogin().login(getUsername(), getPassword());
 
@@ -335,7 +335,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test013OrgMemberPanelConfigurationWithoutDefaultSearchItems() {
-        addObjectFromFile(SEARCH_CONFIG_WITHOUT_DEFAULT_ITEM_SYSTEM_CONFIG_FILE);
+        applySystemConfiguration(SEARCH_CONFIG_WITHOUT_DEFAULT_ITEM_SYSTEM_CONFIG_FILE);
         basicPage.loggedUser().logout();
         basicPage = midPoint.formLogin().login(getUsername(), getPassword());
 
@@ -392,7 +392,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     public void test0160objectCollectionFilterSearch() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
         importObject(OBJECT_COLLECTION_COST_CENTER_FILE, true);
-        importObject(SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION, true);
+        applySystemConfiguration(SYSTEM_CONFIG_WITH_COST_CENTER_OBJECT_COLLECTION);
         basicPage.loggedUser().logoutIfUserIsLogin();
 
         FormLoginPage login = midPoint.formLogin();
@@ -440,7 +440,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0180allowToConfigureSearchItems() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SEARCH_BOX_ALLOW_TO_CONFIGURE_SEARCH_ITEMS);
         reloginAsAdministrator();
         basicPage
                 .listUsers()
@@ -546,7 +546,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0196savedAxiomFilter() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SAVED_AXIOM_FILTER, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SAVED_AXIOM_FILTER);
         reloginAsAdministrator();
         String predefinedFilerName = "filter";
         String newFilterName = "Filter admins";
@@ -600,7 +600,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0250defaultObjectTypeValueTestOnMembersPanel() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SEARCH_BOX_SUPPORTED_OBJECT_TYPES_ON_MEMBERS_PANEL);
         reloginAsAdministrator();
         basicPage
                 .listOrgs()
@@ -632,7 +632,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0260expressionFilterTest() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SEARCH_BOX_EXPRESSION_FILTER);
         reloginAsAdministrator();
         basicPage
                 .listUsers()
@@ -656,7 +656,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0310objectCollectionViewOnlyCustomItemsIfSpecifiedPreserveOrderTest() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_VIEW);
         reloginAsAdministrator();
         final String savedFilterName = "saveTestFilter";
         // default searchItems only
@@ -748,7 +748,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0320objectCollectionViewOnlyCustomItemsDisplayOrderDefinedTest() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_ORDER_VIEW);
         reloginAsAdministrator();
         // custom searchItems only, displayOrder defined in .xml
         basicPage
@@ -769,7 +769,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
     @Test
     public void test0330objectCollectionViewOnlyCustomItemsDisplayOrderMaxValueTest() {
         midPoint.formLogin().loginIfUserIsNotLog(username, password);
-        importObject(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_MAX_ORDER_VIEW, true);
+        applySystemConfiguration(SYSTEM_CONFIG_SEARCH_BOX_SYSTEM_USERS_MAX_ORDER_VIEW);
         reloginAsAdministrator();
         // custom searchItems only, displayOrder defined in .xml
         basicPage

@@ -42,14 +42,14 @@ import java.util.List;
  */
 public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
 
-    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
+    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/delta/sys-config-default-paging-settings.xml");
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        importObject(SYS_CONFIG_DEFAULT_SETTINGS, true);
+        applySystemConfiguration(SYS_CONFIG_DEFAULT_SETTINGS);
         reloginAsAdministrator();
     }
 
@@ -324,7 +324,7 @@ public class ObjectCollectionViewTest extends AbstractSchrodingerTest {
     public void test00400fullTextSearchOnRolesListPage() {
         tab(FIRST_TAB_ID)
                 .activate();
-        importObject(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_FULLTEXT_FILE);
         basicPage.aboutPage().reindexRepositoryObjects();
         reloginAsAdministrator();
 

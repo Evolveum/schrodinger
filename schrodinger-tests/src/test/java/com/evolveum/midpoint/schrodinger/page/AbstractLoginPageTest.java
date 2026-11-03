@@ -47,7 +47,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
 
     protected static final File MAIL_NONCE_VALUE_POLICY = new File("src/test/resources/objects/valuepolicies/mail-nonce.xml");
     protected static final File USER_WITHOUT_SUPERUSER = new File("src/test/resources/objects/users/user-without-superuser.xml");
-    protected static final File SYSTEM_CONFIG_WITH_NOTIFICATION = new File("src/test/resources/objects/systemconfiguration/system-configuration-notification.xml");
+    protected static final File SYSTEM_CONFIG_WITH_NOTIFICATION = new File("src/test/resources/objects/systemconfiguration/delta/system-configuration-notification.xml");
     protected static final File CREATE_NAME_OBJECT_TEMPLATE = new File("src/test/resources/objects/objecttemplate/create-name-after-self-reg.xml");
     protected static final File ARCHETYPE_NODE_GUI = new File("src/test/resources/objects/archetypes/archetype-node-group-gui.xml");
 
@@ -86,8 +86,8 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         if (!notificationFile.exists()) {
             notificationFile.createNewFile();
         }
-        importObject(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
-                notificationFile.getAbsolutePath(), fetchTestHomeDir()), true);
+        applySystemConfiguration(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
+                notificationFile.getAbsolutePath(), fetchTestHomeDir()));
 //        basicPage.infrastructure();
         SystemPage systemPage = new SystemPage();
         PrismForm<InfrastructurePanel> infrastructureForm = basicPage.infrastructure().form();

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
+<apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectDetails/c:objectDetailsPage</t:path>
+        <t:value xsi:type="c:GuiObjectDetailsPageType">
+            <type>c:OrgType</type>
+            <panel>
+                <identifier>orgMembers</identifier>
+                <listView>
+                    <searchBoxConfiguration>
+                        <scopeConfiguration>
+                            <display>
+                                <label>Scope2</label>
+                                <help>Help scope</help>
+                            </display>
+                            <defaultValue>subtree</defaultValue>
+                        </scopeConfiguration>
+                        <objectTypeConfiguration>
+                            <display>
+                                <label>Type2</label>
+                                <help>Type help</help>
+                            </display>
+                            <defaultValue>OrgType</defaultValue>
+                            <supportedTypes>OrgType</supportedTypes>
+                            <supportedTypes>UserType</supportedTypes>
+                            <supportedTypes>ServiceType</supportedTypes>
+                        </objectTypeConfiguration>
+                        <relationConfiguration>
+                            <display>
+                                <label>Relation2</label>
+                                <help>Help relation</help>
+                            </display>
+                            <defaultValue>default</defaultValue>
+                            <supportedRelations>default</supportedRelations>
+                            <supportedRelations>manager</supportedRelations>
+                        </relationConfiguration>
+                        <indirectConfiguration>
+                            <display>
+                                <label>Indirect2</label>
+                                <help>Indirect help</help>
+                            </display>
+                            <indirect>true</indirect>
+                        </indirectConfiguration>
+                    </searchBoxConfiguration>
+                </listView>
+            </panel>
+        </t:value>
+    </apti:itemDelta>
+</apti:objectModification>

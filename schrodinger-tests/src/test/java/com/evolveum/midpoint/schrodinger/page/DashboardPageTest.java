@@ -7,6 +7,7 @@
 package com.evolveum.midpoint.schrodinger.page;
 
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -22,8 +23,8 @@ public class DashboardPageTest extends AbstractSchrodingerTest {
             "src/test/resources/objects/objectcollections/object-collection-shadow-count-notfound.xml");
     private static final File DASHBOARD_FILE = new File(
             "src/test/resources/objects/dashboards/shadow-count-dashboard.xml");
-    private static final File SYSTEM_CONFIGURATION_FILE = new File(
-            "src/test/resources/objects/systemconfiguration/system-configuration-shadow-count-dashboard.xml");
+    private static final File SYSTEM_CONFIGURATION_DELTA_FILE = new File(
+            "src/test/resources/objects/systemconfiguration/delta/system-configuration-shadow-count-dashboard.xml");
     private static final File CSV_SOURCE_FILE = new File(
             "src/test/resources/sources/midpoint-username.csv");
 
@@ -34,7 +35,12 @@ public class DashboardPageTest extends AbstractSchrodingerTest {
 
     @Override
     protected List<File> getObjectListToImport() {
-        return List.of(OBJECT_COLLECTION_FILE, SYSTEM_CONFIGURATION_FILE);
+        return List.of(OBJECT_COLLECTION_FILE);
+    }
+
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_DELTA_FILE);
     }
 
     @BeforeClass(alwaysRun = true, dependsOnMethods = {"springTestContextPrepareTestInstance"})
@@ -64,5 +70,12 @@ public class DashboardPageTest extends AbstractSchrodingerTest {
         dashboardPage
                 .assertWidgetValueNotEquals(WIDGET_LABEL, "UNKNOWN")
                 .assertWidgetValueEquals(WIDGET_LABEL, "4");
+    }
+
+    @AfterClass
+    @Override
+    public void afterClass() {
+        resetSystemConfiguration();
+        super.afterClass();
     }
 }

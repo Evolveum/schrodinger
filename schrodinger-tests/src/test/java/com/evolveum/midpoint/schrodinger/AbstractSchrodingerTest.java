@@ -28,6 +28,7 @@ import com.evolveum.midpoint.client.impl.prism.RestPrismServiceBuilder;
 import com.evolveum.midpoint.prism.PrismContext;
 import com.evolveum.midpoint.prism.PrismObject;
 import com.evolveum.midpoint.prism.util.PrismContextFactory;
+import com.evolveum.midpoint.schema.DeltaConvertor;
 import com.evolveum.midpoint.schema.MidPointPrismContextFactory;
 import com.evolveum.midpoint.schrodinger.component.PanelWithContainerWrapper;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
@@ -56,6 +57,7 @@ import com.evolveum.midpoint.schrodinger.util.ImportOptions;
 import com.evolveum.midpoint.schrodinger.util.Utils;
 import com.evolveum.midpoint.util.exception.SchemaException;
 import com.evolveum.midpoint.web.boot.MidPointSpringApplication;
+import com.evolveum.midpoint.xml.ns._public.common.api_types_3.ObjectModificationType;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -102,7 +104,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
             new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
-    protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-fulltext.xml");
+    protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-fulltext.xml");
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
 
@@ -149,6 +151,14 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected PrismContext prismContext;
 
     protected List<File> getObjectListToImport() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * System configuration deltas applied (see {@link #applySystemConfiguration(File...)}) in beforeClass,
+     * after the objects from {@link #getObjectListToImport()} are imported.
+     */
+    protected List<File> getSystemConfigurationDeltas() {
         return new ArrayList<>();
     }
 
@@ -273,6 +283,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             resetToDefaultAndRelogin();
         }
         getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, createImportOptionList()));
+        List<File> systemConfigurationDeltas = getSystemConfigurationDeltas();
+        if (!systemConfigurationDeltas.isEmpty()) {
+            applySystemConfiguration(systemConfigurationDeltas.toArray(new File[0]));
+        }
 
     }
 
@@ -598,6 +612,37 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
         } catch (CommonException | SchemaException | IOException ex) {
             LOG.error("Unable to add object, {}", ex);
         }
+    }
+
+    /**
+     * Imports the initial system configuration with the given modifications applied (via REST, overwriting
+     * the existing one). Each delta file is an {@code objectModification} (api-types-3) holding only what
+     * the test needs on top of the initial system configuration, so the test doesn't keep its own outdated
+     * copy of the whole object.
+     */
+    protected void applySystemConfiguration(File... deltaFiles) {
+        try {
+            PrismObject<SystemConfigurationType> systemConfiguration =
+                    prismContext.parserFor(SYSTEM_CONFIGURATION_INITIAL_FILE).parse();
+            for (File deltaFile : deltaFiles) {
+                ObjectModificationType modification =
+                        prismContext.parserFor(deltaFile).parseRealValue(ObjectModificationType.class);
+                DeltaConvertor.createObjectDelta(modification, SystemConfigurationType.class)
+                        .applyTo(systemConfiguration);
+            }
+            List<PrismObject<?>> objects = List.of(systemConfiguration);
+            addObjects(objects, new ImportOptions(true, true).createOptionList());
+        } catch (CommonException | SchemaException | IOException ex) {
+            throw new IllegalStateException(
+                    "Unable to apply system configuration deltas " + Arrays.toString(deltaFiles), ex);
+        }
+    }
+
+    /**
+     * Imports the initial system configuration (via REST, overwriting the existing one).
+     */
+    protected void resetSystemConfiguration() {
+        applySystemConfiguration();
     }
 
     public RestPrismService createRestPrismService() throws IOException, CommonException{

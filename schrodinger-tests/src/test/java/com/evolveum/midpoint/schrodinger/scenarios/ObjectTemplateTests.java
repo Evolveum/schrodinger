@@ -35,10 +35,9 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
     private static final String COMPONENT_SYSTEM_CONFIGURATION = COMPONENT_OBJECTS_DIRECTORY + "systemconfiguration/";
     private static final String COMPONENT_ARCHETYPE = COMPONENT_OBJECTS_DIRECTORY + "archetypes/";
     private static final File FULL_NAME_OBJECT_TEMPLATE_FILE = new File(COMPONENT_OBJECT_TEMPLATE + "object-template-full-name.xml");
-    private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-object-template.xml");
-    private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-object-template-1.xml");
-    private static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-initial.xml");
-    private static final File SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE = new File(COMPONENT_SYSTEM_CONFIGURATION + "system-configuration-with-employee-archetype.xml");
+    private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "delta/system-configuration-with-object-template.xml");
+    private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "delta/system-configuration-with-object-template-1.xml");
+    private static final File SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE = new File(COMPONENT_SYSTEM_CONFIGURATION + "delta/system-configuration-with-employee-archetype.xml");
     private static final File EMPLOYEE_ARCHETYPE_FILE = new File(COMPONENT_ARCHETYPE + "archetype-employee.xml");
 
     @Test
@@ -61,7 +60,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                         .assertTableColumnValueIsEmpty("UserType.fullName");
 
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage.loggedUser().logout();
@@ -93,7 +92,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                     .table()
                         .deleteObject("Object template", "Full name template");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE);
+        resetSystemConfiguration();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         Map<String, String> attributesMap = new HashMap<>();
@@ -110,7 +109,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
     @Test (dependsOnMethods = {"test00200deleteObjectTemplateCreateUser"})
     public void test00300createArchetypeObjectTemplateExists() {
         addObjectFromFile(EMPLOYEE_ARCHETYPE_FILE);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage.loggedUser().logout();
@@ -145,7 +144,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
         table.clickByName("employeeTestUser")
                 .selectBasicPanel();
         addObjectFromFile(FULL_NAME_OBJECT_TEMPLATE_FILE);
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE);
         Selenide.sleep(MidPoint.TIMEOUT_SHORT_4_S.getSeconds());
 
         basicPage
@@ -181,7 +180,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                 .table()
                 .deleteObject("Object template", "Full name template");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.getSeconds());
 
         basicPage
@@ -202,7 +201,7 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
                     .form()
                     .assertPropertyInputValue("Full name", "");
 
-        addObjectFromFile(SYSTEM_CONFIGURATION_INITIAL_FILE);
+        resetSystemConfiguration();
     }
 
 }
