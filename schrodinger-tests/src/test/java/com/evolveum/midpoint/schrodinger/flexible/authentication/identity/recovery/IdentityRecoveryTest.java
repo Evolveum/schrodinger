@@ -50,7 +50,7 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
     private static final File SECURITY_POLICY_PARENT = new File(SECURITY_POLICY_PATH + "/security-policy-parent.xml");
     private static final File SECURITY_POLICY_STUDENT = new File(SECURITY_POLICY_PATH + "/security-policy-student.xml");
     private static final File SECURITY_POLICY_TEACHER = new File(SECURITY_POLICY_PATH + "/security-policy-teacher.xml");
-    private static final File INITIAL_SYSTEM_CONFIGURATION_UPDATED = new File(SYSTEM_CONFIGURATION_PATH + "/initial-system-configuration-updated.xml");
+    private static final File INITIAL_SYSTEM_CONFIGURATION_UPDATED = new File(SYSTEM_CONFIGURATION_PATH + "/delta/initial-system-configuration-updated.xml");
 
     private static final File USER_APPLICANT_CALEB_JAMES = new File(USER_PATH + "/user-applicant-caleb-james.xml");
     private static final File USER_APPLICANT_CALEB_JAMES_DUPLICATE = new File(USER_PATH + "/user-applicant-caleb-james-duplicate.xml");
@@ -78,11 +78,15 @@ public class IdentityRecoveryTest extends AbstractSchrodingerTest {
         return Arrays.asList(DEFAULT_OBJECT_TEMPLATE, OBJECT_TEMPLATE_APPLICANT, OBJECT_TEMPLATE_PARENT,
                 OBJECT_TEMPLATE_STUDENT, OBJECT_TEMPLATE_TEACHER, SECURITY_POLICY_DEFAULT, SECURITY_POLICY_APPLICANT,
                 SECURITY_POLICY_PARENT, SECURITY_POLICY_STUDENT, SECURITY_POLICY_TEACHER, ARCHETYPE_APPLICANT,
-                ARCHETYPE_PARENT, ARCHETYPE_STUDENT, ARCHETYPE_TEACHER,
-                INITIAL_SYSTEM_CONFIGURATION_UPDATED, USER_APPLICANT_CALEB_JAMES,
+                ARCHETYPE_PARENT, ARCHETYPE_STUDENT, ARCHETYPE_TEACHER, USER_APPLICANT_CALEB_JAMES,
                 USER_APPLICANT_CALEB_JAMES_DUPLICATE, USER_NO_ARCHETYPE_CALEB_JAMES_1, USER_NO_ARCHETYPE_CALEB_JAMES_2,
                 USER_NO_ARCHETYPE_CALEB_JAMES_3, USER_STUDENT_CALEB_JAMES_ECONOMY, USER_STUDENT_CALEB_JAMES_IT_VIENNA,
                 USER_STUDENT_CALEB_JAMES_IT_SALZBURG, USER_STUDENT_CALEB_JAMES_IT_GRAZ, USER_TEACHER_BLAKE_ADAMS);
+    }
+
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(INITIAL_SYSTEM_CONFIGURATION_UPDATED);
     }
 
     @BeforeMethod

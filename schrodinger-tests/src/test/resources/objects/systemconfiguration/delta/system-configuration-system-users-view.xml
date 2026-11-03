@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
+<apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <!-- Replace (not add): the test checks that the order of search items without displayOrder is preserved,
+         so "Name" must be between the two search items of the initial person-view (id 80). -->
+    <apti:itemDelta>
+        <t:modificationType>replace</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectCollectionViews/c:objectCollectionView[80]/c:searchBoxConfiguration/c:searchItems/c:searchItem</t:path>
+        <t:value xsi:type="c:SearchItemType">
+            <description>Allow searching for users having account on specific resource. Intent is not considered. The search item is not displayed by default
+                (visibleByDefault=false).
+            </description>
+            <visibleByDefault>true</visibleByDefault>
+            <filter>
+                <q:text>
+                    linkRef/@ matches (
+                    . type ShadowType
+                    and resourceRef/@/name = `resourceParameter?.getName()?.getOrig()`
+                    and kind = "account" )
+                </q:text>
+            </filter>
+            <display>
+                <label>
+                    <orig>Users with account</orig>
+                    <translation>
+                        <key>searchItem.usersWithAccount.label</key>
+                    </translation>
+                </label>
+            </display>
+            <parameter>
+                <name>resourceParameter</name>
+                <type>c:ObjectReferenceType</type>
+                <targetType>ResourceType</targetType>
+            </parameter>
+        </t:value>
+        <t:value xsi:type="c:SearchItemType">
+            <path>name</path>
+            <display>
+                <label>Name</label>
+            </display>
+            <visibleByDefault>true</visibleByDefault>
+        </t:value>
+        <t:value xsi:type="c:SearchItemType">
+            <description>Allow searching for users not having account on specific resource. Intent is not considered. The search item is not displayed by default
+                (visibleByDefault=false).
+            </description>
+            <visibleByDefault>true</visibleByDefault>
+            <filter>
+                <q:text>
+                    linkRef/@ not matches (
+                    . type ShadowType
+                    and resourceRef/@/name = `resourceParameter?.getName()?.getOrig()`
+                    and kind = "account" )
+                </q:text>
+            </filter>
+            <display>
+                <label>
+                    <orig>Users without account</orig>
+                    <translation>
+                        <key>searchItem.usersWithoutAccount.label</key>
+                    </translation>
+                </label>
+            </display>
+            <parameter>
+                <name>resourceParameter</name>
+                <type>c:ObjectReferenceType</type>
+                <targetType>ResourceType</targetType>
+            </parameter>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectCollectionViews/c:objectCollectionView</t:path>
+        <t:value xsi:type="c:GuiObjectListViewType">
+            <identifier>system-users-view</identifier>
+            <display>
+                <label>System Users</label>
+            </display>
+            <searchBoxConfiguration>
+                <searchItems>
+                    <searchItem>
+                        <path>givenName</path>
+                        <display>
+                            <label>Given Name</label>
+                        </display>
+                        <visibleByDefault>true</visibleByDefault>
+                    </searchItem>
+                    <searchItem>
+                        <path>familyName</path>
+                        <display>
+                            <label>Family Name</label>
+                        </display>
+                        <visibleByDefault>true</visibleByDefault>
+                    </searchItem>
+                    <searchItem>
+                        <path>emailAddress</path>
+                        <display>
+                            <label>Email Address</label>
+                        </display>
+                        <visibleByDefault>true</visibleByDefault>
+                    </searchItem>
+                </searchItems>
+            </searchBoxConfiguration>
+            <type>UserType</type>
+            <collection>
+                <collectionRef oid="00000000-0000-0000-0000-000000000300" relation="org:default" type="c:ArchetypeType"/>
+            </collection>
+        </t:value>
+    </apti:itemDelta>
+</apti:objectModification>

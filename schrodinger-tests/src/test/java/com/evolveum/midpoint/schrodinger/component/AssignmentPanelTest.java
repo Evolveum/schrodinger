@@ -28,7 +28,7 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
     private static final File ASSIGNMENTS_COUNT_TEST_USER = new File("./src/test/resources/objects/assignment/assignments-count-test.xml");
     private static final File ARCHETYPE_APPLICATION = new File("./src/test/resources/objects/archetypes/archetype-application.xml");
     private static final File ARCHETYPE_LICENSE = new File("./src/test/resources/objects/archetypes/archetype-licence.xml");
-    private static final File SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW = new File("./src/test/resources/objects/systemconfiguration/system-configuration-with-license-obj-col-view.xml");
+    private static final File SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-with-license-obj-col-view.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -70,7 +70,7 @@ public class AssignmentPanelTest extends AbstractSchrodingerTest {
     //covers #11914
     @Test
     public void test0020assignmentWithHolderArchetypeRef() {
-        importObject(SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW);
+        applySystemConfiguration(SYSTEM_CONFIG_WITH_LICENSE_OBJ_COL_VIEW);
         reloginAsAdministrator();
 
         basicPage

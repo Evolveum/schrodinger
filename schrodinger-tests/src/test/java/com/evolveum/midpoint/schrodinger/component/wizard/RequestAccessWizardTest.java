@@ -35,13 +35,13 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File ROLES_WITH_CONFLICT_AND_PRUNE_ACTION = new File("./src/test/resources/objects/roles/conflicting-roles-and-prune-action.xml");
     private static final File USER_SOD_PRUNE_TEST = new File("./src/test/resources/objects/users/user-sod-prune-test.xml");
     private static final File ROLES_CONFLICT = new File("./src/test/resources/objects/roles/request-access-wizard-conflict-roles.xml");
-    private static final File SYSTEM_CONFIGURATION_MANDATORY_VALIDITY = new File("./src/test/resources/objects/systemconfiguration/sys-config-request-access-mandatory-validity.xml");
+    private static final File SYSTEM_CONFIGURATION_MANDATORY_VALIDITY = new File("./src/test/resources/objects/systemconfiguration/delta/sys-config-request-access-mandatory-validity.xml");
     private static final File COLLECTION_ORGANIZATIONS = new File("./src/test/resources/objects/objectcollections/all-organizations-custom.xml");
     private static final File COLLECTION_ROLES = new File("./src/test/resources/objects/objectcollections/all-roles-custom.xml");
     private static final File COLLECTION_SERVICES = new File("./src/test/resources/objects/objectcollections/all-services-custom.xml");
-    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-customized.xml");
-    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-with-fulltext-search.xml");
-    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED = new File("./src/test/resources/objects/systemconfiguration/system-configuration-role-catalog-only-default-relation-allowed.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-role-catalog-customized.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-role-catalog-with-fulltext-search.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-role-catalog-only-default-relation-allowed.xml");
     private static final File OWNER_OF_ENDUSER_ROLE = new File("./src/test/resources/objects/users/owner-of-enduser-role.xml");
     private static final File ORG_MONKEY_ISLAND_SOURCE_FILE = new File("./src/test/resources/objects/orgs/org-monkey-island-simple.xml");
     private static final File REQUEST_ACCESS_ENDUSER = new File("./src/test/resources/objects/users/request-access-enduser.xml");
@@ -140,7 +140,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0050mandatoryValidityConfigurationTest() {
-        importObject(SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
         reloginAsAdministrator();
         basicPage
                 .requestAccess()
@@ -182,7 +182,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
         importObject(COLLECTION_ORGANIZATIONS);
         importObject(COLLECTION_ROLES);
         importObject(COLLECTION_SERVICES);
-        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG, true);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG);
         reloginAsAdministrator();
 
         RoleCatalogStepPanel panel =  basicPage
@@ -211,7 +211,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     void test0080fullTextSearchTest() {
         importObject(ORG_MONKEY_ISLAND_SOURCE_FILE, true);
         importObject(COLLECTION_ROLES, true);
-        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH, true);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH);
 
         basicPage.aboutPage().reindexRepositoryObjects();
         Selenide.sleep(30000);
@@ -271,7 +271,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     @Test
     void test0090requestSameAssignmentWithAnotherRelationTest() {
         importObject(OWNER_OF_ENDUSER_ROLE, true);
-        importObject(SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED, true);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED);
 
         reloginAsAdministrator();
 

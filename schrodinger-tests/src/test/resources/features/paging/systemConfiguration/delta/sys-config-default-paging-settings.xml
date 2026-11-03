@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
+<apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <apti:itemDelta>
+        <t:modificationType>replace</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectCollectionViews/c:defaultSettings</t:path>
+        <t:value xsi:type="c:DefaultGuiObjectListPanelConfigurationType">
+            <paging>
+                <q:maxSize>50</q:maxSize>
+            </paging>
+            <pagingOptions>
+                <availablePageSize>15</availablePageSize>
+                <availablePageSize>25</availablePageSize>
+                <availablePageSize>55</availablePageSize>
+                <availablePageSize>105</availablePageSize>
+                <availablePageSize>115</availablePageSize>
+            </pagingOptions>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>replace</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectDetails/c:defaultSettings</t:path>
+        <t:value xsi:type="c:DefaultGuiObjectListPanelConfigurationType">
+            <paging>
+                <q:maxSize>21</q:maxSize>
+            </paging>
+            <pagingOptions>
+                <availablePageSize>110</availablePageSize>
+                <availablePageSize>120</availablePageSize>
+                <availablePageSize>150</availablePageSize>
+            </pagingOptions>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:roleManagement</t:path>
+        <t:value xsi:type="c:RoleManagementConfigurationType">
+            <defaultAssignmentConstraints>
+                <allowSameTarget>true</allowSameTarget>
+                <allowSameRelation>false</allowSameRelation>
+            </defaultAssignmentConstraints>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:globalPolicyRule</t:path>
+        <t:value>
+            <policyConstraints>
+                <assignment/>
+            </policyConstraints>
+            <policyActions>
+                <approval>
+                    <approvalSchema>
+                        <stage>
+                            <approverRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+                            <automaticallyCompleted>
+                                <script>
+                                    <code>
+                                    import com.evolveum.midpoint.schema.constants.SchemaConstants
+
+                                    log.info('midpoint.getchannel ' + midpoint.getChannel());
+                                    if (midpoint.getChannel() == SchemaConstants.CHANNEL_REMEDIATION_URI)
+                                    return SchemaConstants.MODEL_APPROVAL_OUTCOME_SKIP;
+                                </code>
+                                </script>
+                            </automaticallyCompleted>
+                        </stage>
+                    </approvalSchema>
+                </approval>
+            </policyActions>
+            <focusSelector>
+                <type>UserType</type>
+            </focusSelector>
+        </t:value>
+        <t:value>
+            <name>exclusion-global-sod-approval</name>
+            <policyConstraints>
+                <situation>
+                    <situation>http://midpoint.evolveum.com/xml/ns/public/model/policy/situation#exclusionViolation</situation>
+                </situation>
+            </policyConstraints>
+            <policyActions>
+                <approval>
+                    <compositionStrategy>
+                        <order>30</order>
+                    </compositionStrategy>
+                    <approvalSchema>
+                        <stage>
+                            <name>SoD</name>
+                            <approverRef relation="org:default" type="c:UserType">
+                                <filter>
+                                    <q:text>roleMembershipRef/@ matches (name = 'Irregular')</q:text>
+                                </filter>
+                                <resolutionTime>run</resolutionTime>
+                            </approverRef>
+                            <evaluationStrategy>firstDecides</evaluationStrategy>
+                            <outcomeIfNoApprovers>reject</outcomeIfNoApprovers>
+                            <groupExpansion>onWorkItemCreation</groupExpansion>
+                        </stage>
+                    </approvalSchema>
+                </approval>
+            </policyActions>
+            <focusSelector>
+                <type>UserType</type>
+            </focusSelector>
+            <targetSelector>
+                <type>RoleType</type>
+            </targetSelector>
+        </t:value>
+    </apti:itemDelta>
+</apti:objectModification>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
+<apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectCollectionViews/c:objectCollectionView</t:path>
+        <t:value xsi:type="c:GuiObjectListViewType">
+            <identifier>filter-config-test-users</identifier>
+            <display>
+                <label>FilterTestUsers</label>
+                <singularLabel>Filter test user</singularLabel>
+                <pluralLabel>
+                    <t:orig>FilterTestUsers</t:orig>
+                    <t:norm>filtertestusers</t:norm>
+                    <t:translation>
+                        <t:key>FilterTestUsers</t:key>
+                    </t:translation>
+                </pluralLabel>
+            </display>
+            <type>UserType</type>
+            <collection>
+                <collectionRef oid="95987842-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:ObjectCollectionType"/>
+            </collection>
+        </t:value>
+        <t:value xsi:type="c:GuiObjectListViewType">
+            <identifier>filter-obj-ref-config-users</identifier>
+            <display>
+                <label>ObjRefAttributeConfigTest</label>
+                <singularLabel>ObjRefAttributeConfigTest</singularLabel>
+                <pluralLabel>
+                    <t:orig>ObjRefAttributeConfigTest</t:orig>
+                    <t:norm>objrefattributeconfigtest</t:norm>
+                    <t:translation>
+                        <t:key>ObjRefAttributeConfigTest</t:key>
+                    </t:translation>
+                </pluralLabel>
+            </display>
+            <type>UserType</type>
+            <collection>
+                <collectionRef oid="95987bb2-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:ObjectCollectionType"/>
+            </collection>
+        </t:value>
+        <t:value xsi:type="c:GuiObjectListViewType">
+            <identifier>filter-dropdown-config-users</identifier>
+            <display>
+                <label>DropdownPropertyConfigTest</label>
+                <singularLabel>DropdownPropertyConfigTest</singularLabel>
+                <pluralLabel>
+                    <t:orig>DropdownPropertyConfigTest</t:orig>
+                    <t:norm>dropdownpropertyconfigtest</t:norm>
+                    <t:translation>
+                        <t:key>DropdownPropertyConfigTest</t:key>
+                    </t:translation>
+                </pluralLabel>
+            </display>
+            <type>UserType</type>
+            <collection>
+                <collectionRef oid="959875ea-5b63-11ed-9b6a-0242ac120002" relation="org:default" type="c:ObjectCollectionType"/>
+            </collection>
+        </t:value>
+    </apti:itemDelta>
+</apti:objectModification>

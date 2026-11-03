@@ -35,7 +35,7 @@ public class ReportTests extends AbstractSchrodingerTest {
     public static final File AUDIT_REPORT_DATA = new File("./src/test/resources/objects/reportdata/audit-report-data.xml");
     public static final File EXPORT_TASK_FOR_AUDIT_RECORDS = new File("./src/test/resources/objects/tasks/export-task-for-audit-records.xml");
     public static final File REPORT_TIMESTAMP_UPDATE = new File("./src/test/resources/objects/reports/report-timestamp-update.xml");
-    private static final File SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW = new File("src/test/resources/objects/systemconfiguration/system-configuration-with-delta-column-in-audit-view.xml");
+    private static final File SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW = new File("src/test/resources/objects/systemconfiguration/delta/system-configuration-with-delta-column-in-audit-view.xml");
 
     @Override
     protected List<File> getObjectListToImport(){
@@ -365,7 +365,7 @@ public class ReportTests extends AbstractSchrodingerTest {
     @Test
     public void test00500testReportColumnsWhenCustomColumnIsDefined() {
         reloginAsAdministrator();
-        importObject(SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW, true);
+        applySystemConfiguration(SYSTEM_CONFIG_WITH_CUSTOM_COLUMN_FOR_AUDIT_VIEW);
         reloginAsAdministrator();
         basicPage
                 .auditLogViewer()

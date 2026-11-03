@@ -25,14 +25,14 @@ import java.util.List;
  */
 public class ObjectDetailsCollectionViewTest extends AbstractSchrodingerTest {
 
-    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/sys-config-default-paging-settings.xml");
+    private static final File SYS_CONFIG_DEFAULT_SETTINGS = new File("./src/test/resources/features/paging/systemConfiguration/delta/sys-config-default-paging-settings.xml");
     private static final File MULTIPLE_USERS = new File("src/test/resources/objects/users/jack-users.xml");
 
     @BeforeClass(dependsOnMethods = {"springTestContextPrepareTestInstance"})
     @Override
     public void beforeClass() throws IOException {
         super.beforeClass();
-        importObject(SYS_CONFIG_DEFAULT_SETTINGS);
+        applySystemConfiguration(SYS_CONFIG_DEFAULT_SETTINGS);
         reloginAsAdministrator();
     }
 

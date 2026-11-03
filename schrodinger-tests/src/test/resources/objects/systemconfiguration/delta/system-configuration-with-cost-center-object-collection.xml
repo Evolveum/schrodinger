@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
+<apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:adminGuiConfiguration/c:objectCollectionViews/c:objectCollectionView</t:path>
+        <t:value xsi:type="c:GuiObjectListViewType">
+            <identifier>test-users</identifier>
+            <display>
+                <label>Test users</label>
+            </display>
+            <type>UserType</type>
+            <collection>
+                <collectionRef oid="1c3bd39e-ed63-11ed-b1ac-0050568cc7f8" relation="org:default" type="c:ObjectCollectionType"/>
+            </collection>
+        </t:value>
+    </apti:itemDelta>
+</apti:objectModification>
