@@ -51,6 +51,7 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File DELEGATION_REQUIRES_VALID_TO_ROLE_FILE = new File("./src/test/resources/objects/roles/role-delegation-requires-valid-to.xml");
     private static final File DELEGATION_POLICY_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-from-user.xml");
     private static final File DELEGATION_POLICY_TO_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-to-user.xml");
+    private static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
 
     private static final String DELEGATION_POLICY_FROM_USER_NAME = "DelegationPolicyFromUser";
     private static final String DELEGATION_POLICY_TO_USER_NAME = "DelegationPolicyToUser";
@@ -287,6 +288,8 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0100delegationPolicyViolationMessageIsVisible() throws Exception {
         reloginAsAdministrator();
+        // previous tests set the object template with required emailAddress, the delegator has no email
+        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
         showUser(DELEGATION_POLICY_FROM_USER_NAME)
                 .selectDelegationsPanel()
                 .clickAddDelegation()
