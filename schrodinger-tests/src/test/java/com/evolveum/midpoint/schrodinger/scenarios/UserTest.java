@@ -234,7 +234,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0050checkRequiredFieldValidationErrorVisibility() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE, SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
 
         basicPage.newUser()
                 .clickSave()
@@ -253,7 +253,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0060checkRequiredFieldValidationErrorVisibilityAfterSecondFormSubmit() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE, SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
 
         UserPage page = basicPage.newUser();
         page
@@ -275,7 +275,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0070checkWrongEmailValidationError() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE, SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
 
         UserPage page = basicPage.newUser();
         page
@@ -304,7 +304,7 @@ public class UserTest extends AbstractSchrodingerTest {
                 "Second line\n" +
                 "Third line";
         reloginAsAdministrator();
-        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE);
+        applySystemConfiguration();
         basicPage.listUsers()
                 .table()
                 .search()

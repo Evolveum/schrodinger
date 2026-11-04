@@ -165,7 +165,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
     /**
      * System configuration deltas applied (see {@link #applySystemConfiguration(File...)}) in beforeClass,
-     * after the objects from {@link #getObjectListToImport()} are imported.
+     * after the objects from {@link #getObjectListToImport()} are imported. They are the baseline of the class:
+     * every later {@link #applySystemConfiguration(File...)} call applies them too.
      */
     protected List<File> getSystemConfigurationDeltas() {
         return new ArrayList<>();
@@ -292,9 +293,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             resetToDefaultAndRelogin();
         }
         getObjectListToImport().forEach(objFile -> addObjectFromFile(objFile, createImportOptionList()));
-        List<File> systemConfigurationDeltas = getSystemConfigurationDeltas();
-        if (!systemConfigurationDeltas.isEmpty()) {
-            applySystemConfiguration(systemConfigurationDeltas.toArray(new File[0]));
+        if (!getSystemConfigurationDeltas().isEmpty()) {
+            applySystemConfiguration();
         }
 
     }
@@ -628,8 +628,22 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
      * the existing one). Each delta file is an {@code objectModification} (api-types-3) holding only what
      * the test needs on top of the initial system configuration, so the test doesn't keep its own outdated
      * copy of the whole object.
+     * The class deltas ({@link #getSystemConfigurationDeltas()}) are always applied first, so calling this
+     * without arguments resets the system configuration to the state the class started with.
      */
     protected void applySystemConfiguration(File... deltaFiles) {
+        List<File> allDeltaFiles = new ArrayList<>(getSystemConfigurationDeltas());
+        allDeltaFiles.addAll(Arrays.asList(deltaFiles));
+        applyInitialSystemConfigurationWith(allDeltaFiles.toArray(new File[0]));
+    }
+
+    /**
+     * Imports the initial system configuration with exactly the given delta files applied, and nothing else.
+     * Unlike {@link #applySystemConfiguration(File...)}, the class deltas ({@link #getSystemConfigurationDeltas()})
+     * are not added automatically. Use it when a test needs to replace a class delta rather than add to it,
+     * e.g. when the test delta and the class delta change the same item.
+     */
+    protected void applyInitialSystemConfigurationWith(File... deltaFiles) {
         try {
             PrismObject<SystemConfigurationType> systemConfiguration =
                     prismContext.parserFor(SYSTEM_CONFIGURATION_INITIAL_FILE).parse();
@@ -648,10 +662,10 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     }
 
     /**
-     * Imports the initial system configuration (via REST, overwriting the existing one).
+     * Imports the initial system configuration (via REST, overwriting the existing one), without the class deltas.
      */
     protected void resetSystemConfiguration() {
-        applySystemConfiguration();
+        applyInitialSystemConfigurationWith();
     }
 
     public RestPrismService createRestPrismService() throws IOException, CommonException{

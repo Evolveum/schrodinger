@@ -125,7 +125,7 @@ public class PostAuthenticationTests extends AbstractSchrodingerTest {
         //todo midpoint opens the previous page before logout
         open("/self/dashboard");
 
-        applySystemConfiguration(SYSTEM_CONFIGURATION_POST_AUTH_ACTIVE_FILE);
+        applyInitialSystemConfigurationWith(SYSTEM_CONFIGURATION_POST_AUTH_ACTIVE_FILE);
 
         ListUsersPage usersPage = basicPage.listUsers();
         UserPage parent = usersPage
