@@ -79,6 +79,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,9 +103,16 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final String CSV_RESOURCE_ATTR_UNIQUE = "\"Unique ID\" column (required)";
 
     protected static final String SCHRODINGER_PROPERTIES = "./src/test/resources/configuration/schrodinger.properties";
-    protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE = new File("./src/test/resources/objects/systemconfiguration/000-system-configuration.xml");
+    protected static final String INITIAL_OBJECTS_DIRECTORY = "./target/initial-objects";
+    /**
+     * Initial objects are taken from the midPoint system-init module on the test classpath (the same midPoint
+     * version the tests are built against), so that restoring a default always uses what midPoint itself imports.
+     * Schrodinger must not keep its own copies of initial objects, they get outdated.
+     */
+    protected static final File SYSTEM_CONFIGURATION_INITIAL_FILE =
+            extractInitialObject("system-configuration/000-system-configuration.xml");
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
-            new File("src/test/resources/objects/securitypolicies/default-security-policy.xml");
+            extractInitialObject("security-policy/015-security-policy.xml");
     protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-fulltext.xml");
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
@@ -1036,6 +1045,25 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
 
         FormLoginPage login = midPoint.formLogin();
         basicPage = login.loginIfUserIsNotLog(username, password);
+    }
+
+    /**
+     * Copies an initial object (classpath resource under initial-objects/ in the system-init module)
+     * to {@link #INITIAL_OBJECTS_DIRECTORY}, because both import paths (REST client and GUI upload) need a file.
+     */
+    protected static File extractInitialObject(String relativePath) {
+        String resource = "initial-objects/" + relativePath;
+        try (InputStream is = AbstractSchrodingerTest.class.getClassLoader().getResourceAsStream(resource)) {
+            if (is == null) {
+                throw new IllegalStateException("Initial object " + resource + " not found on classpath");
+            }
+            File file = new File(INITIAL_OBJECTS_DIRECTORY, relativePath);
+            Files.createDirectories(file.getParentFile().toPath());
+            Files.copy(is, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return file;
+        } catch (IOException e) {
+            throw new IllegalStateException("Couldn't extract initial object " + resource, e);
+        }
     }
 
     protected void reimportDefaultSystemConfigurationAndRelogin() {
