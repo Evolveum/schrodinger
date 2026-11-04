@@ -23,7 +23,6 @@ import com.evolveum.midpoint.schrodinger.component.report.AuditRecordTable;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
 import com.evolveum.midpoint.schrodinger.page.report.AuditLogViewerPage;
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -31,7 +30,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -58,9 +56,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .setEmail("test.user@evolveum.com").submit();
         Selenide.sleep(MidPoint.TIMEOUT_MEDIUM_6_S.getSeconds());
         basicPage.feedback().isSuccess();
-        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
-        String linkTag = "link='";
-        String link = notification.substring(notification.indexOf(linkTag) + linkTag.length(), notification.lastIndexOf("'"));
+        String link = readLinkFromLastNotification();
         open(link);
         TimeUnit.SECONDS.sleep(6);
         new RegistrationConfirmationPage()
@@ -103,7 +99,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
         IdentificationPage identificationPage = new IdentificationPage();
         identificationPage.setNameAndConfirm("enabled_user");
         TimeUnit.SECONDS.sleep(6);
-        String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
+        String link = readLinkFromLastNotification();
         TimeUnit.SECONDS.sleep(4);
         open(link);
         TimeUnit.SECONDS.sleep(6);
@@ -137,7 +133,7 @@ public class LoginPageTest extends AbstractLoginPageTest {
                 .clickSendButton();
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
 
-        String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
+        String link = readLinkFromLastNotification();
         open(link);
         Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_MILLIS);
         String actualUrl = basicPage.getCurrentUrl();

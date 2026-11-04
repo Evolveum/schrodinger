@@ -13,7 +13,7 @@
         <itemSelectionExpression>
             <script>
                 <code>
-                    assignment?.targetRef?.oid == '00000000-0000-0000-0000-000000000004'
+                    assignment.targetRef.oid == '00000000-0000-0000-0000-000000000004'
                 </code>
             </script>
         </itemSelectionExpression>

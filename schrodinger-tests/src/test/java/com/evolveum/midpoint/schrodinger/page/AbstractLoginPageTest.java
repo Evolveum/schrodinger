@@ -78,8 +78,6 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         importObject(MAIL_NONCE_VALUE_POLICY, true);
         importObject(ARCHETYPE_NODE_GUI, true);
         importObject(END_USER_ROLE_UPDATED, true);
-        importObject(getSecurityPolicyMailNonceResetPass(), true);
-        //todo smth goes wrong after security policy import
         importObject(USER_WITHOUT_SUPERUSER, true);
         importObject(CREATE_NAME_OBJECT_TEMPLATE, true);
         notificationFile = new File(fetchTestHomeDir(), NOTIFICATIONS_FILE_NAME);
@@ -88,6 +86,7 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
         }
         applySystemConfiguration(Utils.changeAttributeIfPresent(SYSTEM_CONFIG_WITH_NOTIFICATION, "redirectToFile",
                 notificationFile.getAbsolutePath(), fetchTestHomeDir()));
+        importObject(getSecurityPolicyMailNonceResetPass(), true);
 //        basicPage.infrastructure();
         SystemPage systemPage = new SystemPage();
         PrismForm<InfrastructurePanel> infrastructureForm = basicPage.infrastructure().form();
@@ -188,6 +187,14 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
 
     protected void clearNotificationFile() throws FileNotFoundException {
         new PrintWriter(notificationFile.getAbsolutePath()).close();
+    }
+
+    /**
+     * Registration and password reset notifiers use their default body, which ends with the link.
+     */
+    protected String readLinkFromLastNotification() throws IOException {
+        String[] bodyTokens = Utils.readBodyOfLastNotification(notificationFile).trim().split("\\s+");
+        return bodyTokens[bodyTokens.length - 1];
     }
 
     protected void securityOfSelfRegistrationPasswords(Consumer<SelfRegistrationPage> process) throws IOException, InterruptedException {
