@@ -31,6 +31,8 @@
                     </presentation>
                     <expression>
                         <script>
+                            <!-- MEL cannot read the primary delta here, so it cannot check only the added assignments -->
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                             <code>
                                 import com.evolveum.midpoint.prism.path.ItemPath
                                 import com.evolveum.midpoint.schema.constants.SchemaConstants

@@ -747,19 +747,7 @@
             <c:filter>
                 <q:ref>
                     <q:path>roleMembershipRef</q:path>
-                    <expression>
-                        <script>
-                            <code><![CDATA[
-                                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
-                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType;
-
-                                ObjectReferenceType ort = new ObjectReferenceType();
-                                ort.setOid('00000000-0000-0000-0000-000000000008');
-                                ort.setType(RoleType.COMPLEX_TYPE);
-                                return ort;
-                                ]]></code>
-                        </script>
-                    </expression>
+                    <q:value oid="00000000-0000-0000-0000-000000000008" type="c:RoleType"/>
                 </q:ref>
             </c:filter>
         </object>
@@ -802,19 +790,7 @@
             <c:filter>
                 <q:ref>
                     <q:path>roleMembershipRef</q:path>
-                    <expression>
-                        <script>
-                            <code><![CDATA[
-                                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
-                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType;
-
-                                ObjectReferenceType ort = new ObjectReferenceType();
-                                ort.setOid('00000000-0000-0000-0000-000000000008');
-                                ort.setType(RoleType.COMPLEX_TYPE);
-                                return ort;
-                                ]]></code>
-                        </script>
-                    </expression>
+                    <q:value oid="00000000-0000-0000-0000-000000000008" type="c:RoleType"/>
                 </q:ref>
             </c:filter>
         </object>
@@ -864,6 +840,7 @@
                     <q:path>parentOrgRef</q:path>
                     <expression>
                         <script>
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                             <code><![CDATA[
                                 import com.evolveum.midpoint.xml.ns._public.common.common_3.OrgType
                                 import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType
@@ -904,7 +881,7 @@
         <object>
             <type>RoleType</type>
             <filter>
-                <q:text><![CDATA[. inOid ```
+                <q:text><![CDATA[. inOid groovy```
                 import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType
                 import com.evolveum.midpoint.schema.constants.SchemaConstants
 
@@ -1109,6 +1086,7 @@
         <feedbackMessagesHook>
             <operationResultHook>
                 <script>
+                    <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                     <code>
 						<![CDATA[
                         import com.evolveum.midpoint.util.LocalizableMessageBuilder

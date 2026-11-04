@@ -9,6 +9,25 @@
 <!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
 <apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <!-- The notification bodies use Groovy because MEL cannot create the registration and password reset links.
+         Groovy is denied by the default "configuration" profile of the system configuration,
+         so the permissive profile is used instead. -->
+    <apti:itemDelta>
+        <t:modificationType>delete</t:modificationType>
+        <t:path>c:defaultObjectPolicyConfiguration</t:path>
+        <t:value>
+            <type>SystemConfigurationType</type>
+            <expressionProfile>configuration</expressionProfile>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:defaultObjectPolicyConfiguration</t:path>
+        <t:value>
+            <type>SystemConfigurationType</type>
+            <expressionProfile>permissive</expressionProfile>
+        </t:value>
+    </apti:itemDelta>
     <apti:itemDelta>
         <t:modificationType>add</t:modificationType>
         <t:path>c:notificationConfiguration</t:path>
@@ -20,7 +39,23 @@
                             <code>requestee.emailAddress</code>
                         </script>
                     </recipientExpression>
-                    <!-- default body, ends with the confirmation link -->
+                    <bodyExpression>
+                        <script>
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
+                            <code>
+
+                            import com.evolveum.midpoint.notifications.api.events.ModelEvent
+                            modelEvent = (ModelEvent) event
+                            newUser = modelEvent.getFocusContext().getObjectNew();
+                            userType = newUser.asObjectable();
+
+                            link = midpoint.createRegistrationConfirmationLink(userType)
+                            bodyMessage = "username='" + newUser.asObjectable().getName() + "', link='" + link + "'"
+
+                            return bodyMessage;
+                        </code>
+                        </script>
+                    </bodyExpression>
                     <transport>mail</transport>
                     <confirmationMethod>link</confirmationMethod>
                 </userRegistrationNotifier>
@@ -30,7 +65,23 @@
                             <code>requestee.emailAddress</code>
                         </script>
                     </recipientExpression>
-                    <!-- default body, ends with the password reset link -->
+                    <bodyExpression>
+                        <script>
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
+                            <code>
+
+                            import com.evolveum.midpoint.notifications.api.events.ModelEvent
+                            modelEvent = (ModelEvent) event
+                            newUser = modelEvent.getFocusContext().getObjectNew();
+                            userType = newUser.asObjectable();
+
+                            link = midpoint.createPasswordResetLink(userType)
+                            bodyMessage = link
+
+                            return bodyMessage;
+                        </code>
+                        </script>
+                    </bodyExpression>
                     <transport>mail</transport>
                 </passwordResetNotifier>
             </handler>

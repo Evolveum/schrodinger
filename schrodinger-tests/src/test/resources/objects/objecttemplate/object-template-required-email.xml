@@ -9,6 +9,7 @@
             <server>
                 <expression>
                     <script>
+                        <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                         <code>
                             import com.evolveum.midpoint.util.*
                             import com.evolveum.midpoint.xml.ns._public.common.common_3.*
