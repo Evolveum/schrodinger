@@ -17,52 +17,20 @@
                 <userRegistrationNotifier>
                     <recipientExpression>
                         <script>
-                            <code>
-                            return requestee.getEmailAddress()
-                        </code>
+                            <code>requestee.emailAddress</code>
                         </script>
                     </recipientExpression>
-                    <bodyExpression>
-                        <script>
-                            <code>
-
-                            import com.evolveum.midpoint.notifications.api.events.ModelEvent
-                            modelEvent = (ModelEvent) event
-                            newUser = modelEvent.getFocusContext().getObjectNew();
-                            userType = newUser.asObjectable();
-
-                            link = midpoint.createRegistrationConfirmationLink(userType)
-                            bodyMessage = "username='" + newUser.asObjectable().getName() + "', link='" + link + "'"
-
-                            return bodyMessage;
-                        </code>
-                        </script>
-                    </bodyExpression>
+                    <!-- default body, ends with the confirmation link -->
                     <transport>mail</transport>
                     <confirmationMethod>link</confirmationMethod>
                 </userRegistrationNotifier>
                 <passwordResetNotifier>
                     <recipientExpression>
                         <script>
-                            <code>return requestee.getEmailAddress()</code>
+                            <code>requestee.emailAddress</code>
                         </script>
                     </recipientExpression>
-                    <bodyExpression>
-                        <script>
-                            <code>
-
-                            import com.evolveum.midpoint.notifications.api.events.ModelEvent
-                            modelEvent = (ModelEvent) event
-                            newUser = modelEvent.getFocusContext().getObjectNew();
-                            userType = newUser.asObjectable();
-
-                            link = midpoint.createPasswordResetLink(userType)
-                            bodyMessage = link
-
-                            return bodyMessage;
-                        </code>
-                        </script>
-                    </bodyExpression>
+                    <!-- default body, ends with the password reset link -->
                     <transport>mail</transport>
                 </passwordResetNotifier>
             </handler>

@@ -34,7 +34,7 @@ oid="10000000-9999-9999-0000-a000fe000001">
         <expression>
             <script>
                 <code>
-                basic.concatName(givenName, familyName)
+                format.concatName([givenName, familyName])
             </code>
             </script>
         </expression>

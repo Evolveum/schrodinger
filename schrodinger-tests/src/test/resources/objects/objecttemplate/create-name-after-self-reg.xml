@@ -37,7 +37,7 @@
         <expression>
             <script xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xsi:type="c:ScriptExpressionEvaluatorType">
                 <code>
-                    givenName.substring(0,1) + familyName
+                    substring(str(givenName), 0, 1) + str(familyName)
                 </code>
             </script>
         </expression>
@@ -46,7 +46,7 @@
         </target>
         <condition>
             <script xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xsi:type="c:ScriptExpressionEvaluatorType">
-                <code>name == null &amp;&amp; givenName != null &amp;&amp; familyName != null</code>
+                <code>isNil(name) &amp;&amp; isPresent(givenName) &amp;&amp; isPresent(familyName)</code>
             </script>
         </condition>
     </mapping>

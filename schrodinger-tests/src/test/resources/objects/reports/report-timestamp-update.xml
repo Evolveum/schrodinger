@@ -80,23 +80,7 @@
                         <expression>
                             <script>
                                 <code>
-                                    import javax.xml.datatype.DatatypeFactory
-                                    import javax.xml.datatype.XMLGregorianCalendar
-                                    import java.time.ZoneId
-                                    import java.time.ZonedDateTime
-                                    import java.time.format.DateTimeFormatter
-
-                                    if (basic.isEmpty(input)) {
-                                    return null
-                                    }
-
-                                    ZonedDateTime zonedDateTime = input.toGregorianCalendar().toZonedDateTime()
-                                    ZonedDateTime localTime = zonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
-
-                                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-                                    String formattedDate = localTime.format(formatter)
-
-                                    return formattedDate
+                                    isPresent(input) ? format.formatDateTime(input, 'yyyy-MM-dd HH:mm:ss.SSS') : nil
                                 </code>
                             </script>
                         </expression>
@@ -115,11 +99,7 @@
                         <expression>
                             <script>
                                 <code>
-                                    def out = input?.contains('#')
-                                    ? "...${input.substring(input.lastIndexOf('#'))}"
-                                    : null
-
-                                    return out
+                                    input.contains('#') ? '...' + input.substring(input.lastIndexOf('#')) : nil
                                 </code>
                             </script>
                         </expression>

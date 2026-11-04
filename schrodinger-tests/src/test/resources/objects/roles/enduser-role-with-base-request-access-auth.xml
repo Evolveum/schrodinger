@@ -42,7 +42,7 @@
                     <expression>
                         <script>
                             <code><![CDATA[
-                                subject?.personalNumber
+                                subject.personalNumber
                                 ]]></code>
                         </script>
                     </expression>

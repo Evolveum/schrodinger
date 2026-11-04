@@ -22,14 +22,12 @@ import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.FeedbackBox;
 import com.evolveum.midpoint.schrodinger.page.login.*;
 
-import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -87,7 +85,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
         IdentificationPage identificationPage = new IdentificationPage();
         identificationPage.setNameAndConfirm("enabled_user");
         TimeUnit.SECONDS.sleep(6);
-        String link = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
+        String link = readLinkFromLastNotification();
         open(link);
         Selenide.sleep(5000);
         String actualUrl = basicPage.getCurrentUrl();
@@ -159,13 +157,7 @@ public class LoginPageWithAuthenticationConfigTest extends AbstractLoginPageTest
                 .feedback()
                 .assertSuccess();
         Selenide.sleep(MidPoint.TIMEOUT_LONG_20_S.toMillis());
-        String notification = Utils.readBodyOfLastNotification(Paths.get(notificationFile.getAbsolutePath()));
-//        String usernameTag = "username='";
-        String linkTag = "link='";
-//        String username = notification.substring(notification.indexOf(usernameTag) + usernameTag.length(), notification.lastIndexOf("', " + linkTag));
-        int start = notification.indexOf(linkTag) + linkTag.length();
-        int end = notification.indexOf("'", start);
-        String link = notification.substring(start, end);
+        String link = readLinkFromLastNotification();
         open(link);
         Selenide.sleep(3000);
         new RegistrationFinishPage().assertSuccessPanelExists();
