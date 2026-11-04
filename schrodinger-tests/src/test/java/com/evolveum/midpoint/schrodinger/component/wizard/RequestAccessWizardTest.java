@@ -149,7 +149,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0050mandatoryValidityConfigurationTest() {
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
         reloginAsAdministrator();
         basicPage
                 .requestAccess()
@@ -191,7 +191,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
         importObject(COLLECTION_ORGANIZATIONS);
         importObject(COLLECTION_ROLES);
         importObject(COLLECTION_SERVICES);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_ROLE_CATALOG);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG);
         reloginAsAdministrator();
 
         RoleCatalogStepPanel panel =  basicPage
@@ -220,7 +220,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     void test0080fullTextSearchTest() {
         importObject(ORG_MONKEY_ISLAND_SOURCE_FILE, true);
         importObject(COLLECTION_ROLES, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH);
 
         basicPage.aboutPage().reindexRepositoryObjects();
         Selenide.sleep(30000);
@@ -280,7 +280,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     @Test
     void test0090requestSameAssignmentWithAnotherRelationTest() {
         importObject(OWNER_OF_ENDUSER_ROLE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED);
 
         reloginAsAdministrator();
 
@@ -306,7 +306,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     @Test
     void test0095requestAssignmentWithExtensionAttribute() {
         reloginAsAdministrator();
-        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
+        applySystemConfiguration();
         reloginAsAdministrator();
         basicPage
                 .requestAccess()
