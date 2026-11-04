@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2026 Evolveum and contributors
+  ~
+  ~ This work is dual-licensed under the Apache License 2.0
+  ~ and European Union Public License. See LICENSE file for details.
+  -->
+
+<!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
+<!-- Some test roles use Groovy for things MEL cannot do (building references with a relation, reading the primary
+     delta, modifying operation results). Groovy is denied by the default "safe" profile of roles, so the permissive
+     profile is used instead. -->
+<apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3">
+    <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
+    <apti:itemDelta>
+        <t:modificationType>delete</t:modificationType>
+        <t:path>c:defaultObjectPolicyConfiguration</t:path>
+        <t:value>
+            <type>RoleType</type>
+            <expressionProfile>safe</expressionProfile>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:defaultObjectPolicyConfiguration</t:path>
+        <t:value>
+            <type>RoleType</type>
+            <expressionProfile>permissive</expressionProfile>
+        </t:value>
+    </apti:itemDelta>
+</apti:objectModification>

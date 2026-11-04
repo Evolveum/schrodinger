@@ -17,4 +17,23 @@
             <type>c:UserType</type>
         </t:value>
     </apti:itemDelta>
+    <!-- The server validation in object-template-required-email.xml has to return OperationResultType,
+         which MEL cannot create. Groovy is denied by the default "configuration" profile of object templates,
+         so the permissive profile is used instead. -->
+    <apti:itemDelta>
+        <t:modificationType>delete</t:modificationType>
+        <t:path>c:defaultObjectPolicyConfiguration</t:path>
+        <t:value>
+            <type>ObjectTemplateType</type>
+            <expressionProfile>configuration</expressionProfile>
+        </t:value>
+    </apti:itemDelta>
+    <apti:itemDelta>
+        <t:modificationType>add</t:modificationType>
+        <t:path>c:defaultObjectPolicyConfiguration</t:path>
+        <t:value>
+            <type>ObjectTemplateType</type>
+            <expressionProfile>permissive</expressionProfile>
+        </t:value>
+    </apti:itemDelta>
 </apti:objectModification>

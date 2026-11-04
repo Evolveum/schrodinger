@@ -50,6 +50,7 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File DELEGATE_END_USER_ROLE_TO_USER_FILE = new File("./src/test/resources/objects/users/delegate-end-user-role-to-user.xml");
     private static final File OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE = new File("./src/test/resources/objects/objecttemplate/object-template-required-email.xml");
     private static final File SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-email-required-template.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-role-permissive-expression-profile.xml");
     private static final File LOCKED_USER_NO_BEHAVIOR_FILE = new File("./src/test/resources/objects/users/locked-user-no-behavior.xml");
     private static final File DELEGATION_REQUIRES_VALID_TO_ROLE_FILE = new File("./src/test/resources/objects/roles/role-delegation-requires-valid-to.xml");
     private static final File DELEGATION_POLICY_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-from-user.xml");
@@ -73,6 +74,14 @@ public class UserTest extends AbstractSchrodingerTest {
                 READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE,
                 LOCKED_USER_NO_BEHAVIOR_FILE, DELEGATION_REQUIRES_VALID_TO_ROLE_FILE,
                 DELEGATION_POLICY_FROM_USER_FILE, DELEGATION_POLICY_TO_USER_FILE);
+    }
+
+    /**
+     * The policy rule in role-delegation-requires-valid-to.xml uses Groovy, see the delta.
+     */
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE);
     }
 
     @Test
@@ -225,7 +234,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0050checkRequiredFieldValidationErrorVisibility() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE, SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
 
         basicPage.newUser()
                 .clickSave()
@@ -244,7 +253,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0060checkRequiredFieldValidationErrorVisibilityAfterSecondFormSubmit() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE, SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
 
         UserPage page = basicPage.newUser();
         page
@@ -266,7 +275,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0070checkWrongEmailValidationError() {
         importObject(OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE_FILE, SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE);
 
         UserPage page = basicPage.newUser();
         page

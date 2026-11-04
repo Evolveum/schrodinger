@@ -48,12 +48,21 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File REQUEST_ACCESS_TEAMMATE_USER = new File("./src/test/resources/objects/users/request-access-teammate.xml");
     private static final File REQUEST_ACCESS_AUTH_ROLE = new File("./src/test/resources/objects/roles/enduser-role-with-base-request-access-auth.xml");
     private static final File REQUEST_ACCESS_REQUESTABLE_ROLE = new File("./src/test/resources/objects/roles/request-access-requestable-role.xml");
+    private static final File SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-role-permissive-expression-profile.xml");
 
     private static final String OWNER_OF_ENDUSER_ROLE_NAME = "owner_of_enduser_role";
     @Override
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST, REQUEST_ACCESS_AUTH_ROLE,
                 REQUEST_ACCESS_REQUESTABLE_ROLE, REQUEST_ACCESS_ENDUSER, REQUEST_ACCESS_TEAMMATE_USER);
+    }
+
+    /**
+     * The authorizations and the feedback hook in enduser-role-with-base-request-access-auth.xml use Groovy, see the delta.
+     */
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE);
     }
 
     @Override
@@ -140,7 +149,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
      */
     @Test
     public void test0050mandatoryValidityConfigurationTest() {
-        applySystemConfiguration(SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_MANDATORY_VALIDITY);
         reloginAsAdministrator();
         basicPage
                 .requestAccess()
@@ -182,7 +191,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
         importObject(COLLECTION_ORGANIZATIONS);
         importObject(COLLECTION_ROLES);
         importObject(COLLECTION_SERVICES);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_ROLE_CATALOG);
         reloginAsAdministrator();
 
         RoleCatalogStepPanel panel =  basicPage
@@ -211,7 +220,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     void test0080fullTextSearchTest() {
         importObject(ORG_MONKEY_ISLAND_SOURCE_FILE, true);
         importObject(COLLECTION_ROLES, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_ROLE_CATALOG_WITH_FULLTEXT_SEARCH);
 
         basicPage.aboutPage().reindexRepositoryObjects();
         Selenide.sleep(30000);
@@ -271,7 +280,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     @Test
     void test0090requestSameAssignmentWithAnotherRelationTest() {
         importObject(OWNER_OF_ENDUSER_ROLE, true);
-        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED);
+        applySystemConfiguration(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE, SYSTEM_CONFIGURATION_ROLE_CATALOG_ONLY_DEFAULT_RELATION_ALLOWED);
 
         reloginAsAdministrator();
 

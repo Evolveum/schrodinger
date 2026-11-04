@@ -64,11 +64,9 @@
                             <automaticallyCompleted>
                                 <script>
                                     <code>
-                                    import com.evolveum.midpoint.schema.constants.SchemaConstants
-
-                                    log.info('midpoint.getchannel ' + midpoint.getChannel());
-                                    if (midpoint.getChannel() == SchemaConstants.CHANNEL_REMEDIATION_URI)
-                                    return SchemaConstants.MODEL_APPROVAL_OUTCOME_SKIP;
+                                    channel == 'http://midpoint.evolveum.com/xml/ns/public/common/channels-3#remediation'
+                                        ? 'http://midpoint.evolveum.com/xml/ns/public/model/approval/outcome#skip'
+                                        : nil
                                 </code>
                                 </script>
                             </automaticallyCompleted>

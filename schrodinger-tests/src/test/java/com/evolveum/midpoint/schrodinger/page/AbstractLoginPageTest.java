@@ -190,11 +190,18 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     }
 
     /**
-     * Registration and password reset notifiers use their default body, which ends with the link.
+     * Registration notification body is "username='...', link='...'", password reset notification body is the link itself
+     * (see bodyExpression in system-configuration-notification.xml).
      */
     protected String readLinkFromLastNotification() throws IOException {
-        String[] bodyTokens = Utils.readBodyOfLastNotification(notificationFile).trim().split("\\s+");
-        return bodyTokens[bodyTokens.length - 1];
+        String notification = Utils.readBodyOfLastNotification(notificationFile).trim();
+        String linkTag = "link='";
+        int start = notification.indexOf(linkTag);
+        if (start < 0) {
+            return notification;
+        }
+        start += linkTag.length();
+        return notification.substring(start, notification.indexOf("'", start));
     }
 
     protected void securityOfSelfRegistrationPasswords(Consumer<SelfRegistrationPage> process) throws IOException, InterruptedException {
