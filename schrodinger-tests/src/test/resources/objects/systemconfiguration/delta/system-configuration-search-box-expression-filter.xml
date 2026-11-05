@@ -9,25 +9,6 @@
 <!-- Applied on top of the initial system configuration, see AbstractSchrodingerTest.applySystemConfiguration(). -->
 <apti:objectModification xmlns:apti="http://midpoint.evolveum.com/xml/ns/public/common/api-types-3" xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <apti:oid>00000000-0000-0000-0000-000000000001</apti:oid>
-    <!-- filterExpression and allowedValuesExpression need Java objects (SearchFilterType, DisplayableValue),
-         which MEL cannot create. Groovy is denied by the default "configuration" profile of the system
-         configuration, so the permissive profile is used for this test. -->
-    <apti:itemDelta>
-        <t:modificationType>delete</t:modificationType>
-        <t:path>c:defaultObjectPolicyConfiguration</t:path>
-        <t:value>
-            <type>SystemConfigurationType</type>
-            <expressionProfile>configuration</expressionProfile>
-        </t:value>
-    </apti:itemDelta>
-    <apti:itemDelta>
-        <t:modificationType>add</t:modificationType>
-        <t:path>c:defaultObjectPolicyConfiguration</t:path>
-        <t:value>
-            <type>SystemConfigurationType</type>
-            <expressionProfile>permissive</expressionProfile>
-        </t:value>
-    </apti:itemDelta>
     <apti:itemDelta>
         <t:modificationType>add</t:modificationType>
         <t:path>c:adminGuiConfiguration/c:objectCollectionViews/c:objectCollectionView[80]/c:searchBoxConfiguration/c:allowToConfigureSearchItems</t:path>
@@ -44,7 +25,7 @@
                         <filterExpression>
                             <script>
                                 <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
-                                <code>
+                                <code><![CDATA[
                 import com.evolveum.midpoint.xml.ns._public.common.common_3.UserType
                 import com.evolveum.midpoint.prism.path.ItemPath
                 import javax.xml.namespace.QName
@@ -66,7 +47,7 @@
                         .buildFilter()
 
                 return prismContext.getQueryConverter().createSearchFilterType(filter)
-            </code>
+            ]]></code>
                             </script>
                         </filterExpression>
                         <display>
@@ -78,17 +59,17 @@
                             <allowedValuesExpression>
                                 <script>
                                     <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
-                                    <code>
+                                    <code><![CDATA[
                     import com.evolveum.midpoint.gui.impl.component.search.SearchValue
                     import com.evolveum.midpoint.util.DisplayableValue
 
-                    List&lt;DisplayableValue&gt; list = new ArrayList&lt;&gt;()
+                    List<DisplayableValue> list = new ArrayList<>()
 
                     list.add(new SearchValue("michael", "Michael"))
                     list.add(new SearchValue("jack", "Jack"))
 
                     return list
-                </code>
+                ]]></code>
                                 </script>
                             </allowedValuesExpression>
                         </parameter>

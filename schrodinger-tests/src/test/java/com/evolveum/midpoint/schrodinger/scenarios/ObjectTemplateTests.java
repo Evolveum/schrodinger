@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ObjectTemplateTests extends AbstractSchrodingerTest {
@@ -39,6 +40,11 @@ public class ObjectTemplateTests extends AbstractSchrodingerTest {
     private static final File SYSTEM_CONFIGURATION_WITH_OBJ_TEMPLATE_1_FILE = new File(COMPONENT_SYSTEM_CONFIGURATION + "delta/system-configuration-with-object-template-1.xml");
     private static final File SYSTEM_CONFIGURATION_WITH_EMPLOYEE_ARCHETYPE = new File(COMPONENT_SYSTEM_CONFIGURATION + "delta/system-configuration-with-employee-archetype.xml");
     private static final File EMPLOYEE_ARCHETYPE_FILE = new File(COMPONENT_ARCHETYPE + "archetype-employee.xml");
+
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE);
+    }
 
     @Test
     public void test00100addObjectTemplateCreateUser() {

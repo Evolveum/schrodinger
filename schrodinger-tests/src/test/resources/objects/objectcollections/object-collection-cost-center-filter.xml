@@ -25,8 +25,9 @@
             <expression>
                 <queryInterpretationOfNoValue>filterNone</queryInterpretationOfNoValue>
                 <script>
+                    <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                     <code>
-                        actor.costCenter
+                        return actor.costCenter
                     </code>
                 </script>
             </expression>

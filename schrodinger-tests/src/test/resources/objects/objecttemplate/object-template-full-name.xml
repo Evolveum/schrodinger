@@ -33,8 +33,9 @@ oid="10000000-9999-9999-0000-a000fe000001">
         </source>
         <expression>
             <script>
+                <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                 <code>
-                format.concatName([givenName, familyName])
+                basic.concatName(givenName, familyName)
             </code>
             </script>
         </expression>

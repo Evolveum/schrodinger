@@ -43,6 +43,11 @@ public class ReportTests extends AbstractSchrodingerTest {
                 AUDIT_REPORT_DATA, EXPORT_TASK_FOR_AUDIT_RECORDS);
     }
 
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE);
+    }
+
     @Test
     public void test00100createReport() {
         basicPage.listReports()
