@@ -114,6 +114,7 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
     protected static final File DEFAULT_SECURITY_POLICY_FILE =
             extractInitialObject("security-policy/015-security-policy.xml");
     protected static final File SYSTEM_CONFIGURATION_FULLTEXT_FILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-fulltext.xml");
+    protected static final File SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-permissive-expression-profile.xml");
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSchrodingerTest.class);
 

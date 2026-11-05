@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -100,6 +101,11 @@ public abstract class AbstractLoginPageTest extends AbstractSchrodingerTest {
     @Override
     protected boolean resetToDefaultAfterTests() {
         return true;
+    }
+
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE);
     }
 //    @Override
 //    protected List<File> getObjectListToImport(){

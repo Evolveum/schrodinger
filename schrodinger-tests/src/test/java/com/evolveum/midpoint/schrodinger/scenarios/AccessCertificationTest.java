@@ -49,6 +49,11 @@ public class AccessCertificationTest extends AbstractSchrodingerTest {
                 DUPLICATE_NO_RESPONSE_ACCESS_CERTIFICATION_DEFINITION);
     }
 
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE);
+    }
+
     @BeforeClass(alwaysRun = true, dependsOnMethods = { "springTestContextPrepareTestInstance" })
     @Override
     public void beforeClass() throws IOException {

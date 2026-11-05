@@ -41,8 +41,9 @@
                     <q:path>personalNumber</q:path>
                     <expression>
                         <script>
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
                             <code><![CDATA[
-                                subject.personalNumber
+                                subject?.personalNumber
                                 ]]></code>
                         </script>
                     </expression>
@@ -747,7 +748,20 @@
             <c:filter>
                 <q:ref>
                     <q:path>roleMembershipRef</q:path>
-                    <q:value oid="00000000-0000-0000-0000-000000000008" type="c:RoleType"/>
+                    <expression>
+                        <script>
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
+                            <code><![CDATA[
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType;
+
+                                ObjectReferenceType ort = new ObjectReferenceType();
+                                ort.setOid('00000000-0000-0000-0000-000000000008');
+                                ort.setType(RoleType.COMPLEX_TYPE);
+                                return ort;
+                                ]]></code>
+                        </script>
+                    </expression>
                 </q:ref>
             </c:filter>
         </object>
@@ -790,7 +804,20 @@
             <c:filter>
                 <q:ref>
                     <q:path>roleMembershipRef</q:path>
-                    <q:value oid="00000000-0000-0000-0000-000000000008" type="c:RoleType"/>
+                    <expression>
+                        <script>
+                            <language>http://midpoint.evolveum.com/xml/ns/public/expression/language#Groovy</language>
+                            <code><![CDATA[
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.RoleType;
+                                import com.evolveum.midpoint.xml.ns._public.common.common_3.ObjectReferenceType;
+
+                                ObjectReferenceType ort = new ObjectReferenceType();
+                                ort.setOid('00000000-0000-0000-0000-000000000008');
+                                ort.setType(RoleType.COMPLEX_TYPE);
+                                return ort;
+                                ]]></code>
+                        </script>
+                    </expression>
                 </q:ref>
             </c:filter>
         </object>

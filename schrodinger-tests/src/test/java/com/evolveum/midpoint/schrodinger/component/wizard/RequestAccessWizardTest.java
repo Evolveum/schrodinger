@@ -48,7 +48,6 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File REQUEST_ACCESS_TEAMMATE_USER = new File("./src/test/resources/objects/users/request-access-teammate.xml");
     private static final File REQUEST_ACCESS_AUTH_ROLE = new File("./src/test/resources/objects/roles/enduser-role-with-base-request-access-auth.xml");
     private static final File REQUEST_ACCESS_REQUESTABLE_ROLE = new File("./src/test/resources/objects/roles/request-access-requestable-role.xml");
-    private static final File SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE = new File("./src/test/resources/objects/systemconfiguration/delta/system-configuration-role-permissive-expression-profile.xml");
 
     private static final String OWNER_OF_ENDUSER_ROLE_NAME = "owner_of_enduser_role";
     @Override
@@ -62,7 +61,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
      */
     @Override
     protected List<File> getSystemConfigurationDeltas() {
-        return List.of(SYSTEM_CONFIGURATION_ROLE_PERMISSIVE_PROFILE);
+        return List.of(SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE);
     }
 
     @Override

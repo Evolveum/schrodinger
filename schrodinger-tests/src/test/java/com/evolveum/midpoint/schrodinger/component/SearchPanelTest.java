@@ -111,6 +111,11 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
                 ADMIN_WITH_COST_CENTER_FILE);
     }
 
+    @Override
+    protected List<File> getSystemConfigurationDeltas() {
+        return List.of(SYSTEM_CONFIGURATION_PERMISSIVE_PROFILE_FILE);
+    }
+
     @Test
     public void test0010defaultSearchOnListPage() {
         UsersPageTable table = basicPage.listUsers().table();
