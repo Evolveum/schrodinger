@@ -16,7 +16,6 @@
 
 package com.evolveum.midpoint.schrodinger.page;
 
-import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
 import com.evolveum.midpoint.schrodinger.component.configuration.ClockPanel;
 import com.evolveum.midpoint.schrodinger.page.configuration.InternalsConfigurationPage;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
@@ -42,7 +41,7 @@ public class InternalsConfigurationPageTest extends AbstractSchrodingerTest {
         InternalsConfigurationPage configPage = basicPage.internalsConfiguration();
         ClockPanel clockPanel = configPage.clockTab();
 
-        clockPanel.changeTime("May 15, 2099", "10", "30", DateTimePanel.AmOrPmChoice.PM);
+        clockPanel.changeTime("15 May 2099", "22", "30", null);
 
         basicPage.feedback().assertSuccess();
 
@@ -51,7 +50,7 @@ public class InternalsConfigurationPageTest extends AbstractSchrodingerTest {
                 .internalsConfiguration()
                     .clockTab()
                         .getOffsetPanel()
-                            .assertDateTimeValueEquals("May 15, 2099 10:30 " + DateTimePanel.AmOrPmChoice.PM.name());
+                            .assertDateTimeValueEquals("15 May 2099 22:30");
     }
 
     @Test

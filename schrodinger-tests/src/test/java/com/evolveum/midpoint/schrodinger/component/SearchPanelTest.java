@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.codeborne.selenide.Selenide;
 import com.evolveum.midpoint.schema.constants.SchemaConstants;
@@ -299,7 +300,7 @@ public class SearchPanelTest extends AbstractSchrodingerTest {
 
     @Test
     public void test0110dateIntervalSearch() {
-        SimpleDateFormat formater = new SimpleDateFormat("MMMM dd, yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
         basicPage.auditLogViewer()
                 .table()
                     .search()

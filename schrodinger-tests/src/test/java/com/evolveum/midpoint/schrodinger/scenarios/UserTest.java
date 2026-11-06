@@ -27,7 +27,7 @@ import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
-import com.evolveum.midpoint.schrodinger.component.DateTimePanel;
+import com.evolveum.midpoint.schrodinger.page.BasicPage;
 import com.evolveum.midpoint.schrodinger.page.user.ListUsersPage;
 import com.evolveum.midpoint.schrodinger.page.user.UserPage;
 import com.evolveum.midpoint.xml.ns._public.common.common_3.LockoutStatusType;
@@ -128,7 +128,7 @@ public class UserTest extends AbstractSchrodingerTest {
                     .and()
                     .clickByName(LOCALIZATION_TEST_USER_NAME_ORIG)
                         .assertElementWithValueExists(LOCALIZATION_TEST_USER_NAME_DE);
-        basicPage.changeLanguageAfterLogin("de", "us");
+        basicPage.changeLanguageAfterLogin("de", BasicPage.DEFAULT_LOCALE_FLAG);
     }
 
     @Test
@@ -154,8 +154,7 @@ public class UserTest extends AbstractSchrodingerTest {
                                     1,
                                     prevYear,
                                     1,
-                                    10,
-                                    DateTimePanel.AmOrPmChoice.AM)
+                                    10)
                             .and()
                         .and()
                     .and()
@@ -174,7 +173,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .assertDescriptionDisabled()
                         .assertValidFromPanelDisabled()
                         .getValidFromPanel()
-                            .assertDateTimeValueEquals("January 1, " + prevYear + ", 01:10 AM");
+                            .assertDateTimeValueEquals("01 January " + prevYear + " 1:10");
 
         showUser("DelegateFromUser")
                 .selectDelegationsPanel()
@@ -208,7 +207,7 @@ public class UserTest extends AbstractSchrodingerTest {
                         .clickByName("DelegateEndUserRoleToUser")
                             .getDelegationDetailsPanel("DelegateEndUserRoleToUser")
                             .getValidFromPanel()
-                            .setDateTimeValue("November 11, 2019", "10", "30", DateTimePanel.AmOrPmChoice.PM)
+                            .setDateTimeValue("11 November 2019", "22", "30", null)
                             .and()
                         .and()
                     .and()
