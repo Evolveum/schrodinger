@@ -64,14 +64,14 @@ public class DateTimePickerTest extends AbstractSchrodingerTest {
                 .form()
                 .showEmptyAttributes("ActivationType.activation");
 
-        String currentLocale = "us";
+        String currentLocale = BasicPage.DEFAULT_LOCALE_FLAG;
         for (String locale : locales) {
             page.changeLanguageAfterLogin(currentLocale, locale);
             currentLocale = locale;
 
             panel.getDatePanel("validFrom").checkShowingOfPopover();
         }
-        page.changeLanguageAfterLogin(currentLocale, "us");
+        page.changeLanguageAfterLogin(currentLocale, BasicPage.DEFAULT_LOCALE_FLAG);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class DateTimePickerTest extends AbstractSchrodingerTest {
                     .form()
                     .showEmptyAttributes("ActivationType.activation");
 
-            page.changeLanguageAfterLogin("us", locale);
+            page.changeLanguageAfterLogin(BasicPage.DEFAULT_LOCALE_FLAG, locale);
 
             panel.getDatePanel("validFrom")
                     .setDateTimeValueByPicker(
@@ -101,7 +101,7 @@ public class DateTimePickerTest extends AbstractSchrodingerTest {
                 assertion.assertFalse(page.feedback().isError(), "Feedback panel status contains error for language " + locale);
             }
 
-            page.changeLanguageAfterLogin(locale, "us");
+            page.changeLanguageAfterLogin(locale, BasicPage.DEFAULT_LOCALE_FLAG);
         }
     }
 

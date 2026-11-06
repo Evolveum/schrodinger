@@ -180,7 +180,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
                         .and()
                     .assertOperationValueByTokenMatch(tokenValue, "run")
                     .assertStatusValueByTokenMatch(tokenValue, "IN_PROGRESS")
-                    .assertTimestampValueByTokenMatch(tokenValue, "1/1/20, 12:00:00 AM")
+                    .assertTimestampValueByTokenMatch(tokenValue, "1.1.2020 00:00:00")
                     .assertMessageValueByTokenMatch(tokenValue, "Test results");
         taskPage
                 .cleanupResults()

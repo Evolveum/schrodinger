@@ -55,7 +55,10 @@ public class DateTimePanel<T> extends Component<T, DateTimePanel<T>> {
 
         String dateAsString = date;
         if (StringUtils.isNotEmpty(hours)) {
-            dateAsString += " " + hours + ":" + minutes + " " + amOrPmChoice.name();
+            dateAsString += " " + hours + ":" + minutes;
+            if (amOrPmChoice != null) {
+                dateAsString += " " + amOrPmChoice.name();
+            }
         }
 
         SelenideElement inputEle = findInput();

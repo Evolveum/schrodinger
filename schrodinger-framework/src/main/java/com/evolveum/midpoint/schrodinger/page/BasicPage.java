@@ -73,6 +73,11 @@ import static com.codeborne.selenide.Selenide.*;
  */
 public class BasicPage {
 
+    /**
+     * Flag (country code) of midPoint's default locale, English (Europe) "en_150", shown in the header locale switcher.
+     */
+    public static final String DEFAULT_LOCALE_FLAG = "eu";
+
     private static String screenshotNamePrefix;
     public LoggedUser loggedUser() {
         return new LoggedUser();
@@ -825,7 +830,7 @@ public class BasicPage {
     }
 
     public BasicPage changeLanguageAfterLogin(String countryCode) {
-        return changeLanguageAfterLogin("us", countryCode);
+        return changeLanguageAfterLogin(DEFAULT_LOCALE_FLAG, countryCode);
     }
 
     public BasicPage changeLanguageAfterLogin(String currentCountryCode, String countryCode) {
