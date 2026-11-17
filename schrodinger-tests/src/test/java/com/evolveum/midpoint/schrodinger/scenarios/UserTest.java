@@ -54,6 +54,7 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File DELEGATION_REQUIRES_VALID_TO_ROLE_FILE = new File("./src/test/resources/objects/roles/role-delegation-requires-valid-to.xml");
     private static final File DELEGATION_POLICY_FROM_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-from-user.xml");
     private static final File DELEGATION_POLICY_TO_USER_FILE = new File("./src/test/resources/objects/users/delegation-policy-to-user.xml");
+    private static final File PASSWORD_HINT_OWNER_USER_FILE = new File("./src/test/resources/objects/users/password-hint-owner-user.xml");
 
     private static final String LOCKED_USER_NO_BEHAVIOR_OID = "18f366ff-ac8c-4589-b2e8-d48b98d2415d";
     private static final String LOCKED_USER_NO_BEHAVIOR_NAME = "locked-user-no-behavior";
@@ -64,6 +65,9 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final String DELEGATION_POLICY_TO_USER_OID = "3c0e6b7a-5d0c-4e4b-9d33-12364a000003";
     private static final String DELEGATION_POLICY_VIOLATION_MESSAGE = "Delegation must have the valid to date set";
 
+    private static final String PASSWORD_HINT_OWNER_USER_NAME = "passwordHintOwnerUser";
+    private static final String PASSWORD_HINT_OWNER_HINT = "my secret hint";
+
     @Override
     protected List<File> getObjectListToImport(){
         return Arrays.asList(
@@ -72,7 +76,8 @@ public class UserTest extends AbstractSchrodingerTest {
                 DELEGATE_END_USER_ROLE_TO_USER_FILE,
                 READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE,
                 LOCKED_USER_NO_BEHAVIOR_FILE, DELEGATION_REQUIRES_VALID_TO_ROLE_FILE,
-                DELEGATION_POLICY_FROM_USER_FILE, DELEGATION_POLICY_TO_USER_FILE);
+                DELEGATION_POLICY_FROM_USER_FILE, DELEGATION_POLICY_TO_USER_FILE,
+                PASSWORD_HINT_OWNER_USER_FILE);
     }
 
     @Override
@@ -412,6 +417,30 @@ public class UserTest extends AbstractSchrodingerTest {
         Assertions.assertThat(deputy.getDelegatedRef())
                 .as("Delegation should not be created, it violates the policy rule")
                 .isEmpty();
+    }
+
+    /**
+     * The password hint is a personal reminder of the user's own password.
+     * On the user details page it is displayed (and editable) only for the user themselves,
+     * for other users the hint property isn't displayed at all - even if the logged-in user
+     * has administrator rights (superuser).
+     * Covers #12111
+     */
+    @Test
+    public void test0110passwordHintIsDisplayedOnlyForUserThemselves() {
+        reloginAsAdministrator();
+
+        // administrator has no hint, it is displayed (and editable) among empty fields
+        showUser(getUsername())
+                .selectPasswordPanel()
+                    .showEmptyFields()
+                    .assertHintEditable();
+
+        showUser(PASSWORD_HINT_OWNER_USER_NAME)
+                .selectPasswordPanel()
+                    .assertHintNotDisplayed(PASSWORD_HINT_OWNER_HINT)
+                    .showEmptyFields()
+                    .assertHintNotDisplayed(PASSWORD_HINT_OWNER_HINT);
     }
 
     @Override
