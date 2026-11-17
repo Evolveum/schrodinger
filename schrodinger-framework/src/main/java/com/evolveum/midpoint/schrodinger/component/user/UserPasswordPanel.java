@@ -42,6 +42,32 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
         return this;
     }
 
+    public UserPasswordPanel<T> assertHintNotDisplayed(String hintValue) {
+        Utils.waitForAjaxCallFinish();
+        assertion.assertFalse(getParentElement().$x(".//*[@data-s-id='property' and contains(@data-s-qname, '#hint')]").exists(),
+                "Password hint property shouldn't be displayed.");
+        assertion.assertFalse(getParentElement().$x(".//input[@data-s-id='hint']").exists(),
+                "Password hint input shouldn't be present.");
+        assertion.assertFalse(Selenide.webdriver().driver().source().contains(hintValue),
+                "Password hint value shouldn't be present in the page markup.");
+        return this;
+    }
+
+    public UserPasswordPanel<T> showEmptyFields() {
+        form().showEmptyAttributes("Password");
+        return this;
+    }
+
+    public UserPasswordPanel<T> assertHintEditable() {
+        assertion.assertTrue(getHintInput().isEnabled(), "Password hint input should be editable.");
+        return this;
+    }
+
+    private SelenideElement getHintInput() {
+        return getParentElement().$x(".//input[@data-s-id='hint']")
+                .shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S);
+    }
+
     private void checkPasswordField(String identifier, String value) {
         SelenideElement passwordField = getParentElement().$x(identifier);
         passwordField.shouldBe(Condition.visible, MidPoint.TIMEOUT_DEFAULT_2_S).setValue(value);
