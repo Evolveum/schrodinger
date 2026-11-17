@@ -45,13 +45,18 @@ public class UserTest extends AbstractSchrodingerTest {
     private static final File OBJECT_TEMPLATE_REQUIRED_EMAIL_FILE = new File("./src/test/resources/objects/objecttemplate/object-template-required-email.xml");
     private static final File SYSTEM_CONFIGURATION_REQUIRED_EMAIL_TEMPLATE_FILE = new File("./src/test/resources/objects/systemconfiguration/system-configuration-email-required-template.xml");
 
+    private static final File PASSWORD_HINT_OWNER_USER_FILE = new File("./src/test/resources/objects/users/password-hint-owner-user.xml");
+    private static final String PASSWORD_HINT_OWNER_USER_NAME = "passwordHintOwnerUser";
+    private static final String PASSWORD_HINT_OWNER_HINT = "my secret hint";
+
     @Override
     protected List<File> getObjectListToImport(){
         return Arrays.asList(
                 DELEGATE_FROM_USER_FILE, DELEGATE_TO_USER_FILE,
                 DELEGABLE_END_USER_ROLE_FILE, DELEGATE_END_USER_ROLE_FROM_USER_FILE,
                 DELEGATE_END_USER_ROLE_TO_USER_FILE,
-                READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE);
+                READ_USERS_ACCESS_ROLE_FILE, MULTILINE_DESCRIPTION_USER_FILE,
+                PASSWORD_HINT_OWNER_USER_FILE);
     }
 
     @Test
@@ -304,6 +309,30 @@ public class UserTest extends AbstractSchrodingerTest {
                 .selectBasicPanel()
                 .form()
                 .assertPropertyLabelValue("description", descriptionValue);
+    }
+
+    /**
+     * The password hint is a personal reminder of the user's own password.
+     * On the user details page it is displayed (and editable) only for the user themselves,
+     * for other users the hint property isn't displayed at all - even if the logged-in user
+     * has administrator rights (superuser).
+     * Covers #12111
+     */
+    @Test
+    public void test0110passwordHintIsDisplayedOnlyForUserThemselves() {
+        reloginAsAdministrator();
+
+        // administrator has no hint, it is displayed (and editable) among empty fields
+        showUser(getUsername())
+                .selectPasswordPanel()
+                .showEmptyFields()
+                .assertHintEditable();
+
+        showUser(PASSWORD_HINT_OWNER_USER_NAME)
+                .selectPasswordPanel()
+                .assertHintNotDisplayed(PASSWORD_HINT_OWNER_HINT)
+                .showEmptyFields()
+                .assertHintNotDisplayed(PASSWORD_HINT_OWNER_HINT);
     }
 
 }
