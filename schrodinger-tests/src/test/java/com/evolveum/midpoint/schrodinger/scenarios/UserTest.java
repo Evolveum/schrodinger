@@ -321,6 +321,7 @@ public class UserTest extends AbstractSchrodingerTest {
     @Test
     public void test0110passwordHintIsDisplayedOnlyForUserThemselves() {
         reloginAsAdministrator();
+        importObject(SYSTEM_CONFIGURATION_INITIAL_FILE, true);
 
         // administrator has no hint, it is displayed (and editable) among empty fields
         showUser(getUsername())
