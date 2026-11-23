@@ -17,7 +17,6 @@
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schema.constants.SchemaConstants;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -26,7 +25,6 @@ import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RequestAccessPa
 import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RoleCatalogItemsTable;
 import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RoleCatalogStepPanel;
 import com.evolveum.midpoint.schrodinger.util.Utils;
-import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 import java.io.File;
