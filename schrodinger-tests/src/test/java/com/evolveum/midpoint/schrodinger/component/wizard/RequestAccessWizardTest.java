@@ -17,11 +17,15 @@
 package com.evolveum.midpoint.schrodinger.component.wizard;
 
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.evolveum.midpoint.schema.constants.SchemaConstants;
 import com.evolveum.midpoint.schrodinger.AbstractSchrodingerTest;
 import com.evolveum.midpoint.schrodinger.MidPoint;
+import com.evolveum.midpoint.schrodinger.page.self.accessrequest.PersonOfInterestStepPanel;
+import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RequestAccessPage;
 import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RoleCatalogItemsTable;
 import com.evolveum.midpoint.schrodinger.page.self.accessrequest.RoleCatalogStepPanel;
+import com.evolveum.midpoint.schrodinger.util.Utils;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -42,11 +46,15 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File REQUEST_ACCESS_TEAMMATE_USER = new File("./src/test/resources/objects/users/request-access-teammate.xml");
     private static final File REQUEST_ACCESS_AUTH_ROLE = new File("./src/test/resources/objects/roles/enduser-role-with-base-request-access-auth.xml");
     private static final File REQUEST_ACCESS_REQUESTABLE_ROLE = new File("./src/test/resources/objects/roles/request-access-requestable-role.xml");
+    private static final File REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS = new File("./src/test/resources/objects/misc/13482-ticket-objects.xml");
+
+    private static final String REQUEST_ACCESS_CATALOG_STEP_PATH = "/self/requestAccess?step=catalog";
 
     @Override
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST, REQUEST_ACCESS_AUTH_ROLE,
-                REQUEST_ACCESS_REQUESTABLE_ROLE, REQUEST_ACCESS_ENDUSER, REQUEST_ACCESS_TEAMMATE_USER);
+                REQUEST_ACCESS_REQUESTABLE_ROLE, REQUEST_ACCESS_ENDUSER, REQUEST_ACCESS_TEAMMATE_USER,
+                REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS);
     }
 
     @Override
@@ -294,5 +302,40 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .next()
                 .selectRolesOfTeammateMenu(teammateUserName)
                 .assertAccessesPanelContainsItems(requestableRoleName);
+    }
+
+    /**
+     * Opening the role catalog step directly via URL (?step=catalog), without a person of interest selected,
+     * must restart the wizard at the person of interest step. Otherwise the catalog lists all readable roles,
+     * not only the ones allowed by the #assign authorizations.
+     * Covers #13482
+     */
+    @Test
+    void test0120directAccessToRoleCatalogStepWithoutPersonOfInterest() {
+        final String requestableRole1 = "requestable-role1";
+        final String requestableRole2 = "requestable-role2";
+        final String internalRole = "internal-role1";
+        loginAsUser("limited1", "Test5ecr3t");
+
+        Selenide.open(REQUEST_ACCESS_CATALOG_STEP_PATH);
+        Utils.waitForAjaxCallFinish();
+
+        RequestAccessPage requestAccessPage = new RequestAccessPage();
+        requestAccessPage.assertPersonOfInterestStepActive();
+
+        new PersonOfInterestStepPanel(requestAccessPage)
+                .selectMyself();
+        requestAccessPage.assertSelectedStepByLabel("Role catalog");
+        Utils.waitForAjaxCallFinish();
+
+        RoleCatalogStepPanel roleCatalog = new RoleCatalogStepPanel(requestAccessPage)
+                .selectTableView();
+        Selenide.sleep(MidPoint.TIMEOUT_DEFAULT_2_S.toMillis());
+
+        roleCatalog
+                .table()
+                .assertTableContainsColumnWithValue("Name", requestableRole1)
+                .assertTableContainsColumnWithValue("Name", requestableRole2)
+                .assertTableDoesntContainColumnWithValue("Name", internalRole);
     }
 }
