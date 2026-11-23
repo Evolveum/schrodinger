@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reproduction data for: Request access: opening the role catalog step directly (?step=catalog) lists roles that cannot be requested. See the issue for the steps. -->
+<objects>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="b1000000-0000-0000-0000-000000000001">
+    <name>requestable-role1</name>
+    <requestable>true</requestable>
+</role>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="b1000000-0000-0000-0000-000000000002">
+    <name>requestable-role2</name>
+    <requestable>true</requestable>
+</role>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="b1000000-0000-0000-0000-000000000003">
+    <name>internal-role1</name>
+</role>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="b2000000-0000-0000-0000-000000000001">
+    <name>limited-requester</name>
+    <authorization>
+        <name>gui-access</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</action>
+    </authorization>
+    <authorization>
+        <name>self-read</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object><type>UserType</type><special>self</special></object>
+    </authorization>
+    <authorization>
+        <name>self-modify</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <phase>execution</phase>
+        <object><type>UserType</type></object>
+        <item>assignment</item>
+    </authorization>
+    <!-- all roles can be read (and listed), also internal-role1 -->
+    <authorization>
+        <name>read-roles</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object><type>RoleType</type></object>
+    </authorization>
+    <!-- only requestable roles may be requested -->
+    <authorization>
+        <name>assign-requestable-roles</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#assign</action>
+        <phase>request</phase>
+        <object><type>UserType</type><special>self</special></object>
+        <target>
+            <type>RoleType</type>
+            <filter>
+                <q:equal><q:path>requestable</q:path><q:value>true</q:value></q:equal>
+            </filter>
+        </target>
+        <relation>org:default</relation>
+    </authorization>
+    <adminGuiConfiguration>
+        <accessRequest>
+            <targetSelection>
+                <defaultSelection>myself</defaultSelection>
+            </targetSelection>
+            <relationSelection>
+                <defaultRelation>org:default</defaultRelation>
+                <allowOtherRelations>false</allowOtherRelations>
+            </relationSelection>
+        </accessRequest>
+    </adminGuiConfiguration>
+</role>
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="b3000000-0000-0000-0000-000000000001">
+    <name>limited1</name>
+    <lifecycleState>active</lifecycleState>
+    <assignment><targetRef oid="b2000000-0000-0000-0000-000000000001" relation="org:default" type="c:RoleType"/></assignment>
+    <credentials><password><value>Test5ecr3t</value></password></credentials>
+</user>
+</objects>
