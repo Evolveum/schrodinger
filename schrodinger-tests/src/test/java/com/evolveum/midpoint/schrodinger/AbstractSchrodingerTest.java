@@ -726,6 +726,8 @@ public abstract class AbstractSchrodingerTest extends AbstractTestNGSpringContex
             addService = service.roles().add((RoleType) object.asObjectable());
         } else if (object.isOfType(OrgType.class)) {
             addService = service.orgs().add((OrgType) object.asObjectable());
+        } else if (object.isOfType(ServiceType.class)) {
+            addService = service.services().add((ServiceType) object.asObjectable());
         } else if (object.isOfType(ArchetypeType.class)) {
             addService = service.archetypes().add((ArchetypeType) object.asObjectable());
         } else if (object.isOfType(LookupTableType.class)) {
