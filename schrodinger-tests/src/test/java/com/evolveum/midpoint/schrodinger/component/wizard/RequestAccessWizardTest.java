@@ -47,6 +47,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File REQUEST_ACCESS_AUTH_ROLE = new File("./src/test/resources/objects/roles/enduser-role-with-base-request-access-auth.xml");
     private static final File REQUEST_ACCESS_REQUESTABLE_ROLE = new File("./src/test/resources/objects/roles/request-access-requestable-role.xml");
     private static final File REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS = new File("./src/test/resources/objects/misc/13482-ticket-objects.xml");
+    private static final File ROLE_CATALOG_SERVICES_OBJECTS = new File("./src/test/resources/objects/misc/13480-ticket-objects.xml");
 
     private static final String REQUEST_ACCESS_CATALOG_STEP_PATH = "/self/requestAccess?step=catalog";
 
@@ -54,7 +55,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST, REQUEST_ACCESS_AUTH_ROLE,
                 REQUEST_ACCESS_REQUESTABLE_ROLE, REQUEST_ACCESS_ENDUSER, REQUEST_ACCESS_TEAMMATE_USER,
-                REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS);
+                REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS, ROLE_CATALOG_SERVICES_OBJECTS);
     }
 
     @Override
@@ -306,7 +307,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
 
     /**
      * Opening the role catalog step directly via URL (?step=catalog), without a person of interest selected,
-     * must restart the wizard at the person of interest step. Otherwise the catalog lists all readable roles,
+     * must restart the wizard at the person of interest step. Otherwise, the catalog lists all readable roles,
      * not only the ones allowed by the #assign authorizations.
      * Covers #13482
      */
@@ -337,5 +338,29 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertTableContainsColumnWithValue("Name", requestableRole1)
                 .assertTableContainsColumnWithValue("Name", requestableRole2)
                 .assertTableDoesntContainColumnWithValue("Name", internalRole);
+    }
+
+    /**
+     * Covers #13480
+     */
+    @Test
+    void test0130rolesListNotAffectedByServicesInRoleCatalog() {
+        loginAsUser("viewer1", "Test5ecr3t");
+
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .selectDefaultRelation()
+                .assertTilesViewIsSelected()
+                .selectAllServicesMenu()
+                .assertAccessesPanelContainsItems("sample-service1");
+
+        basicPage
+                .listRoles()
+                .table()
+                .assertTableContainsColumnWithValue("Name", "sample-role1")
+                .assertTableContainsColumnWithValue("Name", "sample-role2")
+                .assertTableDoesntContainColumnWithValue("Name", "sample-service1")
+                .assertTableDoesntContainColumnWithValue("Name", "sample-service2");
     }
 }
