@@ -76,11 +76,11 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         return new Search<>(RoleCatalogStepPanel.this, getParentElement().$(By.cssSelector(".search-panel-form")));
     }
 
-    public boolean assertAccessesPanelContainsItems(String... itemLabels) {
-        if (itemLabels == null) {
-            return false;
-        }
-        return Arrays.stream(itemLabels).allMatch(item -> findTileByLabel(item) != null);
+    public RoleCatalogStepPanel assertAccessesPanelContainsItems(String... itemLabels) {
+        assertion.assertTrue(itemLabels != null
+                        && Arrays.stream(itemLabels).allMatch(item -> findTileByLabel(item) != null),
+                "Role catalog should contain items: " + Arrays.toString(itemLabels));
+        return RoleCatalogStepPanel.this;
     }
 
     public RoleCatalogStepPanel selectMenuByLabel(String label) {
