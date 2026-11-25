@@ -16,6 +16,7 @@
 package com.evolveum.midpoint.schrodinger.component.task;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
 import com.evolveum.midpoint.schrodinger.component.common.table.Table;
@@ -218,6 +219,17 @@ public class OperationStatisticsPanel extends Component<TaskPage, OperationStati
 
     public OperationStatisticsPanel assertResultsChartIsDisplayed() {
         assertion.assertTrue($(Schrodinger.byDataId("chart")).isDisplayed(), "Chart with operation results should be visible");
+        return this;
+    }
+
+    /**
+     * The canvas is in the page even when the chart library is not available, so its visibility is not enough.
+     */
+    public OperationStatisticsPanel assertResultsChartIsRendered() {
+        SelenideElement canvas = $(Schrodinger.byDataId("chart")).shouldBe(Condition.visible, MidPoint.TIMEOUT_MEDIUM_6_S);
+        Boolean rendered = Selenide.executeJavaScript(
+                "return typeof Chart !== 'undefined' && !!Chart.getChart(arguments[0]);", canvas);
+        assertion.assertTrue(Boolean.TRUE.equals(rendered), "Chart with operation results should be rendered by chart library");
         return this;
     }
 

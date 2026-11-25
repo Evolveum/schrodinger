@@ -120,6 +120,7 @@ public class TaskPageTest extends AbstractSchrodingerTest {
         OperationStatisticsPanel operationStatisticsPanel = taskPage
                 .selectOperationStatisticsPanel();
         operationStatisticsPanel.assertResultsChartIsDisplayed();
+        operationStatisticsPanel.assertResultsChartIsRendered();
         taskPage
                 .cleanupEnvironmentalPerformanceInfo()
                 .clickYes()
