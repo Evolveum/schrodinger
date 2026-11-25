@@ -15,6 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.page;
 
+import java.util.List;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -553,6 +555,19 @@ public class BasicPage {
     public BasicPage assertFeedbackDoesntExists() {
         assertion.assertFalse($x(".//div[@data-s-id='detailsBox' and contains(@class, \"feedback-message\")]")
                 .is(Condition.visible), "Feedback message box is present");
+        return this;
+    }
+
+    /**
+     * Checks scripts, styles and images that the current page loaded through Wicket package resource URLs
+     * (wicket/resource/...). These come from UI libraries, the page is not fully functional without them.
+     */
+    public BasicPage assertNoFailedPackageResources() {
+        List<String> failed = Selenide.executeJavaScript(
+                "return performance.getEntriesByType('resource')"
+                        + ".filter(e => e.name.includes('/wicket/resource/') && e.responseStatus >= 400)"
+                        + ".map(e => e.responseStatus + ' ' + e.name);");
+        assertion.assertTrue(failed == null || failed.isEmpty(), "Package resources failed to load: " + failed);
         return this;
     }
 
