@@ -42,6 +42,14 @@ public class PersonOfInterestStepPanel extends TileListWizardStepPanel<RequestAc
         return new RelationStepPanel(getParent());
     }
 
+    /**
+     * Opens the panel for defining group of users, without leaving the step.
+     */
+    public DefineGroupOfUsersPanel selectGroupTile() {
+        selectTileByNumber(GROUP_TILE_INDEX, false);
+        return new DefineGroupOfUsersPanel(getParent());
+    }
+
     public RelationStepPanel selectGroup(String... userNames) {
         selectTileByNumber(GROUP_TILE_INDEX, false);
         new DefineGroupOfUsersPanel(getParent())
