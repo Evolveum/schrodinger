@@ -17,6 +17,7 @@
 package com.evolveum.midpoint.schrodinger.page.self.accessrequest;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.evolveum.midpoint.schrodinger.MidPoint;
@@ -80,6 +81,16 @@ public class RoleCatalogStepPanel extends TileListWizardStepPanel<RequestAccessP
         assertion.assertTrue(itemLabels != null
                         && Arrays.stream(itemLabels).allMatch(item -> findTileByLabel(item) != null),
                 "Role catalog should contain items: " + Arrays.toString(itemLabels));
+        return RoleCatalogStepPanel.this;
+    }
+
+    public RoleCatalogStepPanel assertAccessesPanelDoesntContainItems(String... itemLabels) {
+        ElementsCollection tiles = getParentElement().$$x(".//div[@data-s-id='tile']");
+        String[] presentItems = Arrays.stream(itemLabels)
+                .filter(item -> !tiles.filterBy(Condition.text(item)).isEmpty())
+                .toArray(String[]::new);
+        assertion.assertTrue(presentItems.length == 0,
+                "Role catalog shouldn't contain items: " + Arrays.toString(presentItems));
         return RoleCatalogStepPanel.this;
     }
 

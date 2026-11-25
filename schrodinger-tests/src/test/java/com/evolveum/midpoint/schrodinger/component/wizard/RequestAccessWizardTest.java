@@ -52,6 +52,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     private static final File REQUEST_ACCESS_REQUESTABLE_ROLE = new File("./src/test/resources/objects/roles/request-access-requestable-role.xml");
     private static final File REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS = new File("./src/test/resources/objects/misc/13482-ticket-objects.xml");
     private static final File ROLE_CATALOG_SERVICES_OBJECTS = new File("./src/test/resources/objects/misc/13480-ticket-objects.xml");
+    private static final File ROLE_CATALOG_ORG_TYPE_OBJECTS = new File("./src/test/resources/objects/misc/13481-ticket-objects.xml");
 
     private static final String REQUEST_ACCESS_CATALOG_STEP_PATH = "/self/requestAccess?step=catalog";
 
@@ -60,7 +61,7 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
     protected List<File> getObjectListToImport(){
         return List.of(USERS, ROLES, ROLES_WITH_CONFLICT_AND_PRUNE_ACTION, USER_SOD_PRUNE_TEST, REQUEST_ACCESS_AUTH_ROLE,
                 REQUEST_ACCESS_REQUESTABLE_ROLE, REQUEST_ACCESS_ENDUSER, REQUEST_ACCESS_TEAMMATE_USER,
-                REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS, ROLE_CATALOG_SERVICES_OBJECTS);
+                REQUEST_ACCESS_DIRECT_CATALOG_OBJECTS, ROLE_CATALOG_SERVICES_OBJECTS, ROLE_CATALOG_ORG_TYPE_OBJECTS);
     }
 
     /**
@@ -471,5 +472,34 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
                 .assertTableContainsColumnWithValue("Name", "sample-role2")
                 .assertTableDoesntContainColumnWithValue("Name", "sample-service1")
                 .assertTableDoesntContainColumnWithValue("Name", "sample-service2");
+    }
+
+    /**
+     * Covers #13481
+     */
+    @Test
+    void test0140orgMenuListsOnlyRolesAfterRolesOfTeammate() {
+        loginAsUser("requester1", "Test5ecr3t");
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .next(true)
+                .selectMenuByLabel("project-a")
+                .assertAccessesPanelContainsItems("project-a-role1", "project-a-role2")
+                .assertAccessesPanelDoesntContainItems("project-a-service1");
+
+        loginAsUser("requester1", "Test5ecr3t");
+        basicPage
+                .requestAccess()
+                .selectMyself()
+                .next(true)
+                .selectRolesOfTeammateMenu("teammate1")
+                .assertAccessesPanelContainsItems("project-a-role1", "project-a-role2", "project-a-service1")
+                .selectMenuByLabel("project-a")
+                .assertAccessesPanelContainsItems("project-a-role1", "project-a-role2")
+                .assertAccessesPanelDoesntContainItems("project-a-service1")
+                .selectMenuByLabel("project-b")
+                .assertAccessesPanelContainsItems("project-b-role1")
+                .assertAccessesPanelDoesntContainItems("project-b-service1");
     }
 }

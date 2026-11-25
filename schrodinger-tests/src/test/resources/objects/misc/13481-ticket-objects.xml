@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Role catalog of request access: the type set by "Roles of teammate" (Abstract role) must not be kept when an organization is clicked. Covers #13481 -->
+<objects>
+<org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="60000000-0000-0000-0000-000000000001">
+    <name>project-catalog</name>
+</org>
+<org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="60000000-0000-0000-0000-000000000002">
+    <name>project-a</name>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000001" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000001" relation="org:default" type="c:OrgType"/></assignment>
+</org>
+<org xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="60000000-0000-0000-0000-000000000003">
+    <name>project-b</name>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000001" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000001" relation="org:default" type="c:OrgType"/></assignment>
+</org>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="70000000-0000-0000-0000-000000000001">
+    <name>project-a-role1</name>
+    <requestable>true</requestable>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000002" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000002" relation="org:default" type="c:OrgType"/></assignment>
+</role>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="70000000-0000-0000-0000-000000000002">
+    <name>project-a-role2</name>
+    <requestable>true</requestable>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000002" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000002" relation="org:default" type="c:OrgType"/></assignment>
+</role>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="70000000-0000-0000-0000-000000000003">
+    <name>project-b-role1</name>
+    <requestable>true</requestable>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000003" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000003" relation="org:default" type="c:OrgType"/></assignment>
+</role>
+<service xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="70000000-0000-0000-0000-000000000011">
+    <name>project-a-service1</name>
+    <requestable>true</requestable>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000002" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000002" relation="org:default" type="c:OrgType"/></assignment>
+</service>
+<service xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="70000000-0000-0000-0000-000000000012">
+    <name>project-b-service1</name>
+    <requestable>true</requestable>
+    <parentOrgRef oid="60000000-0000-0000-0000-000000000003" relation="org:default" type="c:OrgType"/>
+    <assignment><targetRef oid="60000000-0000-0000-0000-000000000003" relation="org:default" type="c:OrgType"/></assignment>
+</service>
+<role xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="80000000-0000-0000-0000-000000000001">
+    <name>requester</name>
+    <authorization>
+        <name>gui-access</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-ui-3#selfAll</action>
+    </authorization>
+    <authorization>
+        <name>self-read</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#get</action>
+        <object><type>UserType</type><special>self</special></object>
+    </authorization>
+    <authorization>
+        <name>self-modify</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#modify</action>
+        <phase>execution</phase>
+        <object><type>UserType</type></object>
+        <item>assignment</item>
+    </authorization>
+    <authorization>
+        <name>read</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object><type>UserType</type></object>
+    </authorization>
+    <authorization>
+        <name>read-roles-services-orgs</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#read</action>
+        <object><type>RoleType</type></object>
+        <object><type>ServiceType</type></object>
+        <object><type>OrgType</type></object>
+    </authorization>
+    <authorization>
+        <name>assign-requestable</name>
+        <action>http://midpoint.evolveum.com/xml/ns/public/security/authorization-model-3#assign</action>
+        <phase>request</phase>
+        <object><type>UserType</type></object>
+        <target><type>RoleType</type><filter><q:equal><q:path>requestable</q:path><q:value>true</q:value></q:equal></filter></target>
+        <target><type>ServiceType</type><filter><q:equal><q:path>requestable</q:path><q:value>true</q:value></q:equal></filter></target>
+        <relation>org:default</relation>
+    </authorization>
+    <adminGuiConfiguration>
+        <accessRequest>
+            <targetSelection>
+                <defaultSelection>myself</defaultSelection>
+                <allowRequestForOthers>true</allowRequestForOthers>
+            </targetSelection>
+            <relationSelection>
+                <defaultRelation>org:default</defaultRelation>
+                <allowOtherRelations>false</allowOtherRelations>
+            </relationSelection>
+            <roleCatalog>
+                <rolesOfTeammate>
+                    <enabled>true</enabled>
+                </rolesOfTeammate>
+                <roleCatalogRef oid="60000000-0000-0000-0000-000000000001" relation="org:default" type="c:OrgType"/>
+                <collection>
+                    <identifier>all-roles</identifier>
+                    <collectionIdentifier>allRoles</collectionIdentifier>
+                    <default>true</default>
+                </collection>
+            </roleCatalog>
+        </accessRequest>
+    </adminGuiConfiguration>
+</role>
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="90000000-0000-0000-0000-000000000001">
+    <name>requester1</name>
+    <lifecycleState>active</lifecycleState>
+    <assignment><targetRef oid="80000000-0000-0000-0000-000000000001" relation="org:default" type="c:RoleType"/></assignment>
+    <credentials><password><value>Test5ecr3t</value></password></credentials>
+</user>
+<user xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" oid="90000000-0000-0000-0000-000000000002">
+    <name>teammate1</name>
+    <lifecycleState>active</lifecycleState>
+    <assignment><targetRef oid="70000000-0000-0000-0000-000000000001" relation="org:default" type="c:RoleType"/></assignment>
+    <assignment><targetRef oid="70000000-0000-0000-0000-000000000002" relation="org:default" type="c:RoleType"/></assignment>
+    <assignment><targetRef oid="70000000-0000-0000-0000-000000000011" relation="org:default" type="c:ServiceType"/></assignment>
+    <credentials><password><value>Test5ecr3t</value></password></credentials>
+</user>
+</objects>
