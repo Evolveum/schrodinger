@@ -467,6 +467,11 @@ public class RequestAccessWizardTest extends AbstractSchrodingerTest {
         basicPage
                 .listRoles()
                 .table()
+                .search()
+                .byName()
+                .inputValue("sample-")
+                .updateSearch()
+                .and()
                 .assertTableContainsColumnWithValue("Name", "sample-role1")
                 .assertTableContainsColumnWithValue("Name", "sample-role2")
                 .assertTableDoesntContainColumnWithValue("Name", "sample-service1")
