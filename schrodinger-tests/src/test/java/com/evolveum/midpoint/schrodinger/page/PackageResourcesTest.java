@@ -73,4 +73,16 @@ public class PackageResourcesTest extends AbstractSchrodingerTest {
                 .selectGroupTile();
         basicPage.assertNoFailedPackageResources();
     }
+
+    /**
+     * Password field loads the password strength script by plain URL (static/...), which must not be turned
+     * into a package resource URL.
+     */
+    @Test
+    public void test0030passwordStrengthScriptIsLoaded() {
+        basicPage.newUser()
+                .selectPasswordPanel()
+                .assertPasswordStrengthScriptLoaded();
+        basicPage.assertNoFailedPackageResources();
+    }
 }
