@@ -15,6 +15,8 @@
  */
 package com.evolveum.midpoint.schrodinger.component.user;
 
+import java.util.List;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
@@ -50,6 +52,27 @@ public class UserPasswordPanel<T> extends PanelWithContainerWrapper<T> {
                 "Password hint input shouldn't be present.");
         assertion.assertFalse(Selenide.webdriver().driver().source().contains(hintValue),
                 "Password hint value shouldn't be present in the page markup.");
+        return this;
+    }
+
+    /**
+     * Password strength meter is a script (static/vendors-passwords.js) that the password field adds to the page.
+     * It is checked by what the script defines, not by status of its request: a wrong URL may be answered
+     * with a redirect to some page, which looks like a successful request.
+     */
+    public UserPasswordPanel<T> assertPasswordStrengthScriptLoaded() {
+        Utils.waitForAjaxCallFinish();
+        String script = "return typeof window.Score === 'function' && typeof window.strengthMeterOptions === 'object';";
+        long end = System.currentTimeMillis() + MidPoint.TIMEOUT_MEDIUM_6_S.toMillis();
+        boolean loaded = Boolean.TRUE.equals(Selenide.executeJavaScript(script));
+        while (!loaded && System.currentTimeMillis() < end) {
+            Selenide.sleep(200);
+            loaded = Boolean.TRUE.equals(Selenide.executeJavaScript(script));
+        }
+        List<String> requests = Selenide.executeJavaScript(
+                "return performance.getEntriesByType('resource')"
+                        + ".filter(e => e.name.includes('vendors-passwords.js')).map(e => e.name);");
+        assertion.assertTrue(loaded, "Password strength script is not loaded, requested as: " + requests);
         return this;
     }
 
